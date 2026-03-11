@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-leptos_ui = { path = "../leptos_ui", optional = true }
-tw_merge = { path = "../tw_merge", features = ["variant"], optional = true }
+leptos_ui = { version = "0.3", optional = true }
+tw_merge = { version = "0.1", features = ["variant"], optional = true }
 
 pulldown-cmark = "0.13"
 html-escape = "0.2"
