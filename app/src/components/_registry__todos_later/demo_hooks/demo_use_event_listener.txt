@@ -1,0 +1,62 @@
+use leptos::{
+    ev::{click, keydown},
+    html::A,
+    logging::log,
+    prelude::*,
+};
+use leptos_use::{use_event_listener, use_window};
+
+// TODO 🪝 Checkbox (input type="checkbox")
+
+#[component]
+pub fn DemoUseEventListener() -> impl IntoView {
+    let _ = use_event_listener(use_window(), keydown, |evt| {
+        log!("window keydown: '{}'", evt.key());
+    });
+
+    let element = NodeRef::<A>::new();
+
+    let _ = use_event_listener(element, click, |evt| {
+        log!(
+            "click from element '{:?}'",
+            event_target::<web_sys::HtmlElement>(&evt).inner_text()
+        );
+        evt.stop_propagation();
+        evt.prevent_default();
+    });
+
+    let (cond, set_cond) = signal(true);
+
+    view! {
+        <p>"Check in the dev tools console"</p>
+        <p>
+            <label>
+                <input
+                    type="checkbox"
+                    on:change=move |evt| set_cond.set(event_target_checked(&evt))
+                    prop:checked=move || cond.get()
+                />
+                "Condition enabled"
+            </label>
+        </p>
+        <Show
+            when=move || cond.get()
+            fallback=move || {
+                view! {
+                    <a node_ref=element attr:href="#">
+                        "Condition"
+                        <b>" false "</b>
+                        "[click me]"
+                    </a>
+                }
+            }
+        >
+
+            <a node_ref=element attr:href="#">
+                "Condition "
+                <b>"true"</b>
+                " [click me]"
+            </a>
+        </Show>
+    }
+}

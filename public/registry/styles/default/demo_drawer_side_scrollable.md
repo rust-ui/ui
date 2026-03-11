@@ -1,0 +1,69 @@
+---
+title: "Demo Drawer Side Scrollable"
+name: "demo_drawer_side_scrollable"
+cargo_dependencies: []
+registry_dependencies: ["drawer"]
+type: "components:demos"
+path: "demos/demo_drawer_side_scrollable.rs"
+---
+
+# Demo Drawer Side Scrollable
+
+This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality.
+
+## Installation
+
+To add this component demo in your app, run:
+
+```bash
+# cargo install ui-cli --force
+ui add demo_drawer_side_scrollable
+```
+
+## Component Code
+
+```rust
+use leptos::prelude::*;
+
+use crate::components::ui::drawer::{
+    Drawer, DrawerBody, DrawerContent, DrawerDescription, DrawerHeader, DrawerPosition, DrawerTitle, DrawerTrigger,
+};
+
+#[component]
+pub fn DemoDrawerSideScrollable() -> impl IntoView {
+    view! {
+        <Drawer>
+            <DrawerTrigger>"Open Drawer"</DrawerTrigger>
+
+            <DrawerContent
+                position=DrawerPosition::Left
+                class="top-0 bottom-0 right-auto h-full max-h-full rounded-t-none w-[300px] rounded-r-[10px]"
+            >
+                <DrawerBody class="overflow-y-auto pr-4 h-full">
+                    <DrawerHeader>
+                        <DrawerTitle>"Scrollable Side Drawer"</DrawerTitle>
+                        <DrawerDescription>
+                            "This drawer contains 50 scrollable items to demonstrate side scrolling behavior."
+                        </DrawerDescription>
+                    </DrawerHeader>
+
+                    <div class="mt-4 space-y-2">
+                        {(1..=50)
+                            .map(|i| {
+                                view! {
+                                    <div class="p-3 rounded-md border bg-muted border-border">
+                                        <p class="text-sm font-medium">"Item " {i}</p>
+                                        <p class="text-xs text-muted-foreground">
+                                            "This is item number " {i} " in the list"
+                                        </p>
+                                    </div>
+                                }
+                            })
+                            .collect_view()}
+                    </div>
+                </DrawerBody>
+            </DrawerContent>
+        </Drawer>
+    }
+}
+```

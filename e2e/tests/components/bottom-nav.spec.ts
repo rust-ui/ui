@@ -1,0 +1,593 @@
+import { Locator, Page, test, expect } from "@playwright/test";
+import { BasePage } from "./_base_page";
+
+/**
+ * ============================================================================
+ * BOTTOM-NAV COMPONENT - VISUAL OVERVIEW
+ * ============================================================================
+ *
+ * COMPONENT ANATOMY:
+ * ┌─────────────────────────────────────────────────────────────────────────┐
+ * │                                                                         │
+ * │   [App Content Area]                                                    │
+ * │                                                                         │
+ * │   ─────────────────────────────────────────────────────────────────     │
+ * │   <div data-name="BottomNav">                                           │
+ * │   ┌─────────────────────────────────────────────────────────────────┐   │
+ * │   │  <div data-name="BottomNavGrid">                                │   │
+ * │   │  ┌───────────┬───────────┬───────────┬───────────┐              │   │
+ * │   │  │   🏠      │   💼      │   ⚙️      │   👤      │              │   │
+ * │   │  │  Home     │  Wallet   │ Settings  │  Profile  │              │   │
+ * │   │  └───────────┴───────────┴───────────┴───────────┘              │   │
+ * │   │       ↑                                                         │   │
+ * │   │   BottomNavButton (flex-col, items-center)                      │   │
+ * │   └─────────────────────────────────────────────────────────────────┘   │
+ * │                                                                         │
+ * └─────────────────────────────────────────────────────────────────────────┘
+ *
+ * BUTTON ANATOMY:
+ * ┌─────────────────────────────────────────────────────────────────────────┐
+ * │                                                                         │
+ * │   <button data-name="BottomNavButton">                                  │
+ * │   ┌─────────────────────────────────────────────────────────────────┐   │
+ * │   │                                                                 │   │
+ * │   │                          🏠                                     │   │
+ * │   │                         icon                                    │   │
+ * │   │                                                                 │   │
+ * │   │                         Home                                    │   │
+ * │   │                   BottomNavLabel                                │   │
+ * │   │                                                                 │   │
+ * │   └─────────────────────────────────────────────────────────────────┘   │
+ * │                                                                         │
+ * └─────────────────────────────────────────────────────────────────────────┘
+ *
+ * STATES:
+ * ┌─────────────────────────────────────────────────────────────────────────┐
+ * │                                                                         │
+ * │   Inactive:                         Active (aria-current="page"):       │
+ * │   ┌───────────────┐                 ┌═══════════════┐                   │
+ * │   │      🏠       │                 ║      💼       ║                   │
+ * │   │     Home      │                 ║    Wallet     ║  ← highlighted    │
+ * │   └───────────────┘                 └═══════════════┘                   │
+ * │   aria-current=""                   aria-current="page"                 │
+ * │                                                                         │
+ * └─────────────────────────────────────────────────────────────────────────┘
+ *
+ * ============================================================================
+ */
+
+class BottomNavPage extends BasePage {
+  protected readonly componentName = "bottom-nav";
+
+  // Bottom nav elements
+  readonly bottomNav: Locator;
+  readonly navGrid: Locator;
+  readonly navButtons: Locator;
+  readonly homeButton: Locator;
+  readonly walletButton: Locator;
+  readonly settingsButton: Locator;
+  readonly profileButton: Locator;
+
+  constructor(page: Page) {
+    super(page);
+
+    // Main bottom nav - scoped within preview
+    this.bottomNav = this.preview.locator('[data-name="BottomNav"]').first();
+
+    // Grid and buttons
+    this.navGrid = this.bottomNav.locator('[data-name="BottomNavGrid"]');
+    this.navButtons = this.bottomNav.locator('[data-name="BottomNavButton"]');
+
+    // Individual buttons
+    this.homeButton = this.navButtons.filter({ hasText: "Home" });
+    this.walletButton = this.navButtons.filter({ hasText: "Wallet" });
+    this.settingsButton = this.navButtons.filter({ hasText: "Settings" });
+    this.profileButton = this.navButtons.filter({ hasText: "Profile" });
+  }
+}
+
+/* ========================================================== */
+/*                       🧪 TESTS 🧪                          */
+/* ========================================================== */
+
+test.describe("BottomNav Page", () => {
+  test.describe("Structure", () => {
+    /**
+     * TEST: BottomNav Container Visibility
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌─────────────────────────────────────────────────────────┐
+     *   │  [App Content Area]                                    │
+     *   │                                                        │
+     *   │  ─────────────────────────────────────────────────────│
+     *   │  <div data-name="BottomNav">  ← Visible?              │
+     *   │  ┌───────┬───────┬───────┬───────┐                    │
+     *   │  │ Home  │Wallet │Settings│Profile│                    │
+     *   │  └───────┴───────┴───────┴───────┘                    │
+     *   │  </div>                                                │
+     *   └─────────────────────────────────────────────────────────┘
+     *
+     *   Validates: BottomNav container is visible on the page
+     */
+    test("should have BottomNav container", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      await expect(ui.bottomNav).toBeVisible();
+    });
+
+    /**
+     * TEST: BottomNav Data-Name Attribute
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌─────────────────────────────────────────────────────────┐
+     *   │  <div data-name="BottomNav">  ← Attribute check        │
+     *   │       ^^^^^^^^^^^^^^^^^                                │
+     *   │       Must equal "BottomNav"                           │
+     *   │  </div>                                                │
+     *   └─────────────────────────────────────────────────────────┘
+     *
+     *   Validates: BottomNav has correct data-name for test selectors
+     */
+    test("should have BottomNav data-name attribute", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      await expect(ui.bottomNav).toHaveAttribute("data-name", "BottomNav");
+    });
+
+    /**
+     * TEST: BottomNavGrid Presence
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌─────────────────────────────────────────────────────────┐
+     *   │  <div data-name="BottomNav">                           │
+     *   │    <div data-name="BottomNavGrid">  ← Visible?         │
+     *   │    ┌───────┬───────┬───────┬───────┐                   │
+     *   │    │       │       │       │       │  (grid container) │
+     *   │    └───────┴───────┴───────┴───────┘                   │
+     *   │    </div>                                              │
+     *   │  </div>                                                │
+     *   └─────────────────────────────────────────────────────────┘
+     *
+     *   Validates: Grid container for nav buttons is visible
+     */
+    test("should have BottomNavGrid", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      await expect(ui.navGrid).toBeVisible();
+    });
+
+    /**
+     * TEST: Four Navigation Buttons
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌─────────────────────────────────────────────────────────┐
+     *   │  ┌───────┬───────┬───────┬───────┐                     │
+     *   │  │   1   │   2   │   3   │   4   │  ← Count = 4?       │
+     *   │  │ Home  │Wallet │Settings│Profile│                    │
+     *   │  └───────┴───────┴───────┴───────┘                     │
+     *   │                                                        │
+     *   │  navButtons.count() === 4                              │
+     *   └─────────────────────────────────────────────────────────┘
+     *
+     *   Validates: Navigation bar has exactly 4 buttons
+     */
+    test("should have four nav buttons", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      const count = await ui.navButtons.count();
+      expect(count).toBe(4);
+    });
+  });
+
+  test.describe("Buttons", () => {
+    /**
+     * TEST: Home Button Visibility
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────┬───────┬───────┬───────┐
+     *   │  Home │Wallet │Settings│Profile│
+     *   │  ^^^^                          │
+     *   │  Visible?                      │
+     *   └───────┴───────┴───────┴───────┘
+     *
+     *   Validates: Home navigation button is visible
+     */
+    test("should have Home button", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      await expect(ui.homeButton).toBeVisible();
+    });
+
+    /**
+     * TEST: Wallet Button Visibility
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────┬───────┬───────┬───────┐
+     *   │ Home  │Wallet │Settings│Profile│
+     *   │       │ ^^^^^ │                │
+     *   │       │ Visible?               │
+     *   └───────┴───────┴───────┴───────┘
+     *
+     *   Validates: Wallet navigation button is visible
+     */
+    test("should have Wallet button", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      await expect(ui.walletButton).toBeVisible();
+    });
+
+    /**
+     * TEST: Settings Button Visibility
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────┬───────┬───────┬───────┐
+     *   │ Home  │Wallet │Settings│Profile│
+     *   │               │ ^^^^^^ │       │
+     *   │               │ Visible?       │
+     *   └───────┴───────┴───────┴───────┘
+     *
+     *   Validates: Settings navigation button is visible
+     */
+    test("should have Settings button", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      await expect(ui.settingsButton).toBeVisible();
+    });
+
+    /**
+     * TEST: Profile Button Visibility
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────┬───────┬───────┬───────┐
+     *   │ Home  │Wallet │Settings│Profile│
+     *   │                        │ ^^^^^^│
+     *   │                        │ Visible?
+     *   └───────┴───────┴───────┴───────┘
+     *
+     *   Validates: Profile navigation button is visible
+     */
+    test("should have Profile button", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      await expect(ui.profileButton).toBeVisible();
+    });
+
+    /**
+     * TEST: Button Icons Presence
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────────────────────────────────────────────────────┐
+     *   │  <button>                                            │
+     *   │    <svg>...</svg>  ← Icon visible?                   │
+     *   │    Home                                              │
+     *   │  </button>                                           │
+     *   └───────────────────────────────────────────────────────┘
+     *
+     *   Validates: Nav buttons contain SVG icons above labels
+     */
+    test("buttons should have icons", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      const icon = ui.homeButton.locator("svg");
+      await expect(icon).toBeVisible();
+    });
+
+    /**
+     * TEST: Button Labels Presence
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────────────────────────────────────────────────────┐
+     *   │  <button>                                            │
+     *   │    <svg>...</svg>                                    │
+     *   │    <span data-name="BottomNavLabel">                 │
+     *   │      Home  ← Text = "Home"?                          │
+     *   │    </span>                                           │
+     *   │  </button>                                           │
+     *   └───────────────────────────────────────────────────────┘
+     *
+     *   Validates: Nav buttons have text labels below icons
+     */
+    test("buttons should have labels", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      const label = ui.homeButton.locator('[data-name="BottomNavLabel"]');
+      await expect(label).toHaveText("Home");
+    });
+  });
+
+  test.describe("Initial State", () => {
+    /**
+     * TEST: Wallet Active by Default
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────┬═══════┬───────┬───────┐
+     *   │ Home  ║Wallet ║Settings│Profile│
+     *   │       ║ ^^^^^ ║                │
+     *   │       ║ aria-current="page"?   │
+     *   │       ║ (active/highlighted)   │
+     *   └───────┴═══════┴───────┴───────┘
+     *
+     *   Validates: Wallet is the default active/selected nav item
+     */
+    test("Wallet button should be active by default", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      const ariaCurrent = await ui.walletButton.getAttribute("aria-current");
+      expect(ariaCurrent).toBe("page");
+    });
+
+    /**
+     * TEST: Home Inactive by Default
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────┬═══════┬───────┬───────┐
+     *   │ Home  ║Wallet ║Settings│Profile│
+     *   │ ^^^^  ║       ║                │
+     *   │ aria-current=""?               │
+     *   │ (not active)                   │
+     *   └───────┴═══════┴───────┴───────┘
+     *
+     *   Validates: Home is not active when Wallet is default
+     */
+    test("Home button should not be active by default", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      const ariaCurrent = await ui.homeButton.getAttribute("aria-current");
+      expect(ariaCurrent).toBe("");
+    });
+  });
+
+  test.describe("Interaction", () => {
+    /**
+     * TEST: Click Activates Home
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────┬───────┬───────┬───────┐      ┌═══════┬───────┬───────┬───────┐
+     *   │ Home  │Wallet │Settings│Profile│ =>  ║ Home  ║Wallet │Settings│Profile│
+     *   │       │ (on)  │       │       │      ║ (on)  ║       │       │       │
+     *   └───────┴───────┴───────┴───────┘      └═══════┴───────┴───────┴───────┘
+     *         [Click Home]                      aria-current="page"
+     *
+     *   Validates: Clicking Home button activates it
+     */
+    test("clicking Home should activate it", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      // Wait for WASM hydration - network idle + initial state rendered
+      await page.waitForLoadState("networkidle");
+      await expect(ui.walletButton).toHaveAttribute("aria-current", "page");
+
+      // Click and verify activation
+      await ui.homeButton.click();
+      await expect(ui.homeButton).toHaveAttribute("aria-current", "page");
+    });
+
+    /**
+     * TEST: Click Activates Settings
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────┬───────┬───────┬───────┐      ┌───────┬───────┬═══════┬───────┐
+     *   │ Home  │Wallet │Settings│Profile│ =>  │ Home  │Wallet ║Settings║Profile│
+     *   │       │ (on)  │       │       │      │       │       ║ (on)  ║       │
+     *   └───────┴───────┴───────┴───────┘      └───────┴───────┴═══════┴───────┘
+     *         [Click Settings]                  aria-current="page"
+     *
+     *   Validates: Clicking Settings button activates it
+     */
+    test("clicking Settings should activate it", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      // Wait for WASM hydration
+      await page.waitForLoadState("networkidle");
+      await expect(ui.walletButton).toHaveAttribute("aria-current", "page");
+
+      // Click and verify activation
+      await ui.settingsButton.click();
+      await expect(ui.settingsButton).toHaveAttribute("aria-current", "page");
+    });
+
+    /**
+     * TEST: Mutual Exclusion - Only One Active
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────┬═══════┬───────┬───────┐      ┌═══════┬───────┬───────┬───────┐
+     *   │ Home  ║Wallet ║Settings│Profile│ =>  ║ Home  ║Wallet │Settings│Profile│
+     *   │       ║ (on)  ║       │       │      ║ (on)  ║ (off) │       │       │
+     *   └───────┴═══════┴───────┴───────┘      └═══════┴───────┴───────┴───────┘
+     *         [Click Home]                      Wallet deactivated
+     *
+     *   Validates: Activating one button deactivates the others
+     */
+    test("activating one button should deactivate others", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      // Wait for WASM hydration
+      await page.waitForLoadState("networkidle");
+      await expect(ui.walletButton).toHaveAttribute("aria-current", "page");
+
+      // Click Home to activate it
+      await ui.homeButton.click();
+
+      // Wallet should no longer be active after Home is clicked
+      await expect(ui.walletButton).toHaveAttribute("aria-current", "");
+    });
+
+    /**
+     * TEST: Button Focusability
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────────────────────────────────────────────────────┐
+     *   │  <button>                                            │
+     *   │    Home  ← Can receive keyboard focus?               │
+     *   │  </button>                                           │
+     *   │                                                      │
+     *   │  [Tab] => :focus state applied                       │
+     *   └───────────────────────────────────────────────────────┘
+     *
+     *   Validates: Buttons are focusable for keyboard navigation
+     */
+    test("buttons should be focusable", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      await ui.homeButton.focus();
+      await expect(ui.homeButton).toBeFocused();
+    });
+  });
+
+  test.describe("Styling", () => {
+    /**
+     * TEST: Bottom Border Styling
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌─────────────────────────────────────────────────────────┐
+     *   │  [App Content]                                         │
+     *   │                                                        │
+     *   │  ═══════════════════════════════════════════════════   │
+     *   │  ^ border-t (top border separates nav from content)    │
+     *   │  ┌───────┬───────┬───────┬───────┐                     │
+     *   │  │ Home  │Wallet │Settings│Profile│                    │
+     *   │  └───────┴───────┴───────┴───────┘                     │
+     *   └─────────────────────────────────────────────────────────┘
+     *
+     *   Validates: BottomNav has top border for visual separation
+     */
+    test("bottom nav should be positioned at bottom", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      await expect(ui.bottomNav).toHaveClass(/border-t/);
+    });
+
+    /**
+     * TEST: Grid Layout
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌─────────────────────────────────────────────────────────┐
+     *   │  <div class="grid ...">  ← CSS Grid layout?            │
+     *   │  ┌───────┬───────┬───────┬───────┐                     │
+     *   │  │       │       │       │       │                     │
+     *   │  │ grid  │ grid  │ grid  │ grid  │                     │
+     *   │  │ cell  │ cell  │ cell  │ cell  │                     │
+     *   │  │       │       │       │       │                     │
+     *   │  └───────┴───────┴───────┴───────┘                     │
+     *   │  </div>                                                │
+     *   └─────────────────────────────────────────────────────────┘
+     *
+     *   Validates: Nav grid uses CSS Grid for layout
+     */
+    test("nav grid should have grid layout", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      await expect(ui.navGrid).toHaveClass(/grid/);
+    });
+
+    /**
+     * TEST: Dynamic Grid Columns
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌─────────────────────────────────────────────────────────┐
+     *   │  <div class="grid-flow-col auto-cols-fr ...">          │
+     *   │  ┌───────┬───────┬───────┬───────┐                     │
+     *   │  │ Col 1 │ Col 2 │ Col 3 │ Col 4 │                     │
+     *   │  │  1fr  │  1fr  │  1fr  │  1fr  │  (auto equal)       │
+     *   │  └───────┴───────┴───────┴───────┘                     │
+     *   │  ◄──────────── 100% width ─────────────►               │
+     *   └─────────────────────────────────────────────────────────┘
+     *
+     *   Validates: Grid uses auto equal-width columns via grid-flow-col
+     */
+    test("nav grid should have auto equal columns", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      // Grid uses grid-flow-col with auto-cols-fr for dynamic equal columns
+      await expect(ui.navGrid).toHaveClass(/grid-flow-col/);
+      await expect(ui.navGrid).toHaveClass(/auto-cols-fr/);
+    });
+
+    /**
+     * TEST: Button Vertical Flex Layout
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────────────────────────────────────────────────────┐
+     *   │  <button class="flex-col ...">                       │
+     *   │  ┌─────────────────────────┐                         │
+     *   │  │         [icon]          │  ← flex-direction:      │
+     *   │  │           │             │     column               │
+     *   │  │           ▼             │                         │
+     *   │  │         [label]         │                         │
+     *   │  └─────────────────────────┘                         │
+     *   │  </button>                                           │
+     *   └───────────────────────────────────────────────────────┘
+     *
+     *   Validates: Buttons stack icon above label vertically
+     */
+    test("buttons should have flex-col layout", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      await expect(ui.homeButton).toHaveClass(/flex-col/);
+    });
+
+    /**
+     * TEST: Button Center Alignment
+     * ─────────────────────────────────────────────────────────────
+     *
+     *   What we're testing:
+     *   ┌───────────────────────────────────────────────────────┐
+     *   │  <button class="items-center ...">                   │
+     *   │  ┌─────────────────────────┐                         │
+     *   │  │         [icon]          │  ← align-items: center  │
+     *   │  │         [label]         │    (horizontally        │
+     *   │  │    ◄── centered ──►     │     centered)           │
+     *   │  └─────────────────────────┘                         │
+     *   │  </button>                                           │
+     *   └───────────────────────────────────────────────────────┘
+     *
+     *   Validates: Button content is horizontally centered
+     */
+    test("buttons should have items-center", async ({ page }) => {
+      const ui = new BottomNavPage(page);
+      await ui.goto();
+
+      await expect(ui.homeButton).toHaveClass(/items-center/);
+    });
+  });
+});

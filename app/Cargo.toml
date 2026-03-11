@@ -1,0 +1,69 @@
+[package]
+name = "app"
+version = "0.1.0"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+icons.workspace = true
+leptos_ui.workspace = true
+tw_merge.workspace = true
+markdown_crate.workspace = true
+autoform.workspace = true
+registry.workspace = true
+app_domain.workspace = true
+app_config.workspace = true
+app_routes.workspace = true
+app_components.workspace = true
+
+http.workspace = true
+leptos.workspace = true
+leptos_meta.workspace = true
+leptos_router.workspace = true
+leptos_axum = { workspace = true, optional = true }
+serde.workspace = true
+serde_json.workspace = true
+strum.workspace = true
+heck.workspace = true
+derive_more.workspace = true
+time.workspace = true
+validator.workspace = true
+js-sys.workspace = true
+wasm-bindgen.workspace = true
+wasm-bindgen-futures.workspace = true
+web-sys.workspace = true
+
+log.workspace = true
+console_log.workspace = true
+console_error_panic_hook.workspace = true
+resend-rs = { workspace = true, optional = true }
+tracing = { workspace = true, optional = true }
+reqwest = { workspace = true, optional = true }
+tokio = { workspace = true, optional = true }
+rusqlite = { workspace = true, optional = true }
+
+
+[features]
+default = []
+hydrate = ["leptos/hydrate"]
+ssr = [
+    "leptos/ssr",
+    "leptos_meta/ssr",
+    "leptos_router/ssr",
+    "dep:leptos_axum",
+    "markdown_crate/ssr",
+    "registry/ssr",
+    "dep:resend-rs",
+    "dep:tracing",
+    "dep:reqwest",
+    "dep:tokio",
+    "dep:rusqlite"
+]
+

@@ -1,0 +1,23 @@
+[package]
+name = "app_components"
+version = "0.1.0"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[features]
+default = []
+ssr = []
+
+[dependencies]
+icons.workspace = true
+leptos_ui.workspace = true
+registry.workspace = true
+tw_merge.workspace = true
+markdown_crate.workspace = true
+
+leptos.workspace = true
+leptos_router.workspace = true
+strum.workspace = true
+web-sys.workspace = true

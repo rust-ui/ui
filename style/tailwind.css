@@ -1,0 +1,365 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./index.css";
+@import "./Animate.css";
+@import "./highlight_code.css";
+
+
+/* https://www.linkedin.com/posts/theosoti_page-loads-dont-have-to-be-harsh-css-lets-activity-7313869085379878913-ttyY/ */
+/* @view-transition {
+  navigation: auto;
+ } */
+ 
+
+@custom-variant dark (&:is(.dark *));
+@custom-variant in-data-scrolled (&:is([data-scrolled="true"] *));
+
+/* @custom-variant fixed (&:is(.layout-fixed *)); */
+
+:root {
+  --bottom__nav__height: 4rem;
+  --radius: 0.625rem;
+  --font-sans: 'Inter', sans-serif;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(0.985 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --primary-light: oklch(0.95 0 0);
+  --primary-dark: oklch(0.145 0 0);
+  --secondary: oklch(0.92 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.985 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-light: oklch(0.95 0.08 27.325);
+  --destructive-dark: oklch(0.35 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.205 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.65 0.16 55);
+  --chart-4: oklch(0.577 0.245 27.325);
+  --chart-5: oklch(0.488 0.243 264.376);
+  --chart-primary: oklch(0.205 0 0);
+  --chart-muted: oklch(0.708 0 0);
+  --chart-grid: oklch(0.9 0 0);
+  --chart-1-rgb: 41, 41, 41;
+  --chart-2-rgb: 130, 130, 130;
+  --sidenav: oklch(0.985 0 0);
+  --sidenav-foreground: oklch(0.145 0 0);
+  --sidenav-primary: oklch(0.205 0 0);
+  --sidenav-primary-foreground: oklch(0.985 0 0);
+  --sidenav-accent: oklch(0.97 0 0);
+  --sidenav-accent-foreground: oklch(0.205 0 0);
+  --sidenav-border: oklch(0.922 0 0);
+  --sidenav-ring: oklch(0.708 0 0);
+  --selection: oklch(0.65 0.16 55);
+  --selection-foreground: oklch(1 0 0);
+
+  /* * Added myself. */
+  --success: oklch(0.65 0.16 145);
+  --success-foreground: oklch(0.985 0 0);
+  --success-light: oklch(0.95 0.08 145);
+  --success-dark: oklch(0.35 0.16 145);
+  --warning: oklch(0.65 0.16 55);
+  --warning-foreground: oklch(0.985 0 0);
+  --warning-light: oklch(0.95 0.08 55);
+  --warning-dark: oklch(0.35 0.16 55);
+  --info: oklch(0.55 0.18 250);
+  --info-foreground: oklch(0.985 0 0);
+  --info-light: oklch(0.95 0.08 250);
+  --info-dark: oklch(0.35 0.18 250);
+  --slider-track: oklch(0.9 0 0);
+  /* TODO: Shortfix */
+  --scrollbar-thumb: #ccc;
+  --scrollbar-track: #f0f0f0;
+  --surface: oklch(0.98 0 0);
+  --surface-foreground: oklch(0.145 0 0);
+}
+
+.dark {
+  --background: oklch(0.18 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.269 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --primary-light: oklch(0.25 0 0);
+  --primary-dark: oklch(0.985 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.371 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-light: oklch(0.25 0.08 22.216);
+  --destructive-dark: oklch(0.85 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.922 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.75 0.16 55);
+  --chart-4: oklch(0.704 0.191 22.216);
+  --chart-5: oklch(0.588 0.243 264.376);
+  --chart-primary: oklch(0.922 0 0);
+  --chart-muted: oklch(0.556 0 0);
+  --chart-grid: oklch(0.2 0 0);
+  --chart-1-rgb: 233, 233, 233;
+  --chart-2-rgb: 130, 130, 130;
+  --sidenav: oklch(0.205 0 0);
+  --sidenav-foreground: oklch(0.985 0 0);
+  --sidenav-primary: oklch(0.488 0.243 264.376);
+  --sidenav-primary-foreground: oklch(0.985 0 0);
+  --sidenav-accent: oklch(0.269 0 0);
+  --sidenav-accent-foreground: oklch(0.985 0 0);
+  --sidenav-border: oklch(1 0 0 / 10%);
+  --sidenav-ring: oklch(0.439 0 0);
+  --selection: oklch(0.55 0.18 55);
+  --selection-foreground: oklch(0.205 0 0);
+
+  /* * Added myself. */
+  --success: oklch(0.65 0.16 145);
+  --success-foreground: oklch(0.205 0 0);
+  --success-light: oklch(0.25 0.08 145);
+  --success-dark: oklch(0.75 0.16 145);
+  --warning: oklch(0.65 0.16 55);
+  --warning-foreground: oklch(0.205 0 0);
+  --warning-light: oklch(0.25 0.08 55);
+  --warning-dark: oklch(0.75 0.16 55);
+  --info: oklch(0.65 0.18 250);
+  --info-foreground: oklch(0.985 0 0);
+  --info-light: oklch(0.25 0.08 250);
+  --info-dark: oklch(0.75 0.18 250);
+  --slider-track: oklch(0.25 0 0);
+  /* TODO: Shortfix */
+  --scrollbar-thumb: #555;
+  --scrollbar-track: #222;
+  --surface: oklch(0.22 0 0);
+  --surface-foreground: oklch(0.708 0 0);
+}
+
+
+
+@theme inline {
+  --spacing-bottom__nav__height: var(--bottom__nav__height);
+  --breakpoint-3xl: 1600px;
+  --breakpoint-4xl: 2000px;
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-light: var(--primary-light);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-light: var(--destructive-light);
+  --color-destructive-dark: var(--destructive-dark);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-primary: var(--chart-primary);
+  --color-chart-muted: var(--chart-muted);
+  --color-chart-grid: var(--chart-grid);
+  --color-sidenav: var(--sidenav);
+  --color-sidenav-foreground: var(--sidenav-foreground);
+  --color-sidenav-primary: var(--sidenav-primary);
+  --color-sidenav-primary-foreground: var(--sidenav-primary-foreground);
+  --color-sidenav-accent: var(--sidenav-accent);
+  --color-sidenav-accent-foreground: var(--sidenav-accent-foreground);
+  --color-sidenav-border: var(--sidenav-border);
+  --color-sidenav-ring: var(--sidenav-ring);
+  --color-selection: var(--selection);
+  --color-selection-foreground: var(--selection-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-light: var(--success-light);
+  --color-success-dark: var(--success-dark);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-light: var(--warning-light);
+  --color-warning-dark: var(--warning-dark);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-info-light: var(--info-light);
+  --color-info-dark: var(--info-dark);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  ::selection {
+    @apply bg-selection text-selection-foreground;
+  }
+  html {
+    @apply bg-background;
+    height: 100vh;
+    height: 100dvh; /* Overrides 100vh for browsers that support dvh */
+    overflow: hidden;
+  }
+  body {
+    @apply h-full bg-background text-foreground;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* TODO. Understand this. */
+  a:active,
+  button:active {
+    @apply opacity-60 md:opacity-100;
+  }
+
+  /* https://tailwindcss.com/docs/upgrade-guide#buttons-use-the-default-cursor */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  
+  /* https://tailwindcss.com/docs/upgrade-guide#dialog-margins-removed */
+  dialog {
+    margin: auto;
+  }
+
+  /* Custom scrollbar styling. Thanks @pranathiperii. */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 5px;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+  }
+   ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+   * {
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+  }
+  .dark ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .dark * {
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+}
+
+@utility container {
+  @apply 3xl:max-w-screen-2xl mx-auto max-w-[1400px] px-4 lg:px-8;
+}
+
+/* Bottom nav safe padding on mobile */
+@utility bottom__safe {
+  padding-bottom: var(--bottom__nav__height);
+
+  @media (min-width: 640px) {
+    padding-bottom: 0;
+  }
+}
+
+/* Cross-browser dvh fallback for Arc/Safari + bottom nav padding on mobile */
+@utility safe__dvh__content {
+  height: 100vh;
+  height: 100dvh;
+  padding-bottom: var(--bottom__nav__height);
+
+  @media (min-width: 640px) {
+    padding-bottom: 0;
+  }
+}
+
+
+/* TODO. Understand this. */
+@utility border-grid {
+  @apply border-border/50 dark:border-border;
+}
+
+@utility no__scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility scrollbar__on_hover {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  .group\/scrollbar-on-hover:hover & {
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 5px;
+    }
+  }
+}
+

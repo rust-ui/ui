@@ -1,0 +1,82 @@
+use leptos::prelude::*;
+
+use crate::__registry__::my_command_bar_constants::{ITEMS_EXTENSIONS, ITEMS_UI};
+use crate::registry::ui::dialog::Dialog;
+use crate::registry::ui::command::{
+    CommandContext, CommandDialog, CommandGroup, CommandInput, CommandList, CommandTrigger,
+};
+use crate::registry::ui::separator::Separator;
+
+// TODO 🚑 SGORTFIX: Force a full reload of the page because otherwise the dialog stays on top..
+
+#[component]
+pub fn CommandSearchDocs() -> impl IntoView {
+    view! {
+        <Dialog class="w-full md:w-fit">
+            <CommandTrigger class="justify-between w-full bg-muted">
+                <span class="hidden lg:inline-flex">Search docs...</span>
+                <span class="inline-flex lg:hidden">Search...</span>
+                <kbd class="hidden gap-1 items-center px-1.5 ml-1 h-5 font-mono font-medium rounded border opacity-100 pointer-events-none select-none sm:flex bg-muted text-[10px]">
+                    <span class="text-xs">"⌘"</span>
+                    <span>"K"</span>
+                </kbd>
+            </CommandTrigger>
+            <CommandDialog class="sm:max-w-[600px]" hide_close_button=true>
+                <CommandInput placeholder="Search components..." autofocus=true />
+                <CommandList>
+                    <CommandGroup heading="Core">
+                        {move || {
+                            let context = use_context::<CommandContext>().expect("CommandContext not found");
+                            let query = (context.search_query)().to_lowercase();
+                            ITEMS_UI
+                                .iter()
+                                .filter(|(name, _)| name.to_lowercase().contains(&query))
+                                .map(|&(name, href)| {
+                                    let handle_click = move |_| {
+                                        let window = window();
+                                        window.location().set_href(href).expect("Failed to navigate");
+                                    };
+                                    view! {
+                                        <div
+                                            class="flex relative items-center py-1.5 px-2 text-sm cursor-pointer disabled:pointer-events-none outline-hidden rounded-xs aria-selected:bg-accent aria-selected:text-accent-foreground hover:bg-accent focus-visible:bg-accent/70"
+                                            on:click=handle_click
+                                        >
+                                            {name}
+                                        </div>
+                                    }
+                                })
+                                .collect::<Vec<_>>()
+                        }}
+                    </CommandGroup>
+
+                    <Separator class="my-1" />
+
+                    <CommandGroup heading="Extensions">
+                        {move || {
+                            let context = use_context::<CommandContext>().expect("CommandContext not found");
+                            let query = (context.search_query)().to_lowercase();
+                            ITEMS_EXTENSIONS
+                                .iter()
+                                .filter(|(name, _)| name.to_lowercase().contains(&query))
+                                .map(|&(name, href)| {
+                                    let handle_click = move |_| {
+                                        let window = window();
+                                        window.location().set_href(href).expect("Failed to navigate");
+                                    };
+                                    view! {
+                                        <div
+                                            class="flex relative items-center py-1.5 px-2 text-sm cursor-pointer disabled:pointer-events-none outline-hidden rounded-xs aria-selected:bg-accent aria-selected:text-accent-foreground hover:bg-accent focus-visible:bg-accent/70"
+                                            on:click=handle_click
+                                        >
+                                            {name}
+                                        </div>
+                                    }
+                                })
+                                .collect::<Vec<_>>()
+                        }}
+                    </CommandGroup>
+                </CommandList>
+            </CommandDialog>
+        </Dialog>
+    }
+}

@@ -1,0 +1,228 @@
+[workspace]
+resolver = "2"
+members = ["app", "server", "app_crates/*", "crates/tw_merge", "crates/tw_merge_variants"]
+exclude = ["build_registry", "crates/ui-cli", "crates/ui-cli-ratatui", "crates/_starters", "crates/_markdown_config", "src-tauri", "!!!*"]
+
+
+[profile.dev]
+debug = false
+panic = "abort"
+incremental = true # Enable incremental compilation for faster rebuilds
+codegen-units = 256 # Use more codegen units to leverage M1 Pro's 8 cores for parallel compilation
+overflow-checks = false # Disable overflow checks in dev for faster compilation
+split-debuginfo = "unpacked" # macOS: avoids running dsymutil, huge link time savings
+
+# Optimize build scripts and proc macros for faster dev builds
+[profile.dev.build-override]
+opt-level = 3  # Optimize build scripts and proc macros
+codegen-units = 1 # Single codegen unit for build scripts
+
+# Cranelift backend for faster server compilation (Mac M1)
+[profile.server-dev]
+inherits = "dev"
+codegen-backend = "cranelift"
+
+# Optimize dependencies for faster runtime during dev (cached after first build)
+[profile.dev.package."*"]
+opt-level = 3
+# hint-mostly-unused = true  # nightly-only: needs `-Zprofile-hint-mostly-unused`; blanket use on all packages triggers a cargo warning
+
+# need to be applied only to wasm build
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 'z'
+
+
+[workspace.dependencies]
+tw_merge = { path = "crates/tw_merge", features = ["variant", "debug"]}
+leptos_ui = { path = "crates/leptos_ui" }
+icons = { path = "crates/icons", features = ["leptos", "leptos_animated"] }
+markdown_crate = { path = "crates/_markdown_crate", features = ["leptos"] }
+autoform = { path = "crates/autoform" }
+registry = { path = "app_crates/registry" }
+app_domain = { path = "app_crates/app_domain" }
+app_config = { path = "app_crates/app_config" }
+app_routes = { path = "app_crates/app_routes" }
+app_components = { path = "app_crates/app_components" }
+
+axum = "0.8"
+console_error_panic_hook = "0.1"
+console_log = "1"
+derive_more = { version = "2", features = ["display", "from", "as_ref"] }
+dotenv = "0.15"
+heck = "0.5"
+http = "1"
+itertools = "0.12"
+leptos = { version = "0.8", features = ["nightly"] }
+leptos_axum = "0.8"
+leptos_meta = "0.8"
+leptos_router = { version = "0.8", features = ["nightly"] }
+log = "0.4"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+# Mail
+resend-rs = { version = "0.19", default-features = false, features = ["rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0"
+strum = { version = "0.27", features = ["derive"] }
+time = { version = "0.3", features = ["serde", "wasm-bindgen"] }
+tokio = { version = "1", features = ["rt-multi-thread"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["fs"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+url = "2.5"
+validator = { version = "0.20", features = ["derive"] }
+js-sys = "0.3"
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+web-sys = { version = "0.3", default-features = false, features = [
+    "Clipboard",
+    "console",
+    "Document",
+    "Element",
+    "Headers",
+    "HtmlElement",
+    "KeyboardEvent",
+    "Location",
+    "MediaQueryList",
+    "Navigator",
+    "NodeList",
+    "Request",
+    "RequestInit",
+    "RequestMode",
+    "Response",
+    "Storage",
+    "Window",
+] }
+
+
+# See also clippy.toml
+[workspace.lints.clippy]
+# DENY - Critical safety (must fix, breaks build)
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+todo = "deny"
+indexing_slicing = "deny"
+await_holding_lock = "deny"
+dbg_macro = "deny"
+undocumented_unsafe_blocks = "deny"
+enum_glob_use = "deny"
+missing_safety_doc = "deny"
+get_unwrap = "deny"
+infinite_loop = "deny"
+large_stack_arrays = "deny"
+
+# WARN - Code quality (should fix, doesn't block build)
+lossy_float_literal = "warn"
+cast_precision_loss = "warn"
+# cast_possible_truncation = "warn"  # too noisy with DOM/date/pixel math casts
+# cast_sign_loss = "warn"            # too noisy with DOM APIs (client_height, scroll_top always ≥ 0)
+# missing_errors_doc = "warn"
+# missing_panics_doc = "warn"
+redundant_clone = "warn"
+inefficient_to_string = "warn"
+cloned_instead_of_copied = "warn"
+# str_to_string = "warn"
+manual_let_else = "warn"
+# needless_pass_by_value = "warn"
+trivially_copy_pass_by_ref = "warn"
+# unused_async = "warn"  # false-positive: #[server] macro requires async even without await
+print_stdout = "warn"
+print_stderr = "warn"
+explicit_iter_loop = "warn"
+from_over_into = "warn"
+fallible_impl_from = "warn"
+# must_use_candidate = "warn"
+clone_on_ref_ptr = "warn"
+needless_borrow = "warn"
+
+[workspace.lints.rust]
+irrefutable_let_patterns = "deny"
+
+
+[[workspace.metadata.leptos]]
+name = "deploy_rust_ui"
+bin-package = "server"
+lib-package = "app"
+site-root = "target/site"
+site-pkg-dir = "pkg"
+tailwind-input-file = "style/tailwind.css"
+assets-dir = "public"
+site-addr = "0.0.0.0:3000"
+reload-port = 3001
+browserquery = "defaults"
+bin-features = []
+bin-default-features = false
+lib-features = ["hydrate"]
+lib-default-features = false
+# Disabled: Using build.rs CSS hash instead for better cache control
+# CSS cache-busting via query parameter: /pkg/deploy_rust_ui.css?v=HASH
+# hash-files = true
+
+# End-to-end testing with Playwright
+end2end-cmd = "pnpm exec playwright test"
+end2end-dir = "e2e"
+
+
+# [workspace.lints.rustdoc]
+# all = "warn"
+# missing_crate_level_docs = "warn"
+
+# # Additional clippy lints (commented for reference)
+# [workspace.lints.clippy]
+# as_ptr_cast_mut = "warn"
+# await_holding_lock = "warn"
+# bool_to_int_with_if = "warn"
+# char_lit_as_u8 = "warn"
+# checked_conversions = "warn"
+# clear_with_drain = "warn"
+# cloned_instead_of_copied = "warn"
+# dbg_macro = "warn"
+# debug_assert_with_mut_call = "warn"
+# derive_partial_eq_without_eq = "warn"
+# disallowed_macros = "warn"                   # See clippy.toml
+# disallowed_methods = "warn"                  # See clippy.toml
+# disallowed_names = "warn"                    # See clippy.toml
+# disallowed_script_idents = "warn"            # See clippy.toml
+# disallowed_types = "warn"                    # See clippy.toml
+# doc_include_without_cfg = "warn"
+# doc_link_with_quotes = "warn"
+# doc_markdown = "warn"
+# empty_enum = "warn"
+# empty_enum_variants_with_brackets = "warn"
+# enum_glob_use = "warn"
+# equatable_if_let = "warn"
+# exit = "warn"
+# expl_impl_clone_on_copy = "warn"
+# explicit_deref_methods = "warn"
+# explicit_into_iter_loop = "warn"
+# explicit_iter_loop = "warn"
+# fallible_impl_from = "warn"
+# filter_map_next = "warn"
+# flat_map_option = "warn"
+# float_cmp_const = "warn"
+# fn_params_excessive_bools = "warn"
+# fn_to_numeric_cast_any = "warn"
+# from_iter_instead_of_collect = "warn"
+# get_unwrap = "warn"
+# implicit_clone = "warn"
+# imprecise_flops = "warn"
+# index_refutable_slice = "warn"
+# inefficient_to_string = "warn"
+# infinite_loop = "warn"
+# into_iter_without_iter = "warn"
+# invalid_upcast_comparisons = "warn"
+# iter_filter_is_ok = "warn"
+# iter_filter_is_some = "warn"
+# iter_not_returning_iterator = "warn"
+# iter_on_empty_collections = "warn"
+# iter_on_single_items = "warn"
+# iter_without_into_iter = "warn"
+# large_digit_groups = "warn"
+# large_include_file = "warn"
+# large_stack_arrays = "warn"
+# large_stack_frames = "warn"
+# large_types_passed_by_value = "warn"

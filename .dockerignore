@@ -1,0 +1,31 @@
+# Rust build artifacts
+target/
+**/target/
+
+# Node.js dependencies
+node_modules/
+**/node_modules/
+
+# Git
+.git/
+.gitignore
+
+# Development files
+.env
+.env.*
+
+
+# Crates
+crates/_starters
+crates/ui-cli
+
+
+# Others
+X__TODOS
+
+
+\!\!\!*
+
+# Tauri (desktop app only - not needed for web deployment)
+src-tauri/
+.taurignore

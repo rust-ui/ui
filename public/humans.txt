@@ -1,0 +1,28 @@
+/* TEAM */
+    Developer: Rustify
+    Site: https://rust-ui.com
+    Twitter: @RustUI
+    Location: Worldwide
+
+/* THANKS */
+    Leptos Framework - https://leptos.dev
+    Tailwind CSS - https://tailwindcss.com
+    Rust Community - https://rust-lang.org
+    Open Source Contributors
+
+/* SITE */
+    Last update: 2026-02-07
+    Language: English / en-US
+    Standards: HTML5, CSS3, WCAG 2.1, Schema.org
+    Components: Leptos, Rust, Tailwind CSS, Axum
+    Software: Rust, Leptos, Cargo
+    IDE: VS Code, RustRover
+
+/* TECHNOLOGY */
+    Framework: Leptos 0.8
+    Language: Rust (Edition 2024)
+    CSS Framework: Tailwind CSS
+    Server: Axum
+    Build Tool: Cargo
+    Icons: Lucide Icons
+    Analytics: Plausible (privacy-friendly)

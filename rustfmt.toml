@@ -1,0 +1,6 @@
+edition = "2024"
+max_width = 120
+imports_granularity = "Module"
+group_imports = "StdExternalCrate"
+struct_field_align_threshold = 0
+use_small_heuristics = "Max"

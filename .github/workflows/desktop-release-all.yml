@@ -1,0 +1,177 @@
+name: Desktop Release (All Platforms)
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g. v0.1.25)'
+        required: true
+
+env:
+  RELEASE_REPO: rust-ui/releases
+  RUSTC_WRAPPER: ""
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    name: Build macOS (Apple Silicon)
+    outputs:
+      version: ${{ steps.version.outputs.value }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve version
+        id: version
+        run: echo "value=${{ github.event_name == 'workflow_dispatch' && github.event.inputs.version || github.ref_name }}" >> $GITHUB_OUTPUT
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          targets: aarch64-apple-darwin,wasm32-unknown-unknown
+
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            src-tauri/target
+          key: macos-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install Tauri CLI
+        run: cargo install tauri-cli --locked
+
+      - name: Build Tauri
+        working-directory: src-tauri
+        run: cargo tauri build --target aarch64-apple-darwin
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-bundles
+          path: src-tauri/target/aarch64-apple-darwin/release/bundle/dmg/*.dmg
+
+  build-linux:
+    runs-on: ubuntu-22.04
+    name: Build Linux (x86_64)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libgtk-3-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            patchelf
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          targets: x86_64-unknown-linux-gnu,wasm32-unknown-unknown
+
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            src-tauri/target
+          key: linux-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install Tauri CLI
+        run: cargo install tauri-cli --locked
+
+      - name: Build Tauri
+        working-directory: src-tauri
+        run: cargo tauri build --target x86_64-unknown-linux-gnu
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-bundles
+          path: |
+            src-tauri/target/x86_64-unknown-linux-gnu/release/bundle/appimage/*.AppImage
+            src-tauri/target/x86_64-unknown-linux-gnu/release/bundle/deb/*.deb
+
+  build-windows:
+    runs-on: windows-latest
+    name: Build Windows (x64)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          targets: x86_64-pc-windows-msvc,wasm32-unknown-unknown
+
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            src-tauri/target
+          key: windows-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install Tauri CLI
+        run: cargo install tauri-cli --locked
+
+      - name: Build Tauri
+        working-directory: src-tauri
+        run: cargo tauri build --target x86_64-pc-windows-msvc
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-bundles
+          path: |
+            src-tauri/target/x86_64-pc-windows-msvc/release/bundle/msi/*.msi
+            src-tauri/target/x86_64-pc-windows-msvc/release/bundle/nsis/*.exe
+
+  release:
+    runs-on: ubuntu-22.04
+    name: Upload to GitHub Release
+    needs: [build-macos, build-linux, build-windows]
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: bundles
+          merge-multiple: true
+
+      - name: Create release if not exists
+        env:
+          GH_TOKEN: ${{ secrets.RELEASES_TOKEN }}
+        run: |
+          VERSION="${{ needs.build-macos.outputs.version }}"
+          gh release view "$VERSION" --repo $RELEASE_REPO || \
+            gh release create "$VERSION" \
+              --repo $RELEASE_REPO \
+              --title "Rust UI $VERSION" \
+              --notes "📦 Rust UI Desktop — macOS (Apple Silicon) · Linux (x86_64) · Windows (x64)"
+
+      - name: Upload to GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.RELEASES_TOKEN }}
+        run: |
+          gh release upload "${{ needs.build-macos.outputs.version }}" \
+            bundles/*.dmg \
+            bundles/*.AppImage \
+            bundles/*.deb \
+            bundles/*.msi \
+            bundles/*.exe \
+            --repo $RELEASE_REPO \
+            --clobber
