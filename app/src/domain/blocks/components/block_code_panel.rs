@@ -17,7 +17,9 @@ pub fn BlockCodePanel(files: &'static [BlockFile], tree: Vec<BlockFileTreeItem>)
     let active_idx = RwSignal::new(0_usize);
 
     let highlighted = Memo::new(move |_| {
-        let f = &files[active_idx.get()];
+        let Some(f) = files.get(active_idx.get()) else {
+            return String::new();
+        };
         highlight_code(f.content, Some(f.language), Some(f.name))
     });
 
@@ -47,11 +49,11 @@ fn BlockCodeHeader(files: &'static [BlockFile], active_idx: RwSignal<usize>) -> 
 
     view! {
         <div class="flex gap-2 items-center px-4 h-10 border-b bg-card">
-            <span class="font-mono text-xs text-muted-foreground">{move || files[active_idx.get()].target}</span>
+            <span class="font-mono text-xs text-muted-foreground">{move || files.get(active_idx.get()).map(|f| f.target).unwrap_or_default()}</span>
             <div class="ml-auto">
                 <button
                     class="inline-flex justify-center items-center rounded-md transition-colors size-7 hover:bg-accent"
-                    on:click=move |_| copy_fn(files[active_idx.get()].content)
+                    on:click=move |_| copy_fn(files.get(active_idx.get()).map(|f| f.content).unwrap_or_default())
                     title="Copy code"
                 >
                     {move || {
