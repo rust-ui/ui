@@ -5,12 +5,6 @@ pkg
 Cargo.lock
 
 
-# Testing
-\!\!\!_VAUL_DRAWER/
-\!\!\!_VAUL_SONNER/
-\!\!\!_OTHERS/shimmer-from-structure-main/
-
-
 # Tauri
 src-tauri/target/
 src-tauri/gen/
@@ -51,4 +45,6 @@ bug_reports.db
 
 # Temporary files
 X__TMP
+
+# Internals
 rust_ui_internals/
