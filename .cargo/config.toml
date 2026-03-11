@@ -1,0 +1,31 @@
+[build]
+jobs = 8  # M1 Pro: 8 cores, 16 GB RAM
+
+[target.aarch64-apple-darwin]
+linker = "clang"
+rustflags = [
+    "-C", "symbol-mangling-version=v0",
+    "-C", "link-arg=-fuse-ld=lld",  # lld linker: much faster than Apple's ld for dev
+    "--cfg", "erase_components"
+]
+
+# WebAssembly target
+[target.wasm32-unknown-unknown]
+rustflags = [
+    "--cfg", "getrandom_backend=\"wasm_js\"",
+    "--cfg", "erase_components"
+]
+
+# Statically linked Linux binary (NO mold)
+[target.x86_64-unknown-linux-musl]
+rustflags = [
+    "-C", "target-feature=+crt-static",
+    "--cfg", "erase_components"
+]
+# linker = "musl-gcc" # 👉 This seems to cause issues cause I had dynamic when doing file ./target/x86_64-unknown-linux-musl/release/server, and we are supposed to have static for MUSL.
+
+
+
+
+[unstable]
+codegen-backend = true

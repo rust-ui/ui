@@ -1,0 +1,22 @@
+[package]
+name = "app_domain"
+version = "0.1.0"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[dependencies]
+icons.workspace = true
+leptos_ui.workspace = true
+markdown_crate.workspace = true
+registry.workspace = true
+tw_merge.workspace = true
+
+leptos.workspace = true
+leptos_meta.workspace = true
+leptos_router.workspace = true
+serde.workspace = true
+strum.workspace = true
+wasm-bindgen.workspace = true
+web-sys.workspace = true

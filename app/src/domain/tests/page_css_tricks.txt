@@ -1,0 +1,1841 @@
+use leptos::prelude::*;
+
+//use crate::{
+// components::css_tricks::{
+//     css_trick_card_blog::CssTrickCardBlog,
+//     css_trick_nth_child_selector::CssTrickNthChildSelector,
+//     css_trick_stick_bottom_cards::CssTrickStickBottomCards,
+// },
+//};
+
+#[component]
+pub fn PageCssTricks() -> impl IntoView {
+    view! {
+        <div class="flex flex-col gap-6">
+
+            // <CssTrickStickBottomCards />
+
+            // <CssTrickCardBlog />
+
+            // <CssTrickNthChildSelector />
+
+            <ImageTapeEffect />
+            <StepsProgressIndicator />
+            <ActivityFeed />
+            <TailwindGlassmorphism />
+            <StickySections />
+            <FancyUnderline />
+            <HeroSectionCool />
+            // <HeroSectionCoolTwo /> // * FULL PAGE
+            // <HeroSectionCoolThree /> // * FULL PAGE
+            <StickySectionsTailwind />
+            <StepsSectionStylee />
+            <StepsSectionVertical />
+            <StepsSectionVertical2 />
+            <StepsSectionVertical3 />
+
+            <HeroSectionFour />
+            <WaveDivider />
+            <DemoVercelInteraction />
+
+            <CardsWithMask />
+        </div>
+    }
+}
+
+
+/* ========================================================== */
+/*                     ✨ FUNCTIONS ✨                        */
+/* ========================================================== */
+
+#[component]
+pub fn ImageTapeEffect() -> impl IntoView {
+    view! {
+        <div class="flex overflow-hidden justify-center items-center min-h-screen bg-gradient-to-br from-emerald-500 via-lime-300 to-green-500">
+            <div class="mx-auto max-w-2xl">
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <label class="relative cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" name="size-choice" />
+                        <span class="absolute top-2 right-2 z-10 opacity-0 transition-all peer-checked:opacity-100">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="fill-blue-500 stroke-white"
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="#2c3e50"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M9 12l2 2l4 -4" />
+                            </svg>
+                        </span>
+                        <div class="overflow-hidden bg-white rounded-lg ring ring-transparent shadow-md transition-all active:scale-95 grayscale peer-checked:ring-blue-500 peer-checked:grayscale-0">
+                            <div>
+                                <img
+                                    src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                                    alt="Sofa 1"
+                                    class="object-cover w-48 h-28"
+                                />
+                            </div>
+                            <header class="py-2.5 px-2.5">
+                                <p class="text-lg font-bold tracking-wide text-gray-700">Category One</p>
+                                <p class="text-sm text-gray-400">Front View</p>
+                            </header>
+                        </div>
+                    </label>
+
+                    <label class="relative cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" name="size-choice" />
+                        <span class="absolute top-2 right-2 z-10 opacity-0 transition-all peer-checked:opacity-100">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="fill-blue-500 stroke-white"
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="#2c3e50"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M9 12l2 2l4 -4" />
+                            </svg>
+                        </span>
+                        <div class="overflow-hidden bg-white rounded-lg ring ring-transparent shadow-md transition-all active:scale-95 grayscale peer-checked:ring-blue-500 peer-checked:grayscale-0">
+                            <div>
+                                <img
+                                    src="https://images.unsplash.com/photo-1630650231815-a567e2ed26cc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                                    alt="Sofa 1"
+                                    class="object-cover w-48 h-28"
+                                />
+                            </div>
+                            <header class="py-2.5 px-2.5">
+                                <p class="text-lg font-bold tracking-wide text-gray-700">Category Two</p>
+                                <p class="text-sm text-gray-400">Night Lights</p>
+                            </header>
+                        </div>
+                    </label>
+                    <label class="relative cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" name="size-choice" />
+                        <span class="absolute top-2 right-2 z-10 opacity-0 transition-all peer-checked:opacity-100">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="fill-blue-500 stroke-white"
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="#2c3e50"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M9 12l2 2l4 -4" />
+                            </svg>
+                        </span>
+                        <div class="overflow-hidden bg-white rounded-lg ring ring-transparent shadow-md transition-all active:scale-95 grayscale peer-checked:ring-blue-500 peer-checked:grayscale-0">
+                            <div>
+                                <img
+                                    src="https://images.unsplash.com/photo-1598228723793-52759bba239c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+                                    alt="Sofa 1"
+                                    class="object-cover w-48 h-28"
+                                />
+                            </div>
+                            <header class="py-2.5 px-2.5">
+                                <p class="text-lg font-bold tracking-wide text-gray-700">Category Three</p>
+                                <p class="text-sm text-gray-400">Bright Day</p>
+                            </header>
+                        </div>
+                    </label>
+                    <label class="relative cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" name="size-choice" />
+                        <span class="absolute top-2 right-2 z-10 opacity-0 transition-all peer-checked:opacity-100">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="fill-blue-500 stroke-white"
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="#2c3e50"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M9 12l2 2l4 -4" />
+                            </svg>
+                        </span>
+                        <div class="overflow-hidden bg-white rounded-lg ring ring-transparent shadow-md transition-all active:scale-95 grayscale peer-checked:ring-blue-500 peer-checked:grayscale-0">
+                            <div>
+                                <img
+                                    src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80"
+                                    alt="Sofa 1"
+                                    class="object-cover w-48 h-28"
+                                />
+                            </div>
+                            <header class="py-2.5 px-2.5">
+                                <p class="text-lg font-bold tracking-wide text-gray-700">Category Four</p>
+                                <p class="text-sm text-gray-400">Key Holder</p>
+                            </header>
+                        </div>
+                    </label>
+                    <label class="relative cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" name="size-choice" />
+                        <span class="absolute top-2 right-2 z-10 opacity-0 transition-all peer-checked:opacity-100">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="fill-blue-500 stroke-white"
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="#2c3e50"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M9 12l2 2l4 -4" />
+                            </svg>
+                        </span>
+                        <div class="overflow-hidden bg-white rounded-lg ring ring-transparent shadow-md transition-all active:scale-95 grayscale peer-checked:ring-blue-500 peer-checked:grayscale-0">
+                            <div>
+                                <img
+                                    src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                                    alt="Sofa 1"
+                                    class="object-cover w-48 h-28"
+                                />
+                            </div>
+                            <header class="py-2.5 px-2.5">
+                                <p class="text-lg font-bold tracking-wide text-gray-700">Category Five</p>
+                                <p class="text-sm text-gray-400">Stand Tall</p>
+                            </header>
+                        </div>
+                    </label>
+                    <label class="relative cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" name="size-choice" />
+                        <span class="absolute top-2 right-2 z-10 opacity-0 transition-all peer-checked:opacity-100">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="fill-blue-500 stroke-white"
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="#2c3e50"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M9 12l2 2l4 -4" />
+                            </svg>
+                        </span>
+                        <div class="overflow-hidden bg-white rounded-lg ring ring-transparent shadow-md transition-all active:scale-95 grayscale peer-checked:ring-blue-500 peer-checked:grayscale-0">
+                            <div>
+                                <img
+                                    src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80"
+                                    alt="Sofa 1"
+                                    class="object-cover w-48 h-28"
+                                />
+                            </div>
+                            <header class="py-2.5 px-2.5">
+                                <p class="text-lg font-bold tracking-wide text-gray-700">Category One</p>
+                                <p class="text-sm text-gray-400">Summer Vibe</p>
+                            </header>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+#[component]
+pub fn StepsProgressIndicator() -> impl IntoView {
+    // .hover\:ring-black/100:hover {
+    //     --tw-ring-opacity: 1;
+    // }
+    view! {
+        <div class="flex flex-col justify-center items-center p-10 w-screen min-h-screen text-gray-700">
+            <div class="flex relative flex-col w-full max-w-screen-md">
+                <div class="flex absolute top-0 justify-between px-1 mt-4 w-full">
+                    <div class="flex-grow border-t-2 border-green-500"></div>
+                    <div class="flex-grow border-t-2 border-green-500"></div>
+                    <div class="flex-grow border-t-2 border-gray-300"></div>
+                    <div class="flex-grow border-t-2 border-gray-300"></div>
+                </div>
+                <div class="flex relative justify-between w-full">
+
+                    <div class="flex flex-col items-center">
+                        <button class="flex justify-center items-center size-8 bg-green-500 rounded-full ring-4 ring-green-200 transition duration-200 ring-black/0 hover:ring-black/100">
+                            <svg
+                                class="size-4 text-green-50 stroke-current"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </button>
+                        <span class="absolute mt-12 w-36 text-xs font-semibold tracking-wide text-center uppercase">
+                            First Step
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <button class="flex justify-center items-center size-8 bg-green-500 rounded-full ring-4 ring-green-200 transition duration-200 ring-black/0 hover:ring-black/100">
+                            <svg
+                                class="size-4 text-green-50 stroke-current"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </button>
+                        <span class="absolute mt-12 w-36 text-xs font-semibold tracking-wide text-center uppercase">
+                            Second Step
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <div class="flex justify-center items-center size-8 bg-white rounded-full border-2 border-green-500 ring-4 ring-green-200">
+                            <span class="text-sm font-semibold text-green-500">3</span>
+                        </div>
+                        <span class="absolute mt-12 w-36 text-xs font-semibold tracking-wide text-center text-green-500 uppercase">
+                            Third Step
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <div class="flex justify-center items-center size-8 bg-white rounded-full border-2 border-gray-300">
+                            <span class="text-sm font-semibold text-gray-400">4</span>
+                        </div>
+                        <span class="absolute mt-12 w-36 text-xs font-semibold tracking-wide text-center text-gray-400 uppercase">
+                            Fourth Step
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <div class="flex justify-center items-center size-8 bg-white rounded-full border-2 border-gray-300">
+                            <span class="text-sm font-semibold text-gray-400">5</span>
+                        </div>
+                        <span class="absolute mt-12 w-36 text-xs font-semibold tracking-wide text-center text-gray-400 uppercase">
+                            Fifth Step
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    }
+}
+
+#[component]
+pub fn ActivityFeed() -> impl IntoView {
+    view! {
+        <ul
+            aria-label="Activity feed"
+            role="feed"
+            class="flex relative flex-col gap-12 py-12 pl-8 before:absolute before:top-0 before:left-8 before:h-full before:border before:-translate-x-1/2 before:border-slate-200 before:border-dashed after:absolute after:top-6 after:left-8 after:bottom-6 after:border after:-translate-x-1/2 after:border-slate-200"
+        >
+            <li role="article" class="relative pl-8">
+                <span class="flex absolute left-0 z-10 justify-center items-center size-10 rounded-full ring-2 ring-white -translate-x-1/2 text-slate-700 bg-slate-200">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-5"
+                        role="presentation"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122"
+                        />
+                    </svg>
+                </span>
+                <div class="flex flex-col flex-1 gap-0">
+                    <h4 class="text-base font-medium text-slate-700">UI/UX project created</h4>
+                    <p class="text-sm text-slate-500">13:12pm</p>
+                </div>
+            </li>
+            <li role="article" class="relative pl-8">
+                <span class="flex absolute left-0 z-10 justify-center items-center size-10 rounded-full ring-2 ring-white -translate-x-1/2 text-slate-700 bg-slate-200">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-5"
+                        role="presentation"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                        />
+                    </svg>
+                </span>
+                <div class="flex flex-col flex-1 gap-0">
+                    <h4 class="text-base font-medium text-slate-700">Task list created for project</h4>
+                    <p class="text-sm text-slate-500">13:31pm</p>
+                </div>
+            </li>
+            <li role="article" class="relative pl-8">
+                <span class="flex absolute left-0 z-10 justify-center items-center size-10 rounded-full ring-2 ring-white -translate-x-1/2 text-slate-700 bg-slate-200">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-5"
+                        role="presentation"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
+                        />
+                    </svg>
+                </span>
+                <div class="flex flex-col flex-1 gap-0">
+                    <h4 class="text-base font-medium text-slate-700">Warning! Project name cannot be empty</h4>
+                    <p class="text-sm text-slate-500">13:32pm</p>
+                </div>
+            </li>
+            <li role="article" class="relative pl-8">
+                <span class="flex absolute left-0 z-10 justify-center items-center size-10 rounded-full ring-2 ring-white -translate-x-1/2 text-slate-700 bg-slate-200">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-5"
+                        role="presentation"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
+                        />
+                    </svg>
+                </span>
+                <div class="flex flex-col flex-1 gap-0">
+                    <h4 class="text-base font-medium text-slate-700">New user added</h4>
+                    <p class="text-sm text-slate-500">13:56pm</p>
+                </div>
+            </li>
+            <li role="article" class="relative pl-8">
+                <span class="flex absolute left-0 z-10 justify-center items-center size-10 rounded-full ring-2 ring-white -translate-x-1/2 text-slate-700 bg-slate-200">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-5"
+                        role="presentation"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
+                        />
+                    </svg>
+                </span>
+                <div class="flex flex-col flex-1 gap-0">
+                    <h4 class="text-base font-medium text-slate-700">Warning! Project is going to be expired</h4>
+                    <p class="text-sm text-slate-500">13:32pm</p>
+                </div>
+            </li>
+            <li role="article" class="relative pl-8">
+                <span class="flex absolute left-0 z-10 justify-center items-center size-10 rounded-full ring-2 ring-white -translate-x-1/2 text-slate-700 bg-slate-200">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-5"
+                        role="presentation"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                        />
+                    </svg>
+                </span>
+                <div class="flex flex-col flex-1 gap-0">
+                    <h4 class="text-base font-medium text-slate-700">Project deleted</h4>
+                    <p class="text-sm text-slate-500">13:32pm</p>
+                </div>
+            </li>
+        </ul>
+    }
+}
+
+#[component]
+pub fn TailwindGlassmorphism() -> impl IntoView {
+    view! {
+        <section class="grid place-items-center min-h-screen text-white isolate bg-slate-800">
+            <div class="relative max-w-xs">
+                <div class="flex flex-col gap-6 items-center p-12 text-center rounded-2xl border backdrop-blur bg-white/5 border-slate-600">
+                    <img
+                        class="object-cover mx-auto w-24 h-24 rounded-full border-4 border-slate-600"
+                        src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                        alt=""
+                    />
+                    <div>
+                        <h3 class="text-2xl font-bold">Emily Johnson</h3>
+                        <p class="mt-1 text-cyan-300">Marketing Manager</p>
+                    </div>
+                    <p>
+                        Creative marketing guru who strategizes and executes impactful campaigns that resonate with the audiences.
+                    </p>
+                    <button class="py-2 px-6 rounded-full border transition border-slate-500 hover:bg-indigo-200/50">
+                        Book a call
+                    </button>
+                </div>
+
+                <div class="absolute -top-10 -left-14 w-32 h-32 bg-gradient-to-r from-indigo-500 to-indigo-300 rounded-full -z-10"></div>
+                <div class="absolute -bottom-8 -right-14 w-32 h-32 bg-gradient-to-r from-cyan-600 to-cyan-300 rounded-full -z-10"></div>
+
+            </div>
+        </section>
+    }
+}
+
+#[component]
+pub fn StickySections() -> impl IntoView {
+    view! {
+        <div class="relative">
+            <div class="flex sticky top-0 flex-col justify-center items-center h-screen bg-gradient-to-b from-green-200 to-blue-200">
+                <h2 class="text-4xl font-bold">The First slide</h2>
+                <p class="mt-2">Scroll Down for next slide</p>
+            </div>
+            <div class="flex sticky top-0 flex-col justify-center items-center h-screen text-white bg-gradient-to-b from-indigo-800 to-purple-800">
+                <h2 class="text-4xl font-bold">The Second slide</h2>
+                <p class="mt-2">Scroll Down for next slide</p>
+            </div>
+            <div class="flex sticky top-0 flex-col justify-center items-center h-screen text-white bg-gradient-to-b from-purple-800 to-pink-800">
+                <h2 class="text-4xl font-bold">The Third slide</h2>
+                <p class="mt-2">Scroll Down</p>
+            </div>
+            <div class="flex sticky top-0 flex-col justify-center items-center h-screen text-black bg-gradient-to-b from-blue-200 to-indigo-100">
+                <h2 class="text-4xl font-bold">The Fourth slide</h2>
+            </div>
+        </div>
+    }
+}
+
+#[component]
+pub fn FancyUnderline() -> impl IntoView {
+    view! {
+        <p class="text-3xl font-bold">
+            this is fancy
+            <span class="inline-block relative mx-1 text-4xl font-extrabold text-green-500 stroke-current">
+                underline
+                <svg
+                    class="absolute -bottom-0.5 w-full max-h-1.5"
+                    viewBox="0 0 55 5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="none"
+                >
+                    <path
+                        d="M0.652466 4.00002C15.8925 2.66668 48.0351 0.400018 54.6853 2.00002"
+                        stroke-width="2"
+                    ></path>
+                </svg>
+            </span>text
+        </p>
+    }
+}
+
+#[component]
+pub fn HeroSectionCool() -> impl IntoView {
+    view! {
+        <div class="flex flex-col flex-1 justify-center items-center py-20 px-4 w-full text-center bg-gradient-to-r via-teal-50 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 from-green-50/50 to-green-50/50">
+            <a
+                href=""
+                class="py-2 px-4 mb-5 text-sm rounded-lg border transition duration-300 ease-in-out dark:text-gray-300 dark:border-gray-300 hover:text-gray-500 border-white-700 text-white-400 dark:hover:text-gray-400"
+            >
+                Forget about spending hundreds $
+            </a>
+            <h1 class="mx-auto max-w-4xl text-5xl font-bold tracking-normal sm:text-7xl dark:text-gray-300 font-display text-white-300">
+                Revolutionize Your Insurance
+                <span class="relative whitespace-nowrap dark:text-gray-300 text-white-600">Operations</span>
+                <span class="relative text-orange-500 whitespace-nowrap dark:text-orange-300">
+                    <svg
+                        aria-hidden="true"
+                        viewBox="0 0 418 42"
+                        class="absolute left-0 top-2/3 w-full h-[0.58em] fill-orange-500 dark:fill-orange-300/60"
+                        preserveAspectRatio="none"
+                    >
+                        <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.780 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.540-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.810 23.239-7.825 27.934-10.149 28.304-14.005 .417-4.348-3.529-6-16.878-7.066Z"></path>
+                    </svg>
+                    <span class="relative">with AI</span>
+                </span>
+            </h1>
+            <h2 class="mx-auto mt-12 max-w-xl text-lg leading-7 dark:text-gray-300 text-white-500 sm:text-white-400">
+                Experience the future of insurance with our cutting-edge AI tool. From underwriting to claims processing, our
+                intelligent system streamlines and enhances every aspect of your insurance operations.
+            </h2>
+            <a
+                class="py-3 px-4 mt-8 font-medium text-white bg-orange-600 rounded-xl transition sm:mt-10 dark:text-gray-300 dark:bg-gray-800 hover:bg-orange-500 dark:hover:bg-gray-600"
+                href=""
+            >
+                Get started
+            </a>
+        </div>
+    }
+}
+
+#[component]
+pub fn HeroSectionCoolTwo() -> impl IntoView {
+    view! {
+        <section class="flex overflow-hidden justify-center items-center w-full min-h-screen bg-gradient-to-b to-green-300 from-[#10111D]">
+            <div class="absolute inset-0 bg-black bg-black/50"></div>
+
+            <div class="container relative z-10 px-4 mx-auto text-center text-white">
+                <h1
+                    class="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+                    style="line-height: 1.2"
+                >
+                    We Make
+                    <span class="relative text-green-300 whitespace-nowrap dark:text-green-400">
+                        <svg
+                            aria-hidden="true"
+                            viewBox="0 0 418 42"
+                            class="absolute left-0 top-2/3 w-full h-[0.58em] fill-pink-400/70 dark:fill-pink-300/60"
+                            preserveAspectRatio="none"
+                        >
+                            <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.780 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.540-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.810 23.239-7.825 27.934-10.149 28.304-14.005 .417-4.348-3.529-6-16.878-7.066Z"></path>
+                        </svg>
+                        <span class="relative">Connecting with Coaches</span>
+                    </span>
+                    Easier with Jetson AI
+                </h1>
+                <p class="mx-auto mb-8 max-w-2xl text-lg">
+                    Professional photography services for weddings, events, portraits, and commercial shoots. Let us tell your story through our lens.
+                </p>
+
+                <div class="flex justify-center items-center mt-8" data-aos="fade-up" data-aos-delay="400">
+                    <a
+                        href="#pricing"
+                        rel="noopener noreferrer"
+                        class="flex relative justify-center items-center py-3 px-6 text-lg font-semibold text-white bg-green-600 rounded-full shadow-lg transition-transform duration-200 transform hover:bg-green-700 hover:scale-105"
+                    >
+                        <span class="absolute inset-0 bg-green-600 rounded-full opacity-50 animate-pulse"></span>
+                        <span class="relative z-10 pr-2">Book Now</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 left-1/2 animate-bounce transform -translate-x-1/2 sm:bottom-14">
+                <a href="#about" class="cursor-pointer">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-12 h-12 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                    >
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </a>
+            </div>
+        </section>
+    }
+}
+
+#[component]
+pub fn HeroSectionCoolThree() -> impl IntoView {
+    view! {
+        <nav class="fixed top-0 z-50 w-full transition-colors duration-300 md:px-10 lg:px-10 backdrop-blur-lg bg-black/10">
+            <div class="container flex justify-between items-center px-4 mx-auto h-20">
+
+                // <img
+                // class="w-auto h-10"
+                // src="https://little-joy-studio.vercel.app/studio.png"
+                // width="999"
+                // height="999"
+                // alt="little joys studio"
+                // />
+                <a href="/" class="flex items-center shrink-0">
+                    <img
+                        class="w-10"
+                        height="100"
+                        width="100"
+                        src="https://tailwindflex.com/images/logo.svg"
+                        alt="Talwindflex logo"
+                    />
+                    <span class="mt-0.5 text-2xl font-bold text-white md:flex text-primary-600">
+                        TailwindFlex Studio
+                    </span>
+                </a>
+
+                <div class="hidden items-center text-white md:flex md:gap-8">
+                    <a href="/" class="text-sm font-medium transition hover:text-purple-400">
+                        Home
+                    </a>
+                    <a href="#about" class="text-sm font-medium transition hover:text-purple-400">
+                        About
+                    </a>
+                    <a href="#services" class="text-sm font-medium transition hover:text-purple-400">
+                        Services
+                    </a>
+                    <a href="#portfolio" class="text-sm font-medium transition hover:text-purple-400">
+                        Portfolio
+                    </a>
+                    <a href="#contact" class="text-sm font-medium transition hover:text-purple-400">
+                        Contact
+                    </a>
+                    <a
+                        href="#contact"
+                        class="py-2 px-6 text-purple-900 bg-white rounded-full border-2 border-white transition duration-300 ease-in-out cursor-pointer hover:text-white hover:bg-purple-900 hover:shadow-lg"
+                    >
+                        Contact Now
+                    </a>
+                </div>
+
+                <div class="md:hidden">
+                    <button class="text-2xl text-white" attr:onclick="setIsMenuOpen(!isMenuOpen)">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="size-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            stroke-width="2"
+                        >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <section class="flex overflow-hidden justify-center items-center w-full min-h-screen bg-gradient-to-b to-purple-800 from-[#121212]">
+
+            <div class="absolute inset-0 bg-black bg-black/50"></div>
+
+            <div class="container relative z-10 px-4 mx-auto text-center text-white">
+                <h1
+                    class="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+                    style="line-height: 1.2"
+                >
+                    Catching
+                    <span class="relative text-purple-400 whitespace-nowrap dark:text-purple-400">
+                        <svg
+                            aria-hidden="true"
+                            viewBox="0 0 418 42"
+                            class="absolute left-0 top-2/3 w-full h-[0.58em] fill-purple-400/70 dark:fill-purple-300/60"
+                            preserveAspectRatio="none"
+                        >
+                            <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.780 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.540-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.810 23.239-7.825 27.934-10.149 28.304-14.005 .417-4.348-3.529-6-16.878-7.066Z"></path>
+                        </svg>
+                        <span class="relative">Beautiful</span>
+                    </span>
+                    Stories
+                </h1>
+                <p class="mx-auto mb-8 max-w-2xl text-lg">
+                    Professional photography services for weddings, events, portraits, and commercial shoots. Let us tell your story through our lens.
+                </p>
+
+                <div class="flex justify-center items-center mt-8" data-aos="fade-up" data-aos-delay="400">
+                    <a
+                        href="#pricing"
+                        rel="noopener noreferrer"
+                        class="flex relative justify-center items-center py-3 px-6 text-lg font-semibold text-white bg-purple-600 rounded-full shadow-lg transition-transform duration-200 transform hover:bg-purple-700 hover:scale-105"
+                    >
+                        <span class="absolute inset-0 bg-purple-600 rounded-full opacity-50 animate-ping"></span>
+                        <span class="relative z-10 pr-2">Book Now</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 left-1/2 animate-bounce transform -translate-x-1/2 sm:bottom-14">
+                <a href="#about" class="cursor-pointer">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="size-10 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                    >
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </a>
+            </div>
+        </section>
+    }
+}
+
+#[component]
+pub fn StickySectionsTailwind() -> impl IntoView {
+    view! {
+        <div class="relative">
+            <div class="flex sticky top-0 flex-col justify-center items-center h-screen bg-gradient-to-b from-green-200 to-blue-200">
+                <h2 class="text-4xl font-bold">The First slide</h2>
+                <p class="mt-2">Scroll Down now for next slide</p>
+            </div>
+            <div class="flex sticky top-0 flex-col justify-center items-center h-screen text-white bg-gradient-to-b from-indigo-800 to-purple-800">
+                <h2 class="text-4xl font-bold">The Second slide</h2>
+                <p class="mt-2">Scroll Down for next slide</p>
+            </div>
+            <div class="flex sticky top-0 flex-col justify-center items-center h-screen text-white bg-gradient-to-b from-purple-800 to-pink-800">
+                <h2 class="text-4xl font-bold">The Third slide</h2>
+                <p class="mt-2">Scroll Down</p>
+            </div>
+            <div class="flex sticky top-0 flex-col justify-center items-center h-screen text-black bg-gradient-to-b from-blue-200 to-indigo-100">
+                <h2 class="text-4xl font-bold">The Fourth slide</h2>
+            </div>
+        </div>
+    }
+}
+
+#[component]
+pub fn StepsSectionStylee() -> impl IntoView {
+    view! {
+        <section class="overflow-hidden relative bg-gray-50 dark:bg-gray-900">
+            <div class="overflow-hidden py-12 pb-6 mt-2 sm:py-16 md:mt-0 lg:pb-24">
+                <div class="relative px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    <div class="relative mt-12 lg:mt-20">
+                        <div class="hidden absolute inset-x-0 top-2 md:block md:px-20 lg:px-28 xl:px-44">
+                            <svg
+                                class="w-full"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="875"
+                                height="48"
+                                viewBox="0 0 875 48"
+                                fill="none"
+                            >
+                                <path
+                                    d="M2 29C20.2154 33.6961 38.9915 35.1324 57.6111 37.5555C80.2065 40.496 102.791 43.3231 125.556 44.5555C163.184 46.5927 201.26 45 238.944 45C312.75 45 385.368 30.7371 458.278 20.6666C495.231 15.5627 532.399 11.6429 569.278 6.11109C589.515 3.07551 609.767 2.09927 630.222 1.99998C655.606 1.87676 681.208 1.11809 706.556 2.44442C739.552 4.17096 772.539 6.75565 805.222 11.5C828 14.8064 850.34 20.2233 873 24"
+                                    stroke="#D4D4D8"
+                                    stroke-width="3"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="1 12"
+                                />
+                            </svg>
+                        </div>
+                        <div class="grid relative grid-cols-1 gap-y-8 gap-x-12 text-center sm:gap-y-10 md:grid-cols-3 md:gap-y-12">
+                            <div>
+                                <div class="flex justify-center items-center mx-auto w-16 h-16 bg-white rounded-full border-2 border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
+                                    <span class="text-xl font-semibold text-gray-700 dark:text-gray-200">1</span>
+                                </div>
+                                <h3 class="mt-4 text-xl font-semibold leading-tight text-gray-900 sm:mt-6 md:mt-10 dark:text-white">
+                                    Register
+                                </h3>
+                                <p class="mt-3 text-base text-gray-600 sm:mt-4 dark:text-gray-400">
+                                    Register with your email or using sign up with goolgle
+                                </p>
+                            </div>
+                            <div>
+                                <div class="flex justify-center items-center mx-auto w-16 h-16 bg-white rounded-full border-2 border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
+                                    <span class="text-xl font-semibold text-gray-700 dark:text-gray-200">2</span>
+                                </div>
+                                <h3 class="mt-4 text-xl font-semibold leading-tight text-gray-900 sm:mt-6 md:mt-10 dark:text-white">
+                                    Create your image
+                                </h3>
+                                <p class="mt-3 text-base text-gray-600 sm:mt-4 dark:text-gray-400">
+                                    Choose AI assistants to create your image variations.
+                                </p>
+                            </div>
+                            <div>
+                                <div class="flex justify-center items-center mx-auto w-16 h-16 bg-white rounded-full border-2 border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
+                                    <span class="text-xl font-semibold text-gray-700 dark:text-gray-200">3</span>
+                                </div>
+                                <h3 class="mt-4 text-xl font-semibold leading-tight text-gray-900 sm:mt-6 md:mt-10 dark:text-white">
+                                    Download
+                                </h3>
+                                <p class="mt-3 text-base text-gray-600 sm:mt-4 dark:text-gray-400">
+                                    Download zip of all variations
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}
+
+#[component]
+pub fn StepsSectionVertical() -> impl IntoView {
+    view! {
+        <div class="bg-white">
+            <div class="flex flex-col justify-between px-4 mx-auto max-w-screen-md sm:px-6 lg:px-8">
+
+                <div class="text-center">
+                    <p class="mt-4 text-sm leading-7 text-gray-500 font-regular">STEPS</p>
+                    <h3 class="text-3xl font-extrabold tracking-tight leading-normal text-gray-900 sm:text-5xl">
+                        How it <span class="text-indigo-600">Works?</span>
+                    </h3>
+
+                </div>
+
+                <div class="mt-20">
+                    <ul class="">
+                        <li class="p-5 pb-10 mb-20 text-center bg-gray-100">
+                            <div class="flex flex-col items-center">
+                                <div class="relative top-0 -mt-16 shrink-0">
+                                    <div class="flex justify-center items-center w-20 h-20 text-xl font-semibold text-white bg-indigo-500 rounded-full border-4 border-white">
+                                        1
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <h4 class="text-lg font-semibold leading-6 text-gray-900">Headline</h4>
+                                    <p class="mt-2 text-base leading-6 text-gray-500">
+                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis
+                                        suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="p-5 pb-10 mb-20 text-center bg-gray-100">
+                            <div class="flex flex-col items-center">
+                                <div class="relative top-0 -mt-16 shrink-0">
+                                    <div class="flex justify-center items-center w-20 h-20 text-xl font-semibold text-white bg-indigo-500 rounded-full border-4 border-white">
+                                        2
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <h4 class="text-lg font-semibold leading-6 text-gray-900">Headline</h4>
+                                    <p class="mt-2 text-base leading-6 text-gray-500">
+                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis
+                                        suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="p-5 pb-10 mb-20 text-center bg-gray-100">
+                            <div class="flex flex-col items-center">
+                                <div class="relative top-0 -mt-16 shrink-0">
+                                    <div class="flex justify-center items-center w-20 h-20 text-xl font-semibold text-white bg-indigo-500 rounded-full border-4 border-white">
+                                        3
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <h4 class="text-lg font-semibold leading-6 text-gray-900">Headline</h4>
+                                    <p class="mt-2 text-base leading-6 text-gray-500">
+                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis
+                                        suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    }
+}
+
+#[component]
+pub fn StepsSectionVertical2() -> impl IntoView {
+    view! {
+        <div class="bg-white">
+            <div class="flex flex-col justify-between px-4 mx-auto max-w-screen-md sm:px-6 lg:px-8">
+
+                <div class="text-center">
+                    <p class="mt-4 text-sm leading-7 text-gray-500 font-regular">STEPS</p>
+                    <h3 class="text-3xl font-extrabold tracking-tight leading-normal text-gray-900 sm:text-5xl">
+                        How it <span class="text-indigo-600">Works?</span>
+                    </h3>
+
+                </div>
+
+                <div class="mt-20">
+                    <ul class="">
+
+                        <li class="mb-10 text-left">
+                            <div class="flex flex-row items-start">
+                                <div class="flex flex-col justify-center items-center mr-5">
+                                    <div class="flex justify-center items-center w-20 h-20 text-xl font-semibold text-white bg-indigo-500 rounded-full border-4 border-white">
+                                        1
+                                    </div>
+                                    <span class="text-gray-500">STEP</span>
+                                </div>
+                                <div class="p-5 pb-10 bg-gray-100">
+                                    <h4 class="text-lg font-semibold leading-6 text-gray-900">Enter Headline</h4>
+                                    <p class="mt-2 text-base leading-6 text-gray-500">
+                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis
+                                        suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mb-10 text-left">
+                            <div class="flex flex-row items-start">
+                                <div class="flex flex-col justify-center items-center mr-5">
+                                    <div class="flex justify-center items-center w-20 h-20 text-xl font-semibold text-white bg-indigo-500 rounded-full border-4 border-white">
+                                        2
+                                    </div>
+                                    <span class="text-gray-500">STEP</span>
+                                </div>
+                                <div class="p-5 pb-10 bg-gray-100">
+                                    <h4 class="text-lg font-semibold leading-6 text-gray-900">Enter Headline</h4>
+                                    <p class="mt-2 text-base leading-6 text-gray-500">
+                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis
+                                        suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mb-10 text-left">
+                            <div class="flex flex-row items-start">
+                                <div class="flex flex-col justify-center items-center mr-5">
+                                    <div class="flex justify-center items-center w-20 h-20 text-xl font-semibold text-white bg-indigo-500 rounded-full border-4 border-white">
+                                        3
+                                    </div>
+                                    <span class="text-gray-500">STEP</span>
+                                </div>
+                                <div class="p-5 pb-10 bg-gray-100">
+                                    <h4 class="text-lg font-semibold leading-6 text-gray-900">Enter Headline</h4>
+                                    <p class="mt-2 text-base leading-6 text-gray-500">
+                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis
+                                        suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    }
+}
+
+#[component]
+pub fn StepsSectionVertical3() -> impl IntoView {
+    view! {
+        <div class="flex flex-col justify-between px-4 mx-auto max-w-screen-lg sm:px-6 lg:px-8">
+
+            <div class="text-center">
+                <p class="mt-4 text-sm leading-7 text-gray-500 font-regular">STEPS</p>
+                <h3 class="text-3xl font-extrabold tracking-tight leading-normal text-gray-900 sm:text-5xl">
+                    How it <span class="text-indigo-600">Works?</span>
+                </h3>
+
+            </div>
+
+            <div class="mt-20">
+                <ul class="md:grid md:grid-cols-3 md:col-gap-10 md:row-gap-10">
+
+                    <li class="p-5 pb-10 text-center bg-gray-100">
+                        <div class="flex flex-col items-center">
+                            <div class="relative top-0 -mt-16 shrink-0">
+                                <div class="flex justify-center items-center w-20 h-20 text-xl font-semibold text-white bg-indigo-500 rounded-full border-4 border-white">
+                                    1
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <h4 class="text-lg font-semibold leading-6 text-gray-900">Headline</h4>
+                                <p class="mt-2 text-base leading-6 text-gray-500">
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="p-5 pb-10 text-center bg-gray-100">
+                        <div class="flex flex-col items-center">
+                            <div class="relative top-0 -mt-16 shrink-0">
+                                <div class="flex justify-center items-center w-20 h-20 text-xl font-semibold text-white bg-indigo-500 rounded-full border-4 border-white">
+                                    2
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <h4 class="text-lg font-semibold leading-6 text-gray-900">Headline</h4>
+                                <p class="mt-2 text-base leading-6 text-gray-500">
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="p-5 pb-10 text-center bg-gray-100">
+                        <div class="flex flex-col items-center">
+                            <div class="relative top-0 -mt-16 shrink-0">
+                                <div class="flex justify-center items-center w-20 h-20 text-xl font-semibold text-white bg-indigo-500 rounded-full border-4 border-white">
+                                    3
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <h4 class="text-lg font-semibold leading-6 text-gray-900">Headline</h4>
+                                <p class="mt-2 text-base leading-6 text-gray-500">
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    }
+}
+
+#[component]
+pub fn HeroSectionFour() -> impl IntoView {
+    view! {
+        <section class="flex w-full bg-gray-50 dark:bg-gray-900">
+            <div class="py-16 px-4 mx-auto max-w-7xl sm:py-24 sm:px-6 lg:px-8">
+                <div class="space-y-5 text-center">
+                    <h2 class="text-base font-semibold tracking-wide text-pink-400 uppercase dark:text-pink-300">
+                        Unlock Your Potential
+                        Today
+                    </h2>
+                    <div class="inline-flex justify-center items-end mx-auto w-full text-center">
+                        <img
+                            src="https://cdn.devdojo.com/tails/avatars/024.jpg"
+                            class="absolute ml-6 w-12 h-12 rounded-full border-4 border-white transform translate-x-24 md:w-16 md:h-16"
+                        />
+                        <img
+                            src="https://cdn.devdojo.com/tails/avatars/012.jpg"
+                            class="absolute -ml-6 w-12 h-12 rounded-full border-4 border-white transform -translate-x-24 md:w-16 md:h-16"
+                        />
+                        <img
+                            src="https://cdn.devdojo.com/tails/avatars/029.jpg"
+                            class="absolute w-16 h-16 rounded-full border-4 border-white transform -translate-x-16 md:w-20 md:h-20"
+                        />
+                        <img
+                            src="https://cdn.devdojo.com/tails/avatars/005.jpg"
+                            class="absolute w-16 h-16 rounded-full border-4 border-white transform translate-x-16 md:w-20 md:h-20"
+                        />
+                        <img
+                            src="https://cdn.devdojo.com/tails/avatars/032.jpg"
+                            class="relative w-20 h-20 rounded-full border-4 border-white md:w-24 md:h-24"
+                        />
+                    </div>
+                    <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl dark:text-gray-100">
+                        Discover <span class="inline-block relative py-1 px-2">
+                            <svg
+                                class="absolute bottom-0 text-blue-300 -translate-x-2 stroke-current"
+                                viewBox="0 0 410 18"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M6 6.4c16.8 16.8 380.8-11.2 397.6 5.602"
+                                    stroke-width="12"
+                                    fill="none"
+                                    fill-rule="evenodd"
+                                    stroke-linecap="round"
+                                ></path>
+                            </svg>
+                            <span class="relative">Your True Potential</span>
+                        </span>
+                    </p>
+                    <p class="mx-auto mt-5 max-w-3xl text-xl text-gray-500 dark:text-gray-300">
+                        Take the leap and unleash your
+                        capabilities. Experience
+                        one week of unlimited access on us and witness the transformation.
+                    </p>
+                    <a
+                        href="#"
+                        class="inline-block py-3 px-6 mt-8 font-semibold text-white bg-blue-600 rounded dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600"
+                    >
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </section>
+    }
+}
+
+#[component]
+pub fn WaveDivider() -> impl IntoView {
+    view! {
+        <style>
+            {r#"
+            .wave-divider {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            }
+            
+            .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 60px;
+            }
+            
+            @media (min-width: 768px) {
+            .wave-divider svg {
+            height: 150px;
+            }
+            }
+            "#}
+        </style>
+
+        <section class="py-12 bg-blue-100 sm:py-20 dark:bg-blue-900">
+            <div class="container px-4 mx-auto">
+                <h2 class="mb-4 text-2xl font-bold text-center sm:mb-8 sm:text-3xl dark:text-white">Section 1</h2>
+                <p class="text-center text-gray-700 dark:text-gray-200">This is the content of section 1.</p>
+            </div>
+        </section>
+
+        <div class="dark:bg-gray-800 wave-divider">
+            <svg
+                data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1200 120"
+                preserveAspectRatio="none"
+            >
+                <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                    class="fill-blue-100 dark:fill-blue-900"
+                ></path>
+            </svg>
+        </div>
+
+        <section class="py-12 bg-white sm:py-20 dark:bg-gray-800">
+            <div class="container px-4 mx-auto">
+                <h2 class="mb-4 text-2xl font-bold text-center sm:mb-8 sm:text-3xl dark:text-white">Section 2</h2>
+                <p class="text-center text-gray-700 dark:text-gray-300">This is the content of section 2.</p>
+            </div>
+        </section>
+    }
+}
+
+#[component]
+pub fn DemoVercelInteraction() -> impl IntoView {
+    view! {
+        <div class="flex overflow-hidden relative justify-center items-center w-full h-screen" id="app">
+            <div class="flex z-10 flex-col items-center w-full">
+                <div class="w-full border-b border-dashed border-slate-200"></div>
+                <div class="flex flex-col gap-8 justify-center items-center p-16 mx-auto w-full max-w-lg h-full bg-white">
+                    <div class="flex flex-col bg-gray-900 rounded-2xl group isolate shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025]">
+                        <div class="relative z-10 flex-none order-last px-6 pb-6">
+                            <h3 class="text-sm font-medium text-white">Email and SMS one-time passcodes</h3>
+                            <p class="mt-2 text-gray-400 text-sm/5">
+                                Fast and reliable one-time passcode delivery with built-in brute
+                                force
+                                prevention.
+                            </p>
+                        </div>
+                        <div
+                            class="relative flex-auto pointer-events-none select-none"
+                            style="min-height:10.25rem"
+                            aria-hidden="true"
+                        >
+                            <div
+                                class="overflow-hidden absolute inset-x-0 top-0 pt-6 duration-300 ease-in-out group-hover:scale-100 isolate h-[calc(206/16*1rem)] scale-[0.98] group-hover:translate-y-[-2rem]"
+                                style="will-change: auto;"
+                            >
+                                <div
+                                    class="p-1.5 mx-auto h-56 bg-gray-800 w-[calc(264/16*1rem)] rounded-[calc(44/16*1rem)]"
+                                    style="box-shadow:0 1px 0 0 rgb(255 255 255 / 0.05) inset, 0px 2px 5px 0 rgb(0 0 0 / 0.40);background-image:linear-gradient(180deg, rgb(255 255 255 / 0.05) 0%, rgb(255 255 255 / 0) 67.19%)"
+                                >
+                                    <div class="overflow-hidden relative px-5 pt-3 ring-1 ring-inset h-[calc(200/16*1rem)] rounded-[calc(38/16*1rem)] bg-gray-950/50 ring-black/5">
+                                        <div
+                                            class="flex relative z-10 justify-center items-center mx-auto size-6 rounded-full duration-300 transform-gpu bg-[#131316] ease group-hover:bg-[#5EE4FF]"
+                                            style="box-shadow: rgba(255, 255, 255, 0.05) 0px 1px; will-change: auto;"
+                                        >
+                                            <svg viewBox="0 0 16 16" class="size-4" aria-hidden="true">
+                                                <path
+                                                    fill="#fff"
+                                                    fill-opacity=".4"
+                                                    d="M3 9a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"
+                                                    opacity="0"
+                                                ></path>
+                                                <path
+                                                    fill="#fff"
+                                                    fill-opacity=".4"
+                                                    fill-rule="evenodd"
+                                                    d="M8 4a2.5 2.5 0 0 0-2.5 2.5V10h-1V6.5a3.5 3.5 0 1 1 7 0V10h-1V6.5A2.5 2.5 0 0 0 8 4Z"
+                                                    clip-rule="evenodd"
+                                                    opacity="0"
+                                                ></path>
+                                                <path
+                                                    d="M3 8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"
+                                                    fill="rgba(116, 118, 134, 1)"
+                                                ></path>
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M8 3a2.5 2.5 0 0 0-2.5 2.5V9h-1V5.5a3.5 3.5 0 1 1 7 0V9h-1V5.5A2.5 2.5 0 0 0 8 3Z"
+                                                    clip-rule="evenodd"
+                                                    fill="rgba(116, 118, 134, 1)"
+                                                ></path>
+                                            </svg>
+                                        </div>
+                                        <span class="[perspective:1000px]">
+                                            <div
+                                                class="flex absolute inset-x-2 top-12 z-20 gap-x-3 items-center p-2 bg-gray-800 rounded-2xl opacity-50 duration-300 ease-in-out delay-150 origin-top scale-90 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 translate-y-[-6.5rem] blur-[2px] group-hover:blur-0"
+                                                style="box-shadow: rgba(19, 19, 22, 0.6) 0px 6px 12px, rgba(255, 255, 255, 0.03) 0px 1px inset; will-change: transform;"
+                                            >
+                                                <div
+                                                    class="flex flex-none justify-center items-center size-10 bg-gray-700 rounded-[calc(10/16*1rem)]"
+                                                    style="box-shadow:0 1px rgb(255 255 255 / 0.05) inset;background-image:radial-gradient(circle at top, rgb(114 233 255 / 0.2), rgb(114 233 255 / 0))"
+                                                >
+                                                    <svg
+                                                        viewBox="0 0 40 40"
+                                                        fill="none"
+                                                        aria-hidden="true"
+                                                        class="size-10"
+                                                    >
+                                                        <g filter="url(#filter0_di_5116_3367)">
+                                                            <path
+                                                                fill="#5DE3FF"
+                                                                fill-rule="evenodd"
+                                                                d="M20 32c6.627 0 12-5.373 12-12S26.627 8 20 8 8 13.373 8 20s5.373 12 12 12Zm6-12c0 2.761-2.686 5-6 5a7.2 7.2 0 0 1-1.163-.094 1.227 1.227 0 0 0-.79.14c-.613.34-1.308.571-1.983.72-.82.182-1.314-.759-.895-1.485.04-.07.08-.14.119-.212.21-.382.099-.846-.184-1.178C14.409 22.075 14 21.077 14 20c0-2.761 2.686-5 6-5s6 2.239 6 5Z"
+                                                                clip-rule="evenodd"
+                                                            ></path>
+                                                        </g>
+                                                        <defs>
+                                                            <filter
+                                                                id="filter0_di_5116_3367"
+                                                                width="42"
+                                                                height="42"
+                                                                x="-1"
+                                                                y="-1"
+                                                                color-interpolation-filters="sRGB"
+                                                                filterUnits="userSpaceOnUse"
+                                                            >
+                                                                <feFlood
+                                                                    flood-opacity="0"
+                                                                    result="BackgroundImageFix"
+                                                                ></feFlood>
+                                                                <feColorMatrix
+                                                                    in="SourceAlpha"
+                                                                    result="hardAlpha"
+                                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                                                ></feColorMatrix>
+                                                                <feMorphology
+                                                                    in="SourceAlpha"
+                                                                    operator="dilate"
+                                                                    radius="1"
+                                                                    result="effect1_dropShadow_5116_3367"
+                                                                ></feMorphology>
+                                                                <feOffset></feOffset>
+                                                                <feGaussianBlur stdDeviation="4"></feGaussianBlur>
+                                                                <feComposite in2="hardAlpha" operator="out"></feComposite>
+                                                                <feColorMatrix values="0 0 0 0 0.419608 0 0 0 0 0.905882 0 0 0 0 1 0 0 0 0.3 0"></feColorMatrix>
+                                                                <feBlend
+                                                                    in2="BackgroundImageFix"
+                                                                    result="effect1_dropShadow_5116_3367"
+                                                                ></feBlend>
+                                                                <feBlend
+                                                                    in="SourceGraphic"
+                                                                    in2="effect1_dropShadow_5116_3367"
+                                                                    result="shape"
+                                                                ></feBlend>
+                                                                <feColorMatrix
+                                                                    in="SourceAlpha"
+                                                                    result="hardAlpha"
+                                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                                                ></feColorMatrix>
+                                                                <feOffset dy="1"></feOffset>
+                                                                <feComposite
+                                                                    in2="hardAlpha"
+                                                                    k2="-1"
+                                                                    k3="1"
+                                                                    operator="arithmetic"
+                                                                ></feComposite>
+                                                                <feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0"></feColorMatrix>
+                                                                <feBlend
+                                                                    in2="shape"
+                                                                    result="effect2_innerShadow_5116_3367"
+                                                                ></feBlend>
+                                                            </filter>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                                <div class="min-w-0">
+                                                    <div class="font-medium text-[0.625rem]/4 text-[#5DE3FF]">
+                                                        Security alert
+                                                    </div>
+                                                    <div class="text-gray-200 truncate text-xs/4">
+                                                        Your security passcode is <span class="text-white">764676</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                        <div class="flex flex-wrap gap-x-2 gap-y-4 justify-between mt-6 text-center">
+                                            <div class="flex-none">
+                                                <div
+                                                    class="relative bg-gray-800 size-10 rounded-[calc(10/16*1rem)]"
+                                                    style="box-shadow:0 1px rgb(255 255 255 / 0.05) inset"
+                                                >
+                                                    <svg
+                                                        viewBox="0 0 40 40"
+                                                        fill="none"
+                                                        aria-hidden="true"
+                                                        class="size-10"
+                                                    >
+                                                        <g filter="url(#email-sms-icon-shadow)">
+                                                            <path
+                                                                fill="#5E5F6E"
+                                                                d="m31.661 28.642-1.576 2.465c-.126.197-.266.388-.465.509-1.796 1.084-7.63.18-14.523-6.713-7.302-7.303-7.883-13.416-6.5-14.799l2.761-1.765a2.152 2.152 0 0 1 2.68.291l2.119 2.118c.714.714.835 1.83.29 2.68l-1.18 1.847c-.387.607-.657 1.29-.451 1.98.373 1.253 1.406 3.24 3.047 4.882a12.282 12.282 0 0 0 3.656 2.515c1.425.633 2.997.214 4.311-.626l.742-.474a2.151 2.151 0 0 1 2.68.291l2.118 2.119c.714.714.835 1.829.291 2.68Z"
+                                                            ></path>
+                                                            <path
+                                                                fill="url(#paint0_linear_5116_3351)"
+                                                                fill-opacity=".2"
+                                                                d="m31.661 28.642-1.576 2.465c-.126.197-.266.388-.465.509-1.796 1.084-7.63.18-14.523-6.713-7.302-7.303-7.883-13.416-6.5-14.799l2.761-1.765a2.152 2.152 0 0 1 2.68.291l2.119 2.118c.714.714.835 1.83.29 2.68l-1.18 1.847c-.387.607-.657 1.29-.451 1.98.373 1.253 1.406 3.24 3.047 4.882a12.282 12.282 0 0 0 3.656 2.515c1.425.633 2.997.214 4.311-.626l.742-.474a2.151 2.151 0 0 1 2.68.291l2.118 2.119c.714.714.835 1.829.291 2.68Z"
+                                                            ></path>
+                                                        </g>
+                                                        <defs>
+                                                            <linearGradient
+                                                                id="paint0_linear_5116_3351"
+                                                                x1="20"
+                                                                x2="20"
+                                                                y1="9"
+                                                                y2="31"
+                                                                gradientUnits="userSpaceOnUse"
+                                                            >
+                                                                <stop stop-color="#fff"></stop>
+                                                                <stop offset="1" stop-opacity="0"></stop>
+                                                            </linearGradient>
+                                                            <filter
+                                                                id="email-sms-icon-shadow"
+                                                                width="30"
+                                                                height="30"
+                                                                x="5"
+                                                                y="6"
+                                                                color-interpolation-filters="sRGB"
+                                                                filterUnits="userSpaceOnUse"
+                                                            >
+                                                                <feFlood
+                                                                    flood-opacity="0"
+                                                                    result="BackgroundImageFix"
+                                                                ></feFlood>
+                                                                <feColorMatrix
+                                                                    in="SourceAlpha"
+                                                                    result="hardAlpha"
+                                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                                                ></feColorMatrix>
+                                                                <feOffset dy="1"></feOffset>
+                                                                <feGaussianBlur stdDeviation="1.5"></feGaussianBlur>
+                                                                <feComposite in2="hardAlpha" operator="out"></feComposite>
+                                                                <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix>
+                                                                <feBlend
+                                                                    in2="BackgroundImageFix"
+                                                                    result="effect1_dropShadow_5116_3351"
+                                                                ></feBlend>
+                                                                <feBlend
+                                                                    in="SourceGraphic"
+                                                                    in2="effect1_dropShadow_5116_3351"
+                                                                    result="shape"
+                                                                ></feBlend>
+                                                                <feColorMatrix
+                                                                    in="SourceAlpha"
+                                                                    result="hardAlpha"
+                                                                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                                                ></feColorMatrix>
+                                                                <feOffset dy="1"></feOffset>
+                                                                <feComposite
+                                                                    in2="hardAlpha"
+                                                                    k2="-1"
+                                                                    k3="1"
+                                                                    operator="arithmetic"
+                                                                ></feComposite>
+                                                                <feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.08 0"></feColorMatrix>
+                                                                <feBlend
+                                                                    in2="shape"
+                                                                    result="effect2_innerShadow_5116_3351"
+                                                                ></feBlend>
+                                                            </filter>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                                <div class="mt-1.5 font-medium text-gray-300 text-[0.625rem]/4">
+                                                    Phone
+                                                </div>
+                                            </div>
+                                            <div class="flex-none">
+                                                <div
+                                                    class="relative bg-gray-800 size-10 rounded-[calc(10/16*1rem)]"
+                                                    style="box-shadow:0 1px rgb(255 255 255 / 0.05) inset"
+                                                >
+                                                    <svg
+                                                        viewBox="0 0 40 40"
+                                                        fill="none"
+                                                        aria-hidden="true"
+                                                        class="size-10"
+                                                    >
+                                                        <g
+                                                            fill-rule="evenodd"
+                                                            clip-rule="evenodd"
+                                                            filter="url(#email-sms-icon-shadow)"
+                                                        >
+                                                            <path
+                                                                fill="#5E5F6E"
+                                                                d="M20 32c6.627 0 12-5.373 12-12S26.627 8 20 8 8 13.373 8 20s5.373 12 12 12Zm6-12c0 2.761-2.686 5-6 5a7.2 7.2 0 0 1-1.163-.094 1.227 1.227 0 0 0-.79.14c-.613.34-1.308.571-1.983.72-.82.182-1.314-.759-.895-1.485.04-.07.08-.14.119-.212.21-.382.099-.846-.184-1.178C14.409 22.075 14 21.077 14 20c0-2.761 2.686-5 6-5s6 2.239 6 5Z"
+                                                            ></path>
+                                                            <path
+                                                                fill="url(#paint0_linear_5116_3354)"
+                                                                fill-opacity=".2"
+                                                                d="M20 32c6.627 0 12-5.373 12-12S26.627 8 20 8 8 13.373 8 20s5.373 12 12 12Zm6-12c0 2.761-2.686 5-6 5a7.2 7.2 0 0 1-1.163-.094 1.227 1.227 0 0 0-.79.14c-.613.34-1.308.571-1.983.72-.82.182-1.314-.759-.895-1.485.04-.07.08-.14.119-.212.21-.382.099-.846-.184-1.178C14.409 22.075 14 21.077 14 20c0-2.761 2.686-5 6-5s6 2.239 6 5Z"
+                                                            ></path>
+                                                        </g>
+                                                        <defs>
+                                                            <linearGradient
+                                                                id="paint0_linear_5116_3354"
+                                                                x1="20"
+                                                                x2="20"
+                                                                y1="9"
+                                                                y2="31"
+                                                                gradientUnits="userSpaceOnUse"
+                                                            >
+                                                                <stop stop-color="#fff"></stop>
+                                                                <stop offset="1" stop-opacity="0"></stop>
+                                                            </linearGradient>
+                                                        </defs>
+                                                    </svg>
+                                                    <div
+                                                        class="flex absolute -top-1.5 -left-1.5 z-10 justify-center items-center size-5 font-semibold rounded-full duration-100 scale-75 group-hover:scale-100 text-[0.625rem]/none text-gray-950 backdrop-blur ease bg-[#ffffff40] group-hover:bg-[#5EE4FF]"
+                                                        style="will-change: auto; box-shadow: rgba(107, 231, 255, 0.3) 0px 0px 0px 0px, rgba(255, 255, 255, 0.2) 0px 0px inset;"
+                                                    >
+                                                        1
+                                                    </div>
+                                                </div>
+                                                <div class="mt-1.5 font-medium text-gray-300 text-[0.625rem]/4">
+                                                    SMS
+                                                </div>
+                                            </div>
+                                            <div class="flex-none">
+                                                <div
+                                                    class="relative bg-gray-800 size-10 rounded-[calc(10/16*1rem)]"
+                                                    style="box-shadow:0 1px rgb(255 255 255 / 0.05) inset"
+                                                >
+                                                    <svg
+                                                        viewBox="0 0 40 40"
+                                                        fill="none"
+                                                        aria-hidden="true"
+                                                        class="size-10"
+                                                    >
+                                                        <g filter="url(#email-sms-icon-shadow)">
+                                                            <path
+                                                                fill="#5E5F6E"
+                                                                d="M19.083 13.241a.768.768 0 0 0-.179-.523c-.594-.657-2.828-2.545-8.984-2.718-.506-.014-.92.429-.92.973v16.746c0 .544.414.984.92.998 3.126.088 5.241.617 6.643 1.204.846.354 2.52-.54 2.52-1.515V13.24Z"
+                                                            ></path>
+                                                            <path
+                                                                fill="url(#paint0_linear_5116_3361)"
+                                                                fill-opacity=".2"
+                                                                d="M19.083 13.241a.768.768 0 0 0-.179-.523c-.594-.657-2.828-2.545-8.984-2.718-.506-.014-.92.429-.92.973v16.746c0 .544.414.984.92.998 3.126.088 5.241.617 6.643 1.204.846.354 2.52-.54 2.52-1.515V13.24Z"
+                                                            ></path>
+                                                            <path
+                                                                fill="#5E5F6E"
+                                                                d="M20.917 13.241c0-.194.053-.383.179-.523.594-.657 2.828-2.545 8.984-2.718.506-.014.92.429.92.973v16.746c0 .544-.414.984-.92.998-3.126.088-5.241.617-6.643 1.204-.846.354-2.52-.54-2.52-1.515V13.24Z"
+                                                            ></path>
+                                                            <path
+                                                                fill="url(#paint1_linear_5116_3361)"
+                                                                fill-opacity=".2"
+                                                                d="M20.917 13.241c0-.194.053-.383.179-.523.594-.657 2.828-2.545 8.984-2.718.506-.014.92.429.92.973v16.746c0 .544-.414.984-.92.998-3.126.088-5.241.617-6.643 1.204-.846.354-2.52-.54-2.52-1.515V13.24Z"
+                                                            ></path>
+                                                        </g>
+                                                        <defs>
+                                                            <linearGradient
+                                                                id="paint0_linear_5116_3361"
+                                                                x1="20"
+                                                                x2="20"
+                                                                y1="10"
+                                                                y2="30"
+                                                                gradientUnits="userSpaceOnUse"
+                                                            >
+                                                                <stop stop-color="#fff"></stop>
+                                                                <stop offset="1" stop-opacity="0"></stop>
+                                                            </linearGradient>
+                                                            <linearGradient
+                                                                id="paint1_linear_5116_3361"
+                                                                x1="20"
+                                                                x2="20"
+                                                                y1="10"
+                                                                y2="30"
+                                                                gradientUnits="userSpaceOnUse"
+                                                            >
+                                                                <stop stop-color="#fff"></stop>
+                                                                <stop offset="1" stop-opacity="0"></stop>
+                                                            </linearGradient>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                                <div class="mt-1.5 font-medium text-gray-300 text-[0.625rem]/4">
+                                                    Books
+                                                </div>
+                                            </div>
+                                            <div class="flex-none">
+                                                <div
+                                                    class="relative bg-gray-800 size-10 rounded-[calc(10/16*1rem)]"
+                                                    style="box-shadow:0 1px rgb(255 255 255 / 0.05) inset"
+                                                >
+                                                    <svg
+                                                        viewBox="0 0 40 40"
+                                                        fill="none"
+                                                        aria-hidden="true"
+                                                        class="size-10"
+                                                    >
+                                                        <g filter="url(#email-sms-icon-shadow)">
+                                                            <path
+                                                                fill="#5E5F6E"
+                                                                fill-rule="evenodd"
+                                                                d="M14 30a1 1 0 0 1 1-1h9a1 1 0 1 1 0 2h-9a1 1 0 0 1-1-1Z"
+                                                                clip-rule="evenodd"
+                                                            ></path>
+                                                            <path
+                                                                fill="url(#paint0_linear_5116_3364)"
+                                                                fill-opacity=".2"
+                                                                fill-rule="evenodd"
+                                                                d="M14 30a1 1 0 0 1 1-1h9a1 1 0 1 1 0 2h-9a1 1 0 0 1-1-1Z"
+                                                                clip-rule="evenodd"
+                                                            ></path>
+                                                            <path
+                                                                fill="#5E5F6E"
+                                                                d="M8 13a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V13Z"
+                                                            ></path>
+                                                            <path
+                                                                fill="url(#paint1_linear_5116_3364)"
+                                                                fill-opacity=".2"
+                                                                d="M8 13a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V13Z"
+                                                            ></path>
+                                                        </g>
+                                                        <defs>
+                                                            <linearGradient
+                                                                id="paint0_linear_5116_3364"
+                                                                x1="20"
+                                                                x2="20"
+                                                                y1="11"
+                                                                y2="31"
+                                                                gradientUnits="userSpaceOnUse"
+                                                            >
+                                                                <stop stop-color="#fff"></stop>
+                                                                <stop offset="1" stop-opacity="0"></stop>
+                                                            </linearGradient>
+                                                            <linearGradient
+                                                                id="paint1_linear_5116_3364"
+                                                                x1="20"
+                                                                x2="20"
+                                                                y1="11"
+                                                                y2="31"
+                                                                gradientUnits="userSpaceOnUse"
+                                                            >
+                                                                <stop stop-color="#fff"></stop>
+                                                                <stop offset="1" stop-opacity="0"></stop>
+                                                            </linearGradient>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                                <div class="mt-1.5 font-medium text-gray-300 text-[0.625rem]/4">TV</div>
+                                            </div>
+                                            <div class="flex-none">
+                                                <div
+                                                    class="relative bg-gray-800 size-10 rounded-[calc(10/16*1rem)]"
+                                                    style="box-shadow:0 1px rgb(255 255 255 / 0.05) inset"
+                                                ></div>
+                                                <div class="mt-1.5 font-medium text-gray-300 text-[0.625rem]/4">
+                                                    Google
+                                                </div>
+                                            </div>
+                                            <div class="flex-none">
+                                                <div
+                                                    class="relative bg-gray-800 size-10 rounded-[calc(10/16*1rem)]"
+                                                    style="box-shadow:0 1px rgb(255 255 255 / 0.05) inset"
+                                                ></div>
+                                                <div class="mt-1.5 font-medium text-gray-300 text-[0.625rem]/4">X</div>
+                                            </div>
+                                            <div class="flex-none">
+                                                <div
+                                                    class="relative bg-gray-800 size-10 rounded-[calc(10/16*1rem)]"
+                                                    style="box-shadow:0 1px rgb(255 255 255 / 0.05) inset"
+                                                ></div>
+                                                <div class="mt-1.5 font-medium text-gray-300 text-[0.625rem]/4">
+                                                    NatWest
+                                                </div>
+                                            </div>
+                                            <div class="flex-none">
+                                                <div
+                                                    class="relative bg-gray-800 size-10 rounded-[calc(10/16*1rem)]"
+                                                    style="box-shadow:0 1px rgb(255 255 255 / 0.05) inset"
+                                                ></div>
+                                                <div class="mt-1.5 font-medium text-gray-300 text-[0.625rem]/4">
+                                                    Clerk
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-gray-900 duration-300 ease-in-out group-hover:translate-y-[2rem]"
+                                    style="will-change: auto;"
+                                ></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="w-full border-t border-dashed border-slate-200"></div>
+            </div>
+            <div class="absolute inset-0 w-full h-full">
+                <div class="absolute inset-0 py-0 px-4 w-full h-full pointer-events-none">
+                    <div class="flex justify-between items-center mx-auto h-full max-w-[1080px]">
+                        <div class="h-full bg-slate-200 w-[1px]"></div>
+                        <div class="h-full border-r border-dashed border-slate-200"></div>
+                        <div class="h-full border-r border-dashed border-slate-200"></div>
+                        <div class="h-full border-r border-dashed border-slate-200"></div>
+                        <div class="h-full bg-slate-200 w-[1px]"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+}
+
+#[component]
+pub fn CardsWithMask() -> impl IntoView {
+    view! {
+        <div class="relative w-full">
+            <div class="hidden absolute right-0 bottom-0 left-0 md:block bg-finta-50 border-finta-200/50 top-[9px] border-y"></div>
+            <div class="relative md:container">
+                <div class="overflow-hidden bg-white md:rounded-t-lg border-finta-200 border-y md:border-x">
+                    <div class="grid gap-px md:grid-cols-2 bg-finta-200">
+                        <div
+                            class="@container"
+                            data-blok-c="{&quot;name&quot;:&quot;bentoAsset&quot;,&quot;space&quot;:&quot;1023015&quot;,&quot;uid&quot;:&quot;fecfcd77-46b0-4688-b865-7be3302cddaf&quot;,&quot;id&quot;:&quot;20579644&quot;}"
+                            data-blok-uid="20579644-fecfcd77-46b0-4688-b865-7be3302cddaf"
+                        >
+                            <div class="relative p-6 w-full h-full bg-white lg:px-16 lg:pb-10 min-h-100.5">
+                                <div class="absolute inset-0">
+                                    <div class="flex justify-center pt-16 w-full h-full @sm:pt-21 [mask-image:radial-gradient(54.78%_62.19%_at_50%_37.81%,#FFF_53.6%,rgba(255,255,255,0)_100%)] @max-sm:[mask-position:center] @max-sm:[mask-size:504px_402px] @sm:[mask-image:radial-gradient(51.27%_58.21%_at_50%_41.79%,#FFF_46.69%,rgba(255,255,255,0)_100%)]">
+                                        <div class="relative w-72 @sm:w-70">
+                                            <div class="flex absolute top-0 right-0 left-0 flex-col items-start px-4 pt-4 pb-3 w-full bg-white rounded-xl transition-all translate-y-4 shadow-[0px_8px_12px_-4px_rgba(15,12,12,0.08),0px_0px_2px_0px_rgba(15,12,12,0.10),0px_1px_2px_0px_rgba(15,12,12,0.10)] ease-in-out-cubic duration-1300 translate-x-[calc(100%+16px)] z-1">
+                                                <div class="text-xs font-medium">MRR</div>
+                                                <div class="mt-3 font-bold tracking-normal @sm:mt-2 text-[32px]/[32px] @sm:text-[24px]/[26px]">
+                                                    <span class="lining-nums tabular-nums">$76</span>
+                                                    ,
+                                                    <span class="lining-nums tabular-nums">891</span>
+                                                </div>
+                                                <div class="px-2 pb-0.5 mt-7 text-xs rounded-lg @sm:mt-4 py-[3px] bg-finta-100 font-book text-finta-800">
+                                                    Updated 1m ago
+                                                </div>
+                                            </div>
+                                            <div class="flex absolute top-0 right-0 left-0 flex-col items-start px-4 pt-4 pb-3 w-full bg-white rounded-xl opacity-0 transition-all translate-y-4 shadow-[0px_8px_12px_-4px_rgba(15,12,12,0.08),0px_0px_2px_0px_rgba(15,12,12,0.10),0px_1px_2px_0px_rgba(15,12,12,0.10)] ease-in-out-cubic duration-1300 translate-x-[calc(200%+32px)]">
+                                                <div class="text-xs font-medium">Cash</div>
+                                                <div class="mt-3 font-bold tracking-normal @sm:mt-2 text-[32px]/[32px] @sm:text-[24px]/[26px]">
+                                                    <span class="lining-nums tabular-nums">$2</span>
+                                                    ,
+                                                    <span class="lining-nums tabular-nums">309</span>
+                                                    ,
+                                                    <span class="lining-nums tabular-nums">091</span>
+                                                </div>
+                                                <div class="px-2 pb-0.5 mt-7 text-xs rounded-lg @sm:mt-4 py-[3px] bg-finta-100 font-book text-finta-800">
+                                                    Updated 1m ago
+                                                </div>
+                                            </div>
+                                            <div class="flex absolute top-0 right-0 left-0 flex-col items-start px-4 pt-4 pb-3 w-full bg-white rounded-xl opacity-0 transition-all shadow-[0px_8px_12px_-4px_rgba(15,12,12,0.08),0px_0px_2px_0px_rgba(15,12,12,0.10),0px_1px_2px_0px_rgba(15,12,12,0.10)] ease-in-out-cubic duration-1300">
+                                                <div class="text-xs font-medium">Burn</div>
+                                                <div class="mt-3 font-bold tracking-normal @sm:mt-2 text-[32px]/[32px] @sm:text-[24px]/[26px]">
+                                                    <span class="lining-nums tabular-nums">-$41</span>
+                                                    ,
+                                                    <span class="lining-nums tabular-nums">206</span>
+                                                </div>
+                                                <div class="px-2 pb-0.5 mt-7 text-xs rounded-lg @sm:mt-4 py-[3px] bg-finta-100 font-book text-finta-800">
+                                                    Updated 1m ago
+                                                </div>
+                                            </div>
+                                            <div class="flex absolute top-0 right-0 left-0 flex-col items-start px-4 pt-4 pb-3 w-full bg-white rounded-xl opacity-0 transition-all translate-y-4 shadow-[0px_8px_12px_-4px_rgba(15,12,12,0.08),0px_0px_2px_0px_rgba(15,12,12,0.10),0px_1px_2px_0px_rgba(15,12,12,0.10)] ease-in-out-cubic duration-1300 translate-x-[calc(-200%-32px)]">
+                                                <div class="text-xs font-medium">MRR</div>
+                                                <div class="mt-3 font-bold tracking-normal @sm:mt-2 text-[32px]/[32px] @sm:text-[24px]/[26px]">
+                                                    <span class="lining-nums tabular-nums">$76</span>
+                                                    ,
+                                                    <span class="lining-nums tabular-nums">891</span>
+                                                </div>
+                                                <div class="px-2 pb-0.5 mt-7 text-xs rounded-lg @sm:mt-4 py-[3px] bg-finta-100 font-book text-finta-800">
+                                                    Updated 1m ago
+                                                </div>
+                                            </div>
+                                            <div class="flex absolute top-0 right-0 left-0 flex-col items-start px-4 pt-4 pb-3 w-full bg-white rounded-xl transition-all translate-y-4 shadow-[0px_8px_12px_-4px_rgba(15,12,12,0.08),0px_0px_2px_0px_rgba(15,12,12,0.10),0px_1px_2px_0px_rgba(15,12,12,0.10)] ease-in-out-cubic duration-1300 translate-x-[calc(-100%-16px)]">
+                                                <div class="text-xs font-medium">Cash</div>
+                                                <div class="mt-3 font-bold tracking-normal @sm:mt-2 text-[32px]/[32px] @sm:text-[24px]/[26px]">
+                                                    <span class="lining-nums tabular-nums">$2</span>
+                                                    ,
+                                                    <span class="lining-nums tabular-nums">309</span>
+                                                    ,
+                                                    <span class="lining-nums tabular-nums">091</span>
+                                                </div>
+                                                <div class="px-2 pb-0.5 mt-7 text-xs rounded-lg @sm:mt-4 py-[3px] bg-finta-100 font-book text-finta-800">
+                                                    Updated 1m ago
+                                                </div>
+                                            </div>
+                                            <div class="flex absolute top-0 right-0 left-0 flex-col items-start px-4 pt-4 pb-3 w-full bg-white rounded-xl transition-all shadow-[0px_8px_12px_-4px_rgba(15,12,12,0.08),0px_0px_2px_0px_rgba(15,12,12,0.10),0px_1px_2px_0px_rgba(15,12,12,0.10)] ease-in-out-cubic duration-1300 z-1">
+                                                <div class="text-xs font-medium">Burn</div>
+                                                <div class="mt-3 font-bold tracking-normal @sm:mt-2 text-[32px]/[32px] @sm:text-[24px]/[26px]">
+                                                    <span class="lining-nums tabular-nums">-$41</span>
+                                                    ,
+                                                    <span class="lining-nums tabular-nums">206</span>
+                                                </div>
+                                                <div class="px-2 pb-0.5 mt-7 text-xs rounded-lg @sm:mt-4 py-[3px] bg-finta-100 font-book text-finta-800">
+                                                    Updated 1m ago
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col justify-end h-full">
+                                    <div class="flex relative flex-col gap-y-3 sm:items-center sm:mx-auto sm:max-w-md sm:text-center">
+                                        <h3 class="flex gap-x-2 items-center font-bold leading-4 uppercase text-brand-blue tracking-[0.04em] text-[11px]">
+                                            <img
+                                                alt=""
+                                                loading="lazy"
+                                                width="20"
+                                                height="20"
+                                                decoding="async"
+                                                data-nimg="1"
+                                                style="color:transparent"
+                                                src="https://a-us.storyblok.com/f/1023015/20x20/31175a1213/investor-ready-metrics-icon.svg"
+                                            />
+                                        </h3>
+                                        <p class="text-sm md:text-base font-book text-pretty [word-spacing:0.02em]">
+                                            Send investor updates with real-time access to cash, burn rate, runway, and MRR.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

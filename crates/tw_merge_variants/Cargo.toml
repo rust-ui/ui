@@ -1,0 +1,22 @@
+[package]
+name = "tw_merge_variants"
+version = "0.1.8"
+edition = "2024"
+authors = ["Rustify"]
+description = "Variant macros for tw_merge"
+keywords = ["tailwind", "variants", "leptos"]
+license = "MIT"
+repository = "https://github.com/rust-ui/tw_merge"
+homepage = "https://rust-ui.com"
+categories = ["web-programming", "development-tools", "wasm"]
+readme = "./README.md"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { version = "2", features = ["full"] }
+quote = "1"
+proc-macro2 = "1"
+darling = "0.20"
+

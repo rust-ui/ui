@@ -1,0 +1,43 @@
+name: SemVer Check
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - "crates/leptos_ui/**"
+      - "crates/tw_merge/**"
+      - "crates/tw_merge_variants/**"
+      - "crates/icons/**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  semver:
+    name: SemVer (${{ matrix.crate.package }})
+    runs-on: ubuntu-latest
+    # Add `breaking` label to a PR to skip this check for intentional breaking changes
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'breaking') }}
+    strategy:
+      fail-fast: false
+      matrix:
+        crate:
+          - manifest: crates/leptos_ui/Cargo.toml
+            package: leptos_ui
+          - manifest: crates/tw_merge/Cargo.toml
+            package: tw_merge
+          - manifest: crates/icons/Cargo.toml
+            package: icons
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Check SemVer
+        uses: obi1kenobi/cargo-semver-checks-action@v2
+        with:
+          manifest-path: ${{ matrix.crate.manifest }}
+          package: ${{ matrix.crate.package }}

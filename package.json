@@ -1,0 +1,24 @@
+{
+	"scripts": {
+		"format": "biome format --write .",
+		"check": "biome check .",
+		"check:fix": "biome check --apply .",
+		"e2e": "cd e2e && PORT=${PORT:-3000} npx playwright test",
+		"e2e:ui": "cd e2e && PORT=${PORT:-3000} npx playwright test --ui",
+		"e2e:headed": "cd e2e && PORT=${PORT:-3000} npx playwright test --headed",
+		"e2e:components": "cd e2e && PORT=${PORT:-3000} npx playwright test tests/components/",
+		"e2e:hooks": "cd e2e && PORT=${PORT:-3000} npx playwright test tests/hooks/",
+		"e2e:smoke": "cd e2e && PORT=${PORT:-3000} npx playwright test --grep @smoke",
+		"e2e:fast": "cd e2e && PORT=${PORT:-3000} npx playwright test --workers=16 --retries=0",
+		"e2e:report": "cd e2e && npx playwright show-report"
+	},
+	"type": "module",
+	"dependencies": {
+		"@tailwindcss/cli": "^4.1.13",
+		"tailwindcss": "^4.1.13",
+		"tw-animate-css": "^1.3.8"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.2.5"
+	}
+}

@@ -1,0 +1,22 @@
+name: Cleanup Worktree on PR Merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete merged branch
+        run: |
+          # Delete the remote branch that was merged
+          if git ls-remote --exit-code --heads origin ${{ github.head_ref }} >/dev/null 2>&1; then
+            git push origin --delete ${{ github.head_ref }}
+            echo "Branch ${{ github.head_ref }} deleted successfully"
+          else
+            echo "Branch ${{ github.head_ref }} was already deleted or does not exist"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

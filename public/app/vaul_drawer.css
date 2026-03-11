@@ -1,0 +1,271 @@
+/* ===== VAUL DRAWER STYLES ===== */
+[data-vaul-drawer] {
+  touch-action: none;
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+[data-vaul-drawer][data-vaul-snap-points='false'][data-vaul-drawer-position='Bottom'][data-state='open'] {
+  animation-name: slideFromBottom;
+}
+[data-vaul-drawer][data-vaul-snap-points='false'][data-vaul-drawer-position='Bottom'][data-state='closed'] {
+  animation-name: slideToBottom;
+}
+
+[data-vaul-drawer][data-vaul-snap-points='false'][data-vaul-drawer-position='Left'][data-state='open'] {
+  animation-name: slideFromLeft;
+}
+[data-vaul-drawer][data-vaul-snap-points='false'][data-vaul-drawer-position='Left'][data-state='closed'] {
+  animation-name: slideToLeft;
+}
+
+[data-vaul-drawer][data-vaul-snap-points='false'][data-vaul-drawer-position='Right'][data-state='open'] {
+  animation-name: slideFromRight;
+}
+[data-vaul-drawer][data-vaul-snap-points='false'][data-vaul-drawer-position='Right'][data-state='closed'] {
+  animation-name: slideToRight;
+}
+
+[data-vaul-drawer][data-vaul-snap-points='true'][data-vaul-drawer-position='Bottom'] {
+  transform: translate3d(0, var(--initial-transform, 100%), 0);
+}
+
+[data-vaul-drawer][data-vaul-snap-points='true'][data-vaul-drawer-position='Top'] {
+  transform: translate3d(0, calc(var(--initial-transform, 100%) * -1), 0);
+}
+
+[data-vaul-drawer][data-vaul-snap-points='true'][data-vaul-drawer-position='Left'] {
+  transform: translate3d(calc(var(--initial-transform, 100%) * -1), 0, 0);
+}
+
+[data-vaul-drawer][data-vaul-snap-points='true'][data-vaul-drawer-position='Right'] {
+  transform: translate3d(var(--initial-transform, 100%), 0, 0);
+}
+
+[data-vaul-drawer][data-vaul-delayed-snap-points='true'][data-vaul-drawer-position='Top'] {
+  transform: translate3d(0, var(--snap-point-height, 0), 0);
+}
+
+[data-vaul-drawer][data-vaul-delayed-snap-points='true'][data-vaul-drawer-position='Bottom'] {
+  transform: translate3d(0, var(--snap-point-height, 0), 0);
+}
+
+[data-vaul-drawer][data-vaul-delayed-snap-points='true'][data-vaul-drawer-position='Left'] {
+  transform: translate3d(var(--snap-point-height, 0), 0, 0);
+}
+
+[data-vaul-drawer][data-vaul-delayed-snap-points='true'][data-vaul-drawer-position='Right'] {
+  transform: translate3d(var(--snap-point-height, 0), 0, 0);
+}
+
+[data-vaul-overlay][data-vaul-snap-points='false'] {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+[data-vaul-overlay][data-vaul-snap-points='false'][data-state='open'] {
+  animation-name: fadeIn;
+}
+[data-vaul-overlay][data-state='closed'] {
+  animation-name: fadeOut;
+}
+
+[data-vaul-animate='false'] {
+  animation: none !important;
+}
+
+[data-vaul-overlay][data-vaul-snap-points='true'] {
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+[data-vaul-overlay][data-vaul-snap-points='true'] {
+  opacity: 1;
+}
+
+[data-vaul-drawer]:not([data-vaul-variant='Floating'])::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  background-color: inherit;
+}
+
+[data-vaul-drawer][data-vaul-drawer-position='Top']::after {
+  top: initial;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: 200%;
+}
+
+[data-vaul-drawer][data-vaul-drawer-position='Bottom']::after {
+  top: 100%;
+  bottom: initial;
+  left: 0;
+  right: 0;
+  height: 200%;
+}
+
+[data-vaul-drawer][data-vaul-drawer-position='Left']::after {
+  left: initial;
+  right: 100%;
+  top: 0;
+  bottom: 0;
+  width: 200%;
+}
+
+[data-vaul-drawer][data-vaul-drawer-position='Right']::after {
+  left: 100%;
+  right: initial;
+  top: 0;
+  bottom: 0;
+  width: 200%;
+}
+
+[data-vaul-overlay][data-vaul-snap-points='true']:not([data-vaul-snap-points-overlay='true']):not(
+    [data-state='closed']
+  ) {
+  opacity: 0;
+}
+
+[data-vaul-overlay][data-vaul-snap-points-overlay='true'] {
+  opacity: 1;
+}
+
+[data-vaul-handle] {
+  touch-action: pan-y;
+}
+
+
+[data-vaul-handle-hitarea] {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100%, 2.75rem); /* 44px */
+  height: max(100%, 2.75rem); /* 44px */
+  touch-action: inherit;
+}
+
+/* Removed user-select: none to allow text selection in drawer content.
+   Text selection is now prevented via JavaScript only when actively dragging. */
+
+@media (pointer: fine) {
+  [data-vaul-handle-hitarea]: {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideFromBottom {
+  from {
+    transform: translate3d(0, var(--initial-transform, 100%), 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideToBottom {
+  to {
+    transform: translate3d(0, var(--initial-transform, 100%), 0);
+  }
+}
+
+@keyframes slideFromLeft {
+  from {
+    transform: translate3d(calc(var(--initial-transform, 100%) * -1), 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideToLeft {
+  to {
+    transform: translate3d(calc(var(--initial-transform, 100%) * -1), 0, 0);
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    transform: translate3d(var(--initial-transform, 100%), 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideToRight {
+  to {
+    transform: translate3d(var(--initial-transform, 100%), 0, 0);
+  }
+}
+
+/* Custom drawer styling */
+[data-name='DrawerContent'][data-state='closed'] {
+  transform: translate3d(0, 100%, 0);
+}
+
+body[data-state="open"] {
+  overflow: hidden;
+}
+
+
+
+
+/* ===== ADDITIONAL DRAWER CLASSES ===== */
+/* ===== ADDITIONAL DRAWER CLASSES ===== */
+/* ===== ADDITIONAL DRAWER CLASSES ===== */
+/* ===== ADDITIONAL DRAWER CLASSES ===== */
+/* ===== ADDITIONAL DRAWER CLASSES ===== */
+
+/*
+* IMPORTANT: Ensure hidden class takes priority
+* Fixed issue with parent that was flex.
+* And also fix scrollbar padding when animation triggered 😍😍😍
+*/
+[data-name='DrawerContent'].hidden {
+  display: none !important;
+}
+
+/* * Nested drawer styling - higher z-index */
+.drawer__nested {
+  z-index: 220;
+}
+
+/* * Nested drawer overlay - higher z-index */
+.overlay__nested {
+  z-index: 215;
+}
+
+
+
+/* ===== FLOATING SIDE DRAWER ===== */
+/* ===== FLOATING SIDE DRAWER ===== */
+/* ===== FLOATING SIDE DRAWER ===== */
+/* ===== FLOATING SIDE DRAWER ===== */
+
+/* Floating drawer closed state - accounts for 8px margin */
+[data-vaul-variant='Floating'][data-state='closed'] {
+  transform: translate3d(calc(100% + 8px), 0, 0);
+}
+
+
+

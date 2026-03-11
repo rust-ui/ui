@@ -1,0 +1,71 @@
+.syntax__text {
+  @apply text-[#565757] dark:text-[#4c585d];
+}
+
+.syntax__keyword {
+  @apply text-[#cb4b16] dark:text-[#cb4b16] font-medium;
+}
+
+.syntax__string {
+  @apply text-[#859900] dark:text-[#859900];
+}
+
+.syntax__comment {
+  @apply text-[#586e75] dark:text-[#657b83] italic opacity-75;
+}
+
+.syntax__number {
+  @apply text-[#2aa198] dark:text-[#2aa198];
+}
+
+.syntax__function {
+  @apply text-[#268bd2] dark:text-[#268bd2] font-medium;
+}
+
+.syntax__type {
+  @apply text-[#b58900] dark:text-[#b58900] font-medium;
+}
+
+.syntax__variable {
+  @apply text-[#073642] dark:text-[#839496];
+}
+
+.syntax__property {
+  @apply text-[#2aa198] dark:text-[#2aa198];
+}
+
+.syntax__operator {
+  @apply text-[#dc322f] dark:text-[#dc322f] font-medium;
+}
+
+.syntax__punctuation {
+  @apply text-[#657b83] dark:text-[#586e75];
+}
+
+.syntax__attribute {
+  @apply text-[#6c71c4] dark:text-[#6c71c4] font-medium;
+}
+
+.syntax__constant {
+  @apply text-[#d33682] dark:text-[#d33682] font-semibold;
+}
+
+.syntax__tag {
+  @apply text-[#268bd2] dark:text-[#268bd2] font-medium;
+}
+
+.syntax__bold {
+  @apply font-bold;
+}
+
+.syntax__italic {
+  @apply italic;
+}
+
+.syntax__underline {
+  @apply underline;
+}
+
+.syntax__argument {
+  @apply text-[#5f5f5f] dark:text-[#515151] font-medium;
+}

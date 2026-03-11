@@ -1,0 +1,178 @@
+.leptos-toaster {
+  width: var(--width);
+  z-index: 999999999;
+}
+
+.leptos-toaster[data-x-position='right'] {
+  right: max(var(--offset), env(safe-area-inset-right));
+}
+
+.leptos-toaster[data-y-position='bottom'] {
+  bottom: max(var(--offset), env(safe-area-inset-bottom));
+}
+
+.sonner-toast-container {
+  --y: translateY(100%);
+  --lift-amount: calc(var(--lift) * var(--gap));
+  z-index: var(--z-index);
+  transform: var(--y);
+  /* https://stackoverflow.com/questions/48124372/pointermove-event-not-working-with-touch-why-not */
+  touch-action: none;
+  will-change: transform, opacity, height;
+  transition:
+    transform 400ms,
+    opacity 400ms,
+    height 400ms,
+    box-shadow 200ms;
+  overflow-wrap: anywhere;
+}
+
+.sonner-toast-container[data-y-position='top'] {
+  top: 0;
+  --y: translateY(-100%);
+  --lift: 1;
+  --lift-amount: calc(1 * var(--gap));
+}
+
+.sonner-toast-container[data-y-position='bottom'] {
+  bottom: 0;
+  --y: translateY(100%);
+  --lift: -1;
+  --lift-amount: calc(var(--lift) * var(--gap));
+}
+
+/* Leave a ghost div to avoid setting hover to false when swiping out */
+.sonner-toast-container[data-swiping='true']:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: -1;
+}
+
+.sonner-toast-container[data-y-position='top'][data-swiping='true']:before {
+  /* y 50% needed to distribute height additional height evenly */
+  bottom: 50%;
+  transform: scaleY(3) translateY(50%);
+}
+
+.sonner-toast-container[data-y-position='bottom'][data-swiping='true']:before {
+  /* y -50% needed to distribute height additional height evenly */
+  top: 50%;
+  transform: scaleY(3) translateY(-50%);
+}
+
+/* Leave a ghost div to avoid setting hover to false when transitioning out */
+.sonner-toast-container[data-swiping='false'][data-removed='true']:before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: scaleY(2);
+}
+
+/* Needed to avoid setting hover to false when inbetween toasts */
+.sonner-toast-container:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  height: calc(var(--gap) + 1px);
+  bottom: 100%;
+  width: 100%;
+}
+
+.sonner-toast-container[data-mounted='true'] {
+  --y: translateY(0);
+  opacity: 1;
+}
+
+.sonner-toast-container[data-expanded='false'][data-front='false'] {
+  --scale: var(--toasts-before) * 0.05 + 1;
+  --y: translateY(calc(var(--lift-amount) * var(--toasts-before))) scale(calc(-1 * var(--scale)));
+  height: var(--front-toast-height);
+}
+
+.sonner-toast-container > * {
+  transition: opacity 400ms;
+}
+
+.sonner-toast-container[data-expanded='false'][data-front='false'][data-styled='true'] > * {
+  opacity: 0;
+}
+
+.sonner-toast-container[data-visible='false'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sonner-toast-container[data-mounted='true'][data-expanded='true'] {
+  --y: translateY(calc(var(--lift) * var(--offset)));
+  height: var(--initial-height);
+}
+
+.sonner-toast-container[data-removed='true'][data-front='true'][data-swipe-out='false'] {
+  --y: translateY(calc(var(--lift) * -100%));
+  opacity: 0;
+}
+
+.sonner-toast-container[data-removed='true'][data-front='false'][data-swipe-out='false'][data-expanded='true'] {
+  --y: translateY(calc(var(--lift) * var(--offset) + var(--lift) * -100%));
+  opacity: 0;
+}
+
+.sonner-toast-container[data-removed='true'][data-front='false'][data-swipe-out='false'][data-expanded='false'] {
+  --y: translateY(40%);
+  opacity: 0;
+  transition:
+    transform 500ms,
+    opacity 200ms;
+}
+
+/* Bump up the height to make sure hover state doesn't get set to false */
+.sonner-toast-container[data-removed='true'][data-front='false']:before {
+  height: calc(var(--initial-height) + 20%);
+}
+
+.sonner-toast-container[data-swiping='true'] {
+  transform: var(--y) translateY(var(--swipe-amount, 0px));
+  transition: none;
+}
+
+.sonner-toast-container[data-swipe-out='true'][data-y-position='bottom'],
+.sonner-toast-container[data-swipe-out='true'][data-y-position='top'] {
+  animation: swipe-out 200ms ease-out forwards;
+}
+
+@keyframes swipe-out {
+  from {
+    transform: translateY(calc(var(--lift) * var(--offset) + var(--swipe-amount)));
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(calc(var(--lift) * var(--offset) + var(--swipe-amount) + var(--lift) * -100%));
+    opacity: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .leptos-toaster {
+    position: fixed;
+    --mobile-offset: 16px;
+    right: var(--mobile-offset);
+    left: var(--mobile-offset);
+    width: 100%;
+  }
+
+  .leptos-toaster .sonner-toast-container {
+    left: 0;
+    right: 0;
+    width: calc(100% - 32px);
+  }
+
+  .leptos-toaster[data-y-position='bottom'] {
+    bottom: 20px;
+  }
+}
+
+

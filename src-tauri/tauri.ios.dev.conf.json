@@ -1,0 +1,14 @@
+{
+  "build": {
+    "beforeDevCommand": "LEPTOS_SITE_ADDR=0.0.0.0:4000 LEPTOS_RELOAD_PORT=4001 cargo leptos watch",
+    "devUrl": "http://localhost:4000"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "url": "http://172.30.54.108:4000"
+      }
+    ]
+  }
+}
