@@ -1,0 +1,12 @@
+max_width = 120
+tab_spaces = 4
+indentation_style = "Auto"
+newline_style = "Auto"
+attr_value_brace_style = "WhenRequired"
+macro_names = [ "leptos::view", "view" ]
+closing_tag_style = "Preserve"
+
+# Attribute values can be formatted by custom formatters
+# Every attribute name may only select one formatter (this might change later on)
+[attr_values]
+class = "Tailwind" # "Tailwind" is the only attribute value formatter available for now

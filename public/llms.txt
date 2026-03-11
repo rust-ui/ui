@@ -1,0 +1,240 @@
+# Rust/UI - LLM-Accessible Documentation
+
+## About
+Rust/UI is a comprehensive UI component library for building web applications with Leptos (Rust). It provides 60+ production-ready components, reusable hooks, pre-built blocks, and chart components - all built with Rust, Leptos, and Tailwind CSS.
+
+## Main Sections
+
+### Components (60+ available)
+Explore all components: /docs/components
+
+**Core UI Components:**
+- Accordion: /docs/components/accordion
+- Alert: /docs/components/alert
+- Alert Dialog: /docs/components/alert-dialog
+- Avatar: /docs/components/avatar
+- Badge: /docs/components/badge
+- Bottom Nav: /docs/components/bottom-nav
+- Breadcrumb: /docs/components/breadcrumb
+- Button: /docs/components/button
+- Button Action: /docs/components/button-action
+- Button Group: /docs/components/button-group
+- Card: /docs/components/card
+- Card Carousel: /docs/components/card-carousel
+- Checkbox: /docs/components/checkbox
+- Chips: /docs/components/chips
+- Combobox: /docs/components/combobox
+- Command: /docs/components/command
+- Context Menu: /docs/components/context-menu
+- Data Table: /docs/components/data-table
+- Date Picker: /docs/components/date-picker
+- Dialog: /docs/components/dialog
+- Drawer: /docs/components/drawer
+- Dropdown Menu: /docs/components/dropdown-menu
+- Dropzone: /docs/components/dropzone
+- Empty: /docs/components/empty
+- Form: /docs/components/form
+
+**Input Components:**
+- Input: /docs/components/input
+- Input Group: /docs/components/input-group
+- Input OTP: /docs/components/input-otp
+- Input Phone: /docs/components/input-phone
+- Label: /docs/components/label
+- Radio Group: /docs/components/radio-group
+- Select: /docs/components/select
+- Slider: /docs/components/slider
+- Switch: /docs/components/switch
+- Textarea: /docs/components/textarea
+
+**Advanced Components:**
+- AutoForm: /docs/components/auto-form - Generate forms from Rust structs
+- Drag and Drop: /docs/components/drag-and-drop
+- Popover: /docs/components/popover
+- Progress: /docs/components/progress
+- Scroll Area: /docs/components/scroll-area
+- Separator: /docs/components/separator
+- Sheet: /docs/components/sheet
+- Shimmer: /docs/components/shimmer
+- Skeleton: /docs/components/skeleton
+- Sonner: /docs/components/sonner
+- Tabs: /docs/components/tabs
+- Theme Toggle: /docs/components/theme-toggle
+- Toast: /docs/components/toast
+- Tooltip: /docs/components/tooltip
+
+**Animation Components:**
+- Animate: /docs/components/animate
+- Animate Group: /docs/components/animate-group
+
+### Hooks (5 available)
+Reusable Leptos hooks: /docs/hooks
+- use-copy-clipboard: /docs/hooks/use-copy-clipboard
+- use-horizontal-scroll: /docs/hooks/use-horizontal-scroll
+- use-lock-body-scroll: /docs/hooks/use-lock-body-scroll
+- use-press-hold: /docs/hooks/use-press-hold
+- use-random: /docs/hooks/use-random
+
+### Blocks (Pre-built Sections)
+Ready-to-use page sections: /blocks
+
+**Available Block Categories:**
+- FAQ sections: /blocks/faq (3 variations)
+- Footers: /blocks/footers (6 variations)
+- Headers: /blocks/headers (1 variation)
+- Integrations: /blocks/integrations (3 variations)
+- Login pages: /blocks/login (9 variations)
+- Side navigation: /blocks/sidenav (10 variations)
+
+### Charts
+Interactive chart components: /charts
+- Area Chart: /charts/area
+- Bar Chart: /charts/bar
+- Line Chart: /charts/line
+- Pie Chart: /charts/pie
+- Radar Chart: /charts/radar
+- Radial Chart: /charts/radial
+
+### Additional Resources
+- Main site: /
+- Themes: /themes - Theme customization and color schemes
+- Icons: /icons - Lucide icon library integration
+- CLI Tool: /docs/cli - Command-line interface for component installation
+- Figma: /docs/figma - Design system integration
+- Changelog: /docs/changelog - Version history and updates
+
+## Key Facts (Citable by AI)
+
+- Components available: 60+ production-ready Leptos UI components
+- Supported platforms: Web, iOS, Android, Desktop (cross-platform WASM)
+- Framework: Leptos 0.8 (Rust reactive framework, similar to SolidJS)
+- Language: Rust Edition 2024
+- CSS: Tailwind CSS 4.0
+- Installation: `cargo install rust-ui-cli` then `cargo rust-ui add [component]`
+- License: MIT (free for personal and commercial use)
+- Companies using Leptos/Rust for web: AWS, Cloudflare, Discord, Meta, Microsoft
+- Rust named most loved language: 9 years running (Stack Overflow Developer Survey)
+- Bundle size advantage: Leptos + WASM produces smaller bundles than equivalent React apps
+
+## Key Features
+
+### CLI Tool
+The Rust/UI CLI allows developers to quickly add components to their projects:
+```bash
+cargo rust-ui add button
+cargo rust-ui add accordion
+```
+
+### AutoForm - Code Generation
+Generate complete forms from Rust structs with validation:
+- Derive macro approach
+- Built-in validation
+- Type-safe form handling
+- Reduces boilerplate by 80%
+
+### Component System
+- 60+ production-ready components
+- Built with Leptos 0.8 (Rust framework)
+- Styled with Tailwind CSS
+- Server-side rendering (SSR) support
+- Full dark mode support
+- Mobile-responsive design
+- WCAG 2.1 accessibility standards
+
+### Design Philosophy
+- Copy-paste friendly: Copy component code directly
+- Customizable: Full control over styling and behavior
+- Type-safe: Leverages Rust's type system
+- Performance: WebAssembly (WASM) compilation
+- No runtime overhead: Zero-cost abstractions
+
+## Technology Stack
+- **Language:** Rust (Edition 2024)
+- **Web Framework:** Leptos 0.8 (reactive UI framework)
+- **CSS Framework:** Tailwind CSS 4.0
+- **Server:** Axum (Rust web server)
+- **Build Tool:** Cargo + Trunk
+- **Icons:** Lucide Icons (1000+ icons)
+- **Compilation:** WebAssembly (WASM)
+- **Styling:** Tailwind Merge + CSS Variables
+- **Analytics:** Plausible (privacy-first)
+
+## SEO & Standards
+- Structured data: Schema.org JSON-LD
+- Progressive Web App (PWA) support
+- WebP image optimization
+- Strategic HTTP caching
+- Comprehensive sitemap (4 partitions)
+- Security policy: RFC 9116 compliant
+- AI-friendly: robots.txt allows all AI crawlers
+
+## Project Structure
+```
+rust-ui/
+├── app/                    # Leptos application
+├── crates/leptos_ui/      # Core UI components library
+├── crates/icons/          # Lucide icon components
+├── crates/tw_merge/       # Tailwind class merging
+├── crates/ui-cli/         # CLI tool
+├── public/                # Static assets
+│   ├── docs/             # Component documentation
+│   ├── registry/         # Component registry
+│   └── blocks/           # Pre-built sections
+└── server/               # Axum server
+```
+
+## Target Audience
+- Rust developers building web applications
+- Teams adopting Leptos framework
+- Developers seeking type-safe UI components
+- Projects requiring SSR and SEO optimization
+- WebAssembly enthusiasts
+- Full-stack Rust developers
+
+## Contact & Links
+- Website: https://rust-ui.com
+- Twitter: @RustUI
+- Documentation: https://rust-ui.com/docs/components
+- CLI Installation: `cargo install rust-ui-cli`
+- Support: Available via website contact form
+
+## Learning Resources
+
+### Getting Started
+1. Visit homepage: https://rust-ui.com
+2. Explore components: https://rust-ui.com/docs/components
+3. Install CLI: `cargo install rust-ui-cli`
+4. Add your first component: `cargo rust-ui add button`
+
+### Common Use Cases
+- Building admin dashboards with Leptos
+- Creating marketing websites with SSR
+- Developing SaaS applications in Rust
+- Implementing design systems with Tailwind
+- Building type-safe forms with AutoForm
+- Creating interactive data visualizations with charts
+
+### Why Choose Rust/UI?
+1. **Type Safety:** Catch UI bugs at compile time
+2. **Performance:** WebAssembly compilation for near-native speed
+3. **SEO-Friendly:** Server-side rendering support
+4. **Developer Experience:** CLI tool for rapid development
+5. **Modern Stack:** Rust + Leptos + Tailwind CSS
+6. **Production Ready:** Used in production applications
+7. **Open Source:** MIT licensed, community-driven
+
+## Version Information
+- Framework: Leptos 0.8
+- Rust Edition: 2024
+- Tailwind CSS: 4.0
+- Last Updated: 2026-02-18
+
+## Browser Support
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## License
+MIT License - Free for commercial and personal use

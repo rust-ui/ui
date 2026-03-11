@@ -1,0 +1,248 @@
+name: Build, Test and Deploy Leptos SSR App
+
+on:
+  # 🖥️ gh workflow run prod-vps.yml
+  # 🖥️ gh workflow run prod-vps.yml -f skip_build=true   ← redeploy only, no rebuild
+  workflow_dispatch:
+    inputs:
+      skip_build:
+        description: 'Skip build and redeploy current :latest image'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  fmt:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: rustfmt
+
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      - name: Install cargo-binstall
+        uses: cargo-bins/cargo-binstall@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install leptosfmt
+        run: cargo binstall -y leptosfmt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check leptosfmt
+        run: leptosfmt --check $(find . -name "*.rs" ! -path "./target/*")
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: clippy
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-clippy-${{ hashFiles('crates/tw_merge/Cargo.lock', 'crates/tw_merge_variants/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-clippy-
+
+      - name: Clippy — tw_merge
+        working-directory: crates/tw_merge
+        run: cargo clippy --all-features -- -D warnings
+
+      - name: Clippy — tw_merge_variants
+        working-directory: crates/tw_merge_variants
+        run: cargo clippy --all-features -- -D warnings
+
+  audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install cargo-binstall
+        uses: cargo-bins/cargo-binstall@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install cargo-audit
+        run: cargo binstall -y cargo-audit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run cargo audit
+        run: cargo audit
+
+  # tests: (disabled — already run locally via deploy_prod_vps.sh before triggering CI)
+  #   name: Tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #
+  #     - name: Set up SSH for private git dependencies
+  #       uses: webfactory/ssh-agent@v0.9.0
+  #       with:
+  #         ssh-private-key: ${{ secrets.GH_SSH_PRIVATE_KEY }}
+  #
+  #     - name: Install Rust toolchain
+  #       uses: dtolnay/rust-toolchain@nightly
+  #
+  #     - name: Cache cargo
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: |
+  #           ~/.cargo/registry
+  #           ~/.cargo/git
+  #         key: ${{ runner.os }}-cargo-test-${{ hashFiles('Cargo.lock') }}
+  #         restore-keys: ${{ runner.os }}-cargo-test-
+  #
+  #     - name: Install cargo-binstall
+  #       uses: cargo-bins/cargo-binstall@main
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #     - name: Install cargo-nextest
+  #       run: cargo binstall -y cargo-nextest
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #     - name: Run tests
+  #       run: cargo nextest run
+
+  typos:
+    name: Typos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: crate-ci/typos@master
+
+  build:
+    name: Build
+    needs: [fmt, clippy, audit, typos]
+    runs-on: ubuntu-latest
+    if: github.event.inputs.skip_build != 'true'
+    outputs:
+      image_tag: ${{ steps.tag.outputs.sha }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Free disk space
+      uses: jlumbroso/free-disk-space@main
+      with:
+        tool-cache: false
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: false
+        swap-storage: false
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Generate image tag
+      id: tag
+      run: echo "sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: |
+          ${{ secrets.DOCKER_USERNAME }}/deploy-rust-ui:${{ steps.tag.outputs.sha }}
+          ${{ secrets.DOCKER_USERNAME }}/deploy-rust-ui:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        build-args: |
+          RESEND_TOKEN=${{ secrets.RESEND_TOKEN }}
+          RESEND_AUDIENCE_ID=${{ secrets.RESEND_AUDIENCE_ID }}
+          RUSTIFY_API_URL=${{ vars.RUSTIFY_API_URL }}
+          BUG_REPORTS_API_KEY=${{ secrets.BUG_REPORTS_API_KEY }}
+
+  deploy:
+    name: Deploy
+    needs: [build]
+    if: always() && (needs.build.result == 'success' || needs.build.result == 'skipped')
+    runs-on: ubuntu-latest
+
+    env:
+      SSH: ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no root@${{ secrets.SERVER_IP }}
+      SCP: scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
+        ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+    - name: Copy configs to server
+      run: |
+        ${{ env.SCP }} docker-compose.prod.yml root@${{ secrets.SERVER_IP }}:~
+        ${{ env.SCP }} nginx.conf root@${{ secrets.SERVER_IP }}:~
+
+    - name: Generate SSL certs on server (if not present)
+      run: |
+        ${{ env.SSH }} "
+          mkdir -p ~/ssl
+          if [ ! -f ~/ssl/nginx-selfsigned.crt ]; then
+            openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
+              -keyout ~/ssl/nginx-selfsigned.key \
+              -out    ~/ssl/nginx-selfsigned.crt \
+              -subj   '/CN=rust-ui.com'
+            echo 'SSL certs generated'
+          else
+            echo 'SSL certs already exist, skipping'
+          fi
+        "
+
+    - name: Docker login on server
+      run: |
+        ${{ env.SSH }} "echo '${{ secrets.DOCKER_PASSWORD }}' | docker login -u '${{ secrets.DOCKER_USERNAME }}' --password-stdin"
+
+    - name: Deploy app and nginx
+      run: |
+        ${{ env.SSH }} "cd ~ && export APP_IMAGE=${{ secrets.DOCKER_USERNAME }}/deploy-rust-ui:latest && docker compose -f docker-compose.prod.yml down && docker compose -f docker-compose.prod.yml pull && docker compose -f docker-compose.prod.yml up -d"
+
+    - name: Smoke test
+      run: |
+        sleep 5
+        ${{ env.SSH }} "curl -sf http://localhost/health || (docker compose -f docker-compose.prod.yml logs app --tail=20 && exit 1)"
+
+    - name: Cleanup old Docker images
+      run: |
+        ${{ env.SSH }} "docker image prune -af"

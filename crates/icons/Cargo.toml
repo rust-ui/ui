@@ -1,0 +1,24 @@
+[package]
+name = "icons"
+version = "0.18.0"
+authors = ["Rustify"]
+homepage = "https://rust-ui.com/icons"
+repository = "https://github.com/rust-ui/icons"
+edition = "2024"
+description = "Icons for Rust fullstack applications — Leptos and Dioxus."
+keywords = ["leptos", "dioxus", "icons", "tailwind", "svg"]
+categories = ["gui", "web-programming", "development-tools", "accessibility", "wasm"]
+license = "MIT"
+readme = "./README.md"
+
+
+[dependencies]
+leptos = { version = "0.8", features = ["nightly"], optional = true }
+dioxus = { version = "0.7", optional = true }
+strum = { version = "0.27", features = ["derive"] }
+tw_merge = "0.1.7" 
+
+[features]
+leptos = ["dep:leptos", "leptos/nightly"]
+leptos_animated = ["leptos"]
+dioxus = ["dep:dioxus"]

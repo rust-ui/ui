@@ -1,0 +1,34 @@
+# typos --write-changes
+
+[files]
+extend-exclude = [
+    "*.js",
+    "*.map",
+    "*.sql",
+    "**/locales/**",
+    "crates/!!!_RATATUI/**",
+    "X__BLOCKS_COPY/**",
+    "!!!_HTML_DONE/**",
+    '\!\!\!_OTHERS/',
+]
+
+[default]
+extend-ignore-identifiers-re = [
+    "typ",
+    "LISTEND",
+    "MAPPIN",
+    "Comman",
+]
+
+[default.extend-words]
+blok = "blok"
+Sur = "Sur"
+nam = "nam"
+Ratatui = "Ratatui"
+ist = "ist"
+ba = "ba"
+CAF = "CAF"
+LSO = "LSO"
+SOM = "SOM"
+THA = "THA"
+TTO = "TTO"

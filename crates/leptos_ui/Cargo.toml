@@ -1,0 +1,18 @@
+[package]
+name = "leptos_ui"
+version = "0.3.21"
+edition = "2024"
+authors = ["Rustify"]
+homepage = "https://rust-ui.com"
+documentation = "https://rust-ui.com/docs/components/installation"
+description = "Macros to build UI components easily with Leptos and Tailwind CSS."
+keywords = ["leptos", "ui", "tailwind", "css", "clx"]
+categories = ["gui", "web-programming", "development-tools", "accessibility", "wasm"]
+license = "MIT"
+readme = "./README.md"
+
+
+[dependencies]
+leptos = { version = "0.8", features = ["nightly"] }
+tw_merge = { version = "0.1.7", features = ["variant"] }
+paste = "1"

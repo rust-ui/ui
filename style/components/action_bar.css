@@ -1,0 +1,15 @@
+[data-name="LiquidPointerIndicator"] {
+  position-anchor: --action-bar-selected;
+  top: anchor(top);
+  left: anchor(left);
+  transition: all 1s linear(0, 0.0018, 0.0069 1.15%, 0.026 2.3%, 0.0637, 0.1135 5.18%, 0.2229 7.78%, 0.5977 15.84%, 0.7014, 0.7904, 0.8641, 0.9228, 0.9676 28.8%, 1.0032 31.68%, 1.0225, 1.0352 36.29%, 1.0431 38.88%, 1.046 42.05%, 1.0448 44.35%, 1.0407 47.23%, 1.0118 61.63%, 1.0025 69.41%, 0.9981 80.35%, 0.9992 99.94%);
+  filter: drop-shadow(0 3px 6px gray);
+  backdrop-filter: url(#filter);
+}
+
+[data-name="LiquidPointerIndicator"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1rem 3rem ellipse at 50% 85% in oklch, oklch(100% 0 0 / 0%) 10% 50%, 150%, oklch(100% 0 0 / 100%) 175% 165%), radial-gradient(2rem 3.5rem ellipse at 45% 35% in oklch, oklch(0% 0 0 / 0%) 80%, gray 150%);
+}

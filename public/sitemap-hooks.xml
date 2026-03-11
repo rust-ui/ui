@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://rust-ui.com/docs/hooks/use-lock-body-scroll</loc>
+    <lastmod>2025-09-22T16:14:33+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rust-ui.com/docs/hooks/use-copy-clipboard</loc>
+    <lastmod>2025-09-22T16:14:33+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rust-ui.com/docs/hooks/use-random</loc>
+    <lastmod>2025-09-22T16:14:33+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rust-ui.com/docs/hooks/use-horizontal-scroll</loc>
+    <lastmod>2025-11-16T15:25:23+01:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rust-ui.com/docs/hooks/use-press-hold</loc>
+    <lastmod>2025-12-30T06:14:31+01:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

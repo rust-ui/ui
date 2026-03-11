@@ -1,0 +1,252 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://rust-ui.com/#website",
+      "url": "https://rust-ui.com/",
+      "name": "Rust/UI",
+      "description": "Cross-platform component registry for Leptos and Rust fullstack applications. Beautiful UI components built with Leptos, Rust, and Tailwind CSS. Build your UI once and deploy to iOS, Android, Desktop, and Web.",
+      "publisher": {
+        "@id": "https://rust-ui.com/#organization"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://rust-ui.com/docs/components?search={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://rust-ui.com/#organization",
+      "name": "Rustify",
+      "url": "https://rust-ui.com/",
+      "foundingDate": "2024",
+      "areaServed": "Worldwide",
+      "knowsAbout": [
+        "Rust Programming Language",
+        "Leptos Framework",
+        "WebAssembly",
+        "Tailwind CSS",
+        "Component Libraries",
+        "Server-Side Rendering",
+        "Cross-platform UI Development",
+        "Axum Web Framework"
+      ],
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://rust-ui.com/og-image.png",
+        "width": 1200,
+        "height": 630
+      },
+      "sameAs": [
+        "https://twitter.com/RustUI",
+        "https://discord.gg/mbszS27TqA",
+        "https://rust-ui.com/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Technical Support",
+        "url": "https://rust-ui.com/"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Rust/UI",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Cross-platform",
+      "url": "https://rust-ui.com/",
+      "screenshot": "https://rust-ui.com/og-image.png",
+      "softwareVersion": "1.0.0",
+      "datePublished": "2024-01-01",
+      "dateModified": "2026-02-18",
+      "programmingLanguage": "Rust",
+      "keywords": "leptos, leptos ui components, rust ui components, leptos rust, tailwind css, cross-platform, fullstack",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Cross-platform component registry for Leptos and Rust fullstack applications. Beautiful UI components built with Leptos, Rust, and Tailwind CSS.",
+      "featureList": [
+        "60+ Leptos UI components",
+        "Cross-platform UI components",
+        "iOS, Android, Desktop, and Web support",
+        "Built with Leptos, Rust, and Tailwind CSS",
+        "Type-safe components",
+        "Open source",
+        "CLI tool for component installation",
+        "Tailwind CSS integration",
+        "Dark mode support"
+      ],
+      "softwareHelp": {
+        "@type": "WebPage",
+        "url": "https://rust-ui.com/docs/components"
+      },
+      "installUrl": "https://rust-ui.com/docs/introduction",
+      "releaseNotes": "https://rust-ui.com/docs/changelog"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://rust-ui.com/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://rust-ui.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Components",
+          "item": "https://rust-ui.com/docs/components"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Hooks",
+          "item": "https://rust-ui.com/docs/hooks"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Blocks",
+          "item": "https://rust-ui.com/blocks"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Charts",
+          "item": "https://rust-ui.com/charts"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://rust-ui.com/#howto-installation",
+      "name": "How to Install Rust/UI Components",
+      "description": "Step-by-step guide to install and use Rust/UI components in your Leptos project",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Install CLI",
+          "text": "Install the Rust/UI CLI tool using Cargo",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Run: cargo install rust-ui-cli"
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Add Component",
+          "text": "Add a component to your project",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Run: cargo rust-ui add button"
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Import and Use",
+          "text": "Import the component in your Leptos application",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Add to your Rust code: use leptos_ui::Button;"
+            }
+          ]
+        }
+      ],
+      "totalTime": "PT5M"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://rust-ui.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Rust/UI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rust/UI is a comprehensive UI component library for building web applications with Leptos (Rust). It provides 60+ production-ready components, reusable hooks, pre-built blocks, and chart components - all built with Rust, Leptos, and Tailwind CSS."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Rust/UI free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Rust/UI is completely free and open source. All components are available under the MIT license for both personal and commercial use."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What frameworks does Rust/UI support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rust/UI is built specifically for Leptos 0.8, a Rust web framework. It works seamlessly with Leptos SSR (Server-Side Rendering) and CSR (Client-Side Rendering) modes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I install components?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Install the Rust/UI CLI with 'cargo install rust-ui-cli', then add components using 'cargo rust-ui add [component-name]'. The CLI will copy the component source code directly to your project."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Rust/UI support dark mode?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, all components in Rust/UI support dark mode out of the box using Tailwind CSS dark mode classes and CSS variables for theming."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://rust-ui.com/#source-code",
+      "name": "Rust/UI Components",
+      "programmingLanguage": {
+        "@type": "ComputerLanguage",
+        "name": "Rust"
+      },
+      "runtimePlatform": "Leptos 0.8",
+      "codeSampleType": "full",
+      "description": "Open-source UI component source code for Leptos and Rust fullstack applications",
+      "url": "https://rust-ui.com/docs/components",
+      "publisher": {
+        "@id": "https://rust-ui.com/#organization"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://rust-ui.com/#tech-guide",
+      "headline": "Rust/UI Component Library Documentation",
+      "description": "Complete guide to using Leptos UI components with Rust and Tailwind CSS",
+      "url": "https://rust-ui.com/docs/components",
+      "datePublished": "2024-01-01",
+      "dateModified": "2026-02-18",
+      "author": {
+        "@id": "https://rust-ui.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://rust-ui.com/#organization"
+      },
+      "inLanguage": "en-US",
+      "proficiencyLevel": "Beginner to Advanced",
+      "dependencies": "Rust, Leptos 0.8, Tailwind CSS"
+    },
+  ]
+}

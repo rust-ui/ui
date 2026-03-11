@@ -1,0 +1,40 @@
+# Rust / Cargo
+**/target/
+pkg
+Cargo.lock
+**/*.rs.bk
+
+# Tauri
+src-tauri/gen/
+src-tauri/*.bak
+
+# Node
+node_modules/
+pnpm-lock.yaml
+
+# MSVC
+*.pdb
+
+# Apple
+**/.DS_Store
+**/Icon\r
+
+# Environment
+.env
+.env.apple
+
+# Playwright
+.playwright-mcp
+test-results/
+
+# Unlighthouse
+.unlighthouse
+
+# SQLite
+bug_reports.db
+
+# Temporary
+X__TMP
+
+# Internals
+rust_ui_internals/

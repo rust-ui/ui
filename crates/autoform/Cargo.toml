@@ -1,0 +1,19 @@
+[package]
+name = "autoform"
+version = "0.1.0"
+edition = "2024"
+authors = ["Rustify"]
+description = "Derive macro for automatic form generation"
+keywords = ["form", "derive", "leptos"]
+categories = ["gui", "web-programming"]
+license = "MIT"
+readme = "README.md"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { version = "2", features = ["full", "extra-traits"] }
+quote = "1"
+proc-macro2 = "1"
+darling = "0.20"

@@ -1,0 +1,8 @@
+[package]
+name = "_markdown_config"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+strum = { version = "0.27", features = ["derive"] }

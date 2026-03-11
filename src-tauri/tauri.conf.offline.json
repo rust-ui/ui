@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Rust UI",
+  "version": "0.1.2",
+  "identifier": "com.rust-ui",
+  "build": {
+    "beforeDevCommand": "cargo leptos watch",
+    "devUrl": "http://localhost:3000",
+    "beforeBuildCommand": "cargo leptos build --release"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "security": {
+      "csp": null
+    },
+    "windows": [
+      {
+        "label": "main",
+        "url": "http://localhost:14100",
+        "title": "Rust UI",
+        "width": 1200,
+        "height": 800,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true
+      }
+    ]
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/icon.icns",
+      "icons/icon.ico",
+      "icons/icon.png",
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png"
+    ],
+    "resources": ["../target/aarch64-apple-darwin/release/server", "../target/site"],
+    "iOS": {
+      "developmentTeam": "4JGPL5Q5CD"
+    }
+  }
+}

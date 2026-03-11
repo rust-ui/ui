@@ -1,0 +1,24 @@
+use leptos::prelude::*;
+use leptos_use::signal_throttled;
+
+use crate::registry::ui::input::Input;
+
+#[component]
+pub fn DemoUseThrottle() -> impl IntoView {
+    let (input, set_input) = signal("".to_string());
+    let throttled: Signal<String> = signal_throttled(input, 1000.0);
+
+    view! {
+        <div>
+            <Input
+                attr:r#type="text"
+                prop:value=input
+                on:input=move |event| set_input(event_target_value(&event))
+                attr:placeholder="Try to type quickly..."
+            />
+            <p>Delay is set to 1000ms for this demo.</p>
+            <p>Input signal: {input}</p>
+            <p>Throttled signal: {throttled}</p>
+        </div>
+    }
+}
