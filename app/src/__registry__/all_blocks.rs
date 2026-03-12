@@ -1,7 +1,7 @@
-use app_routes::BlockRoutes;
 use leptos::prelude::*;
 use strum::{Display, EnumString};
 
+use app_routes::BlockRoutes;
 use crate::domain::blocks::block_entry::{BlockEntry, BlockMeta};
 
 // * This file was generated automatically with build_registry.
@@ -59,6 +59,7 @@ pub enum BlockIdKebab {
     Sidenav10,
     Sidenav11,
 }
+
 
 impl BlockIdKebab {
     pub fn to_component(&self) -> AnyView {
@@ -1712,1055 +1713,555 @@ impl BlockIdKebab {
     pub fn file_tree(&self) -> Vec<crate::domain::blocks::block_entry::BlockFileTreeItem> {
         match self {
             BlockIdKebab::Chat01 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "chat01.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "chat.rs", index: 3 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 4 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "chat01.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "chat.rs", index: 3 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 4 },
+                ] },
             ],
             BlockIdKebab::Chat02 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "chat02.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "chat02.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Chat03 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "chat03.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 2 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "chat03.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 2 },
+                ] },
             ],
             BlockIdKebab::Chat04 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "chat04.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "chat04.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Chat05 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "chat05.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "chat05.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Chat06 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "chat06.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "chat06.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Chat07 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "chat07.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "chat07.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Faq01 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "faq01.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "badge.rs",
-                        index: 1,
-                    }],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "faq01.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "badge.rs", index: 1 },
+                ] },
             ],
             BlockIdKebab::Faq02 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "faq02.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "accordion.rs",
-                        index: 1,
-                    }],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "faq02.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 1 },
+                ] },
             ],
             BlockIdKebab::Faq03 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "faq03.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "faq03.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
+                ] },
             ],
             BlockIdKebab::Footer01 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "footer01.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer01.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Footer02 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "footer02.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "footer.rs",
-                        index: 1,
-                    }],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer02.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer.rs", index: 1 },
+                ] },
             ],
             BlockIdKebab::Footer03 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "footer03.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "footer.rs",
-                        index: 1,
-                    }],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer03.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer.rs", index: 1 },
+                ] },
             ],
             BlockIdKebab::Footer04 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "footer04.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer04.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Footer05 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "footer05.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer05.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "footer.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Header01 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "header01.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "demos",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "demo_accordion_icons.rs",
-                        index: 1,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "header.rs", index: 3 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "theme_toggle.rs",
-                            index: 4,
-                        },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "header01.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "demos", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_accordion_icons.rs", index: 1 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "header.rs", index: 3 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "theme_toggle.rs", index: 4 },
+                ] },
             ],
             BlockIdKebab::Integration01 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "integration01.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "image.rs",
-                        index: 1,
-                    }],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "integration01.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "image.rs", index: 1 },
+                ] },
             ],
             BlockIdKebab::Integration02 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "integration02.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "button.rs",
-                        index: 1,
-                    }],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "integration02.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                ] },
             ],
             BlockIdKebab::Integration03 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "integration03.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "button.rs",
-                        index: 1,
-                    }],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "integration03.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                ] },
             ],
             BlockIdKebab::Integration04 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "integration04.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "button.rs",
-                        index: 1,
-                    }],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "integration04.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                ] },
             ],
             BlockIdKebab::Integration05 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "integration05.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "button.rs",
-                        index: 1,
-                    }],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "integration05.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                ] },
             ],
             BlockIdKebab::Integration06 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "integration06.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "button.rs",
-                        index: 1,
-                    }],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "integration06.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                ] },
             ],
             BlockIdKebab::Integration07 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "integration07.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "badge.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "integration07.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "badge.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
+                ] },
             ],
             BlockIdKebab::Login01 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "login01.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 4 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "login01.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 4 },
+                ] },
             ],
             BlockIdKebab::Login02 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "login02.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "login02.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Login03 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "login03.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 4 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "login03.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 4 },
+                ] },
             ],
             BlockIdKebab::Login04 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "login04.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 4 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "login04.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "input.rs", index: 3 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 4 },
+                ] },
             ],
             BlockIdKebab::Pricing01 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "pricing01.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "separator.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "pricing01.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "separator.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Pricing02 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "pricing02.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "badge.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 3 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 4 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "pricing02.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "avatar.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "badge.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 3 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 4 },
+                ] },
             ],
             BlockIdKebab::Pricing03 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "pricing03.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "pricing03.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
+                ] },
             ],
             BlockIdKebab::Pricing04 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "pricing04.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "table.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "pricing04.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "table.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Pricing05 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "pricing05.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "separator.rs", index: 3 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "switch.rs", index: 4 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "pricing05.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "separator.rs", index: 3 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "switch.rs", index: 4 },
+                ] },
             ],
             BlockIdKebab::Pricing06 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "pricing06.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "switch.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "pricing06.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "switch.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Pricing07 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "pricing07.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "button.rs",
-                        index: 1,
-                    }],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "pricing07.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                ] },
             ],
             BlockIdKebab::Pricing08 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "pricing08.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "badge.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "pricing08.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "badge.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Pricing09 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "pricing09.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "tooltip.rs", index: 3 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "pricing09.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "tooltip.rs", index: 3 },
+                ] },
             ],
             BlockIdKebab::Pricing10 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "pricing10.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "pricing10.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
+                ] },
             ],
             BlockIdKebab::Pricing11 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "pricing11.rs",
-                        index: 0,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "pricing11.rs", index: 0 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "card.rs", index: 2 },
+                ] },
             ],
             BlockIdKebab::Sidenav01 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav01.rs", index: 0 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes.rs",
-                            index: 1,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_selector.rs",
-                            index: 2,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_simplified.rs",
-                            index: 3,
-                        },
-                    ],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "demos",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "demo_dropdown_menu_user.rs",
-                        index: 4,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 5 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 6 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav01.rs", index: 0 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_selector.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_simplified.rs", index: 3 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "demos", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_dropdown_menu_user.rs", index: 4 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 5 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 6 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
+                ] },
             ],
             BlockIdKebab::Sidenav02 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav02.rs", index: 0 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes.rs",
-                            index: 1,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_selector.rs",
-                            index: 2,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_simplified.rs",
-                            index: 3,
-                        },
-                    ],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "demos",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "demo_dropdown_menu_user.rs",
-                        index: 4,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 5 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 6 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav02.rs", index: 0 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_selector.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_simplified.rs", index: 3 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "demos", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_dropdown_menu_user.rs", index: 4 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 5 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 6 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
+                ] },
             ],
             BlockIdKebab::Sidenav03 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav03.rs", index: 0 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes.rs",
-                            index: 1,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_selector.rs",
-                            index: 2,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_simplified.rs",
-                            index: 3,
-                        },
-                    ],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "demos",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "demo_dropdown_menu_user.rs",
-                        index: 4,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 5 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 6 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav03.rs", index: 0 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_selector.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_simplified.rs", index: 3 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "demos", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_dropdown_menu_user.rs", index: 4 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 5 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 6 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
+                ] },
             ],
             BlockIdKebab::Sidenav04 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav04.rs", index: 0 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes.rs",
-                            index: 1,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_selector.rs",
-                            index: 2,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_simplified.rs",
-                            index: 3,
-                        },
-                    ],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "demos",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "demo_dropdown_menu_user.rs",
-                        index: 4,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 5 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 6 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 7 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav04.rs", index: 0 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_selector.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_simplified.rs", index: 3 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "demos", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_dropdown_menu_user.rs", index: 4 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 5 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 6 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 7 },
+                ] },
             ],
             BlockIdKebab::Sidenav05 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav05.rs", index: 0 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes.rs",
-                            index: 1,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_selector.rs",
-                            index: 2,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_simplified.rs",
-                            index: 3,
-                        },
-                    ],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "demos",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "demo_dropdown_menu_user.rs",
-                        index: 4,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 5 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 6 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav05.rs", index: 0 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_selector.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_simplified.rs", index: 3 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "demos", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_dropdown_menu_user.rs", index: 4 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 5 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 6 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
+                ] },
             ],
             BlockIdKebab::Sidenav06 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav06.rs", index: 0 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes.rs",
-                            index: 1,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_selector.rs",
-                            index: 2,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_simplified.rs",
-                            index: 3,
-                        },
-                    ],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "demos",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "demo_dropdown_menu_user.rs",
-                        index: 4,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 5 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "dropdown_menu.rs",
-                            index: 6,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav06.rs", index: 0 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_selector.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_simplified.rs", index: 3 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "demos", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_dropdown_menu_user.rs", index: 4 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 5 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "dropdown_menu.rs", index: 6 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
+                ] },
             ],
             BlockIdKebab::Sidenav07 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav07.rs", index: 0 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes.rs",
-                            index: 1,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_selector.rs",
-                            index: 2,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_simplified.rs",
-                            index: 3,
-                        },
-                    ],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "demos",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "demo_dropdown_menu_user.rs",
-                        index: 4,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 5 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 6 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav07.rs", index: 0 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_selector.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_simplified.rs", index: 3 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "demos", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_dropdown_menu_user.rs", index: 4 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 5 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 6 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
+                ] },
             ],
             BlockIdKebab::Sidenav08 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav08.rs", index: 0 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes.rs",
-                            index: 1,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_selector.rs",
-                            index: 2,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_simplified.rs",
-                            index: 3,
-                        },
-                    ],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "demos",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "demo_dropdown_menu_user.rs",
-                        index: 4,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 5 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 6 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav08.rs", index: 0 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_selector.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_simplified.rs", index: 3 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "demos", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_dropdown_menu_user.rs", index: 4 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 5 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 6 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
+                ] },
             ],
             BlockIdKebab::Sidenav09 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav09.rs", index: 0 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes.rs",
-                            index: 1,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_selector.rs",
-                            index: 2,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_simplified.rs",
-                            index: 3,
-                        },
-                    ],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "demos",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "demo_dropdown_menu_user.rs",
-                            index: 4,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "demo_dropdown_menu_user_icon.rs",
-                            index: 5,
-                        },
-                    ],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 6 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 7 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 8 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 9 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav09.rs", index: 0 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_selector.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_simplified.rs", index: 3 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "demos", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_dropdown_menu_user.rs", index: 4 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_dropdown_menu_user_icon.rs", index: 5 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "accordion.rs", index: 6 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 7 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 8 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 9 },
+                ] },
             ],
             BlockIdKebab::Sidenav10 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav10.rs", index: 0 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes.rs",
-                            index: 1,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_selector.rs",
-                            index: 2,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_simplified.rs",
-                            index: 3,
-                        },
-                    ],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "demos",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "demo_dropdown_menu_user.rs",
-                        index: 4,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 5 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 6 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav10.rs", index: 0 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_selector.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_simplified.rs", index: 3 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "demos", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_dropdown_menu_user.rs", index: 4 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 5 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "label.rs", index: 6 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 7 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 8 },
+                ] },
             ],
             BlockIdKebab::Sidenav11 => vec![
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "blocks",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav11.rs", index: 0 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes.rs",
-                            index: 1,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_selector.rs",
-                            index: 2,
-                        },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                            name: "sidenav_routes_simplified.rs",
-                            index: 3,
-                        },
-                    ],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "demos",
-                    items: vec![crate::domain::blocks::block_entry::BlockFileTreeItem::File {
-                        name: "demo_dropdown_menu_user.rs",
-                        index: 4,
-                    }],
-                },
-                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder {
-                    name: "ui",
-                    items: vec![
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 5 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 6 },
-                        crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 7 },
-                    ],
-                },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "blocks", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav11.rs", index: 0 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes.rs", index: 1 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_selector.rs", index: 2 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav_routes_simplified.rs", index: 3 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "demos", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "demo_dropdown_menu_user.rs", index: 4 },
+                ] },
+                crate::domain::blocks::block_entry::BlockFileTreeItem::Folder { name: "ui", items: vec![
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "button.rs", index: 5 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sheet.rs", index: 6 },
+                    crate::domain::blocks::block_entry::BlockFileTreeItem::File { name: "sidenav.rs", index: 7 },
+                ] },
             ],
         }
     }
+
 
     /// Meta used for `__ViewRouter`.
     pub fn meta(&self) -> BlockMeta {
@@ -2774,6 +2275,7 @@ impl BlockIdKebab {
             _ => BlockMeta::default(),
         }
     }
+
 }
 
 /* ========================================================== */
@@ -2823,7 +2325,7 @@ pub const ALL_CHAT_BLOCKS: &[BlockEntry] = &[
         block_title: "Full Chat Application",
         block_id_kebab: BlockIdKebab::Chat07,
         block_route: BlockRoutes::Chat,
-    },
+    }
 ];
 
 // * Faq
@@ -2845,7 +2347,7 @@ pub const ALL_FAQ_BLOCKS: &[BlockEntry] = &[
         block_title: "FAQ with Sidebar Navigation",
         block_id_kebab: BlockIdKebab::Faq03,
         block_route: BlockRoutes::Login,
-    },
+    }
 ];
 
 // * Footer
@@ -2879,16 +2381,11 @@ pub const ALL_FOOTER_BLOCKS: &[BlockEntry] = &[
         block_title: "Footer with Newsletter and Status Indicator",
         block_id_kebab: BlockIdKebab::Footer05,
         block_route: BlockRoutes::Login,
-    },
+    }
 ];
 
 // * Header
-pub const ALL_HEADER_BLOCKS: &[BlockEntry] = &[BlockEntry {
-    block_id_str: "header01",
-    block_title: "Header with animation on scroll",
-    block_id_kebab: BlockIdKebab::Header01,
-    block_route: BlockRoutes::Headers,
-}];
+pub const ALL_HEADER_BLOCKS: &[BlockEntry] = &[BlockEntry { block_id_str: "header01", block_title: "Header with animation on scroll", block_id_kebab: BlockIdKebab::Header01, block_route: BlockRoutes::Headers }];
 
 // * Integration
 pub const ALL_INTEGRATION_BLOCKS: &[BlockEntry] = &[
@@ -2933,7 +2430,7 @@ pub const ALL_INTEGRATION_BLOCKS: &[BlockEntry] = &[
         block_title: "Icon Library with Scattered Layout",
         block_id_kebab: BlockIdKebab::Integration07,
         block_route: BlockRoutes::Login,
-    },
+    }
 ];
 
 // * Login
@@ -2961,7 +2458,7 @@ pub const ALL_LOGIN_BLOCKS: &[BlockEntry] = &[
         block_title: "Password Reset Form",
         block_id_kebab: BlockIdKebab::Login04,
         block_route: BlockRoutes::Login,
-    },
+    }
 ];
 
 // * Pricing
@@ -3031,7 +2528,7 @@ pub const ALL_PRICING_BLOCKS: &[BlockEntry] = &[
         block_title: "Three-Tier Pricing with Tabs and Tooltips",
         block_id_kebab: BlockIdKebab::Pricing11,
         block_route: BlockRoutes::Login,
-    },
+    }
 ];
 
 // * Sidenav
@@ -3101,5 +2598,7 @@ pub const ALL_SIDENAV_BLOCKS: &[BlockEntry] = &[
         block_title: "Right-Side Sidenav",
         block_id_kebab: BlockIdKebab::Sidenav11,
         block_route: BlockRoutes::Sidenav,
-    },
+    }
 ];
+
+
