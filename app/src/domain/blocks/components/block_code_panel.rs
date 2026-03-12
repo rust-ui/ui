@@ -43,13 +43,19 @@ pub fn BlockCodePanel(files: &'static [BlockFile], tree: Vec<BlockFileTreeItem>)
     .into_any()
 }
 
+/* ========================================================== */
+/*                     ✨ FUNCTIONS ✨                        */
+/* ========================================================== */
+
 #[component]
 fn BlockCodeHeader(files: &'static [BlockFile], active_idx: RwSignal<usize>) -> impl IntoView {
     let (copy_fn, copied) = use_copy_clipboard(Some(COPY_TIMEOUT_MS));
 
     view! {
         <div class="flex gap-2 items-center px-4 h-10 border-b bg-card">
-            <span class="font-mono text-xs text-muted-foreground">{move || files.get(active_idx.get()).map(|f| f.target).unwrap_or_default()}</span>
+            <span class="font-mono text-xs text-muted-foreground">
+                {move || files.get(active_idx.get()).map(|f| f.target).unwrap_or_default()}
+            </span>
             <div class="ml-auto">
                 <button
                     class="inline-flex justify-center items-center rounded-md transition-colors size-7 hover:bg-accent"
@@ -92,6 +98,7 @@ fn BlockFileTreeNode(item: BlockFileTreeItem, active_idx: RwSignal<usize>, depth
     match item {
         BlockFileTreeItem::File { name, index } => view! {
             <button
+                data-name="BlockFileTreeItem"
                 class="flex gap-1.5 items-center py-1 px-2 w-full text-xs text-left rounded-md transition-colors hover:bg-accent"
                 class=("bg-accent", move || active_idx.get() == index)
                 class=("font-medium", move || active_idx.get() == index)
