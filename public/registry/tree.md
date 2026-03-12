@@ -236,6 +236,11 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** bottom_nav (ui)
 * demo_breadcrumb (demos)
   ** breadcrumb (ui)
+* demo_breadcrumb_dropdown (demos)
+  ** breadcrumb (ui)
+  ** dropdown_menu (ui)
+    *** js: /hooks/lock_scroll.js
+    *** use_random (hooks)
 * demo_breadcrumb_rtl (demos)
   ** breadcrumb (ui)
   ** direction_provider (ui)
@@ -635,6 +640,14 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** label (ui)
   ** textarea (ui)
 * demo_direction_provider (demos)
+  ** button (ui)
+  ** card (ui)
+  ** direction_provider (ui)
+    *** cargo: strum
+  ** input (ui)
+    *** cargo: strum
+  ** label (ui)
+* demo_direction_provider_default (demos)
   ** button (ui)
   ** card (ui)
   ** direction_provider (ui)
