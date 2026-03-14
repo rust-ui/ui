@@ -29,7 +29,7 @@ pub fn DemoToggleGroupFontWeight() -> impl IntoView {
                         view! {
                             <ToggleGroupItem
                                 title=format!("Weight {w}")
-                                pressed=Signal::derive(move || selected.get() == w)
+                                pressed=Memo::new(move |_| selected.get() == w)
                                 on:click=move |_| selected.set(w)
                             >
                                 <div class="flex flex-col gap-0.5 items-center py-1">
