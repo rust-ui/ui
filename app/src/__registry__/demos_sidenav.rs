@@ -12,13 +12,8 @@ pub fn get_all_arc_demos_for_components() -> Vec<(&'static str, Arc<Vec<Registry
 }
 
 pub fn get_all_arc_demos_for_hooks() -> Vec<(&'static str, Arc<Vec<RegistryEntry>>)> {
-    vec![
-        ("Get Started", Arc::new(SHARED_GET_STARTED.to_vec())),
-        ("Hooks", Arc::new(ALL_SIDENAV_HOOKS.to_vec())),
-    ]
+    vec![("Get Started", Arc::new(SHARED_GET_STARTED.to_vec())), ("Hooks", Arc::new(ALL_SIDENAV_HOOKS.to_vec()))]
 }
-
-
 
 /* ========================================================== */
 /*                     ✨ CONSTANTS ✨                        */
@@ -978,4 +973,3 @@ pub const ALL_SIDENAV_HOOKS: &[RegistryEntry] = &[
         order: None,
     },
 ];
-

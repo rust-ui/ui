@@ -3,7 +3,9 @@ use leptos::prelude::*;
 use crate::ui::breadcrumb::{
     Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator,
 };
-use crate::ui::dropdown_menu::{DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLink, DropdownMenuTrigger};
+use crate::ui::dropdown_menu::{
+    DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLink, DropdownMenuTrigger,
+};
 
 #[component]
 pub fn DemoBreadcrumbDropdown() -> impl IntoView {
