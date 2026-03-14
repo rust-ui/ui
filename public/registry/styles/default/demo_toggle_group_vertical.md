@@ -36,7 +36,7 @@ pub fn DemoToggleGroupVertical() -> impl IntoView {
         <ToggleGroup orientation=ToggleGroupOrientation::Vertical>
             <ToggleGroupItem
                 title="Align Left"
-                pressed=Signal::derive(move || align.get() == "left")
+                pressed=Memo::new(move |_| align.get() == "left")
                 on:click=move |_| align.set("left")
             >
                 <AlignLeft />
@@ -44,7 +44,7 @@ pub fn DemoToggleGroupVertical() -> impl IntoView {
             </ToggleGroupItem>
             <ToggleGroupItem
                 title="Align Center"
-                pressed=Signal::derive(move || align.get() == "center")
+                pressed=Memo::new(move |_| align.get() == "center")
                 on:click=move |_| align.set("center")
             >
                 <AlignCenter />
@@ -52,7 +52,7 @@ pub fn DemoToggleGroupVertical() -> impl IntoView {
             </ToggleGroupItem>
             <ToggleGroupItem
                 title="Align Right"
-                pressed=Signal::derive(move || align.get() == "right")
+                pressed=Memo::new(move |_| align.get() == "right")
                 on:click=move |_| align.set("right")
             >
                 <AlignRight />

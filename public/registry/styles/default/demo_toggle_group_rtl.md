@@ -40,21 +40,21 @@ pub fn DemoToggleGroupRtl() -> impl IntoView {
             <ToggleGroup>
                 <ToggleGroupItem
                     title="غامق"
-                    pressed=Signal::derive(move || bold.get())
+                    pressed=bold
                     on:click=move |_| bold.update(|v| *v = !*v)
                 >
                     <Bold />
                 </ToggleGroupItem>
                 <ToggleGroupItem
                     title="مائل"
-                    pressed=Signal::derive(move || italic.get())
+                    pressed=italic
                     on:click=move |_| italic.update(|v| *v = !*v)
                 >
                     <Italic />
                 </ToggleGroupItem>
                 <ToggleGroupItem
                     title="تسطير"
-                    pressed=Signal::derive(move || underline.get())
+                    pressed=underline
                     on:click=move |_| underline.update(|v| *v = !*v)
                 >
                     <Underline />
