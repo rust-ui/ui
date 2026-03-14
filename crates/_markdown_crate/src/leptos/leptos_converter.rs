@@ -221,7 +221,7 @@ pub fn process_element(el: &Element, components: &MdComponents) -> View<AnyView>
                 <pre
                     data-name="__LeptosConverter__Highlighter"
                     data-language=language
-                    class="overflow-x-auto overflow-y-auto overscroll-y-auto overscroll-x-contain py-3.5 px-4 min-w-0 outline-none no-scrollbar"
+                    class="overflow-x-auto overflow-y-auto overscroll-y-auto overscroll-x-contain py-3.5 px-4 min-w-0 text-xs outline-none no-scrollbar"
                 >
                     {children}
                 </pre>
