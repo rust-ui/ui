@@ -11,25 +11,13 @@ pub fn DemoToggleGroupSpacing() -> impl IntoView {
 
     view! {
         <ToggleGroup spacing=0>
-            <ToggleGroupItem
-                title="Bold"
-                pressed=bold
-                on:click=move |_| bold.update(|v| *v = !*v)
-            >
+            <ToggleGroupItem title="Bold" pressed=bold on:click=move |_| bold.update(|v| *v = !*v)>
                 <Bold />
             </ToggleGroupItem>
-            <ToggleGroupItem
-                title="Italic"
-                pressed=italic
-                on:click=move |_| italic.update(|v| *v = !*v)
-            >
+            <ToggleGroupItem title="Italic" pressed=italic on:click=move |_| italic.update(|v| *v = !*v)>
                 <Italic />
             </ToggleGroupItem>
-            <ToggleGroupItem
-                title="Underline"
-                pressed=underline
-                on:click=move |_| underline.update(|v| *v = !*v)
-            >
+            <ToggleGroupItem title="Underline" pressed=underline on:click=move |_| underline.update(|v| *v = !*v)>
                 <Underline />
             </ToggleGroupItem>
         </ToggleGroup>
