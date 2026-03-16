@@ -7,11 +7,11 @@ use crate::hooks::use_data_scrolled::use_data_scrolled;
 
 mod components {
     use super::*;
-    clx! {NavMenuFixed, div, "fixed inset-x-0 top-0 z-50 pt-[calc(0.5rem+env(safe-area-inset-top))] lg:pt-[calc(0.75rem+env(safe-area-inset-top))] max-lg:in-data-[state=active]:bg-background/75 max-lg:in-data-[state=active]:h-screen max-lg:in-data-[state=active]:backdrop-blur max-lg:h-18 max-lg:overflow-hidden max-lg:px-2"}
-    clx! {NavMenuWrapper, nav, "px-3 in-data-scrolled:ring-foreground/5 in-data-scrolled:bg-background in-data-scrolled:shadow-black/10 in-data-scrolled:max-w-4xl max-lg:in-data-scrolled:px-5 in-data-scrolled:backdrop-blur mx-auto w-full max-w-6xl rounded-2xl   transition-[padding,background-color,box-shadow,max-width,backdrop-filter] duration-500 ease-in-out max-lg:in-data-[state=active]:backdrop-blur max-lg:in-data-[state=active]:ring-foreground/5 max-lg:in-data-[state=active]:bg-background/75 max-lg:in-data-[state=active]:px-5 max-lg:in-data-[state=active]:shadow-black/10  in-data-scrolled:shadow-lg in-data-scrolled:border"}
+    clx! {NavMenuFixed, div, "fixed inset-x-0 top-0 z-50 pt-[calc(0.5rem+env(safe-area-inset-top))] md:pt-[calc(0.75rem+env(safe-area-inset-top))] max-md:in-data-[state=active]:bg-background/75 max-md:in-data-[state=active]:h-screen max-md:in-data-[state=active]:backdrop-blur max-md:h-18 max-md:overflow-hidden max-md:px-2"}
+    clx! {NavMenuWrapper, nav, "px-3 in-data-scrolled:ring-foreground/5 in-data-scrolled:bg-background in-data-scrolled:shadow-black/10 in-data-scrolled:max-w-4xl max-md:in-data-scrolled:px-5 in-data-scrolled:backdrop-blur mx-auto w-full max-w-6xl rounded-2xl   transition-[padding,background-color,box-shadow,max-width,backdrop-filter] duration-500 ease-in-out max-md:in-data-[state=active]:backdrop-blur max-md:in-data-[state=active]:ring-foreground/5 max-md:in-data-[state=active]:bg-background/75 max-md:in-data-[state=active]:px-5 max-md:in-data-[state=active]:shadow-black/10  in-data-scrolled:shadow-lg in-data-scrolled:border"}
     clx! {NavMenuLink, a, "inline-flex flex-col gap-1 w-full items-center justify-center p-2 py-1 px-4 h-8 text-sm font-medium rounded-md outline-none disabled:opacity-50 disabled:pointer-events-none data-[active=true]:focus:bg-muted data-[active=true]:hover:bg-accent data-[active=true]:bg-muted/50 data-[active=true]:text-foreground [>_svg:not([class*='text-'])]:text-muted-foreground [>_svg:not([class*='size-'])]:size-4 group text-muted-foreground data-[state=open]:hover:bg-foreground/5 data-[state=open]:text-foreground data-[state=open]:focus:bg-foreground/5 data-[state=open]:bg-foreground/5 transition-[color,box-shadow] hover:bg-foreground/5 hover:text-foreground focus:bg-foreground/5 focus:text-foreground focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-1"}
 
-    clx! {NavMenuHomeLink, a, "transition-all duration-500 h-fit lg:in-data-scrolled:px-2 flex gap-2"}
+    clx! {NavMenuHomeLink, a, "transition-all duration-500 h-fit md:in-data-scrolled:px-2 flex gap-2"}
     clx! {NavMenuMiddle, div, "absolute inset-0 m-auto size-fit"}
     clx! {NavMenuList, menu, "flex flex-1 gap-0 justify-center items-center list-none group"}
     clx! {NavMenuItem, li, "relative group/dropdown"}
@@ -105,7 +105,7 @@ pub fn Header(children: Children) -> impl IntoView {
 #[component]
 pub fn NavMenu(children: Children, #[prop(into, optional)] class: String) -> impl IntoView {
     let merged_class = tw_merge!(
-        "flex relative flex-1 justify-center items-center max-w-max group/navigation-menu **:data-[slot=navigation-menu-content]:top-12 max-lg:hidden",
+        "flex relative flex-1 justify-center items-center max-w-max group/navigation-menu **:data-[slot=navigation-menu-content]:top-12 max-md:hidden",
         class
     );
 

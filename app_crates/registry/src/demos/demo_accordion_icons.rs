@@ -8,7 +8,7 @@ use crate::ui::accordion::{
 #[component]
 pub fn DemoAccordionIcons() -> impl IntoView {
     view! {
-        <Accordion class="overflow-hidden rounded-lg border bg-background max-w-[500px]">
+        <Accordion class="overflow-hidden rounded-lg border bg-background w-full max-w-[500px]">
             <AccordionItem>
                 <AccordionTrigger open=true class="peer-checked:bg-accent hover:bg-accent">
                     <AccordionTitle>Registry</AccordionTitle>

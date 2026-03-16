@@ -24,7 +24,7 @@ pub fn AppHeader() -> impl IntoView {
             <NavMenuFixed>
                 <NavMenuWrapper>
                     <div class="flex relative flex-wrap justify-between items-center lg:py-3">
-                        <div class="flex gap-8 justify-between items-center max-lg:in-data-[state=active]:border-b max-lg:h-14 max-lg:w-full">
+                        <div class="flex gap-8 justify-between items-center max-md:in-data-[state=active]:border-b max-md:h-14 max-md:w-full">
                             <NavMenuHomeLink attr:aria-label="home" attr:href="/">
                                 <span class="text-lg font-semibold">"Rust/UI"</span>
                             </NavMenuHomeLink>
@@ -215,7 +215,7 @@ fn SecondNavMenu() -> impl IntoView {
 #[component]
 fn NavMenuRight() -> impl IntoView {
     view! {
-        <div class="hidden lg:flex lg:gap-6 lg:p-0 lg:m-0 lg:bg-transparent lg:border-transparent lg:shadow-none dark:shadow-none lg:w-fit dark:lg:bg-transparent">
+        <div class="hidden md:flex md:gap-6 md:p-0 md:m-0 md:bg-transparent md:border-transparent md:shadow-none dark:shadow-none md:w-fit dark:md:bg-transparent">
             <div class="flex flex-row gap-3">
                 <CommandSearchDocs />
                 <div class="flex justify-center items-center mr-1">
@@ -239,7 +239,7 @@ fn MobileMenuTrigger(is_open: RwSignal<bool>) -> impl IntoView {
     view! {
         <button
             aria-label="Open Menu"
-            class="block relative z-20 p-2.5 -m-2.5 -mr-3 cursor-pointer lg:hidden"
+            class="block relative z-20 p-2.5 -m-2.5 -mr-3 cursor-pointer md:hidden"
             on:click=toggle_menu
         >
             <Menu class="m-auto duration-200 lucide lucide-menu in-data-[state=active]:rotate-180 in-data-[state=active]:scale-0 in-data-[state=active]:opacity-0 size-5" />
@@ -260,7 +260,7 @@ fn MobileMenu(is_open: RwSignal<bool>) -> impl IntoView {
     };
 
     view! {
-        <div class=move || format!("flex-col gap-4 mt-6 w-full lg:hidden mb-4 {}", display_class())>
+        <div class=move || format!("flex-col gap-4 mt-6 w-full md:hidden mb-4 {}", display_class())>
             <DemoAccordionIcons />
             <div class="flex flex-row gap-3 w-full">
                 <CommandSearchDocs />

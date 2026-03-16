@@ -17,7 +17,7 @@ pub fn HeaderDocs() -> impl IntoView {
                         <NavDesktop />
                     </div>
 
-                    <div class="flex gap-2 items-center">
+                    <div class="flex gap-2 items-center min-w-0">
                         <CommandSearchDocs />
                         <Separator orientation=SeparatorOrientation::Vertical class="hidden ml-2 h-4 lg:block" />
                         <ThemeToggle />
