@@ -13,7 +13,7 @@ use crate::__registry__::my_command_bar_constants::{COMPONENTS_ITEMS, CommandCat
 pub fn CommandSearchDocs() -> impl IntoView {
     view! {
         <CommandDialogProvider id="command-search-docs">
-            <CommandDialogTrigger class="justify-start pl-3 flex-1 h-8 text-sm font-normal shadow-none md:flex-none md:w-48 lg:w-40 xl:w-64">
+            <CommandDialogTrigger class="flex-1 justify-start pl-3 h-8 text-sm font-normal shadow-none md:flex-none md:w-48 lg:w-40 xl:w-64">
                 <span class="hidden md:inline-flex">Search docs...</span>
                 <span class="inline-flex md:hidden">Search documentation...</span>
                 <kbd class="flex gap-1 items-center px-1.5 h-5 font-mono font-medium rounded border opacity-100 pointer-events-none select-none bg-muted text-[10px]">
