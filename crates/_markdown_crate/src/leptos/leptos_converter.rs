@@ -201,8 +201,8 @@ pub fn process_element(el: &Element, components: &MdComponents) -> View<AnyView>
                 </a>
             }.into_any())
         }
-        "ul" => View::new(view! { <ul class="my-6 pl-6 list-disc">{children}</ul> }.into_any()),
-        "ol" => View::new(view! { <ol class="my-6 pl-6 list-decimal">{children}</ol> }.into_any()),
+        "ul" => View::new(view! { <ul class="pl-6 my-6 list-disc">{children}</ul> }.into_any()),
+        "ol" => View::new(view! { <ol class="pl-6 my-6 list-decimal">{children}</ol> }.into_any()),
         "li" => View::new(view! { <li class="mt-2">{children}</li> }.into_any()),
         "pre" => {
             // Extract language from child code elements

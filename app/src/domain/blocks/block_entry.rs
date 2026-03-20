@@ -1,8 +1,8 @@
 use app_routes::BlockRoutes;
 
 use crate::__registry__::all_blocks::{
-    ALL_FAQ_BLOCKS, ALL_FOOTER_BLOCKS, ALL_HEADER_BLOCKS, ALL_INTEGRATION_BLOCKS, ALL_LOGIN_BLOCKS,
-    ALL_SIDENAV_BLOCKS, BlockIdKebab,
+    ALL_FAQ_BLOCKS, ALL_FOOTER_BLOCKS, ALL_HEADER_BLOCKS, ALL_INTEGRATION_BLOCKS, ALL_LOGIN_BLOCKS, ALL_SIDENAV_BLOCKS,
+    BlockIdKebab,
 };
 
 #[derive(Clone, Debug, PartialEq)]
@@ -84,6 +84,4 @@ impl BlockEntry {
     pub fn get_integration_blocks() -> Vec<BlockEntry> {
         ALL_INTEGRATION_BLOCKS.to_vec()
     }
-
-
 }

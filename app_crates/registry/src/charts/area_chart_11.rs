@@ -68,8 +68,7 @@ pub fn AreaChart11() -> impl IntoView {
                 <CardHeader class="py-6">
                     <CardTitle>Area Chart - Article Markers</CardTitle>
                     <CardDescription>
-                        "Hover the "
-                        <span class="text-blue-500 font-medium">"◆"</span>
+                        "Hover the " <span class="font-medium text-blue-500">"◆"</span>
                         " markers to see which article was published"
                     </CardDescription>
                 </CardHeader>
