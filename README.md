@@ -19,6 +19,12 @@ Visit [rust-ui.com](https://www.rust-ui.com) to browse components and get instal
 1. Ensure you have the following installed:
     - [Tailwind CSS](https://tailwindcss.com/docs/installation/tailwind-cli)
     - [Cargo Leptos](https://github.com/leptos-rs/cargo-leptos) 
+    
+    Ensure you have the Rust toolchain and the WASM target installed:
+    ```bash
+    rustup target add wasm32-unknown-unknown
+    cargo install --locked cargo-leptos
+    ```
 
 2. Add Dependencies
   
@@ -27,8 +33,8 @@ Visit [rust-ui.com](https://www.rust-ui.com) to browse components and get instal
   ```toml
   [dependencies]
   leptos = { version = "0.6", features = ["hydrate"] }
-  lucide-leptos = "0.1" # Common for icons
-  # Add any other required utils mentioned in component docs
+  lucide-leptos = "0.1" # Standard icon set
+  tailwind_fuse = "0.3" # Recommended for easy class merging
   ```
 
 3. Browse the [registry](https://www.rust-ui.com/), find a component (e.g., `Button`), and copy the source into your project's components/ directory.
@@ -47,7 +53,7 @@ Visit [rust-ui.com](https://www.rust-ui.com) to browse components and get instal
 
 
 ## Development
-If you want to run this project locally to preview components or contribute:
+If you'd like to contribute or preview the registry locally:
 
 1. Clone the repo
     ```bash
@@ -64,8 +70,9 @@ If you want to run this project locally to preview components or contribute:
     ```bash
     cargo install --locked cargo-leptos
     ```
-  
-    *Install `lld` to be used for linking instead of the default `ld` linker
+    
+   ### Linker Optimization (Optional)
+    *Note for macOS Users*: To use the faster lld linker, install it via Homebrew and ensure it's in your PATH, or configure your .cargo/config.toml to point to the absolute path.
     ```bash
     brew install lld
     ```
@@ -78,7 +85,7 @@ If you want to run this project locally to preview components or contribute:
 ## Contribution
 We love contributions! Whether it's a new component, a bug fix, or a CSS tweak.
 
-- Fork the Project [Currently Disabled].
+- Fork the Project.
 - Create your Feature Branch (git checkout -b feature/AmazingComponent).
 - Commit your Changes (git commit -m 'Add some AmazingComponent').
 - Push to the Branch (git push origin feature/AmazingComponent).
