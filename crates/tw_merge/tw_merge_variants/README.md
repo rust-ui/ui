@@ -1,6 +1,8 @@
 <!-- cargo-rdme start -->
 
-Disclaimer: This is a fork of tailwind_fuse.
+Proc-macro crate for [`tw_merge`](https://github.com/rust-ui/tw_merge). Not intended for direct use — enable the `variant` feature on `tw_merge` instead.
+
+Forked from [tailwind-fuse](https://github.com/gaucho-labs/tailwind-fuse) by [gaucho-labs](https://github.com/gaucho-labs). Updated for Tailwind V4.
 
 
 # Tw Merge (tw_merge)

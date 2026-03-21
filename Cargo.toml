@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["app", "server", "app_crates/*", "crates/tw_merge", "crates/tw_merge_variants"]
+members = ["app", "server", "app_crates/*", "crates/tw_merge/tw_merge", "crates/tw_merge/tw_merge_variants"]
 exclude = ["build_registry", "crates/ui-cli", "crates/ui-cli-ratatui", "crates/_starters", "crates/_markdown_config", "src-tauri", "!!!*"]
 
 
@@ -35,7 +35,7 @@ opt-level = 'z'
 
 
 [workspace.dependencies]
-tw_merge = { path = "crates/tw_merge", features = ["variant", "debug"]}
+tw_merge = { path = "crates/tw_merge/tw_merge", features = ["variant", "debug"]}
 leptos_ui = { path = "crates/leptos_ui" }
 icons = { path = "crates/icons", features = ["leptos", "leptos_animated"] }
 markdown_crate = { path = "crates/_markdown_crate", features = ["leptos"] }

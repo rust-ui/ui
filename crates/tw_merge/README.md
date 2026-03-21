@@ -1,7 +1,10 @@
 <!-- cargo-rdme start -->
 
-Disclaimer: This is a fork of tailwind_fuse.
+Forked from [tailwind-fuse](https://github.com/gaucho-labs/tailwind-fuse) by [gaucho-labs](https://github.com/gaucho-labs). Last updated January 2025 (Tailwind V3) — this fork brings it forward to V4.
 
+This workspace contains two crates:
+- **`tw_merge`** — class merging and joining macros
+- **`tw_merge_variants`** — proc-macro crate powering the `variant` feature (not intended for direct use)
 
 # Tw Merge (tw_merge)
 

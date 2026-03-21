@@ -2,7 +2,7 @@
 name = "tw_merge_variants"
 version = "0.1.8"
 edition = "2024"
-authors = ["Rustify"]
+authors = ["Nico Burniske", "Gaucho Labs", "Max Wells"]
 description = "Variant macros for tw_merge"
 keywords = ["tailwind", "variants", "leptos"]
 license = "MIT"

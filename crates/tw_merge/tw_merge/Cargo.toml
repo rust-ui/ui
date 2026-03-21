@@ -1,0 +1,31 @@
+[package]
+name = "tw_merge"
+version = "0.1.20"
+edition = "2024"
+authors = ["Nico Burniske", "Gaucho Labs", "Max Wells"]
+description = "Macros for merging Tailwind CSS v4 classes or creating variants."
+keywords = ["tailwind", "tailwind-v4", "css", "rust", "leptos"]
+license = "MIT"
+repository = "https://github.com/rust-ui/tw_merge"
+homepage = "https://rust-ui.com"
+categories = ["web-programming", "development-tools", "wasm"]
+readme = "../README.md"
+
+[dependencies]
+nom = {version = "7"}
+tw_merge_variants = { path = "../tw_merge_variants", version = "0.1.0", optional = true }
+
+[dev-dependencies]
+divan = "0.1.14"
+fastrand = "2"
+
+[[bench]]
+name = "merge"
+harness = false
+
+[features]
+variant = ["tw_merge_variants"]
+debug = []
+
+[package.metadata.docs.rs]
+all-features = true
