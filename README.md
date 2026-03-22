@@ -57,7 +57,7 @@ If you'd like to contribute or preview the registry locally:
 
 1. Clone the repo
     ```bash
-    git clone git@github.com:rust-ui/ui.git rust-ui
+    git clone git@github.com:rust-ui/ui.git rust-ui 
     cd rust-ui
     ```
 
