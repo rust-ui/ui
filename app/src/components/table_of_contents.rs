@@ -131,7 +131,7 @@ pub fn TableOfContents(toc_items: Vec<TocItem>) -> impl IntoView {
 fn TocCTACard() -> impl IntoView {
     view! {
         <a
-            href="https://rustify.rs/bootcamps/fullstack"
+            href="https://rustify.rs/bootcamps/fullstack?utm_source=rust-ui&utm_medium=sidebar&utm_campaign=bootcamp-cta"
             target="_blank"
             rel="noopener noreferrer"
             class="flex flex-col gap-2 p-6 mt-6 text-sm no-underline rounded-xl transition-colors group bg-muted hover:bg-muted/80"
@@ -145,7 +145,7 @@ fn TocCTACard() -> impl IntoView {
             </span>
 
             <Button class="mt-2 pointer-events-auto group/btn">
-                <span>"Bootcamp"</span>
+                <span>"Learn more"</span>
                 <ExternalLink class="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
             </Button>
         </a>

@@ -16,6 +16,16 @@ rustflags = [
     "--cfg", "erase_components"
 ]
 
+# Native Linux binary (glibc, used on Hetzner/production servers)
+# ⚠️  CRITICAL: erase_components MUST be set here too.
+# If server (x86_64-linux-gnu) builds WITHOUT erase_components but WASM builds WITH it,
+# SSR outputs component boundary comment markers that the WASM client doesn't expect →
+# tachys failed_to_cast_marker_node panic on every page. Always keep in sync with wasm target.
+[target.x86_64-unknown-linux-gnu]
+rustflags = [
+    "--cfg", "erase_components"
+]
+
 # Statically linked Linux binary (NO mold)
 [target.x86_64-unknown-linux-musl]
 rustflags = [

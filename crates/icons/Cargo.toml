@@ -1,6 +1,6 @@
 [package]
 name = "icons"
-version = "0.18.0"
+version = "0.18.1"
 authors = ["Rustify"]
 homepage = "https://rust-ui.com/icons"
 repository = "https://github.com/rust-ui/icons"
@@ -15,8 +15,8 @@ readme = "./README.md"
 [dependencies]
 leptos = { version = "0.8", features = ["nightly"], optional = true }
 dioxus = { version = "0.7", optional = true }
-strum = { version = "0.27", features = ["derive"] }
-tw_merge = "0.1.7" 
+strum = { version = "0.28", features = ["derive"] }
+tw_merge = "0.1" 
 
 [features]
 leptos = ["dep:leptos", "leptos/nightly"]
