@@ -44,12 +44,12 @@ Visit [rust-ui.com](https://www.rust-ui.com) to browse components and get instal
 
 2. Browse the [registry](https://www.rust-ui.com/), find a component (e.g., `Button`), and copy the source into your project's components/ directory.
   ```rust
-  use crate::components::ui::button::Button;
+  use crate::components::ui::button::{Button, ButtonVariant};
   
   #[component]
   pub fn App() -> impl IntoView {
       view! {
-          <Button variant="outline" on:click=|_| println!("Clicked!")>
+          <Button variant=ButtonVariant::Outline on:click=move |_| {}>
               "Click Me"
           </Button>
       }
