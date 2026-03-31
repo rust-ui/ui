@@ -31,13 +31,13 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** separator (ui)
     *** use_form (hooks)
       **** cargo: serde
-      **** cargo: serde_json;
+      **** cargo: serde_json
       **** cargo: validator
   ** label (ui)
   ** switch (ui)
   ** use_form (hooks)
     *** cargo: serde
-    *** cargo: serde_json;
+    *** cargo: serde_json
     *** cargo: validator
 * avatar (ui)
 * badge (ui)
@@ -182,18 +182,18 @@ Each dependency level is shown with progressive bullet points: * for components,
       **** separator (ui)
       **** use_form (hooks)
         ***** cargo: serde
-        ***** cargo: serde_json;
+        ***** cargo: serde_json
         ***** cargo: validator
     *** label (ui)
     *** switch (ui)
     *** use_form (hooks)
       **** cargo: serde
-      **** cargo: serde_json;
+      **** cargo: serde_json
       **** cargo: validator
   ** button (ui)
   ** use_form (hooks)
     *** cargo: serde
-    *** cargo: serde_json;
+    *** cargo: serde_json
     *** cargo: validator
 * demo_avatar (demos)
   ** avatar (ui)
@@ -869,11 +869,11 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** separator (ui)
     *** use_form (hooks)
       **** cargo: serde
-      **** cargo: serde_json;
+      **** cargo: serde_json
       **** cargo: validator
   ** use_form (hooks)
     *** cargo: serde
-    *** cargo: serde_json;
+    *** cargo: serde_json
     *** cargo: validator
 * demo_form_error (demos)
   ** form (ui)
@@ -886,7 +886,7 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** separator (ui)
     *** use_form (hooks)
       **** cargo: serde
-      **** cargo: serde_json;
+      **** cargo: serde_json
       **** cargo: validator
   ** input (ui)
     *** cargo: strum
@@ -903,11 +903,11 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** separator (ui)
     *** use_form (hooks)
       **** cargo: serde
-      **** cargo: serde_json;
+      **** cargo: serde_json
       **** cargo: validator
   ** use_form (hooks)
     *** cargo: serde
-    *** cargo: serde_json;
+    *** cargo: serde_json
     *** cargo: validator
 * demo_form_group (demos)
   ** checkbox (ui)
@@ -921,7 +921,7 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** separator (ui)
     *** use_form (hooks)
       **** cargo: serde
-      **** cargo: serde_json;
+      **** cargo: serde_json
       **** cargo: validator
 * demo_form_select (demos)
   ** form (ui)
@@ -934,7 +934,7 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** separator (ui)
     *** use_form (hooks)
       **** cargo: serde
-      **** cargo: serde_json;
+      **** cargo: serde_json
       **** cargo: validator
   ** select (ui)
     *** cargo: strum
@@ -954,11 +954,11 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** separator (ui)
     *** use_form (hooks)
       **** cargo: serde
-      **** cargo: serde_json;
+      **** cargo: serde_json
       **** cargo: validator
   ** use_form (hooks)
     *** cargo: serde
-    *** cargo: serde_json;
+    *** cargo: serde_json
     *** cargo: validator
 * demo_hover_card (demos)
   ** avatar (ui)
@@ -1513,7 +1513,7 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** separator (ui)
   ** use_form (hooks)
     *** cargo: serde
-    *** cargo: serde_json;
+    *** cargo: serde_json
     *** cargo: validator
 * header (ui)
   ** use_data_scrolled (hooks)
@@ -1665,7 +1665,7 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** use_virtual_scroll (hooks)
 * use_form (hooks)
   ** cargo: serde
-  ** cargo: serde_json;
+  ** cargo: serde_json
   ** cargo: validator
 * use_handle_day_click (hooks)
   ** cargo: time
