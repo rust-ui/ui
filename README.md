@@ -103,5 +103,11 @@ We love contributions! Whether it's a new component, a bug fix, or a CSS tweak.
 
 [![Star History Chart](https://api.star-history.com/svg?repos=rust-ui/ui&type=Date)](https://star-history.com/#rust-ui/ui&Date)
 
+## Contributors
+
+<a href="https://github.com/rust-ui/ui/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=rust-ui/ui" />
+</a>
+
 ## License
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information. Crafted by [Max Wells](https://www.rust-ui.com)
