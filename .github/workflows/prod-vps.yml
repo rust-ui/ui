@@ -63,15 +63,11 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-          key: ${{ runner.os }}-cargo-clippy-${{ hashFiles('crates/tw_merge/Cargo.lock', 'crates/tw_merge_variants/Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-clippy-${{ hashFiles('crates/tw_merge/Cargo.lock') }}
           restore-keys: ${{ runner.os }}-cargo-clippy-
 
       - name: Clippy — tw_merge
         working-directory: crates/tw_merge
-        run: cargo clippy --all-features -- -D warnings
-
-      - name: Clippy — tw_merge_variants
-        working-directory: crates/tw_merge_variants
         run: cargo clippy --all-features -- -D warnings
 
   audit:

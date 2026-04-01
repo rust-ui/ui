@@ -6,7 +6,7 @@ on:
     paths:
       - "crates/leptos_ui/**"
       - "crates/tw_merge/**"
-      - "crates/tw_merge_variants/**"
+      - "crates/tw_merge/tw_merge_variants/**"
       - "crates/icons/**"
 
 concurrency:
