@@ -15,15 +15,24 @@ struct GithubRepoResponse {
 #[server(FetchGithubStars, "/api", input = GetUrl, output = Json)]
 pub async fn fetch_github_stars() -> Result<u32, ServerFnError> {
     let client = reqwest::Client::new();
-    let response = client
-        .get(GITHUB_API_URL)
-        .header("User-Agent", "rust-ui")
+    let mut request = client.get(GITHUB_API_URL).header("User-Agent", "rust-ui");
+    if let Ok(token) = std::env::var("GH_TOKEN") {
+        request = request.header("Authorization", format!("Bearer {token}"));
+    }
+    let response = request
         .send()
         .await
-        .map_err(|e| ServerFnError::new(format!("Failed to fetch GitHub stars: {e}")))?;
+        .map_err(|e| {
+            let msg = format!("Failed to fetch GitHub stars: {e}");
+            tracing::warn!("{msg}");
+            ServerFnError::new(msg)
+        })?;
 
-    let repo: GithubRepoResponse =
-        response.json().await.map_err(|e| ServerFnError::new(format!("Failed to parse GitHub response: {e}")))?;
+    let repo: GithubRepoResponse = response.json().await.map_err(|e| {
+        let msg = format!("Failed to parse GitHub response: {e}");
+        tracing::warn!("{msg}");
+        ServerFnError::new(msg)
+    })?;
 
     Ok(repo.stargazers_count)
 }
