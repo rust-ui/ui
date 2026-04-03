@@ -1,6 +1,6 @@
 [package]
 name = "tw_merge_variants"
-version = "0.1.8"
+version = "0.1.9"
 edition = "2024"
 authors = ["Nico Burniske", "Gaucho Labs", "Max Wells"]
 description = "Variant macros for tw_merge"
