@@ -95,6 +95,7 @@ pub fn DraggableItem(#[prop(into)] text: String) -> impl IntoView {
         <div
             class="p-4 border cursor-move border-input bg-card draggable [&.dragging]:opacity-50"
             draggable="true"
+            tabindex="0"
             data-name="DraggableItem"
         >
             {text}
