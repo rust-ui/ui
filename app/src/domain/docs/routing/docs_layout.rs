@@ -1,8 +1,6 @@
 use std::sync::Arc;
 
 use app_domain::utils::{PARAM, ParamsUtils};
-
-use crate::utils::page_transition::{PAGE_OUTLET, retrigger_page_fade};
 use app_routes::{ComponentsRoutes, HooksRoutes};
 use leptos::prelude::*;
 use leptos_router::components::Outlet;
@@ -12,6 +10,7 @@ use crate::__registry__::demos_sidenav::{get_all_arc_demos_for_components, get_a
 use crate::components::navigation::header_docs::HeaderDocs;
 use crate::components::shared_sidenav_demos::SharedSidenavDemos;
 use crate::components::table_of_contents::{TableOfContents, TocItem};
+use crate::utils::page_transition::{PAGE_OUTLET, retrigger_page_fade};
 
 #[derive(Clone)]
 pub struct DocsTocContext {
@@ -61,8 +60,7 @@ pub fn DocsLayout() -> impl IntoView {
                             all_arc_demos=all_arc_demos
                         />
                     }
-                }}
-                <div id=PAGE_OUTLET class="page__fade min-w-0 flex-1">
+                }} <div id=PAGE_OUTLET class="flex-1 min-w-0 page__fade">
                     <Outlet />
                 </div>
                 {move || {
