@@ -20,7 +20,7 @@ use registry::blocks::sidenav11::Sidenav11Routes;
 use registry::hooks::use_data_scrolled::DATA_SCROLL_TARGET;
 use registry::hooks::use_theme_mode::ThemeMode;
 use registry::ui::sonner::SonnerToaster;
-use registry::ui::toast_custom::toaster::{Toaster, provide_toaster};use crate::utils::page_transition::ScrollToTop;
+use registry::ui::toast_custom::toaster::{Toaster, provide_toaster};
 
 use crate::components::navigation::app_wrapper::AppWrapper;
 use crate::domain::blocks::routing::blocks_layout::BlocksLayout;
@@ -44,7 +44,7 @@ use crate::domain::views::views_layout::ViewsLayout;
 use crate::routes::page_download::PageDownload;
 use crate::routes::page_home::PageHome;
 use crate::routes::page_not_found::PageNotFound;
-
+use crate::utils::page_transition::ScrollToTop;
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -136,8 +136,6 @@ pub fn App() -> impl IntoView {
                         <Route path=StaticSegment(RoutePaths::TO_FIX) view=PageToFix />
                         <Route path=StaticSegment(RoutePaths::CREATE) view=PageCreate />
                         <Route path=path!("/bug-reports/d7f3a9c2e1b5") view=PageBugReports />
-                    // <Route path=StaticSegment(RoutePaths::CSS_TRICKS) view=PageCssTricks />
-                    // <Route path=StaticSegment(RoutePaths::TAILWIND_LATEST) view=PageTailwindLatest />
                     </Routes>
                 </main>
             </AppWrapper>
