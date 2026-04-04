@@ -27,7 +27,7 @@ pub fn BlocksLayout() -> impl IntoView {
         <div data-name="__BlockLayout" class="container flex flex-col gap-20 pb-14">
             <BlocksHero />
 
-            <div id=PAGE_OUTLET class="page__fade">
+            <div id=PAGE_OUTLET class="flex flex-col gap-20 page__fade">
                 <Outlet />
             </div>
         </div>

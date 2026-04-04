@@ -5,7 +5,6 @@ use app_routes::{BlockRoutes, ChartRoutes, ComponentsRoutes, HooksRoutes};
 use leptos::prelude::*;
 use leptos_meta::{Html, provide_meta_context};
 use leptos_router::components::{ParentRoute, Route, Router, Routes};
-use leptos_router::hooks::use_location;
 use leptos_router::{ParamSegment, StaticSegment, path};
 use registry::blocks::sidenav01::Sidenav01Routes;
 use registry::blocks::sidenav02::Sidenav02Routes;
@@ -21,7 +20,7 @@ use registry::blocks::sidenav11::Sidenav11Routes;
 use registry::hooks::use_data_scrolled::DATA_SCROLL_TARGET;
 use registry::hooks::use_theme_mode::ThemeMode;
 use registry::ui::sonner::SonnerToaster;
-use registry::ui::toast_custom::toaster::{Toaster, provide_toaster};
+use registry::ui::toast_custom::toaster::{Toaster, provide_toaster};use crate::utils::page_transition::ScrollToTop;
 
 use crate::components::navigation::app_wrapper::AppWrapper;
 use crate::domain::blocks::routing::blocks_layout::BlocksLayout;
@@ -46,28 +45,6 @@ use crate::routes::page_download::PageDownload;
 use crate::routes::page_home::PageHome;
 use crate::routes::page_not_found::PageNotFound;
 
-/// Scrolls the main scroll container to top on route changes
-#[component]
-fn ScrollToTop() -> impl IntoView {
-    let location = use_location();
-
-    Effect::new(move |_| {
-        let pathname = location.pathname.get();
-
-        // Blocks pages preserve scroll position on route changes
-        if pathname.starts_with(BlockRoutes::base_path()) {
-            return;
-        }
-
-        // Scroll the custom scroll container to top
-        if let Some(window) = web_sys::window()
-            && let Some(document) = window.document()
-            && let Some(element) = document.get_element_by_id(DATA_SCROLL_TARGET)
-        {
-            element.set_scroll_top(0);
-        }
-    });
-}
 
 #[component]
 pub fn App() -> impl IntoView {
