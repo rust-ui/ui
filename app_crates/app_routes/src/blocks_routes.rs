@@ -17,6 +17,10 @@ impl BlockRoutes {
         "blocks"
     }
 
+    pub fn base_path() -> &'static str {
+        "/blocks"
+    }
+
     pub fn to_route(self) -> String {
         format!("/{}/{}", BlockRoutes::base_segment(), self.as_ref())
     }

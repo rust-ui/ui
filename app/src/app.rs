@@ -52,8 +52,12 @@ fn ScrollToTop() -> impl IntoView {
     let location = use_location();
 
     Effect::new(move |_| {
-        // Track location changes
-        let _ = location.pathname.get();
+        let pathname = location.pathname.get();
+
+        // Blocks pages preserve scroll position on route changes
+        if pathname.starts_with(BlockRoutes::base_path()) {
+            return;
+        }
 
         // Scroll the custom scroll container to top
         if let Some(window) = web_sys::window()
