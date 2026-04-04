@@ -1163,4 +1163,31 @@ test.describe("Dialog Page", () => {
       await expect(ui.saveButton).toBeFocused();
     });
   });
+
+  test.describe("SPA Navigation", () => {
+    test("dialog should open after SPA navigation", async ({ page }) => {
+      const ui = new DialogPage(page);
+      await ui.gotoViaSpa();
+      await ui.openDialog();
+
+      await expect(ui.dialogContent).toHaveAttribute("data-state", "open");
+    });
+
+    test("dialog backdrop should be visible after SPA navigation", async ({ page }) => {
+      const ui = new DialogPage(page);
+      await ui.gotoViaSpa();
+      await ui.openDialog();
+
+      await expect(ui.dialogBackdrop).toBeVisible();
+    });
+
+    test("dialog should close via Escape after SPA navigation", async ({ page }) => {
+      const ui = new DialogPage(page);
+      await ui.gotoViaSpa();
+      await ui.openDialog();
+
+      await page.keyboard.press("Escape");
+      await expect(ui.dialogContent).toHaveAttribute("data-state", "closed");
+    });
+  });
 });

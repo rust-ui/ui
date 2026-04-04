@@ -108,15 +108,130 @@ async expectActiveColor(color: string): Promise<void> {
 
 ---
 
-## 5. Running the tests
+## 5. SPA navigation tests and the `gotoViaSpa()` helper
+
+**Why:** Some bugs only appear after a Leptos SPA route transition (not on direct page load).
+Specifically, the `page__fade` animation runs a `translateY` + `opacity` animation on
+`#page__outlet`. If `fill-mode: forwards` is left on after the animation, the CSS transform
+creates a new stacking context that breaks `position: fixed` overlays (Drawer, DropdownMenu,
+Sonner, ContextMenu, etc.) — they render clipped or invisible.
+
+`gotoViaSpa()` in `_base_page.ts` exercises this path:
+
+1. Full-loads a different component page (e.g. `button`)
+2. Clicks the sidebar link to SPA-navigate to the target component
+3. Waits for the URL to settle + 300 ms for the `page__fade` animation to complete
+
+```typescript
+await ui.gotoViaSpa();           // SPA nav from button → target
+await ui.gotoViaSpa("dialog");   // SPA nav from dialog → target
+```
+
+**When to add SPA tests:** Any component that uses `position: fixed` or renders into a
+portal (overlays, toasts, drawers, context menus) needs an SPA navigation variant.
+
+---
+
+## 6. Overlay locators after SPA navigation
+
+**Problem:** After SPA navigation, portal elements (DropdownMenu content, Sonner toaster,
+Drawer) render at `<body>` level — outside the `[data-name="Preview"]` container. Locators
+scoped to `this.preview` will not find them.
+
+**Fix:** Use **page-level** locators in SPA navigation tests:
+
+```typescript
+// Bad — scoped to preview, misses portal elements after SPA nav
+await expect(ui.toastContainer).toBeVisible();          // this.preview.locator(...)
+
+// Good — page-level
+await expect(page.locator('[data-sonner-toaster]').first()).toBeVisible();
+```
+
+Also: `page.locator('[data-name="DropdownMenuContent"]').first()` may resolve to the
+**wrong** instance after SPA nav (DOM order changes). Scope to the open one instead:
+
+```typescript
+const openContent = page.locator('[data-name="DropdownMenuContent"][data-state="open"]');
+await expect(openContent).toBeVisible();
+await page.keyboard.press("Escape");
+await expect(openContent).not.toBeVisible();
+```
+
+---
+
+## 7. Hydration panic on direct page load (WASM dies)
+
+**Problem:** `theme_toggle.rs` causes an unrecoverable Leptos hydration error on every
+direct page load. This kills the WASM instance — click handlers stop working, reactive
+state never updates, and toasts/overlays never appear.
+
+**Consequence:** You cannot test interactive behaviour (reactive state, toasts, overlays)
+via direct `page.goto()`. The element is in the DOM (SSR-rendered) but inert.
+
+**Fix:** Use `gotoViaSpa()` for any test that clicks a button and expects reactive output.
+SPA navigation skips hydration entirely — the component renders fresh in CSR mode with a
+live WASM instance.
+
+---
+
+## 8. Lazy-loaded Sonner JS
+
+**Problem:** `lazy_load_sonner.js` delays loading `sonner.js` until the
+`[data-name="SonnerTrigger"]` element appears in the DOM (via MutationObserver). After SPA
+navigation the trigger appears ~immediately, but the async script load may not finish within
+the 300 ms `gotoViaSpa()` wait.
+
+**Fix:** Wait for `window.LazySonner.loaded` before clicking the trigger:
+
+```typescript
+await page.waitForFunction(() => (window as any).LazySonner?.loaded === true, { timeout: 5000 });
+await ui.triggerToast();
+```
+
+---
+
+## 9. Custom Leptos Toaster vs Sonner — different selectors
+
+The app has **two distinct toast systems**:
+
+| System | Trigger | DOM marker | Locator |
+|---|---|---|---|
+| **Sonner** (JS) | `SonnerTrigger` button | `data-sonner-toast="true"` on `<li>` | `[data-sonner-toast="true"]` |
+| **Custom Leptos Toaster** | `show_toast()` in click handler | No `data-*` attr — plain `<div>` with CSS vars | `[style*="leptoaster-info-background-color"] span` |
+
+The Sonner **container** (`[data-sonner-toaster]`) is always rendered globally (6 instances
+for the positions demo) — always use `.first()` to avoid strict-mode violations.
+
+The custom Leptos Toaster renders toasts as plain `<div>` elements with inline styles
+using `--leptoaster-*` CSS variables. Match by CSS variable content, not text, to avoid
+false-matching identical text in documentation code blocks:
+
+```typescript
+// Bad — also matches code snippet text in docs
+await expect(page.getByText("This is a toast!")).toBeVisible();
+
+// Good — specific to the toast element
+await expect(page.locator('[style*="leptoaster-info-background-color"] span')).toBeVisible();
+```
+
+---
+
+## 10. Running the tests
 
 ```bash
 # Start the dev server first
 LEPTOS_SITE_ADDR="127.0.0.1:4000" LEPTOS_RELOAD_PORT="4001" cargo leptos watch --hot-reload
 
-# Run all tests
-cd e2e && BASE_URL="http://127.0.0.1:4000" pnpm test
+# Run all tests (use --workers=1 to avoid Leptos reactive panic under parallel load)
+cd e2e && BASE_URL="http://127.0.0.1:4000" pnpm test -- --workers=1
+
+# Run only SPA navigation tests
+BASE_URL="http://127.0.0.1:4000" pnpm test -- --grep "SPA Navigation" --workers=1
 
 # Run a single spec
 BASE_URL="http://127.0.0.1:4000" pnpm test tests/hooks/use-history.spec.ts
 ```
+
+> **Note:** The server panics under parallel Playwright workers due to Leptos "reactive
+> value disposed" errors. Always use `--workers=1` after a fresh server start.

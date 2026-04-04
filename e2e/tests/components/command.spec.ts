@@ -715,4 +715,28 @@ test.describe("Command Page", () => {
       await expect(wrapper).toHaveClass(/border/);
     });
   });
+
+  test.describe("SPA Navigation", () => {
+    test("command input should be visible after SPA navigation", async ({ page }) => {
+      const ui = new CommandPage(page);
+      await ui.gotoViaSpa();
+
+      await expect(ui.commandInput).toBeVisible();
+    });
+
+    test("command list should be visible after SPA navigation", async ({ page }) => {
+      const ui = new CommandPage(page);
+      await ui.gotoViaSpa();
+
+      await expect(ui.commandList).toBeVisible();
+    });
+
+    test("command input should be focusable after SPA navigation", async ({ page }) => {
+      const ui = new CommandPage(page);
+      await ui.gotoViaSpa();
+
+      await ui.commandInput.click();
+      await expect(ui.commandInput).toBeFocused();
+    });
+  });
 });

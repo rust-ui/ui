@@ -693,4 +693,37 @@ test.describe("DropdownMenu Page", () => {
       await expect(ui.trigger).toBeFocused();
     });
   });
+
+  test.describe("SPA Navigation", () => {
+    // Note: openMenu() uses waitForDataState on .first() which may match a different
+    // DropdownMenuContent instance after SPA nav (DOM order can differ). Use
+    // menuItems visibility as the open-state indicator instead.
+    test("dropdown should open after SPA navigation", async ({ page }) => {
+      const ui = new DropdownMenuPage(page);
+      await ui.gotoViaSpa();
+      await ui.trigger.click();
+
+      await expect(ui.menuItems.first()).toBeVisible();
+    });
+
+    test("dropdown items should be visible after SPA navigation", async ({ page }) => {
+      const ui = new DropdownMenuPage(page);
+      await ui.gotoViaSpa();
+      await ui.trigger.click();
+
+      await expect(ui.menuItems.first()).toBeVisible();
+    });
+
+    test("dropdown should close via Escape after SPA navigation", async ({ page }) => {
+      const ui = new DropdownMenuPage(page);
+      await ui.gotoViaSpa();
+      await ui.trigger.click();
+      // Use open content as scope so we don't match unrelated DropdownMenuItems on the page
+      const openContent = page.locator('[data-name="DropdownMenuContent"][data-state="open"]');
+      await expect(openContent).toBeVisible();
+
+      await page.keyboard.press("Escape");
+      await expect(openContent).not.toBeVisible();
+    });
+  });
 });

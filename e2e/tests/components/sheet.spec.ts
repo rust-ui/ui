@@ -551,4 +551,31 @@ test.describe("Sheet Page", () => {
       await expect(ui.closeButton).toBeFocused();
     });
   });
+
+  test.describe("SPA Navigation", () => {
+    test("sheet should open after SPA navigation", async ({ page }) => {
+      const ui = new SheetPage(page);
+      await ui.gotoViaSpa();
+      await ui.openSheet();
+
+      await expect(ui.sheetContent).toHaveAttribute("data-state", "open");
+    });
+
+    test("sheet backdrop should be visible after SPA navigation", async ({ page }) => {
+      const ui = new SheetPage(page);
+      await ui.gotoViaSpa();
+      await ui.openSheet();
+
+      await expect(ui.sheetBackdrop).toBeVisible();
+    });
+
+    test("sheet should close via Escape after SPA navigation", async ({ page }) => {
+      const ui = new SheetPage(page);
+      await ui.gotoViaSpa();
+      await ui.openSheet();
+
+      await page.keyboard.press("Escape");
+      await expect(ui.sheetContent).toHaveAttribute("data-state", "closed");
+    });
+  });
 });

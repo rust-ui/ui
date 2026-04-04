@@ -5589,4 +5589,28 @@ test.describe("Sonner Edge Cases", () => {
       }
     });
   });
+
+  test.describe("SPA Navigation", () => {
+    // After SPA navigation, the Sonner toaster renders at body level (not inside
+    // the preview portal), so use page-level locators here.
+    test("sonner toast should appear after SPA navigation", async ({ page }) => {
+      const ui = new SonnerPage(page);
+      await ui.gotoViaSpa();
+      // Wait for lazy-loaded sonner.js to finish loading before triggering
+      await page.waitForFunction(() => (window as any).LazySonner?.loaded === true, { timeout: 5000 });
+      await ui.triggerToast();
+
+      await expect(page.locator('[data-sonner-toaster]').first()).toBeVisible();
+    });
+
+    test("sonner toast message should be visible after SPA navigation", async ({ page }) => {
+      const ui = new SonnerPage(page);
+      await ui.gotoViaSpa();
+      // Wait for lazy-loaded sonner.js to finish loading before triggering
+      await page.waitForFunction(() => (window as any).LazySonner?.loaded === true, { timeout: 5000 });
+      await ui.triggerToast();
+
+      await expect(page.locator('[data-sonner-toast="true"]').first()).toBeVisible();
+    });
+  });
 });

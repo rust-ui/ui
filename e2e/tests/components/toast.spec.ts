@@ -316,4 +316,25 @@ test.describe("Toast Page", () => {
       // Should not throw
     });
   });
+
+  test.describe("SPA Navigation", () => {
+    // After SPA navigation, the Sonner toaster renders at body level (not inside
+    // the preview portal), so use page-level locators here.
+    test("toast should appear after SPA navigation", async ({ page }) => {
+      const ui = new ToastPage(page);
+      await ui.gotoViaSpa();
+      await ui.triggerToast();
+
+      // Custom Leptos Toaster renders plain divs with no data attributes — match by leptoaster CSS var
+      await expect(page.locator('[style*="leptoaster-info-background-color"] span')).toBeVisible();
+    });
+
+    test("toast container should be visible after SPA navigation", async ({ page }) => {
+      const ui = new ToastPage(page);
+      await ui.gotoViaSpa();
+      await ui.triggerToast();
+
+      await expect(page.locator('[data-sonner-toaster]')).toBeVisible();
+    });
+  });
 });
