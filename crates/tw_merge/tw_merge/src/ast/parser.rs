@@ -8,6 +8,8 @@ use nom::sequence::{delimited, tuple};
 
 use super::{ASTVariant, AstElements, AstParseOptions, AstStyle};
 
+/// Parses a slice of Tailwind class strings into structured AST nodes.
+#[doc(hidden)]
 pub fn parse_tailwind<'a>(class: &[&'a str], options: AstParseOptions<'a>) -> Vec<Result<AstStyle<'a>, &'a str>> {
     class
         .iter()

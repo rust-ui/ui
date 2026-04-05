@@ -2,10 +2,13 @@ mod parser;
 #[cfg(test)]
 mod parser_test;
 
-pub(crate) use parser::{parse_tailwind, take_until_unbalanced};
+pub(crate) use parser::take_until_unbalanced;
+#[doc(hidden)]
+pub use parser::parse_tailwind;
 
+#[doc(hidden)]
 #[derive(Clone, Debug, PartialEq, Default)]
-pub(crate) struct AstStyle<'a> {
+pub struct AstStyle<'a> {
     pub source: &'a str,
     /// Is a `!important` style
     pub important: bool,
@@ -36,8 +39,9 @@ enum ASTVariant<'a> {
     ArbitraryAttribute(&'a str),
 }
 
+#[doc(hidden)]
 #[derive(Clone, Debug, PartialEq)]
-pub(crate) struct AstParseOptions<'a> {
+pub struct AstParseOptions<'a> {
     /// Custom prefix for modifiers in Tailwind classes
     /// <https://tailwindcss.com/docs/configuration#prefix>
     pub prefix: &'a str,
@@ -46,6 +50,7 @@ pub(crate) struct AstParseOptions<'a> {
     pub separator: &'a str,
 }
 
+#[doc(hidden)]
 impl Default for AstParseOptions<'static> {
     fn default() -> Self {
         Self { prefix: "", separator: ":" }

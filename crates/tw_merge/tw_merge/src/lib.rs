@@ -262,6 +262,17 @@ pub use crate::core::{merge, *};
 mod ast;
 mod core;
 
+/// Internal utilities exposed for benchmarking only. Not part of the public API.
+#[doc(hidden)]
+pub mod __bench {
+    #[doc(hidden)]
+    pub use crate::ast::AstParseOptions;
+    #[doc(hidden)]
+    pub use crate::ast::AstStyle;
+    #[doc(hidden)]
+    pub use crate::ast::parse_tailwind;
+}
+
 #[cfg(feature = "variant")]
 pub use variant::*;
 
