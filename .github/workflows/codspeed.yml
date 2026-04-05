@@ -1,0 +1,45 @@
+name: CodSpeed
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "crates/tw_merge/**"
+  pull_request:
+    paths:
+      - "crates/tw_merge/**"
+  # Allows CodSpeed to trigger backtests to generate initial data
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  benchmarks:
+    name: Run tw_merge benchmarks
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # for OpenID Connect authentication with CodSpeed
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install cargo-codspeed
+        run: cargo install cargo-codspeed --locked
+
+      - name: Build benchmark targets
+        run: cargo codspeed build -p tw_merge
+
+      - name: Run benchmarks
+        uses: CodSpeedHQ/action@v4
+        with:
+          run: cargo codspeed run -p tw_merge
+          mode: simulation
