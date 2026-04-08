@@ -4,12 +4,17 @@ Inspired by shadcn/ui, built for Rust fullstack apps. A component registry for L
 
 
 ## Why Rust/UI?
-Rust/UI isn't a component library you install as a crate. It’s a collection of re-usable components that you copy and paste into your apps.
+Rust/UI isn’t a component library you install as a crate. It’s a collection of re-usable components that you copy and paste into your apps.
 
 - Full Control: The code is yours. No black-box UI framework crates to fight against.
 - Styling: Built with Tailwind CSS for easy customization.
 - Framework: Designed specifically for the Leptos fullstack ecosystem.
-- Type Safe: Leverages Rust's powerful type system for component props.
+- Type Safe: Leverages Rust’s powerful type system for component props.
+
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=rust-ui/ui&type=Date)](https://star-history.com/#rust-ui/ui&Date)
 
 
 ## Ecosystem
@@ -98,10 +103,6 @@ We love contributions! Whether it's a new component, a bug fix, or a CSS tweak.
 - Push to the Branch (git push origin feature/AmazingComponent).
 - Open a Pull Request.
 
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=rust-ui/ui&type=Date)](https://star-history.com/#rust-ui/ui&Date)
 
 ## Contributors
 
