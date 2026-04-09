@@ -80,7 +80,8 @@ pub fn Input(
                 min=min
                 max=max
                 step=step
-                bind:value=signal
+                prop:value=move || signal.get()
+                on:input=move |ev| { signal.set(event_target_value(&ev)); }
                 node_ref=node_ref
             />
         }
