@@ -85,3 +85,76 @@ impl BlockEntry {
         ALL_INTEGRATION_BLOCKS.to_vec()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn titles(entries: &[BlockEntry]) -> Vec<&'static str> {
+        entries.iter().map(|entry| entry.block_title).collect()
+    }
+
+    #[test]
+    fn login_block_titles_are_accurate_and_consistent() {
+        let blocks = BlockEntry::get_login_blocks();
+        let block_titles = titles(&blocks);
+
+        assert_eq!(
+            block_titles,
+            vec![
+                "Login Form Card",
+                "Split Login with GitHub",
+                "Social Login with Email Fallback",
+                "Split Login with Social Buttons",
+            ]
+        );
+
+        for block in blocks {
+            assert_eq!(block.block_title, block.block_id_kebab.to_title());
+        }
+    }
+
+    #[test]
+    fn sidenav_block_titles_are_accurate_and_consistent() {
+        let blocks = BlockEntry::get_sidenav_blocks();
+        let block_titles = titles(&blocks);
+
+        assert_eq!(
+            block_titles,
+            vec![
+                "Sidenav with Grouped Sections",
+                "Sidenav with Collapsible Menus",
+                "Sidenav with Submenus",
+                "Floating Sidenav with Submenus",
+                "Sidenav with Collapsible Submenus",
+                "Sidenav with Dropdown Submenus",
+                "Collapsible Sidenav with Icons",
+                "Inset Sidenav with Secondary Navigation",
+                "Nested Sidenav with Route-Based Navigation",
+                "Sidenav with Search",
+                "Right-Side Sidenav",
+            ]
+        );
+
+        for block in blocks {
+            assert_eq!(block.block_title, block.block_id_kebab.to_title());
+        }
+    }
+
+    #[test]
+    fn login_blocks_include_password_field_security_and_usability_features() {
+        let login_sources = [
+            include_str!("../../../../app_crates/registry/src/blocks/login01.rs"),
+            include_str!("../../../../app_crates/registry/src/blocks/login02.rs"),
+            include_str!("../../../../app_crates/registry/src/blocks/login03.rs"),
+            include_str!("../../../../app_crates/registry/src/blocks/login04.rs"),
+        ];
+
+        for source in login_sources {
+            assert!(source.contains("autocomplete=\"current-password\""));
+            assert!(source.contains("minlength=8"));
+            assert!(source.contains("Show password"));
+            assert!(source.contains("Hide password"));
+        }
+    }
+}

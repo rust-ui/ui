@@ -19,7 +19,7 @@ use crate::ui::sidenav::{
 };
 
 /*
- * title: Nested Sidenavs with Route-based Navigation
+ * title: Nested Sidenav with Route-Based Navigation
 
 */
 

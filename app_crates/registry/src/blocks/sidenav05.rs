@@ -17,7 +17,7 @@ use crate::ui::sidenav::{
 };
 
 /*
- * title: Sidenav with Collapsible submenus
+ * title: Sidenav with Collapsible Submenus
 
 */
 

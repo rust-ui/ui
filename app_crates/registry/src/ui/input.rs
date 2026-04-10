@@ -36,10 +36,12 @@ pub fn Input(
     #[prop(into, optional)] name: Option<String>,
     #[prop(into, optional)] id: Option<String>,
     #[prop(into, optional)] title: Option<String>,
+    #[prop(into, optional)] autocomplete: Option<String>,
     #[prop(optional)] disabled: bool,
     #[prop(optional)] readonly: bool,
     #[prop(optional)] required: bool,
     #[prop(optional)] autofocus: bool,
+    #[prop(optional)] minlength: Option<u16>,
 
     // Number input attributes
     #[prop(into, optional)] min: Option<String>,
@@ -73,10 +75,12 @@ pub fn Input(
                 name=name
                 id=id
                 title=title
+                autocomplete=autocomplete
                 disabled=disabled
                 readonly=readonly
                 required=required
                 autofocus=autofocus
+                minlength=minlength
                 min=min
                 max=max
                 step=step
@@ -94,10 +98,12 @@ pub fn Input(
                 name=name
                 id=id
                 title=title
+                autocomplete=autocomplete
                 disabled=disabled
                 readonly=readonly
                 required=required
                 autofocus=autofocus
+                minlength=minlength
                 min=min
                 max=max
                 step=step

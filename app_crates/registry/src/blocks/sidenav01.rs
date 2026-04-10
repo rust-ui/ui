@@ -17,7 +17,7 @@ use crate::ui::sidenav::{
 };
 
 /*
- * title: Simple Sidenav with grouped sections
+ * title: Sidenav with Grouped Sections
 
 */
 

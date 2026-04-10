@@ -19,7 +19,7 @@ use crate::ui::sidenav::{
 };
 
 /*
- * title: Sidenav with search functionality
+ * title: Sidenav with Search
 
 */
 

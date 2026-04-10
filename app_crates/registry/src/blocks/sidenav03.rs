@@ -17,7 +17,7 @@ use crate::ui::sidenav::{
 };
 
 /*
- * title: Simple Sidenav with submenus
+ * title: Sidenav with Submenus
 
 */
 

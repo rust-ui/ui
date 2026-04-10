@@ -18,7 +18,7 @@ use crate::ui::sidenav::{
 };
 
 /*
- * title: Inset Sidenav with secondary navigation
+ * title: Inset Sidenav with Secondary Navigation
 
 */
 
