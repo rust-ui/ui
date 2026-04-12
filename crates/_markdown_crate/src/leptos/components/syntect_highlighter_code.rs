@@ -13,7 +13,7 @@ pub fn SyntectHighlighterCode(
 ) -> impl IntoView {
     let merged_class = tw_merge!(
         if show_scrollbar_on_hover { "scrollbar__on_hover" } else { "" },
-        "h-full max-h-[370px] overflow-y-auto overscroll-y-contain",
+        "h-full max-h-[370px] overflow-y-auto",
         "whitespace-pre-wrap p-4 [&_span]:text-xs rounded-md bg-muted",
         class
     );

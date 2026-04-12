@@ -127,7 +127,7 @@ pub fn FileRendererHighlight(
                 class="peer"
                 checked=checked
                 on:change=move |_| {
-                    const HIGHLIGHT_CLASS: &str = "h-full max-h-[370px] overflow-y-auto overscroll-y-contain whitespace-pre-wrap p-4 [&_span]:text-xs rounded-md bg-muted";
+                    const HIGHLIGHT_CLASS: &str = "h-full max-h-[370px] overflow-y-auto whitespace-pre-wrap p-4 [&_span]:text-xs rounded-md bg-muted";
                     let highlighted_content = highlight_code(&content, language, Some(name));
                     let html = format!(
                         "<div><h3 class='font-semibold mb-2'>{name}</h3><pre class='{HIGHLIGHT_CLASS}' data-name='{SYNTECT_HIGHLIGHTER_CODE}'><code>{highlighted_content}</code></pre></div>",
