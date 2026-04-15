@@ -167,8 +167,6 @@ pub fn ContextMenuContent(
     let target_id_for_script = ctx.target_id.clone();
 
     view! {
-        <script src="/hooks/lock_scroll.js"></script>
-
         <div
             data-name="ContextMenuContent"
             class=class

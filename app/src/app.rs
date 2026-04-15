@@ -17,6 +17,8 @@ use registry::blocks::sidenav08::Sidenav08Routes;
 use registry::blocks::sidenav09::Sidenav09Routes;
 use registry::blocks::sidenav10::Sidenav10Routes;
 use registry::blocks::sidenav11::Sidenav11Routes;
+#[cfg(target_arch = "wasm32")]
+use registry::hooks::scroll_lock;
 use registry::hooks::use_data_scrolled::DATA_SCROLL_TARGET;
 use registry::hooks::use_theme_mode::ThemeMode;
 use registry::ui::sonner::SonnerToaster;
@@ -49,6 +51,10 @@ use crate::utils::page_transition::ScrollToTop;
 #[component]
 pub fn App() -> impl IntoView {
     provide_meta_context();
+
+    // Register window.ScrollLock (Rust replacement for lock_scroll.js)
+    #[cfg(target_arch = "wasm32")]
+    scroll_lock::init();
 
     provide_toaster();
 

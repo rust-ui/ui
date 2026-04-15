@@ -105,8 +105,6 @@ pub fn SheetContent(
     );
 
     view! {
-        <script src="/hooks/lock_scroll.js"></script>
-
         <div
             data-name="SheetBackdrop"
             id=backdrop_id

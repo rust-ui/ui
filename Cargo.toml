@@ -80,6 +80,7 @@ wasm-bindgen-futures = "0.4"
 web-sys = { version = "0.3", default-features = false, features = [
     "Clipboard",
     "console",
+    "CssStyleDeclaration",
     "Document",
     "DomRect",
     "DomTokenList",

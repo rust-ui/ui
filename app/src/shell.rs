@@ -140,7 +140,6 @@ pub fn shell(options: LeptosOptions) -> impl IntoView {
                 </noscript>
 
                 // Load scripts (async for non-blocking parallel download, executes as soon as ready)
-                <script async src="/hooks/lock_scroll.js"></script>
                 <script async src="/app/resizable.bundle.js"></script>
                 <script async src="/app/shimmer_init.js?v=3"></script>
                 <script async src="/hooks/lazy_load_sonner.js"></script>

@@ -188,8 +188,6 @@ pub fn CommandDialog(children: ChildrenFn, #[prop(into, optional)] class: String
     );
 
     view! {
-        <script src="/hooks/lock_scroll.js"></script>
-
         <CommandDialogPortal dialog_id=dialog_id backdrop_id=backdrop_id class=merged_class>
             {children()}
         </CommandDialogPortal>

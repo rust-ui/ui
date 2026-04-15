@@ -178,8 +178,6 @@ pub fn SelectContent(
     let (on_scroll, can_scroll_up_signal, can_scroll_down_signal) = use_can_scroll_vertical();
 
     view! {
-        <script src="/hooks/lock_scroll.js"></script>
-
         <div
             data-name="SelectContent"
             class=merged_class

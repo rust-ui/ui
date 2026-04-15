@@ -23,4 +23,5 @@ pub mod use_pagination;
 pub mod use_press_hold;
 pub mod use_random;
 pub mod use_theme_mode;
+pub mod scroll_lock;
 pub mod use_virtual_scroll;
