@@ -337,8 +337,6 @@ pub fn DropdownMenuContent(
     };
 
     view! {
-        <script src="/hooks/lock_scroll.js"></script>
-
         <div
             data-name="DropdownMenuContent"
             class=class

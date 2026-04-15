@@ -50,7 +50,7 @@ impl RustUIClient {
         extract_rust_code_from_markdown(&markdown_content).ok_or_else(CliError::registry_component_missing)
     }
 
-    /// Fetch a JS file from the site (e.g., /hooks/lock_scroll.js)
+    /// Fetch a JS file from the site (e.g., /hooks/lazy_load_sonner.js)
     pub async fn fetch_js_file(path: &str) -> CliResult<String> {
         let response = Self::fetch_response(&Self::js_file_url(path)).await?;
         let content = response.text().await.map_err(|_| CliError::registry_request_failed())?;

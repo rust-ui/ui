@@ -282,8 +282,6 @@ pub fn MenubarContent(children: Children, #[prop(optional, into)] class: String)
     let menubar_id = ctx.menubar_id;
 
     view! {
-        <script src="/hooks/lock_scroll.js"></script>
-
         <ul
             data-name="MenubarContent"
             data-menubar-content=""

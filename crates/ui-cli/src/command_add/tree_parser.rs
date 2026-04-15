@@ -217,10 +217,10 @@ mod tests {
 
 * select (ui)
 ** cargo: strum
-** js: /hooks/lock_scroll.js
+** js: /hooks/lazy_load_sonner.js
 
 * sheet (ui)
-** js: /hooks/lock_scroll.js
+** js: /hooks/lazy_load_sonner.js
 ** button (ui)
 "#;
 
@@ -304,14 +304,14 @@ mod tests {
     fn parse_tree_md_extracts_js_files() {
         let parser = TreeParser::parse_tree_md(SAMPLE_TREE).unwrap();
         let select = parser.components.get("select").unwrap();
-        assert!(select.js_files.contains(&"/hooks/lock_scroll.js".to_string()));
+        assert!(select.js_files.contains(&"/hooks/lazy_load_sonner.js".to_string()));
     }
 
     #[test]
     fn resolve_dependencies_collects_js_files() {
         let parser = TreeParser::parse_tree_md(SAMPLE_TREE).unwrap();
         let resolved = parser.resolve_dependencies(&["select".to_string()]).unwrap();
-        assert!(resolved.js_files.contains("/hooks/lock_scroll.js"));
+        assert!(resolved.js_files.contains("/hooks/lazy_load_sonner.js"));
     }
 
     #[test]
@@ -321,7 +321,7 @@ mod tests {
         let resolved = parser.resolve_dependencies(&["select".to_string(), "sheet".to_string()]).unwrap();
         // Should only contain one instance
         assert_eq!(resolved.js_files.len(), 1);
-        assert!(resolved.js_files.contains("/hooks/lock_scroll.js"));
+        assert!(resolved.js_files.contains("/hooks/lazy_load_sonner.js"));
     }
 
     #[test]

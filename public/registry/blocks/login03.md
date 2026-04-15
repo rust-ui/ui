@@ -2,7 +2,7 @@
 
 
 ```rust
-use icons::GalleryVerticalEnd;
+use icons::{Eye, EyeOff, GalleryVerticalEnd};
 use leptos::prelude::*;
 
 use crate::components::ui::button::{Button, ButtonVariant};
@@ -12,6 +12,16 @@ use crate::components::ui::label::Label;
 
 #[component]
 pub fn Login03() -> impl IntoView {
+    let show_password = RwSignal::new(false);
+    let password_input_ref = NodeRef::<leptos::html::Input>::new();
+
+    let toggle_password_visibility = move |_| {
+        show_password.update(|value| *value = !*value);
+        if let Some(input) = password_input_ref.get() {
+            input.set_type(if show_password.get_untracked() { "text" } else { "password" });
+        }
+    };
+
     view! {
         <div class="flex flex-col gap-6 justify-center items-center p-6 md:p-10 bg-muted min-h-svh">
             <div class="flex flex-col gap-6 w-full max-w-sm">
@@ -51,6 +61,7 @@ pub fn Login03() -> impl IntoView {
                                             <Input
                                                 attr:r#type="email"
                                                 attr:id="email"
+                                                autocomplete="username"
                                                 attr:placeholder="m@example.com"
                                                 attr:required=true
                                             />
@@ -65,7 +76,49 @@ pub fn Login03() -> impl IntoView {
                                                     Forgot your password?
                                                 </a>
                                             </div>
-                                            <Input attr:r#type="password" attr:id="password" attr:required=true />
+                                            <div class="relative">
+                                                <Input
+                                                    node_ref=password_input_ref
+                                                    attr:r#type="password"
+                                                    attr:id="password"
+                                                    autocomplete="current-password"
+                                                    minlength=8
+                                                    attr:required=true
+                                                    class="pr-10"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                                                    attr:aria-label=move || {
+                                                        if show_password.get() {
+                                                            "Hide password"
+                                                        } else {
+                                                            "Show password"
+                                                        }
+                                                    }
+                                                    on:click=toggle_password_visibility
+                                                >
+                                                    {move || {
+                                                        if show_password.get() {
+                                                            view! {
+                                                                <>
+                                                                    <EyeOff class="size-4" />
+                                                                    <span class="sr-only">Hide password</span>
+                                                                </>
+                                                            }
+                                                                .into_any()
+                                                        } else {
+                                                            view! {
+                                                                <>
+                                                                    <Eye class="size-4" />
+                                                                    <span class="sr-only">Show password</span>
+                                                                </>
+                                                            }
+                                                                .into_any()
+                                                        }
+                                                    }}
+                                                </button>
+                                            </div>
                                         </div>
                                         <Button class="w-full" attr:r#type="submit">
                                             Login

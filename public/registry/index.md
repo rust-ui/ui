@@ -355,6 +355,7 @@ Here is the complete list of all components, hooks, and demos available in the r
 * radio_button (ui)
 * radio_button_group (ui)
 * scroll_area (ui)
+* scroll_lock (hooks)
 * select (ui)
 * select_native (ui)
 * separator (ui)

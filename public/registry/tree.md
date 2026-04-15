@@ -13,7 +13,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** button (ui)
   ** dialog (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
     *** use_random (hooks)
 * animate (ui)
@@ -69,11 +68,9 @@ Each dependency level is shown with progressive bullet points: * for components,
 * collapsible (ui)
 * command (ui)
   ** cargo: icons/leptos
-  ** js: /hooks/lock_scroll.js
   ** button (ui)
 * context_menu (ui)
   ** cargo: icons/leptos
-  ** js: /hooks/lock_scroll.js
   ** use_random (hooks)
 * data_grid (ui)
   ** cargo: icons/leptos
@@ -81,7 +78,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** cargo: icons/leptos
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** use_cell_edit (hooks)
     *** data_grid (cycle)
@@ -132,7 +128,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** button (ui)
     *** dialog (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** button (ui)
       **** use_random (hooks)
   ** button (ui)
@@ -142,7 +137,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** button (ui)
     *** dialog (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** button (ui)
       **** use_random (hooks)
   ** button (ui)
@@ -151,7 +145,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** button (ui)
     *** dialog (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** button (ui)
       **** use_random (hooks)
   ** button (ui)
@@ -162,7 +155,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** button (ui)
     *** dialog (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** button (ui)
       **** use_random (hooks)
   ** button (ui)
@@ -172,7 +164,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** button (ui)
     *** dialog (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** button (ui)
       **** use_random (hooks)
   ** button (ui)
@@ -278,7 +269,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** cargo: icons/leptos
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
 * demo_breadcrumb_rtl (demos)
   ** breadcrumb (ui)
@@ -318,7 +308,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** select (ui)
     *** cargo: icons/leptos
     *** cargo: strum
-    *** js: /hooks/lock_scroll.js
     *** use_can_scroll_vertical (hooks)
     *** use_random (hooks)
 * demo_button_group_separator (demos)
@@ -444,7 +433,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** cargo: strum
   ** command (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
   ** popover (ui)
     *** use_random (hooks)
@@ -453,7 +441,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** cargo: strum
   ** command (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
   ** input_group (ui)
     *** input (ui)
@@ -465,7 +452,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** cargo: strum
   ** command (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
   ** input_group (ui)
     *** input (ui)
@@ -475,14 +461,12 @@ Each dependency level is shown with progressive bullet points: * for components,
 * demo_context_menu (demos)
   ** context_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** separator (ui)
 * demo_context_menu_action (demos)
   ** cargo: icons/leptos
   ** context_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** separator (ui)
   ** toast_custom
@@ -490,7 +474,6 @@ Each dependency level is shown with progressive bullet points: * for components,
 * demo_context_menu_rtl (demos)
   ** context_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** direction_provider (ui)
     *** cargo: strum
@@ -504,7 +487,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** cargo: icons/leptos
   ** context_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** data_grid (ui)
     *** cargo: icons/leptos
@@ -512,14 +494,12 @@ Each dependency level is shown with progressive bullet points: * for components,
       **** cargo: icons/leptos
     *** dropdown_menu (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** use_random (hooks)
     *** use_cell_edit (hooks)
       **** data_grid (cycle)
     *** use_virtual_scroll (hooks)
   ** multi_select (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_can_scroll_vertical (hooks)
     *** use_random (hooks)
   ** separator (ui)
@@ -531,7 +511,6 @@ Each dependency level is shown with progressive bullet points: * for components,
         ***** cargo: icons/leptos
       **** dropdown_menu (ui)
         ***** cargo: icons/leptos
-        ***** js: /hooks/lock_scroll.js
         ***** use_random (hooks)
       **** use_cell_edit (cycle)
       **** use_virtual_scroll (hooks)
@@ -543,7 +522,6 @@ Each dependency level is shown with progressive bullet points: * for components,
         ***** cargo: icons/leptos
       **** dropdown_menu (ui)
         ***** cargo: icons/leptos
-        ***** js: /hooks/lock_scroll.js
         ***** use_random (hooks)
       **** use_cell_edit (hooks)
         ***** data_grid (cycle)
@@ -556,7 +534,6 @@ Each dependency level is shown with progressive bullet points: * for components,
         ***** cargo: icons/leptos
       **** dropdown_menu (ui)
         ***** cargo: icons/leptos
-        ***** js: /hooks/lock_scroll.js
         ***** use_random (hooks)
       **** use_cell_edit (hooks)
         ***** data_grid (cycle)
@@ -568,7 +545,6 @@ Each dependency level is shown with progressive bullet points: * for components,
           ****** cargo: icons/leptos
         ***** dropdown_menu (ui)
           ****** cargo: icons/leptos
-          ****** js: /hooks/lock_scroll.js
           ****** use_random (hooks)
         ***** use_cell_edit (hooks)
           ****** data_grid (cycle)
@@ -581,7 +557,6 @@ Each dependency level is shown with progressive bullet points: * for components,
           ****** cargo: icons/leptos
         ***** dropdown_menu (ui)
           ****** cargo: icons/leptos
-          ****** js: /hooks/lock_scroll.js
           ****** use_random (hooks)
         ***** use_cell_edit (hooks)
           ****** data_grid (cycle)
@@ -594,7 +569,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** button (ui)
     *** dialog (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** button (ui)
       **** use_random (hooks)
   ** button (ui)
@@ -603,13 +577,11 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** data_table (ui)
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** input (ui)
     *** cargo: strum
   ** multi_select (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_can_scroll_vertical (hooks)
     *** use_random (hooks)
 * demo_data_table_filters (demos)
@@ -619,7 +591,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** button (ui)
     *** dialog (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** button (ui)
       **** use_random (hooks)
   ** badge (ui)
@@ -629,13 +600,11 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** data_table (ui)
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** input (ui)
     *** cargo: strum
   ** multi_select (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_can_scroll_vertical (hooks)
     *** use_random (hooks)
   ** popover (ui)
@@ -733,7 +702,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** button (ui)
   ** dialog (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
     *** use_random (hooks)
   ** input (ui)
@@ -743,7 +711,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** button (ui)
   ** dialog (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
     *** use_random (hooks)
   ** direction_provider (ui)
@@ -755,7 +722,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** button (ui)
   ** dialog (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
     *** use_random (hooks)
   ** scroll_area (ui)
@@ -763,7 +729,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** button (ui)
   ** dialog (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
     *** use_random (hooks)
   ** input (ui)
@@ -807,7 +772,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** button (ui)
   ** dialog (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
     *** use_random (hooks)
   ** drawer (ui)
@@ -862,71 +826,60 @@ Each dependency level is shown with progressive bullet points: * for components,
 * demo_dropdown_menu (demos)
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** separator (ui)
 * demo_dropdown_menu_destructive (demos)
   ** cargo: icons/leptos
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** separator (ui)
 * demo_dropdown_menu_end (demos)
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** separator (ui)
 * demo_dropdown_menu_end_outer (demos)
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** separator (ui)
 * demo_dropdown_menu_radio (demos)
   ** cargo: icons/leptos
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
 * demo_dropdown_menu_rtl (demos)
   ** direction_provider (ui)
     *** cargo: strum
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** separator (ui)
 * demo_dropdown_menu_select (demos)
   ** cargo: icons/leptos
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
 * demo_dropdown_menu_start (demos)
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** separator (ui)
 * demo_dropdown_menu_start_outer (demos)
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** separator (ui)
 * demo_dropdown_menu_user (demos)
   ** cargo: icons/leptos
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** separator (ui)
 * demo_dropdown_menu_user_icon (demos)
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** separator (ui)
 * demo_dropzone (demos)
@@ -1099,7 +1052,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** select (ui)
     *** cargo: icons/leptos
     *** cargo: strum
-    *** js: /hooks/lock_scroll.js
     *** use_can_scroll_vertical (hooks)
     *** use_random (hooks)
 * demo_form_validation (demos)
@@ -1166,7 +1118,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** cargo: icons/leptos
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** input_group (ui)
     *** input (ui)
@@ -1250,7 +1201,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** cargo: icons/leptos
     *** command (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** button (ui)
     *** country
     *** input (ui)
@@ -1265,7 +1215,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** cargo: icons/leptos
     *** command (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** button (ui)
     *** country
     *** input (ui)
@@ -1288,7 +1237,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** avatar (ui)
   ** dropdown_menu (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
   ** item (ui)
     *** separator (ui)
@@ -1350,31 +1298,26 @@ Each dependency level is shown with progressive bullet points: * for components,
 * demo_menubar (demos)
   ** menubar (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
 * demo_menubar_rtl (demos)
   ** direction_provider (ui)
     *** cargo: strum
   ** menubar (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_random (hooks)
 * demo_multi_select (demos)
   ** multi_select (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_can_scroll_vertical (hooks)
     *** use_random (hooks)
 * demo_multi_select_align (demos)
   ** multi_select (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_can_scroll_vertical (hooks)
     *** use_random (hooks)
 * demo_multi_select_scrollable (demos)
   ** multi_select (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** use_can_scroll_vertical (hooks)
     *** use_random (hooks)
 * demo_navigation_menu (demos)
@@ -1485,7 +1428,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** select (ui)
     *** cargo: icons/leptos
     *** cargo: strum
-    *** js: /hooks/lock_scroll.js
     *** use_can_scroll_vertical (hooks)
     *** use_random (hooks)
 * demo_select_native_auto_width (demos)
@@ -1509,14 +1451,12 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** select (ui)
     *** cargo: icons/leptos
     *** cargo: strum
-    *** js: /hooks/lock_scroll.js
     *** use_can_scroll_vertical (hooks)
     *** use_random (hooks)
 * demo_select_scrollable (demos)
   ** select (ui)
     *** cargo: icons/leptos
     *** cargo: strum
-    *** js: /hooks/lock_scroll.js
     *** use_can_scroll_vertical (hooks)
     *** use_random (hooks)
 * demo_separator (demos)
@@ -1529,13 +1469,11 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** button (ui)
   ** sheet (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
     *** use_random (hooks)
 * demo_sheet_directions (demos)
   ** sheet (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
     *** use_random (hooks)
 * demo_sheet_experimental (demos)
@@ -1543,7 +1481,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** button (ui)
   ** sheet (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
     *** use_random (hooks)
 * demo_sheet_rtl (demos)
@@ -1552,7 +1489,6 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** cargo: strum
   ** sheet (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
     *** use_random (hooks)
 * demo_shimmer (demos)
@@ -1723,7 +1659,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** use_random (hooks)
 * dialog (ui)
   ** cargo: icons/leptos
-  ** js: /hooks/lock_scroll.js
   ** button (ui)
   ** use_random (hooks)
 * direction_provider (ui)
@@ -1734,7 +1669,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** button (ui)
 * dropdown_menu (ui)
   ** cargo: icons/leptos
-  ** js: /hooks/lock_scroll.js
   ** use_random (hooks)
 * empty (ui)
 * expandable (ui)
@@ -1776,7 +1710,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** cargo: icons/leptos
   ** command (ui)
     *** cargo: icons/leptos
-    *** js: /hooks/lock_scroll.js
     *** button (ui)
   ** country
   ** input (ui)
@@ -1794,11 +1727,9 @@ Each dependency level is shown with progressive bullet points: * for components,
 * mask (ui)
 * menubar (ui)
   ** cargo: icons/leptos
-  ** js: /hooks/lock_scroll.js
   ** use_random (hooks)
 * multi_select (ui)
   ** cargo: icons/leptos
-  ** js: /hooks/lock_scroll.js
   ** use_can_scroll_vertical (hooks)
   ** use_random (hooks)
 * navigation_menu (ui)
@@ -1817,10 +1748,10 @@ Each dependency level is shown with progressive bullet points: * for components,
 * radio_button (ui)
 * radio_button_group (ui)
 * scroll_area (ui)
+* scroll_lock (hooks)
 * select (ui)
   ** cargo: icons/leptos
   ** cargo: strum
-  ** js: /hooks/lock_scroll.js
   ** use_can_scroll_vertical (hooks)
   ** use_random (hooks)
 * select_native (ui)
@@ -1828,7 +1759,6 @@ Each dependency level is shown with progressive bullet points: * for components,
 * separator (ui)
 * sheet (ui)
   ** cargo: icons/leptos
-  ** js: /hooks/lock_scroll.js
   ** button (ui)
   ** use_random (hooks)
 * shimmer (ui)
@@ -1860,7 +1790,6 @@ Each dependency level is shown with progressive bullet points: * for components,
       **** cargo: icons/leptos
     *** dropdown_menu (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** use_random (hooks)
     *** use_cell_edit (cycle)
     *** use_virtual_scroll (hooks)
@@ -1871,7 +1800,6 @@ Each dependency level is shown with progressive bullet points: * for components,
       **** cargo: icons/leptos
     *** dropdown_menu (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** use_random (hooks)
     *** use_cell_edit (hooks)
       **** data_grid (cycle)
@@ -1885,7 +1813,6 @@ Each dependency level is shown with progressive bullet points: * for components,
       **** cargo: icons/leptos
     *** dropdown_menu (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** use_random (hooks)
     *** use_cell_edit (hooks)
       **** data_grid (cycle)
@@ -1898,7 +1825,6 @@ Each dependency level is shown with progressive bullet points: * for components,
       **** cargo: icons/leptos
     *** dropdown_menu (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** use_random (hooks)
     *** use_cell_edit (hooks)
       **** data_grid (cycle)
@@ -1910,7 +1836,6 @@ Each dependency level is shown with progressive bullet points: * for components,
         ***** cargo: icons/leptos
       **** dropdown_menu (ui)
         ***** cargo: icons/leptos
-        ***** js: /hooks/lock_scroll.js
         ***** use_random (hooks)
       **** use_cell_edit (hooks)
         ***** data_grid (cycle)
@@ -1923,7 +1848,6 @@ Each dependency level is shown with progressive bullet points: * for components,
         ***** cargo: icons/leptos
       **** dropdown_menu (ui)
         ***** cargo: icons/leptos
-        ***** js: /hooks/lock_scroll.js
         ***** use_random (hooks)
       **** use_cell_edit (hooks)
         ***** data_grid (cycle)
@@ -1936,7 +1860,6 @@ Each dependency level is shown with progressive bullet points: * for components,
       **** cargo: icons/leptos
     *** dropdown_menu (ui)
       **** cargo: icons/leptos
-      **** js: /hooks/lock_scroll.js
       **** use_random (hooks)
     *** use_cell_edit (hooks)
       **** data_grid (cycle)

@@ -1,7 +1,7 @@
 ---
 title: "Docs Installation Cli Tree View"
 name: "docs_installation_cli_tree_view"
-cargo_dependencies: ["app_components"]
+cargo_dependencies: []
 registry_dependencies: ["card"]
 type: "components:md_docs"
 path: "md_docs/docs_installation_cli_tree_view.rs"
