@@ -17,9 +17,9 @@ use registry::blocks::sidenav08::Sidenav08Routes;
 use registry::blocks::sidenav09::Sidenav09Routes;
 use registry::blocks::sidenav10::Sidenav10Routes;
 use registry::blocks::sidenav11::Sidenav11Routes;
+use registry::hooks::use_data_scrolled::DATA_SCROLL_TARGET;
 #[cfg(target_arch = "wasm32")]
 use registry::hooks::use_scroll_lock;
-use registry::hooks::use_data_scrolled::DATA_SCROLL_TARGET;
 use registry::hooks::use_theme_mode::ThemeMode;
 use registry::ui::sonner::SonnerToaster;
 use registry::ui::toast_custom::toaster::{Toaster, provide_toaster};
