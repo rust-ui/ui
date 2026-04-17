@@ -87,10 +87,10 @@ thread_local! {
 
 /// Check if an element (or any ancestor) is in the exclusion list.
 fn is_excluded(el: &web_sys::Element) -> bool {
-    if let Some(name) = el.get_attribute("data-name") {
-        if EXCLUDED_DATA_NAMES.iter().any(|&n| n == name) {
-            return true;
-        }
+    if let Some(name) = el.get_attribute("data-name")
+        && EXCLUDED_DATA_NAMES.iter().any(|&n| n == name)
+    {
+        return true;
     }
     for &name in EXCLUDED_DATA_NAMES {
         let sel = format!(r#"[data-name="{name}"]"#);
@@ -289,37 +289,37 @@ pub fn lock() {
 
     let mut f_reads: Vec<FRead> = Vec::new();
 
-    if scrollbar_width > 0.0 {
-        if let Ok(nodes) = document.query_selector_all(FIXED_SELECTOR) {
-            for i in 0..nodes.length() {
-                let Some(node) = nodes.item(i) else { continue };
-                let Ok(element) = node.dyn_into::<web_sys::Element>() else {
-                    continue;
-                };
+    if scrollbar_width > 0.0
+        && let Ok(nodes) = document.query_selector_all(FIXED_SELECTOR)
+    {
+        for i in 0..nodes.length() {
+            let Some(node) = nodes.item(i) else { continue };
+            let Ok(element) = node.dyn_into::<web_sys::Element>() else {
+                continue;
+            };
 
-                let Some(cs) = window.get_computed_style(&element).ok().flatten() else {
-                    continue;
-                };
-                if cs.get_property_value("position").unwrap_or_default() != "fixed" {
-                    continue;
-                }
-                if is_fixed_excluded(&element) {
-                    continue;
-                }
-
-                // Cast to HtmlElement for style access
-                let Ok(el) = element.dyn_into::<web_sys::HtmlElement>() else {
-                    continue;
-                };
-
-                let cp = cs.get_property_value("padding-right").ok().map(|p| parse_px(&p)).unwrap_or(0.0);
-
-                f_reads.push(FRead {
-                    original_pr: el.style().get_property_value("padding-right").unwrap_or_default(),
-                    computed_padding: cp,
-                    el,
-                });
+            let Some(cs) = window.get_computed_style(&element).ok().flatten() else {
+                continue;
+            };
+            if cs.get_property_value("position").unwrap_or_default() != "fixed" {
+                continue;
             }
+            if is_fixed_excluded(&element) {
+                continue;
+            }
+
+            // Cast to HtmlElement for style access
+            let Ok(el) = element.dyn_into::<web_sys::HtmlElement>() else {
+                continue;
+            };
+
+            let cp = cs.get_property_value("padding-right").ok().map(|p| parse_px(&p)).unwrap_or(0.0);
+
+            f_reads.push(FRead {
+                original_pr: el.style().get_property_value("padding-right").unwrap_or_default(),
+                computed_padding: cp,
+                el,
+            });
         }
     }
 
@@ -401,15 +401,15 @@ fn perform_unlock() {
         let mut s = state.borrow_mut();
 
         // Restore body styles
-        if let Some(body) = window.document().and_then(|d| d.body()) {
-            if let Some(ref orig) = s.body_styles {
-                let st = body.style();
-                set_style(&st, "position", &orig.position);
-                set_style(&st, "top", &orig.top);
-                set_style(&st, "width", &orig.width);
-                set_style(&st, "overflow", &orig.overflow);
-                set_style(&st, "padding-right", &orig.padding_right);
-            }
+        if let Some(body) = window.document().and_then(|d| d.body())
+            && let Some(ref orig) = s.body_styles
+        {
+            let st = body.style();
+            set_style(&st, "position", &orig.position);
+            set_style(&st, "top", &orig.top);
+            set_style(&st, "width", &orig.width);
+            set_style(&st, "overflow", &orig.overflow);
+            set_style(&st, "padding-right", &orig.padding_right);
         }
 
         // Restore window scroll position

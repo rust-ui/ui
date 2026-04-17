@@ -28,11 +28,10 @@ static STARS_CACHE: OnceLock<Mutex<Option<(u32, Instant)>>> = OnceLock::new();
 pub async fn fetch_github_stars() -> Result<u32, ServerFnError> {
     let cache = STARS_CACHE.get_or_init(|| std::sync::Mutex::new(None));
 
-    // Return cached value if still fresh
-    if let Some((count, fetched_at)) = *cache.lock().unwrap() {
-        if fetched_at.elapsed().as_secs() < CACHE_TTL_SECS {
-            return Ok(count);
-        }
+    if let Some((count, fetched_at)) = *cache.lock().map_err(|e| ServerFnError::new(e.to_string()))?
+        && fetched_at.elapsed().as_secs() < CACHE_TTL_SECS
+    {
+        return Ok(count);
     }
 
     let client = reqwest::Client::new();
@@ -52,7 +51,8 @@ pub async fn fetch_github_stars() -> Result<u32, ServerFnError> {
         ServerFnError::new(msg)
     })?;
 
-    *cache.lock().unwrap() = Some((repo.stargazers_count, std::time::Instant::now()));
+    *cache.lock().map_err(|e| ServerFnError::new(e.to_string()))? =
+        Some((repo.stargazers_count, std::time::Instant::now()));
 
     Ok(repo.stargazers_count)
 }
