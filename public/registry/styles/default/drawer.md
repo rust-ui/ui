@@ -34,13 +34,32 @@ use crate::components::ui::button::{Button, ButtonSize, ButtonVariant};
 mod components {
     use super::*;
     clx! {DrawerBody, div, "flex flex-col gap-4 mx-auto max-w-[500px]"}
-    clx! {DrawerTitle, h3, "text-lg leading-none font-semibold"}
+    clx! {DrawerTitle, h2, "text-lg leading-none font-semibold"}
     clx! {DrawerDescription, p, "text-sm text-muted-foreground"}
     clx! {DrawerHeader, div, "flex flex-col gap-2"}
     clx! {DrawerFooter, footer, "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end"}
 }
 
 pub use components::*;
+
+#[derive(Clone)]
+pub struct DrawerContext {
+    open: RwSignal<bool>,
+}
+
+impl DrawerContext {
+    pub fn open(&self) {
+        if !self.open.get_untracked() {
+            self.open.set(true);
+        }
+    }
+
+    pub fn close(&self) {
+        if self.open.get_untracked() {
+            self.open.set(false);
+        }
+    }
+}
 
 #[component]
 pub fn DrawerTrigger(
@@ -49,8 +68,20 @@ pub fn DrawerTrigger(
     #[prop(default = ButtonVariant::Outline)] variant: ButtonVariant,
     #[prop(default = ButtonSize::Default)] size: ButtonSize,
 ) -> impl IntoView {
+    let ctx = use_context::<DrawerContext>();
+
     view! {
-        <Button data_name="DrawerTrigger" class=class variant=variant size=size>
+        <Button
+            data_name="DrawerTrigger"
+            class=class
+            variant=variant
+            size=size
+            on:click=move |_| {
+                if let Some(ctx) = &ctx {
+                    ctx.open();
+                }
+            }
+        >
             {children()}
         </Button>
     }
@@ -63,8 +94,20 @@ pub fn DrawerClose(
     #[prop(default = ButtonVariant::Outline)] variant: ButtonVariant,
     #[prop(default = ButtonSize::Default)] size: ButtonSize,
 ) -> impl IntoView {
+    let ctx = use_context::<DrawerContext>();
+
     view! {
-        <Button data_name="DrawerClose" class=class variant=variant size=size>
+        <Button
+            data_name="DrawerClose"
+            class=class
+            variant=variant
+            size=size
+            on:click=move |_| {
+                if let Some(ctx) = &ctx {
+                    ctx.close();
+                }
+            }
+        >
             {children()}
         </Button>
     }
@@ -80,25 +123,52 @@ pub fn Drawer(
     #[prop(optional, default = true)] show_overlay: bool,
     #[prop(optional, default = true)] lock_body_scroll: bool,
 ) -> impl IntoView {
-    let overlay_class = if show_overlay { "hidden fixed inset-0 z-200 bg-black/50" } else { "!hidden" };
-    let lock_scroll_attr = if lock_body_scroll { "true" } else { "false" };
+    let overlay_ref = NodeRef::<html::Div>::new();
+    let content_ref = NodeRef::<html::Div>::new();
+    let hidden = RwSignal::new(true);
+    let state = RwSignal::new("closed");
+    let content_animate = RwSignal::new(true);
+    let overlay_animate = RwSignal::new(true);
+    let dismissible = RwSignal::new(true);
+    let previous_active_element = RwSignal::new(None::<Element>);
+    let animation_epoch = RwSignal::new(0_u64);
+    let open = RwSignal::new(false);
+
+    provide_context(DrawerContext {
+        open,
+        overlay_ref,
+        content_ref,
+        hidden,
+        state,
+        content_animate,
+        overlay_animate,
+        dismissible,
+        lock_body_scroll,
+        previous_active_element,
+        animation_epoch,
+    });
 
     view! {
-        <link rel="stylesheet" href="/components/vaul_drawer.css" />
+        <style>{DRAWER_STYLE}</style>
 
         <div
             data-name="DrawerOverlay"
-            class=overlay_class
+            node_ref=overlay_ref
+            class=move || {
+                let mut class = "fixed inset-0 z-200 bg-black/50".to_string();
+                if hidden.get() || !show_overlay {
+                    class.push_str(" hidden");
+                }
+                class
+            }
             data-vaul-overlay=""
             data-vaul-snap-points="false"
-            data-vaul-animate="true"
-            data-state="closed"
-            data-lock-body-scroll=lock_scroll_attr
+            data-vaul-animate=move || bool_attr(overlay_animate.get())
+            data-state=move || state.get()
+            data-lock-body-scroll=if lock_body_scroll { "true" } else { "false" }
         ></div>
 
         {children()}
-
-        <script type="module" src="/components/vaul_drawer.js"></script>
     }
 }
 
@@ -124,7 +194,7 @@ pub fn DrawerContent(
     #[prop(optional, default = DrawerPosition::default())] position: DrawerPosition,
     #[prop(optional, default = DrawerVariant::default())] variant: DrawerVariant,
     #[prop(into, default = "--initial-transform: 100%;".to_string())] style: String,
-    #[prop(into, default = "true".to_string())] dismissible: String,
+    #[prop(optional, default = true)] dismissible: bool,
 ) -> impl IntoView {
     let merged_class = tw_merge!(
         "flex flex-col pt-3 pb-6 px-6 hidden fixed right-0 bottom-0 left-0 z-210 bg-background max-h-[96vh] rounded-t-[10px]",

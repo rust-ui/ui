@@ -89,8 +89,13 @@ class DrawerPage extends BasePage {
     this.closeButton = this.drawerContent.getByRole("button", { name: "Close" });
 
     // All instances - triggers in preview, content in portal
-    this.allTriggers = this.preview.getByRole("button", { name: "Open Drawer" });
+    this.allTriggers = page.getByRole("button", { name: "Open Drawer" });
     this.allDrawerContents = page.locator('[data-name="DrawerContent"]');
+  }
+
+  override async goto(section?: string) {
+    await super.goto(section);
+    await this.page.waitForLoadState("networkidle");
   }
 
   async openDrawer() {
@@ -668,8 +673,10 @@ test.describe("Drawer Page", () => {
       await sideTrigger.click();
 
       // Use first() for the Inset variant (not Floating)
-      const rightDrawer = page.locator(
-        '[data-vaul-drawer-position="Right"][data-vaul-variant="Inset"]'
+      const rightDrawer = ui.getNthDrawerContent(5);
+      await expect(rightDrawer).toHaveAttribute(
+        "data-vaul-drawer-position",
+        "Right"
       );
       await expect(rightDrawer).toHaveAttribute("data-state", "open");
     });

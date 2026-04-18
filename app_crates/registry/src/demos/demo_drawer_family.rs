@@ -14,19 +14,19 @@ pub fn DemoDrawerFamily() -> impl IntoView {
                     <h2 class="text-lg font-semibold text-foreground">"Options"</h2>
                     <button
                         data-name="DrawerClose"
-                        class="flex justify-center items-center rounded-full transition-colors size-8 bg-neutral-100 text-neutral-500 hover:bg-neutral-200"
+                        class="flex justify-center items-center rounded-full transition-colors size-8 bg-neutral-100 text-neutral-700 hover:bg-neutral-200"
                     >
                         <X class="size-3" />
                     </button>
                 </header>
 
                 <div class="space-y-3">
-                    <button class="flex gap-4 items-center px-4 w-full h-12 text-base font-medium rounded-2xl transition-colors bg-neutral-100 text-foreground hover:bg-neutral-200">
+                    <button class="flex gap-4 items-center px-4 w-full h-12 text-base font-medium rounded-2xl transition-colors bg-neutral-100 text-neutral-900 hover:bg-neutral-200">
                         <Lock class="size-[18px]" />
                         <span>"View Private Key"</span>
                     </button>
 
-                    <button class="flex gap-4 items-center px-4 w-full h-12 text-base font-medium rounded-2xl transition-colors bg-neutral-100 text-foreground hover:bg-neutral-200">
+                    <button class="flex gap-4 items-center px-4 w-full h-12 text-base font-medium rounded-2xl transition-colors bg-neutral-100 text-neutral-900 hover:bg-neutral-200">
                         <FileText class="size-[18px]" />
                         <span>"View Recovery Phrase"</span>
                     </button>

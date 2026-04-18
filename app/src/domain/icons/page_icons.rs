@@ -94,7 +94,7 @@ pub fn PageIcons() -> impl IntoView {
         selected_icon_name.set(icon_name);
         selected_icon_function.set(Some(icon_func));
 
-        // Click the hidden trigger to let JavaScript handle the drawer opening
+        // Click the hidden trigger inside the Drawer subtree to open it reactively.
         let window = window();
         if let Some(document) = window.document()
             && let Ok(Some(trigger)) = document.query_selector("[data-name=\"DrawerTrigger\"]")
@@ -294,10 +294,8 @@ pub fn PageIcons() -> impl IntoView {
             </div>
         </div>
 
-        // Hidden trigger for JavaScript to wire up
-        <DrawerTrigger class="hidden">"Open"</DrawerTrigger>
-
         <Drawer show_overlay=false lock_body_scroll=false>
+            <DrawerTrigger class="hidden">"Open"</DrawerTrigger>
             <DrawerContent>
                 <DrawerHandle />
                 <DrawerBody class="justify-center items-center">

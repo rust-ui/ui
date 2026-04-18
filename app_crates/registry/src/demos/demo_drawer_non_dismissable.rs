@@ -11,7 +11,7 @@ pub fn DemoDrawerNonDismissable() -> impl IntoView {
         <Drawer>
             <DrawerTrigger>"Open Drawer"</DrawerTrigger>
 
-            <DrawerContent style="--initial-transform: 100%; pointer-events: auto;" dismissible="false">
+            <DrawerContent style="--initial-transform: 100%; pointer-events: auto;" dismissible=false>
                 <DrawerHandle />
 
                 <DrawerBody>
