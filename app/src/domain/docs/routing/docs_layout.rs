@@ -14,7 +14,7 @@ use crate::utils::page_transition::{PAGE_OUTLET, retrigger_page_fade};
 
 #[derive(Clone)]
 pub struct DocsTocContext {
-    pub toc_items: RwSignal<Vec<TocItem>>,
+    pub toc_items: ArcRwSignal<Vec<TocItem>>,
 }
 
 #[component]
@@ -23,7 +23,7 @@ pub fn DocsLayout() -> impl IntoView {
     let params_demo_name = ParamsUtils::extract(PARAM::NAME);
     let params_demo_name_arc = Arc::new(params_demo_name);
 
-    let toc_items = RwSignal::new(Vec::<TocItem>::new());
+    let toc_items: ArcRwSignal<Vec<TocItem>> = RwSignal::new(Vec::<TocItem>::new()).into();
     let toc_context = DocsTocContext { toc_items };
     provide_context(toc_context.clone());
 
