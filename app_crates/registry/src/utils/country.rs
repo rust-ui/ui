@@ -308,7 +308,12 @@ impl Country {
             Country::Italy | Country::SanMarino | Country::VaticanCity => None,
 
             // Countries without trunk prefix
-            Country::Denmark | Country::Norway | Country::Iceland | Country::Liechtenstein | Country::Monaco | Country::Andorra => None,
+            Country::Denmark
+            | Country::Norway
+            | Country::Iceland
+            | Country::Liechtenstein
+            | Country::Monaco
+            | Country::Andorra => None,
 
             // Most countries use "0" as trunk prefix
             _ => Some("0"),

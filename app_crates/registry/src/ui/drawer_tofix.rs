@@ -424,20 +424,10 @@ pub fn DrawerContent(
             on:pointerdown=handle_pointer_down
             on:pointermove=handle_pointer_move
             on:pointerup=move |event| {
-                finish_pointer_drag(
-                    &pointer_up_ctx,
-                    event,
-                    position,
-                    drag_state,
-                );
+                finish_pointer_drag(&pointer_up_ctx, event, position, drag_state);
             }
             on:pointercancel=move |event| {
-                finish_pointer_drag(
-                    &pointer_up_cancel_ctx,
-                    event,
-                    position,
-                    drag_state,
-                );
+                finish_pointer_drag(&pointer_up_cancel_ctx, event, position, drag_state);
             }
         >
             {children()}
