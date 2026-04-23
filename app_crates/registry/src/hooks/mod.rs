@@ -14,6 +14,7 @@ pub mod use_handle_day_click;
 pub mod use_history;
 pub mod use_horizontal_scroll;
 pub mod use_is_mobile;
+pub mod use_input_otp;
 pub mod use_lock_body_scroll;
 pub mod use_lock_body_scroll_dialog;
 pub mod use_lock_body_scroll_popover;

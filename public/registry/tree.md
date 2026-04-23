@@ -1176,24 +1176,24 @@ Each dependency level is shown with progressive bullet points: * for components,
 * demo_input_otp (demos)
   ** input_otp (ui)
     *** cargo: icons/leptos
-    *** js: /components/otp.js
+    *** use_input_otp (hooks)
     *** use_random (hooks)
 * demo_input_otp_disabled (demos)
   ** input_otp (ui)
     *** cargo: icons/leptos
-    *** js: /components/otp.js
+    *** use_input_otp (hooks)
     *** use_random (hooks)
 * demo_input_otp_rtl (demos)
   ** direction_provider (ui)
     *** cargo: strum
   ** input_otp (ui)
     *** cargo: icons/leptos
-    *** js: /components/otp.js
+    *** use_input_otp (hooks)
     *** use_random (hooks)
 * demo_input_otp_separator (demos)
   ** input_otp (ui)
     *** cargo: icons/leptos
-    *** js: /components/otp.js
+    *** use_input_otp (hooks)
     *** use_random (hooks)
 * demo_input_phone (demos)
   ** country
@@ -1704,7 +1704,7 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** textarea (ui)
 * input_otp (ui)
   ** cargo: icons/leptos
-  ** js: /components/otp.js
+  ** use_input_otp (hooks)
   ** use_random (hooks)
 * input_phone (ui)
   ** cargo: icons/leptos

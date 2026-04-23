@@ -29,6 +29,7 @@ fn transform_code_for_display(code: &str) -> String {
 #[component]
 pub fn StaticDemoWrapper(demo_type: MarkdownType, children: Children) -> impl IntoView {
     let current_tab = RwSignal::new(Tab::default());
+    let use_embedded_blocks = matches!(demo_type, MarkdownType::StaticDemoInputOtp);
 
     // Zero-allocation static lookup
     let Some(demo_data) = get_static_registry_entry(demo_type) else {
@@ -59,6 +60,10 @@ pub fn StaticDemoWrapper(demo_type: MarkdownType, children: Children) -> impl In
 
     // Store children at the top level so we can reference it reactively
     let children_view = children();
+
+    if use_embedded_blocks {
+        return view! { <div class="w-full">{children_view}</div> }.into_any();
+    }
 
     view! {
         <div class="flex flex-col gap-2 w-full">

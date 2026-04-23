@@ -2,6 +2,8 @@ use icons::Minus;
 use leptos::prelude::*;
 use tw_merge::*;
 
+#[cfg(target_arch = "wasm32")]
+use crate::hooks::use_input_otp;
 use crate::hooks::use_random::use_random_id;
 
 /* ========================================================== */
@@ -16,6 +18,9 @@ pub fn InputOTP(
     #[prop(optional, into)] value: String,
     #[prop(optional, into)] class: String,
 ) -> impl IntoView {
+    #[cfg(target_arch = "wasm32")]
+    use_input_otp::init();
+
     let id = use_random_id();
     let container_id = format!("otp_{}", id);
     let class = tw_merge!("relative flex items-center gap-2 has-[:disabled]:opacity-50", class);
@@ -32,7 +37,6 @@ pub fn InputOTP(
                 prop:value=value
                 class="sr-only"
             />
-            <script src="/app_components/otp.js" />
         </div>
     }
 }
