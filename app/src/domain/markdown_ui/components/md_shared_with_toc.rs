@@ -8,7 +8,7 @@ use crate::domain::markdown_ui::components::md_skeleton::MdSkeletonDemo;
 #[component]
 pub fn SharedDemoMdWithToc(
     md_path: &'static str,
-    #[prop(into)] toc_signal: WriteSignal<Vec<TocItem>>,
+    #[prop(into)] toc_signal: ArcWriteSignal<Vec<TocItem>>,
 ) -> impl IntoView {
     let md_file_resource = Resource::new(|| (), move |_| async move { read_md_file_typed(md_path.to_string()).await });
 

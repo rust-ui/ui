@@ -1,12 +1,14 @@
 use std::time::Duration;
 
-use leptos::{ev, html, leptos_dom::helpers::window_event_listener, prelude::*};
+use leptos::leptos_dom::helpers::window_event_listener;
+use leptos::prelude::*;
+use leptos::{ev, html};
 use leptos_ui::clx;
+use registry::ui::button::{Button, ButtonSize, ButtonVariant};
 use tw_merge::*;
-use wasm_bindgen::{JsCast, closure::Closure};
+use wasm_bindgen::JsCast;
+use wasm_bindgen::closure::Closure;
 use web_sys::{Element, HtmlElement, KeyboardEvent, PointerEvent};
-
-use crate::ui::button::{Button, ButtonSize, ButtonVariant};
 
 const VELOCITY_THRESHOLD: f64 = 0.4;
 const CLOSE_THRESHOLD: f64 = 0.25;
@@ -341,9 +343,7 @@ pub fn DrawerContent(
             let delta = current_pos.get_untracked() - start_pos.get_untracked();
             let closing_direction = dragging_in_closing_direction(delta, position);
 
-            if !is_allowed_to_drag.get()
-                && !should_drag(event.target(), &drawer, open_time, last_time_drag_prevented)
-            {
+            if !is_allowed_to_drag.get() && !should_drag(event.target(), &drawer, open_time, last_time_drag_prevented) {
                 return;
             }
 
@@ -351,9 +351,7 @@ pub fn DrawerContent(
 
             if closing_direction {
                 let abs_delta = delta.abs();
-                let _ = drawer
-                    .style()
-                    .set_property("transform", &drag_transform(delta, closing_direction, position));
+                let _ = drawer.style().set_property("transform", &drag_transform(delta, closing_direction, position));
 
                 if let Some(wrapper) = query_drawer_wrapper() {
                     let percentage_dragged = percentage_dragged(abs_delta, drawer_size.get_untracked());
@@ -372,9 +370,7 @@ pub fn DrawerContent(
                 let _ = overlay.style().set_property("transition", "none");
                 let _ = overlay.style().set_property("opacity", &opacity.to_string());
             } else {
-                let _ = drawer
-                    .style()
-                    .set_property("transform", &drag_transform(delta, closing_direction, position));
+                let _ = drawer.style().set_property("transform", &drag_transform(delta, closing_direction, position));
             }
         }
     };
@@ -388,11 +384,8 @@ pub fn DrawerContent(
         DrawerPosition::Right => "right-0 top-0 bottom-0 max-w-[96vw] rounded-l-[10px]",
     };
 
-    let merged_class = tw_merge!(
-        "flex flex-col pt-3 pb-6 px-6 fixed z-210 bg-background hidden outline-none",
-        position_class,
-        class
-    );
+    let merged_class =
+        tw_merge!("flex flex-col pt-3 pb-6 px-6 fixed z-210 bg-background hidden outline-none", position_class, class);
 
     let class_ctx = ctx.clone();
     let content_animate_ctx = ctx.clone();
@@ -534,12 +527,7 @@ fn should_close_from_drag(delta: f64, velocity: f64, drawer_size: f64, position:
     }
 }
 
-fn finish_pointer_drag(
-    ctx: &DrawerContext,
-    event: PointerEvent,
-    position: DrawerPosition,
-    drag_state: DragState,
-) {
+fn finish_pointer_drag(ctx: &DrawerContext, event: PointerEvent, position: DrawerPosition, drag_state: DragState) {
     if !drag_state.is_dragging.get() || !ctx.dismissible.get() {
         return;
     }
@@ -552,9 +540,7 @@ fn finish_pointer_drag(
     let elapsed = (now_ms() - drag_state.drag_start_time.get_untracked()).max(1.0);
     let velocity = delta.abs() / elapsed;
 
-    let _ = drawer
-        .style()
-        .set_property("transition", &format!("transform 0.5s {TRANSITION_EASING}"));
+    let _ = drawer.style().set_property("transition", &format!("transform 0.5s {TRANSITION_EASING}"));
 
     if let Some(wrapper) = query_drawer_wrapper() {
         let _ = wrapper.style().set_property(
@@ -564,9 +550,7 @@ fn finish_pointer_drag(
     }
 
     if let Some(overlay) = &overlay {
-        let _ = overlay
-            .style()
-            .set_property("transition", &format!("opacity 0.5s {TRANSITION_EASING}"));
+        let _ = overlay.style().set_property("transition", &format!("opacity 0.5s {TRANSITION_EASING}"));
     }
 
     let size = drag_state.drawer_size.get_untracked().max(1.0);
@@ -647,8 +631,7 @@ fn should_drag(
 }
 
 fn focusable_elements(drawer: &HtmlElement) -> Vec<HtmlElement> {
-    const FOCUSABLE_SELECTOR: &str =
-        "a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex=\"-1\"])";
+    const FOCUSABLE_SELECTOR: &str = "a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex=\"-1\"])";
 
     let Ok(elements) = drawer.query_selector_all(FOCUSABLE_SELECTOR) else {
         return Vec::new();
@@ -682,10 +665,7 @@ fn focus_first_drawer_element(ctx: &DrawerContext) {
             }
 
             let is_only_close_button = focusable.len() == 1
-                && focusable
-                    .first()
-                    .and_then(|element| element.get_attribute("data-name"))
-                    .as_deref()
+                && focusable.first().and_then(|element| element.get_attribute("data-name")).as_deref()
                     == Some("DrawerClose");
 
             if is_only_close_button {
@@ -718,8 +698,8 @@ fn fix_drawer_position(drawer: &HtmlElement) {
 fn lock_body_scroll() {
     let Some(document) = window().document() else { return };
     let Some(body) = document.body() else { return };
-    let scrollbar_width =
-        window().inner_width().ok().and_then(|width| width.as_f64()).unwrap_or_default() - f64::from(body.client_width());
+    let scrollbar_width = window().inner_width().ok().and_then(|width| width.as_f64()).unwrap_or_default()
+        - f64::from(body.client_width());
 
     let _ = body.set_attribute("data-state", "open");
     if scrollbar_width > 0.0 {
@@ -861,14 +841,10 @@ fn close_drawer_dom(ctx: &DrawerContext, position: DrawerPosition, variant: Draw
     ctx.content_animate.set(false);
     ctx.overlay_animate.set(false);
 
-    let _ = drawer
-        .style()
-        .set_property("transition", &format!("transform 0.5s {TRANSITION_EASING}"));
+    let _ = drawer.style().set_property("transition", &format!("transform 0.5s {TRANSITION_EASING}"));
     let _ = drawer.style().set_property("transform", &close_transform(size, position, variant));
 
-    let _ = overlay
-        .style()
-        .set_property("transition", &format!("opacity 0.5s {TRANSITION_EASING}"));
+    let _ = overlay.style().set_property("transition", &format!("opacity 0.5s {TRANSITION_EASING}"));
     let _ = overlay.style().set_property("opacity", "0");
 
     reset_wrapper_styles();

@@ -86,6 +86,7 @@ pub fn DemoSonnerPositions() -> impl IntoView {
         <SonnerToaster position=SonnerPosition::TopRight />
         <SonnerToaster position=SonnerPosition::BottomLeft />
         <SonnerToaster position=SonnerPosition::BottomCenter />
+        <SonnerToaster position=SonnerPosition::BottomRight />
     }
 }
 ```
