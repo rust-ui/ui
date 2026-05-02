@@ -1,6 +1,7 @@
 use crate::leptos::components::md_headings::{md_h2, md_h3, md_h4, md_h5, md_h6};
 use crate::leptos::leptos_converter::{MdComponentProps, MdComponents};
 use crate::ui::callout::callout_md;
+use crate::ui::image::image_md;
 use crate::ui::link_tooltip::link_with_tooltip;
 use crate::ui::steps::{Step, StepProps, Steps, StepsProps};
 use crate::ui::url_preview::url_preview_md;
@@ -20,6 +21,7 @@ pub fn setup_shared() -> MdComponents {
     components.add_component_with_anchor_support("h5", md_h5);
     components.add_component_with_anchor_support("h6", md_h6);
 
+    components.add_component_with_anchor_support("Image", image_md);
     components.add_component_with_anchor_support("UrlPreview", url_preview_md);
     components.add_component_with_anchor_support("a", link_with_tooltip);
 
