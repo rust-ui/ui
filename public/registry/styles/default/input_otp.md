@@ -60,7 +60,7 @@ pub fn InputOTP(
                 maxlength=max_length.to_string()
                 disabled=disabled
                 prop:value=value
-                class="sr-only"
+                class="hidden" // sr-only: hidden — sr-only breaks with src-tauri
             />
         </div>
     }
