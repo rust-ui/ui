@@ -105,7 +105,7 @@ fn warn_if_nightly_not_configured() -> CliResult<()> {
 
 /// Install a specific list of components into `base_path`, always overwriting.
 /// Used by `ui init --reinstall` to re-download existing components.
-pub async fn process_add_components(components: Vec<String>, base_path: &str) -> CliResult<()> {
+pub async fn process_add_components(components: Vec<String>, base_path: &str, rtl: bool) -> CliResult<()> {
     if components.is_empty() {
         return Ok(());
     }
@@ -151,7 +151,7 @@ pub async fn process_add_components(components: Vec<String>, base_path: &str) ->
 
         let outcome = RegistryComponent::fetch_from_registry(component_name.clone())
             .await?
-            .then_write_to_file_to(true, base_path) // force = always overwrite on reinstall
+            .then_write_to_file_to(true, base_path, rtl) // force = always overwrite on reinstall
             .await?;
 
         match outcome {
@@ -187,11 +187,13 @@ pub async fn process_add(matches: &ArgMatches) -> CliResult<()> {
     let tree_content = RustUIClient::fetch_tree_md().await?;
     let tree_parser = TreeParser::parse_tree_md(&tree_content)?;
 
-    // Get base path for components: --path flag takes priority over ui_config.toml
+    // Get base path and rtl from config; --path flag overrides base_path
+    let config = UiConfig::try_reading_ui_config(UI_CONFIG_TOML).ok();
+    let rtl = config.as_ref().map(|c| c.rtl).unwrap_or(false);
     let base_path = path_override.unwrap_or_else(|| {
-        UiConfig::try_reading_ui_config(UI_CONFIG_TOML)
+        config
             .map(|c| c.base_path_components)
-            .unwrap_or_else(|_| "src/components".to_string())
+            .unwrap_or_else(|| "src/components".to_string())
     });
 
     // Detect already installed components
@@ -308,7 +310,7 @@ pub async fn process_add(matches: &ArgMatches) -> CliResult<()> {
 
         let outcome = RegistryComponent::fetch_from_registry(component_name.clone())
             .await?
-            .then_write_to_file_to(force, &base_path)
+            .then_write_to_file_to(force, &base_path, rtl)
             .await?;
 
         match outcome {
@@ -632,7 +634,7 @@ mod tests {
     fn process_add_components_returns_ok_for_empty_list() {
         // Empty input must short-circuit without hitting the network
         let rt = tokio::runtime::Runtime::new().unwrap();
-        let result = rt.block_on(process_add_components(vec![], "src/components"));
+        let result = rt.block_on(process_add_components(vec![], "src/components", false));
         assert!(result.is_ok());
     }
 

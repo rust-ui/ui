@@ -5,6 +5,7 @@ use dialoguer::Confirm;
 use dialoguer::theme::ColorfulTheme;
 
 use super::component_type::ComponentType;
+use super::rtl::apply_rtl_transforms;
 use crate::shared::cli_error::{CliError, CliResult};
 use crate::shared::rust_ui_client::RustUIClient;
 
@@ -37,9 +38,10 @@ impl RegistryComponent {
         Ok(RegistryComponent { registry_md_path, registry_md_content, component_name })
     }
 
-    pub async fn then_write_to_file_to(self, force: bool, base_path: &str) -> CliResult<WriteOutcome> {
+    pub async fn then_write_to_file_to(self, force: bool, base_path: &str, rtl: bool) -> CliResult<WriteOutcome> {
+        let RegistryComponent { registry_md_path, registry_md_content, component_name } = self;
         let components_base_path = base_path.to_string();
-        let full_path_component = std::path::Path::new(&components_base_path).join(&self.registry_md_path);
+        let full_path_component = std::path::Path::new(&components_base_path).join(&registry_md_path);
 
         let full_path_component_without_name_rs = full_path_component
             .parent()
@@ -48,14 +50,19 @@ impl RegistryComponent {
             .ok_or_else(|| CliError::file_operation("Failed to convert path to string"))?
             .to_string();
 
-        let outcome = write_component_file(&full_path_component, &self.registry_md_content, force)?;
+        let content = if rtl {
+            apply_rtl_transforms(&registry_md_content)
+        } else {
+            registry_md_content
+        };
+        let outcome = write_component_file(&full_path_component, &content, force)?;
 
         if outcome == WriteOutcome::Skipped {
             return Ok(WriteOutcome::Skipped);
         }
 
         write_component_name_in_mod_rs_if_not_exists(
-            self.component_name,
+            component_name,
             full_path_component_without_name_rs,
         )?;
 
@@ -152,6 +159,25 @@ mod tests {
 
         assert_eq!(outcome, WriteOutcome::Written);
         assert!(path.exists());
+    }
+
+    #[test]
+    fn rtl_false_writes_content_unchanged() {
+        let dir = TempDir::new().unwrap();
+        let path = temp_file(&dir, "button.rs");
+
+        write_component_file(&path, "class=\"ml-4\"", false).unwrap();
+
+        assert_eq!(fs::read_to_string(&path).unwrap(), "class=\"ml-4\"");
+    }
+
+    #[test]
+    fn rtl_true_applies_transforms_before_write() {
+        use super::super::rtl::apply_rtl_transforms;
+        let content = "class=\"ml-4 pl-2\"";
+        let transformed = apply_rtl_transforms(content);
+        assert!(transformed.contains("ms-4"));
+        assert!(transformed.contains("ps-2"));
     }
 
     #[test]

@@ -24,6 +24,8 @@ pub struct UiConfig {
     #[serde(default = "default_color_theme")]
     pub color_theme: String,
     pub base_path_components: String,
+    #[serde(default)]
+    pub rtl: bool,
 }
 
 fn default_color_theme() -> String {
@@ -53,6 +55,7 @@ impl Default for UiConfig {
             base_color: "neutral".to_string(),
             color_theme: default_color_theme(),
             base_path_components,
+            rtl: false,
         }
     }
 }
@@ -680,6 +683,50 @@ base_path_components = "src/ui"
         assert_eq!(result.base_path_components, "src/ui");
         // color_theme defaults when missing from existing configs
         assert_eq!(result.color_theme, "default");
+    }
+
+    #[test]
+    fn rtl_defaults_to_false_when_missing_from_toml() {
+        let temp = TempDir::new().unwrap();
+        let path = temp.path().join("ui_config.toml");
+        fs::write(
+            &path,
+            r#"base_color = "neutral"
+base_path_components = "src/ui"
+"#,
+        )
+        .unwrap();
+        let result = UiConfig::try_reading_ui_config(path.to_str().unwrap()).unwrap();
+        assert!(!result.rtl);
+    }
+
+    #[test]
+    fn rtl_true_parses_correctly() {
+        let temp = TempDir::new().unwrap();
+        let path = temp.path().join("ui_config.toml");
+        fs::write(
+            &path,
+            r#"base_color = "neutral"
+base_path_components = "src/ui"
+rtl = true
+"#,
+        )
+        .unwrap();
+        let result = UiConfig::try_reading_ui_config(path.to_str().unwrap()).unwrap();
+        assert!(result.rtl);
+    }
+
+    #[test]
+    fn rtl_round_trips_through_toml_serialization() {
+        let config = UiConfig {
+            base_color: "neutral".to_string(),
+            color_theme: "default".to_string(),
+            base_path_components: "src/ui".to_string(),
+            rtl: true,
+        };
+        let serialized = toml::to_string_pretty(&config).unwrap();
+        let deserialized: UiConfig = toml::from_str(&serialized).unwrap();
+        assert_eq!(deserialized.rtl, config.rtl);
     }
 
     #[test]

@@ -54,7 +54,14 @@ async fn main() {
         Some(("init", sub_matches)) => {
             let force = sub_matches.get_flag("yes") || sub_matches.get_flag("force");
             let reinstall = if sub_matches.get_flag("reinstall") { Some(true) } else { None };
-            match command_init::_init::process_init(force, reinstall).await {
+            let rtl = if sub_matches.get_flag("rtl") {
+                Some(true)
+            } else if sub_matches.get_flag("no-rtl") {
+                Some(false)
+            } else {
+                None
+            };
+            match command_init::_init::process_init(force, reinstall, rtl).await {
                 Err(e) => {
                     eprintln!("{e}");
                     process::exit(1);
@@ -63,6 +70,7 @@ async fn main() {
                     if let Err(e) = command_add::_add::process_add_components(
                         outcome.to_reinstall,
                         &outcome.base_path,
+                        outcome.rtl,
                     )
                     .await
                     {
@@ -109,8 +117,8 @@ async fn main() {
                 process::exit(1);
             }
         }
-        Some(("docs", _)) => {
-            if let Err(e) = command_docs::_docs::process_docs() {
+        Some(("docs", sub_matches)) => {
+            if let Err(e) = command_docs::_docs::process_docs(sub_matches) {
                 eprintln!("{e}");
                 process::exit(1);
             }

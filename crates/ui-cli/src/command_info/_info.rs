@@ -17,6 +17,7 @@ pub struct InfoData {
     pub config_file: String,
     pub base_color: String,
     pub base_path: String,
+    pub rtl: bool,
     pub workspace: Option<bool>,
     pub target_crate: Option<String>,
     pub installed: Vec<String>,
@@ -44,7 +45,7 @@ pub fn process_info(matches: &ArgMatches) -> CliResult<()> {
     let installed = get_installed_components(&config.base_path_components);
     let workspace = analyze_workspace().ok();
 
-    let data = build_info_data(&config.base_color, &config.base_path_components, &installed, workspace.as_ref());
+    let data = build_info_data(&config.base_color, &config.base_path_components, config.rtl, &installed, workspace.as_ref());
 
     let output = if json { format_info_json(&data)? } else { format_info(&data) };
     println!("{output}");
@@ -58,6 +59,7 @@ pub fn process_info(matches: &ArgMatches) -> CliResult<()> {
 pub fn build_info_data(
     base_color: &str,
     base_path: &str,
+    rtl: bool,
     installed: &std::collections::HashSet<String>,
     workspace: Option<&crate::command_init::workspace_utils::WorkspaceInfo>,
 ) -> InfoData {
@@ -73,6 +75,7 @@ pub fn build_info_data(
         config_file: UI_CONFIG_TOML.to_string(),
         base_color: base_color.to_string(),
         base_path: base_path.to_string(),
+        rtl,
         workspace: ws_flag,
         target_crate,
         installed: sorted_installed,
@@ -86,6 +89,7 @@ pub fn format_info(data: &InfoData) -> String {
     lines.push(format!("  Config file   {}", data.config_file));
     lines.push(format!("  Base color    {}", data.base_color));
     lines.push(format!("  Base path     {}", data.base_path));
+    lines.push(format!("  RTL           {}", if data.rtl { "yes" } else { "no" }));
 
     if let Some(is_workspace) = data.workspace {
         lines.push(format!("  Workspace     {}", if is_workspace { "yes" } else { "no" }));
@@ -153,7 +157,11 @@ mod tests {
     }
 
     fn data(color: &str, path: &str, names: &[&str], ws: Option<WorkspaceInfo>) -> InfoData {
-        build_info_data(color, path, &installed(names), ws.as_ref())
+        build_info_data(color, path, false, &installed(names), ws.as_ref())
+    }
+
+    fn data_rtl(color: &str, path: &str, rtl: bool) -> InfoData {
+        build_info_data(color, path, rtl, &installed(&[]), None)
     }
 
     // --- format_info (human-readable) ---
@@ -235,6 +243,27 @@ mod tests {
         assert!(json.contains("base_path"));
         assert!(json.contains("config_file"));
         assert!(json.contains("installed"));
+        assert!(json.contains("rtl"));
+    }
+
+    #[test]
+    fn info_includes_rtl_false() {
+        let result = format_info(&data_rtl("neutral", "src/components", false));
+        assert!(result.contains("no"));
+    }
+
+    #[test]
+    fn info_includes_rtl_true() {
+        let result = format_info(&data_rtl("neutral", "src/components", true));
+        assert!(result.contains("yes"));
+    }
+
+    #[test]
+    fn info_json_includes_rtl_field() {
+        let d = data_rtl("neutral", "src/components", true);
+        let json = format_info_json(&d).unwrap();
+        let parsed: serde_json::Value = serde_json::from_str(&json).unwrap();
+        assert_eq!(parsed["rtl"], true);
     }
 
     #[test]

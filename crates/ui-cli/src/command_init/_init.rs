@@ -25,6 +25,7 @@ use crate::shared::task_spinner::TaskSpinner;
 pub struct InitOutcome {
     pub to_reinstall: Vec<String>,
     pub base_path: String,
+    pub rtl: bool,
 }
 
 /* ========================================================== */
@@ -55,6 +56,18 @@ pub fn command_init() -> Command {
                 .help("Re-download and overwrite all already-installed components")
                 .action(clap::ArgAction::SetTrue),
         )
+        .arg(
+            Arg::new("rtl")
+                .long("rtl")
+                .help("Enable RTL support (physical CSS classes → logical equivalents on ui add)")
+                .action(clap::ArgAction::SetTrue),
+        )
+        .arg(
+            Arg::new("no-rtl")
+                .long("no-rtl")
+                .help("Disable RTL support")
+                .action(clap::ArgAction::SetTrue),
+        )
         .subcommand(Command::new("run").about("Run the initialization logic"))
 }
 
@@ -67,7 +80,7 @@ pub fn command_init() -> Command {
 /// - `force`     – overwrite existing files without prompting (`--yes` / `--force`)
 /// - `reinstall` – `Some(true)` = always reinstall components, `Some(false)` = never,
 ///   `None` = prompt when existing components are detected
-pub async fn process_init(force: bool, reinstall: Option<bool>) -> CliResult<InitOutcome> {
+pub async fn process_init(force: bool, reinstall: Option<bool>, rtl: Option<bool>) -> CliResult<InitOutcome> {
     // Check if Leptos is installed before proceeding
     if !check_leptos_dependency()? {
         return Err(CliError::config(
@@ -96,6 +109,13 @@ pub async fn process_init(force: bool, reinstall: Option<bool>) -> CliResult<Ini
         (prompt_base_color()?, prompt_accent_color()?)
     };
 
+    // Resolve RTL: explicit flag wins, --yes defaults to false, otherwise prompt
+    let rtl_enabled = match rtl {
+        Some(v) => v,
+        None if force => false,
+        None => prompt_rtl()?,
+    };
+
     // Back up ui_config.toml — restored automatically on Drop if we error out
     let mut config_backup = FileBackup::new(Path::new(UI_CONFIG_TOML))
         .map_err(|e| CliError::file_operation(&e.to_string()))?;
@@ -103,6 +123,7 @@ pub async fn process_init(force: bool, reinstall: Option<bool>) -> CliResult<Ini
     let ui_config = UiConfig {
         base_color: base_color.label().to_lowercase(),
         color_theme: accent_color.label().to_lowercase(),
+        rtl: rtl_enabled,
         ..UiConfig::default()
     };
     let ui_config_toml = toml::to_string_pretty(&ui_config)?;
@@ -147,7 +168,7 @@ pub async fn process_init(force: bool, reinstall: Option<bool>) -> CliResult<Ini
         if should_reinstall { installed } else { vec![] }
     };
 
-    Ok(InitOutcome { to_reinstall, base_path })
+    Ok(InitOutcome { to_reinstall, base_path, rtl: rtl_enabled })
 }
 
 /* ========================================================== */
@@ -163,6 +184,14 @@ fn prompt_base_color() -> CliResult<BaseColor> {
         .interact()
         .map_err(|e| CliError::validation(&e.to_string()))?;
     Ok(BaseColor::from_index(selection))
+}
+
+fn prompt_rtl() -> CliResult<bool> {
+    Confirm::with_theme(&ColorfulTheme::default())
+        .with_prompt("Enable RTL support?")
+        .default(false)
+        .interact()
+        .map_err(|e| CliError::validation(&e.to_string()))
 }
 
 fn prompt_accent_color() -> CliResult<AccentColor> {
@@ -326,6 +355,28 @@ mod tests {
     fn command_init_reinstall_is_false_by_default() {
         let m = command_init().try_get_matches_from(["init"]).unwrap();
         assert!(!m.get_flag("reinstall"));
+    }
+
+    #[test]
+    fn command_init_rtl_flag_is_registered() {
+        let m = command_init().try_get_matches_from(["init", "--rtl"]).unwrap();
+        assert!(m.get_flag("rtl"));
+        assert!(!m.get_flag("no-rtl"));
+    }
+
+    #[test]
+    fn command_init_no_rtl_flag_is_registered() {
+        let m = command_init().try_get_matches_from(["init", "--no-rtl"]).unwrap();
+        assert!(m.get_flag("no-rtl"));
+        assert!(!m.get_flag("rtl"));
+    }
+
+    #[test]
+    fn command_init_rtl_defaults_false_with_yes_flag() {
+        // --yes means force=true → rtl defaults to false without prompting
+        let m = command_init().try_get_matches_from(["init", "--yes"]).unwrap();
+        assert!(!m.get_flag("rtl"));
+        assert!(!m.get_flag("no-rtl"));
     }
 
     #[test]
