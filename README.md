@@ -95,13 +95,8 @@ If you'd like to contribute or preview the registry locally:
     ``` 
 
 ## Contribution
-We love contributions! Whether it's a new component, a bug fix, or a CSS tweak.
 
-- Fork the Project.
-- Create your Feature Branch (git checkout -b feature/AmazingComponent).
-- Commit your Changes (git commit -m 'Add some AmazingComponent').
-- Push to the Branch (git push origin feature/AmazingComponent).
-- Open a Pull Request.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 
 ## Contributors
