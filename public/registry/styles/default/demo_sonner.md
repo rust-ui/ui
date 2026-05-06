@@ -25,14 +25,17 @@ ui add demo_sonner
 ```rust
 use leptos::prelude::*;
 
-use crate::components::ui::sonner::SonnerTrigger;
+use crate::components::ui::sonner::{SonnerToaster, SonnerTrigger};
 
 #[component]
 pub fn DemoSonner() -> impl IntoView {
     view! {
-        <SonnerTrigger title="You got a message" description="You toasted me!">
-            "Toast Me!"
-        </SonnerTrigger>
+        <>
+            <SonnerTrigger title="You got a message" description="You toasted me!">
+                "Toast Me!"
+            </SonnerTrigger>
+            <SonnerToaster />
+        </>
     }
 }
 ```

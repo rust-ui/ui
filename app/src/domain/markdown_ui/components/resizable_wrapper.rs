@@ -9,13 +9,17 @@ use crate::domain::markdown_ui::components::my_resizable::{
 /* ========================================================== */
 
 #[component]
-pub fn ResizableWrapper(children: Children, #[prop(into, optional)] preview_class: String) -> impl IntoView {
+pub fn ResizableWrapper(
+    children: Children,
+    #[prop(into, optional)] preview_class: String,
+    #[prop(into, optional)] demo_name: String,
+) -> impl IntoView {
     let preview_classes = format!("flex justify-center items-center w-full min-h-[370px] {}", preview_class);
 
     view! {
         <Resizable>
             <ResizableContainer>
-                <div data-name="Preview" class=preview_classes style="--radius: 0.5rem;">
+                <div data-name="Preview" data-demo-name=demo_name class=preview_classes style="--radius: 0.5rem;">
                     {children()}
                 </div>
             </ResizableContainer>

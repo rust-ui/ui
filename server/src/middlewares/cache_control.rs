@@ -7,6 +7,13 @@ pub async fn add_cache_headers(req: Request, next: Next) -> Response {
     let path = req.uri().path().to_owned();
     let mut response = next.run(req).await;
 
+    // Never cache HTML responses — this prevents browsers from caching SSR
+    // fallback HTML when a static file is temporarily missing (e.g. during rebuild).
+    let content_type = response.headers().get("content-type").and_then(|v| v.to_str().ok()).unwrap_or("");
+    if content_type.contains("text/html") {
+        return response;
+    }
+
     // Determine cache duration based on file type
     let cache_header = if is_immutable_asset(&path) {
         // Hashed assets (like Leptos outputs) can be cached for 1 year

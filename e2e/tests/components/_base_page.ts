@@ -6,16 +6,23 @@ import { Locator, Page, expect } from "@playwright/test";
 export abstract class BasePage {
   readonly page: Page;
 
-  /** The demo preview container - all component tests should scope within this */
-  readonly preview: Locator;
-
   /** Component name used in URL path (e.g., "button", "dialog") */
   protected abstract readonly componentName: string;
 
+  /** Optional demo name used to scope tests to a specific preview on the docs page */
+  protected readonly demoName?: string;
+
   constructor(page: Page) {
     this.page = page;
-    // Demo components are rendered inside Preview container
-    this.preview = page.locator('[data-name="Preview"]').first();
+  }
+
+  /** The demo preview container - all component tests should scope within this */
+  get preview(): Locator {
+    if (this.demoName) {
+      return this.page.locator(`[data-name="Preview"][data-demo-name="${this.demoName}"]`).first();
+    }
+
+    return this.page.locator('[data-name="Preview"]').first();
   }
 
   /**
