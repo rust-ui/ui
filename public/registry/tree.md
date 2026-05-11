@@ -347,7 +347,6 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** card (ui)
 * demo_card_carousel (demos)
   ** cargo: icons/leptos
-  ** js: /components/card_carousel.js
   ** card (ui)
   ** card_carousel (ui)
 * demo_card_group (demos)

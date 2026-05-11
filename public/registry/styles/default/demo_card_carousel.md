@@ -81,8 +81,6 @@ pub fn DemoCardCarousel() -> impl IntoView {
                 <CardDescription>"$685 per night"</CardDescription>
             </CardContent>
         </div>
-
-        <script type="module" src="/components/card_carousel.js"></script>
     }
 }
 
