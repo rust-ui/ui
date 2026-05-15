@@ -81,6 +81,23 @@ fn analyze_from_workspace_root(workspace_root: &Path, manifest: &Manifest) -> Cl
     let workspace =
         manifest.workspace.as_ref().ok_or_else(|| CliError::config("Expected workspace manifest"))?;
 
+    // If [workspace] has no members but manifest has [package], it's a single-crate
+    // using [workspace] only to prevent parent workspace lookup.
+    if workspace.members.is_empty() && manifest.package.is_some() {
+        let has_leptos = check_leptos_in_manifest(manifest);
+        if !has_leptos {
+            return Err(CliError::config("Leptos dependency not found in Cargo.toml"));
+        }
+        let crate_name = manifest.package.as_ref().map(|p| p.name.clone());
+        return Ok(WorkspaceInfo {
+            is_workspace: false,
+            workspace_root: None,
+            target_crate: crate_name,
+            target_crate_path: Some(workspace_root.to_path_buf()),
+            components_base_path: "src/components".to_string(),
+        });
+    }
+
     // Find workspace member with Leptos
     let members = expand_workspace_members(workspace_root, &workspace.members)?;
 
@@ -601,6 +618,66 @@ axum = "0.7"
         assert!(info.workspace_root.is_none());
         assert!(info.target_crate.is_none());
         assert_eq!(info.components_base_path, "src/components");
+    }
+
+    // ========== Single crate with [workspace] isolation Tests ==========
+
+    #[test]
+    fn test_single_crate_with_empty_workspace_section_and_leptos() {
+        // Reproduces the `[workspace]` + `[package]` pattern used by program exercises
+        // to prevent parent workspace lookup. Should be treated as a single crate.
+        let temp = TempDir::new().unwrap();
+        let root = temp.path();
+
+        write_cargo_toml(
+            root,
+            r#"
+[package]
+name = "w4_d19_resource_fetch_csr"
+version = "0.1.0"
+edition = "2024"
+
+[workspace]
+
+[dependencies]
+leptos = { version = "0.8", features = ["csr", "tracing"] }
+leptos_router = { version = "0.8", features = ["nightly"] }
+"#,
+        );
+        create_src_dir(root);
+
+        let info = analyze_workspace_from_path(root).unwrap();
+
+        assert!(!info.is_workspace);
+        assert_eq!(info.target_crate, Some("w4_d19_resource_fetch_csr".to_string()));
+        assert_eq!(info.components_base_path, "src/components");
+    }
+
+    #[test]
+    fn test_single_crate_with_empty_workspace_section_without_leptos() {
+        let temp = TempDir::new().unwrap();
+        let root = temp.path();
+
+        write_cargo_toml(
+            root,
+            r#"
+[package]
+name = "no-leptos"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+
+[dependencies]
+serde = "1"
+"#,
+        );
+        create_src_dir(root);
+
+        let result = analyze_workspace_from_path(root);
+
+        assert!(result.is_err());
+        assert!(result.unwrap_err().to_string().contains("Leptos"));
     }
 
     // ========== Tailwind Input File Tests ==========
