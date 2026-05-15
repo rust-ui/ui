@@ -33,8 +33,8 @@ pub fn Folder(
 
     view! {
         <div data-name="Folder" class="flex flex-col [&:has(>input:checked)>label>svg:first-child]:rotate-90">
-            // <input id=folder_id.clone() type="checkbox" class="sr-only peer" checked=open />
-            <input id=folder_id.clone() type="checkbox" class="peer" checked=open />
+            // TODO: sr-only breaks with tauri — use hidden for now
+            <input id=folder_id.clone() type="checkbox" class="hidden peer" checked=open />
 
             <FolderTrigger attr:r#for=folder_id>
                 <ChevronRight class="transition-transform duration-200 ease-in-out origin-center" />
@@ -55,8 +55,8 @@ pub fn File(#[prop(into)] name: &'static str, #[prop(default = false)] checked: 
 
     view! {
         <li data-name="File" class="flex flex-row -ml-4">
-            // <input id=file_id.clone() type="radio" name="file-selection" class="sr-only peer" checked=checked />
-            <input id=file_id.clone() type="radio" name="file-selection" class="peer" checked=checked />
+            // TODO: sr-only breaks with tauri — use hidden for now
+            <input id=file_id.clone() type="radio" name="file-selection" class="hidden peer" checked=checked />
             <FileTrigger attr:r#for=file_id attr:tabindex="0">
                 <FileIcon />
                 <span>{name}</span>
@@ -83,8 +83,8 @@ pub fn FileRenderer(
                 id=file_id.clone()
                 type="radio"
                 name="file-selection"
-                // sr-only
-                class="peer"
+                // TODO: sr-only breaks with tauri — use hidden for now
+                class="hidden peer"
                 checked=checked
                 on:change=move |_| {
                     let html = format!(
@@ -123,8 +123,8 @@ pub fn FileRendererHighlight(
                 id=file_id.clone()
                 type="radio"
                 name="file-selection"
-                // sr-only
-                class="peer"
+                // TODO: sr-only breaks with tauri — use hidden for now
+                class="hidden peer"
                 checked=checked
                 on:change=move |_| {
                     const HIGHLIGHT_CLASS: &str = "h-full max-h-[370px] overflow-y-auto whitespace-pre-wrap p-4 [&_span]:text-xs rounded-md bg-muted";
