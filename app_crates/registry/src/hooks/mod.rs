@@ -1,7 +1,7 @@
 pub mod use_breadcrumb;
-pub mod use_card_carousel;
 pub mod use_can_scroll;
 pub mod use_can_scroll_vertical;
+pub mod use_card_carousel;
 pub mod use_cell_edit;
 pub mod use_cell_selection;
 pub mod use_click_outside;
