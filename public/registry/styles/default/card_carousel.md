@@ -26,6 +26,9 @@ ui add card_carousel
 use leptos::prelude::*;
 use leptos_ui::{clx, void};
 
+#[cfg(target_arch = "wasm32")]
+use crate::components::hooks::use_card_carousel;
+
 mod components {
     use super::*;
     clx! {CardCarousel, div, "group rounded-[20px] overflow-hidden relative w-[320px] h-[320px] bg-gray-200"}
@@ -46,6 +49,9 @@ pub use components::*;
 
 #[component]
 pub fn CardCarouselTrack(children: Children) -> impl IntoView {
+    #[cfg(target_arch = "wasm32")]
+    use_card_carousel::init();
+
     view! {
         <div
             data-name="CardCarouselTrack"

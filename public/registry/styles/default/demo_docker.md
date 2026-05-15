@@ -31,7 +31,7 @@ pub fn DemoDocker() -> impl IntoView {
     let button_titles = vec!["Settings", "Browser", "Mail", "Map", "Messages", "Music Player", "Apps", "Documents"];
 
     view! {
-        <link rel="stylesheet" href="/components/docker.css" />
+        <link rel="stylesheet" href="/app_components/docker.css" />
         // <script src="/xx.js"></script>
 
         <div class="h-[600px]">

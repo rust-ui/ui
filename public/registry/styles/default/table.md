@@ -30,10 +30,10 @@ use leptos_ui::clx;
 
 mod components {
     use super::*;
-    clx! {TableWrapper, div, "overflow-hidden rounded-md border"}
+    clx! {TableWrapper, div, "overflow-auto rounded-md border max-h-96"}
     clx! {Table, table, "w-full max-w-7xl text-sm caption-bottom"}
     clx! {TableCaption, caption, "mt-4 text-sm text-muted-foreground"}
-    clx! {TableHeader, thead, "[&_tr]:border-b"}
+    clx! {TableHeader, thead, "[&_tr]:border-b sticky top-0 z-10 bg-card"}
     clx! {TableRow, tr, "border-b transition-colors data-[state=selected]:bg-muted hover:bg-muted/50"}
     clx! {TableHead, th, "h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]"}
     clx! {TableBody, tbody, "[&_tr:last-child]:border-0"}

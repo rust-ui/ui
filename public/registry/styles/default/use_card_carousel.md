@@ -1,3 +1,28 @@
+---
+title: "Use Card Carousel"
+name: "use_card_carousel"
+cargo_dependencies: []
+registry_dependencies: []
+type: "components:hooks/"
+path: "hooks/use_card_carousel.rs"
+---
+
+# Use Card Carousel
+
+This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality.
+
+## Installation
+
+To add this component demo in your app, run:
+
+```bash
+# cargo install ui-cli --force
+ui add use_card_carousel
+```
+
+## Component Code
+
+```rust
 use std::cell::RefCell;
 
 use wasm_bindgen::JsCast;
@@ -126,3 +151,4 @@ fn set_aria_disabled(node: Option<web_sys::Node>, disabled: bool) {
         let _ = el.remove_attribute("aria-disabled");
     }
 }
+```

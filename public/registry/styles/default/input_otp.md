@@ -28,8 +28,8 @@ use leptos::prelude::*;
 use tw_merge::*;
 
 #[cfg(target_arch = "wasm32")]
-use crate::hooks::use_input_otp;
-use crate::hooks::use_random::use_random_id;
+use crate::components::hooks::use_input_otp;
+use crate::components::hooks::use_random::use_random_id;
 
 /* ========================================================== */
 /*                     ✨ FUNCTIONS ✨                        */

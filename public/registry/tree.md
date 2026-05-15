@@ -7,7 +7,7 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** cargo: icons/leptos
   ** use_random (hooks)
 * action_bar (ui)
-  ** js: /components/action_bar.js
+  ** js: /app_components/action_bar.js
 * alert (ui)
 * alert_dialog (ui)
   ** button (ui)
@@ -55,6 +55,7 @@ Each dependency level is shown with progressive bullet points: * for components,
 * callout (ui)
 * card (ui)
 * card_carousel (ui)
+  ** use_card_carousel (hooks)
 * carousel (ui)
   ** cargo: icons/leptos
   ** use_random (hooks)
@@ -349,6 +350,7 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** cargo: icons/leptos
   ** card (ui)
   ** card_carousel (ui)
+    *** use_card_carousel (hooks)
 * demo_card_group (demos)
   ** cargo: icons/leptos
   ** button (ui)
@@ -765,7 +767,7 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** drag_and_drop (ui)
 * demo_drawer (demos)
   ** drawer (ui)
-    *** js: /components/vaul_drawer.js
+    *** js: /app_components/vaul_drawer.js
     *** button (ui)
 * demo_drawer_dialog (demos)
   ** button (ui)
@@ -774,18 +776,18 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** button (ui)
     *** use_random (hooks)
   ** drawer (ui)
-    *** js: /components/vaul_drawer.js
+    *** js: /app_components/vaul_drawer.js
     *** button (ui)
   ** input (ui)
     *** cargo: strum
 * demo_drawer_family (demos)
   ** cargo: icons/leptos
   ** drawer (ui)
-    *** js: /components/vaul_drawer.js
+    *** js: /app_components/vaul_drawer.js
     *** button (ui)
 * demo_drawer_focus (demos)
   ** drawer (ui)
-    *** js: /components/vaul_drawer.js
+    *** js: /app_components/vaul_drawer.js
     *** button (ui)
   ** input (ui)
     *** cargo: strum
@@ -794,33 +796,33 @@ Each dependency level is shown with progressive bullet points: * for components,
 * demo_drawer_nested (demos)
   ** js: /drawer_v3.js
   ** drawer (ui)
-    *** js: /components/vaul_drawer.js
+    *** js: /app_components/vaul_drawer.js
     *** button (ui)
 * demo_drawer_non_dismissable (demos)
   ** drawer (ui)
-    *** js: /components/vaul_drawer.js
+    *** js: /app_components/vaul_drawer.js
     *** button (ui)
 * demo_drawer_rtl (demos)
   ** direction_provider (ui)
     *** cargo: strum
   ** drawer (ui)
-    *** js: /components/vaul_drawer.js
+    *** js: /app_components/vaul_drawer.js
     *** button (ui)
 * demo_drawer_scrollable (demos)
   ** drawer (ui)
-    *** js: /components/vaul_drawer.js
+    *** js: /app_components/vaul_drawer.js
     *** button (ui)
 * demo_drawer_side (demos)
   ** drawer (ui)
-    *** js: /components/vaul_drawer.js
+    *** js: /app_components/vaul_drawer.js
     *** button (ui)
 * demo_drawer_side_floating (demos)
   ** drawer (ui)
-    *** js: /components/vaul_drawer.js
+    *** js: /app_components/vaul_drawer.js
     *** button (ui)
 * demo_drawer_side_scrollable (demos)
   ** drawer (ui)
-    *** js: /components/vaul_drawer.js
+    *** js: /app_components/vaul_drawer.js
     *** button (ui)
 * demo_dropdown_menu (demos)
   ** dropdown_menu (ui)
@@ -1407,9 +1409,9 @@ Each dependency level is shown with progressive bullet points: * for components,
     *** separator (ui)
   ** radio_button (ui)
 * demo_range_slider (demos)
-  ** js: /components/range_slider.js
+  ** js: /app_components/range_slider.js
 * demo_range_slider_dual (demos)
-  ** js: /components/range_slider_dual.js
+  ** js: /app_components/range_slider_dual.js
 * demo_resizable (demos)
 * demo_scroll_area (demos)
   ** scroll_area (ui)
@@ -1664,7 +1666,7 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** cargo: strum
 * drag_and_drop (ui)
 * drawer (ui)
-  ** js: /components/vaul_drawer.js
+  ** js: /app_components/vaul_drawer.js
   ** button (ui)
 * dropdown_menu (ui)
   ** cargo: icons/leptos
@@ -1747,7 +1749,6 @@ Each dependency level is shown with progressive bullet points: * for components,
 * radio_button (ui)
 * radio_button_group (ui)
 * scroll_area (ui)
-* scroll_lock (hooks)
 * select (ui)
   ** cargo: icons/leptos
   ** cargo: strum
@@ -1782,6 +1783,7 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** cargo: heck
 * use_can_scroll (hooks)
 * use_can_scroll_vertical (hooks)
+* use_card_carousel (hooks)
 * use_cell_edit (hooks)
   ** data_grid (ui)
     *** cargo: icons/leptos
@@ -1873,6 +1875,7 @@ Each dependency level is shown with progressive bullet points: * for components,
 * use_history (hooks)
 * use_horizontal_scroll (hooks)
   ** cargo: strum
+* use_input_otp (hooks)
 * use_is_mobile (hooks)
 * use_lock_body_scroll (hooks)
 * use_lock_body_scroll_dialog (hooks)
@@ -1883,6 +1886,7 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** query
 * use_press_hold (hooks)
 * use_random (hooks)
+* use_scroll_lock (hooks)
 * use_theme_mode (hooks)
 * use_virtual_scroll (hooks)
 

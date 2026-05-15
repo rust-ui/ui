@@ -1,13 +1,13 @@
 ---
-title: "Scroll Lock"
-name: "scroll_lock"
+title: "Use Scroll Lock"
+name: "use_scroll_lock"
 cargo_dependencies: []
 registry_dependencies: []
 type: "components:hooks/"
-path: "hooks/scroll_lock.rs"
+path: "hooks/use_scroll_lock.rs"
 ---
 
-# Scroll Lock
+# Use Scroll Lock
 
 This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality.
 
@@ -17,7 +17,7 @@ To add this component demo in your app, run:
 
 ```bash
 # cargo install ui-cli --force
-ui add scroll_lock
+ui add use_scroll_lock
 ```
 
 ## Component Code
@@ -41,30 +41,19 @@ ui add scroll_lock
 
 use std::cell::RefCell;
 
+use wasm_bindgen::JsCast;
 use wasm_bindgen::closure::Closure;
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
 
 /// Component data-names excluded from scroll locking (internal scrollable areas).
-const EXCLUDED_DATA_NAMES: &[&str] = &[
-    "ScrollArea",
-    "CommandList",
-    "SelectContent",
-    "MultiSelectContent",
-    "DropdownMenuContent",
-    "ContextMenuContent",
-];
+const EXCLUDED_DATA_NAMES: &[&str] =
+    &["ScrollArea", "CommandList", "SelectContent", "MultiSelectContent", "DropdownMenuContent", "ContextMenuContent"];
 
 /// Data-names excluded when collecting fixed-position elements.
-const FIXED_EXCLUDED: &[&str] = &[
-    "DropdownMenuContent",
-    "MultiSelectContent",
-    "ContextMenuContent",
-];
+const FIXED_EXCLUDED: &[&str] = &["DropdownMenuContent", "MultiSelectContent", "ContextMenuContent"];
 
 /// CSS selector for scrollable element candidates.
-const SCROLLABLE_SELECTOR: &str =
-    r#"[style*="overflow"],[class*="overflow"],[class*="scroll"],main,aside,section,div"#;
+const SCROLLABLE_SELECTOR: &str = r#"[style*="overflow"],[class*="overflow"],[class*="scroll"],main,aside,section,div"#;
 
 /// CSS selector for fixed-position element candidates.
 const FIXED_SELECTOR: &str =
@@ -103,13 +92,7 @@ struct State {
 
 impl State {
     const fn new() -> Self {
-        Self {
-            locked: false,
-            window_scroll_y: 0.0,
-            body_styles: None,
-            scrollable: Vec::new(),
-            fixed: Vec::new(),
-        }
+        Self { locked: false, window_scroll_y: 0.0, body_styles: None, scrollable: Vec::new(), fixed: Vec::new() }
     }
 
     fn clear(&mut self) {
@@ -129,10 +112,10 @@ thread_local! {
 
 /// Check if an element (or any ancestor) is in the exclusion list.
 fn is_excluded(el: &web_sys::Element) -> bool {
-    if let Some(name) = el.get_attribute("data-name") {
-        if EXCLUDED_DATA_NAMES.iter().any(|&n| n == name) {
-            return true;
-        }
+    if let Some(name) = el.get_attribute("data-name")
+        && EXCLUDED_DATA_NAMES.iter().any(|&n| n == name)
+    {
+        return true;
     }
     for &name in EXCLUDED_DATA_NAMES {
         let sel = format!(r#"[data-name="{name}"]"#);
@@ -235,11 +218,7 @@ pub fn lock() {
     // ── READ PHASE ─────────────────────────────────────────────
 
     let window_scroll_y = window.scroll_y().unwrap_or(0.0);
-    let inner_width = window
-        .inner_width()
-        .ok()
-        .and_then(|w| w.as_f64())
-        .unwrap_or(0.0);
+    let inner_width = window.inner_width().ok().and_then(|w| w.as_f64()).unwrap_or(0.0);
     let scrollbar_width = inner_width - body.client_width() as f64;
 
     // Store original body inline styles
@@ -249,9 +228,7 @@ pub fn lock() {
         top: body_style.get_property_value("top").unwrap_or_default(),
         width: body_style.get_property_value("width").unwrap_or_default(),
         overflow: body_style.get_property_value("overflow").unwrap_or_default(),
-        padding_right: body_style
-            .get_property_value("padding-right")
-            .unwrap_or_default(),
+        padding_right: body_style.get_property_value("padding-right").unwrap_or_default(),
     };
 
     // Collect scrollable elements ─────────────────────────────
@@ -301,8 +278,7 @@ pub fn lock() {
             };
             let ov = cs.get_property_value("overflow").unwrap_or_default();
             let ovy = cs.get_property_value("overflow-y").unwrap_or_default();
-            let scrollable = matches!(ov.as_str(), "auto" | "scroll")
-                || matches!(ovy.as_str(), "auto" | "scroll");
+            let scrollable = matches!(ov.as_str(), "auto" | "scroll") || matches!(ovy.as_str(), "auto" | "scroll");
 
             if !scrollable || element.scroll_height() <= element.client_height() {
                 continue;
@@ -314,11 +290,7 @@ pub fn lock() {
             };
 
             let st = el.style();
-            let cp = cs
-                .get_property_value("padding-right")
-                .ok()
-                .map(|p| parse_px(&p))
-                .unwrap_or(0.0);
+            let cp = cs.get_property_value("padding-right").ok().map(|p| parse_px(&p)).unwrap_or(0.0);
 
             s_reads.push(SRead {
                 scroll_top: el.scroll_top(),
@@ -342,44 +314,37 @@ pub fn lock() {
 
     let mut f_reads: Vec<FRead> = Vec::new();
 
-    if scrollbar_width > 0.0 {
-        if let Ok(nodes) = document.query_selector_all(FIXED_SELECTOR) {
-            for i in 0..nodes.length() {
-                let Some(node) = nodes.item(i) else { continue };
-                let Ok(element) = node.dyn_into::<web_sys::Element>() else {
-                    continue;
-                };
+    if scrollbar_width > 0.0
+        && let Ok(nodes) = document.query_selector_all(FIXED_SELECTOR)
+    {
+        for i in 0..nodes.length() {
+            let Some(node) = nodes.item(i) else { continue };
+            let Ok(element) = node.dyn_into::<web_sys::Element>() else {
+                continue;
+            };
 
-                let Some(cs) = window.get_computed_style(&element).ok().flatten() else {
-                    continue;
-                };
-                if cs.get_property_value("position").unwrap_or_default() != "fixed" {
-                    continue;
-                }
-                if is_fixed_excluded(&element) {
-                    continue;
-                }
-
-                // Cast to HtmlElement for style access
-                let Ok(el) = element.dyn_into::<web_sys::HtmlElement>() else {
-                    continue;
-                };
-
-                let cp = cs
-                    .get_property_value("padding-right")
-                    .ok()
-                    .map(|p| parse_px(&p))
-                    .unwrap_or(0.0);
-
-                f_reads.push(FRead {
-                    original_pr: el
-                        .style()
-                        .get_property_value("padding-right")
-                        .unwrap_or_default(),
-                    computed_padding: cp,
-                    el,
-                });
+            let Some(cs) = window.get_computed_style(&element).ok().flatten() else {
+                continue;
+            };
+            if cs.get_property_value("position").unwrap_or_default() != "fixed" {
+                continue;
             }
+            if is_fixed_excluded(&element) {
+                continue;
+            }
+
+            // Cast to HtmlElement for style access
+            let Ok(el) = element.dyn_into::<web_sys::HtmlElement>() else {
+                continue;
+            };
+
+            let cp = cs.get_property_value("padding-right").ok().map(|p| parse_px(&p)).unwrap_or(0.0);
+
+            f_reads.push(FRead {
+                original_pr: el.style().get_property_value("padding-right").unwrap_or_default(),
+                computed_padding: cp,
+                el,
+            });
         }
     }
 
@@ -426,13 +391,7 @@ pub fn lock() {
                 padding_right: r.padding_right,
             })
             .collect();
-        s.fixed = f_reads
-            .into_iter()
-            .map(|r| FixedEntry {
-                element: r.el,
-                padding_right: r.original_pr,
-            })
-            .collect();
+        s.fixed = f_reads.into_iter().map(|r| FixedEntry { element: r.el, padding_right: r.original_pr }).collect();
     });
 }
 
@@ -447,10 +406,7 @@ pub fn unlock(delay_ms: u32) {
     }
 
     if delay_ms > 0 {
-        leptos::prelude::set_timeout(
-            perform_unlock,
-            std::time::Duration::from_millis(u64::from(delay_ms)),
-        );
+        leptos::prelude::set_timeout(perform_unlock, std::time::Duration::from_millis(u64::from(delay_ms)));
     } else {
         perform_unlock();
     }
@@ -470,15 +426,15 @@ fn perform_unlock() {
         let mut s = state.borrow_mut();
 
         // Restore body styles
-        if let Some(body) = window.document().and_then(|d| d.body()) {
-            if let Some(ref orig) = s.body_styles {
-                let st = body.style();
-                set_style(&st, "position", &orig.position);
-                set_style(&st, "top", &orig.top);
-                set_style(&st, "width", &orig.width);
-                set_style(&st, "overflow", &orig.overflow);
-                set_style(&st, "padding-right", &orig.padding_right);
-            }
+        if let Some(body) = window.document().and_then(|d| d.body())
+            && let Some(ref orig) = s.body_styles
+        {
+            let st = body.style();
+            set_style(&st, "position", &orig.position);
+            set_style(&st, "top", &orig.top);
+            set_style(&st, "width", &orig.width);
+            set_style(&st, "overflow", &orig.overflow);
+            set_style(&st, "padding-right", &orig.padding_right);
         }
 
         // Restore window scroll position

@@ -316,6 +316,35 @@ impl Country {
             .collect()
     }
 
+    /// Returns the trunk prefix stripped when dialing internationally.
+    /// NANP (+1), Italy (+39), and a few others have no trunk prefix.
+    pub const fn trunk_prefix(&self) -> Option<&'static str> {
+        match self {
+            // NANP — no trunk prefix
+            Country::UnitedStatesOfAmerica
+            | Country::Canada
+            | Country::Bahamas
+            | Country::Barbados
+            | Country::DominicanRepublic
+            | Country::Jamaica
+            | Country::TrinidadAndTobago => None,
+
+            // Italy/San Marino/Vatican — 0 is part of the subscriber number
+            Country::Italy | Country::SanMarino | Country::VaticanCity => None,
+
+            // Countries without trunk prefix
+            Country::Denmark
+            | Country::Norway
+            | Country::Iceland
+            | Country::Liechtenstein
+            | Country::Monaco
+            | Country::Andorra => None,
+
+            // Most countries use "0" as trunk prefix
+            _ => Some("0"),
+        }
+    }
+
     // pub fn name(&self, language_identifier: &LanguageIdentifier) -> String {
     //     TRANSLATIONS.lookup(language_identifier, &format!("country-{}", self.alpha2()))
     // }

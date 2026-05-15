@@ -102,6 +102,8 @@ web-sys = { version = "0.3", default-features = false, features = [
     "Navigator",
     "Node",
     "NodeList",
+    "ScrollBehavior",
+    "ScrollToOptions",
     "Request",
     "RequestInit",
     "RequestMode",

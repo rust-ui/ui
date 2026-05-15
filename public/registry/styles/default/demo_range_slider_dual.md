@@ -28,8 +28,8 @@ use leptos::prelude::*;
 #[component]
 pub fn DemoRangeSliderDual() -> impl IntoView {
     view! {
-        <link rel="stylesheet" href="/components/range_slider_dual.css" />
-        <script src="/components/range_slider_dual.js" />
+        <link rel="stylesheet" href="/app_components/range_slider_dual.css" />
+        <script src="/app_components/range_slider_dual.js" />
 
         <div class="flex justify-center items-center w-full bg-gray-100 h-[300px]">
             <div class="p-6 bg-white rounded-lg shadow-lg w-[400px]">
