@@ -4,7 +4,10 @@ use std::rc::Rc;
 
 use wasm_bindgen::JsCast;
 use wasm_bindgen::closure::Closure;
-use web_sys::{Element, Event, EventTarget, HtmlElement, HtmlInputElement, InputEvent, MutationObserver, MutationObserverInit, MutationRecord, Node};
+use web_sys::{
+    Element, Event, EventTarget, HtmlElement, HtmlInputElement, InputEvent, MutationObserver, MutationObserverInit,
+    MutationRecord, Node,
+};
 
 const OTP_ROOT_SELECTOR: &str = "[data-otp-root]";
 const OTP_INPUT_SELECTOR: &str = "input[data-otp-input]";
@@ -176,10 +179,7 @@ struct OtpDom {
 impl OtpDom {
     fn new(input: HtmlInputElement, mut slots: Vec<OtpSlot>) -> Self {
         slots.sort_by_key(|slot| slot.index);
-        let max_len = input
-            .get_attribute("maxlength")
-            .and_then(|value| value.parse::<usize>().ok())
-            .unwrap_or(6);
+        let max_len = input.get_attribute("maxlength").and_then(|value| value.parse::<usize>().ok()).unwrap_or(6);
 
         Self { input, slots, max_len }
     }
@@ -201,9 +201,7 @@ struct Listener {
 
 impl Drop for Listener {
     fn drop(&mut self) {
-        let _ = self
-            .target
-            .remove_event_listener_with_callback(self.event, self.callback.as_ref().unchecked_ref());
+        let _ = self.target.remove_event_listener_with_callback(self.event, self.callback.as_ref().unchecked_ref());
     }
 }
 
@@ -381,16 +379,11 @@ where
 fn update(dom: &OtpDom) {
     let value: Vec<char> = dom.input.value().chars().collect();
     let input_element: Element = dom.input.clone().unchecked_into();
-    let focused = document()
-        .and_then(|document| document.active_element())
-        .is_some_and(|active| active == input_element);
+    let focused =
+        document().and_then(|document| document.active_element()).is_some_and(|active| active == input_element);
 
     let selection = if focused {
-        dom.input
-            .selection_start()
-            .ok()
-            .flatten()
-            .map_or(0, |position| position as usize)
+        dom.input.selection_start().ok().flatten().map_or(0, |position| position as usize)
     } else {
         usize::MAX
     };
@@ -398,7 +391,8 @@ fn update(dom: &OtpDom) {
     for slot in &dom.slots {
         let ch = value.get(slot.index).copied().unwrap_or_default().to_string();
         let is_active = focused
-            && (selection == slot.index || (selection >= value.len() && slot.index == value.len() && value.len() < dom.max_len));
+            && (selection == slot.index
+                || (selection >= value.len() && slot.index == value.len() && value.len() < dom.max_len));
 
         if let Some(char_el) = &slot.char_el {
             char_el.set_text_content(Some(&ch));

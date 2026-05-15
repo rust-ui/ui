@@ -14,17 +14,18 @@ pub fn link_with_tooltip(props: MdComponentProps) -> impl IntoView {
     let rel = is_external.then_some("noopener noreferrer");
 
     view! {
-        <span class="relative group/link inline">
-            <a href=href target=target rel=rel class="text-primary underline underline-offset-2">
+        <span class="inline relative group/link">
+            <a href=href target=target rel=rel class="underline text-primary underline-offset-2">
                 {children()}
             </a>
-            {is_external.then(|| {
-                view! {
-                    <span class="absolute bottom-full left-0 mb-2 px-2.5 py-1.5 text-xs bg-popover text-popover-foreground border border-border rounded-lg shadow-lg whitespace-nowrap opacity-0 group-hover/link:opacity-100 transition-opacity pointer-events-none z-50 max-w-[320px] truncate font-normal not-italic">
-                        {tooltip_text}
-                    </span>
-                }
-            })}
+            {is_external
+                .then(|| {
+                    view! {
+                        <span class="absolute left-0 bottom-full z-50 py-1.5 px-2.5 mb-2 text-xs not-italic font-normal whitespace-nowrap rounded-lg border shadow-lg opacity-0 transition-opacity pointer-events-none bg-popover text-popover-foreground border-border max-w-[320px] truncate group-hover/link:opacity-100">
+                            {tooltip_text}
+                        </span>
+                    }
+                })}
         </span>
     }
 }

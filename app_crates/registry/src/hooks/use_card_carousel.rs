@@ -45,11 +45,7 @@ fn setup_listeners() -> Option<Listeners> {
 
     let _ = target.add_event_listener_with_callback("click", click_cb.as_ref().unchecked_ref());
     // Capture phase: scroll events on overflow-scroll track don't bubble.
-    let _ = target.add_event_listener_with_callback_and_bool(
-        "scroll",
-        scroll_cb.as_ref().unchecked_ref(),
-        true,
-    );
+    let _ = target.add_event_listener_with_callback_and_bool("scroll", scroll_cb.as_ref().unchecked_ref(), true);
 
     Some(Listeners { _click: click_cb, _scroll: scroll_cb })
 }
@@ -69,10 +65,7 @@ fn handle_click(event: Event) {
     let Some(track) = root.query_selector(CAROUSEL_TRACK).ok().flatten() else { return };
     let Ok(buttons) = root.query_selector_all(CAROUSEL_NAV_BUTTON) else { return };
 
-    let is_prev = buttons
-        .item(0)
-        .and_then(|n| n.dyn_into::<Element>().ok())
-        .is_some_and(|first| first == btn);
+    let is_prev = buttons.item(0).and_then(|n| n.dyn_into::<Element>().ok()).is_some_and(|first| first == btn);
 
     let delta = f64::from(track.client_width()) * if is_prev { -1.0 } else { 1.0 };
     let opts = ScrollToOptions::new();
@@ -93,11 +86,8 @@ fn handle_scroll(event: Event) {
     let Ok(buttons) = root.query_selector_all(CAROUSEL_NAV_BUTTON) else { return };
 
     let client_width = track.client_width();
-    let index = if client_width > 0 {
-        (f64::from(track.scroll_left()) / f64::from(client_width)).round() as u32
-    } else {
-        0
-    };
+    let index =
+        if client_width > 0 { (f64::from(track.scroll_left()) / f64::from(client_width)).round() as u32 } else { 0 };
 
     let count = indicators.length();
 
