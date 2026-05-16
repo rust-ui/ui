@@ -16,9 +16,6 @@ const DEPRECATED_COMPONENTS: &[DeprecatedComponent] = &[DeprecatedComponent {
 
 use clap::{Arg, ArgMatches, Command};
 
-use dialoguer::Confirm;
-use dialoguer::theme::ColorfulTheme;
-
 use super::components::Components;
 use super::installed::get_installed_components;
 use super::registry::RegistryComponent;
@@ -27,7 +24,6 @@ use crate::command_diff::_diff::{diff_components, format_diff_human};
 use crate::command_init::config::UiConfig;
 use crate::command_view::_view::view_components;
 use crate::shared::cli_error::{CliError, CliResult};
-use crate::shared::nightly_check::check_nightly_setup;
 use crate::shared::rust_ui_client::RustUIClient;
 
 pub fn command_add() -> Command {
@@ -66,37 +62,6 @@ pub fn command_add() -> Command {
                 .help("Show a diff of what would change for each component without installing")
                 .action(clap::ArgAction::SetTrue),
         )
-}
-
-/* ========================================================== */
-/*                     🔧 NIGHTLY CHECK 🔧                    */
-/* ========================================================== */
-
-/// Warn the user if the project is not configured for nightly Rust, then ask whether to proceed.
-/// Returns `Err` only if the user explicitly declines.
-fn warn_if_nightly_not_configured() -> CliResult<()> {
-    let status = check_nightly_setup(std::path::Path::new("."));
-    if status.is_ok() {
-        return Ok(());
-    }
-
-    eprintln!("\n⚠️  Nightly Rust is required by some components (e.g. bind:value).");
-    for item in status.missing_items() {
-        eprintln!("   Missing: {item}");
-    }
-    eprintln!("   See: https://rust-ui.com/docs/installation\n");
-
-    let proceed = Confirm::with_theme(&ColorfulTheme::default())
-        .with_prompt("Continue anyway?")
-        .default(false)
-        .interact()
-        .map_err(|err| CliError::validation(&format!("Failed to get user input: {err}")))?;
-
-    if !proceed {
-        return Err(CliError::validation("Aborted: nightly Rust is required."));
-    }
-
-    Ok(())
 }
 
 /* ========================================================== */
@@ -198,10 +163,6 @@ pub async fn process_add(matches: &ArgMatches) -> CliResult<()> {
 
     // Detect already installed components
     let installed = get_installed_components(&base_path);
-
-    // Warn if the project is not set up for nightly Rust (required for bind:value and other
-    // Leptos nightly features). Always prompt — the user may know what they're doing.
-    warn_if_nightly_not_configured()?;
 
     // If no components provided, launch TUI
     let user_components = if user_components.is_empty() {
