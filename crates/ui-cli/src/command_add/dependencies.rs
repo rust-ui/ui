@@ -214,24 +214,12 @@ fn add_workspace_ref_to_member(cargo_toml_path: &Path, dep: &str) -> CliResult<(
     Ok(())
 }
 
-/// Fetch the latest version of a crate from crates.io
-fn fetch_latest_version(crate_name: &str) -> CliResult<String> {
-    // Use cargo search to get the latest version
-    let output = std::process::Command::new("cargo")
-        .args(["search", crate_name, "--limit", "1"])
-        .output()
-        .map_err(|_| CliError::cargo_operation("Failed to execute cargo search"))?;
-
-    if !output.status.success() {
-        return Err(CliError::cargo_operation(&format!("Failed to search for crate '{crate_name}'")));
-    }
-
-    let stdout = String::from_utf8_lossy(&output.stdout);
-
-    // Parse output like: serde = "1.0.219"   # A generic serialization/deserialization framework
-    for line in stdout.lines() {
-        if line.starts_with(crate_name) {
-            // Extract version from format: crate_name = "version"
+/// Parse the version of `crate_name` from `cargo search` stdout.
+/// Requires exact name match (`"icons ="`) to avoid matching `icons_rs` when searching `icons`.
+fn parse_version_from_cargo_search(crate_name: &str, output: &str) -> Option<String> {
+    let exact_prefix = format!("{crate_name} =");
+    for line in output.lines() {
+        if line.starts_with(&exact_prefix) {
             if let Some(version_part) = line.split('=').nth(1) {
                 let version = version_part
                     .trim()
@@ -240,16 +228,28 @@ fn fetch_latest_version(crate_name: &str) -> CliResult<String> {
                     .next()
                     .unwrap_or("")
                     .trim_matches('"');
-
                 if !version.is_empty() {
-                    return Ok(version.to_string());
+                    return Some(version.to_string());
                 }
             }
         }
     }
+    None
+}
 
-    // Fallback: use "*" if we can't determine version
-    Ok("*".to_string())
+/// Fetch the latest version of a crate from crates.io
+fn fetch_latest_version(crate_name: &str) -> CliResult<String> {
+    let output = std::process::Command::new("cargo")
+        .args(["search", crate_name, "--limit", "5"])
+        .output()
+        .map_err(|_| CliError::cargo_operation("Failed to execute cargo search"))?;
+
+    if !output.status.success() {
+        return Err(CliError::cargo_operation(&format!("Failed to search for crate '{crate_name}'")));
+    }
+
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    Ok(parse_version_from_cargo_search(crate_name, &stdout).unwrap_or_else(|| "*".to_string()))
 }
 
 /// Fallback: use cargo add command
@@ -681,6 +681,49 @@ leptos = "0.7"
         assert!(contents.contains("leptos"), "Should contain leptos feature: {contents}");
         // Must be inline table format, not a bare version string
         assert!(contents.contains("features"), "Should have features key: {contents}");
+    }
+
+    #[test]
+    fn test_parse_version_from_cargo_search_exact_match() {
+        let output = r#"icons = "0.18.0"  # A collection of icons for Leptos
+icons_extra = "0.1.0"  # Extra icons
+"#;
+        assert_eq!(parse_version_from_cargo_search("icons", output), Some("0.18.0".to_string()));
+    }
+
+    #[test]
+    fn test_parse_version_from_cargo_search_no_false_prefix_match() {
+        // icons_rs starts with "icons" but must NOT match when searching for "icons"
+        let output = r#"icons_rs = "0.5.0"  # Icon set
+icons-terminal = "1.2.0"  # Terminal icons
+"#;
+        assert_eq!(parse_version_from_cargo_search("icons", output), None);
+    }
+
+    #[test]
+    fn test_parse_version_from_cargo_search_not_first_result() {
+        // Exact match appears after other results
+        let output = r#"icons_rs = "0.5.0"  # Icon set
+icons = "0.18.0"  # Icons for Leptos
+icons-terminal = "1.2.0"  # Terminal icons
+"#;
+        assert_eq!(parse_version_from_cargo_search("icons", output), Some("0.18.0".to_string()));
+    }
+
+    #[test]
+    fn test_parse_version_from_cargo_search_not_found() {
+        let output = r#"icons_rs = "0.5.0"  # Icon set
+icons-terminal = "1.2.0"  # Terminal icons
+"#;
+        assert_eq!(parse_version_from_cargo_search("icons", output), None);
+    }
+
+    #[test]
+    fn test_parse_version_from_cargo_search_plain_crate() {
+        let output = r#"serde = "1.0.219"  # A generic serialization/deserialization framework
+serde_json = "1.0.100"  # A JSON serialization file format
+"#;
+        assert_eq!(parse_version_from_cargo_search("serde", output), Some("1.0.219".to_string()));
     }
 
     #[test]
