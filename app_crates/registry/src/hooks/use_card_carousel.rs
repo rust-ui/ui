@@ -2,7 +2,7 @@ use std::cell::RefCell;
 
 use wasm_bindgen::JsCast;
 use wasm_bindgen::closure::Closure;
-use web_sys::{Element, Event, EventTarget, ScrollBehavior, ScrollToOptions};
+use web_sys::{Element, Event, EventTarget};
 
 const CAROUSEL_ROOT: &str = r#"[data-name="CardCarousel"]"#;
 const CAROUSEL_TRACK: &str = r#"[data-name="CardCarouselTrack"]"#;
@@ -68,10 +68,9 @@ fn handle_click(event: Event) {
     let is_prev = buttons.item(0).and_then(|n| n.dyn_into::<Element>().ok()).is_some_and(|first| first == btn);
 
     let delta = f64::from(track.client_width()) * if is_prev { -1.0 } else { 1.0 };
-    let opts = ScrollToOptions::new();
-    opts.set_left(delta);
-    opts.set_behavior(ScrollBehavior::Smooth);
-    track.scroll_by_with_scroll_to_options(&opts);
+    // No explicit behavior — CSS scroll-smooth on the track handles the animation,
+    // and avoids a known WebKit bug where behavior:'smooth' breaks snap-mandatory.
+    track.scroll_by_with_x_and_y(delta, 0.0);
 }
 
 // ── Scroll handler ────────────────────────────────────────────────────────────
