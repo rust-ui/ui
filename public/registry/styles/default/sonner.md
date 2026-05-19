@@ -11,11 +11,11 @@ tags: []
 
 # Sonner
 
-This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality.
+Pure Rust/Leptos toast system with global context, trigger helpers, reactive rendering, auto-dismiss, stacking, and swipe-to-dismiss.
 
 ## Installation
 
-To add this component demo in your app, run:
+To add this component in your app, run:
 
 ```bash
 # cargo install ui-cli --force
@@ -28,7 +28,7 @@ ui add sonner
 use leptos::prelude::*;
 use tw_merge::*;
 
-#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display, Hash)]
 pub enum ToastType {
     #[default]
     Default,
@@ -39,22 +39,25 @@ pub enum ToastType {
     Loading,
 }
 
-#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display, Hash)]
 pub enum SonnerPosition {
     TopLeft,
     TopCenter,
     TopRight,
+    BottomLeft,
+    BottomCenter,
     #[default]
     BottomRight,
-    BottomCenter,
-    BottomLeft,
 }
 
-#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
-pub enum SonnerDirection {
-    TopDown,
-    #[default]
-    BottomUp,
+pub fn provide_sonner() {
+    if use_context::<SonnerContext>().is_none() {
+        provide_context(new_sonner_context());
+    }
+}
+
+pub fn show_toast() -> ToastApi {
+    ToastApi { ctx: expect_context::<SonnerContext>() }
 }
 
 #[component]
@@ -63,7 +66,7 @@ pub fn SonnerTrigger(
     #[prop(into, optional)] class: String,
     #[prop(optional, default = ToastType::default())] variant: ToastType,
     #[prop(into)] title: String,
-    #[prop(into)] description: String,
+    #[prop(into, optional)] description: String,
     #[prop(into, optional)] position: String,
 ) -> impl IntoView {
     let variant_classes = match variant {
@@ -81,17 +84,17 @@ pub fn SonnerTrigger(
         class
     );
 
-    // Only set position attribute if not empty
-    let position_attr = if position.is_empty() { None } else { Some(position) };
-
     view! {
         <button
             class=merged_class
             data-name="SonnerTrigger"
-            data-variant=variant.to_string()
-            data-toast-title=title
-            data-toast-description=description
-            data-toast-position=position_attr
+            on:click=move |_| {
+                show_toast()
+                    .message(title.clone())
+                    .variant(variant)
+                    .description(description.clone())
+                    .push();
+            }
         >
             {children()}
         </button>
@@ -99,74 +102,15 @@ pub fn SonnerTrigger(
 }
 
 #[component]
-pub fn SonnerContainer(
-    children: Children,
-    #[prop(into, optional)] class: String,
-    #[prop(optional, default = SonnerPosition::default())] position: SonnerPosition,
-) -> impl IntoView {
-    let merged_class = tw_merge!("toast__container fixed z-50", class);
-
-    view! {
-        <div class=merged_class data-position=position.to_string()>
-            {children()}
-        </div>
-    }
-}
-
-#[component]
-pub fn SonnerList(
-    children: Children,
-    #[prop(into, optional)] class: String,
-    #[prop(optional, default = SonnerPosition::default())] position: SonnerPosition,
-    #[prop(optional, default = SonnerDirection::default())] direction: SonnerDirection,
-    #[prop(into, default = "false".to_string())] expanded: String,
-    #[prop(into, optional)] style: String,
-) -> impl IntoView {
-    // pointer-events-none: container doesn't block clicks when empty
-    // [&>*]:pointer-events-auto: toast items still receive clicks
-    let merged_class = tw_merge!(
-        "flex relative flex-col opacity-100 gap-[15px] h-[100px] w-[400px] pointer-events-none [&>*]:pointer-events-auto",
-        class
-    );
-
-    view! {
-        <ol
-            class=merged_class
-            data-name="SonnerList"
-            data-sonner-toaster="true"
-            data-sonner-theme="light"
-            data-position=position.to_string()
-            data-expanded=expanded
-            data-direction=direction.to_string()
-            style=style
-        >
-            {children()}
-        </ol>
-    }
-}
-
-#[component]
 pub fn SonnerToaster(#[prop(default = SonnerPosition::default())] position: SonnerPosition) -> impl IntoView {
-    // Auto-derive direction from position
-    let direction = match position {
-        SonnerPosition::TopLeft | SonnerPosition::TopCenter | SonnerPosition::TopRight => SonnerDirection::TopDown,
-        _ => SonnerDirection::BottomUp,
-    };
-
-    let container_class = match position {
-        SonnerPosition::TopLeft => "left-6 top-6",
-        SonnerPosition::TopRight => "right-6 top-6",
-        SonnerPosition::TopCenter => "left-1/2 -translate-x-1/2 top-6",
-        SonnerPosition::BottomCenter => "left-1/2 -translate-x-1/2 bottom-6",
-        SonnerPosition::BottomLeft => "left-6 bottom-6",
-        SonnerPosition::BottomRight => "right-6 bottom-6",
-    };
+    if use_context::<SonnerContext>().is_none() {
+        provide_context(new_sonner_context());
+    }
 
     view! {
-        <SonnerContainer class=container_class position=position>
-            <SonnerList position=position direction=direction>
-                ""
-            </SonnerList>
+        <style>{SONNER_STYLE}</style>
+        <SonnerContainer position=position>
+            <SonnerList position=position />
         </SonnerContainer>
     }
 }

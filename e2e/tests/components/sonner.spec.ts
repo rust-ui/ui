@@ -3,6 +3,7 @@ import { BasePage } from "./_base_page";
 
 class SonnerPage extends BasePage {
   protected readonly componentName = "sonner";
+  protected readonly demoName = "demo_sonner";
 
   // Sonner elements
   readonly triggerButton: Locator;
@@ -27,7 +28,7 @@ class SonnerPage extends BasePage {
 
 class SonnerPositionsPage extends BasePage {
   protected readonly componentName = "sonner";
-  protected readonly demoName = "positions";
+  protected readonly demoName = "demo_sonner_positions";
 
   // Trigger buttons
   readonly topLeftTrigger: Locator;
@@ -1094,7 +1095,7 @@ test.describe("Sonner Positions Page", () => {
       expect(toastCount).toBeGreaterThanOrEqual(2);
 
       // Hover over the toaster to trigger expansion
-      await ui.bottomRightToaster.hover();
+      await ui.bottomRightToaster.dispatchEvent("mouseenter");
       await page.waitForTimeout(400); // Wait for expansion animation
 
       // Get positions AFTER hover (expanded state)
@@ -1810,7 +1811,7 @@ test.describe("Sonner Positions Page", () => {
         await page.waitForTimeout(400);
 
         // Hover to expand
-        await ui.bottomRightToaster.hover();
+        await ui.bottomRightToaster.dispatchEvent("mouseenter");
         await page.waitForTimeout(400);
 
         const toasts = ui.bottomRightToaster.locator('[data-sonner-toast="true"]');
@@ -1861,7 +1862,7 @@ test.describe("Sonner Positions Page", () => {
         await page.waitForTimeout(400);
 
         // Hover to expand
-        await ui.bottomRightToaster.hover();
+        await ui.bottomRightToaster.dispatchEvent("mouseenter");
         await page.waitForTimeout(400);
 
         const toasts = ui.bottomRightToaster.locator('[data-sonner-toast="true"]');
@@ -2648,7 +2649,7 @@ test.describe("Sonner Positions Page", () => {
         await page.waitForTimeout(400);
 
         // Hover over the toaster to pause
-        await ui.bottomRightToaster.hover();
+        await ui.bottomRightToaster.dispatchEvent("mouseenter");
         await page.waitForTimeout(100);
 
         const toast = ui.bottomRightToaster.locator('[data-sonner-toast="true"]').first();
@@ -2704,7 +2705,7 @@ test.describe("Sonner Positions Page", () => {
         await page.waitForTimeout(400);
 
         // Hover to pause
-        await ui.bottomRightToaster.hover();
+        await ui.bottomRightToaster.dispatchEvent("mouseenter");
         await page.waitForTimeout(200);
 
         const toast = ui.bottomRightToaster.locator('[data-sonner-toast="true"]').first();
@@ -2716,7 +2717,7 @@ test.describe("Sonner Positions Page", () => {
         );
 
         // Move mouse away to resume
-        await page.mouse.move(0, 0);
+        await ui.bottomRightToaster.dispatchEvent("mouseleave");
         await page.waitForTimeout(800);
 
         // Get scale after resuming
@@ -3115,7 +3116,7 @@ test.describe("Sonner Positions Page", () => {
         await page.waitForTimeout(500);
 
         // Hover over toaster
-        await ui.bottomRightToaster.hover();
+        await ui.bottomRightToaster.dispatchEvent("mouseenter");
         await page.waitForTimeout(100);
 
         const frontToast = ui.bottomRightToaster.locator('[data-sonner-toast="true"]').first();
@@ -4905,7 +4906,7 @@ test.describe("Sonner Edge Cases", () => {
 
   class SonnerVariantsPage extends BasePage {
     protected readonly componentName = "sonner";
-    protected readonly demoName = "variants";
+    protected readonly demoName = "demo_sonner_variants";
 
     readonly defaultTrigger: Locator;
     readonly successTrigger: Locator;
@@ -4919,13 +4920,13 @@ test.describe("Sonner Edge Cases", () => {
       super(page);
 
       // Use exact: true to avoid matching "Bottom Right (Default)"
-      this.defaultTrigger = page.getByRole("button", { name: "Default", exact: true });
-      this.successTrigger = page.getByRole("button", { name: "Success", exact: true });
-      this.errorTrigger = page.getByRole("button", { name: "Error", exact: true });
-      this.warningTrigger = page.getByRole("button", { name: "Warning", exact: true });
-      this.infoTrigger = page.getByRole("button", { name: "Info", exact: true });
-      this.loadingTrigger = page.getByRole("button", { name: "Loading", exact: true });
-      this.toaster = page.locator('[data-sonner-toaster="true"]');
+      this.defaultTrigger = this.preview.getByRole("button", { name: "Default", exact: true });
+      this.successTrigger = this.preview.getByRole("button", { name: "Success", exact: true });
+      this.errorTrigger = this.preview.getByRole("button", { name: "Error", exact: true });
+      this.warningTrigger = this.preview.getByRole("button", { name: "Warning", exact: true });
+      this.infoTrigger = this.preview.getByRole("button", { name: "Info", exact: true });
+      this.loadingTrigger = this.preview.getByRole("button", { name: "Loading", exact: true });
+      this.toaster = this.preview.locator('[data-sonner-toaster="true"]');
     }
   }
 
@@ -5596,8 +5597,6 @@ test.describe("Sonner Edge Cases", () => {
     test("sonner toast should appear after SPA navigation", async ({ page }) => {
       const ui = new SonnerPage(page);
       await ui.gotoViaSpa();
-      // Wait for lazy-loaded sonner.js to finish loading before triggering
-      await page.waitForFunction(() => (window as any).LazySonner?.loaded === true, { timeout: 5000 });
       await ui.triggerToast();
 
       await expect(page.locator('[data-sonner-toaster]').first()).toBeVisible();
@@ -5606,8 +5605,6 @@ test.describe("Sonner Edge Cases", () => {
     test("sonner toast message should be visible after SPA navigation", async ({ page }) => {
       const ui = new SonnerPage(page);
       await ui.gotoViaSpa();
-      // Wait for lazy-loaded sonner.js to finish loading before triggering
-      await page.waitForFunction(() => (window as any).LazySonner?.loaded === true, { timeout: 5000 });
       await ui.triggerToast();
 
       await expect(page.locator('[data-sonner-toast="true"]').first()).toBeVisible();

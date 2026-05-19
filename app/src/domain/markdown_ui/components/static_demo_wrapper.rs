@@ -140,7 +140,7 @@ pub fn StaticDemoWrapper(demo_type: MarkdownType, children: Children) -> impl In
 
             // TODO 🚑 Show does not work at the moment. Using display as shortfix solution.
             <div style:display=move || { if current_tab.get() == Tab::Preview { "block" } else { "none" } }>
-                <ResizableWrapper preview_class="px-4">{children_view}</ResizableWrapper>
+                <ResizableWrapper preview_class="px-4" demo_name=demo_name>{children_view}</ResizableWrapper>
             </div>
 
             <div style:display=move || { if current_tab.get() == Tab::Code { "block" } else { "none" } }>

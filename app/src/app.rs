@@ -21,7 +21,7 @@ use registry::hooks::use_data_scrolled::DATA_SCROLL_TARGET;
 #[cfg(target_arch = "wasm32")]
 use registry::hooks::use_scroll_lock;
 use registry::hooks::use_theme_mode::ThemeMode;
-use registry::ui::sonner::SonnerToaster;
+use registry::ui::sonner::{SonnerToaster, provide_sonner};
 use registry::ui::toast_custom::toaster::{Toaster, provide_toaster};
 
 use crate::components::navigation::app_wrapper::AppWrapper;
@@ -57,6 +57,7 @@ pub fn App() -> impl IntoView {
     use_scroll_lock::init();
 
     provide_toaster();
+    provide_sonner();
 
     let theme_mode = ThemeMode::init();
 
