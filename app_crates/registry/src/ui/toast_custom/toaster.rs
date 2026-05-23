@@ -5,8 +5,14 @@ use crate::ui::toast_custom::_data::{ToastData, ToastPosition};
 use crate::ui::toast_custom::_template_styles::TEMPLATE_STYLES;
 use crate::ui::toast_custom::toast::Toast;
 
-const CONTAINER_POSITIONS: &[ToastPosition] =
-    &[ToastPosition::TopLeft, ToastPosition::TopRight, ToastPosition::BottomRight, ToastPosition::BottomLeft];
+const CONTAINER_POSITIONS: &[ToastPosition] = &[
+    ToastPosition::TopLeft,
+    ToastPosition::TopCenter,
+    ToastPosition::TopRight,
+    ToastPosition::BottomLeft,
+    ToastPosition::BottomCenter,
+    ToastPosition::BottomRight,
+];
 
 #[component]
 pub fn Toaster(#[prop(optional, into)] stacked: Signal<bool>) -> impl IntoView {
@@ -30,14 +36,18 @@ pub fn Toaster(#[prop(optional, into)] stacked: Signal<bool>) -> impl IntoView {
                         each=move || {
                             let toasts = toaster.queue_signal.get();
                             match position {
-                                ToastPosition::BottomLeft | ToastPosition::BottomRight => {
+                                ToastPosition::BottomLeft
+                                | ToastPosition::BottomCenter
+                                | ToastPosition::BottomRight => {
                                     toasts
                                         .iter()
                                         .filter(|toast| toast.position.eq(position))
                                         .cloned()
                                         .collect::<Vec<ToastData>>()
                                 }
-                                ToastPosition::TopLeft | ToastPosition::TopRight => {
+                                ToastPosition::TopLeft
+                                | ToastPosition::TopCenter
+                                | ToastPosition::TopRight => {
                                     toasts
                                         .iter()
                                         .filter(|toast| toast.position.eq(position))
@@ -78,24 +88,28 @@ pub fn expect_toaster() -> ToasterContext {
 /* ========================================================== */
 
 fn is_container_empty(position: &ToastPosition) -> bool {
-    !expect_toaster().queue_signal.get().iter().any(|toast| toast.position.eq(position))
+    !expect_toaster().queue_signal.get().iter().any(|toast| &toast.position == position)
 }
 
 fn get_container_id(position: &ToastPosition) -> &'static str {
     match position {
         ToastPosition::TopLeft => "top_left",
+        ToastPosition::TopCenter => "top_center",
         ToastPosition::TopRight => "top_right",
-        ToastPosition::BottomRight => "bottom_right",
         ToastPosition::BottomLeft => "bottom_left",
+        ToastPosition::BottomCenter => "bottom_center",
+        ToastPosition::BottomRight => "bottom_right",
     }
 }
 
 fn get_container_inset(position: &ToastPosition) -> &'static str {
     match position {
         ToastPosition::TopLeft => "0 auto auto 0",
+        ToastPosition::TopCenter => "0 auto auto 50%",
         ToastPosition::TopRight => "0 0 auto auto",
-        ToastPosition::BottomRight => "auto 0 0 auto",
         ToastPosition::BottomLeft => "auto 0 0 0",
+        ToastPosition::BottomCenter => "auto auto 0 50%",
+        ToastPosition::BottomRight => "auto 0 0 auto",
     }
 }
 
@@ -103,6 +117,7 @@ fn get_container_margin(position: &ToastPosition) -> &'static str {
     match position {
         ToastPosition::TopLeft | ToastPosition::BottomLeft => "0 0 0 12px",
         ToastPosition::TopRight | ToastPosition::BottomRight => "0 12px 0 0",
+        ToastPosition::TopCenter | ToastPosition::BottomCenter => "0",
     }
 }
 
@@ -112,8 +127,11 @@ fn get_container_class(stacked: bool, position: &ToastPosition) -> Option<&'stat
     }
 
     match position {
-        ToastPosition::BottomLeft | ToastPosition::BottomRight => Some("leptoaster-stack-container-bottom"),
-
-        ToastPosition::TopLeft | ToastPosition::TopRight => Some("leptoaster-stack-container-top"),
+        ToastPosition::BottomLeft | ToastPosition::BottomCenter | ToastPosition::BottomRight => {
+            Some("leptoaster-stack-container-bottom")
+        }
+        ToastPosition::TopLeft | ToastPosition::TopCenter | ToastPosition::TopRight => {
+            Some("leptoaster-stack-container-top")
+        }
     }
 }

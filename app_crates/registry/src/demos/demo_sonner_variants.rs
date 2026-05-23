@@ -1,6 +1,8 @@
 use leptos::prelude::*;
 
-use crate::ui::sonner::{SonnerToaster, SonnerTrigger, ToastType};
+use crate::ui::sonner::SonnerTrigger;
+use crate::ui::sonner::SonnerToaster;
+use crate::ui::toast_custom::_data::ToastLevel;
 
 #[component]
 pub fn DemoSonnerVariants() -> impl IntoView {
@@ -11,19 +13,19 @@ pub fn DemoSonnerVariants() -> impl IntoView {
                     "Default"
                 </SonnerTrigger>
 
-                <SonnerTrigger title="You got a message" description="You toasted me!" variant=ToastType::Success>
+                <SonnerTrigger title="You got a message" description="You toasted me!" variant=ToastLevel::Success>
                     "Success"
                 </SonnerTrigger>
-                <SonnerTrigger title="You got a message" description="You toasted me!" variant=ToastType::Error>
+                <SonnerTrigger title="You got a message" description="You toasted me!" variant=ToastLevel::Error>
                     "Error"
                 </SonnerTrigger>
-                <SonnerTrigger title="You got a message" description="You toasted me!" variant=ToastType::Warning>
+                <SonnerTrigger title="You got a message" description="You toasted me!" variant=ToastLevel::Warn>
                     "Warning"
                 </SonnerTrigger>
-                <SonnerTrigger title="You got a message" description="You toasted me!" variant=ToastType::Info>
+                <SonnerTrigger title="You got a message" description="You toasted me!" variant=ToastLevel::Info>
                     "Info"
                 </SonnerTrigger>
-                <SonnerTrigger title="You got a message" description="You toasted me!" variant=ToastType::Loading>
+                <SonnerTrigger title="You got a message" description="You toasted me!" variant=ToastLevel::Loading>
                     "Loading"
                 </SonnerTrigger>
             </div>

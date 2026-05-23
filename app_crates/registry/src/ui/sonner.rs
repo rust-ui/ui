@@ -8,6 +8,11 @@ use tw_merge::*;
 use wasm_bindgen::JsCast;
 use web_sys::{HtmlElement, PointerEvent};
 
+use crate::ui::toast_custom::_builder::ToastBuilder;
+use crate::ui::toast_custom::_context::ToasterContext;
+use crate::ui::toast_custom::_data::{ToastId, ToastLevel, ToastPosition};
+use crate::ui::toast_custom::toaster::provide_toaster;
+
 const MAX_TOASTS: usize = 5;
 const VISIBLE_TOASTS_AMOUNT: usize = 3;
 const ENTER_DURATION_MS: u32 = 300;
@@ -245,16 +250,7 @@ const SONNER_STYLE: &str = r#"
 }
 "#;
 
-#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display, Hash)]
-pub enum ToastType {
-    #[default]
-    Default,
-    Success,
-    Error,
-    Warning,
-    Info,
-    Loading,
-}
+// ── Public position/direction enums ───────────────────────────────────────────
 
 #[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display, Hash)]
 pub enum SonnerPosition {
@@ -274,14 +270,16 @@ pub enum SonnerDirection {
     BottomUp,
 }
 
-#[derive(Clone)]
-struct SonnerToast {
-    id: u64,
-    variant: ToastType,
-    title: String,
-    description: Option<String>,
-    duration_ms: u32,
-    position: SonnerPosition,
+// ── SonnerContext — display-layer state only (no toast queue) ─────────────────
+
+struct SonnerTimer {
+    timeout: Option<TimeoutHandle>,
+    remaining_ms: u32,
+    started_at_ms: f64,
+}
+
+#[derive(Clone, Default)]
+struct SonnerAnimState {
     mounted: bool,
     entering: bool,
     removed: bool,
@@ -292,70 +290,59 @@ struct SonnerToast {
 
 #[derive(Clone)]
 struct SonnerContext {
-    toasts: RwSignal<Vec<SonnerToast>>,
-    next_id: RwSignal<u64>,
     expanded_position: RwSignal<Option<SonnerPosition>>,
-    timers: Arc<Mutex<HashMap<u64, SonnerTimer>>>,
+    timers: Arc<Mutex<HashMap<ToastId, SonnerTimer>>>,
+    anim_states: RwSignal<HashMap<ToastId, SonnerAnimState>>,
 }
 
-struct SonnerTimer {
-    timeout: Option<TimeoutHandle>,
-    remaining_ms: u32,
-    started_at_ms: f64,
-}
+// ── Public API ────────────────────────────────────────────────────────────────
 
 #[derive(Clone)]
 pub struct ToastApi {
+    toaster: ToasterContext,
     ctx: SonnerContext,
 }
 
-pub struct ToastBuilder {
+pub struct ToastBuilder_ {
+    toaster: ToasterContext,
     ctx: SonnerContext,
-    variant: ToastType,
+    variant: ToastLevel,
     title: String,
     description: Option<String>,
     duration_ms: u32,
     position: SonnerPosition,
 }
 
-#[derive(Clone, Copy)]
-struct RenderMeta {
-    index: usize,
-    z_index: usize,
-    front: bool,
-    visible: bool,
-    hidden: bool,
-}
-
 impl ToastApi {
     pub fn success(self, title: impl Into<String>) {
-        self.message(title).variant(ToastType::Success).push();
+        self.message(title).variant(ToastLevel::Success).push();
     }
 
     pub fn error(self, title: impl Into<String>) {
-        self.message(title).variant(ToastType::Error).push();
+        self.message(title).variant(ToastLevel::Error).push();
     }
 
     pub fn warning(self, title: impl Into<String>) {
-        self.message(title).variant(ToastType::Warning).push();
+        self.message(title).variant(ToastLevel::Warn).push();
     }
 
     pub fn info(self, title: impl Into<String>) {
-        self.message(title).variant(ToastType::Info).push();
+        self.message(title).variant(ToastLevel::Info).push();
     }
 
-    pub fn loading(self, title: impl Into<String>) -> u64 {
-        self.message(title).variant(ToastType::Loading).duration(60_000).push()
+    pub fn loading(self, title: impl Into<String>) -> ToastId {
+        self.message(title).variant(ToastLevel::Loading).duration(60_000).push()
     }
 
     pub fn with_description(self, title: impl Into<String>, description: impl Into<String>) {
         self.message(title).description(description).push();
     }
 
-    pub fn message(self, title: impl Into<String>) -> ToastBuilder {
-        ToastBuilder {
+    pub fn message(self, title: impl Into<String>) -> ToastBuilder_ {
+        ToastBuilder_ {
+            toaster: self.toaster,
             ctx: self.ctx,
-            variant: ToastType::Default,
+            variant: ToastLevel::Info,
             title: title.into(),
             description: None,
             duration_ms: DEFAULT_DURATION_MS,
@@ -363,17 +350,18 @@ impl ToastApi {
         }
     }
 
-    pub fn dismiss(self, toast_id: u64) {
-        dismiss_toast(&self.ctx, toast_id, false, None);
+    pub fn dismiss(self, toast_id: ToastId) {
+        dismiss_toast(&self.toaster, &self.ctx, toast_id, false, None);
     }
 
-    pub fn update_to_success(self, toast_id: u64, title: impl Into<String>, description: Option<String>) {
-        update_toast(&self.ctx, toast_id, ToastType::Success, title.into(), description, Some(DEFAULT_DURATION_MS));
+    pub fn update_to_success(self, toast_id: ToastId, title: impl Into<String>, description: Option<String>) {
+        self.toaster.update(toast_id, ToastLevel::Success, title.into(), description);
+        schedule_timer(&self.toaster, &self.ctx, toast_id, DEFAULT_DURATION_MS);
     }
 }
 
-impl ToastBuilder {
-    pub fn variant(mut self, variant: ToastType) -> Self {
+impl ToastBuilder_ {
+    pub fn variant(mut self, variant: ToastLevel) -> Self {
         self.variant = variant;
         self
     }
@@ -393,37 +381,32 @@ impl ToastBuilder {
         self
     }
 
-    pub fn push(self) -> u64 {
-        push_toast(&self.ctx, self.variant, self.title, self.description, self.duration_ms, self.position)
-    }
-}
-
-pub fn provide_sonner() {
-    if use_context::<SonnerContext>().is_none() {
-        provide_context(new_sonner_context());
+    pub fn push(self) -> ToastId {
+        push_toast(&self.toaster, &self.ctx, self.variant, self.title, self.description, self.duration_ms, self.position)
     }
 }
 
 pub fn show_toast() -> ToastApi {
-    ToastApi { ctx: expect_context::<SonnerContext>() }
+    ToastApi { toaster: expect_context::<ToasterContext>(), ctx: expect_context::<SonnerContext>() }
 }
+
+// ── SonnerTrigger ─────────────────────────────────────────────────────────────
 
 #[component]
 pub fn SonnerTrigger(
     children: Children,
     #[prop(into, optional)] class: String,
-    #[prop(optional, default = ToastType::default())] variant: ToastType,
+    #[prop(optional, default = ToastLevel::Info)] variant: ToastLevel,
     #[prop(into)] title: String,
     #[prop(into, optional)] description: String,
     #[prop(into, optional)] position: String,
 ) -> impl IntoView {
     let variant_classes = match variant {
-        ToastType::Default => "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
-        ToastType::Success => "bg-success text-success-foreground hover:bg-success/90",
-        ToastType::Error => "bg-destructive text-white shadow-xs hover:bg-destructive/90 dark:bg-destructive/60",
-        ToastType::Warning => "bg-warning text-warning-foreground hover:bg-warning/90",
-        ToastType::Info => "bg-info text-info-foreground shadow-xs hover:bg-info/90",
-        ToastType::Loading => "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+        ToastLevel::Info => "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+        ToastLevel::Success => "bg-success text-success-foreground hover:bg-success/90",
+        ToastLevel::Error => "bg-destructive text-white shadow-xs hover:bg-destructive/90 dark:bg-destructive/60",
+        ToastLevel::Warn => "bg-warning text-warning-foreground hover:bg-warning/90",
+        ToastLevel::Loading => "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
     };
 
     let merged_class = tw_merge!(
@@ -440,7 +423,13 @@ pub fn SonnerTrigger(
         <button
             class=merged_class
             data-name="SonnerTrigger"
-            data-variant=variant.to_string()
+            data-variant=match variant {
+                ToastLevel::Info => "Default",
+                ToastLevel::Success => "Success",
+                ToastLevel::Error => "Error",
+                ToastLevel::Warn => "Warning",
+                ToastLevel::Loading => "Loading",
+            }
             data-toast-title=title
             data-toast-description=description
             data-toast-position=if position.is_empty() { None } else { Some(position) }
@@ -449,7 +438,7 @@ pub fn SonnerTrigger(
                 if let Some(text) = &click_description {
                     builder = builder.description(text.clone());
                 }
-                if variant == ToastType::Loading {
+                if variant == ToastLevel::Loading {
                     let id = builder.duration(1_200).push();
                     set_timeout(
                         move || {
@@ -467,6 +456,8 @@ pub fn SonnerTrigger(
     }
 }
 
+// ── SonnerContainer ───────────────────────────────────────────────────────────
+
 #[component]
 pub fn SonnerContainer(
     children: Children,
@@ -479,20 +470,36 @@ pub fn SonnerContainer(
     }
 }
 
+// ── SonnerList ────────────────────────────────────────────────────────────────
+
 #[component]
 pub fn SonnerList(
     #[prop(optional, default = SonnerPosition::default())] position: SonnerPosition,
     #[prop(optional, default = SonnerDirection::default())] direction: SonnerDirection,
 ) -> impl IntoView {
     let ctx = expect_context::<SonnerContext>();
+    let toaster = expect_context::<ToasterContext>();
+
     let ctx_mouseenter = ctx.clone();
     let ctx_mousemove = ctx.clone();
     let ctx_mouseleave = ctx.clone();
     let ctx_focusin = ctx.clone();
     let ctx_focusout = ctx.clone();
-    let position_toasts =
-        move || ctx.toasts.get().into_iter().filter(|toast| toast.position == position).collect::<Vec<_>>();
-    let position_toast_ids = move || position_toasts().into_iter().map(|toast| toast.id).collect::<Vec<u64>>();
+    let toaster_mouseenter = toaster.clone();
+    let toaster_mouseleave = toaster.clone();
+    let toaster_focusin = toaster.clone();
+    let toaster_focusout = toaster.clone();
+
+    let toast_position = sonner_to_toast_position(position);
+    let position_toast_ids = move || {
+        toaster
+            .queue_signal
+            .get()
+            .into_iter()
+            .filter(|toast| toast.position == toast_position)
+            .map(|toast| toast.id)
+            .collect::<Vec<ToastId>>()
+    };
 
     let expanded = move || ctx.expanded_position.get() == Some(position);
 
@@ -507,7 +514,7 @@ pub fn SonnerList(
             style="--max-toasts: 5; --dismiss-delay: 5000ms; --enter-duration: 300ms; --exit-duration: 300ms; --stack-duration: 300ms; --stack-spacing: 20px; --expand-spacing: 110px; --gap: 15px; --scale-factor: 0.05; --transition-easing: ease-out; --stack-easing: ease-in-out;"
             on:mouseenter=move |_| {
                 ctx_mouseenter.expanded_position.set(Some(position));
-                pause_position_timers(&ctx_mouseenter, position);
+                pause_position_timers(&toaster_mouseenter, &ctx_mouseenter, position);
             }
             on:mousemove=move |_| {
                 ctx_mousemove.expanded_position.set(Some(position));
@@ -516,17 +523,17 @@ pub fn SonnerList(
                 if ctx_mouseleave.expanded_position.get() == Some(position) {
                     ctx_mouseleave.expanded_position.set(None);
                 }
-                resume_position_timers(&ctx_mouseleave, position);
+                resume_position_timers(&toaster_mouseleave, &ctx_mouseleave, position);
             }
             on:focusin=move |_| {
                 ctx_focusin.expanded_position.set(Some(position));
-                pause_position_timers(&ctx_focusin, position);
+                pause_position_timers(&toaster_focusin, &ctx_focusin, position);
             }
             on:focusout=move |_| {
                 if ctx_focusout.expanded_position.get() == Some(position) {
                     ctx_focusout.expanded_position.set(None);
                 }
-                resume_position_timers(&ctx_focusout, position);
+                resume_position_timers(&toaster_focusout, &ctx_focusout, position);
             }
         >
             <For
@@ -540,9 +547,12 @@ pub fn SonnerList(
     }
 }
 
+// ── SonnerItem ────────────────────────────────────────────────────────────────
+
 #[component]
-fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -> impl IntoView {
+fn SonnerItem(toast_id: ToastId, position: SonnerPosition, expanded: Signal<bool>) -> impl IntoView {
     let ctx = expect_context::<SonnerContext>();
+    let toaster = expect_context::<ToasterContext>();
     let swipe_amount_x = RwSignal::new(0.0_f64);
     let swipe_amount_y = RwSignal::new(0.0_f64);
     let pointer_start = RwSignal::new(None::<(f64, f64)>);
@@ -550,6 +560,7 @@ fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -
     let swipe_axis = RwSignal::new(None::<char>);
 
     let ctx_pointer_down = ctx.clone();
+    let toaster_pointer_down = toaster.clone();
     let on_pointer_down = move |event: PointerEvent| {
         if is_toast_removed(&ctx_pointer_down, toast_id) {
             return;
@@ -564,7 +575,7 @@ fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -
         pointer_start.set(Some((f64::from(event.client_x()), f64::from(event.client_y()))));
         drag_start.set(js_sys::Date::now());
         swipe_axis.set(None);
-        set_swiping(&ctx_pointer_down, toast_id, true);
+        set_swiping(&toaster_pointer_down, &ctx_pointer_down, toast_id, true);
     };
 
     let on_pointer_move = move |event: PointerEvent| {
@@ -599,10 +610,11 @@ fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -
     };
 
     let ctx_pointer_up = ctx.clone();
+    let toaster_pointer_up = toaster.clone();
     let on_pointer_up = move |_| {
         let Some(axis) = swipe_axis.get() else {
             pointer_start.set(None);
-            set_swiping(&ctx_pointer_up, toast_id, false);
+            set_swiping(&toaster_pointer_up, &ctx_pointer_up, toast_id, false);
             return;
         };
 
@@ -619,9 +631,9 @@ fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -
                 "Up"
             };
 
-            dismiss_toast(&ctx_pointer_up, toast_id, true, Some(direction));
+            dismiss_toast(&toaster_pointer_up, &ctx_pointer_up, toast_id, true, Some(direction));
         } else {
-            set_swiping(&ctx_pointer_up, toast_id, false);
+            set_swiping(&toaster_pointer_up, &ctx_pointer_up, toast_id, false);
         }
 
         pointer_start.set(None);
@@ -631,10 +643,11 @@ fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -
     };
 
     let ctx_pointer_cancel = ctx.clone();
+    let toaster_pointer_cancel = toaster.clone();
     let on_pointer_cancel = move |_| {
         let Some(axis) = swipe_axis.get() else {
             pointer_start.set(None);
-            set_swiping(&ctx_pointer_cancel, toast_id, false);
+            set_swiping(&toaster_pointer_cancel, &ctx_pointer_cancel, toast_id, false);
             return;
         };
 
@@ -651,9 +664,9 @@ fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -
                 "Up"
             };
 
-            dismiss_toast(&ctx_pointer_cancel, toast_id, true, Some(direction));
+            dismiss_toast(&toaster_pointer_cancel, &ctx_pointer_cancel, toast_id, true, Some(direction));
         } else {
-            set_swiping(&ctx_pointer_cancel, toast_id, false);
+            set_swiping(&toaster_pointer_cancel, &ctx_pointer_cancel, toast_id, false);
         }
 
         pointer_start.set(None);
@@ -671,31 +684,34 @@ fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -
         "Right"
     };
 
-    let toast_state = Signal::derive({
-        let ctx = ctx.clone();
-        move || toast_snapshot(&ctx, toast_id)
+    // Each Signal::derive / event closure needs its own owned copy of ctx/toaster.
+    let toaster_td = toaster.clone();
+    let toast_data = Signal::derive(move || toaster_td.queue_signal.get().into_iter().find(|t| t.id == toast_id));
+
+    let ctx_as = ctx.clone();
+    let anim_state =
+        Signal::derive(move || ctx_as.anim_states.get().get(&toast_id).cloned().unwrap_or_default());
+
+    let ctx_rm = ctx.clone();
+    let toaster_rm = toaster.clone();
+    let render_meta = Signal::derive(move || {
+        let active_ids = toaster_rm
+            .queue_signal
+            .get()
+            .into_iter()
+            .filter(|toast| toast.position == sonner_to_toast_position(position) && !is_toast_removed(&ctx_rm, toast.id))
+            .map(|toast| toast.id)
+            .collect::<Vec<_>>();
+        render_meta(&active_ids, toast_id)
     });
-    let render_meta_ctx = ctx.clone();
-    let render_meta = Signal::derive({
-        move || {
-            let active_ids = render_meta_ctx
-                .toasts
-                .get()
-                .into_iter()
-                .filter(|toast| toast.position == position && !toast.removed)
-                .map(|toast| toast.id)
-                .collect::<Vec<_>>();
-            render_meta(&active_ids, toast_id)
-        }
-    });
+
     let merged_class = move || {
-        let variant_class = match toast_state.get().map(|toast| toast.variant).unwrap_or(ToastType::Default) {
-            ToastType::Default => "bg-background text-foreground border-border",
-            ToastType::Success => "bg-success-light text-success-dark border-success",
-            ToastType::Error => "bg-destructive-light text-destructive-dark border-destructive",
-            ToastType::Warning => "bg-warning-light text-warning-dark border-warning",
-            ToastType::Info => "bg-info-light text-info-dark border-info",
-            ToastType::Loading => "bg-background text-foreground border-border",
+        let variant_class = match toast_data.get().map(|toast| toast.level).unwrap_or(ToastLevel::Info) {
+            ToastLevel::Info => "bg-background text-foreground border-border",
+            ToastLevel::Success => "bg-success-light text-success-dark border-success",
+            ToastLevel::Error => "bg-destructive-light text-destructive-dark border-destructive",
+            ToastLevel::Warn => "bg-warning-light text-warning-dark border-warning",
+            ToastLevel::Loading => "bg-background text-foreground border-border",
         };
 
         tw_merge!(
@@ -705,26 +721,33 @@ fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -
         )
     };
 
+    let variant_str = move || {
+        match toast_data.get().map(|t| t.level).unwrap_or(ToastLevel::Info) {
+            ToastLevel::Info => "Default",
+            ToastLevel::Success => "Success",
+            ToastLevel::Error => "Error",
+            ToastLevel::Warn => "Warning",
+            ToastLevel::Loading => "Loading",
+        }
+    };
+
+    let on_close_click = move |_: web_sys::MouseEvent| dismiss_toast(&toaster, &ctx, toast_id, false, None);
+
     view! {
         <li
             data-name="SonnerItem"
             data-sonner-toast="true"
-            data-variant=move || {
-                toast_state
-                    .get()
-                    .map(|toast| toast.variant.to_string())
-                    .unwrap_or_else(|| ToastType::Default.to_string())
-            }
-            data-mounted=move || bool_attr(toast_state.get().map(|toast| toast.mounted).unwrap_or(false))
-            data-entering=move || bool_attr(toast_state.get().map(|toast| toast.entering).unwrap_or(false))
+            data-variant=variant_str
+            data-mounted=move || bool_attr(anim_state.get().mounted)
+            data-entering=move || bool_attr(anim_state.get().entering)
             data-expanded=move || bool_attr(expanded.get())
             data-visible=move || bool_attr(render_meta.get().visible)
             data-hidden=move || bool_attr(render_meta.get().hidden)
             data-front=move || bool_attr(render_meta.get().front)
-            data-removed=move || bool_attr(toast_state.get().map(|toast| toast.removed).unwrap_or(false))
-            data-swiping=move || bool_attr(toast_state.get().map(|toast| toast.swiping).unwrap_or(false))
-            data-swipe-out=move || bool_attr(toast_state.get().map(|toast| toast.swipe_out).unwrap_or(false))
-            data-swipe-direction=move || toast_state.get().and_then(|toast| toast.swipe_direction)
+            data-removed=move || bool_attr(anim_state.get().removed)
+            data-swiping=move || bool_attr(anim_state.get().swiping)
+            data-swipe-out=move || bool_attr(anim_state.get().swipe_out)
+            data-swipe-direction=move || anim_state.get().swipe_direction
             data-y-position=y_position
             data-x-position=x_position
             class=merged_class
@@ -739,38 +762,34 @@ fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -
             on:pointerup=on_pointer_up
             on:pointercancel=on_pointer_cancel
         >
-            <div data-icon class=move || if toast_state.get().map(|toast| toast.variant) == Some(ToastType::Loading) {
+            <div data-icon class=move || if toast_data.get().map(|t| t.level) == Some(ToastLevel::Loading) {
                 "flex items-center justify-center w-5 h-5 shrink-0 mr-3 [&>svg]:animate-spin"
             } else {
                 "flex items-center justify-center w-5 h-5 shrink-0 mr-3"
             }>
-                {move || toast_icon(toast_state.get().map(|toast| toast.variant).unwrap_or(ToastType::Default))}
+                {move || toast_icon(toast_data.get().map(|t| t.level).unwrap_or(ToastLevel::Info))}
             </div>
 
             <div class="flex-1">
                 <div class="flex items-center gap-2">
                     <h3 class="font-semibold text-base leading-[1.4] flex-1">
-                        {move || toast_state.get().map(|toast| toast.title).unwrap_or_default()}
+                        {move || toast_data.get().map(|t| t.message).unwrap_or_default()}
                     </h3>
-                    <Show when=move || toast_state.get().map(|toast| toast.variant != ToastType::Loading).unwrap_or(false)>
-                        <button
-                            data-close-button=""
-                            aria-label="Close toast"
-                            r#type="button"
-                            class="w-5 h-5 flex items-center justify-center border-none bg-transparent text-muted-foreground cursor-pointer transition-colors duration-150 shrink-0 p-0 ml-auto hover:text-foreground"
-                            on:click={
-                                let ctx = ctx.clone();
-                                move |_| dismiss_toast(&ctx, toast_id, false, None)
-                            }
-                        >
-                            <CloseIcon />
-                        </button>
-                    </Show>
+                    <button
+                        data-close-button=""
+                        aria-label="Close toast"
+                        r#type="button"
+                        hidden=move || toast_data.get().map(|t| t.level == ToastLevel::Loading).unwrap_or(false)
+                        class="w-5 h-5 flex items-center justify-center border-none bg-transparent text-muted-foreground cursor-pointer transition-colors duration-150 shrink-0 p-0 ml-auto hover:text-foreground"
+                        on:click=on_close_click
+                    >
+                        <CloseIcon />
+                    </button>
                 </div>
 
-                <Show when=move || toast_state.get().and_then(|toast| toast.description).is_some()>
+                <Show when=move || toast_data.get().and_then(|t| t.description).is_some()>
                     <p class="text-sm leading-[1.5] opacity-90 mt-1">
-                        {move || toast_state.get().and_then(|toast| toast.description).unwrap_or_default()}
+                        {move || toast_data.get().and_then(|t| t.description).unwrap_or_default()}
                     </p>
                 </Show>
             </div>
@@ -779,7 +798,7 @@ fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -
                 data-duration-track
                 class="absolute bottom-0 inset-x-0 h-[3px] bg-black/10 overflow-hidden rounded-b-lg"
                 style:display=move || {
-                    if toast_state.get().map(|toast| toast.variant) == Some(ToastType::Loading) {
+                    if toast_data.get().map(|t| t.level) == Some(ToastLevel::Loading) {
                         "none"
                     } else {
                         "block"
@@ -795,10 +814,7 @@ fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -
                     style=("animation-duration", move || {
                         format!(
                             "{}ms",
-                            toast_state
-                                .get()
-                                .map(|toast| toast.duration_ms)
-                                .unwrap_or(DEFAULT_DURATION_MS)
+                            toast_data.get().and_then(|t| t.expiry).unwrap_or(DEFAULT_DURATION_MS)
                         )
                     })
                 />
@@ -806,6 +822,8 @@ fn SonnerItem(toast_id: u64, position: SonnerPosition, expanded: Signal<bool>) -
         </li>
     }
 }
+
+// ── Icon components ───────────────────────────────────────────────────────────
 
 #[component]
 fn CloseIcon() -> impl IntoView {
@@ -873,22 +891,30 @@ fn LoadingIcon() -> impl IntoView {
     }
 }
 
-fn toast_icon(variant: ToastType) -> AnyView {
-    match variant {
-        ToastType::Success => view! { <SuccessIcon /> }.into_any(),
-        ToastType::Error => view! { <ErrorIcon /> }.into_any(),
-        ToastType::Warning => view! { <WarningIcon /> }.into_any(),
-        ToastType::Info => view! { <InfoIcon /> }.into_any(),
-        ToastType::Loading => view! { <LoadingIcon /> }.into_any(),
-        ToastType::Default => view! { <InfoIcon /> }.into_any(),
+fn toast_icon(level: ToastLevel) -> AnyView {
+    match level {
+        ToastLevel::Success => view! { <SuccessIcon /> }.into_any(),
+        ToastLevel::Error => view! { <ErrorIcon /> }.into_any(),
+        ToastLevel::Warn => view! { <WarningIcon /> }.into_any(),
+        ToastLevel::Loading => view! { <LoadingIcon /> }.into_any(),
+        ToastLevel::Info => view! { <InfoIcon /> }.into_any(),
     }
 }
 
+// ── SonnerToaster — the entrypoint component ──────────────────────────────────
+
 #[component]
 pub fn SonnerToaster(#[prop(default = SonnerPosition::default())] position: SonnerPosition) -> impl IntoView {
+    // Ensure ToasterContext is available (may already be provided by app.rs).
+    provide_toaster();
+
+    // SonnerContext provides display-only state (animations, timers).
+    // It is scoped to this SonnerToaster subtree; the toast data queue
+    // lives in the shared ToasterContext above.
     if use_context::<SonnerContext>().is_none() {
         provide_context(new_sonner_context());
     }
+
     let direction = direction_from_position(position);
     let container_class = match position {
         SonnerPosition::TopLeft => "left-6 top-6",
@@ -909,63 +935,64 @@ pub fn SonnerToaster(#[prop(default = SonnerPosition::default())] position: Sonn
 
 fn new_sonner_context() -> SonnerContext {
     SonnerContext {
-        toasts: RwSignal::new(Vec::new()),
-        next_id: RwSignal::new(1),
         expanded_position: RwSignal::new(None),
         timers: Arc::new(Mutex::new(HashMap::new())),
+        anim_states: RwSignal::new(HashMap::new()),
     }
 }
 
+// ── Internal helpers ──────────────────────────────────────────────────────────
+
 fn push_toast(
+    toaster: &ToasterContext,
     ctx: &SonnerContext,
-    variant: ToastType,
+    variant: ToastLevel,
     title: String,
     description: Option<String>,
     duration_ms: u32,
     position: SonnerPosition,
-) -> u64 {
-    let id = ctx.next_id.get_untracked();
-    ctx.next_id.set(id.saturating_add(1));
+) -> ToastId {
+    let toast_position = sonner_to_toast_position(position);
 
+    // Evict oldest if at capacity for this position.
     let oldest = {
-        let toasts = ctx.toasts.get_untracked();
-        let mut active = toasts
+        let queue = toaster.queue_signal.get_untracked();
+        let mut active = queue
             .iter()
-            .filter(|toast| toast.position == position && !toast.removed)
-            .map(|toast| toast.id)
+            .filter(|t| t.position == toast_position && !is_toast_removed(ctx, t.id))
+            .map(|t| t.id)
             .collect::<Vec<_>>();
         if active.len() >= MAX_TOASTS { active.pop() } else { None }
     };
-
     if let Some(oldest_id) = oldest {
-        dismiss_toast(ctx, oldest_id, false, None);
+        dismiss_toast(toaster, ctx, oldest_id, false, None);
     }
 
-    let toast = SonnerToast {
-        id,
-        variant,
-        title,
-        description,
-        duration_ms,
-        position,
-        mounted: false,
-        entering: true,
-        removed: false,
-        swipe_out: false,
-        swiping: false,
-        swipe_direction: None,
-    };
+    let expiry = if variant == ToastLevel::Loading { None } else { Some(duration_ms) };
+    let mut builder = ToastBuilder::new(title)
+        .with_level(variant)
+        .with_expiry(expiry)
+        .with_position(toast_position)
+        .with_progress(false);
+    if let Some(desc) = description {
+        builder = builder.with_description(desc);
+    }
+    toaster.toast(builder);
 
-    ctx.toasts.update(|toasts| {
-        toasts.insert(0, toast);
+    // Find the id of the toast we just pushed.
+    let id = toaster.queue_signal.get_untracked().last().map(|t| t.id).unwrap_or(0);
+
+    // Initialise animation state.
+    ctx.anim_states.update(|states| {
+        states.insert(id, SonnerAnimState { entering: true, ..SonnerAnimState::default() });
     });
 
     let mount_ctx = ctx.clone();
     set_timeout(
         move || {
-            mount_ctx.toasts.update(|toasts| {
-                if let Some(toast) = toasts.iter_mut().find(|toast| toast.id == id) {
-                    toast.mounted = true;
+            mount_ctx.anim_states.update(|states| {
+                if let Some(state) = states.get_mut(&id) {
+                    state.mounted = true;
                 }
             });
         },
@@ -975,78 +1002,58 @@ fn push_toast(
     let entering_ctx = ctx.clone();
     set_timeout(
         move || {
-            entering_ctx.toasts.update(|toasts| {
-                if let Some(toast) = toasts.iter_mut().find(|toast| toast.id == id) {
-                    toast.entering = false;
+            entering_ctx.anim_states.update(|states| {
+                if let Some(state) = states.get_mut(&id) {
+                    state.entering = false;
                 }
             });
         },
         Duration::from_millis(u64::from(ENTER_DURATION_MS)),
     );
 
-    if variant != ToastType::Loading {
-        schedule_timer(ctx, id, duration_ms);
+    if variant != ToastLevel::Loading {
+        schedule_timer(toaster, ctx, id, duration_ms);
     }
 
     id
 }
 
-fn update_toast(
-    ctx: &SonnerContext,
-    id: u64,
-    variant: ToastType,
-    title: String,
-    description: Option<String>,
-    duration_ms: Option<u32>,
-) {
-    ctx.toasts.update(|toasts| {
-        if let Some(toast) = toasts.iter_mut().find(|toast| toast.id == id) {
-            toast.variant = variant;
-            toast.title = title;
-            toast.description = description;
-            if let Some(duration) = duration_ms {
-                toast.duration_ms = duration;
-            }
-        }
-    });
-
-    if variant == ToastType::Loading {
-        cancel_timer(ctx, id);
-    } else if let Some(duration) = duration_ms {
-        schedule_timer(ctx, id, duration);
-    }
-}
-
-fn dismiss_toast(ctx: &SonnerContext, id: u64, swipe_out: bool, swipe_direction: Option<&'static str>) {
+fn dismiss_toast(toaster: &ToasterContext, ctx: &SonnerContext, id: ToastId, swipe_out: bool, swipe_direction: Option<&'static str>) {
     cancel_timer(ctx, id);
 
-    ctx.toasts.update(|toasts| {
-        if let Some(toast) = toasts.iter_mut().find(|toast| toast.id == id) {
-            if toast.removed {
+    ctx.anim_states.update(|states| {
+        if let Some(state) = states.get_mut(&id) {
+            if state.removed {
                 return;
             }
-            toast.removed = true;
-            toast.swipe_out = swipe_out;
-            toast.swipe_direction = swipe_direction;
-            toast.swiping = false;
+            state.removed = true;
+            state.swipe_out = swipe_out;
+            state.swipe_direction = swipe_direction;
+            state.swiping = false;
         }
     });
 
     let ctx = ctx.clone();
+    let toaster = toaster.clone();
     set_timeout(
         move || {
-            ctx.toasts.update(|toasts| {
-                if let Some(index) = toasts.iter().position(|toast| toast.id == id) {
-                    toasts.remove(index);
-                }
-            });
-            cancel_timer(&ctx, id);
+            toaster.remove(id);
+            ctx.anim_states.update(|states| { states.remove(&id); });
         },
         Duration::from_millis(u64::from(EXIT_DURATION_MS)),
     );
 }
 
-fn render_meta(active_ids: &[u64], toast_id: u64) -> RenderMeta {
+#[derive(Clone, Copy)]
+struct RenderMeta {
+    index: usize,
+    z_index: usize,
+    front: bool,
+    visible: bool,
+    hidden: bool,
+}
+
+fn render_meta(active_ids: &[ToastId], toast_id: ToastId) -> RenderMeta {
     if let Some(index) = active_ids.iter().position(|id| *id == toast_id) {
         let z_index = active_ids.len().saturating_sub(index);
         let from_end = index;
@@ -1060,10 +1067,6 @@ fn render_meta(active_ids: &[u64], toast_id: u64) -> RenderMeta {
     }
 
     RenderMeta { index: active_ids.len(), z_index: 1, front: false, visible: false, hidden: true }
-}
-
-fn toast_snapshot(ctx: &SonnerContext, toast_id: u64) -> Option<SonnerToast> {
-    ctx.toasts.get().into_iter().find(|toast| toast.id == toast_id)
 }
 
 fn bool_attr(value: bool) -> &'static str {
@@ -1101,28 +1104,31 @@ fn dampening(delta: f64) -> f64 {
     1.0 / (1.5 + delta.abs() / 20.0)
 }
 
-fn set_swiping(ctx: &SonnerContext, id: u64, swiping: bool) {
-    ctx.toasts.update(|toasts| {
-        if let Some(toast) = toasts.iter_mut().find(|toast| toast.id == id) {
-            toast.swiping = swiping;
+fn set_swiping(toaster: &ToasterContext, ctx: &SonnerContext, id: ToastId, swiping: bool) {
+    // Only update anim state; data lives in ToasterContext.
+    let _ = toaster;
+    ctx.anim_states.update(|states| {
+        if let Some(state) = states.get_mut(&id) {
+            state.swiping = swiping;
             if !swiping {
-                toast.swipe_direction = None;
+                state.swipe_direction = None;
             }
         }
     });
 }
 
-fn is_toast_removed(ctx: &SonnerContext, id: u64) -> bool {
-    ctx.toasts.get_untracked().iter().any(|toast| toast.id == id && toast.removed)
+fn is_toast_removed(ctx: &SonnerContext, id: ToastId) -> bool {
+    ctx.anim_states.get_untracked().get(&id).is_some_and(|s| s.removed)
 }
 
-fn pause_position_timers(ctx: &SonnerContext, position: SonnerPosition) {
-    let toast_ids = ctx
-        .toasts
+fn pause_position_timers(toaster: &ToasterContext, ctx: &SonnerContext, position: SonnerPosition) {
+    let toast_position = sonner_to_toast_position(position);
+    let toast_ids = toaster
+        .queue_signal
         .get_untracked()
         .into_iter()
-        .filter(|toast| toast.position == position && !toast.removed && toast.variant != ToastType::Loading)
-        .map(|toast| toast.id)
+        .filter(|t| t.position == toast_position && !is_toast_removed(ctx, t.id) && t.level != ToastLevel::Loading)
+        .map(|t| t.id)
         .collect::<Vec<_>>();
 
     for id in toast_ids {
@@ -1130,26 +1136,28 @@ fn pause_position_timers(ctx: &SonnerContext, position: SonnerPosition) {
     }
 }
 
-fn resume_position_timers(ctx: &SonnerContext, position: SonnerPosition) {
-    let toast_ids = ctx
-        .toasts
+fn resume_position_timers(toaster: &ToasterContext, ctx: &SonnerContext, position: SonnerPosition) {
+    let toast_position = sonner_to_toast_position(position);
+    let toast_ids = toaster
+        .queue_signal
         .get_untracked()
         .into_iter()
-        .filter(|toast| toast.position == position && !toast.removed && toast.variant != ToastType::Loading)
-        .map(|toast| toast.id)
+        .filter(|t| t.position == toast_position && !is_toast_removed(ctx, t.id) && t.level != ToastLevel::Loading)
+        .map(|t| t.id)
         .collect::<Vec<_>>();
 
     for id in toast_ids {
-        resume_timer(ctx, id);
+        resume_timer(toaster, ctx, id);
     }
 }
 
-fn schedule_timer(ctx: &SonnerContext, id: u64, duration_ms: u32) {
+fn schedule_timer(toaster: &ToasterContext, ctx: &SonnerContext, id: ToastId, duration_ms: u32) {
     cancel_timer(ctx, id);
 
+    let dismiss_toaster = toaster.clone();
     let dismiss_ctx = ctx.clone();
     if let Ok(timeout) = set_timeout_with_handle(
-        move || dismiss_toast(&dismiss_ctx, id, false, None),
+        move || dismiss_toast(&dismiss_toaster, &dismiss_ctx, id, false, None),
         Duration::from_millis(u64::from(duration_ms)),
     ) && let Ok(mut timers) = ctx.timers.lock()
     {
@@ -1160,7 +1168,7 @@ fn schedule_timer(ctx: &SonnerContext, id: u64, duration_ms: u32) {
     }
 }
 
-fn pause_timer(ctx: &SonnerContext, id: u64) {
+fn pause_timer(ctx: &SonnerContext, id: ToastId) {
     let now = js_sys::Date::now();
     let Ok(mut timers) = ctx.timers.lock() else { return };
     let Some(timer) = timers.get_mut(&id) else { return };
@@ -1173,7 +1181,7 @@ fn pause_timer(ctx: &SonnerContext, id: u64) {
     timer.remaining_ms = timer.remaining_ms.saturating_sub(elapsed);
 }
 
-fn resume_timer(ctx: &SonnerContext, id: u64) {
+fn resume_timer(toaster: &ToasterContext, ctx: &SonnerContext, id: ToastId) {
     let remaining = {
         let Ok(timers) = ctx.timers.lock() else { return };
         let Some(timer) = timers.get(&id) else { return };
@@ -1183,17 +1191,28 @@ fn resume_timer(ctx: &SonnerContext, id: u64) {
         timer.remaining_ms
     };
     if remaining == 0 {
-        dismiss_toast(ctx, id, false, None);
+        dismiss_toast(toaster, ctx, id, false, None);
         return;
     }
-    schedule_timer(ctx, id, remaining);
+    schedule_timer(toaster, ctx, id, remaining);
 }
 
-fn cancel_timer(ctx: &SonnerContext, id: u64) {
+fn cancel_timer(ctx: &SonnerContext, id: ToastId) {
     if let Ok(mut timers) = ctx.timers.lock()
         && let Some(mut timer) = timers.remove(&id)
         && let Some(timeout) = timer.timeout.take()
     {
         timeout.clear();
+    }
+}
+
+fn sonner_to_toast_position(position: SonnerPosition) -> ToastPosition {
+    match position {
+        SonnerPosition::TopLeft => ToastPosition::TopLeft,
+        SonnerPosition::TopCenter => ToastPosition::TopCenter,
+        SonnerPosition::TopRight => ToastPosition::TopRight,
+        SonnerPosition::BottomLeft => ToastPosition::BottomLeft,
+        SonnerPosition::BottomCenter => ToastPosition::BottomCenter,
+        SonnerPosition::BottomRight => ToastPosition::BottomRight,
     }
 }

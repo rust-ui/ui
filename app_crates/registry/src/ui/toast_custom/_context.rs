@@ -59,6 +59,35 @@ impl ToasterContext {
         self.toast(ToastBuilder::new(message).with_level(ToastLevel::Error));
     }
 
+    pub fn loading<T>(&self, message: T) -> ToastId
+    where
+        T: Display,
+    {
+        let Ok(mut stats) = self.stats.lock() else { return 0 };
+        let stats = &mut *stats;
+        let toast = ToastBuilder::new(message).with_level(ToastLevel::Loading).with_expiry(None).build(stats.total + 1);
+        let id = toast.id;
+
+        let mut queue = self.queue_signal.get_untracked();
+        queue.push(toast);
+        self.queue_signal.set(queue);
+        stats.visible += 1;
+        stats.total += 1;
+
+        id
+    }
+
+    /// Update a toast's message, description, and level (e.g. loading → success).
+    pub fn update(&self, id: ToastId, level: ToastLevel, message: impl Into<String>, description: Option<String>) {
+        self.queue_signal.update(|queue| {
+            if let Some(toast) = queue.iter_mut().find(|t| t.id == id) {
+                toast.level = level;
+                toast.message = message.into();
+                toast.description = description;
+            }
+        });
+    }
+
     pub fn clear(&self) {
         for toast in &self.queue_signal.get_untracked() {
             toast.clear_signal.set(true);
@@ -81,7 +110,7 @@ impl ToasterContext {
             self.queue_signal.set(queue);
 
             if let Ok(mut stats) = self.stats.lock() {
-                stats.visible -= 1;
+                stats.visible = stats.visible.saturating_sub(1);
             }
         }
     }

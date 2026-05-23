@@ -2,20 +2,23 @@ use leptos::prelude::*;
 
 pub type ToastId = u64;
 
-#[derive(Clone, PartialEq, Eq, Debug)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum ToastLevel {
     Info,
     Success,
     Warn,
     Error,
+    Loading,
 }
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub enum ToastPosition {
     TopLeft,
+    TopCenter,
     TopRight,
-    BottomRight,
     BottomLeft,
+    BottomCenter,
+    BottomRight,
 }
 
 /* ========================================================== */
@@ -27,6 +30,7 @@ pub struct ToastData {
     pub id: ToastId,
     pub expiry: Option<u32>,
     pub message: String,
+    pub description: Option<String>,
     pub progress: bool,
     pub dismissable: bool,
     pub clear_signal: RwSignal<bool>,

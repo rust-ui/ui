@@ -15,7 +15,7 @@ pub fn Toast(toast: ToastData) -> impl IntoView {
 
     let animation_name_signal = RwSignal::new(slide_in_animation_name);
 
-    let (background_color, border_color, text_color) = get_colors(&toast.level);
+    let (background_color, border_color, text_color) = get_colors(toast.level);
     let (initial_left, initial_right) = get_initial_positions(&toast.position);
 
     Effect::new(move |_| {
@@ -125,6 +125,7 @@ fn get_slide_in_animation_name(position: &ToastPosition) -> &'static str {
     match position {
         ToastPosition::TopLeft | ToastPosition::BottomLeft => "leptoaster-slide-in-left",
         ToastPosition::TopRight | ToastPosition::BottomRight => "leptoaster-slide-in-right",
+        ToastPosition::TopCenter | ToastPosition::BottomCenter => "leptoaster-slide-in-right",
     }
 }
 
@@ -132,12 +133,13 @@ fn get_slide_out_animation_name(position: &ToastPosition) -> &'static str {
     match position {
         ToastPosition::TopLeft | ToastPosition::BottomLeft => "leptoaster-slide-out-left",
         ToastPosition::TopRight | ToastPosition::BottomRight => "leptoaster-slide-out-right",
+        ToastPosition::TopCenter | ToastPosition::BottomCenter => "leptoaster-slide-out-right",
     }
 }
 
-fn get_colors(level: &ToastLevel) -> (&'static str, &'static str, &'static str) {
+fn get_colors(level: ToastLevel) -> (&'static str, &'static str, &'static str) {
     match level {
-        ToastLevel::Info => (
+        ToastLevel::Info | ToastLevel::Loading => (
             "var(--leptoaster-info-background-color)",
             "var(--leptoaster-info-border-color)",
             "var(--leptoaster-info-text-color)",
@@ -171,6 +173,7 @@ fn get_initial_positions(position: &ToastPosition) -> (&'static str, &'static st
         ToastPosition::TopRight | ToastPosition::BottomRight => {
             ("auto", "calc((var(--leptoaster-width) + 12px * 2) * -1)")
         }
+        ToastPosition::TopCenter | ToastPosition::BottomCenter => ("auto", "auto"),
     }
 }
 

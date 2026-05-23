@@ -3,7 +3,6 @@ import { BasePage } from "./_base_page";
 
 class SonnerPage extends BasePage {
   protected readonly componentName = "sonner";
-  protected readonly demoName = "demo_sonner";
 
   // Sonner elements
   readonly triggerButton: Locator;
@@ -11,12 +10,13 @@ class SonnerPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
+    const preview = page.locator('[data-name="Preview"][data-demo-name="demo_sonner"]').first();
 
-    // Trigger button - scoped within preview
-    this.triggerButton = this.preview.getByRole("button", { name: "Toast Me!" });
+    // Trigger button - scoped within demo preview
+    this.triggerButton = preview.getByRole("button", { name: "Toast Me!" });
 
-    // Toast container (appears after trigger) - scoped within preview
-    this.toastContainer = this.preview.locator('[data-sonner-toaster="true"]');
+    // Toast container (appears after trigger) - scoped within demo preview
+    this.toastContainer = preview.locator('[data-sonner-toaster="true"]');
   }
 
   async triggerToast() {
@@ -28,7 +28,6 @@ class SonnerPage extends BasePage {
 
 class SonnerPositionsPage extends BasePage {
   protected readonly componentName = "sonner";
-  protected readonly demoName = "demo_sonner_positions";
 
   // Trigger buttons
   readonly topLeftTrigger: Locator;
@@ -51,25 +50,26 @@ class SonnerPositionsPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
+    const preview = page.locator('[data-name="Preview"][data-demo-name="demo_sonner_positions"]').first();
 
-    // Trigger buttons - scoped within preview
-    this.topLeftTrigger = this.preview.getByRole("button", { name: "Top Left" });
-    this.topCenterTrigger = this.preview.getByRole("button", { name: "Top Center" });
-    this.topRightTrigger = this.preview.getByRole("button", { name: "Top Right" });
-    this.bottomLeftTrigger = this.preview.getByRole("button", { name: "Bottom Left" });
-    this.bottomCenterTrigger = this.preview.getByRole("button", { name: "Bottom Center" });
-    this.bottomRightTrigger = this.preview.getByRole("button", { name: "Bottom Right (Default)" });
+    // Trigger buttons - scoped within demo preview
+    this.topLeftTrigger = preview.getByRole("button", { name: "Top Left" });
+    this.topCenterTrigger = preview.getByRole("button", { name: "Top Center" });
+    this.topRightTrigger = preview.getByRole("button", { name: "Top Right" });
+    this.bottomLeftTrigger = preview.getByRole("button", { name: "Bottom Left" });
+    this.bottomCenterTrigger = preview.getByRole("button", { name: "Bottom Center" });
+    this.bottomRightTrigger = preview.getByRole("button", { name: "Bottom Right (Default)" });
 
-    // Toasters by position - scoped within preview
-    this.topLeftToaster = this.preview.locator('[data-sonner-toaster="true"][data-position="TopLeft"]');
-    this.topCenterToaster = this.preview.locator('[data-sonner-toaster="true"][data-position="TopCenter"]');
-    this.topRightToaster = this.preview.locator('[data-sonner-toaster="true"][data-position="TopRight"]');
-    this.bottomLeftToaster = this.preview.locator('[data-sonner-toaster="true"][data-position="BottomLeft"]');
-    this.bottomCenterToaster = this.preview.locator('[data-sonner-toaster="true"][data-position="BottomCenter"]');
-    this.bottomRightToaster = this.preview.locator('[data-sonner-toaster="true"][data-position="BottomRight"]');
+    // Toasters by position - scoped within demo preview
+    this.topLeftToaster = preview.locator('[data-sonner-toaster="true"][data-position="TopLeft"]');
+    this.topCenterToaster = preview.locator('[data-sonner-toaster="true"][data-position="TopCenter"]');
+    this.topRightToaster = preview.locator('[data-sonner-toaster="true"][data-position="TopRight"]');
+    this.bottomLeftToaster = preview.locator('[data-sonner-toaster="true"][data-position="BottomLeft"]');
+    this.bottomCenterToaster = preview.locator('[data-sonner-toaster="true"][data-position="BottomCenter"]');
+    this.bottomRightToaster = preview.locator('[data-sonner-toaster="true"][data-position="BottomRight"]');
 
-    // All toasters - scoped within preview
-    this.allToasters = this.preview.locator('[data-sonner-toaster="true"]');
+    // All toasters - scoped within demo preview
+    this.allToasters = preview.locator('[data-sonner-toaster="true"]');
   }
 }
 
@@ -4906,7 +4906,6 @@ test.describe("Sonner Edge Cases", () => {
 
   class SonnerVariantsPage extends BasePage {
     protected readonly componentName = "sonner";
-    protected readonly demoName = "demo_sonner_variants";
 
     readonly defaultTrigger: Locator;
     readonly successTrigger: Locator;
@@ -4918,15 +4917,16 @@ test.describe("Sonner Edge Cases", () => {
 
     constructor(page: Page) {
       super(page);
+      const preview = page.locator('[data-name="Preview"][data-demo-name="demo_sonner_variants"]').first();
 
       // Use exact: true to avoid matching "Bottom Right (Default)"
-      this.defaultTrigger = this.preview.getByRole("button", { name: "Default", exact: true });
-      this.successTrigger = this.preview.getByRole("button", { name: "Success", exact: true });
-      this.errorTrigger = this.preview.getByRole("button", { name: "Error", exact: true });
-      this.warningTrigger = this.preview.getByRole("button", { name: "Warning", exact: true });
-      this.infoTrigger = this.preview.getByRole("button", { name: "Info", exact: true });
-      this.loadingTrigger = this.preview.getByRole("button", { name: "Loading", exact: true });
-      this.toaster = this.preview.locator('[data-sonner-toaster="true"]');
+      this.defaultTrigger = preview.getByRole("button", { name: "Default", exact: true });
+      this.successTrigger = preview.getByRole("button", { name: "Success", exact: true });
+      this.errorTrigger = preview.getByRole("button", { name: "Error", exact: true });
+      this.warningTrigger = preview.getByRole("button", { name: "Warning", exact: true });
+      this.infoTrigger = preview.getByRole("button", { name: "Info", exact: true });
+      this.loadingTrigger = preview.getByRole("button", { name: "Loading", exact: true });
+      this.toaster = preview.locator('[data-sonner-toaster="true"]');
     }
   }
 
