@@ -12,6 +12,7 @@ pub struct ToastBuilder {
     expiry: Option<u32>,
     progress: bool,
     position: ToastPosition,
+    is_sonner: bool,
 }
 
 impl ToastBuilder {
@@ -28,6 +29,7 @@ impl ToastBuilder {
             message: message.to_string(),
             description: None,
             position: ToastPosition::BottomRight,
+            is_sonner: false,
         }
     }
 
@@ -67,6 +69,12 @@ impl ToastBuilder {
         self
     }
 
+    #[must_use]
+    pub fn with_sonner(mut self, is_sonner: bool) -> Self {
+        self.is_sonner = is_sonner;
+        self
+    }
+
     /// Builds the toast into a `ToastData` with the supplied ID.
     #[must_use]
     pub fn build(self, id: ToastId) -> ToastData {
@@ -80,6 +88,7 @@ impl ToastBuilder {
             progress: self.progress,
             dismissable: self.dismissable,
             clear_signal: RwSignal::new(false),
+            is_sonner: self.is_sonner,
         }
     }
 }

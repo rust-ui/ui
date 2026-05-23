@@ -406,7 +406,7 @@ pub fn SonnerTrigger(
         ToastLevel::Success => "bg-success text-success-foreground hover:bg-success/90",
         ToastLevel::Error => "bg-destructive text-white shadow-xs hover:bg-destructive/90 dark:bg-destructive/60",
         ToastLevel::Warn => "bg-warning text-warning-foreground hover:bg-warning/90",
-        ToastLevel::Loading => "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+        ToastLevel::Loading => "border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
     };
 
     let merged_class = tw_merge!(
@@ -496,7 +496,7 @@ pub fn SonnerList(
             .queue_signal
             .get()
             .into_iter()
-            .filter(|toast| toast.position == toast_position)
+            .filter(|toast| toast.position == toast_position && toast.is_sonner)
             .map(|toast| toast.id)
             .collect::<Vec<ToastId>>()
     };
@@ -699,7 +699,7 @@ fn SonnerItem(toast_id: ToastId, position: SonnerPosition, expanded: Signal<bool
             .queue_signal
             .get()
             .into_iter()
-            .filter(|toast| toast.position == sonner_to_toast_position(position) && !is_toast_removed(&ctx_rm, toast.id))
+            .filter(|toast| toast.position == sonner_to_toast_position(position) && toast.is_sonner && !is_toast_removed(&ctx_rm, toast.id))
             .map(|toast| toast.id)
             .collect::<Vec<_>>();
         render_meta(&active_ids, toast_id)
@@ -973,7 +973,8 @@ fn push_toast(
         .with_level(variant)
         .with_expiry(expiry)
         .with_position(toast_position)
-        .with_progress(false);
+        .with_progress(false)
+        .with_sonner(true);
     if let Some(desc) = description {
         builder = builder.with_description(desc);
     }

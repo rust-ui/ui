@@ -34,6 +34,7 @@ pub struct ToastData {
     pub progress: bool,
     pub dismissable: bool,
     pub clear_signal: RwSignal<bool>,
+    pub is_sonner: bool,
 
     pub level: ToastLevel,
     pub position: ToastPosition,

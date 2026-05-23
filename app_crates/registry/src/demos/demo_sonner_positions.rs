@@ -50,6 +50,7 @@ pub fn DemoSonnerPositions() -> impl IntoView {
                 title="Bottom Right"
                 description="Toast positioned at bottom-right (default)"
                 position="BottomRight"
+                class="bg-secondary text-secondary-foreground hover:bg-secondary/80"
             >
                 "Bottom Right (Default)"
             </SonnerTrigger>

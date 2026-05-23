@@ -41,7 +41,7 @@ pub fn Toaster(#[prop(optional, into)] stacked: Signal<bool>) -> impl IntoView {
                                 | ToastPosition::BottomRight => {
                                     toasts
                                         .iter()
-                                        .filter(|toast| toast.position.eq(position))
+                                        .filter(|toast| toast.position.eq(position) && !toast.is_sonner)
                                         .cloned()
                                         .collect::<Vec<ToastData>>()
                                 }
@@ -50,7 +50,7 @@ pub fn Toaster(#[prop(optional, into)] stacked: Signal<bool>) -> impl IntoView {
                                 | ToastPosition::TopRight => {
                                     toasts
                                         .iter()
-                                        .filter(|toast| toast.position.eq(position))
+                                        .filter(|toast| toast.position.eq(position) && !toast.is_sonner)
                                         .cloned()
                                         .rev()
                                         .collect::<Vec<ToastData>>()
@@ -88,7 +88,7 @@ pub fn expect_toaster() -> ToasterContext {
 /* ========================================================== */
 
 fn is_container_empty(position: &ToastPosition) -> bool {
-    !expect_toaster().queue_signal.get().iter().any(|toast| &toast.position == position)
+    !expect_toaster().queue_signal.get().iter().any(|toast| &toast.position == position && !toast.is_sonner)
 }
 
 fn get_container_id(position: &ToastPosition) -> &'static str {
