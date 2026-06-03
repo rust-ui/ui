@@ -34,6 +34,10 @@ fn create_anchor_id(title: &str) -> String {
         .join("-")
 }
 
+fn strip_md_formatting(s: &str) -> String {
+    s.replace("**", "").replace('*', "").replace("__", "").replace('_', "")
+}
+
 pub fn extract_toc_from_md(md_content: &MdFile<RegistryEntry>) -> Vec<TocItem> {
     let mut toc_items = Vec::new();
 
@@ -41,7 +45,7 @@ pub fn extract_toc_from_md(md_content: &MdFile<RegistryEntry>) -> Vec<TocItem> {
         let trimmed = line.trim();
         if trimmed.starts_with("##") && !trimmed.starts_with("###") {
             if let Some(title_str) = trimmed.strip_prefix("##") {
-                let title = title_str.trim().to_string();
+                let title = strip_md_formatting(title_str.trim());
                 let anchor = create_anchor_id(&title);
                 toc_items.push(TocItem { title, level: 2, anchor });
             }
