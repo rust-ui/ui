@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 members = ["app", "server", "app_crates/*", "crates/tw_merge/tw_merge", "crates/tw_merge/tw_merge_variants"]
-exclude = ["build_registry", "crates/ui-cli", "crates/ui-cli-ratatui", "crates/_starters", "crates/_markdown_config", "src-tauri", "!!!*"]
+exclude = ["build_registry", "crates/ui-cli", "crates/ui-cli-ratatui", "crates/_starters", "crates/_markdown_config", "src-tauri", "dioxus-ui", "!!!*"]
 
 
 [profile.dev]
