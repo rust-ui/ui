@@ -13,10 +13,11 @@ use registry::ui::header::{
 use registry::ui::theme_toggle::ThemeToggle;
 
 use crate::components::command_search_docs::CommandSearchDocs;
+use crate::components::dioxus_link::DioxusLink;
 use crate::components::github_stars::GithubStars;
 
 #[component]
-pub fn AppHeader() -> impl IntoView {
+pub fn HeaderHome() -> impl IntoView {
     let is_mobile_menu_open_signal = RwSignal::new(false);
     let data_state = move || if is_mobile_menu_open_signal.get() { "active" } else { "inactive" };
 
@@ -219,6 +220,7 @@ fn NavMenuRight() -> impl IntoView {
         <div class="hidden md:flex md:gap-6 md:p-0 md:m-0 md:bg-transparent md:border-transparent md:shadow-none dark:shadow-none md:w-fit dark:md:bg-transparent">
             <div class="flex flex-row gap-3 items-center">
                 <CommandSearchDocs />
+                <DioxusLink />
                 <GithubStars />
                 <div class="flex justify-center items-center mr-1">
                     <ThemeToggle />
@@ -266,6 +268,7 @@ fn MobileMenu(is_open: RwSignal<bool>) -> impl IntoView {
             <DemoAccordionIcons />
             <div class="flex flex-row gap-3 items-center w-full">
                 <CommandSearchDocs />
+                <DioxusLink />
                 <GithubStars />
                 <div class="flex justify-center items-center mr-1">
                     <ThemeToggle />

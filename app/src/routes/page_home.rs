@@ -10,7 +10,7 @@ use registry::ui::button::{Button, ButtonSize, ButtonVariant};
 use wasm_bindgen::JsCast;
 
 use crate::components::app_footer::AppFooter;
-use crate::components::app_header::AppHeader;
+use crate::components::navigation::header_home::HeaderHome;
 use crate::components::logos::_ferris::Ferris;
 use crate::domain::create::components::color_theme_picker::{ColorTheme, ColorThemePicker};
 use crate::domain::create::components::theme_picker::ThemeName;
@@ -62,7 +62,7 @@ pub fn PageHome() -> impl IntoView {
     view! {
         <SeoMeta title=title description=description />
 
-        <AppHeader />
+        <HeaderHome />
 
         <div class="flex flex-col gap-6 items-center px-4 mx-auto w-full max-w-[1200px]">
             <SectionHeader />
