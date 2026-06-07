@@ -22,3 +22,4 @@ tw_merge = "0.1"
 leptos = ["dep:leptos", "leptos/nightly"]
 leptos_animated = ["leptos"]
 dioxus = ["dep:dioxus"]
+dioxus_animated = ["dioxus"]
