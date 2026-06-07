@@ -22,17 +22,12 @@ pub fn DemoInputPromptWithTools() -> impl IntoView {
         set_timeout(move || is_loading.set(false), std::time::Duration::from_millis(1500));
     });
 
-    let is_submit_disabled =
-        Signal::derive(move || value.get().trim().is_empty() || is_loading.get());
+    let is_submit_disabled = Signal::derive(move || value.get().trim().is_empty() || is_loading.get());
 
     view! {
         <div class="w-full max-w-lg">
             <InputPrompt>
-                <InputPromptTextarea
-                    value=value
-                    placeholder="Ask a question..."
-                    on_submit=on_submit
-                />
+                <InputPromptTextarea value=value placeholder="Ask a question..." on_submit=on_submit />
                 <InputPromptFooter>
                     <InputPromptTools>
                         <InputGroupButton size=InputGroupButtonSize::IconXs>

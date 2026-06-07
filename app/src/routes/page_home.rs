@@ -10,8 +10,8 @@ use registry::ui::button::{Button, ButtonSize, ButtonVariant};
 use wasm_bindgen::JsCast;
 
 use crate::components::app_footer::AppFooter;
-use crate::components::navigation::header_home::HeaderHome;
 use crate::components::logos::_ferris::Ferris;
+use crate::components::navigation::header_home::HeaderHome;
 use crate::domain::create::components::color_theme_picker::{ColorTheme, ColorThemePicker};
 use crate::domain::create::components::theme_picker::ThemeName;
 use crate::domain::themes::themes_blocks::ThemesBlocks;

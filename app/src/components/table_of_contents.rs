@@ -118,12 +118,13 @@ fn SummarizeWithAi() -> impl IntoView {
     });
 
     view! {
-        <div class="mt-4 shrink-0 rounded-xl bg-muted p-4">
+        <div class="p-4 mt-4 rounded-xl shrink-0 bg-muted">
             <p class="mb-3 text-sm font-semibold">"Summarize with AI"</p>
             <div class="flex gap-2">
                 <a
                     href=move || format!("https://chat.openai.com/?q={}", encoded_prompt.get())
-                    target="_blank" rel="noopener noreferrer"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     title="Summarize with ChatGPT"
                     class="no-underline transition-opacity hover:opacity-75 shrink-0"
                 >
@@ -131,15 +132,17 @@ fn SummarizeWithAi() -> impl IntoView {
                 </a>
                 <a
                     href=move || format!("https://www.google.com/search?udm=50&aep=11&q={}", encoded_prompt.get())
-                    target="_blank" rel="noopener noreferrer"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     title="Summarize with Google AI"
-                    class="no-underline inline-flex items-center justify-center size-9 rounded-full bg-white transition-opacity hover:opacity-75 shrink-0"
+                    class="inline-flex justify-center items-center no-underline bg-white rounded-full transition-opacity hover:opacity-75 size-9 shrink-0"
                 >
                     <img src="/images/logos/ai/google.svg" alt="Google AI" class="size-5" />
                 </a>
                 <a
                     href=move || format!("https://claude.ai/new?q={}", encoded_prompt.get())
-                    target="_blank" rel="noopener noreferrer"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     title="Summarize with Claude"
                     class="no-underline transition-opacity hover:opacity-75 shrink-0"
                 >
@@ -147,7 +150,8 @@ fn SummarizeWithAi() -> impl IntoView {
                 </a>
                 <a
                     href=move || format!("https://www.perplexity.ai/search/new?q={}", encoded_prompt.get())
-                    target="_blank" rel="noopener noreferrer"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     title="Summarize with Perplexity"
                     class="no-underline transition-opacity hover:opacity-75 shrink-0"
                 >

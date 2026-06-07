@@ -57,10 +57,7 @@ pub fn InputPromptTextarea(
 
 /// Block-end footer row. Holds tools on the left, submit on the right.
 #[component]
-pub fn InputPromptFooter(
-    #[prop(into, optional)] class: String,
-    children: Children,
-) -> impl IntoView {
+pub fn InputPromptFooter(#[prop(into, optional)] class: String, children: Children) -> impl IntoView {
     let merged_class = tw_merge!("border-t px-2 py-2 justify-between gap-1", class);
     view! {
         <InputGroupAddon align=InputGroupAddonAlign::BlockEnd class=merged_class>
@@ -81,12 +78,7 @@ pub fn InputPromptSubmit(
     let merged_class = tw_merge!("size-8 rounded-full", class);
 
     view! {
-        <Button
-            size=ButtonSize::Icon
-            class=merged_class
-            attr:r#type="button"
-            attr:disabled=move || is_disabled.get()
-        >
+        <Button size=ButtonSize::Icon class=merged_class attr:r#type="button" attr:disabled=move || is_disabled.get()>
             {children()}
         </Button>
     }
