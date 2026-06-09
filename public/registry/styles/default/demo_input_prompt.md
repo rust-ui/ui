@@ -42,16 +42,10 @@ pub fn DemoInputPrompt() -> impl IntoView {
     view! {
         <div class="w-full max-w-lg">
             <InputPrompt>
-                <InputPromptTextarea
-                    value=value
-                    placeholder="Ask anything..."
-                    on_submit=on_submit
-                />
+                <InputPromptTextarea value=value placeholder="Ask anything..." on_submit=on_submit />
                 <InputPromptFooter>
-                    <span class="text-muted-foreground text-xs px-1">"Shift+Enter for new line"</span>
-                    <InputPromptSubmit
-                        disabled=Signal::derive(move || value.get().trim().is_empty())
-                    >
+                    <span class="px-1 text-xs text-muted-foreground">"Shift+Enter for new line"</span>
+                    <InputPromptSubmit disabled=Signal::derive(move || value.get().trim().is_empty())>
                         <ArrowUp />
                     </InputPromptSubmit>
                 </InputPromptFooter>

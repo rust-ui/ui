@@ -1,4 +1,5 @@
 use leptos::prelude::*;
+use registry::demos::demo_data_grid::DemoDataGrid;
 use registry::demos::demo_data_table_filters::DemoDataTableFilters;
 
 #[component]
@@ -11,6 +12,7 @@ pub fn PageTest() -> impl IntoView {
             </a>
 
             <DemoDataTableFilters />
+            <DemoDataGrid />
 
         // Keep: intentional hydration bug for testing
         // <HydrationBugTest />

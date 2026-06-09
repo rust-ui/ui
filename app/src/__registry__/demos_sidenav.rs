@@ -12,8 +12,13 @@ pub fn get_all_arc_demos_for_components() -> Vec<(&'static str, Arc<Vec<Registry
 }
 
 pub fn get_all_arc_demos_for_hooks() -> Vec<(&'static str, Arc<Vec<RegistryEntry>>)> {
-    vec![("Get Started", Arc::new(SHARED_GET_STARTED.to_vec())), ("Hooks", Arc::new(ALL_SIDENAV_HOOKS.to_vec()))]
+    vec![
+        ("Get Started", Arc::new(SHARED_GET_STARTED.to_vec())),
+        ("Hooks", Arc::new(ALL_SIDENAV_HOOKS.to_vec())),
+    ]
 }
+
+
 
 /* ========================================================== */
 /*                     ✨ CONSTANTS ✨                        */
@@ -361,6 +366,17 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &[],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
+        is_new: true,
+        order: None,
+    },
+    RegistryEntry {
+        title: "Data Grid",
+        path_url: "data-grid",
+        path_md: "public/docs/components/data-grid.md",
+        description: "High-performance data grid with virtual scrolling, column pinning, cell selection, inline editing, and drag selection.",
+        tags: &["table"],
+        image: "/images/thumbnails/table.webp",
+        image_dark: "/images/thumbnails/table-dark.webp",
         is_new: true,
         order: None,
     },
@@ -995,3 +1011,4 @@ pub const ALL_SIDENAV_HOOKS: &[RegistryEntry] = &[
         order: None,
     },
 ];
+
