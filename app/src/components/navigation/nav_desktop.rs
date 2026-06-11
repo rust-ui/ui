@@ -12,22 +12,6 @@ pub fn NavDesktop() -> impl IntoView {
             <LogoHomeLink />
 
             <Link
-                href=RoutePaths::DOCS_INTRODUCTION
-                class="inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent"
-                match_type=PathMatchType::MatchAny(
-                    vec![
-                        "/docs/components/introduction".to_string(),
-                        "/docs/components/installation".to_string(),
-                        "/docs/components/cli".to_string(),
-                        "/docs/components/icons".to_string(),
-                        "/docs/components/figma".to_string(),
-                        "/docs/components/changelog".to_string(),
-                    ],
-                )
-            >
-                Docs
-            </Link>
-            <Link
                 href=ComponentsRoutes::Button.to_route()
                 class="inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent"
                 match_type=PathMatchType::StartsWithExcept(
@@ -70,12 +54,12 @@ pub fn NavDesktop() -> impl IntoView {
             >
                 Charts
             </Link>
-            <Link
-                href=RoutePaths::CREATE
-                class="inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent"
-            >
-                Create
-            </Link>
+            // <Link
+            //     href=RoutePaths::WORKFLOWS
+            //     class="inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent"
+            // >
+            //     Workflows
+            // </Link>
         </div>
     }
 }

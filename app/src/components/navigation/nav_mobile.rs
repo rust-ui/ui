@@ -81,7 +81,7 @@ fn GetStartedLinks() -> impl IntoView {
         (RoutePaths::ICONS, "Icons"),
         (RoutePaths::BLOCKS, "Blocks"),
         (RoutePaths::CHARTS, "Charts"),
-        (RoutePaths::CREATE, "Create"),
+        // (RoutePaths::WORKFLOWS, "Workflows"),
     ];
 
     view! {
