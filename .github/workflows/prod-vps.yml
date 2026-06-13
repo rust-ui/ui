@@ -216,7 +216,7 @@ jobs:
 
     - name: Deploy app and nginx
       run: |
-        ${{ env.SSH }} "cd ~ && export APP_IMAGE=${{ secrets.DOCKER_USERNAME }}/deploy-rust-ui:latest && docker compose -f docker-compose.prod.yml down && docker compose -f docker-compose.prod.yml pull && docker compose -f docker-compose.prod.yml up -d"
+        ${{ env.SSH }} "cd ~ && export APP_IMAGE=${{ secrets.DOCKER_USERNAME }}/deploy-rust-ui:latest && docker compose -f docker-compose.prod.yml pull && docker compose -f docker-compose.prod.yml up -d"
 
     - name: Smoke test
       run: |
