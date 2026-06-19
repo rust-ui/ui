@@ -1,6 +1,6 @@
 [package]
 name = "ui-cli"
-version = "0.3.15"
+version = "0.3.16"
 edition = "2024"
 authors = ["Rustify"]
 homepage = "https://rust-ui.com/docs/components/cli"
