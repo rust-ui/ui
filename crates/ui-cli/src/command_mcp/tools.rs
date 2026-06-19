@@ -1,4 +1,5 @@
 use crate::command_add::tree_parser::TreeParser;
+use crate::command_init::workspace_utils::detect_framework;
 use crate::command_list::_list::{filter_by_query, format_list};
 use crate::command_search::_search::format_search_result;
 use crate::command_view::_view::format_view_human;
@@ -6,7 +7,8 @@ use crate::shared::cli_error::CliResult;
 use crate::shared::rust_ui_client::RustUIClient;
 
 pub async fn list_components(category: Option<String>) -> CliResult<String> {
-    let tree_content = RustUIClient::fetch_tree_md().await?;
+    let framework = detect_framework()?;
+    let tree_content = RustUIClient::fetch_tree_md(framework).await?;
     let tree_parser = TreeParser::parse_tree_md(&tree_content)?;
     let by_category = tree_parser.get_components_by_category();
 
@@ -19,7 +21,8 @@ pub async fn list_components(category: Option<String>) -> CliResult<String> {
 }
 
 pub async fn search_components(query: &str) -> CliResult<String> {
-    let tree_content = RustUIClient::fetch_tree_md().await?;
+    let framework = detect_framework()?;
+    let tree_content = RustUIClient::fetch_tree_md(framework).await?;
     let tree_parser = TreeParser::parse_tree_md(&tree_content)?;
     let by_category = tree_parser.get_components_by_category();
     let filtered = filter_by_query(&by_category, query);
@@ -27,7 +30,8 @@ pub async fn search_components(query: &str) -> CliResult<String> {
 }
 
 pub async fn view_component(name: &str) -> CliResult<String> {
-    let content = RustUIClient::fetch_styles_default(name).await?;
+    let framework = detect_framework()?;
+    let content = RustUIClient::fetch_styles_default(name, framework).await?;
     Ok(format_view_human(name, &content))
 }
 
@@ -36,12 +40,12 @@ pub fn audit_checklist() -> String {
 
 After adding components:
 
-- [ ] Cargo.toml — all required crates added (leptos_ui, tw_merge, icons, etc.)
+- [ ] Cargo.toml — all required crates added
 - [ ] mod.rs — component is pub mod'd correctly
-- [ ] Imports — correct use paths (leptos::*, leptos_ui::*)
-- [ ] Features — leptos feature flags match your project (csr/ssr/hydrate)
-- [ ] Tailwind — input.css includes the component's source glob
-- [ ] Browser — hot reload and check for hydration errors in console"#
+- [ ] Imports — correct use paths for your framework
+- [ ] Features — framework feature flags match your project
+- [ ] Tailwind — the input stylesheet includes the component source glob
+- [ ] Browser — rebuild and check for runtime errors"#
         .to_string()
 }
 

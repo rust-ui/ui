@@ -3,6 +3,7 @@ use std::path::{Path, PathBuf};
 use cargo_toml::{Dependency, Manifest};
 
 use crate::shared::cli_error::{CliError, CliResult};
+use crate::shared::framework::Framework;
 
 /// Information about the workspace and target crate
 #[derive(Debug, Clone, PartialEq)]
@@ -61,10 +62,8 @@ pub fn analyze_workspace_from_path(start_path: &Path) -> CliResult<WorkspaceInfo
     }
 
     // Not in a workspace - simple single-crate project
-    let has_leptos = check_leptos_in_manifest(&local_manifest);
-
-    if !has_leptos {
-        return Err(CliError::config("Leptos dependency not found in Cargo.toml"));
+    if detect_framework_in_manifest(&local_manifest).is_none() {
+        return Err(CliError::config("No supported framework (leptos/dioxus) found in Cargo.toml"));
     }
 
     Ok(WorkspaceInfo {
@@ -84,9 +83,8 @@ fn analyze_from_workspace_root(workspace_root: &Path, manifest: &Manifest) -> Cl
     // If [workspace] has no members but manifest has [package], it's a single-crate
     // using [workspace] only to prevent parent workspace lookup.
     if workspace.members.is_empty() && manifest.package.is_some() {
-        let has_leptos = check_leptos_in_manifest(manifest);
-        if !has_leptos {
-            return Err(CliError::config("Leptos dependency not found in Cargo.toml"));
+        if detect_framework_in_manifest(manifest).is_none() {
+            return Err(CliError::config("No supported framework (leptos/dioxus) found in Cargo.toml"));
         }
         let crate_name = manifest.package.as_ref().map(|p| p.name.clone());
         return Ok(WorkspaceInfo {
@@ -98,13 +96,13 @@ fn analyze_from_workspace_root(workspace_root: &Path, manifest: &Manifest) -> Cl
         });
     }
 
-    // Find workspace member with Leptos
+    // Find workspace member with a supported framework
     let members = expand_workspace_members(workspace_root, &workspace.members)?;
 
     for member_path in &members {
         let member_cargo_toml = member_path.join("Cargo.toml");
         if let Some(member_manifest) = load_cargo_manifest(&member_cargo_toml)?
-            && member_manifest.dependencies.contains_key("leptos")
+            && detect_framework_in_manifest(&member_manifest).is_some()
         {
             let crate_name = member_manifest
                 .package
@@ -125,14 +123,12 @@ fn analyze_from_workspace_root(workspace_root: &Path, manifest: &Manifest) -> Cl
         }
     }
 
-    // Check workspace.dependencies for leptos
-    if workspace.dependencies.contains_key("leptos") {
-        // Leptos is in workspace deps, but we need to find which member uses it
+    // Check workspace.dependencies for supported frameworks
+    if detect_framework_in_workspace(workspace).is_some() {
         for member_path in &members {
             let member_cargo_toml = member_path.join("Cargo.toml");
             if let Some(member_manifest) = load_cargo_manifest(&member_cargo_toml)?
-                && let Some(dep) = member_manifest.dependencies.get("leptos")
-                && matches!(dep, Dependency::Inherited(_))
+                && inherited_supported_framework(&member_manifest).is_some()
             {
                 let crate_name = member_manifest
                     .package
@@ -155,7 +151,7 @@ fn analyze_from_workspace_root(workspace_root: &Path, manifest: &Manifest) -> Cl
     }
 
     Err(CliError::config(
-        "No workspace member with Leptos dependency found. Please run from a crate directory with Leptos installed.",
+        "No workspace member with a supported framework dependency found. Please run from a crate directory with leptos or dioxus installed.",
     ))
 }
 
@@ -165,19 +161,22 @@ fn analyze_from_workspace_member(member_path: &Path, workspace_root: &Path) -> C
     let member_manifest = load_cargo_manifest(&member_cargo_toml)?
         .ok_or_else(|| CliError::file_operation("Failed to parse member Cargo.toml"))?;
 
-    // Check if this member has leptos
-    let has_leptos = check_leptos_in_manifest(&member_manifest);
+    let has_supported_framework = detect_framework_in_manifest(&member_manifest).is_some();
 
     // Also check workspace.dependencies
     let workspace_cargo_toml = workspace_root.join("Cargo.toml");
-    let workspace_has_leptos = if let Some(ws_manifest) = load_cargo_manifest(&workspace_cargo_toml)? {
-        ws_manifest.workspace.as_ref().is_some_and(|ws| ws.dependencies.contains_key("leptos"))
+    let workspace_has_supported_framework = if let Some(ws_manifest) = load_cargo_manifest(&workspace_cargo_toml)? {
+        ws_manifest
+            .workspace
+            .as_ref()
+            .and_then(detect_framework_in_workspace)
+            .is_some()
     } else {
         false
     };
 
-    if !has_leptos && !workspace_has_leptos {
-        return Err(CliError::config("Leptos dependency not found in this crate or workspace"));
+    if !has_supported_framework && !workspace_has_supported_framework {
+        return Err(CliError::config("No supported framework (leptos/dioxus) found in this crate or workspace"));
     }
 
     let crate_name = member_manifest
@@ -243,20 +242,57 @@ fn expand_workspace_members(workspace_root: &Path, members: &[String]) -> CliRes
     Ok(result)
 }
 
-/// Check if manifest has leptos dependency
-fn check_leptos_in_manifest(manifest: &Manifest) -> bool {
-    manifest.dependencies.contains_key("leptos")
+pub fn detect_framework() -> CliResult<Framework> {
+    let current_dir = std::env::current_dir()?;
+    detect_framework_from_path(&current_dir)
 }
 
-/// Checks if Leptos is installed as a dependency in Cargo.toml
-pub fn check_leptos_dependency() -> CliResult<bool> {
-    // Use the workspace analysis which handles workspaces properly
-    match analyze_workspace() {
-        Ok(_) => Ok(true), // If analysis succeeds, leptos was found
+pub fn detect_framework_from_path(start_path: &Path) -> CliResult<Framework> {
+    let local_cargo_toml = start_path.join("Cargo.toml");
+    if let Some(local_manifest) = load_cargo_manifest(&local_cargo_toml)?
+        && let Some(framework) = detect_framework_in_manifest(&local_manifest)
+    {
+        return Ok(framework);
+    }
+
+    if let Some(workspace_root) = find_workspace_root(start_path)? {
+        let workspace_cargo_toml = workspace_root.join("Cargo.toml");
+        if let Some(workspace_manifest) = load_cargo_manifest(&workspace_cargo_toml)? {
+            if let Some(framework) = workspace_manifest
+                .workspace
+                .as_ref()
+                .and_then(detect_framework_in_workspace)
+            {
+                return Ok(framework);
+            }
+
+            let members = workspace_manifest
+                .workspace
+                .as_ref()
+                .map(|workspace| expand_workspace_members(&workspace_root, &workspace.members))
+                .transpose()?
+                .unwrap_or_default();
+
+            for member_path in members {
+                let member_cargo_toml = member_path.join("Cargo.toml");
+                if let Some(member_manifest) = load_cargo_manifest(&member_cargo_toml)?
+                    && let Some(framework) = detect_framework_in_manifest(&member_manifest)
+                {
+                    return Ok(framework);
+                }
+            }
+        }
+    }
+
+    Err(CliError::config("No supported framework (leptos/dioxus) found in Cargo.toml"))
+}
+
+pub fn check_framework_dependency(framework: Framework) -> CliResult<bool> {
+    match detect_framework() {
+        Ok(found) => Ok(found == framework),
         Err(e) => {
-            // Check if it's specifically a "leptos not found" error
             let err_msg = format!("{e}");
-            if err_msg.contains("Leptos") { Ok(false) } else { Err(e) }
+            if err_msg.contains("No supported framework") { Ok(false) } else { Err(e) }
         }
     }
 }
@@ -267,6 +303,16 @@ pub fn check_leptos_dependency() -> CliResult<bool> {
 pub fn get_tailwind_input_file() -> CliResult<String> {
     let current_dir = std::env::current_dir()?;
     get_tailwind_input_file_from_path(&current_dir)
+}
+
+pub fn get_tailwind_input_file_for_framework(framework: Framework) -> CliResult<String> {
+    match framework {
+        Framework::Leptos => get_tailwind_input_file(),
+        Framework::Dioxus => {
+            let current_dir = std::env::current_dir()?;
+            detect_dioxus_tailwind_input_file(&current_dir)
+        }
+    }
 }
 
 /// Gets the tailwind input file from a specific path (useful for testing)
@@ -329,6 +375,78 @@ fn extract_tailwind_from_manifest(manifest: &Manifest) -> Option<String> {
         return Some(value.to_string());
     }
 
+    None
+}
+
+fn detect_framework_in_manifest(manifest: &Manifest) -> Option<Framework> {
+    if manifest.dependencies.contains_key("dioxus") {
+        Some(Framework::Dioxus)
+    } else if manifest.dependencies.contains_key("leptos") {
+        Some(Framework::Leptos)
+    } else {
+        None
+    }
+}
+
+fn detect_framework_in_workspace(workspace: &cargo_toml::Workspace<toml::Value>) -> Option<Framework> {
+    if workspace.dependencies.contains_key("dioxus") {
+        Some(Framework::Dioxus)
+    } else if workspace.dependencies.contains_key("leptos") {
+        Some(Framework::Leptos)
+    } else {
+        None
+    }
+}
+
+fn inherited_supported_framework(manifest: &Manifest) -> Option<Framework> {
+    for framework in [Framework::Dioxus, Framework::Leptos] {
+        let dep_name = match framework {
+            Framework::Leptos => "leptos",
+            Framework::Dioxus => "dioxus",
+        };
+
+        if let Some(dep) = manifest.dependencies.get(dep_name)
+            && matches!(dep, Dependency::Inherited(_))
+        {
+            return Some(framework);
+        }
+    }
+
+    None
+}
+
+fn detect_dioxus_tailwind_input_file(start_path: &Path) -> CliResult<String> {
+    if let Some(found) = find_dioxus_tailwind_in_dir(start_path, start_path) {
+        return Ok(found);
+    }
+
+    if let Ok(workspace_info) = analyze_workspace() {
+        if let Some(target_crate_path) = workspace_info.target_crate_path
+            && let Some(found) = find_dioxus_tailwind_in_dir(start_path, &target_crate_path)
+        {
+            return Ok(found);
+        }
+
+        if let Some(workspace_root) = workspace_info.workspace_root
+            && let Some(found) = find_dioxus_tailwind_in_dir(start_path, &workspace_root)
+        {
+            return Ok(found);
+        }
+    }
+
+    Err(CliError::config(
+        "Missing Dioxus Tailwind input file. Expected one of: style/tailwind.css, assets/tailwind.css, tailwind.css",
+    ))
+}
+
+fn find_dioxus_tailwind_in_dir(base_dir: &Path, search_dir: &Path) -> Option<String> {
+    for candidate in ["style/tailwind.css", "assets/tailwind.css", "tailwind.css"] {
+        let full_path = search_dir.join(candidate);
+        if full_path.exists() {
+            let relative = full_path.strip_prefix(base_dir).ok().unwrap_or(&full_path);
+            return Some(relative.to_string_lossy().to_string());
+        }
+    }
     None
 }
 
@@ -427,7 +545,7 @@ serde = "1"
         let result = analyze_workspace_from_path(root);
 
         assert!(result.is_err());
-        assert!(result.unwrap_err().to_string().contains("Leptos"));
+        assert!(result.unwrap_err().to_string().contains("supported framework"));
     }
 
     #[test]
@@ -598,7 +716,7 @@ axum = "0.7"
         let result = analyze_workspace_from_path(root);
 
         assert!(result.is_err());
-        assert!(result.unwrap_err().to_string().contains("Leptos"));
+        assert!(result.unwrap_err().to_string().contains("supported framework"));
     }
 
     #[test]
@@ -677,7 +795,7 @@ serde = "1"
         let result = analyze_workspace_from_path(root);
 
         assert!(result.is_err());
-        assert!(result.unwrap_err().to_string().contains("Leptos"));
+        assert!(result.unwrap_err().to_string().contains("supported framework"));
     }
 
     // ========== Tailwind Input File Tests ==========

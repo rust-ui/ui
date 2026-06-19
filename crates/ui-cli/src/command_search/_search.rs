@@ -1,6 +1,7 @@
 use clap::{Arg, ArgMatches, Command};
 
 use crate::command_add::tree_parser::TreeParser;
+use crate::command_init::workspace_utils::detect_framework;
 use crate::command_list::_list::{filter_by_query, format_list, format_list_json};
 use crate::shared::cli_error::CliResult;
 use crate::shared::rust_ui_client::RustUIClient;
@@ -20,7 +21,8 @@ pub async fn process_search(matches: &ArgMatches) -> CliResult<()> {
     let query = matches.get_one::<String>("query").map(|s| s.as_str()).unwrap_or("");
     let json = matches.get_flag("json");
 
-    let tree_content = RustUIClient::fetch_tree_md().await?;
+    let framework = detect_framework()?;
+    let tree_content = RustUIClient::fetch_tree_md(framework).await?;
     let tree_parser = TreeParser::parse_tree_md(&tree_content)?;
     let by_category = tree_parser.get_components_by_category();
     let filtered = filter_by_query(&by_category, query);

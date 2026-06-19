@@ -1,7 +1,9 @@
 use clap::{Arg, ArgMatches, Command};
 use serde::Serialize;
 
+use crate::command_init::workspace_utils::detect_framework;
 use crate::shared::cli_error::CliResult;
+use crate::shared::framework::Framework;
 use crate::shared::rust_ui_client::RustUIClient;
 
 /* ========================================================== */
@@ -31,9 +33,9 @@ pub fn command_view() -> Command {
 
 /// Fetch and print registry source for a list of component names.
 /// Names are processed in the order given; sort before calling if needed.
-pub async fn view_components(names: &[String]) -> CliResult<()> {
+pub async fn view_components(names: &[String], framework: Framework) -> CliResult<()> {
     for name in names {
-        let content = RustUIClient::fetch_styles_default(name).await?;
+        let content = RustUIClient::fetch_styles_default(name, framework).await?;
         println!("{}", format_view_human(name, &content));
     }
     Ok(())
@@ -43,7 +45,8 @@ pub async fn process_view(matches: &ArgMatches) -> CliResult<()> {
     let name = matches.get_one::<String>("component").map(|s| s.as_str()).unwrap_or("");
     let json = matches.get_flag("json");
 
-    let content = RustUIClient::fetch_styles_default(name).await?;
+    let framework = detect_framework()?;
+    let content = RustUIClient::fetch_styles_default(name, framework).await?;
 
     let output = if json {
         format_view_json(&ComponentView { name: name.to_string(), content })?
@@ -78,6 +81,7 @@ pub fn format_view_json(view: &ComponentView) -> CliResult<String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::shared::framework::Framework;
 
     // --- format_view_human ---
 
@@ -139,7 +143,7 @@ mod tests {
 
     #[tokio::test]
     async fn view_components_empty_names_returns_ok() {
-        let result = view_components(&[]).await;
+        let result = view_components(&[], Framework::Leptos).await;
         assert!(result.is_ok());
     }
 }

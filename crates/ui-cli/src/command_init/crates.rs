@@ -22,3 +22,9 @@ pub const INIT_CRATES: [Crate; 4] = [
     Crate::new("icons", None, Some(&["leptos"])),
     Crate::new("leptos_ui", None, None),
 ];
+
+pub const DIOXUS_INIT_CRATES: [Crate; 3] = [
+    Crate::new("dioxus", None, Some(&["router", "fullstack"])),
+    Crate::new("tw_merge", None, Some(&["debug"])),
+    Crate::new("icons", None, Some(&["dioxus"])),
+];

@@ -7,6 +7,7 @@ use dialoguer::theme::ColorfulTheme;
 use super::component_type::ComponentType;
 use super::rtl::apply_rtl_transforms;
 use crate::shared::cli_error::{CliError, CliResult};
+use crate::shared::framework::Framework;
 use crate::shared::rust_ui_client::RustUIClient;
 
 /* ========================================================== */
@@ -30,8 +31,8 @@ pub struct RegistryComponent {
 }
 
 impl RegistryComponent {
-    pub async fn fetch_from_registry(component_name: String) -> CliResult<RegistryComponent> {
-        let registry_md_content = RustUIClient::fetch_styles_default(&component_name).await?;
+    pub async fn fetch_from_registry(component_name: String, framework: Framework) -> CliResult<RegistryComponent> {
+        let registry_md_content = RustUIClient::fetch_styles_default(&component_name, framework).await?;
         let component_type = ComponentType::from_component_name(&component_name);
         let registry_md_path = format!("{}/{}.rs", component_type.to_path(), component_name);
 

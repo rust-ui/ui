@@ -1,23 +1,20 @@
 use crate::shared::cli_error::{CliError, CliResult};
+use crate::shared::framework::Framework;
 use crate::shared::markdown_utils::extract_rust_code_from_markdown;
 
 pub struct RustUIClient;
 
 impl RustUIClient {
-    const BASE_URL: &str = "https://www.rust-ui.com/registry";
-    const SITE_URL: &str = "https://www.rust-ui.com";
-
-    // URL builders - centralized URL construction
-    fn tree_url() -> String {
-        format!("{}/tree.md", Self::BASE_URL)
+    fn tree_url(framework: Framework) -> String {
+        format!("{}/tree.md", framework.registry_base_url())
     }
 
-    fn component_url(component_name: &str) -> String {
-        format!("{}/styles/default/{component_name}.md", Self::BASE_URL)
+    fn component_url(component_name: &str, framework: Framework) -> String {
+        format!("{}/styles/default/{component_name}.md", framework.registry_base_url())
     }
 
-    fn js_file_url(path: &str) -> String {
-        format!("{}{path}", Self::SITE_URL)
+    fn js_file_url(path: &str, framework: Framework) -> String {
+        format!("{}{path}", framework.site_url())
     }
 
     // Consolidated HTTP fetch method
@@ -32,8 +29,8 @@ impl RustUIClient {
     }
 
     // Public API methods
-    pub async fn fetch_tree_md() -> CliResult<String> {
-        let response = Self::fetch_response(&Self::tree_url()).await?;
+    pub async fn fetch_tree_md(framework: Framework) -> CliResult<String> {
+        let response = Self::fetch_response(&Self::tree_url(framework)).await?;
         let content = response.text().await.map_err(|_| CliError::registry_request_failed())?;
 
         if content.is_empty() {
@@ -43,16 +40,16 @@ impl RustUIClient {
         Ok(content)
     }
 
-    pub async fn fetch_styles_default(component_name: &str) -> CliResult<String> {
-        let response = Self::fetch_response(&Self::component_url(component_name)).await?;
+    pub async fn fetch_styles_default(component_name: &str, framework: Framework) -> CliResult<String> {
+        let response = Self::fetch_response(&Self::component_url(component_name, framework)).await?;
         let markdown_content = response.text().await.map_err(|_| CliError::registry_request_failed())?;
 
         extract_rust_code_from_markdown(&markdown_content).ok_or_else(CliError::registry_component_missing)
     }
 
     /// Fetch a JS file from the site (e.g., /app_components/lazy_load_sonner.js)
-    pub async fn fetch_js_file(path: &str) -> CliResult<String> {
-        let response = Self::fetch_response(&Self::js_file_url(path)).await?;
+    pub async fn fetch_js_file(path: &str, framework: Framework) -> CliResult<String> {
+        let response = Self::fetch_response(&Self::js_file_url(path, framework)).await?;
         let content = response.text().await.map_err(|_| CliError::registry_request_failed())?;
 
         if content.is_empty() {

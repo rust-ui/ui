@@ -3,8 +3,9 @@ use serde::Serialize;
 
 use crate::command_add::installed::get_installed_components;
 use crate::command_init::config::UiConfig;
-use crate::command_init::workspace_utils::analyze_workspace;
+use crate::command_init::workspace_utils::{analyze_workspace, detect_framework};
 use crate::shared::cli_error::CliResult;
+use crate::shared::framework::Framework;
 
 const UI_CONFIG_TOML: &str = "ui_config.toml";
 
@@ -16,6 +17,7 @@ const UI_CONFIG_TOML: &str = "ui_config.toml";
 pub struct InfoData {
     pub config_file: String,
     pub base_color: String,
+    pub framework: Framework,
     pub base_path: String,
     pub rtl: bool,
     pub workspace: Option<bool>,
@@ -45,7 +47,14 @@ pub fn process_info(matches: &ArgMatches) -> CliResult<()> {
     let installed = get_installed_components(&config.base_path_components);
     let workspace = analyze_workspace().ok();
 
-    let data = build_info_data(&config.base_color, &config.base_path_components, config.rtl, &installed, workspace.as_ref());
+    let data = build_info_data(
+        &config.base_color,
+        detect_framework().unwrap_or(Framework::Leptos),
+        &config.base_path_components,
+        config.rtl,
+        &installed,
+        workspace.as_ref(),
+    );
 
     let output = if json { format_info_json(&data)? } else { format_info(&data) };
     println!("{output}");
@@ -58,6 +67,7 @@ pub fn process_info(matches: &ArgMatches) -> CliResult<()> {
 
 pub fn build_info_data(
     base_color: &str,
+    framework: Framework,
     base_path: &str,
     rtl: bool,
     installed: &std::collections::HashSet<String>,
@@ -74,6 +84,7 @@ pub fn build_info_data(
     InfoData {
         config_file: UI_CONFIG_TOML.to_string(),
         base_color: base_color.to_string(),
+        framework,
         base_path: base_path.to_string(),
         rtl,
         workspace: ws_flag,
@@ -88,6 +99,7 @@ pub fn format_info(data: &InfoData) -> String {
 
     lines.push(format!("  Config file   {}", data.config_file));
     lines.push(format!("  Base color    {}", data.base_color));
+    lines.push(format!("  Framework     {}", data.framework));
     lines.push(format!("  Base path     {}", data.base_path));
     lines.push(format!("  RTL           {}", if data.rtl { "yes" } else { "no" }));
 
@@ -127,6 +139,7 @@ mod tests {
 
     use super::*;
     use crate::command_init::workspace_utils::WorkspaceInfo;
+    use crate::shared::framework::Framework;
 
     fn installed(names: &[&str]) -> HashSet<String> {
         names.iter().map(|s| s.to_string()).collect()
@@ -157,11 +170,18 @@ mod tests {
     }
 
     fn data(color: &str, path: &str, names: &[&str], ws: Option<WorkspaceInfo>) -> InfoData {
-        build_info_data(color, path, false, &installed(names), ws.as_ref())
+        build_info_data(
+            color,
+            Framework::Leptos,
+            path,
+            false,
+            &installed(names),
+            ws.as_ref(),
+        )
     }
 
     fn data_rtl(color: &str, path: &str, rtl: bool) -> InfoData {
-        build_info_data(color, path, rtl, &installed(&[]), None)
+        build_info_data(color, Framework::Leptos, path, rtl, &installed(&[]), None)
     }
 
     // --- format_info (human-readable) ---

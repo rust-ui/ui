@@ -8,6 +8,8 @@ use similar::{ChangeTag, TextDiff};
 use crate::command_add::component_type::ComponentType;
 use crate::command_add::installed::get_installed_components;
 use crate::command_init::config::UiConfig;
+use crate::command_init::workspace_utils::detect_framework;
+use crate::shared::framework::Framework;
 use crate::shared::cli_error::CliResult;
 use crate::shared::rust_ui_client::RustUIClient;
 
@@ -51,12 +53,16 @@ pub fn command_diff() -> Command {
 
 /// Fetch registry content and compute diffs for a list of component names.
 /// Names are processed in the order given; sort before calling if needed.
-pub async fn diff_components(names: &[String], base_path: &str) -> CliResult<Vec<ComponentDiff>> {
+pub async fn diff_components(
+    names: &[String],
+    base_path: &str,
+    framework: Framework,
+) -> CliResult<Vec<ComponentDiff>> {
     let mut diffs: Vec<ComponentDiff> = Vec::new();
     for name in names {
         let component_type = ComponentType::from_component_name(name);
         let local_path = Path::new(base_path).join(component_type.to_path()).join(format!("{name}.rs"));
-        match RustUIClient::fetch_styles_default(name).await {
+        match RustUIClient::fetch_styles_default(name, framework).await {
             Ok(remote) => {
                 let local = std::fs::read_to_string(&local_path).unwrap_or_default();
                 let status = if local == remote { DiffStatus::UpToDate } else { DiffStatus::Changed };
@@ -80,6 +86,7 @@ pub async fn process_diff(matches: &ArgMatches) -> CliResult<()> {
     let component_arg: Option<&String> = matches.get_one("component");
 
     let config = UiConfig::try_reading_ui_config(UI_CONFIG_TOML)?;
+    let framework = detect_framework()?;
     let base_path = config.base_path_components;
 
     let names: Vec<String> = if let Some(name) = component_arg {
@@ -99,7 +106,7 @@ pub async fn process_diff(matches: &ArgMatches) -> CliResult<()> {
         println!("Checking {} installed component{}...\n", names.len(), if names.len() == 1 { "" } else { "s" });
     }
 
-    let diffs = diff_components(&names, &base_path).await?;
+    let diffs = diff_components(&names, &base_path, framework).await?;
 
     let output = if json { format_diff_json(&diffs)? } else { format_diff_human(&diffs) };
     println!("{output}");
@@ -225,6 +232,7 @@ pub fn format_diff_json(diffs: &[ComponentDiff]) -> CliResult<String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::shared::framework::Framework;
 
     fn make_diff(name: &str, status: DiffStatus, local: &str, remote: &str) -> ComponentDiff {
         ComponentDiff { name: name.to_string(), status, local: local.to_string(), remote: remote.to_string() }
@@ -311,7 +319,7 @@ mod tests {
 
     #[tokio::test]
     async fn diff_components_empty_names_returns_empty_vec() {
-        let result = diff_components(&[], "any/path").await.unwrap();
+        let result = diff_components(&[], "any/path", Framework::Leptos).await.unwrap();
         assert!(result.is_empty());
     }
 }

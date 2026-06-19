@@ -6,6 +6,7 @@ use serde::Serialize;
 use crate::command_add::component_type::ComponentType;
 use crate::command_add::installed::get_installed_components;
 use crate::command_init::config::UiConfig;
+use crate::command_init::workspace_utils::detect_framework;
 use crate::shared::cli_error::CliResult;
 use crate::shared::rust_ui_client::RustUIClient;
 
@@ -43,6 +44,7 @@ pub async fn process_update(matches: &ArgMatches) -> CliResult<()> {
     let json = matches.get_flag("json");
 
     let config = UiConfig::try_reading_ui_config(UI_CONFIG_TOML)?;
+    let framework = detect_framework()?;
     let base_path = config.base_path_components;
 
     let mut installed: Vec<String> = get_installed_components(&base_path).into_iter().collect();
@@ -70,7 +72,7 @@ pub async fn process_update(matches: &ArgMatches) -> CliResult<()> {
             }
         };
 
-        let status = match RustUIClient::fetch_styles_default(name).await {
+        let status = match RustUIClient::fetch_styles_default(name, framework).await {
             Ok(remote_content) => compare_content(&local_content, &remote_content),
             Err(_) => ComponentStatus::NotInRegistry,
         };

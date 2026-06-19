@@ -22,8 +22,10 @@ use super::registry::RegistryComponent;
 use super::tree_parser::TreeParser;
 use crate::command_diff::_diff::{diff_components, format_diff_human};
 use crate::command_init::config::UiConfig;
+use crate::command_init::workspace_utils::detect_framework;
 use crate::command_view::_view::view_components;
 use crate::shared::cli_error::{CliError, CliResult};
+use crate::shared::framework::Framework;
 use crate::shared::rust_ui_client::RustUIClient;
 
 pub fn command_add() -> Command {
@@ -75,7 +77,8 @@ pub async fn process_add_components(components: Vec<String>, base_path: &str, rt
         return Ok(());
     }
 
-    let tree_content = RustUIClient::fetch_tree_md().await?;
+    let framework = detect_framework()?;
+    let tree_content = RustUIClient::fetch_tree_md(framework).await?;
     let tree_parser = TreeParser::parse_tree_md(&tree_content)?;
 
     let resolved_set = tree_parser.resolve_dependencies(&components)?;
@@ -114,7 +117,7 @@ pub async fn process_add_components(components: Vec<String>, base_path: &str, rt
             continue;
         }
 
-        let outcome = RegistryComponent::fetch_from_registry(component_name.clone())
+        let outcome = RegistryComponent::fetch_from_registry(component_name.clone(), framework)
             .await?
             .then_write_to_file_to(true, base_path, rtl) // force = always overwrite on reinstall
             .await?;
@@ -131,7 +134,7 @@ pub async fn process_add_components(components: Vec<String>, base_path: &str, rt
         super::dependencies::process_cargo_deps(&all_resolved_cargo_dependencies)?;
     }
     if !all_resolved_js_files.is_empty() {
-        process_js_files(&all_resolved_js_files).await?;
+        process_js_files(&all_resolved_js_files, framework).await?;
     }
 
     Ok(())
@@ -149,7 +152,8 @@ pub async fn process_add(matches: &ArgMatches) -> CliResult<()> {
     let has_path_override = path_override.is_some();
 
     // Fetch and parse tree.md
-    let tree_content = RustUIClient::fetch_tree_md().await?;
+    let framework = detect_framework()?;
+    let tree_content = RustUIClient::fetch_tree_md(framework).await?;
     let tree_parser = TreeParser::parse_tree_md(&tree_content)?;
 
     // Get base path and rtl from config; --path flag overrides base_path
@@ -208,14 +212,14 @@ pub async fn process_add(matches: &ArgMatches) -> CliResult<()> {
     if view_flag {
         let mut names = all_resolved_components.clone();
         names.sort();
-        return view_components(&names).await;
+        return view_components(&names, framework).await;
     }
 
     // --diff: show diff vs local files for each resolved component, then exit
     if diff_flag {
         let mut names = all_resolved_components.clone();
         names.sort();
-        let diffs = diff_components(&names, &base_path).await?;
+        let diffs = diff_components(&names, &base_path, framework).await?;
         println!("{}", format_diff_human(&diffs));
         return Ok(());
     }
@@ -269,7 +273,7 @@ pub async fn process_add(matches: &ArgMatches) -> CliResult<()> {
             continue;
         }
 
-        let outcome = RegistryComponent::fetch_from_registry(component_name.clone())
+        let outcome = RegistryComponent::fetch_from_registry(component_name.clone(), framework)
             .await?
             .then_write_to_file_to(force, &base_path, rtl)
             .await?;
@@ -289,7 +293,7 @@ pub async fn process_add(matches: &ArgMatches) -> CliResult<()> {
 
     // Handle JS file dependencies if any exist
     if !all_resolved_js_files.is_empty() {
-        process_js_files(&all_resolved_js_files).await?;
+        process_js_files(&all_resolved_js_files, framework).await?;
     }
 
     Ok(())
@@ -636,7 +640,7 @@ mod tests {
 }
 
 /// Download and install JS files to the user's public directory
-async fn process_js_files(js_files: &HashSet<String>) -> CliResult<()> {
+async fn process_js_files(js_files: &HashSet<String>, framework: Framework) -> CliResult<()> {
     use crate::shared::task_spinner::TaskSpinner;
 
     let spinner = TaskSpinner::new("Installing JS files...");
@@ -645,7 +649,7 @@ async fn process_js_files(js_files: &HashSet<String>) -> CliResult<()> {
         spinner.set_message(&format!("📜 Downloading {js_path}"));
 
         // Fetch the JS file content
-        let content = RustUIClient::fetch_js_file(js_path).await?;
+        let content = RustUIClient::fetch_js_file(js_path, framework).await?;
 
         // Determine the output path (public/ + js_path)
         let output_path = Path::new("public").join(js_path.trim_start_matches('/'));

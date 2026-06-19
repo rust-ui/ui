@@ -6,9 +6,10 @@ use std::process::Command;
 use serde::{Deserialize, Serialize};
 use toml_edit::{DocumentMut, Item, Value};
 
-use crate::command_init::crates::{Crate, INIT_CRATES};
-use crate::command_init::workspace_utils::{WorkspaceInfo, analyze_workspace, check_leptos_dependency, load_cargo_manifest};
+use crate::command_init::crates::{Crate, DIOXUS_INIT_CRATES, INIT_CRATES};
+use crate::command_init::workspace_utils::{WorkspaceInfo, analyze_workspace, check_framework_dependency, load_cargo_manifest};
 use crate::shared::cli_error::{CliError, CliResult};
+use crate::shared::framework::Framework;
 use crate::shared::task_spinner::TaskSpinner;
 
 ///
@@ -45,16 +46,10 @@ impl UiConfig {
 
 impl Default for UiConfig {
     fn default() -> Self {
-        // Detect workspace and set appropriate component path
-        let base_path_components = match analyze_workspace() {
-            Ok(info) => info.components_base_path,
-            Err(_) => "src/components".to_string(),
-        };
-
         UiConfig {
             base_color: "neutral".to_string(),
             color_theme: default_color_theme(),
-            base_path_components,
+            base_path_components: "src/components".to_string(),
             rtl: false,
         }
     }
@@ -64,23 +59,27 @@ impl Default for UiConfig {
 /*                     ✨ FUNCTIONS ✨                        */
 /* ========================================================== */
 
-pub async fn add_init_crates() -> CliResult<()> {
+pub async fn add_init_crates(framework: Framework) -> CliResult<()> {
     let workspace_info = analyze_workspace().ok();
     let workspace_crates = get_workspace_dependencies(&workspace_info);
+    let init_crates: &[Crate] = match framework {
+        Framework::Leptos => &INIT_CRATES,
+        Framework::Dioxus => &DIOXUS_INIT_CRATES,
+    };
 
-    for my_crate in INIT_CRATES {
-        if my_crate.name == "leptos" && check_leptos_dependency()? {
+    for my_crate in init_crates {
+        if my_crate.name == framework_crate_name(framework) && check_framework_dependency(framework)? {
             continue;
         }
 
         let spinner = TaskSpinner::new(&format!("Adding {} crate...", my_crate.name));
 
-        if add_crate_to_workspace(&my_crate, &workspace_info, &workspace_crates)? {
+        if add_crate_to_workspace(my_crate, &workspace_info, &workspace_crates)? {
             spinner.finish_success(&format!("{} (workspace) added.", my_crate.name));
             continue;
         }
 
-        add_crate_with_cargo(&my_crate, &workspace_info)?;
+        add_crate_with_cargo(my_crate, &workspace_info)?;
         spinner.finish_success(&format!("{} added.", my_crate.name));
     }
     Ok(())
@@ -280,6 +279,13 @@ fn fetch_latest_version(crate_name: &str) -> CliResult<String> {
     }
 
     Ok("*".to_string())
+}
+
+fn framework_crate_name(framework: Framework) -> &'static str {
+    match framework {
+        Framework::Leptos => "leptos",
+        Framework::Dioxus => "dioxus",
+    }
 }
 
 /* ========================================================== */

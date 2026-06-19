@@ -4,6 +4,7 @@ use clap::{Arg, ArgMatches, Command};
 use serde::Serialize;
 
 use crate::command_add::tree_parser::TreeParser;
+use crate::command_init::workspace_utils::detect_framework;
 use crate::shared::cli_error::CliResult;
 use crate::shared::rust_ui_client::RustUIClient;
 
@@ -20,7 +21,8 @@ pub fn command_list() -> Command {
 pub async fn process_list(matches: &ArgMatches) -> CliResult<()> {
     let json = matches.get_flag("json");
 
-    let tree_content = RustUIClient::fetch_tree_md().await?;
+    let framework = detect_framework()?;
+    let tree_content = RustUIClient::fetch_tree_md(framework).await?;
     let tree_parser = TreeParser::parse_tree_md(&tree_content)?;
     let by_category = tree_parser.get_components_by_category();
 

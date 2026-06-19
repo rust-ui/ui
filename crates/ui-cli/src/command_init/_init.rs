@@ -13,7 +13,7 @@ use super::backup::FileBackup;
 use super::colors::{AccentColor, BaseColor};
 use super::config::{UiConfig, add_init_crates};
 use super::install::InstallType;
-use super::workspace_utils::{check_leptos_dependency, get_tailwind_input_file};
+use super::workspace_utils::{analyze_workspace, detect_framework, get_tailwind_input_file_for_framework};
 use crate::command_add::installed::get_installed_components;
 use crate::command_init::install::install_dependencies;
 use crate::command_init::template::MyTemplate;
@@ -81,15 +81,12 @@ pub fn command_init() -> Command {
 /// - `reinstall` – `Some(true)` = always reinstall components, `Some(false)` = never,
 ///   `None` = prompt when existing components are detected
 pub async fn process_init(force: bool, reinstall: Option<bool>, rtl: Option<bool>) -> CliResult<InitOutcome> {
-    // Check if Leptos is installed before proceeding
-    if !check_leptos_dependency()? {
-        return Err(CliError::config(
-            "Leptos dependency not found in Cargo.toml. Please install Leptos first.",
-        ));
-    }
+    let framework = detect_framework()?;
 
-    // Get tailwind input file from Cargo.toml metadata
-    let tailwind_input_file = get_tailwind_input_file()?;
+    let tailwind_input_file = get_tailwind_input_file_for_framework(framework)?;
+    let base_path_components = analyze_workspace()
+        .map(|info| info.components_base_path)
+        .unwrap_or_else(|_| "src/components".to_string());
 
     // Read the existing config (if any) so we can detect installed components
     // and derive the base_path *before* we overwrite ui_config.toml.
@@ -123,8 +120,8 @@ pub async fn process_init(force: bool, reinstall: Option<bool>, rtl: Option<bool
     let ui_config = UiConfig {
         base_color: base_color.label().to_lowercase(),
         color_theme: accent_color.label().to_lowercase(),
+        base_path_components,
         rtl: rtl_enabled,
-        ..UiConfig::default()
     };
     let ui_config_toml = toml::to_string_pretty(&ui_config)?;
 
@@ -138,7 +135,7 @@ pub async fn process_init(force: bool, reinstall: Option<bool>, rtl: Option<bool
     let css = MyTemplate::build_css(base_color, accent_color);
     write_template_with_confirmation(&tailwind_input_file, &css, force).await?;
 
-    add_init_crates().await?;
+    add_init_crates(framework).await?;
 
     install_dependencies(&[InstallType::Tailwind]).await?;
 
