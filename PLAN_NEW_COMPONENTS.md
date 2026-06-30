@@ -312,17 +312,17 @@ Marker        — #[component], variant: MarkerVariant
 ### CSS classes
 ```rust
 // Marker base
-"group/marker relative flex min-h-4 w-full items-center gap-2 text-left text-sm text-muted-foreground [&_svg:not([class*='size-'])]:size-4"
+"group/marker relative flex min-h-4 w-full items-center gap-2 text-left text-sm text-muted-foreground [&_svg:not([class*='size-'])]:size-4 [a]:underline [a]:underline-offset-3 [a]:hover:text-foreground"
 
-// variant Default  → no extra class
+// variant Default   → ""  (no extra class)
 // variant Separator → "before:mr-1 before:h-px before:min-w-0 before:flex-1 before:bg-border after:ml-1 after:h-px after:min-w-0 after:flex-1 after:bg-border"
 // variant Border    → "border-b border-border pb-2"
 
-// MarkerIcon
+// MarkerIcon (aria-hidden="true" required)
 "size-4 shrink-0 [&_svg:not([class*='size-'])]:size-4"
 
 // MarkerContent
-"min-w-0 wrap-break-word group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center"
+"min-w-0 wrap-break-word group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground"
 ```
 
 ### Demos (5)
@@ -404,13 +404,38 @@ Bubble          — #[component], variant + align props
 "group/bubble relative flex w-fit max-w-[80%] min-w-0 flex-col gap-1 group-data-[align=end]/message:self-end data-[align=end]:self-end data-[variant=ghost]:max-w-full"
 
 // Per variant → applied as class on Bubble, targeting *:data-[slot=bubble-content]
-// Default:     "*:data-[slot=bubble-content]:bg-primary *:data-[slot=bubble-content]:text-primary-foreground"
-// Secondary:   "*:data-[slot=bubble-content]:bg-secondary *:data-[slot=bubble-content]:text-secondary-foreground"
-// Muted:       "*:data-[slot=bubble-content]:bg-muted"
-// Tinted:      "*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.93_calc(c*0.4)_h)] dark:*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.3_calc(c*0.4)_h)]"
-// Outline:     "*:data-[slot=bubble-content]:border-border *:data-[slot=bubble-content]:bg-background"
-// Ghost:       "border-none *:data-[slot=bubble-content]:rounded-none *:data-[slot=bubble-content]:bg-transparent *:data-[slot=bubble-content]:p-0"
-// Destructive: "*:data-[slot=bubble-content]:bg-destructive/10 *:data-[slot=bubble-content]:text-destructive dark:*:data-[slot=bubble-content]:bg-destructive/20"
+// Includes hover states for interactive bubble content (button/a children)
+// Default:
+//   "*:data-[slot=bubble-content]:bg-primary *:data-[slot=bubble-content]:text-primary-foreground
+//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-primary/80"
+// Secondary:
+//   "*:data-[slot=bubble-content]:bg-secondary *:data-[slot=bubble-content]:text-secondary-foreground
+//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]"
+// Muted:
+//   "*:data-[slot=bubble-content]:bg-muted
+//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--muted),var(--foreground)_5%)]"
+// Tinted:
+//   "*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.93_calc(c*0.4)_h)]
+//    *:data-[slot=bubble-content]:text-foreground
+//    dark:*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.3_calc(c*0.4)_h)]
+//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.88_calc(c*0.5)_h)]
+//    dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.35_calc(c*0.5)_h)]"
+// Outline:
+//   "*:data-[slot=bubble-content]:border-border *:data-[slot=bubble-content]:bg-background
+//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted
+//    [&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground
+//    dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-input/30"
+// Ghost:
+//   "border-none *:data-[slot=bubble-content]:rounded-none *:data-[slot=bubble-content]:bg-transparent
+//    *:data-[slot=bubble-content]:p-0
+//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted
+//    [&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground
+//    dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted/50"
+// Destructive:
+//   "*:data-[slot=bubble-content]:bg-destructive/10 *:data-[slot=bubble-content]:text-destructive
+//    dark:*:data-[slot=bubble-content]:bg-destructive/20
+//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/20
+//    dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/30"
 
 // BubbleContent
 "w-fit max-w-full min-w-0 overflow-hidden rounded-xl border border-transparent px-3 py-2 text-sm leading-relaxed wrap-break-word group-data-[align=end]/bubble:self-end [button]:text-left [button,a]:transition-colors [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/50"
@@ -427,8 +452,15 @@ Bubble          — #[component], variant + align props
 Raw oklch — copy exactly, Tailwind v4 handles it:
 ```
 bg-[oklch(from_var(--primary)_0.93_calc(c*0.4)_h)]
+text-foreground
 dark:bg-[oklch(from_var(--primary)_0.3_calc(c*0.4)_h)]
+hover: bg-[oklch(from_var(--primary)_0.88_calc(c*0.5)_h)]
+dark:hover: bg-[oklch(from_var(--primary)_0.35_calc(c*0.5)_h)]
 ```
+Note: `text-foreground` is required on tinted (NOT `text-primary-foreground`).
+
+### BubbleReactions defaults
+`side` default = `Bottom`, `align` default = `End` (right-aligned, below bubble).
 
 ### Demos (8)
 | File | Shows |
@@ -475,11 +507,11 @@ Attachment            — #[component], size + orientation + state props
 // orientation=vertical   → "w-24 flex-col has-data-[slot=attachment-content]:w-30"
 
 // AttachmentMedia base
-"relative flex aspect-square w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted text-foreground group-data-[orientation=vertical]/attachment:w-full group-data-[size=sm]/attachment:w-8 group-data-[size=xs]/attachment:w-7 group-data-[size=xs]/attachment:rounded-md group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive [&_svg:not([class*='size-'])]:size-4"
-// variant=image → "opacity-60 group-data-[state=done]/attachment:opacity-100 *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover"
+"relative flex aspect-square w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted text-foreground group-data-[orientation=vertical]/attachment:w-full group-data-[size=sm]/attachment:w-8 group-data-[size=xs]/attachment:w-7 group-data-[size=xs]/attachment:rounded-md group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive group-data-[orientation=vertical]/attachment:*:data-[slot=spinner]:size-6! [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 group-data-[orientation=vertical]/attachment:[&_svg:not([class*='size-'])]:size-6 group-data-[size=xs]/attachment:[&_svg:not([class*='size-'])]:size-3.5"
+// variant=image → "opacity-60 group-data-[state=done]/attachment:opacity-100 group-data-[state=idle]/attachment:opacity-100 *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover"
 
-// AttachmentContent
-"flex min-w-0 flex-1 flex-col"
+// AttachmentContent (NOT flex-col — just flex-1 with leading-tight)
+"max-w-full min-w-0 flex-1 leading-tight group-data-[orientation=vertical]/attachment:px-1"
 
 // AttachmentTitle
 "block max-w-full min-w-0 truncate font-medium group-data-[state=processing]/attachment:shimmer group-data-[state=uploading]/attachment:shimmer"
@@ -580,11 +612,14 @@ Used for anchor math when `scrollPreviousItemPeek` (default 64px) adds top offse
 ### Composition
 ```
 MessageScrollerProvider  — provide_context, owns all refs + signals
-MessageScroller          — outer frame div; data-scrollable + data-autoscrolling
-  MessageScrollerViewport  — NodeRef, ResizeObserver, on:scroll/wheel/keydown/touchmove
-    MessageScrollerContent — MutationObserver, ResizeObserver, role=log
-      MessageScrollerItem  — data-scroll-anchor + data-message-id
-  MessageScrollerButton    — data-active, inert when inactive
+MessageScroller          — outer frame div; data-slot="message-scroller"; data-scrollable + data-autoscrolling
+  MessageScrollerViewport  — data-slot="message-scroller-viewport"; NodeRef; ResizeObserver; on:scroll/wheel/keydown/touchmove
+    MessageScrollerContent — data-slot="message-scroller-content"; MutationObserver; ResizeObserver; role="log" aria-relevant="additions"
+      MessageScrollerItem  — data-slot="message-scroller-item"; data-scroll-anchor="true|false"; data-message-id
+  MessageScrollerButton    — data-slot="message-scroller-button"; data-direction; data-variant; data-size
+                             renders <Button variant=Secondary size=IconSm> as inner element
+                             data-active="true|false"; inert attr when inactive
+                             children: <ArrowDownIcon /> + <span class="sr-only">Scroll to end</span>
 ```
 
 ---
@@ -614,8 +649,8 @@ struct MessageScrollerCtx {
 "group/message-scroller relative flex size-full min-h-0 flex-col overflow-hidden"
 
 // MessageScrollerViewport
-"size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain"
-// Add to app CSS: [data-autoscrolling]:scrollbar-none
+// Note: data-autoscrolling:scrollbar-none is a Tailwind v4 data variant — goes IN the class string
+"size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-none"
 
 // MessageScrollerContent
 "flex h-max min-h-full flex-col gap-8"
@@ -623,10 +658,27 @@ struct MessageScrollerCtx {
 // MessageScrollerItem
 "min-w-0 shrink-0 [contain-intrinsic-size:auto_10rem] [content-visibility:auto]"
 
-// MessageScrollerButton (floating scroll-to-end)
-"absolute bottom-4 left-1/2 -translate-x-1/2 transition-[translate,scale,opacity] duration-200
- data-[active=false]:pointer-events-none data-[active=false]:scale-75 data-[active=false]:opacity-0
- data-[active=true]:scale-100 data-[active=true]:opacity-100"
+// MessageScrollerButton — renders as <Button variant=Secondary size=IconSm> via render prop
+// direction prop: "end" (default) | "start"
+// data-direction, data-variant, data-size attrs written
+"absolute inset-s-1/2 -translate-x-1/2 border-border bg-background text-foreground
+ transition-[translate,scale,opacity] duration-200
+ hover:bg-muted hover:text-foreground
+ data-[active=false]:pointer-events-none
+ data-[active=false]:scale-95
+ data-[active=false]:opacity-0
+ data-[active=false]:duration-400
+ data-[active=false]:ease-[cubic-bezier(0.7,0,0.84,0)]
+ data-[active=true]:translate-y-0
+ data-[active=true]:scale-100
+ data-[active=true]:opacity-100
+ data-[active=true]:ease-[cubic-bezier(0.23,1,0.32,1)]
+ data-[direction=end]:bottom-4
+ data-[direction=end]:data-[active=false]:translate-y-full
+ data-[direction=start]:top-4
+ data-[direction=start]:data-[active=false]:-translate-y-full
+ rtl:translate-x-1/2
+ data-[direction=start]:[&_svg]:rotate-180"
 ```
 
 ---
