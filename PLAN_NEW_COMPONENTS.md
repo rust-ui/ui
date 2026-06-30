@@ -250,10 +250,59 @@ Used in: `MessageScrollerViewport`. shadcn uses `tailwind-scrollbar` plugin — 
 ```
 Note: project already has `no-scrollbar` (Shimmer component) which is equivalent to `scrollbar-none`.
 
-### `shimmer` as CSS class (Marker separator demo)
-shadcn's marker demo does `<MarkerContent className="shimmer">Reading 4 files</MarkerContent>` to animate text.  
-Our `Shimmer` is a component, not a class.  
-**Adaptation**: wrap content in `<Shimmer>` component instead, or add `@utility shimmer { ... }` CSS.
+### `shimmer` CSS text animation utility
+Used in: Marker separator demo (`<MarkerContent class="shimmer">Thinking…</MarkerContent>`), Attachment title during upload/processing state.
+
+**This is NOT our `<Shimmer>` skeleton component** — completely different thing.  
+shadcn `shimmer` = pure CSS text sweep animation (`background-clip: text` + moving gradient).
+
+Must add to our CSS file. Full definition from `packages/shadcn/src/tailwind.css`:
+
+```css
+@property --shimmer-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 20deg;
+}
+
+@theme inline {
+  @keyframes tw-shimmer {
+    from { background-position: 100% 0; }
+    to   { background-position: 0 0; }
+  }
+}
+
+@utility shimmer {
+  --_spread: var(--shimmer-spread, calc(3ch + 40px));
+  --_base: currentColor;
+  --_highlight: var(--shimmer-color, oklch(from currentColor l c h / calc(alpha * 0.2)));
+  background-image: linear-gradient(
+    calc(90deg + var(--shimmer-angle)),
+    var(--_base) calc(50% - var(--_spread)),
+    color-mix(in oklch, var(--_highlight), var(--_base) 50%) calc(50% - var(--_spread) * 0.5),
+    var(--_highlight) 50%,
+    color-mix(in oklch, var(--_highlight), var(--_base) 50%) calc(50% + var(--_spread) * 0.5),
+    var(--_base) calc(50% + var(--_spread))
+  );
+  background-repeat: no-repeat;
+  background-size: calc(200% + var(--_spread) * 2) 100%;
+  background-position: 0 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: tw-shimmer var(--shimmer-duration, 2s) linear infinite;
+  @variant dark {
+    --_highlight: var(--shimmer-color, oklch(from currentColor max(0.8, calc(l + 0.4)) c h / calc(alpha + 0.4)));
+  }
+  &:where([dir="rtl"], [dir="rtl"] *) { animation-direction: reverse; }
+}
+
+@utility shimmer-once { animation-iteration-count: 1; }
+@utility shimmer-reverse { animation-direction: reverse; }
+@utility shimmer-none { -webkit-text-fill-color: currentColor; }
+```
+
+Usage in demos: `class="shimmer text-muted-foreground"` on any text element.
 
 ---
 
