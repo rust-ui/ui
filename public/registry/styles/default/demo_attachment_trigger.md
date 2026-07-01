@@ -36,8 +36,11 @@ use crate::components::ui::dialog::{Dialog, DialogBody, DialogClose, DialogConte
 pub fn DemoAttachmentTrigger() -> impl IntoView {
     view! {
         <div class="py-12 mx-auto w-full max-w-sm">
-            // AttachmentTrigger auto-detects the Dialog context and sets data-dialog-trigger.
-            <Dialog>
+            // TODO PORT: shadcn uses <DialogTrigger render={<AttachmentTrigger aria-label="..." />} />
+            // (Base UI render prop / asChild — DialogTrigger renders AS AttachmentTrigger).
+            // Leptos has no render prop. AttachmentTrigger instead auto-consumes Dialog context
+            // and sets data-dialog-trigger when inside <Dialog>, acting as the trigger directly.
+            <Dialog class="w-full">
                 <Attachment class="w-full">
                     <AttachmentMedia>
                         <FileSearch />
@@ -57,15 +60,14 @@ pub fn DemoAttachmentTrigger() -> impl IntoView {
                     <AttachmentTrigger attr:aria-label="Preview research-summary.pdf" />
                 </Attachment>
 
-                <DialogContent class="sm:max-w-[425px]">
+                <DialogContent class="sm:max-w-md">
                     <DialogBody>
                         <DialogHeader>
                             <DialogTitle>"research-summary.pdf"</DialogTitle>
                             <DialogDescription>
-                                "The attachment trigger fills the card and opens this dialog, while the actions stay independently clickable above it."
+                                "The attachment trigger fills the card and opens the dialog, while the actions stay independently clickable above it."
                             </DialogDescription>
                         </DialogHeader>
-                        <DialogClose>"Close"</DialogClose>
                     </DialogBody>
                 </DialogContent>
             </Dialog>
