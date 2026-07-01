@@ -9,7 +9,7 @@ use crate::ui::attachment::{
 pub fn DemoAttachmentSizes() -> impl IntoView {
     view! {
         <div class="flex flex-col gap-3 py-12 mx-auto w-full max-w-sm">
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <Attachment size=AttachmentSize::Default class="w-full">
                     <AttachmentMedia>
                         <FileText />
@@ -20,7 +20,7 @@ pub fn DemoAttachmentSizes() -> impl IntoView {
                     </AttachmentContent>
                 </Attachment>
             </div>
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <Attachment size=AttachmentSize::Sm class="w-full">
                     <AttachmentMedia>
                         <FileText />
@@ -31,7 +31,7 @@ pub fn DemoAttachmentSizes() -> impl IntoView {
                     </AttachmentContent>
                 </Attachment>
             </div>
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <Attachment size=AttachmentSize::Xs class="w-full">
                     <AttachmentMedia>
                         <FileText />

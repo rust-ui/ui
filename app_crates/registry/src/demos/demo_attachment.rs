@@ -11,7 +11,7 @@ use crate::ui::spinner::Spinner;
 pub fn DemoAttachment() -> impl IntoView {
     view! {
         <div class="flex flex-col gap-3 py-12 mx-auto w-full max-w-sm">
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <AttachmentGroup>
                     <Attachment orientation=crate::ui::attachment::AttachmentOrientation::Vertical>
                         <AttachmentMedia variant=AttachmentMediaVariant::Image>
@@ -51,7 +51,7 @@ pub fn DemoAttachment() -> impl IntoView {
                     </Attachment>
                 </AttachmentGroup>
             </div>
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <Attachment state=AttachmentState::Uploading class="w-full">
                     <AttachmentMedia>
                         <Spinner />
@@ -67,7 +67,7 @@ pub fn DemoAttachment() -> impl IntoView {
                     </AttachmentActions>
                 </Attachment>
             </div>
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <Attachment class="w-full">
                     <AttachmentMedia>
                         <FileCode />

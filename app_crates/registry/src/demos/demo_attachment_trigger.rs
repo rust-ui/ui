@@ -15,7 +15,7 @@ pub fn DemoAttachmentTrigger() -> impl IntoView {
             // (Base UI render prop / asChild — DialogTrigger renders AS AttachmentTrigger).
             // Leptos has no render prop. AttachmentTrigger instead auto-consumes Dialog context
             // and sets data-dialog-trigger when inside <Dialog>, acting as the trigger directly.
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <Dialog class="w-full">
                     <Attachment class="w-full">
                         <AttachmentMedia>

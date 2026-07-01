@@ -10,7 +10,7 @@ use crate::ui::attachment::{
 pub fn DemoAttachmentImage() -> impl IntoView {
     view! {
         <div class="py-12 mx-auto w-full max-w-sm">
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <AttachmentGroup class="w-full">
                     <Attachment orientation=AttachmentOrientation::Vertical>
                         <AttachmentMedia variant=AttachmentMediaVariant::Image>

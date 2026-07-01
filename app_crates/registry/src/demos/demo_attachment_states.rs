@@ -11,7 +11,7 @@ use crate::ui::spinner::Spinner;
 pub fn DemoAttachmentStates() -> impl IntoView {
     view! {
         <div class="flex flex-col gap-2 py-12 mx-auto w-full max-w-sm">
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <Attachment state=AttachmentState::Idle class="w-full">
                     <AttachmentMedia>
                         <Clock />
@@ -27,7 +27,7 @@ pub fn DemoAttachmentStates() -> impl IntoView {
                     </AttachmentActions>
                 </Attachment>
             </div>
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <Attachment state=AttachmentState::Uploading class="w-full">
                     <AttachmentMedia>
                         <Spinner />
@@ -43,7 +43,7 @@ pub fn DemoAttachmentStates() -> impl IntoView {
                     </AttachmentActions>
                 </Attachment>
             </div>
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <Attachment state=AttachmentState::Processing class="w-full">
                     <AttachmentMedia>
                         <FileText />
@@ -59,7 +59,7 @@ pub fn DemoAttachmentStates() -> impl IntoView {
                     </AttachmentActions>
                 </Attachment>
             </div>
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <Attachment state=AttachmentState::Error class="w-full">
                     <AttachmentMedia>
                         <FileWarning />
@@ -78,7 +78,7 @@ pub fn DemoAttachmentStates() -> impl IntoView {
                     </AttachmentActions>
                 </Attachment>
             </div>
-            <div class="rounded-xl bg-accent p-3">
+            <div class="p-3 rounded-xl bg-accent">
                 <Attachment state=AttachmentState::Done class="w-full">
                     <AttachmentMedia>
                         <Check />
