@@ -14,19 +14,20 @@ pub fn DemoBubbleLinkButton() -> impl IntoView {
                     // TODO PORT: shadcn uses BubbleContent render={<button onClick={() => toast(...)} />}
                     // (asChild/render pattern). Ported as on_click with window.alert fallback.
                     <BubbleContent on_click=Callback::new(|_| {
-                        let _ = web_sys::window().unwrap().alert_with_message("You clicked forgot password");
+                        let _ = web_sys::window()
+                            .and_then(|w| w.alert_with_message("You clicked forgot password").ok());
                     })>"I forgot my password"</BubbleContent>
                 </Bubble>
                 <Bubble variant=BubbleVariant::Tinted align=BubbleAlign::End>
                     <BubbleContent on_click=Callback::new(|_| {
-                        let _ = web_sys::window().unwrap().alert_with_message("You clicked help with subscription");
+                        let _ = web_sys::window()
+                            .and_then(|w| w.alert_with_message("You clicked help with subscription").ok());
                     })>"I need help with my subscription"</BubbleContent>
                 </Bubble>
                 <Bubble variant=BubbleVariant::Tinted align=BubbleAlign::End>
                     <BubbleContent on_click=Callback::new(|_| {
                         let _ = web_sys::window()
-                            .unwrap()
-                            .alert_with_message("You clicked something else. Talk to a human.");
+                            .and_then(|w| w.alert_with_message("You clicked something else. Talk to a human.").ok());
                     })>"Something else. Talk to a human."</BubbleContent>
                 </Bubble>
             </BubbleGroup>

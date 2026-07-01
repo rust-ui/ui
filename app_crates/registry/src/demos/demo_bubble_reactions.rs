@@ -46,7 +46,8 @@ pub fn DemoBubbleReactions() -> impl IntoView {
                         variant=ButtonVariant::Ghost
                         size=ButtonSize::Sm
                         on:click=move |_| {
-                            let _ = web_sys::window().unwrap().alert_with_message("Running command...");
+                            let _ = web_sys::window()
+                                .and_then(|w| w.alert_with_message("Running command...").ok());
                         }
                     >
                         "Yes, run it"
