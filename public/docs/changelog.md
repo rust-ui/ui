@@ -9,6 +9,14 @@ image_dark = "/images/thumbnails/_placeholder-dark.webp"
 +++
 
 
+## July 2026 - Marker Component
+
+### New Component
+
+- **[Marker](/docs/components/marker)**: Contextual event row for chat transcripts. Three variants — `Default` (system events with icon), `Separator` (full-width divider with centered content), `Border` (activity markers with bottom rule). Supports icons, shimmer text, Spinner, Accordion, and Drawer composition. Includes 5 demos.
+
+---
+
 ## April 2026 - Route Transition Animation
 
 ### UX Improvement

@@ -53,6 +53,7 @@ pub mod kbd;
 pub mod label;
 pub mod link;
 pub mod marquee;
+pub mod marker;
 pub mod mask;
 pub mod menubar;
 pub mod multi_select;

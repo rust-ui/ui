@@ -363,3 +363,77 @@
   }
 }
 
+/* ============================================================ */
+/* Chat interface utilities (Marker, Message, Bubble, Attachment, MessageScroller) */
+/* ============================================================ */
+
+@utility wrap-break-word {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+@utility scroll-fade-b {
+  mask-image: linear-gradient(to bottom, black calc(100% - 2rem), transparent 100%);
+}
+
+@utility scroll-fade-x {
+  mask-image: linear-gradient(to right, black calc(100% - 2rem), transparent 100%);
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+@utility scrollbar-gutter-stable {
+  scrollbar-gutter: stable;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+/* shimmer — pure CSS text sweep animation (NOT the <Shimmer> skeleton component)   */
+/* Usage: class="shimmer text-muted-foreground" on any text element                  */
+@property --shimmer-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 20deg;
+}
+
+@theme inline {
+  @keyframes tw-shimmer {
+    from { background-position: 100% 0; }
+    to   { background-position: 0 0; }
+  }
+}
+
+@utility shimmer {
+  --_spread: var(--shimmer-spread, calc(3ch + 40px));
+  --_base: currentColor;
+  --_highlight: var(--shimmer-color, oklch(from currentColor l c h / calc(alpha * 0.2)));
+  background-image: linear-gradient(
+    calc(90deg + var(--shimmer-angle)),
+    var(--_base) calc(50% - var(--_spread)),
+    color-mix(in oklch, var(--_highlight), var(--_base) 50%) calc(50% - var(--_spread) * 0.5),
+    var(--_highlight) 50%,
+    color-mix(in oklch, var(--_highlight), var(--_base) 50%) calc(50% + var(--_spread) * 0.5),
+    var(--_base) calc(50% + var(--_spread))
+  );
+  background-repeat: no-repeat;
+  background-size: calc(200% + var(--_spread) * 2) 100%;
+  background-position: 0 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: tw-shimmer var(--shimmer-duration, 2s) linear infinite;
+  @variant dark {
+    --_highlight: var(--shimmer-color, oklch(from currentColor max(0.8, calc(l + 0.4)) c h / calc(alpha + 0.4)));
+  }
+  &:where([dir="rtl"], [dir="rtl"] *) { animation-direction: reverse; }
+}
+
+@utility shimmer-once { animation-iteration-count: 1; }
+@utility shimmer-reverse { animation-direction: reverse; }
+@utility shimmer-none { -webkit-text-fill-color: currentColor; }
+

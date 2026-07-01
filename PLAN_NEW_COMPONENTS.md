@@ -5,6 +5,16 @@
 
 **Do not modify `ui/chat.rs`** — separate older component, untouched.
 
+## Status
+
+| Component | UI file | Demos | Doc | Registry |
+|-----------|---------|-------|-----|----------|
+| Marker | ✅ Done | ✅ Done (5) | ✅ Done | ✅ Done |
+| Message | ⬜ Todo | ⬜ Todo (8) | ⬜ Todo | ⬜ Todo |
+| Bubble | ⬜ Todo | ⬜ Todo (8) | ⬜ Todo | ⬜ Todo |
+| Attachment | ⬜ Todo | ⬜ Todo (8) | ⬜ Todo | ⬜ Todo |
+| MessageScroller | ⬜ Todo | ⬜ Todo | ⬜ Todo | ⬜ Todo |
+
 ---
 
 ## Files to Create
@@ -132,43 +142,45 @@ Full definition from `packages/shadcn/src/tailwind.css`:
 
 ## Rust/Leptos Differences vs shadcn React
 
-### 1. Variants = PascalCase enums
+### 1. Variants = PascalCase enums with `strum::Display`
 
-shadcn uses string literals (`"default"`, `"secondary"`). We use enums.
+shadcn uses string literals (`"default"`, `"secondary"`). We use enums + `strum::Display`.  
+`strum::Display` outputs PascalCase (e.g. `Separator.to_string()` → `"Separator"`).  
+**CSS selectors must match PascalCase** (e.g. `data-[variant=Separator]`, `data-[state=Done]`).
 
 ```rust
-#[derive(Default, PartialEq, Clone)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
 pub enum BubbleVariant {
     #[default] Default,
     Secondary, Muted, Tinted, Outline, Ghost, Destructive,
 }
 
-#[derive(Default, PartialEq, Clone)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
 pub enum BubbleAlign { #[default] Start, End }
 
-#[derive(Default, PartialEq, Clone)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
 pub enum BubbleReactionsSide { Top, #[default] Bottom }
 
-#[derive(Default, PartialEq, Clone)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
 pub enum MarkerVariant { #[default] Default, Separator, Border }
 
-#[derive(Default, PartialEq, Clone)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
 pub enum MessageAlign { #[default] Start, End }
 
-#[derive(Default, PartialEq, Clone)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
 pub enum AttachmentState { Idle, Uploading, Processing, Error, #[default] Done }
 
-#[derive(Default, PartialEq, Clone)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
 pub enum AttachmentSize { #[default] Default, Sm, Xs }
 
-#[derive(Default, PartialEq, Clone)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
 pub enum AttachmentOrientation { #[default] Horizontal, Vertical }
 
-#[derive(Default, PartialEq, Clone)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
 pub enum AttachmentMediaVariant { #[default] Icon, Image }
 ```
 
-Each enum gets `fn as_str(&self) -> &'static str` returning lowercase for `data-*` attrs.
+Use `variant.to_string()` in `data-variant=` attrs. No manual `as_str()` needed.
 
 ### 2. Macros
 
@@ -196,11 +208,31 @@ pub fn Bubble(
 ) -> impl IntoView
 ```
 
-### 5. `data-*` attributes
+### 5. `data-*` attributes — `data-name`, NOT `data-slot`
+
+Project convention: use `data-name` (matches `clx!` macro auto-output). **Never `data-slot`.**
+
+- `clx!` macro → auto-sets `data-name=stringify!($name)` → PascalCase (e.g. `"BubbleContent"`)
+- `#[component]` → set manually: `data-name="Bubble"`
+
+CSS selectors must use `data-name` with PascalCase values:
+```
+shadcn:  *:data-[slot=bubble-content]:bg-primary
+ours:    *:data-[name=BubbleContent]:bg-primary
+
+shadcn:  has-data-[slot=attachment-content]:px-2.5
+ours:    has-data-[name=AttachmentContent]:px-2.5
+
+shadcn:  group-has-data-[slot=message-footer]/message:-translate-y-8
+ours:    group-has-data-[name=MessageFooter]/message:-translate-y-8
+
+shadcn:  *:data-slot:self-end        (presence selector)
+ours:    *:data-name:self-end
+```
 
 ```rust
 <div
-    data-slot="bubble"
+    data-name="Bubble"
     attr:data-variant=variant.as_str()
     attr:data-align=align.as_str()
     class=merged_class
@@ -294,44 +326,44 @@ pub fn DemoBubbleVariants() -> impl IntoView {
 
 ### Available icons (confirmed in `icons` crate)
 `GitBranch`, `FileSearch`, `FileText`, `Download`, `CircleUserRound`,
-`Search`, `Check`, `X`, `ArrowDown`, `Paperclip`, `ArrowUp` — all present.
+`Search`, `Check`, `X`, `ArrowDown`, `Paperclip`, `ArrowUp`,
+`UserRound`, `UserRoundMinus`, `NotepadText`, `Link`, `Activity`,
+`FolderOpen`, `GitBranchPlus`, `Pencil` — all present.
 
 ---
 
-## Component 1 — Marker (`ui/marker.rs`)
-
-Simplest component, no external deps.
+## Component 1 — Marker (`ui/marker.rs`) ✅ DONE
 
 ### Composition
 ```
-Marker        — #[component], variant: MarkerVariant
-  MarkerIcon    — clx! span
-  MarkerContent — clx! span
+Marker        — #[component], variant: MarkerVariant (strum::Display)
+  MarkerIcon    — #[component], aria-hidden="true", children: Children
+  MarkerContent — clx! span (data-name="MarkerContent" auto-set)
 ```
 
-### CSS classes
+### CSS classes (PascalCase selectors — strum::Display)
 ```rust
 // Marker base
 "group/marker relative flex min-h-4 w-full items-center gap-2 text-left text-sm text-muted-foreground [&_svg:not([class*='size-'])]:size-4 [a]:underline [a]:underline-offset-3 [a]:hover:text-foreground"
 
-// variant Default   → ""  (no extra class)
+// variant Default   → ""
 // variant Separator → "before:mr-1 before:h-px before:min-w-0 before:flex-1 before:bg-border after:ml-1 after:h-px after:min-w-0 after:flex-1 after:bg-border"
 // variant Border    → "border-b border-border pb-2"
 
-// MarkerIcon (aria-hidden="true" required)
+// MarkerIcon (aria-hidden="true", #[component] not clx! — needs aria attr)
 "size-4 shrink-0 [&_svg:not([class*='size-'])]:size-4"
 
-// MarkerContent
-"min-w-0 wrap-break-word group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground"
+// MarkerContent (group selectors use PascalCase to match strum output)
+"min-w-0 wrap-break-word group-data-[variant=Separator]/marker:flex-none group-data-[variant=Separator]/marker:text-center *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground"
 ```
 
-### Demos (5)
+### Demos ✅ DONE
 | File | Shows |
 |------|-------|
 | `demo_marker.rs` | Default: user joined/left events with icon |
 | `demo_marker_border.rs` | Border: git branch switch, file review, notes opened |
-| `demo_marker_separator.rs` | Separator: Spinner, shimmer text, check icon, button, link |
-| `demo_marker_accordion.rs` | Separator wrapping Accordion (explored N files tool call) |
+| `demo_marker_separator.rs` | Separator: Spinner, shimmer text, check icon, link |
+| `demo_marker_accordion.rs` | Separator wrapping Accordion (codebase exploration) |
 | `demo_marker_drawer.rs` | Separator containing Drawer trigger (file activity log) |
 
 ---
@@ -355,20 +387,20 @@ Message        — #[component], align: MessageAlign
 // MessageGroup
 "flex min-w-0 flex-col gap-2"
 
-// Message (align End → data-[align=end]:flex-row-reverse)
-"group/message relative flex w-full min-w-0 gap-2 text-sm data-[align=end]:flex-row-reverse"
+// Message (align End → data-[align=End]:flex-row-reverse)
+"group/message relative flex w-full min-w-0 gap-2 text-sm data-[align=End]:flex-row-reverse"
 
 // MessageAvatar
-"flex w-fit min-w-8 shrink-0 items-center justify-center self-end overflow-hidden rounded-full bg-muted group-has-data-[slot=message-footer]/message:-translate-y-8"
+"flex w-fit min-w-8 shrink-0 items-center justify-center self-end overflow-hidden rounded-full bg-muted group-has-data-[name=MessageFooter]/message:-translate-y-8"
 
 // MessageContent
-"flex w-full min-w-0 flex-col gap-2.5 wrap-break-word group-data-[align=end]/message:*:data-slot:self-end"
+"flex w-full min-w-0 flex-col gap-2.5 wrap-break-word group-data-[align=End]/message:*:data-name:self-end"
 
 // MessageHeader
-"flex max-w-full min-w-0 items-center px-3 text-xs font-medium text-muted-foreground group-has-data-[variant=ghost]/message:px-0"
+"flex max-w-full min-w-0 items-center px-3 text-xs font-medium text-muted-foreground group-has-data-[variant=Ghost]/message:px-0"
 
 // MessageFooter
-"flex max-w-full min-w-0 items-center px-3 text-xs font-medium text-muted-foreground group-has-data-[variant=ghost]/message:px-0 group-data-[align=end]/message:justify-end"
+"flex max-w-full min-w-0 items-center px-3 text-xs font-medium text-muted-foreground group-has-data-[variant=Ghost]/message:px-0 group-data-[align=End]/message:justify-end"
 ```
 
 ### Demos (8)
@@ -401,44 +433,45 @@ Bubble          — #[component], variant + align props
 "flex min-w-0 flex-col gap-2"
 
 // Bubble base (variant classes applied via data-variant CSS selectors on BubbleContent)
-"group/bubble relative flex w-fit max-w-[80%] min-w-0 flex-col gap-1 group-data-[align=end]/message:self-end data-[align=end]:self-end data-[variant=ghost]:max-w-full"
+"group/bubble relative flex w-fit max-w-[80%] min-w-0 flex-col gap-1 group-data-[align=End]/message:self-end data-[align=End]:self-end data-[variant=Ghost]:max-w-full"
 
-// Per variant → applied as class on Bubble, targeting *:data-[slot=bubble-content]
+// Per variant → applied as class on Bubble, targeting *:data-[name=BubbleContent]
+// (data-name is project convention; shadcn uses data-slot — our clx! sets data-name="BubbleContent")
 // Includes hover states for interactive bubble content (button/a children)
 // Default:
-//   "*:data-[slot=bubble-content]:bg-primary *:data-[slot=bubble-content]:text-primary-foreground
-//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-primary/80"
+//   "*:data-[name=BubbleContent]:bg-primary *:data-[name=BubbleContent]:text-primary-foreground
+//    [&>[data-name=BubbleContent]:is(button,a):hover]:bg-primary/80"
 // Secondary:
-//   "*:data-[slot=bubble-content]:bg-secondary *:data-[slot=bubble-content]:text-secondary-foreground
-//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]"
+//   "*:data-[name=BubbleContent]:bg-secondary *:data-[name=BubbleContent]:text-secondary-foreground
+//    [&>[data-name=BubbleContent]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]"
 // Muted:
-//   "*:data-[slot=bubble-content]:bg-muted
-//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--muted),var(--foreground)_5%)]"
+//   "*:data-[name=BubbleContent]:bg-muted
+//    [&>[data-name=BubbleContent]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--muted),var(--foreground)_5%)]"
 // Tinted:
-//   "*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.93_calc(c*0.4)_h)]
-//    *:data-[slot=bubble-content]:text-foreground
-//    dark:*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.3_calc(c*0.4)_h)]
-//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.88_calc(c*0.5)_h)]
-//    dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.35_calc(c*0.5)_h)]"
+//   "*:data-[name=BubbleContent]:bg-[oklch(from_var(--primary)_0.93_calc(c*0.4)_h)]
+//    *:data-[name=BubbleContent]:text-foreground
+//    dark:*:data-[name=BubbleContent]:bg-[oklch(from_var(--primary)_0.3_calc(c*0.4)_h)]
+//    [&>[data-name=BubbleContent]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.88_calc(c*0.5)_h)]
+//    dark:[&>[data-name=BubbleContent]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.35_calc(c*0.5)_h)]"
 // Outline:
-//   "*:data-[slot=bubble-content]:border-border *:data-[slot=bubble-content]:bg-background
-//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted
-//    [&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground
-//    dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-input/30"
+//   "*:data-[name=BubbleContent]:border-border *:data-[name=BubbleContent]:bg-background
+//    [&>[data-name=BubbleContent]:is(button,a):hover]:bg-muted
+//    [&>[data-name=BubbleContent]:is(button,a):hover]:text-foreground
+//    dark:[&>[data-name=BubbleContent]:is(button,a):hover]:bg-input/30"
 // Ghost:
-//   "border-none *:data-[slot=bubble-content]:rounded-none *:data-[slot=bubble-content]:bg-transparent
-//    *:data-[slot=bubble-content]:p-0
-//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted
-//    [&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground
-//    dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted/50"
+//   "border-none *:data-[name=BubbleContent]:rounded-none *:data-[name=BubbleContent]:bg-transparent
+//    *:data-[name=BubbleContent]:p-0
+//    [&>[data-name=BubbleContent]:is(button,a):hover]:bg-muted
+//    [&>[data-name=BubbleContent]:is(button,a):hover]:text-foreground
+//    dark:[&>[data-name=BubbleContent]:is(button,a):hover]:bg-muted/50"
 // Destructive:
-//   "*:data-[slot=bubble-content]:bg-destructive/10 *:data-[slot=bubble-content]:text-destructive
-//    dark:*:data-[slot=bubble-content]:bg-destructive/20
-//    [&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/20
-//    dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/30"
+//   "*:data-[name=BubbleContent]:bg-destructive/10 *:data-[name=BubbleContent]:text-destructive
+//    dark:*:data-[name=BubbleContent]:bg-destructive/20
+//    [&>[data-name=BubbleContent]:is(button,a):hover]:bg-destructive/20
+//    dark:[&>[data-name=BubbleContent]:is(button,a):hover]:bg-destructive/30"
 
 // BubbleContent
-"w-fit max-w-full min-w-0 overflow-hidden rounded-xl border border-transparent px-3 py-2 text-sm leading-relaxed wrap-break-word group-data-[align=end]/bubble:self-end [button]:text-left [button,a]:transition-colors [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/50"
+"w-fit max-w-full min-w-0 overflow-hidden rounded-xl border border-transparent px-3 py-2 text-sm leading-relaxed wrap-break-word group-data-[align=End]/bubble:self-end [button]:text-left [button,a]:transition-colors [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/50"
 
 // BubbleReactions (absolute chip strip, positioned by side/align data attrs)
 "absolute z-10 flex w-fit shrink-0 items-center justify-center gap-1 rounded-full bg-muted px-1.5 py-0.5 text-sm ring-3 ring-card has-[button]:p-0"
@@ -496,31 +529,32 @@ Attachment            — #[component], size + orientation + state props
 ### CSS classes
 ```rust
 // AttachmentGroup
-"flex min-w-0 scroll-fade-x snap-x snap-mandatory scroll-px-1 scrollbar-none gap-3 overflow-x-auto overscroll-x-contain py-1 *:data-[slot=attachment]:flex-none *:data-[slot=attachment]:snap-start"
+"flex min-w-0 scroll-fade-x snap-x snap-mandatory scroll-px-1 scrollbar-none gap-3 overflow-x-auto overscroll-x-contain py-1 *:data-[name=Attachment]:flex-none *:data-[name=Attachment]:snap-start"
 
 // Attachment base
-"group/attachment relative flex w-fit max-w-full min-w-0 shrink-0 flex-wrap rounded-xl border bg-card text-card-foreground transition-colors focus-within:ring-1 focus-within:ring-ring/50 has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed"
-// size=default → "gap-2 text-sm has-data-[slot=attachment-content]:px-2.5 has-data-[slot=attachment-content]:py-2 has-data-[slot=attachment-media]:p-2"
-// size=sm      → "gap-2.5 text-xs has-data-[slot=attachment-content]:px-2 has-data-[slot=attachment-content]:py-1.5 has-data-[slot=attachment-media]:p-1.5"
-// size=xs      → "gap-1.5 rounded-lg text-xs has-data-[slot=attachment-content]:px-1.5 has-data-[slot=attachment-content]:py-1 has-data-[slot=attachment-media]:p-1"
-// orientation=horizontal → "min-w-40 items-center"
-// orientation=vertical   → "w-24 flex-col has-data-[slot=attachment-content]:w-30"
+"group/attachment relative flex w-fit max-w-full min-w-0 shrink-0 flex-wrap rounded-xl border bg-card text-card-foreground transition-colors focus-within:ring-1 focus-within:ring-ring/50 has-[>a,>button]:hover:bg-muted/50 data-[state=Error]:border-destructive/30 data-[state=Idle]:border-dashed"
+// size=Default → "gap-2 text-sm has-data-[name=AttachmentContent]:px-2.5 has-data-[name=AttachmentContent]:py-2 has-data-[name=AttachmentMedia]:p-2"
+// size=Sm      → "gap-2.5 text-xs has-data-[name=AttachmentContent]:px-2 has-data-[name=AttachmentContent]:py-1.5 has-data-[name=AttachmentMedia]:p-1.5"
+// size=Xs      → "gap-1.5 rounded-lg text-xs has-data-[name=AttachmentContent]:px-1.5 has-data-[name=AttachmentContent]:py-1 has-data-[name=AttachmentMedia]:p-1"
+// orientation=Horizontal → "min-w-40 items-center"
+// orientation=Vertical   → "w-24 flex-col has-data-[name=AttachmentContent]:w-30"
 
 // AttachmentMedia base
-"relative flex aspect-square w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted text-foreground group-data-[orientation=vertical]/attachment:w-full group-data-[size=sm]/attachment:w-8 group-data-[size=xs]/attachment:w-7 group-data-[size=xs]/attachment:rounded-md group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive group-data-[orientation=vertical]/attachment:*:data-[slot=spinner]:size-6! [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 group-data-[orientation=vertical]/attachment:[&_svg:not([class*='size-'])]:size-6 group-data-[size=xs]/attachment:[&_svg:not([class*='size-'])]:size-3.5"
-// variant=image → "opacity-60 group-data-[state=done]/attachment:opacity-100 group-data-[state=idle]/attachment:opacity-100 *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover"
+// Note: Spinner has no data-name in our project — target via SVG selector instead
+"relative flex aspect-square w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted text-foreground group-data-[orientation=Vertical]/attachment:w-full group-data-[size=Sm]/attachment:w-8 group-data-[size=Xs]/attachment:w-7 group-data-[size=Xs]/attachment:rounded-md group-data-[state=Error]/attachment:bg-destructive/10 group-data-[state=Error]/attachment:text-destructive [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 group-data-[orientation=Vertical]/attachment:[&_svg:not([class*='size-'])]:size-6 group-data-[size=Xs]/attachment:[&_svg:not([class*='size-'])]:size-3.5"
+// variant=image → "opacity-60 group-data-[state=Done]/attachment:opacity-100 group-data-[state=Idle]/attachment:opacity-100 *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover"
 
 // AttachmentContent (NOT flex-col — just flex-1 with leading-tight)
-"max-w-full min-w-0 flex-1 leading-tight group-data-[orientation=vertical]/attachment:px-1"
+"max-w-full min-w-0 flex-1 leading-tight group-data-[orientation=Vertical]/attachment:px-1"
 
 // AttachmentTitle
-"block max-w-full min-w-0 truncate font-medium group-data-[state=processing]/attachment:shimmer group-data-[state=uploading]/attachment:shimmer"
+"block max-w-full min-w-0 truncate font-medium group-data-[state=Processing]/attachment:shimmer group-data-[state=Uploading]/attachment:shimmer"
 
 // AttachmentDescription
-"mt-0.5 block min-w-0 truncate text-xs text-muted-foreground group-data-[state=error]/attachment:text-destructive/80 max-w-full"
+"mt-0.5 block min-w-0 truncate text-xs text-muted-foreground group-data-[state=Error]/attachment:text-destructive/80 max-w-full"
 
 // AttachmentActions
-"relative z-20 flex shrink-0 items-center group-data-[orientation=vertical]/attachment:absolute group-data-[orientation=vertical]/attachment:top-3 group-data-[orientation=vertical]/attachment:right-3 group-data-[orientation=vertical]/attachment:gap-1"
+"relative z-20 flex shrink-0 items-center group-data-[orientation=Vertical]/attachment:absolute group-data-[orientation=Vertical]/attachment:top-3 group-data-[orientation=Vertical]/attachment:right-3 group-data-[orientation=Vertical]/attachment:gap-1"
 
 // AttachmentTrigger
 "absolute inset-0 z-10 outline-none"

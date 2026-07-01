@@ -1312,6 +1312,31 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** input (ui)
     *** cargo: strum
   ** label (ui)
+* demo_marker (demos)
+  ** cargo: icons/leptos
+  ** marker (ui)
+* demo_marker_accordion (demos)
+  ** cargo: icons/leptos
+  ** accordion (ui)
+    *** cargo: icons/leptos
+    *** use_random (hooks)
+  ** marker (ui)
+  ** spinner (ui)
+    *** cargo: icons/leptos
+* demo_marker_border (demos)
+  ** cargo: icons/leptos
+  ** marker (ui)
+* demo_marker_drawer (demos)
+  ** cargo: icons/leptos
+  ** drawer (ui)
+    *** js: /app_components/vaul_drawer.js
+    *** button (ui)
+  ** marker (ui)
+* demo_marker_separator (demos)
+  ** cargo: icons/leptos
+  ** marker (ui)
+  ** spinner (ui)
+    *** cargo: icons/leptos
 * demo_marquee (demos)
   ** image (ui)
   ** marquee (ui)
@@ -1749,6 +1774,7 @@ Each dependency level is shown with progressive bullet points: * for components,
 * kbd (ui)
 * label (ui)
 * link (ui)
+* marker (ui)
 * marquee (ui)
   ** mask (ui)
 * mask (ui)
