@@ -1,5 +1,5 @@
-use leptos::prelude::*;
 use icons::Plus;
+use leptos::prelude::*;
 use registry::ui::button::{Button, ButtonSize};
 use registry::ui::separator::{Separator, SeparatorOrientation};
 use registry::ui::theme_toggle::ThemeToggle;

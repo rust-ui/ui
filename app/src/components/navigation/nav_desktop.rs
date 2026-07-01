@@ -54,12 +54,12 @@ pub fn NavDesktop() -> impl IntoView {
             >
                 Charts
             </Link>
-            // <Link
-            //     href=RoutePaths::WORKFLOWS
-            //     class="inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent"
-            // >
-            //     Workflows
-            // </Link>
+        // <Link
+        // href=RoutePaths::WORKFLOWS
+        // class="inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent"
+        // >
+        // Workflows
+        // </Link>
         </div>
     }
 }

@@ -1,4 +1,4 @@
-use icons::{FileText, GitBranch, NotepadText};
+use icons::{FileText, GitBranch, Search};
 use leptos::prelude::*;
 
 use crate::ui::marker::{Marker, MarkerContent, MarkerIcon, MarkerVariant};
@@ -6,18 +6,24 @@ use crate::ui::marker::{Marker, MarkerContent, MarkerIcon, MarkerVariant};
 #[component]
 pub fn DemoMarkerBorder() -> impl IntoView {
     view! {
-        <div class="flex w-full flex-col gap-3">
+        <div class="flex flex-col gap-3 py-12 w-full max-w-sm">
             <Marker variant=MarkerVariant::Border>
-                <MarkerIcon><GitBranch /></MarkerIcon>
-                <MarkerContent>"Switched to branch " <strong>"feat/streaming"</strong></MarkerContent>
+                <MarkerIcon>
+                    <GitBranch />
+                </MarkerIcon>
+                <MarkerContent>"Switched to release-candidate"</MarkerContent>
             </Marker>
             <Marker variant=MarkerVariant::Border>
-                <MarkerIcon><FileText /></MarkerIcon>
-                <MarkerContent>"Reviewing " <strong>"3 files"</strong> " changed"</MarkerContent>
+                <MarkerIcon>
+                    <Search />
+                </MarkerIcon>
+                <MarkerContent>"Reviewed 8 related files"</MarkerContent>
             </Marker>
             <Marker variant=MarkerVariant::Border>
-                <MarkerIcon><NotepadText /></MarkerIcon>
-                <MarkerContent>"Notes opened"</MarkerContent>
+                <MarkerIcon>
+                    <FileText />
+                </MarkerIcon>
+                <MarkerContent>"Opened implementation notes"</MarkerContent>
             </Marker>
         </div>
     }

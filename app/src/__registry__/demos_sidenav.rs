@@ -12,13 +12,8 @@ pub fn get_all_arc_demos_for_components() -> Vec<(&'static str, Arc<Vec<Registry
 }
 
 pub fn get_all_arc_demos_for_hooks() -> Vec<(&'static str, Arc<Vec<RegistryEntry>>)> {
-    vec![
-        ("Get Started", Arc::new(SHARED_GET_STARTED.to_vec())),
-        ("Hooks", Arc::new(ALL_SIDENAV_HOOKS.to_vec())),
-    ]
+    vec![("Get Started", Arc::new(SHARED_GET_STARTED.to_vec())), ("Hooks", Arc::new(ALL_SIDENAV_HOOKS.to_vec()))]
 }
-
-
 
 /* ========================================================== */
 /*                     ✨ CONSTANTS ✨                        */
@@ -604,7 +599,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         title: "Marker",
         path_url: "marker",
         path_md: "public/docs/components/marker.md",
-        description: "A contextual event row for chat transcripts — separators, system events, and branch/file activity markers.",
+        description: "Displays an inline status, system note, bordered row, or labeled separator in a conversation.",
         tags: &[],
         image: "/images/thumbnails/marker.webp",
         image_dark: "/images/thumbnails/marker-dark.webp",
@@ -1022,4 +1017,3 @@ pub const ALL_SIDENAV_HOOKS: &[RegistryEntry] = &[
         order: None,
     },
 ];
-

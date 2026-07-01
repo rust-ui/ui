@@ -17,6 +17,11 @@
 
 ---
 
+> ### 🚨 DEMOS RULE — NON-NEGOTIABLE
+> **Always port the EXACT shadcn demos.** Same content, same text, same icons, same wrapper classes (`flex w-full max-w-sm flex-col gap-8 py-12`). Do NOT invent demo content or create demos that don't exist in shadcn. Check shadcn source first, then copy. If a pattern can't be ported 1:1, add a `// TODO PORT:` comment explaining the difference.
+
+---
+
 ## Files to Create
 
 ### UI components
@@ -357,14 +362,32 @@ Marker        — #[component], variant: MarkerVariant (strum::Display)
 "min-w-0 wrap-break-word group-data-[variant=Separator]/marker:flex-none group-data-[variant=Separator]/marker:text-center *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground"
 ```
 
-### Demos ✅ DONE
-| File | Shows |
-|------|-------|
-| `demo_marker.rs` | Default: user joined/left events with icon |
-| `demo_marker_border.rs` | Border: git branch switch, file review, notes opened |
-| `demo_marker_separator.rs` | Separator: Spinner, shimmer text, check icon, link |
-| `demo_marker_accordion.rs` | Separator wrapping Accordion (codebase exploration) |
-| `demo_marker_drawer.rs` | Separator containing Drawer trigger (file activity log) |
+### Demos ✅ DONE — exact shadcn demos
+**Rule: always port the EXACT shadcn demos, same content, same wrapper (`max-w-sm py-12 gap-8`).**
+
+| File | shadcn source | Shows |
+|------|---------------|-------|
+| `demo_marker.rs` | `marker-demo` | GitBranch, Spinner+shimmer, Separator, Search |
+| `demo_marker_variants.rs` | `marker-variants` | Default / Separator / Border text-only |
+| `demo_marker_status.rs` | `marker-status` | Spinner in default + separator with role="status" |
+| `demo_marker_shimmer.rs` | `marker-shimmer` | shimmer text only, no icon |
+| `demo_marker_separator.rs` | `marker-separator` | Today / Worked for 42s / Conversation compacted |
+| `demo_marker_border.rs` | `marker-border` | GitBranch / Search / FileText border rows |
+| `demo_marker_icon.rs` | `marker-icon` | Default, Separator with icon, flex-col stacked |
+| `demo_marker_link_button.rs` | `marker-link-button` | href=<a>, on_click=<button> |
+| `demo_shimmer_marker.rs` | `shimmer-marker` | Spinner+shimmer default + separator |
+
+### Marker also supports `href` and `on_click`
+```rust
+// href → renders <a>
+<Marker href="#pr-link">...</Marker>
+// on_click → renders <button>
+<Marker on_click=Callback::new(move |_| { ... })>...</Marker>
+```
+
+### TODO PORT notes (Marker)
+- **`render` prop → `href`/`on_click`**: shadcn uses `render={<a href="..." />}` (asChild). We use two explicit props. Comment in `marker.rs` and `demo_marker_link_button.rs`.
+- **`toast()` → `web_sys::window().alert_with_message()`**: in `demo_marker_link_button.rs`, shadcn calls `toast(...)`. We use a browser alert since wiring sonner in a standalone demo is disproportionate.
 
 ---
 
@@ -402,6 +425,10 @@ Message        — #[component], align: MessageAlign
 // MessageFooter
 "flex max-w-full min-w-0 items-center px-3 text-xs font-medium text-muted-foreground group-has-data-[variant=Ghost]/message:px-0 group-data-[align=End]/message:justify-end"
 ```
+
+### TODO PORT notes (Message)
+- **`*:data-name:self-end` presence selector**: shadcn uses `*:data-[slot]:self-end` (any child with data-slot attr gets `self-end`). Our equivalent is `*:data-name:self-end`. Verify Tailwind v4 supports this presence selector; if not, may need explicit selectors per child type.
+- **`group-has-data-[name=MessageFooter]/message:-translate-y-8`**: complex nested group selector. If avatar sliding doesn't work, check Tailwind v4 support for `group-has-data-[name=X]/scope` syntax.
 
 ### Demos (8)
 | File | Shows |
@@ -495,6 +522,11 @@ Note: `text-foreground` is required on tinted (NOT `text-primary-foreground`).
 ### BubbleReactions defaults
 `side` default = `Bottom`, `align` default = `End` (right-aligned, below bubble).
 
+### TODO PORT notes (Bubble)
+- **`BubbleContent asChild`**: shadcn `BubbleContent` accepts `asChild` to render as `<button>` or `<a>`. We always render `<div>`. For interactive bubbles, wrap children in a button/link inside `BubbleContent`. Comment needed in `bubble.rs`.
+- **`demo_bubble_reactions_buttons.rs` toast**: shadcn calls `toast()` on reaction click. Use `web_sys::window().alert_with_message()` instead. Add `// TODO PORT:` comment.
+- **Variant classes on Bubble target BubbleContent via `*:data-[name=BubbleContent]`**: this is a parent→child CSS targeting pattern. Verify it renders correctly — if not, move variant classes directly to `BubbleContent`.
+
 ### Demos (8)
 | File | Shows |
 |------|-------|
@@ -576,6 +608,12 @@ pub fn AttachmentTrigger(
     }
 }
 ```
+
+### TODO PORT notes (Attachment)
+- **`AttachmentTrigger` renders no children** (overlay anchor): shadcn renders it as an invisible full-cover `<a>` or `<button>`. No children needed. Make sure `aria-label` is required in Leptos component.
+- **`AttachmentAction` wraps Button**: shadcn passes `asChild` to Button. In Leptos, `AttachmentAction` should directly render a ghost icon-xs `<button>` (or wrap our `Button` with those variant props). Comment in `attachment.rs`.
+- **`demo_attachment_triggers.rs` Dialog trigger**: shadcn opens a Dialog on click. Use `web_sys` alert as placeholder, or skip Dialog and just show a button state. Add `// TODO PORT:`.
+- **Spinner in AttachmentMedia**: `AttachmentMedia` shows `<Spinner />` during uploading state, but we can't target it via `data-name` (Spinner has no such attr). Use SVG selector `[&_svg]` as already planned in CSS.
 
 ### Demos (8)
 | File | Shows |

@@ -1,39 +1,19 @@
-use icons::{Check, Link};
 use leptos::prelude::*;
 
-use crate::ui::marker::{Marker, MarkerContent, MarkerIcon, MarkerVariant};
-use crate::ui::spinner::Spinner;
+use crate::ui::marker::{Marker, MarkerContent, MarkerVariant};
 
 #[component]
 pub fn DemoMarkerSeparator() -> impl IntoView {
     view! {
-        <div class="flex w-full flex-col gap-4">
-            // Spinner + shimmer text (streaming / thinking state)
-            <Marker variant=MarkerVariant::Separator>
-                <MarkerIcon><Spinner /></MarkerIcon>
-                <MarkerContent>
-                    <span class="shimmer">"Thinking…"</span>
-                </MarkerContent>
-            </Marker>
-
-            // Check icon (completed)
-            <Marker variant=MarkerVariant::Separator>
-                <MarkerIcon><Check /></MarkerIcon>
-                <MarkerContent>"Done"</MarkerContent>
-            </Marker>
-
-            // Link inside content
-            <Marker variant=MarkerVariant::Separator>
-                <MarkerContent>
-                    <Link class="inline size-3" />
-                    " "
-                    <a href="#">"View sources"</a>
-                </MarkerContent>
-            </Marker>
-
-            // Plain text separator
+        <div class="flex flex-col gap-8 py-12 w-full max-w-sm">
             <Marker variant=MarkerVariant::Separator>
                 <MarkerContent>"Today"</MarkerContent>
+            </Marker>
+            <Marker variant=MarkerVariant::Separator>
+                <MarkerContent>"Worked for 42s"</MarkerContent>
+            </Marker>
+            <Marker variant=MarkerVariant::Separator>
+                <MarkerContent>"Conversation compacted"</MarkerContent>
             </Marker>
         </div>
     }
