@@ -12,13 +12,8 @@ pub fn get_all_arc_demos_for_components() -> Vec<(&'static str, Arc<Vec<Registry
 }
 
 pub fn get_all_arc_demos_for_hooks() -> Vec<(&'static str, Arc<Vec<RegistryEntry>>)> {
-    vec![
-        ("Get Started", Arc::new(SHARED_GET_STARTED.to_vec())),
-        ("Hooks", Arc::new(ALL_SIDENAV_HOOKS.to_vec())),
-    ]
+    vec![("Get Started", Arc::new(SHARED_GET_STARTED.to_vec())), ("Hooks", Arc::new(ALL_SIDENAV_HOOKS.to_vec()))]
 }
-
-
 
 /* ========================================================== */
 /*                     ✨ CONSTANTS ✨                        */
@@ -235,6 +230,17 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         image: "/images/thumbnails/breadcrumb.webp",
         image_dark: "/images/thumbnails/breadcrumb-dark.webp",
         is_new: false,
+        order: None,
+    },
+    RegistryEntry {
+        title: "Bubble",
+        path_url: "bubble",
+        path_md: "public/docs/components/bubble.md",
+        description: "Displays a chat message bubble with multiple style variants and an optional reactions overlay.",
+        tags: &[],
+        image: "/images/thumbnails/_placeholder.webp",
+        image_dark: "/images/thumbnails/_placeholder-dark.webp",
+        is_new: true,
         order: None,
     },
     RegistryEntry {
@@ -1044,4 +1050,3 @@ pub const ALL_SIDENAV_HOOKS: &[RegistryEntry] = &[
         order: None,
     },
 ];
-

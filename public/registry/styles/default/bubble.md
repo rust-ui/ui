@@ -5,6 +5,8 @@ cargo_dependencies: []
 registry_dependencies: []
 type: "components:ui"
 path: "ui/bubble.rs"
+description: "Displays a chat message bubble with multiple style variants and an optional reactions overlay."
+tags: []
 ---
 
 # Bubble
