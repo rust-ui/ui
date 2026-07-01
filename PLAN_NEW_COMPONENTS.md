@@ -10,15 +10,25 @@
 | Component | UI file | Demos | Doc | Registry |
 |-----------|---------|-------|-----|----------|
 | Marker | ✅ Done | ✅ Done (5) | ✅ Done | ✅ Done |
-| Message | ⬜ Todo | ⬜ Todo (8) | ⬜ Todo | ⬜ Todo |
-| Bubble | ⬜ Todo | ⬜ Todo (8) | ⬜ Todo | ⬜ Todo |
-| Attachment | ⬜ Todo | ⬜ Todo (8) | ⬜ Todo | ⬜ Todo |
+| Message | ⬜ Todo | ⬜ Todo (6) | ⬜ Todo | ⬜ Todo |
+| Bubble | ⬜ Todo | ⬜ Todo (9) | ⬜ Todo | ⬜ Todo |
+| Attachment | ⬜ Todo | ⬜ Todo (6) | ⬜ Todo | ⬜ Todo |
 | MessageScroller | ⬜ Todo | ⬜ Todo | ⬜ Todo | ⬜ Todo |
 
 ---
 
-> ### 🚨 DEMOS RULE — NON-NEGOTIABLE
-> **Always port the EXACT shadcn demos.** Same content, same text, same icons, same wrapper classes (`flex w-full max-w-sm flex-col gap-8 py-12`). Do NOT invent demo content or create demos that don't exist in shadcn. Check shadcn source first, then copy. If a pattern can't be ported 1:1, add a `// TODO PORT:` comment explaining the difference.
+> ### 🚨 PORTING RULES — NON-NEGOTIABLE
+>
+> **Components:**
+> - Port EXACTLY from shadcn source. Same CSS classes, same composition, same props (adapted for Leptos).
+> - Convert `data-slot` → `data-name`. Convert enum string values to PascalCase (strum::Display).
+> - If shadcn uses `asChild`/`render` prop (Radix Slot): split into `href: Option<String>` (→ `<a>`) and `on_click: Option<Callback>` (→ `<button>`), fallback to `<div>`.
+> - If a CSS selector or behavior can't be ported 1:1, add a `// TODO PORT: <explanation>` comment in the component file.
+>
+> **Demos:**
+> - Port EXACT shadcn demos only. Same content, same text, same icons, same wrapper (`flex w-full max-w-sm flex-col gap-8 py-12`).
+> - Do NOT invent demos that don't exist in shadcn. Check MDX docs for which demos are shown.
+> - If a demo uses `toast()`, `asChild`, Dialog, or any pattern that can't be ported 1:1, add a `// TODO PORT: <explanation>` comment in the demo file.
 
 ---
 
@@ -430,17 +440,15 @@ Message        — #[component], align: MessageAlign
 - **`*:data-name:self-end` presence selector**: shadcn uses `*:data-[slot]:self-end` (any child with data-slot attr gets `self-end`). Our equivalent is `*:data-name:self-end`. Verify Tailwind v4 supports this presence selector; if not, may need explicit selectors per child type.
 - **`group-has-data-[name=MessageFooter]/message:-translate-y-8`**: complex nested group selector. If avatar sliding doesn't work, check Tailwind v4 support for `group-has-data-[name=X]/scope` syntax.
 
-### Demos (8)
-| File | Shows |
-|------|-------|
-| `demo_message.rs` | Basic Message + Bubble |
-| `demo_message_avatar.rs` | With Avatar component in MessageAvatar |
-| `demo_message_group.rs` | MessageGroup: sequential bubbles, avatar hidden on follow-ups |
-| `demo_message_group_chat.rs` | Full thread: Start (assistant) + End (user) sides |
-| `demo_message_header_footer.rs` | Timestamp in header, action links in footer |
-| `demo_message_actions.rs` | Footer with Copy/Retry/React icon buttons |
-| `demo_message_attachment.rs` | Attachment inside MessageContent |
-| `demo_message_attachment_group.rs` | AttachmentGroup (multiple files) in MessageContent |
+### Demos (6) — exact shadcn MDX demos
+| File | shadcn source | Shows |
+|------|---------------|-------|
+| `demo_message.rs` | `message-demo` | Avatar + bubble, Marker below (assistant + user thread) |
+| `demo_message_avatar.rs` | `message-avatar` | MessageAvatar with Avatar, start + end alignment |
+| `demo_message_group.rs` | `message-group` | MessageGroup: sequential bubbles, empty avatar on follow-ups |
+| `demo_message_header_footer.rs` | `message-header-footer` | Sender name in header, timestamp in footer |
+| `demo_message_actions.rs` | `message-actions` | Footer with Copy/Retry/Thumbs Up icon buttons |
+| `demo_message_attachment.rs` | `message-attachment` | Attachment inside MessageContent |
 
 ---
 
@@ -450,7 +458,7 @@ Message        — #[component], align: MessageAlign
 ```
 BubbleGroup     — clx! div
 Bubble          — #[component], variant + align props
-  BubbleContent   — #[component] (has optional children)
+  BubbleContent   — #[component], href/on_click props (asChild replacement), renders <a>|<button>|<div>
   BubbleReactions — #[component], side + align props
 ```
 
@@ -522,22 +530,39 @@ Note: `text-foreground` is required on tinted (NOT `text-primary-foreground`).
 ### BubbleReactions defaults
 `side` default = `Bottom`, `align` default = `End` (right-aligned, below bubble).
 
-### TODO PORT notes (Bubble)
-- **`BubbleContent asChild`**: shadcn `BubbleContent` accepts `asChild` to render as `<button>` or `<a>`. We always render `<div>`. For interactive bubbles, wrap children in a button/link inside `BubbleContent`. Comment needed in `bubble.rs`.
-- **`demo_bubble_reactions_buttons.rs` toast**: shadcn calls `toast()` on reaction click. Use `web_sys::window().alert_with_message()` instead. Add `// TODO PORT:` comment.
-- **Variant classes on Bubble target BubbleContent via `*:data-[name=BubbleContent]`**: this is a parent→child CSS targeting pattern. Verify it renders correctly — if not, move variant classes directly to `BubbleContent`.
+### BubbleContent implementation — needs `on_click`
+shadcn `BubbleContent` uses `asChild` to render as `<button>` (see `bubble-link-button` demo).
+We use same `href`/`on_click` split as Marker:
 
-### Demos (8)
-| File | Shows |
-|------|-------|
-| `demo_bubble.rs` | Default bubble |
-| `demo_bubble_variants.rs` | All 7 variants with description text |
-| `demo_bubble_alignment.rs` | Start vs End alignment |
-| `demo_bubble_grouped.rs` | MessageGroup thread with multiple bubbles |
-| `demo_bubble_reactions.rs` | BubbleReactions with emoji spans |
-| `demo_bubble_reactions_buttons.rs` | BubbleReactions as clickable buttons + toast |
-| `demo_bubble_collapsible.rs` | Bubble wrapping Collapsible (tool-call expand) |
-| `demo_bubble_button_links.rs` | Bubble with inline buttons and anchor links |
+```rust
+// TODO PORT: shadcn uses `BubbleContent asChild` (Radix Slot) to swap element type.
+// We split into href (→ <a>) and on_click (→ <button>), fallback to <div>.
+#[component]
+pub fn BubbleContent(
+    #[prop(optional, into)] href: Option<String>,
+    #[prop(optional)] on_click: Option<Callback<ev::MouseEvent>>,
+    #[prop(optional, into)] class: String,
+    children: Children,
+) -> impl IntoView { ... }
+```
+
+### TODO PORT notes (Bubble)
+- **`BubbleContent asChild`**: shadcn uses `asChild` + Radix Slot. We split into `href`/`on_click` props (same as Marker). `bubble-link-button` demo uses `on_click` for all 3 tinted buttons.
+- **`toast()` in demos**: reactions demo and link-button demo call `toast()`. Use `web_sys::window().alert_with_message()`. Add `// TODO PORT:` comment in those demos.
+- **Variant classes on Bubble target BubbleContent via `*:data-[name=BubbleContent]`**: parent→child CSS targeting. Verify it renders correctly — if not, move variant classes directly to `BubbleContent`.
+
+### Demos (9) — exact shadcn MDX demos
+| File | shadcn source | Shows |
+|------|---------------|-------|
+| `demo_bubble.rs` | `bubble-demo` | Default bubble with reactions |
+| `demo_bubble_variants.rs` | `bubble-variants` | All 7 variants with text |
+| `demo_bubble_alignment.rs` | `bubble-alignment` | Start vs End alignment |
+| `demo_bubble_grouped.rs` | `bubble-group-demo` | BubbleGroup with consecutive bubbles |
+| `demo_bubble_link_button.rs` | `bubble-link-button` | Tinted on_click buttons (forgot password, etc.) |
+| `demo_bubble_reactions.rs` | `bubble-reactions` | Emoji reactions + button reaction (Yes, run it) |
+| `demo_bubble_collapsible.rs` | `bubble-collapsible` | Bubble + Collapsible (show more/less) |
+| `demo_bubble_tooltip.rs` | `bubble-tooltip` | Bubble wrapped in Tooltip |
+| `demo_bubble_popover.rs` | `bubble-popover` | Bubble paired with Popover |
 
 ---
 
@@ -610,22 +635,19 @@ pub fn AttachmentTrigger(
 ```
 
 ### TODO PORT notes (Attachment)
-- **`AttachmentTrigger` renders no children** (overlay anchor): shadcn renders it as an invisible full-cover `<a>` or `<button>`. No children needed. Make sure `aria-label` is required in Leptos component.
-- **`AttachmentAction` wraps Button**: shadcn passes `asChild` to Button. In Leptos, `AttachmentAction` should directly render a ghost icon-xs `<button>` (or wrap our `Button` with those variant props). Comment in `attachment.rs`.
-- **`demo_attachment_triggers.rs` Dialog trigger**: shadcn opens a Dialog on click. Use `web_sys` alert as placeholder, or skip Dialog and just show a button state. Add `// TODO PORT:`.
-- **Spinner in AttachmentMedia**: `AttachmentMedia` shows `<Spinner />` during uploading state, but we can't target it via `data-name` (Spinner has no such attr). Use SVG selector `[&_svg]` as already planned in CSS.
+- **`AttachmentTrigger` is plain `<button>` by default**: shadcn demo wraps it with `<DialogTrigger asChild><AttachmentTrigger /></DialogTrigger>`. In Leptos, our Dialog trigger wraps content differently — `AttachmentTrigger` stays as a plain `<button>` with `on_click` for the dialog case. For the demo, use our project's Dialog component. Add `// TODO PORT:` in `demo_attachment_trigger.rs`.
+- **`AttachmentAction` wraps `Button`**: shadcn passes props to Button (ghost, icon-xs defaults). In Leptos, render our `<Button variant=Ghost size=IconXs>` directly inside `AttachmentAction`. Add `// TODO PORT:` in `attachment.rs`.
+- **Spinner in `AttachmentMedia`**: shadcn targets it via `*:data-[slot=spinner]:size-6!`. Our Spinner has no `data-name` attr (it's a `#[component]` rendering `<Loader>` SVG). Use SVG selector `[&_svg]:size-6` in the group-data-[orientation=Vertical] case.
 
-### Demos (8)
-| File | Shows |
-|------|-------|
-| `demo_attachment.rs` | File attachments: PDF, code file, zip |
-| `demo_attachment_content_only.rs` | No AttachmentMedia, content only |
-| `demo_attachment_states.rs` | Idle / Uploading (Spinner) / Processing / Error / Done |
-| `demo_attachment_images.rs` | Image variant, vertical orientation |
-| `demo_attachment_image_states.rs` | Image upload states |
-| `demo_attachment_sizes.rs` | Default / Sm / Xs |
-| `demo_attachment_group.rs` | Horizontal scrollable AttachmentGroup (snap scroll) |
-| `demo_attachment_triggers.rs` | Remove action button + Dialog trigger via href |
+### Demos (6) — exact shadcn MDX demos
+| File | shadcn source | Shows |
+|------|---------------|-------|
+| `demo_attachment.rs` | `attachment-demo` | PDF + code file + zip with actions (X button) |
+| `demo_attachment_image.rs` | `attachment-image` | Image variant, vertical orientation |
+| `demo_attachment_states.rs` | `attachment-states` | Idle / Uploading (Spinner) / Processing / Error / Done |
+| `demo_attachment_sizes.rs` | `attachment-sizes` | Default / Sm / Xs |
+| `demo_attachment_group.rs` | `attachment-group` | Horizontal scrollable AttachmentGroup |
+| `demo_attachment_trigger.rs` | `attachment-trigger` | Full-card trigger opening Dialog |
 
 ---
 
