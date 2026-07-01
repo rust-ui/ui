@@ -20,6 +20,10 @@ Each dependency level is shown with progressive bullet points: * for components,
 * aspect_ratio (ui)
 * attachment (ui)
   ** button (ui)
+  ** dialog (ui)
+    *** cargo: icons/leptos
+    *** button (ui)
+    *** use_random (hooks)
 * auto_form (ui)
   ** cargo: serde
   ** cargo: validator
@@ -195,30 +199,58 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** cargo: icons/leptos
   ** attachment (ui)
     *** button (ui)
+    *** dialog (ui)
+      **** cargo: icons/leptos
+      **** button (ui)
+      **** use_random (hooks)
   ** spinner (ui)
     *** cargo: icons/leptos
 * demo_attachment_group (demos)
   ** cargo: icons/leptos
   ** attachment (ui)
     *** button (ui)
+    *** dialog (ui)
+      **** cargo: icons/leptos
+      **** button (ui)
+      **** use_random (hooks)
 * demo_attachment_image (demos)
   ** cargo: icons/leptos
   ** attachment (ui)
     *** button (ui)
+    *** dialog (ui)
+      **** cargo: icons/leptos
+      **** button (ui)
+      **** use_random (hooks)
 * demo_attachment_sizes (demos)
   ** cargo: icons/leptos
   ** attachment (ui)
     *** button (ui)
+    *** dialog (ui)
+      **** cargo: icons/leptos
+      **** button (ui)
+      **** use_random (hooks)
 * demo_attachment_states (demos)
   ** cargo: icons/leptos
   ** attachment (ui)
     *** button (ui)
+    *** dialog (ui)
+      **** cargo: icons/leptos
+      **** button (ui)
+      **** use_random (hooks)
   ** spinner (ui)
     *** cargo: icons/leptos
 * demo_attachment_trigger (demos)
   ** cargo: icons/leptos
   ** attachment (ui)
     *** button (ui)
+    *** dialog (ui)
+      **** cargo: icons/leptos
+      **** button (ui)
+      **** use_random (hooks)
+  ** dialog (ui)
+    *** cargo: icons/leptos
+    *** button (ui)
+    *** use_random (hooks)
 * demo_auto_form (demos)
   ** cargo: autoform
   ** cargo: serde
@@ -1424,6 +1456,10 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** cargo: icons/leptos
   ** attachment (ui)
     *** button (ui)
+    *** dialog (ui)
+      **** cargo: icons/leptos
+      **** button (ui)
+      **** use_random (hooks)
   ** bubble (ui)
   ** button (ui)
   ** message (ui)

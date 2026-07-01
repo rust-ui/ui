@@ -30,7 +30,7 @@ use crate::components::ui::bubble::{Bubble, BubbleAlign, BubbleContent, BubbleRe
 #[component]
 pub fn DemoBubbleVariants() -> impl IntoView {
     view! {
-        <div class="flex w-full max-w-sm flex-col gap-12 py-12">
+        <div class="flex flex-col gap-12 py-12 w-full max-w-sm">
             <Bubble>
                 <BubbleContent>"This is the default primary bubble."</BubbleContent>
             </Bubble>
@@ -38,9 +38,7 @@ pub fn DemoBubbleVariants() -> impl IntoView {
                 <BubbleContent>"This is the secondary variant."</BubbleContent>
             </Bubble>
             <Bubble variant=BubbleVariant::Muted>
-                <BubbleContent>
-                    "This one is muted. It uses a lower emphasis color for the chat bubble."
-                </BubbleContent>
+                <BubbleContent>"This one is muted. It uses a lower emphasis color for the chat bubble."</BubbleContent>
                 <BubbleReactions attr:role="img" attr:aria-label="Reaction: thumbs up">
                     <span>"👍"</span>
                 </BubbleReactions>

@@ -30,7 +30,7 @@ use crate::components::ui::bubble::{Bubble, BubbleContent, BubbleGroup, BubbleRe
 #[component]
 pub fn DemoBubble() -> impl IntoView {
     view! {
-        <div class="flex w-full max-w-sm flex-col gap-8 py-12">
+        <div class="flex flex-col gap-8 py-12 w-full max-w-sm">
             <Bubble align=crate::ui::bubble::BubbleAlign::End>
                 <BubbleContent>"Hey there! what's up?"</BubbleContent>
             </Bubble>
@@ -54,10 +54,7 @@ pub fn DemoBubble() -> impl IntoView {
                 <BubbleContent>
                     "Yes. You are reading a demo that is demoing itself. Very meta. Very on-brand."
                 </BubbleContent>
-                <BubbleReactions
-                    attr:role="img"
-                    attr:aria-label="Reactions: thumbs up, fire, eyes, and 2 more"
-                >
+                <BubbleReactions attr:role="img" attr:aria-label="Reactions: thumbs up, fire, eyes, and 2 more">
                     <span>"👍"</span>
                     <span>"🔥"</span>
                     <span>"👀"</span>

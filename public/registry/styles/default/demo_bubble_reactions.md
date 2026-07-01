@@ -31,7 +31,7 @@ use crate::components::ui::button::{Button, ButtonSize, ButtonVariant};
 #[component]
 pub fn DemoBubbleReactions() -> impl IntoView {
     view! {
-        <div class="flex w-full max-w-sm flex-col gap-12 py-12">
+        <div class="flex flex-col gap-12 py-12 w-full max-w-sm">
             <Bubble variant=BubbleVariant::Muted align=BubbleAlign::End>
                 <BubbleContent>"I don't need tests, I know my code works."</BubbleContent>
                 <BubbleReactions
@@ -44,22 +44,15 @@ pub fn DemoBubbleReactions() -> impl IntoView {
                 </BubbleReactions>
             </Bubble>
             <Bubble variant=BubbleVariant::Muted>
-                <BubbleContent>
-                    "Bold. Fine I'll add some tests. I'll let you know when they're done."
-                </BubbleContent>
-                <BubbleReactions
-                    attr:role="img"
-                    attr:aria-label="Reactions: eyes, rocket, and 2 more"
-                >
+                <BubbleContent>"Bold. Fine I'll add some tests. I'll let you know when they're done."</BubbleContent>
+                <BubbleReactions attr:role="img" attr:aria-label="Reactions: eyes, rocket, and 2 more">
                     <span>"👀"</span>
                     <span>"🚀"</span>
                     <span>"+2"</span>
                 </BubbleReactions>
             </Bubble>
             <Bubble align=BubbleAlign::End>
-                <BubbleContent>
-                    "Tests passed on the first try. All 142 of them. Looking good!"
-                </BubbleContent>
+                <BubbleContent>"Tests passed on the first try. All 142 of them. Looking good!"</BubbleContent>
                 <BubbleReactions
                     side=BubbleReactionsSide::Top
                     align=BubbleAlign::Start
@@ -78,9 +71,7 @@ pub fn DemoBubbleReactions() -> impl IntoView {
                         variant=ButtonVariant::Ghost
                         size=ButtonSize::Sm
                         on:click=move |_| {
-                            let _ = web_sys::window()
-                                .unwrap()
-                                .alert_with_message("Running command...");
+                            let _ = web_sys::window().and_then(|w| w.alert_with_message("Running command...").ok());
                         }
                     >
                         "Yes, run it"

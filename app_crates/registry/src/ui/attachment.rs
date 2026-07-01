@@ -4,6 +4,7 @@ use leptos_ui::clx;
 use tw_merge::tw_merge;
 
 use crate::ui::button::{Button, ButtonSize, ButtonVariant};
+use crate::ui::dialog::use_dialog_trigger_id;
 
 /* ========================================================== */
 /*                       Enums                                */
@@ -179,18 +180,19 @@ pub fn AttachmentTrigger(
     // TODO PORT: shadcn AttachmentTrigger uses Base UI useRender to become any element
     // (e.g. render={<a href="..."/>} makes it an <a>; used as DialogTrigger render target).
     // We split into href (→ <a>) and on_click (→ <button>), default <button>.
-    // DialogTrigger render integration cannot be ported 1:1 without Leptos Dialog support.
+    // When inside a <Dialog>, automatically sets data-dialog-trigger to wire the card as trigger.
     #[prop(optional, into)] href: Option<String>,
     #[prop(optional)] on_click: Option<Callback<ev::MouseEvent>>,
     #[prop(optional, into)] class: String,
 ) -> impl IntoView {
+    let dialog_id = use_dialog_trigger_id();
     let merged_class = tw_merge!("absolute inset-0 z-10 outline-none", class);
     match (href, on_click) {
         (Some(href), _) => view! { <a href=href class=merged_class data-name="AttachmentTrigger" /> }
         .into_any(),
         (_, Some(cb)) => view! { <button type="button" class=merged_class data-name="AttachmentTrigger" on:click=move |e| cb.run(e) /> }
         .into_any(),
-        _ => view! { <button type="button" class=merged_class data-name="AttachmentTrigger" /> }
+        _ => view! { <button type="button" class=merged_class data-name="AttachmentTrigger" data-dialog-trigger=dialog_id /> }
         .into_any(),
     }
 }

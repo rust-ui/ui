@@ -33,7 +33,7 @@ use crate::components::ui::popover::{Popover, PopoverContent, PopoverDescription
 #[component]
 pub fn DemoBubblePopover() -> impl IntoView {
     view! {
-        <div class="flex w-full max-w-sm flex-col gap-4 py-12">
+        <div class="flex flex-col gap-4 py-12 w-full max-w-sm">
             <Bubble align=BubbleAlign::End>
                 <BubbleContent>"Run the build script."</BubbleContent>
             </Bubble>
@@ -54,9 +54,7 @@ pub fn DemoBubblePopover() -> impl IntoView {
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent>
-                            <PopoverTitle class="text-sm">
-                                "Command failed with exit code 1"
-                            </PopoverTitle>
+                            <PopoverTitle class="text-sm">"Command failed with exit code 1"</PopoverTitle>
                             <PopoverDescription class="text-sm">
                                 "ENOENT: no such file or directory, open pnpm-lock.yaml"
                             </PopoverDescription>

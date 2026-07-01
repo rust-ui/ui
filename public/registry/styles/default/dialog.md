@@ -54,6 +54,12 @@ struct DialogContext {
     target_id: String,
 }
 
+/// Returns the dialog trigger ID when called inside a `<Dialog>` subtree.
+/// Use this to wire custom elements (e.g. AttachmentTrigger) as dialog triggers.
+pub fn use_dialog_trigger_id() -> Option<String> {
+    use_context::<DialogContext>().map(|c| c.target_id.clone())
+}
+
 #[component]
 pub fn Dialog(children: Children, #[prop(optional, into)] class: String) -> impl IntoView {
     let dialog_target_id = use_random_id_for("dialog");

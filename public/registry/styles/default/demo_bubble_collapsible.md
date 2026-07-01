@@ -39,28 +39,27 @@ pub fn DemoBubbleCollapsible() -> impl IntoView {
     let open = RwSignal::new(false);
 
     view! {
-        <div class="flex w-full max-w-sm flex-col gap-8 py-12">
+        <div class="flex flex-col gap-8 py-12 w-full max-w-sm">
             <Bubble variant=BubbleVariant::Muted>
                 <BubbleContent>"How can I help you today?"</BubbleContent>
             </Bubble>
             <Bubble variant=BubbleVariant::Muted align=BubbleAlign::End>
                 <BubbleContent class="whitespace-pre-line">
                     <Collapsible open=open>
-                        <div>
-                            {move || if open.get() { TEXT } else { &TEXT[..PREVIEW_LEN] }}
-                        </div>
+                        <div>{move || if open.get() { TEXT } else { &TEXT[..PREVIEW_LEN] }}</div>
                         // TODO PORT: shadcn CollapsibleTrigger uses render={<Button variant="link" .../>}
                         // (asChild pattern). Ported as CollapsibleTrigger wrapping a Button.
                         <CollapsibleTrigger>
-                            <Button
-                                variant=ButtonVariant::Link
-                                class="gap-1 p-0 text-muted-foreground"
-                            >
+                            <Button variant=ButtonVariant::Link class="gap-1 p-0 text-muted-foreground">
                                 {move || if open.get() { "Show less" } else { "Show more" }}
                                 <ChevronDown
                                     attr:data-icon="inline-end"
                                     attr:class=move || {
-                                        if open.get() { "rotate-180 transition-transform" } else { "transition-transform" }
+                                        if open.get() {
+                                            "rotate-180 transition-transform"
+                                        } else {
+                                            "transition-transform"
+                                        }
                                     }
                                 />
                             </Button>

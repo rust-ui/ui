@@ -34,7 +34,7 @@ use crate::components::ui::tooltip::{Tooltip, TooltipContent, TooltipProvider};
 pub fn DemoBubbleTooltip() -> impl IntoView {
     view! {
         <TooltipProvider />
-        <div class="flex w-full max-w-sm flex-col gap-4 py-12">
+        <div class="flex flex-col gap-4 py-12 w-full max-w-sm">
             <Bubble variant=BubbleVariant::Secondary>
                 <BubbleContent>"Did you remove the stale route?"</BubbleContent>
             </Bubble>
