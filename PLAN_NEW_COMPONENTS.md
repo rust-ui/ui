@@ -912,4 +912,4 @@ Full-thread demos (`demo_message_group_chat`, `demo_message_scroller`) built las
 4. Add demo mods to `demos/mod.rs`
 5. Create `public/docs/components/component.md`
 6. `cargo run` from `build_registry/` — regenerates `public/registry/*` + `__registry__`
-7. Update `public/docs/changelog.md`
+7. Update `public/docs/changelog.md` — group entries by month (`## Month YYYY`), never one section per component. If a month section exists, add new bullet under it. Use `_placeholder.webp` / `_placeholder-dark.webp` for component doc images when no specific thumbnail exists.
