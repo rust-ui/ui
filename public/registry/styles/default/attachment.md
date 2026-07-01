@@ -76,9 +76,9 @@ pub enum AttachmentMediaVariant {
 mod components {
     use super::*;
 
-    clx! { AttachmentContent, div, "flex min-w-0 flex-1 flex-col" }
+    clx! { AttachmentContent, div, "max-w-full min-w-0 flex-1 leading-tight group-data-[orientation=Vertical]/attachment:px-1" }
 
-    clx! { AttachmentTitle, span, "block min-w-0 truncate font-medium" }
+    clx! { AttachmentTitle, span, "block max-w-full min-w-0 truncate font-medium group-data-[state=Processing]/attachment:shimmer group-data-[state=Uploading]/attachment:shimmer" }
 
     clx! {
         AttachmentDescription,
@@ -173,13 +173,14 @@ pub fn AttachmentMedia(
     let merged_class = tw_merge!(
         // TODO PORT: all group-data-[x=y] use PascalCase y (enum strum::Display output):
         // orientation=Vertical, size=Sm/Xs, state=Error
-        // *:data-[slot=spinner] → *:data-[name=Spinner]
-        "relative flex aspect-square w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted text-foreground group-data-[orientation=Vertical]/attachment:w-full group-data-[size=Sm]/attachment:w-8 group-data-[size=Xs]/attachment:w-7 group-data-[size=Xs]/attachment:rounded-md group-data-[state=Error]/attachment:bg-destructive/10 group-data-[state=Error]/attachment:text-destructive group-data-[orientation=Vertical]/attachment:*:data-[name=Spinner]:size-6! [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 group-data-[orientation=Vertical]/attachment:[&_svg:not([class*='size-'])]:size-6 group-data-[size=Xs]/attachment:[&_svg:not([class*='size-'])]:size-3.5",
+        // Our Spinner does not expose a data-name on the rendered SVG, so size it via the SVG selector.
+        "relative flex aspect-square w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted text-foreground group-data-[orientation=Vertical]/attachment:w-full group-data-[size=Sm]/attachment:w-8 group-data-[size=Xs]/attachment:w-7 group-data-[size=Xs]/attachment:rounded-md group-data-[state=Error]/attachment:bg-destructive/10 group-data-[state=Error]/attachment:text-destructive [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 group-data-[orientation=Vertical]/attachment:[&_svg:not([class*='size-'])]:size-6 group-data-[size=Xs]/attachment:[&_svg:not([class*='size-'])]:size-3.5",
         variant_class,
         class
     );
+    let variant_str = variant.to_string();
     view! {
-        <div class=merged_class data-name="AttachmentMedia">
+        <div class=merged_class data-name="AttachmentMedia" data-variant=variant_str>
             {children()}
         </div>
     }
@@ -196,7 +197,7 @@ pub fn AttachmentAction(
     let variant = variant.unwrap_or(ButtonVariant::Ghost);
     let size = size.unwrap_or(ButtonSize::IconXs);
     view! {
-        <Button variant=variant size=size class=class>
+        <Button variant=variant size=size class=class attr:data-name="AttachmentAction">
             {children()}
         </Button>
     }

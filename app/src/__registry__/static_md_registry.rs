@@ -1,7 +1,7 @@
 use app_domain::markdown_config::registry_entry::RegistryEntry;
 use leptos::prelude::*;
 use markdown_crate::setup_shared::setup_shared;
-use markdown_crate::{LeptosConverter, MdComponents, MdFile};
+use markdown_crate::{LeptosConverter, MdComponentProps, MdComponents, MdFile};
 use strum::{AsRefStr, EnumString};
 
 use crate::domain::markdown_ui::components::static_demo_wrapper::StaticDemoWrapper;
@@ -29,196 +29,7 @@ pub fn MyMd(
     combined_components.extend(md_components);
 
     // Inline component registrations
-    combined_components.add("StaticAccordion", StaticDemoAccordion);
-    combined_components.add("StaticAccordionBordered", StaticDemoAccordionBordered);
-    combined_components.add("StaticAccordionCard", StaticDemoAccordionCard);
-    combined_components.add("StaticAccordionIcons", StaticDemoAccordionIcons);
-    combined_components.add("StaticAccordionRtl", StaticDemoAccordionRtl);
-    combined_components.add("StaticAlert", StaticDemoAlert);
-    combined_components.add("StaticAlertColors", StaticDemoAlertColors);
-    combined_components.add("StaticAlertDialog", StaticDemoAlertDialog);
-    combined_components.add("StaticAlertDialogMedia", StaticDemoAlertDialogMedia);
-    combined_components.add("StaticAlertDialogRtl", StaticDemoAlertDialogRtl);
-    combined_components.add("StaticAlertDialogSmall", StaticDemoAlertDialogSmall);
-    combined_components.add("StaticAlertDialogSmallMedia", StaticDemoAlertDialogSmallMedia);
-    combined_components.add("StaticAlertRtl", StaticDemoAlertRtl);
-    combined_components.add("StaticAnimate", StaticDemoAnimate);
-    combined_components.add("StaticAnimateGroup", StaticDemoAnimateGroup);
-    combined_components.add("StaticAspectRatio", StaticDemoAspectRatio);
-    combined_components.add("StaticAspectRatioPortrait", StaticDemoAspectRatioPortrait);
-    combined_components.add("StaticAspectRatioSquare", StaticDemoAspectRatioSquare);
-    combined_components.add("StaticAttachment", StaticDemoAttachment);
-    combined_components.add("StaticAttachmentGroup", StaticDemoAttachmentGroup);
-    combined_components.add("StaticAttachmentImage", StaticDemoAttachmentImage);
-    combined_components.add("StaticAttachmentSizes", StaticDemoAttachmentSizes);
-    combined_components.add("StaticAttachmentStates", StaticDemoAttachmentStates);
-    combined_components.add("StaticAttachmentTrigger", StaticDemoAttachmentTrigger);
-    combined_components.add("StaticAutoForm", StaticDemoAutoForm);
-    combined_components.add("StaticAvatar", StaticDemoAvatar);
-    combined_components.add("StaticAvatarBadge", StaticDemoAvatarBadge);
-    combined_components.add("StaticAvatarBadgeIcon", StaticDemoAvatarBadgeIcon);
-    combined_components.add("StaticAvatarGroup", StaticDemoAvatarGroup);
-    combined_components.add("StaticAvatarGroupCount", StaticDemoAvatarGroupCount);
-    combined_components.add("StaticAvatarGroupCountIcon", StaticDemoAvatarGroupCountIcon);
-    combined_components.add("StaticAvatarRtl", StaticDemoAvatarRtl);
-    combined_components.add("StaticAvatarSize", StaticDemoAvatarSize);
-    combined_components.add("StaticBadge", StaticDemoBadge);
-    combined_components.add("StaticBadgeColors", StaticDemoBadgeColors);
-    combined_components.add("StaticBadgeCustom", StaticDemoBadgeCustom);
-    combined_components.add("StaticBadgeRtl", StaticDemoBadgeRtl);
-    combined_components.add("StaticBadgeVariants", StaticDemoBadgeVariants);
-    combined_components.add("StaticBentoGrid4", StaticDemoBentoGrid4);
-    combined_components.add("StaticBentoGrid5", StaticDemoBentoGrid5);
-    combined_components.add("StaticBentoGrid6", StaticDemoBentoGrid6);
-    combined_components.add("StaticBottomNav", StaticDemoBottomNav);
-    combined_components.add("StaticBreadcrumb", StaticDemoBreadcrumb);
-    combined_components.add("StaticBreadcrumbDropdown", StaticDemoBreadcrumbDropdown);
-    combined_components.add("StaticBreadcrumbRtl", StaticDemoBreadcrumbRtl);
-    combined_components.add("StaticBubble", StaticDemoBubble);
-    combined_components.add("StaticBubbleAlignment", StaticDemoBubbleAlignment);
-    combined_components.add("StaticBubbleCollapsible", StaticDemoBubbleCollapsible);
-    combined_components.add("StaticBubbleGroup", StaticDemoBubbleGroup);
-    combined_components.add("StaticBubbleLinkButton", StaticDemoBubbleLinkButton);
-    combined_components.add("StaticBubblePopover", StaticDemoBubblePopover);
-    combined_components.add("StaticBubbleReactions", StaticDemoBubbleReactions);
-    combined_components.add("StaticBubbleTooltip", StaticDemoBubbleTooltip);
-    combined_components.add("StaticBubbleVariants", StaticDemoBubbleVariants);
-    combined_components.add("StaticButton", StaticDemoButton);
-    combined_components.add("StaticButtonAction", StaticDemoButtonAction);
-    combined_components.add("StaticButtonDisabled", StaticDemoButtonDisabled);
-    combined_components.add("StaticButtonGroup", StaticDemoButtonGroup);
-    combined_components.add("StaticButtonGroupIcon", StaticDemoButtonGroupIcon);
-    combined_components.add("StaticButtonGroupInput", StaticDemoButtonGroupInput);
-    combined_components.add("StaticButtonGroupRtl", StaticDemoButtonGroupRtl);
-    combined_components.add("StaticButtonGroupSelect", StaticDemoButtonGroupSelect);
-    combined_components.add("StaticButtonGroupSeparator", StaticDemoButtonGroupSeparator);
-    combined_components.add("StaticButtonGroupSizes", StaticDemoButtonGroupSizes);
-    combined_components.add("StaticButtonHref", StaticDemoButtonHref);
-    combined_components.add("StaticButtonOverride", StaticDemoButtonOverride);
-    combined_components.add("StaticButtonReactive", StaticDemoButtonReactive);
-    combined_components.add("StaticButtonRtl", StaticDemoButtonRtl);
-    combined_components.add("StaticButtonSizes", StaticDemoButtonSizes);
-    combined_components.add("StaticButtonStateful", StaticDemoButtonStateful);
-    combined_components.add("StaticButtonVariants", StaticDemoButtonVariants);
-    combined_components.add("StaticButtonWithClx", StaticDemoButtonWithClx);
-    combined_components.add("StaticCallout", StaticDemoCallout);
-    combined_components.add("StaticCalloutInfo", StaticDemoCalloutInfo);
-    combined_components.add("StaticCalloutWarning", StaticDemoCalloutWarning);
-    combined_components.add("StaticCard", StaticDemoCard);
-    combined_components.add("StaticCardAction", StaticDemoCardAction);
-    combined_components.add("StaticCardCarousel", StaticDemoCardCarousel);
-    combined_components.add("StaticCardGroup", StaticDemoCardGroup);
-    combined_components.add("StaticCardReverse", StaticDemoCardReverse);
-    combined_components.add("StaticCardRtl", StaticDemoCardRtl);
-    combined_components.add("StaticCardSm", StaticDemoCardSm);
-    combined_components.add("StaticCarousel", StaticDemoCarousel);
-    combined_components.add("StaticCarouselApi", StaticDemoCarouselApi);
-    combined_components.add("StaticCarouselOrientation", StaticDemoCarouselOrientation);
-    combined_components.add("StaticCarouselRtl", StaticDemoCarouselRtl);
-    combined_components.add("StaticCarouselSize", StaticDemoCarouselSize);
-    combined_components.add("StaticCarouselSnapScroll", StaticDemoCarouselSnapScroll);
-    combined_components.add("StaticCarouselSpacing", StaticDemoCarouselSpacing);
-    combined_components.add("StaticCheckbox", StaticDemoCheckbox);
-    combined_components.add("StaticCheckboxRtl", StaticDemoCheckboxRtl);
-    combined_components.add("StaticChips", StaticDemoChips);
-    combined_components.add("StaticCollapsible", StaticDemoCollapsible);
-    combined_components.add("StaticCollapsibleBasic", StaticDemoCollapsibleBasic);
-    combined_components.add("StaticCollapsibleFileTree", StaticDemoCollapsibleFileTree);
-    combined_components.add("StaticCollapsibleRtl", StaticDemoCollapsibleRtl);
-    combined_components.add("StaticCollapsibleSettings", StaticDemoCollapsibleSettings);
-    combined_components.add("StaticCombobox", StaticDemoCombobox);
-    combined_components.add("StaticCommand", StaticDemoCommand);
-    combined_components.add("StaticCommandDialog", StaticDemoCommandDialog);
-    combined_components.add("StaticContextMenu", StaticDemoContextMenu);
-    combined_components.add("StaticContextMenuAction", StaticDemoContextMenuAction);
-    combined_components.add("StaticContextMenuRtl", StaticDemoContextMenuRtl);
-    combined_components.add("StaticDataGrid", StaticDemoDataGrid);
-    combined_components.add("StaticDataTable", StaticDemoDataTable);
-    combined_components.add("StaticDataTableFilters", StaticDemoDataTableFilters);
-    combined_components.add("StaticDatePicker", StaticDemoDatePicker);
-    combined_components.add("StaticDatePickerBooked", StaticDemoDatePickerBooked);
-    combined_components.add("StaticDatePickerDropdown", StaticDemoDatePickerDropdown);
-    combined_components.add("StaticDatePickerDual", StaticDemoDatePickerDual);
-    combined_components.add("StaticDatePickerDualFull", StaticDemoDatePickerDualFull);
-    combined_components.add("StaticDatePickerPresets", StaticDemoDatePickerPresets);
-    combined_components.add("StaticDatePickerTime", StaticDemoDatePickerTime);
-    combined_components.add("StaticDatePickerWeekNumbers", StaticDemoDatePickerWeekNumbers);
-    combined_components.add("StaticDialog", StaticDemoDialog);
-    combined_components.add("StaticDialogRtl", StaticDemoDialogRtl);
-    combined_components.add("StaticDialogScrollable", StaticDemoDialogScrollable);
-    combined_components.add("StaticDialogStickyFooter", StaticDemoDialogStickyFooter);
-    combined_components.add("StaticDirectionProvider", StaticDemoDirectionProvider);
-    combined_components.add("StaticDirectionProviderDefault", StaticDemoDirectionProviderDefault);
-    combined_components.add("StaticDirectionProviderRtl", StaticDemoDirectionProviderRtl);
-    combined_components.add("StaticDocker", StaticDemoDocker);
     combined_components.add("StaticDocsInstallationCliTreeView", StaticDocsInstallationCliTreeView);
-    combined_components.add("StaticDragAndDrop", StaticDemoDragAndDrop);
-    combined_components.add("StaticDrawer", StaticDemoDrawer);
-    combined_components.add("StaticDrawerDialog", StaticDemoDrawerDialog);
-    combined_components.add("StaticDrawerFamily", StaticDemoDrawerFamily);
-    combined_components.add("StaticDrawerFocus", StaticDemoDrawerFocus);
-    combined_components.add("StaticDrawerNested", StaticDemoDrawerNested);
-    combined_components.add("StaticDrawerNonDismissable", StaticDemoDrawerNonDismissable);
-    combined_components.add("StaticDrawerRtl", StaticDemoDrawerRtl);
-    combined_components.add("StaticDrawerScrollable", StaticDemoDrawerScrollable);
-    combined_components.add("StaticDrawerSide", StaticDemoDrawerSide);
-    combined_components.add("StaticDrawerSideFloating", StaticDemoDrawerSideFloating);
-    combined_components.add("StaticDrawerSideScrollable", StaticDemoDrawerSideScrollable);
-    combined_components.add("StaticDropdownMenu", StaticDemoDropdownMenu);
-    combined_components.add("StaticDropdownMenuDestructive", StaticDemoDropdownMenuDestructive);
-    combined_components.add("StaticDropdownMenuEnd", StaticDemoDropdownMenuEnd);
-    combined_components.add("StaticDropdownMenuEndOuter", StaticDemoDropdownMenuEndOuter);
-    combined_components.add("StaticDropdownMenuRadio", StaticDemoDropdownMenuRadio);
-    combined_components.add("StaticDropdownMenuRtl", StaticDemoDropdownMenuRtl);
-    combined_components.add("StaticDropdownMenuSelect", StaticDemoDropdownMenuSelect);
-    combined_components.add("StaticDropdownMenuStart", StaticDemoDropdownMenuStart);
-    combined_components.add("StaticDropdownMenuStartOuter", StaticDemoDropdownMenuStartOuter);
-    combined_components.add("StaticDropdownMenuUser", StaticDemoDropdownMenuUser);
-    combined_components.add("StaticDropdownMenuUserIcon", StaticDemoDropdownMenuUserIcon);
-    combined_components.add("StaticDropzone", StaticDemoDropzone);
-    combined_components.add("StaticEmpty", StaticDemoEmpty);
-    combined_components.add("StaticEmptyAvatarGroup", StaticDemoEmptyAvatarGroup);
-    combined_components.add("StaticEmptyBackground", StaticDemoEmptyBackground);
-    combined_components.add("StaticEmptyCard", StaticDemoEmptyCard);
-    combined_components.add("StaticEmptyInputGroup", StaticDemoEmptyInputGroup);
-    combined_components.add("StaticEmptyMuted", StaticDemoEmptyMuted);
-    combined_components.add("StaticEmptyOutline", StaticDemoEmptyOutline);
-    combined_components.add("StaticEmptyRtl", StaticDemoEmptyRtl);
-    combined_components.add("StaticField", StaticDemoField);
-    combined_components.add("StaticFieldCheckbox", StaticDemoFieldCheckbox);
-    combined_components.add("StaticFieldFieldset", StaticDemoFieldFieldset);
-    combined_components.add("StaticFieldInput", StaticDemoFieldInput);
-    combined_components.add("StaticFieldInputInline", StaticDemoFieldInputInline);
-    combined_components.add("StaticFieldRtl", StaticDemoFieldRtl);
-    combined_components.add("StaticForm", StaticDemoForm);
-    combined_components.add("StaticFormError", StaticDemoFormError);
-    combined_components.add("StaticFormFieldset", StaticDemoFormFieldset);
-    combined_components.add("StaticFormGroup", StaticDemoFormGroup);
-    combined_components.add("StaticFormSelect", StaticDemoFormSelect);
-    combined_components.add("StaticFormValidation", StaticDemoFormValidation);
-    combined_components.add("StaticHoverCard", StaticDemoHoverCard);
-    combined_components.add("StaticHoverCardRtl", StaticDemoHoverCardRtl);
-    combined_components.add("StaticInput", StaticDemoInput);
-    combined_components.add("StaticInputCopy", StaticDemoInputCopy);
-    combined_components.add("StaticInputGroup", StaticDemoInputGroup);
-    combined_components.add("StaticInputGroupBlock", StaticDemoInputGroupBlock);
-    combined_components.add("StaticInputGroupCustom", StaticDemoInputGroupCustom);
-    combined_components.add("StaticInputGroupDropdown", StaticDemoInputGroupDropdown);
-    combined_components.add("StaticInputGroupInCard", StaticDemoInputGroupInCard);
-    combined_components.add("StaticInputGroupKbd", StaticDemoInputGroupKbd);
-    combined_components.add("StaticInputGroupRtl", StaticDemoInputGroupRtl);
-    combined_components.add("StaticInputGroupSpinner", StaticDemoInputGroupSpinner);
-    combined_components.add("StaticInputGroupText", StaticDemoInputGroupText);
-    combined_components.add("StaticInputGroupTooltip", StaticDemoInputGroupTooltip);
-    combined_components.add("StaticInputOtp", StaticDemoInputOtp);
-    combined_components.add("StaticInputOtpDisabled", StaticDemoInputOtpDisabled);
-    combined_components.add("StaticInputOtpRtl", StaticDemoInputOtpRtl);
-    combined_components.add("StaticInputOtpSeparator", StaticDemoInputOtpSeparator);
-    combined_components.add("StaticInputPhone", StaticDemoInputPhone);
-    combined_components.add("StaticInputPhoneDisabled", StaticDemoInputPhoneDisabled);
-    combined_components.add("StaticInputPrompt", StaticDemoInputPrompt);
-    combined_components.add("StaticInputPromptWithTools", StaticDemoInputPromptWithTools);
-    combined_components.add("StaticInputRtl", StaticDemoInputRtl);
     combined_components.add("StaticInstallAccordion", StaticInstallAccordion);
     combined_components.add("StaticInstallActionBar", StaticInstallActionBar);
     combined_components.add("StaticInstallAlert", StaticInstallAlert);
@@ -336,136 +147,1261 @@ pub fn MyMd(
     combined_components.add("StaticInstallUseScrollLock", StaticInstallUseScrollLock);
     combined_components.add("StaticInstallUseThemeMode", StaticInstallUseThemeMode);
     combined_components.add("StaticInstallUseVirtualScroll", StaticInstallUseVirtualScroll);
-    combined_components.add("StaticItem", StaticDemoItem);
-    combined_components.add("StaticItemDropdownMenu", StaticDemoItemDropdownMenu);
-    combined_components.add("StaticItemFileUpload", StaticDemoItemFileUpload);
-    combined_components.add("StaticItemGroup", StaticDemoItemGroup);
-    combined_components.add("StaticItemMediaImage", StaticDemoItemMediaImage);
-    combined_components.add("StaticItemRtl", StaticDemoItemRtl);
-    combined_components.add("StaticItemVariants", StaticDemoItemVariants);
-    combined_components.add("StaticKbd", StaticDemoKbd);
-    combined_components.add("StaticKbdButton", StaticDemoKbdButton);
-    combined_components.add("StaticKbdInputGroup", StaticDemoKbdInputGroup);
-    combined_components.add("StaticKbdRtl", StaticDemoKbdRtl);
-    combined_components.add("StaticLabel", StaticDemoLabel);
-    combined_components.add("StaticLabelRtl", StaticDemoLabelRtl);
-    combined_components.add("StaticMarker", StaticDemoMarker);
-    combined_components.add("StaticMarkerBorder", StaticDemoMarkerBorder);
-    combined_components.add("StaticMarkerIcon", StaticDemoMarkerIcon);
-    combined_components.add("StaticMarkerLinkButton", StaticDemoMarkerLinkButton);
-    combined_components.add("StaticMarkerSeparator", StaticDemoMarkerSeparator);
-    combined_components.add("StaticMarkerShimmer", StaticDemoMarkerShimmer);
-    combined_components.add("StaticMarkerStatus", StaticDemoMarkerStatus);
-    combined_components.add("StaticMarkerVariants", StaticDemoMarkerVariants);
-    combined_components.add("StaticMarquee", StaticDemoMarquee);
-    combined_components.add("StaticMenubar", StaticDemoMenubar);
-    combined_components.add("StaticMenubarRtl", StaticDemoMenubarRtl);
-    combined_components.add("StaticMessage", StaticDemoMessage);
-    combined_components.add("StaticMessageActions", StaticDemoMessageActions);
-    combined_components.add("StaticMessageAttachment", StaticDemoMessageAttachment);
-    combined_components.add("StaticMessageAvatar", StaticDemoMessageAvatar);
-    combined_components.add("StaticMessageGroup", StaticDemoMessageGroup);
-    combined_components.add("StaticMessageHeaderFooter", StaticDemoMessageHeaderFooter);
-    combined_components.add("StaticMultiSelect", StaticDemoMultiSelect);
-    combined_components.add("StaticMultiSelectAlign", StaticDemoMultiSelectAlign);
-    combined_components.add("StaticMultiSelectScrollable", StaticDemoMultiSelectScrollable);
-    combined_components.add("StaticNavigationMenu", StaticDemoNavigationMenu);
-    combined_components.add("StaticNavigationMenuComplex", StaticDemoNavigationMenuComplex);
-    combined_components.add("StaticNavigationMenuRtl", StaticDemoNavigationMenuRtl);
-    combined_components.add("StaticPagination", StaticDemoPagination);
-    combined_components.add("StaticPaginationRtl", StaticDemoPaginationRtl);
-    combined_components.add("StaticPopover", StaticDemoPopover);
-    combined_components.add("StaticPopoverEnd", StaticDemoPopoverEnd);
-    combined_components.add("StaticPopoverEndOuter", StaticDemoPopoverEndOuter);
-    combined_components.add("StaticPopoverRtl", StaticDemoPopoverRtl);
-    combined_components.add("StaticPopoverStart", StaticDemoPopoverStart);
-    combined_components.add("StaticPopoverStartOuter", StaticDemoPopoverStartOuter);
-    combined_components.add("StaticPressable", StaticDemoPressable);
-    combined_components.add("StaticProgress", StaticDemoProgress);
-    combined_components.add("StaticProgressControlled", StaticDemoProgressControlled);
-    combined_components.add("StaticProgressLabel", StaticDemoProgressLabel);
-    combined_components.add("StaticProgressRtl", StaticDemoProgressRtl);
-    combined_components.add("StaticRadioButton", StaticDemoRadioButton);
-    combined_components.add("StaticRadioButtonCustom", StaticDemoRadioButtonCustom);
-    combined_components.add("StaticRadioButtonGroup", StaticDemoRadioButtonGroup);
-    combined_components.add("StaticRadioButtonGroupRtl", StaticDemoRadioButtonGroupRtl);
-    combined_components.add("StaticRadioChoiceCard", StaticDemoRadioChoiceCard);
-    combined_components.add("StaticRangeSlider", StaticDemoRangeSlider);
-    combined_components.add("StaticRangeSliderDual", StaticDemoRangeSliderDual);
-    combined_components.add("StaticResizable", StaticDemoResizable);
-    combined_components.add("StaticScrollArea", StaticDemoScrollArea);
-    combined_components.add("StaticScrollAreaHorizontal", StaticDemoScrollAreaHorizontal);
-    combined_components.add("StaticScrollAreaRtl", StaticDemoScrollAreaRtl);
-    combined_components.add("StaticScrollAreaSnap", StaticDemoScrollAreaSnap);
-    combined_components.add("StaticSelect", StaticDemoSelect);
-    combined_components.add("StaticSelectNativeAutoWidth", StaticDemoSelectNativeAutoWidth);
-    combined_components.add("StaticSelectNativeError", StaticDemoSelectNativeError);
-    combined_components.add("StaticSelectNativeGroup", StaticDemoSelectNativeGroup);
-    combined_components.add("StaticSelectNativeOverlappingLabel", StaticDemoSelectNativeOverlappingLabel);
-    combined_components.add("StaticSelectNativeTimezone", StaticDemoSelectNativeTimezone);
-    combined_components.add("StaticSelectRtl", StaticDemoSelectRtl);
-    combined_components.add("StaticSelectScrollable", StaticDemoSelectScrollable);
-    combined_components.add("StaticSeparator", StaticDemoSeparator);
-    combined_components.add("StaticSeparatorRtl", StaticDemoSeparatorRtl);
-    combined_components.add("StaticSheet", StaticDemoSheet);
-    combined_components.add("StaticSheetDirections", StaticDemoSheetDirections);
-    combined_components.add("StaticSheetExperimental", StaticDemoSheetExperimental);
-    combined_components.add("StaticSheetNoCloseButton", StaticDemoSheetNoCloseButton);
-    combined_components.add("StaticSheetRtl", StaticDemoSheetRtl);
-    combined_components.add("StaticShimmer", StaticDemoShimmer);
-    combined_components.add("StaticShimmerMarker", StaticDemoShimmerMarker);
-    combined_components.add("StaticSkeleton", StaticDemoSkeleton);
-    combined_components.add("StaticSkeletonAvatar", StaticDemoSkeletonAvatar);
-    combined_components.add("StaticSkeletonForm", StaticDemoSkeletonForm);
-    combined_components.add("StaticSkeletonImage", StaticDemoSkeletonImage);
-    combined_components.add("StaticSkeletonRtl", StaticDemoSkeletonRtl);
-    combined_components.add("StaticSkeletonTable", StaticDemoSkeletonTable);
-    combined_components.add("StaticSkeletonText", StaticDemoSkeletonText);
-    combined_components.add("StaticSlider", StaticDemoSlider);
-    combined_components.add("StaticSliderControlled", StaticDemoSliderControlled);
-    combined_components.add("StaticSliderFlat", StaticDemoSliderFlat);
-    combined_components.add("StaticSliderMultiple", StaticDemoSliderMultiple);
-    combined_components.add("StaticSliderRtl", StaticDemoSliderRtl);
-    combined_components.add("StaticSliderVertical", StaticDemoSliderVertical);
-    combined_components.add("StaticSonner", StaticDemoSonner);
-    combined_components.add("StaticSonnerPositions", StaticDemoSonnerPositions);
-    combined_components.add("StaticSonnerVariants", StaticDemoSonnerVariants);
-    combined_components.add("StaticSpinner", StaticDemoSpinner);
-    combined_components.add("StaticSpinnerButton", StaticDemoSpinnerButton);
-    combined_components.add("StaticSpinnerRtl", StaticDemoSpinnerRtl);
-    combined_components.add("StaticStatus", StaticDemoStatus);
-    combined_components.add("StaticStatusVariants", StaticDemoStatusVariants);
-    combined_components.add("StaticSwitch", StaticDemoSwitch);
-    combined_components.add("StaticSwitchChoiceCard", StaticDemoSwitchChoiceCard);
-    combined_components.add("StaticSwitchRtl", StaticDemoSwitchRtl);
-    combined_components.add("StaticTable", StaticDemoTable);
-    combined_components.add("StaticTableRtl", StaticDemoTableRtl);
-    combined_components.add("StaticTabs", StaticDemoTabs);
-    combined_components.add("StaticTabsLine", StaticDemoTabsLine);
-    combined_components.add("StaticTabsRtl", StaticDemoTabsRtl);
-    combined_components.add("StaticTabsVertical", StaticDemoTabsVertical);
-    combined_components.add("StaticTextarea", StaticDemoTextarea);
-    combined_components.add("StaticTextareaRtl", StaticDemoTextareaRtl);
-    combined_components.add("StaticThemeToggle", StaticDemoThemeToggle);
-    combined_components.add("StaticToast", StaticDemoToast);
-    combined_components.add("StaticToastVariants", StaticDemoToastVariants);
-    combined_components.add("StaticToggleGroup", StaticDemoToggleGroup);
-    combined_components.add("StaticToggleGroupFontWeight", StaticDemoToggleGroupFontWeight);
-    combined_components.add("StaticToggleGroupOutline", StaticDemoToggleGroupOutline);
-    combined_components.add("StaticToggleGroupRtl", StaticDemoToggleGroupRtl);
-    combined_components.add("StaticToggleGroupSpacing", StaticDemoToggleGroupSpacing);
-    combined_components.add("StaticToggleGroupVertical", StaticDemoToggleGroupVertical);
-    combined_components.add("StaticTooltip", StaticDemoTooltip);
-    combined_components.add("StaticTooltipRtl", StaticDemoTooltipRtl);
-    combined_components.add("StaticUseCopyToClipboard", StaticDemoUseCopyToClipboard);
-    combined_components.add("StaticUseHistory", StaticDemoUseHistory);
-    combined_components.add("StaticUseHorizontalScroll", StaticDemoUseHorizontalScroll);
-    combined_components.add("StaticUseIsMobile", StaticDemoUseIsMobile);
-    combined_components.add("StaticUseLockBodyScroll", StaticDemoUseLockBodyScroll);
-    combined_components.add("StaticUseLocks", StaticDemoUseLocks);
-    combined_components.add("StaticUseMediaQuery", StaticDemoUseMediaQuery);
-    combined_components.add("StaticUsePressHold", StaticDemoUsePressHold);
-    combined_components.add("StaticUseRandom", StaticDemoUseRandom);
+    combined_components.add_with_props("StaticAccordion", StaticDemoAccordion, |props: MdComponentProps| {
+        StaticDemoAccordionProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticAccordionBordered",
+        StaticDemoAccordionBordered,
+        |props: MdComponentProps| StaticDemoAccordionBorderedProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticAccordionCard", StaticDemoAccordionCard, |props: MdComponentProps| {
+        StaticDemoAccordionCardProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticAccordionIcons", StaticDemoAccordionIcons, |props: MdComponentProps| {
+        StaticDemoAccordionIconsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticAccordionRtl", StaticDemoAccordionRtl, |props: MdComponentProps| {
+        StaticDemoAccordionRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticAlert", StaticDemoAlert, |props: MdComponentProps| {
+        StaticDemoAlertProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticAlertColors", StaticDemoAlertColors, |props: MdComponentProps| {
+        StaticDemoAlertColorsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticAlertDialog", StaticDemoAlertDialog, |props: MdComponentProps| {
+        StaticDemoAlertDialogProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticAlertDialogMedia",
+        StaticDemoAlertDialogMedia,
+        |props: MdComponentProps| StaticDemoAlertDialogMediaProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticAlertDialogRtl", StaticDemoAlertDialogRtl, |props: MdComponentProps| {
+        StaticDemoAlertDialogRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticAlertDialogSmall",
+        StaticDemoAlertDialogSmall,
+        |props: MdComponentProps| StaticDemoAlertDialogSmallProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticAlertDialogSmallMedia",
+        StaticDemoAlertDialogSmallMedia,
+        |props: MdComponentProps| StaticDemoAlertDialogSmallMediaProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticAlertRtl", StaticDemoAlertRtl, |props: MdComponentProps| {
+        StaticDemoAlertRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticAnimate", StaticDemoAnimate, |props: MdComponentProps| {
+        StaticDemoAnimateProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticAnimateGroup", StaticDemoAnimateGroup, |props: MdComponentProps| {
+        StaticDemoAnimateGroupProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticAspectRatio", StaticDemoAspectRatio, |props: MdComponentProps| {
+        StaticDemoAspectRatioProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticAspectRatioPortrait",
+        StaticDemoAspectRatioPortrait,
+        |props: MdComponentProps| StaticDemoAspectRatioPortraitProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticAspectRatioSquare",
+        StaticDemoAspectRatioSquare,
+        |props: MdComponentProps| StaticDemoAspectRatioSquareProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticAttachment", StaticDemoAttachment, |props: MdComponentProps| {
+        StaticDemoAttachmentProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticAttachmentGroup",
+        StaticDemoAttachmentGroup,
+        |props: MdComponentProps| StaticDemoAttachmentGroupProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticAttachmentImage",
+        StaticDemoAttachmentImage,
+        |props: MdComponentProps| StaticDemoAttachmentImageProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticAttachmentSizes",
+        StaticDemoAttachmentSizes,
+        |props: MdComponentProps| StaticDemoAttachmentSizesProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticAttachmentStates",
+        StaticDemoAttachmentStates,
+        |props: MdComponentProps| StaticDemoAttachmentStatesProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticAttachmentTrigger",
+        StaticDemoAttachmentTrigger,
+        |props: MdComponentProps| StaticDemoAttachmentTriggerProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticAutoForm", StaticDemoAutoForm, |props: MdComponentProps| {
+        StaticDemoAutoFormProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticAvatar", StaticDemoAvatar, |props: MdComponentProps| {
+        StaticDemoAvatarProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticAvatarBadge", StaticDemoAvatarBadge, |props: MdComponentProps| {
+        StaticDemoAvatarBadgeProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticAvatarBadgeIcon",
+        StaticDemoAvatarBadgeIcon,
+        |props: MdComponentProps| StaticDemoAvatarBadgeIconProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticAvatarGroup", StaticDemoAvatarGroup, |props: MdComponentProps| {
+        StaticDemoAvatarGroupProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticAvatarGroupCount",
+        StaticDemoAvatarGroupCount,
+        |props: MdComponentProps| StaticDemoAvatarGroupCountProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticAvatarGroupCountIcon",
+        StaticDemoAvatarGroupCountIcon,
+        |props: MdComponentProps| StaticDemoAvatarGroupCountIconProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticAvatarRtl", StaticDemoAvatarRtl, |props: MdComponentProps| {
+        StaticDemoAvatarRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticAvatarSize", StaticDemoAvatarSize, |props: MdComponentProps| {
+        StaticDemoAvatarSizeProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticBadge", StaticDemoBadge, |props: MdComponentProps| {
+        StaticDemoBadgeProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticBadgeColors", StaticDemoBadgeColors, |props: MdComponentProps| {
+        StaticDemoBadgeColorsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticBadgeCustom", StaticDemoBadgeCustom, |props: MdComponentProps| {
+        StaticDemoBadgeCustomProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticBadgeRtl", StaticDemoBadgeRtl, |props: MdComponentProps| {
+        StaticDemoBadgeRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticBadgeVariants", StaticDemoBadgeVariants, |props: MdComponentProps| {
+        StaticDemoBadgeVariantsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticBentoGrid4", StaticDemoBentoGrid4, |props: MdComponentProps| {
+        StaticDemoBentoGrid4Props { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticBentoGrid5", StaticDemoBentoGrid5, |props: MdComponentProps| {
+        StaticDemoBentoGrid5Props { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticBentoGrid6", StaticDemoBentoGrid6, |props: MdComponentProps| {
+        StaticDemoBentoGrid6Props { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticBottomNav", StaticDemoBottomNav, |props: MdComponentProps| {
+        StaticDemoBottomNavProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticBreadcrumb", StaticDemoBreadcrumb, |props: MdComponentProps| {
+        StaticDemoBreadcrumbProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticBreadcrumbDropdown",
+        StaticDemoBreadcrumbDropdown,
+        |props: MdComponentProps| StaticDemoBreadcrumbDropdownProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticBreadcrumbRtl", StaticDemoBreadcrumbRtl, |props: MdComponentProps| {
+        StaticDemoBreadcrumbRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticBubble", StaticDemoBubble, |props: MdComponentProps| {
+        StaticDemoBubbleProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticBubbleAlignment",
+        StaticDemoBubbleAlignment,
+        |props: MdComponentProps| StaticDemoBubbleAlignmentProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticBubbleCollapsible",
+        StaticDemoBubbleCollapsible,
+        |props: MdComponentProps| StaticDemoBubbleCollapsibleProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticBubbleGroup", StaticDemoBubbleGroup, |props: MdComponentProps| {
+        StaticDemoBubbleGroupProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticBubbleLinkButton",
+        StaticDemoBubbleLinkButton,
+        |props: MdComponentProps| StaticDemoBubbleLinkButtonProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticBubblePopover", StaticDemoBubblePopover, |props: MdComponentProps| {
+        StaticDemoBubblePopoverProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticBubbleReactions",
+        StaticDemoBubbleReactions,
+        |props: MdComponentProps| StaticDemoBubbleReactionsProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticBubbleTooltip", StaticDemoBubbleTooltip, |props: MdComponentProps| {
+        StaticDemoBubbleTooltipProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticBubbleVariants", StaticDemoBubbleVariants, |props: MdComponentProps| {
+        StaticDemoBubbleVariantsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticButton", StaticDemoButton, |props: MdComponentProps| {
+        StaticDemoButtonProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticButtonAction", StaticDemoButtonAction, |props: MdComponentProps| {
+        StaticDemoButtonActionProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticButtonDisabled", StaticDemoButtonDisabled, |props: MdComponentProps| {
+        StaticDemoButtonDisabledProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticButtonGroup", StaticDemoButtonGroup, |props: MdComponentProps| {
+        StaticDemoButtonGroupProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticButtonGroupIcon",
+        StaticDemoButtonGroupIcon,
+        |props: MdComponentProps| StaticDemoButtonGroupIconProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticButtonGroupInput",
+        StaticDemoButtonGroupInput,
+        |props: MdComponentProps| StaticDemoButtonGroupInputProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticButtonGroupRtl", StaticDemoButtonGroupRtl, |props: MdComponentProps| {
+        StaticDemoButtonGroupRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticButtonGroupSelect",
+        StaticDemoButtonGroupSelect,
+        |props: MdComponentProps| StaticDemoButtonGroupSelectProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticButtonGroupSeparator",
+        StaticDemoButtonGroupSeparator,
+        |props: MdComponentProps| StaticDemoButtonGroupSeparatorProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticButtonGroupSizes",
+        StaticDemoButtonGroupSizes,
+        |props: MdComponentProps| StaticDemoButtonGroupSizesProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticButtonHref", StaticDemoButtonHref, |props: MdComponentProps| {
+        StaticDemoButtonHrefProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticButtonOverride", StaticDemoButtonOverride, |props: MdComponentProps| {
+        StaticDemoButtonOverrideProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticButtonReactive", StaticDemoButtonReactive, |props: MdComponentProps| {
+        StaticDemoButtonReactiveProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticButtonRtl", StaticDemoButtonRtl, |props: MdComponentProps| {
+        StaticDemoButtonRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticButtonSizes", StaticDemoButtonSizes, |props: MdComponentProps| {
+        StaticDemoButtonSizesProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticButtonStateful", StaticDemoButtonStateful, |props: MdComponentProps| {
+        StaticDemoButtonStatefulProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticButtonVariants", StaticDemoButtonVariants, |props: MdComponentProps| {
+        StaticDemoButtonVariantsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticButtonWithClx", StaticDemoButtonWithClx, |props: MdComponentProps| {
+        StaticDemoButtonWithClxProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCallout", StaticDemoCallout, |props: MdComponentProps| {
+        StaticDemoCalloutProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCalloutInfo", StaticDemoCalloutInfo, |props: MdComponentProps| {
+        StaticDemoCalloutInfoProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCalloutWarning", StaticDemoCalloutWarning, |props: MdComponentProps| {
+        StaticDemoCalloutWarningProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCard", StaticDemoCard, |props: MdComponentProps| StaticDemoCardProps {
+        resizable_wrapper_class: props.classes.join(" "),
+    });
+    combined_components.add_with_props("StaticCardAction", StaticDemoCardAction, |props: MdComponentProps| {
+        StaticDemoCardActionProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCardCarousel", StaticDemoCardCarousel, |props: MdComponentProps| {
+        StaticDemoCardCarouselProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCardGroup", StaticDemoCardGroup, |props: MdComponentProps| {
+        StaticDemoCardGroupProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCardReverse", StaticDemoCardReverse, |props: MdComponentProps| {
+        StaticDemoCardReverseProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCardRtl", StaticDemoCardRtl, |props: MdComponentProps| {
+        StaticDemoCardRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCardSm", StaticDemoCardSm, |props: MdComponentProps| {
+        StaticDemoCardSmProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCarousel", StaticDemoCarousel, |props: MdComponentProps| {
+        StaticDemoCarouselProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCarouselApi", StaticDemoCarouselApi, |props: MdComponentProps| {
+        StaticDemoCarouselApiProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticCarouselOrientation",
+        StaticDemoCarouselOrientation,
+        |props: MdComponentProps| StaticDemoCarouselOrientationProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticCarouselRtl", StaticDemoCarouselRtl, |props: MdComponentProps| {
+        StaticDemoCarouselRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCarouselSize", StaticDemoCarouselSize, |props: MdComponentProps| {
+        StaticDemoCarouselSizeProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticCarouselSnapScroll",
+        StaticDemoCarouselSnapScroll,
+        |props: MdComponentProps| StaticDemoCarouselSnapScrollProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticCarouselSpacing",
+        StaticDemoCarouselSpacing,
+        |props: MdComponentProps| StaticDemoCarouselSpacingProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticCheckbox", StaticDemoCheckbox, |props: MdComponentProps| {
+        StaticDemoCheckboxProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCheckboxRtl", StaticDemoCheckboxRtl, |props: MdComponentProps| {
+        StaticDemoCheckboxRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticChips", StaticDemoChips, |props: MdComponentProps| {
+        StaticDemoChipsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCollapsible", StaticDemoCollapsible, |props: MdComponentProps| {
+        StaticDemoCollapsibleProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticCollapsibleBasic",
+        StaticDemoCollapsibleBasic,
+        |props: MdComponentProps| StaticDemoCollapsibleBasicProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticCollapsibleFileTree",
+        StaticDemoCollapsibleFileTree,
+        |props: MdComponentProps| StaticDemoCollapsibleFileTreeProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticCollapsibleRtl", StaticDemoCollapsibleRtl, |props: MdComponentProps| {
+        StaticDemoCollapsibleRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticCollapsibleSettings",
+        StaticDemoCollapsibleSettings,
+        |props: MdComponentProps| StaticDemoCollapsibleSettingsProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticCombobox", StaticDemoCombobox, |props: MdComponentProps| {
+        StaticDemoComboboxProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCommand", StaticDemoCommand, |props: MdComponentProps| {
+        StaticDemoCommandProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticCommandDialog", StaticDemoCommandDialog, |props: MdComponentProps| {
+        StaticDemoCommandDialogProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticContextMenu", StaticDemoContextMenu, |props: MdComponentProps| {
+        StaticDemoContextMenuProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticContextMenuAction",
+        StaticDemoContextMenuAction,
+        |props: MdComponentProps| StaticDemoContextMenuActionProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticContextMenuRtl", StaticDemoContextMenuRtl, |props: MdComponentProps| {
+        StaticDemoContextMenuRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticDataGrid", StaticDemoDataGrid, |props: MdComponentProps| {
+        StaticDemoDataGridProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticDataTable", StaticDemoDataTable, |props: MdComponentProps| {
+        StaticDemoDataTableProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticDataTableFilters",
+        StaticDemoDataTableFilters,
+        |props: MdComponentProps| StaticDemoDataTableFiltersProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticDatePicker", StaticDemoDatePicker, |props: MdComponentProps| {
+        StaticDemoDatePickerProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticDatePickerBooked",
+        StaticDemoDatePickerBooked,
+        |props: MdComponentProps| StaticDemoDatePickerBookedProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticDatePickerDropdown",
+        StaticDemoDatePickerDropdown,
+        |props: MdComponentProps| StaticDemoDatePickerDropdownProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticDatePickerDual", StaticDemoDatePickerDual, |props: MdComponentProps| {
+        StaticDemoDatePickerDualProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticDatePickerDualFull",
+        StaticDemoDatePickerDualFull,
+        |props: MdComponentProps| StaticDemoDatePickerDualFullProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticDatePickerPresets",
+        StaticDemoDatePickerPresets,
+        |props: MdComponentProps| StaticDemoDatePickerPresetsProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticDatePickerTime", StaticDemoDatePickerTime, |props: MdComponentProps| {
+        StaticDemoDatePickerTimeProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticDatePickerWeekNumbers",
+        StaticDemoDatePickerWeekNumbers,
+        |props: MdComponentProps| StaticDemoDatePickerWeekNumbersProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticDialog", StaticDemoDialog, |props: MdComponentProps| {
+        StaticDemoDialogProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticDialogRtl", StaticDemoDialogRtl, |props: MdComponentProps| {
+        StaticDemoDialogRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticDialogScrollable",
+        StaticDemoDialogScrollable,
+        |props: MdComponentProps| StaticDemoDialogScrollableProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticDialogStickyFooter",
+        StaticDemoDialogStickyFooter,
+        |props: MdComponentProps| StaticDemoDialogStickyFooterProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticDirectionProvider",
+        StaticDemoDirectionProvider,
+        |props: MdComponentProps| StaticDemoDirectionProviderProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticDirectionProviderDefault",
+        StaticDemoDirectionProviderDefault,
+        |props: MdComponentProps| StaticDemoDirectionProviderDefaultProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticDirectionProviderRtl",
+        StaticDemoDirectionProviderRtl,
+        |props: MdComponentProps| StaticDemoDirectionProviderRtlProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticDocker", StaticDemoDocker, |props: MdComponentProps| {
+        StaticDemoDockerProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticDragAndDrop", StaticDemoDragAndDrop, |props: MdComponentProps| {
+        StaticDemoDragAndDropProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticDrawer", StaticDemoDrawer, |props: MdComponentProps| {
+        StaticDemoDrawerProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticDrawerDialog", StaticDemoDrawerDialog, |props: MdComponentProps| {
+        StaticDemoDrawerDialogProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticDrawerFamily", StaticDemoDrawerFamily, |props: MdComponentProps| {
+        StaticDemoDrawerFamilyProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticDrawerFocus", StaticDemoDrawerFocus, |props: MdComponentProps| {
+        StaticDemoDrawerFocusProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticDrawerNested", StaticDemoDrawerNested, |props: MdComponentProps| {
+        StaticDemoDrawerNestedProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticDrawerNonDismissable",
+        StaticDemoDrawerNonDismissable,
+        |props: MdComponentProps| StaticDemoDrawerNonDismissableProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticDrawerRtl", StaticDemoDrawerRtl, |props: MdComponentProps| {
+        StaticDemoDrawerRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticDrawerScrollable",
+        StaticDemoDrawerScrollable,
+        |props: MdComponentProps| StaticDemoDrawerScrollableProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticDrawerSide", StaticDemoDrawerSide, |props: MdComponentProps| {
+        StaticDemoDrawerSideProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticDrawerSideFloating",
+        StaticDemoDrawerSideFloating,
+        |props: MdComponentProps| StaticDemoDrawerSideFloatingProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticDrawerSideScrollable",
+        StaticDemoDrawerSideScrollable,
+        |props: MdComponentProps| StaticDemoDrawerSideScrollableProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticDropdownMenu", StaticDemoDropdownMenu, |props: MdComponentProps| {
+        StaticDemoDropdownMenuProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticDropdownMenuDestructive",
+        StaticDemoDropdownMenuDestructive,
+        |props: MdComponentProps| StaticDemoDropdownMenuDestructiveProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticDropdownMenuEnd",
+        StaticDemoDropdownMenuEnd,
+        |props: MdComponentProps| StaticDemoDropdownMenuEndProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticDropdownMenuEndOuter",
+        StaticDemoDropdownMenuEndOuter,
+        |props: MdComponentProps| StaticDemoDropdownMenuEndOuterProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticDropdownMenuRadio",
+        StaticDemoDropdownMenuRadio,
+        |props: MdComponentProps| StaticDemoDropdownMenuRadioProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticDropdownMenuRtl",
+        StaticDemoDropdownMenuRtl,
+        |props: MdComponentProps| StaticDemoDropdownMenuRtlProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticDropdownMenuSelect",
+        StaticDemoDropdownMenuSelect,
+        |props: MdComponentProps| StaticDemoDropdownMenuSelectProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticDropdownMenuStart",
+        StaticDemoDropdownMenuStart,
+        |props: MdComponentProps| StaticDemoDropdownMenuStartProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticDropdownMenuStartOuter",
+        StaticDemoDropdownMenuStartOuter,
+        |props: MdComponentProps| StaticDemoDropdownMenuStartOuterProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticDropdownMenuUser",
+        StaticDemoDropdownMenuUser,
+        |props: MdComponentProps| StaticDemoDropdownMenuUserProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticDropdownMenuUserIcon",
+        StaticDemoDropdownMenuUserIcon,
+        |props: MdComponentProps| StaticDemoDropdownMenuUserIconProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticDropzone", StaticDemoDropzone, |props: MdComponentProps| {
+        StaticDemoDropzoneProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticEmpty", StaticDemoEmpty, |props: MdComponentProps| {
+        StaticDemoEmptyProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticEmptyAvatarGroup",
+        StaticDemoEmptyAvatarGroup,
+        |props: MdComponentProps| StaticDemoEmptyAvatarGroupProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticEmptyBackground",
+        StaticDemoEmptyBackground,
+        |props: MdComponentProps| StaticDemoEmptyBackgroundProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticEmptyCard", StaticDemoEmptyCard, |props: MdComponentProps| {
+        StaticDemoEmptyCardProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticEmptyInputGroup",
+        StaticDemoEmptyInputGroup,
+        |props: MdComponentProps| StaticDemoEmptyInputGroupProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticEmptyMuted", StaticDemoEmptyMuted, |props: MdComponentProps| {
+        StaticDemoEmptyMutedProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticEmptyOutline", StaticDemoEmptyOutline, |props: MdComponentProps| {
+        StaticDemoEmptyOutlineProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticEmptyRtl", StaticDemoEmptyRtl, |props: MdComponentProps| {
+        StaticDemoEmptyRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticField", StaticDemoField, |props: MdComponentProps| {
+        StaticDemoFieldProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticFieldCheckbox", StaticDemoFieldCheckbox, |props: MdComponentProps| {
+        StaticDemoFieldCheckboxProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticFieldFieldset", StaticDemoFieldFieldset, |props: MdComponentProps| {
+        StaticDemoFieldFieldsetProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticFieldInput", StaticDemoFieldInput, |props: MdComponentProps| {
+        StaticDemoFieldInputProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticFieldInputInline",
+        StaticDemoFieldInputInline,
+        |props: MdComponentProps| StaticDemoFieldInputInlineProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticFieldRtl", StaticDemoFieldRtl, |props: MdComponentProps| {
+        StaticDemoFieldRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticForm", StaticDemoForm, |props: MdComponentProps| StaticDemoFormProps {
+        resizable_wrapper_class: props.classes.join(" "),
+    });
+    combined_components.add_with_props("StaticFormError", StaticDemoFormError, |props: MdComponentProps| {
+        StaticDemoFormErrorProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticFormFieldset", StaticDemoFormFieldset, |props: MdComponentProps| {
+        StaticDemoFormFieldsetProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticFormGroup", StaticDemoFormGroup, |props: MdComponentProps| {
+        StaticDemoFormGroupProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticFormSelect", StaticDemoFormSelect, |props: MdComponentProps| {
+        StaticDemoFormSelectProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticFormValidation", StaticDemoFormValidation, |props: MdComponentProps| {
+        StaticDemoFormValidationProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticHoverCard", StaticDemoHoverCard, |props: MdComponentProps| {
+        StaticDemoHoverCardProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticHoverCardRtl", StaticDemoHoverCardRtl, |props: MdComponentProps| {
+        StaticDemoHoverCardRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticInput", StaticDemoInput, |props: MdComponentProps| {
+        StaticDemoInputProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticInputCopy", StaticDemoInputCopy, |props: MdComponentProps| {
+        StaticDemoInputCopyProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticInputGroup", StaticDemoInputGroup, |props: MdComponentProps| {
+        StaticDemoInputGroupProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticInputGroupBlock",
+        StaticDemoInputGroupBlock,
+        |props: MdComponentProps| StaticDemoInputGroupBlockProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticInputGroupCustom",
+        StaticDemoInputGroupCustom,
+        |props: MdComponentProps| StaticDemoInputGroupCustomProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticInputGroupDropdown",
+        StaticDemoInputGroupDropdown,
+        |props: MdComponentProps| StaticDemoInputGroupDropdownProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticInputGroupInCard",
+        StaticDemoInputGroupInCard,
+        |props: MdComponentProps| StaticDemoInputGroupInCardProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticInputGroupKbd", StaticDemoInputGroupKbd, |props: MdComponentProps| {
+        StaticDemoInputGroupKbdProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticInputGroupRtl", StaticDemoInputGroupRtl, |props: MdComponentProps| {
+        StaticDemoInputGroupRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticInputGroupSpinner",
+        StaticDemoInputGroupSpinner,
+        |props: MdComponentProps| StaticDemoInputGroupSpinnerProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticInputGroupText", StaticDemoInputGroupText, |props: MdComponentProps| {
+        StaticDemoInputGroupTextProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticInputGroupTooltip",
+        StaticDemoInputGroupTooltip,
+        |props: MdComponentProps| StaticDemoInputGroupTooltipProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticInputOtp", StaticDemoInputOtp, |props: MdComponentProps| {
+        StaticDemoInputOtpProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticInputOtpDisabled",
+        StaticDemoInputOtpDisabled,
+        |props: MdComponentProps| StaticDemoInputOtpDisabledProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticInputOtpRtl", StaticDemoInputOtpRtl, |props: MdComponentProps| {
+        StaticDemoInputOtpRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticInputOtpSeparator",
+        StaticDemoInputOtpSeparator,
+        |props: MdComponentProps| StaticDemoInputOtpSeparatorProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticInputPhone", StaticDemoInputPhone, |props: MdComponentProps| {
+        StaticDemoInputPhoneProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticInputPhoneDisabled",
+        StaticDemoInputPhoneDisabled,
+        |props: MdComponentProps| StaticDemoInputPhoneDisabledProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticInputPrompt", StaticDemoInputPrompt, |props: MdComponentProps| {
+        StaticDemoInputPromptProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticInputPromptWithTools",
+        StaticDemoInputPromptWithTools,
+        |props: MdComponentProps| StaticDemoInputPromptWithToolsProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticInputRtl", StaticDemoInputRtl, |props: MdComponentProps| {
+        StaticDemoInputRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticItem", StaticDemoItem, |props: MdComponentProps| StaticDemoItemProps {
+        resizable_wrapper_class: props.classes.join(" "),
+    });
+    combined_components.add_with_props(
+        "StaticItemDropdownMenu",
+        StaticDemoItemDropdownMenu,
+        |props: MdComponentProps| StaticDemoItemDropdownMenuProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticItemFileUpload", StaticDemoItemFileUpload, |props: MdComponentProps| {
+        StaticDemoItemFileUploadProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticItemGroup", StaticDemoItemGroup, |props: MdComponentProps| {
+        StaticDemoItemGroupProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticItemMediaImage", StaticDemoItemMediaImage, |props: MdComponentProps| {
+        StaticDemoItemMediaImageProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticItemRtl", StaticDemoItemRtl, |props: MdComponentProps| {
+        StaticDemoItemRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticItemVariants", StaticDemoItemVariants, |props: MdComponentProps| {
+        StaticDemoItemVariantsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticKbd", StaticDemoKbd, |props: MdComponentProps| StaticDemoKbdProps {
+        resizable_wrapper_class: props.classes.join(" "),
+    });
+    combined_components.add_with_props("StaticKbdButton", StaticDemoKbdButton, |props: MdComponentProps| {
+        StaticDemoKbdButtonProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticKbdInputGroup", StaticDemoKbdInputGroup, |props: MdComponentProps| {
+        StaticDemoKbdInputGroupProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticKbdRtl", StaticDemoKbdRtl, |props: MdComponentProps| {
+        StaticDemoKbdRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticLabel", StaticDemoLabel, |props: MdComponentProps| {
+        StaticDemoLabelProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticLabelRtl", StaticDemoLabelRtl, |props: MdComponentProps| {
+        StaticDemoLabelRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticMarker", StaticDemoMarker, |props: MdComponentProps| {
+        StaticDemoMarkerProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticMarkerBorder", StaticDemoMarkerBorder, |props: MdComponentProps| {
+        StaticDemoMarkerBorderProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticMarkerIcon", StaticDemoMarkerIcon, |props: MdComponentProps| {
+        StaticDemoMarkerIconProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticMarkerLinkButton",
+        StaticDemoMarkerLinkButton,
+        |props: MdComponentProps| StaticDemoMarkerLinkButtonProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticMarkerSeparator",
+        StaticDemoMarkerSeparator,
+        |props: MdComponentProps| StaticDemoMarkerSeparatorProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticMarkerShimmer", StaticDemoMarkerShimmer, |props: MdComponentProps| {
+        StaticDemoMarkerShimmerProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticMarkerStatus", StaticDemoMarkerStatus, |props: MdComponentProps| {
+        StaticDemoMarkerStatusProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticMarkerVariants", StaticDemoMarkerVariants, |props: MdComponentProps| {
+        StaticDemoMarkerVariantsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticMarquee", StaticDemoMarquee, |props: MdComponentProps| {
+        StaticDemoMarqueeProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticMenubar", StaticDemoMenubar, |props: MdComponentProps| {
+        StaticDemoMenubarProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticMenubarRtl", StaticDemoMenubarRtl, |props: MdComponentProps| {
+        StaticDemoMenubarRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticMessage", StaticDemoMessage, |props: MdComponentProps| {
+        StaticDemoMessageProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticMessageActions", StaticDemoMessageActions, |props: MdComponentProps| {
+        StaticDemoMessageActionsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticMessageAttachment",
+        StaticDemoMessageAttachment,
+        |props: MdComponentProps| StaticDemoMessageAttachmentProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticMessageAvatar", StaticDemoMessageAvatar, |props: MdComponentProps| {
+        StaticDemoMessageAvatarProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticMessageGroup", StaticDemoMessageGroup, |props: MdComponentProps| {
+        StaticDemoMessageGroupProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticMessageHeaderFooter",
+        StaticDemoMessageHeaderFooter,
+        |props: MdComponentProps| StaticDemoMessageHeaderFooterProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticMultiSelect", StaticDemoMultiSelect, |props: MdComponentProps| {
+        StaticDemoMultiSelectProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticMultiSelectAlign",
+        StaticDemoMultiSelectAlign,
+        |props: MdComponentProps| StaticDemoMultiSelectAlignProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticMultiSelectScrollable",
+        StaticDemoMultiSelectScrollable,
+        |props: MdComponentProps| StaticDemoMultiSelectScrollableProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticNavigationMenu", StaticDemoNavigationMenu, |props: MdComponentProps| {
+        StaticDemoNavigationMenuProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticNavigationMenuComplex",
+        StaticDemoNavigationMenuComplex,
+        |props: MdComponentProps| StaticDemoNavigationMenuComplexProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticNavigationMenuRtl",
+        StaticDemoNavigationMenuRtl,
+        |props: MdComponentProps| StaticDemoNavigationMenuRtlProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticPagination", StaticDemoPagination, |props: MdComponentProps| {
+        StaticDemoPaginationProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticPaginationRtl", StaticDemoPaginationRtl, |props: MdComponentProps| {
+        StaticDemoPaginationRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticPopover", StaticDemoPopover, |props: MdComponentProps| {
+        StaticDemoPopoverProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticPopoverEnd", StaticDemoPopoverEnd, |props: MdComponentProps| {
+        StaticDemoPopoverEndProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticPopoverEndOuter",
+        StaticDemoPopoverEndOuter,
+        |props: MdComponentProps| StaticDemoPopoverEndOuterProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticPopoverRtl", StaticDemoPopoverRtl, |props: MdComponentProps| {
+        StaticDemoPopoverRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticPopoverStart", StaticDemoPopoverStart, |props: MdComponentProps| {
+        StaticDemoPopoverStartProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticPopoverStartOuter",
+        StaticDemoPopoverStartOuter,
+        |props: MdComponentProps| StaticDemoPopoverStartOuterProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticPressable", StaticDemoPressable, |props: MdComponentProps| {
+        StaticDemoPressableProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticProgress", StaticDemoProgress, |props: MdComponentProps| {
+        StaticDemoProgressProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticProgressControlled",
+        StaticDemoProgressControlled,
+        |props: MdComponentProps| StaticDemoProgressControlledProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticProgressLabel", StaticDemoProgressLabel, |props: MdComponentProps| {
+        StaticDemoProgressLabelProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticProgressRtl", StaticDemoProgressRtl, |props: MdComponentProps| {
+        StaticDemoProgressRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticRadioButton", StaticDemoRadioButton, |props: MdComponentProps| {
+        StaticDemoRadioButtonProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticRadioButtonCustom",
+        StaticDemoRadioButtonCustom,
+        |props: MdComponentProps| StaticDemoRadioButtonCustomProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticRadioButtonGroup",
+        StaticDemoRadioButtonGroup,
+        |props: MdComponentProps| StaticDemoRadioButtonGroupProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticRadioButtonGroupRtl",
+        StaticDemoRadioButtonGroupRtl,
+        |props: MdComponentProps| StaticDemoRadioButtonGroupRtlProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticRadioChoiceCard",
+        StaticDemoRadioChoiceCard,
+        |props: MdComponentProps| StaticDemoRadioChoiceCardProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticRangeSlider", StaticDemoRangeSlider, |props: MdComponentProps| {
+        StaticDemoRangeSliderProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticRangeSliderDual",
+        StaticDemoRangeSliderDual,
+        |props: MdComponentProps| StaticDemoRangeSliderDualProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticResizable", StaticDemoResizable, |props: MdComponentProps| {
+        StaticDemoResizableProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticScrollArea", StaticDemoScrollArea, |props: MdComponentProps| {
+        StaticDemoScrollAreaProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticScrollAreaHorizontal",
+        StaticDemoScrollAreaHorizontal,
+        |props: MdComponentProps| StaticDemoScrollAreaHorizontalProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticScrollAreaRtl", StaticDemoScrollAreaRtl, |props: MdComponentProps| {
+        StaticDemoScrollAreaRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticScrollAreaSnap", StaticDemoScrollAreaSnap, |props: MdComponentProps| {
+        StaticDemoScrollAreaSnapProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSelect", StaticDemoSelect, |props: MdComponentProps| {
+        StaticDemoSelectProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticSelectNativeAutoWidth",
+        StaticDemoSelectNativeAutoWidth,
+        |props: MdComponentProps| StaticDemoSelectNativeAutoWidthProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticSelectNativeError",
+        StaticDemoSelectNativeError,
+        |props: MdComponentProps| StaticDemoSelectNativeErrorProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticSelectNativeGroup",
+        StaticDemoSelectNativeGroup,
+        |props: MdComponentProps| StaticDemoSelectNativeGroupProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticSelectNativeOverlappingLabel",
+        StaticDemoSelectNativeOverlappingLabel,
+        |props: MdComponentProps| StaticDemoSelectNativeOverlappingLabelProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticSelectNativeTimezone",
+        StaticDemoSelectNativeTimezone,
+        |props: MdComponentProps| StaticDemoSelectNativeTimezoneProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticSelectRtl", StaticDemoSelectRtl, |props: MdComponentProps| {
+        StaticDemoSelectRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticSelectScrollable",
+        StaticDemoSelectScrollable,
+        |props: MdComponentProps| StaticDemoSelectScrollableProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticSeparator", StaticDemoSeparator, |props: MdComponentProps| {
+        StaticDemoSeparatorProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSeparatorRtl", StaticDemoSeparatorRtl, |props: MdComponentProps| {
+        StaticDemoSeparatorRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSheet", StaticDemoSheet, |props: MdComponentProps| {
+        StaticDemoSheetProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticSheetDirections",
+        StaticDemoSheetDirections,
+        |props: MdComponentProps| StaticDemoSheetDirectionsProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticSheetExperimental",
+        StaticDemoSheetExperimental,
+        |props: MdComponentProps| StaticDemoSheetExperimentalProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props(
+        "StaticSheetNoCloseButton",
+        StaticDemoSheetNoCloseButton,
+        |props: MdComponentProps| StaticDemoSheetNoCloseButtonProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticSheetRtl", StaticDemoSheetRtl, |props: MdComponentProps| {
+        StaticDemoSheetRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticShimmer", StaticDemoShimmer, |props: MdComponentProps| {
+        StaticDemoShimmerProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticShimmerMarker", StaticDemoShimmerMarker, |props: MdComponentProps| {
+        StaticDemoShimmerMarkerProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSkeleton", StaticDemoSkeleton, |props: MdComponentProps| {
+        StaticDemoSkeletonProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSkeletonAvatar", StaticDemoSkeletonAvatar, |props: MdComponentProps| {
+        StaticDemoSkeletonAvatarProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSkeletonForm", StaticDemoSkeletonForm, |props: MdComponentProps| {
+        StaticDemoSkeletonFormProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSkeletonImage", StaticDemoSkeletonImage, |props: MdComponentProps| {
+        StaticDemoSkeletonImageProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSkeletonRtl", StaticDemoSkeletonRtl, |props: MdComponentProps| {
+        StaticDemoSkeletonRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSkeletonTable", StaticDemoSkeletonTable, |props: MdComponentProps| {
+        StaticDemoSkeletonTableProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSkeletonText", StaticDemoSkeletonText, |props: MdComponentProps| {
+        StaticDemoSkeletonTextProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSlider", StaticDemoSlider, |props: MdComponentProps| {
+        StaticDemoSliderProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticSliderControlled",
+        StaticDemoSliderControlled,
+        |props: MdComponentProps| StaticDemoSliderControlledProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticSliderFlat", StaticDemoSliderFlat, |props: MdComponentProps| {
+        StaticDemoSliderFlatProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSliderMultiple", StaticDemoSliderMultiple, |props: MdComponentProps| {
+        StaticDemoSliderMultipleProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSliderRtl", StaticDemoSliderRtl, |props: MdComponentProps| {
+        StaticDemoSliderRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSliderVertical", StaticDemoSliderVertical, |props: MdComponentProps| {
+        StaticDemoSliderVerticalProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSonner", StaticDemoSonner, |props: MdComponentProps| {
+        StaticDemoSonnerProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticSonnerPositions",
+        StaticDemoSonnerPositions,
+        |props: MdComponentProps| StaticDemoSonnerPositionsProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticSonnerVariants", StaticDemoSonnerVariants, |props: MdComponentProps| {
+        StaticDemoSonnerVariantsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSpinner", StaticDemoSpinner, |props: MdComponentProps| {
+        StaticDemoSpinnerProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSpinnerButton", StaticDemoSpinnerButton, |props: MdComponentProps| {
+        StaticDemoSpinnerButtonProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSpinnerRtl", StaticDemoSpinnerRtl, |props: MdComponentProps| {
+        StaticDemoSpinnerRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticStatus", StaticDemoStatus, |props: MdComponentProps| {
+        StaticDemoStatusProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticStatusVariants", StaticDemoStatusVariants, |props: MdComponentProps| {
+        StaticDemoStatusVariantsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticSwitch", StaticDemoSwitch, |props: MdComponentProps| {
+        StaticDemoSwitchProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticSwitchChoiceCard",
+        StaticDemoSwitchChoiceCard,
+        |props: MdComponentProps| StaticDemoSwitchChoiceCardProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticSwitchRtl", StaticDemoSwitchRtl, |props: MdComponentProps| {
+        StaticDemoSwitchRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticTable", StaticDemoTable, |props: MdComponentProps| {
+        StaticDemoTableProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticTableRtl", StaticDemoTableRtl, |props: MdComponentProps| {
+        StaticDemoTableRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticTabs", StaticDemoTabs, |props: MdComponentProps| StaticDemoTabsProps {
+        resizable_wrapper_class: props.classes.join(" "),
+    });
+    combined_components.add_with_props("StaticTabsLine", StaticDemoTabsLine, |props: MdComponentProps| {
+        StaticDemoTabsLineProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticTabsRtl", StaticDemoTabsRtl, |props: MdComponentProps| {
+        StaticDemoTabsRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticTabsVertical", StaticDemoTabsVertical, |props: MdComponentProps| {
+        StaticDemoTabsVerticalProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticTextarea", StaticDemoTextarea, |props: MdComponentProps| {
+        StaticDemoTextareaProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticTextareaRtl", StaticDemoTextareaRtl, |props: MdComponentProps| {
+        StaticDemoTextareaRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticThemeToggle", StaticDemoThemeToggle, |props: MdComponentProps| {
+        StaticDemoThemeToggleProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticToast", StaticDemoToast, |props: MdComponentProps| {
+        StaticDemoToastProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticToastVariants", StaticDemoToastVariants, |props: MdComponentProps| {
+        StaticDemoToastVariantsProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticToggleGroup", StaticDemoToggleGroup, |props: MdComponentProps| {
+        StaticDemoToggleGroupProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticToggleGroupFontWeight",
+        StaticDemoToggleGroupFontWeight,
+        |props: MdComponentProps| StaticDemoToggleGroupFontWeightProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticToggleGroupOutline",
+        StaticDemoToggleGroupOutline,
+        |props: MdComponentProps| StaticDemoToggleGroupOutlineProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticToggleGroupRtl", StaticDemoToggleGroupRtl, |props: MdComponentProps| {
+        StaticDemoToggleGroupRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticToggleGroupSpacing",
+        StaticDemoToggleGroupSpacing,
+        |props: MdComponentProps| StaticDemoToggleGroupSpacingProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props(
+        "StaticToggleGroupVertical",
+        StaticDemoToggleGroupVertical,
+        |props: MdComponentProps| StaticDemoToggleGroupVerticalProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticTooltip", StaticDemoTooltip, |props: MdComponentProps| {
+        StaticDemoTooltipProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticTooltipRtl", StaticDemoTooltipRtl, |props: MdComponentProps| {
+        StaticDemoTooltipRtlProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticUseCopyToClipboard",
+        StaticDemoUseCopyToClipboard,
+        |props: MdComponentProps| StaticDemoUseCopyToClipboardProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticUseHistory", StaticDemoUseHistory, |props: MdComponentProps| {
+        StaticDemoUseHistoryProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticUseHorizontalScroll",
+        StaticDemoUseHorizontalScroll,
+        |props: MdComponentProps| StaticDemoUseHorizontalScrollProps {
+            resizable_wrapper_class: props.classes.join(" "),
+        },
+    );
+    combined_components.add_with_props("StaticUseIsMobile", StaticDemoUseIsMobile, |props: MdComponentProps| {
+        StaticDemoUseIsMobileProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props(
+        "StaticUseLockBodyScroll",
+        StaticDemoUseLockBodyScroll,
+        |props: MdComponentProps| StaticDemoUseLockBodyScrollProps { resizable_wrapper_class: props.classes.join(" ") },
+    );
+    combined_components.add_with_props("StaticUseLocks", StaticDemoUseLocks, |props: MdComponentProps| {
+        StaticDemoUseLocksProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticUseMediaQuery", StaticDemoUseMediaQuery, |props: MdComponentProps| {
+        StaticDemoUseMediaQueryProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticUsePressHold", StaticDemoUsePressHold, |props: MdComponentProps| {
+        StaticDemoUsePressHoldProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
+    combined_components.add_with_props("StaticUseRandom", StaticDemoUseRandom, |props: MdComponentProps| {
+        StaticDemoUseRandomProps { resizable_wrapper_class: props.classes.join(" ") }
+    });
 
     view! { <LeptosConverter md_content=md_file.content md_components=combined_components /> }
 }
@@ -3569,2871 +4505,2871 @@ pub fn get_static_registry_entry(markdown_type: MarkdownType) -> Option<&'static
 
 // * Individual demo components
 #[component]
-fn StaticDemoAccordion() -> impl IntoView {
+fn StaticDemoAccordion(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordion>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordion resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_accordion::DemoAccordion />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAccordionBordered() -> impl IntoView {
+fn StaticDemoAccordionBordered(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordionBordered>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordionBordered resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_accordion_bordered::DemoAccordionBordered />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAccordionCard() -> impl IntoView {
+fn StaticDemoAccordionCard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordionCard>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordionCard resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_accordion_card::DemoAccordionCard />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAccordionIcons() -> impl IntoView {
+fn StaticDemoAccordionIcons(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordionIcons>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordionIcons resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_accordion_icons::DemoAccordionIcons />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAccordionRtl() -> impl IntoView {
+fn StaticDemoAccordionRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordionRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordionRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_accordion_rtl::DemoAccordionRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAlert() -> impl IntoView {
+fn StaticDemoAlert(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlert>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlert resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_alert::DemoAlert />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAlertColors() -> impl IntoView {
+fn StaticDemoAlertColors(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertColors>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertColors resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_alert_colors::DemoAlertColors />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAlertDialog() -> impl IntoView {
+fn StaticDemoAlertDialog(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialog>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialog resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_alert_dialog::DemoAlertDialog />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAlertDialogMedia() -> impl IntoView {
+fn StaticDemoAlertDialogMedia(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialogMedia>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialogMedia resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_alert_dialog_media::DemoAlertDialogMedia />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAlertDialogRtl() -> impl IntoView {
+fn StaticDemoAlertDialogRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialogRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialogRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_alert_dialog_rtl::DemoAlertDialogRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAlertDialogSmall() -> impl IntoView {
+fn StaticDemoAlertDialogSmall(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialogSmall>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialogSmall resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_alert_dialog_small::DemoAlertDialogSmall />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAlertDialogSmallMedia() -> impl IntoView {
+fn StaticDemoAlertDialogSmallMedia(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialogSmallMedia>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialogSmallMedia resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_alert_dialog_small_media::DemoAlertDialogSmallMedia />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAlertRtl() -> impl IntoView {
+fn StaticDemoAlertRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_alert_rtl::DemoAlertRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAnimate() -> impl IntoView {
+fn StaticDemoAnimate(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAnimate>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAnimate resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_animate::DemoAnimate />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAnimateGroup() -> impl IntoView {
+fn StaticDemoAnimateGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAnimateGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAnimateGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_animate_group::DemoAnimateGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAspectRatio() -> impl IntoView {
+fn StaticDemoAspectRatio(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAspectRatio>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAspectRatio resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_aspect_ratio::DemoAspectRatio />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAspectRatioPortrait() -> impl IntoView {
+fn StaticDemoAspectRatioPortrait(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAspectRatioPortrait>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAspectRatioPortrait resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_aspect_ratio_portrait::DemoAspectRatioPortrait />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAspectRatioSquare() -> impl IntoView {
+fn StaticDemoAspectRatioSquare(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAspectRatioSquare>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAspectRatioSquare resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_aspect_ratio_square::DemoAspectRatioSquare />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAttachment() -> impl IntoView {
+fn StaticDemoAttachment(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachment>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachment resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_attachment::DemoAttachment />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAttachmentGroup() -> impl IntoView {
+fn StaticDemoAttachmentGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_attachment_group::DemoAttachmentGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAttachmentImage() -> impl IntoView {
+fn StaticDemoAttachmentImage(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentImage>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentImage resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_attachment_image::DemoAttachmentImage />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAttachmentSizes() -> impl IntoView {
+fn StaticDemoAttachmentSizes(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentSizes>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentSizes resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_attachment_sizes::DemoAttachmentSizes />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAttachmentStates() -> impl IntoView {
+fn StaticDemoAttachmentStates(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentStates>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentStates resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_attachment_states::DemoAttachmentStates />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAttachmentTrigger() -> impl IntoView {
+fn StaticDemoAttachmentTrigger(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentTrigger>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentTrigger resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_attachment_trigger::DemoAttachmentTrigger />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAutoForm() -> impl IntoView {
+fn StaticDemoAutoForm(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAutoForm>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAutoForm resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_auto_form::DemoAutoForm />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAvatar() -> impl IntoView {
+fn StaticDemoAvatar(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatar>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatar resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_avatar::DemoAvatar />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAvatarBadge() -> impl IntoView {
+fn StaticDemoAvatarBadge(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarBadge>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarBadge resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_avatar_badge::DemoAvatarBadge />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAvatarBadgeIcon() -> impl IntoView {
+fn StaticDemoAvatarBadgeIcon(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarBadgeIcon>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarBadgeIcon resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_avatar_badge_icon::DemoAvatarBadgeIcon />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAvatarGroup() -> impl IntoView {
+fn StaticDemoAvatarGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_avatar_group::DemoAvatarGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAvatarGroupCount() -> impl IntoView {
+fn StaticDemoAvatarGroupCount(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarGroupCount>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarGroupCount resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_avatar_group_count::DemoAvatarGroupCount />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAvatarGroupCountIcon() -> impl IntoView {
+fn StaticDemoAvatarGroupCountIcon(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarGroupCountIcon>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarGroupCountIcon resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_avatar_group_count_icon::DemoAvatarGroupCountIcon />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAvatarRtl() -> impl IntoView {
+fn StaticDemoAvatarRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_avatar_rtl::DemoAvatarRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoAvatarSize() -> impl IntoView {
+fn StaticDemoAvatarSize(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarSize>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarSize resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_avatar_size::DemoAvatarSize />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBadge() -> impl IntoView {
+fn StaticDemoBadge(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadge>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadge resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_badge::DemoBadge />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBadgeColors() -> impl IntoView {
+fn StaticDemoBadgeColors(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadgeColors>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadgeColors resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_badge_colors::DemoBadgeColors />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBadgeCustom() -> impl IntoView {
+fn StaticDemoBadgeCustom(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadgeCustom>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadgeCustom resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_badge_custom::DemoBadgeCustom />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBadgeRtl() -> impl IntoView {
+fn StaticDemoBadgeRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadgeRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadgeRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_badge_rtl::DemoBadgeRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBadgeVariants() -> impl IntoView {
+fn StaticDemoBadgeVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadgeVariants>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadgeVariants resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_badge_variants::DemoBadgeVariants />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBentoGrid4() -> impl IntoView {
+fn StaticDemoBentoGrid4(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBentoGrid4>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBentoGrid4 resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bento_grid4::DemoBentoGrid4 />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBentoGrid5() -> impl IntoView {
+fn StaticDemoBentoGrid5(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBentoGrid5>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBentoGrid5 resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bento_grid5::DemoBentoGrid5 />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBentoGrid6() -> impl IntoView {
+fn StaticDemoBentoGrid6(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBentoGrid6>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBentoGrid6 resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bento_grid6::DemoBentoGrid6 />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBottomNav() -> impl IntoView {
+fn StaticDemoBottomNav(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBottomNav>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBottomNav resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bottom_nav::DemoBottomNav />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBreadcrumb() -> impl IntoView {
+fn StaticDemoBreadcrumb(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBreadcrumb>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBreadcrumb resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_breadcrumb::DemoBreadcrumb />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBreadcrumbDropdown() -> impl IntoView {
+fn StaticDemoBreadcrumbDropdown(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBreadcrumbDropdown>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBreadcrumbDropdown resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_breadcrumb_dropdown::DemoBreadcrumbDropdown />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBreadcrumbRtl() -> impl IntoView {
+fn StaticDemoBreadcrumbRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBreadcrumbRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBreadcrumbRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_breadcrumb_rtl::DemoBreadcrumbRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBubble() -> impl IntoView {
+fn StaticDemoBubble(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubble>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubble resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bubble::DemoBubble />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBubbleAlignment() -> impl IntoView {
+fn StaticDemoBubbleAlignment(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleAlignment>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleAlignment resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bubble_alignment::DemoBubbleAlignment />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBubbleCollapsible() -> impl IntoView {
+fn StaticDemoBubbleCollapsible(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleCollapsible>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleCollapsible resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bubble_collapsible::DemoBubbleCollapsible />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBubbleGroup() -> impl IntoView {
+fn StaticDemoBubbleGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bubble_group::DemoBubbleGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBubbleLinkButton() -> impl IntoView {
+fn StaticDemoBubbleLinkButton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleLinkButton>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleLinkButton resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bubble_link_button::DemoBubbleLinkButton />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBubblePopover() -> impl IntoView {
+fn StaticDemoBubblePopover(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubblePopover>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubblePopover resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bubble_popover::DemoBubblePopover />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBubbleReactions() -> impl IntoView {
+fn StaticDemoBubbleReactions(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleReactions>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleReactions resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bubble_reactions::DemoBubbleReactions />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBubbleTooltip() -> impl IntoView {
+fn StaticDemoBubbleTooltip(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleTooltip>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleTooltip resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bubble_tooltip::DemoBubbleTooltip />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoBubbleVariants() -> impl IntoView {
+fn StaticDemoBubbleVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleVariants>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleVariants resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_bubble_variants::DemoBubbleVariants />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButton() -> impl IntoView {
+fn StaticDemoButton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButton>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButton resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button::DemoButton />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonAction() -> impl IntoView {
+fn StaticDemoButtonAction(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonAction>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonAction resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_action::DemoButtonAction />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonDisabled() -> impl IntoView {
+fn StaticDemoButtonDisabled(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonDisabled>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonDisabled resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_disabled::DemoButtonDisabled />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonGroup() -> impl IntoView {
+fn StaticDemoButtonGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_group::DemoButtonGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonGroupIcon() -> impl IntoView {
+fn StaticDemoButtonGroupIcon(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupIcon>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupIcon resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_group_icon::DemoButtonGroupIcon />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonGroupInput() -> impl IntoView {
+fn StaticDemoButtonGroupInput(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupInput>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupInput resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_group_input::DemoButtonGroupInput />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonGroupRtl() -> impl IntoView {
+fn StaticDemoButtonGroupRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_group_rtl::DemoButtonGroupRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonGroupSelect() -> impl IntoView {
+fn StaticDemoButtonGroupSelect(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupSelect>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupSelect resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_group_select::DemoButtonGroupSelect />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonGroupSeparator() -> impl IntoView {
+fn StaticDemoButtonGroupSeparator(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupSeparator>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupSeparator resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_group_separator::DemoButtonGroupSeparator />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonGroupSizes() -> impl IntoView {
+fn StaticDemoButtonGroupSizes(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupSizes>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupSizes resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_group_sizes::DemoButtonGroupSizes />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonHref() -> impl IntoView {
+fn StaticDemoButtonHref(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonHref>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonHref resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_href::DemoButtonHref />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonOverride() -> impl IntoView {
+fn StaticDemoButtonOverride(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonOverride>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonOverride resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_override::DemoButtonOverride />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonReactive() -> impl IntoView {
+fn StaticDemoButtonReactive(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonReactive>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonReactive resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_reactive::DemoButtonReactive />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonRtl() -> impl IntoView {
+fn StaticDemoButtonRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_rtl::DemoButtonRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonSizes() -> impl IntoView {
+fn StaticDemoButtonSizes(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonSizes>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonSizes resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_sizes::DemoButtonSizes />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonStateful() -> impl IntoView {
+fn StaticDemoButtonStateful(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonStateful>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonStateful resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_stateful::DemoButtonStateful />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonVariants() -> impl IntoView {
+fn StaticDemoButtonVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonVariants>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonVariants resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_variants::DemoButtonVariants />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoButtonWithClx() -> impl IntoView {
+fn StaticDemoButtonWithClx(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonWithClx>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonWithClx resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_button_with_clx::DemoButtonWithClx />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCallout() -> impl IntoView {
+fn StaticDemoCallout(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCallout>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCallout resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_callout::DemoCallout />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCalloutInfo() -> impl IntoView {
+fn StaticDemoCalloutInfo(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCalloutInfo>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCalloutInfo resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_callout_info::DemoCalloutInfo />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCalloutWarning() -> impl IntoView {
+fn StaticDemoCalloutWarning(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCalloutWarning>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCalloutWarning resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_callout_warning::DemoCalloutWarning />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCard() -> impl IntoView {
+fn StaticDemoCard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCard>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCard resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_card::DemoCard />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCardAction() -> impl IntoView {
+fn StaticDemoCardAction(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardAction>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardAction resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_card_action::DemoCardAction />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCardCarousel() -> impl IntoView {
+fn StaticDemoCardCarousel(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardCarousel>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardCarousel resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_card_carousel::DemoCardCarousel />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCardGroup() -> impl IntoView {
+fn StaticDemoCardGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_card_group::DemoCardGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCardReverse() -> impl IntoView {
+fn StaticDemoCardReverse(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardReverse>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardReverse resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_card_reverse::DemoCardReverse />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCardRtl() -> impl IntoView {
+fn StaticDemoCardRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_card_rtl::DemoCardRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCardSm() -> impl IntoView {
+fn StaticDemoCardSm(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardSm>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardSm resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_card_sm::DemoCardSm />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCarousel() -> impl IntoView {
+fn StaticDemoCarousel(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarousel>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarousel resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_carousel::DemoCarousel />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCarouselApi() -> impl IntoView {
+fn StaticDemoCarouselApi(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselApi>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselApi resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_carousel_api::DemoCarouselApi />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCarouselOrientation() -> impl IntoView {
+fn StaticDemoCarouselOrientation(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselOrientation>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselOrientation resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_carousel_orientation::DemoCarouselOrientation />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCarouselRtl() -> impl IntoView {
+fn StaticDemoCarouselRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_carousel_rtl::DemoCarouselRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCarouselSize() -> impl IntoView {
+fn StaticDemoCarouselSize(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselSize>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselSize resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_carousel_size::DemoCarouselSize />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCarouselSnapScroll() -> impl IntoView {
+fn StaticDemoCarouselSnapScroll(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselSnapScroll>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselSnapScroll resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_carousel_snap_scroll::DemoCarouselSnapScroll />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCarouselSpacing() -> impl IntoView {
+fn StaticDemoCarouselSpacing(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselSpacing>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselSpacing resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_carousel_spacing::DemoCarouselSpacing />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCheckbox() -> impl IntoView {
+fn StaticDemoCheckbox(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCheckbox>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCheckbox resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_checkbox::DemoCheckbox />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCheckboxRtl() -> impl IntoView {
+fn StaticDemoCheckboxRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCheckboxRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCheckboxRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_checkbox_rtl::DemoCheckboxRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoChips() -> impl IntoView {
+fn StaticDemoChips(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoChips>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoChips resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_chips::DemoChips />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCollapsible() -> impl IntoView {
+fn StaticDemoCollapsible(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsible>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsible resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_collapsible::DemoCollapsible />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCollapsibleBasic() -> impl IntoView {
+fn StaticDemoCollapsibleBasic(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsibleBasic>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsibleBasic resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_collapsible_basic::DemoCollapsibleBasic />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCollapsibleFileTree() -> impl IntoView {
+fn StaticDemoCollapsibleFileTree(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsibleFileTree>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsibleFileTree resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_collapsible_file_tree::DemoCollapsibleFileTree />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCollapsibleRtl() -> impl IntoView {
+fn StaticDemoCollapsibleRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsibleRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsibleRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_collapsible_rtl::DemoCollapsibleRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCollapsibleSettings() -> impl IntoView {
+fn StaticDemoCollapsibleSettings(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsibleSettings>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsibleSettings resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_collapsible_settings::DemoCollapsibleSettings />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCombobox() -> impl IntoView {
+fn StaticDemoCombobox(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCombobox>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCombobox resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_combobox::DemoCombobox />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCommand() -> impl IntoView {
+fn StaticDemoCommand(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCommand>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCommand resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_command::DemoCommand />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoCommandDialog() -> impl IntoView {
+fn StaticDemoCommandDialog(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCommandDialog>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCommandDialog resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_command_dialog::DemoCommandDialog />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoContextMenu() -> impl IntoView {
+fn StaticDemoContextMenu(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoContextMenu>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoContextMenu resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_context_menu::DemoContextMenu />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoContextMenuAction() -> impl IntoView {
+fn StaticDemoContextMenuAction(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoContextMenuAction>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoContextMenuAction resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_context_menu_action::DemoContextMenuAction />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoContextMenuRtl() -> impl IntoView {
+fn StaticDemoContextMenuRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoContextMenuRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoContextMenuRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_context_menu_rtl::DemoContextMenuRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDataGrid() -> impl IntoView {
+fn StaticDemoDataGrid(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDataGrid>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDataGrid resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_data_grid::DemoDataGrid />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDataTable() -> impl IntoView {
+fn StaticDemoDataTable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDataTable>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDataTable resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_data_table::DemoDataTable />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDataTableFilters() -> impl IntoView {
+fn StaticDemoDataTableFilters(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDataTableFilters>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDataTableFilters resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_data_table_filters::DemoDataTableFilters />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDatePicker() -> impl IntoView {
+fn StaticDemoDatePicker(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePicker>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePicker resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_date_picker::DemoDatePicker />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDatePickerBooked() -> impl IntoView {
+fn StaticDemoDatePickerBooked(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerBooked>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerBooked resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_date_picker_booked::DemoDatePickerBooked />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDatePickerDropdown() -> impl IntoView {
+fn StaticDemoDatePickerDropdown(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerDropdown>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerDropdown resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_date_picker_dropdown::DemoDatePickerDropdown />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDatePickerDual() -> impl IntoView {
+fn StaticDemoDatePickerDual(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerDual>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerDual resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_date_picker_dual::DemoDatePickerDual />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDatePickerDualFull() -> impl IntoView {
+fn StaticDemoDatePickerDualFull(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerDualFull>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerDualFull resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_date_picker_dual_full::DemoDatePickerDualFull />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDatePickerPresets() -> impl IntoView {
+fn StaticDemoDatePickerPresets(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerPresets>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerPresets resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_date_picker_presets::DemoDatePickerPresets />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDatePickerTime() -> impl IntoView {
+fn StaticDemoDatePickerTime(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerTime>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerTime resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_date_picker_time::DemoDatePickerTime />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDatePickerWeekNumbers() -> impl IntoView {
+fn StaticDemoDatePickerWeekNumbers(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerWeekNumbers>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerWeekNumbers resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_date_picker_week_numbers::DemoDatePickerWeekNumbers />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDialog() -> impl IntoView {
+fn StaticDemoDialog(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDialog>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDialog resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dialog::DemoDialog />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDialogRtl() -> impl IntoView {
+fn StaticDemoDialogRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDialogRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDialogRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dialog_rtl::DemoDialogRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDialogScrollable() -> impl IntoView {
+fn StaticDemoDialogScrollable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDialogScrollable>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDialogScrollable resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dialog_scrollable::DemoDialogScrollable />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDialogStickyFooter() -> impl IntoView {
+fn StaticDemoDialogStickyFooter(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDialogStickyFooter>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDialogStickyFooter resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dialog_sticky_footer::DemoDialogStickyFooter />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDirectionProvider() -> impl IntoView {
+fn StaticDemoDirectionProvider(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDirectionProvider>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDirectionProvider resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_direction_provider::DemoDirectionProvider />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDirectionProviderDefault() -> impl IntoView {
+fn StaticDemoDirectionProviderDefault(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDirectionProviderDefault>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDirectionProviderDefault resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_direction_provider_default::DemoDirectionProviderDefault />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDirectionProviderRtl() -> impl IntoView {
+fn StaticDemoDirectionProviderRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDirectionProviderRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDirectionProviderRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_direction_provider_rtl::DemoDirectionProviderRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDocker() -> impl IntoView {
+fn StaticDemoDocker(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDocker>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDocker resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_docker::DemoDocker />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDragAndDrop() -> impl IntoView {
+fn StaticDemoDragAndDrop(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDragAndDrop>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDragAndDrop resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_drag_and_drop::DemoDragAndDrop />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDrawer() -> impl IntoView {
+fn StaticDemoDrawer(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawer>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawer resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_drawer::DemoDrawer />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDrawerDialog() -> impl IntoView {
+fn StaticDemoDrawerDialog(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerDialog>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerDialog resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_drawer_dialog::DemoDrawerDialog />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDrawerFamily() -> impl IntoView {
+fn StaticDemoDrawerFamily(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerFamily>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerFamily resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_drawer_family::DemoDrawerFamily />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDrawerFocus() -> impl IntoView {
+fn StaticDemoDrawerFocus(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerFocus>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerFocus resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_drawer_focus::DemoDrawerFocus />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDrawerNested() -> impl IntoView {
+fn StaticDemoDrawerNested(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerNested>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerNested resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_drawer_nested::DemoDrawerNested />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDrawerNonDismissable() -> impl IntoView {
+fn StaticDemoDrawerNonDismissable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerNonDismissable>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerNonDismissable resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_drawer_non_dismissable::DemoDrawerNonDismissable />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDrawerRtl() -> impl IntoView {
+fn StaticDemoDrawerRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_drawer_rtl::DemoDrawerRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDrawerScrollable() -> impl IntoView {
+fn StaticDemoDrawerScrollable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerScrollable>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerScrollable resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_drawer_scrollable::DemoDrawerScrollable />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDrawerSide() -> impl IntoView {
+fn StaticDemoDrawerSide(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerSide>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerSide resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_drawer_side::DemoDrawerSide />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDrawerSideFloating() -> impl IntoView {
+fn StaticDemoDrawerSideFloating(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerSideFloating>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerSideFloating resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_drawer_side_floating::DemoDrawerSideFloating />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDrawerSideScrollable() -> impl IntoView {
+fn StaticDemoDrawerSideScrollable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerSideScrollable>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerSideScrollable resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_drawer_side_scrollable::DemoDrawerSideScrollable />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDropdownMenu() -> impl IntoView {
+fn StaticDemoDropdownMenu(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenu>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenu resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dropdown_menu::DemoDropdownMenu />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDropdownMenuDestructive() -> impl IntoView {
+fn StaticDemoDropdownMenuDestructive(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuDestructive>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuDestructive resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dropdown_menu_destructive::DemoDropdownMenuDestructive />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDropdownMenuEnd() -> impl IntoView {
+fn StaticDemoDropdownMenuEnd(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuEnd>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuEnd resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dropdown_menu_end::DemoDropdownMenuEnd />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDropdownMenuEndOuter() -> impl IntoView {
+fn StaticDemoDropdownMenuEndOuter(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuEndOuter>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuEndOuter resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dropdown_menu_end_outer::DemoDropdownMenuEndOuter />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDropdownMenuRadio() -> impl IntoView {
+fn StaticDemoDropdownMenuRadio(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuRadio>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuRadio resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dropdown_menu_radio::DemoDropdownMenuRadio />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDropdownMenuRtl() -> impl IntoView {
+fn StaticDemoDropdownMenuRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dropdown_menu_rtl::DemoDropdownMenuRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDropdownMenuSelect() -> impl IntoView {
+fn StaticDemoDropdownMenuSelect(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuSelect>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuSelect resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dropdown_menu_select::DemoDropdownMenuSelect />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDropdownMenuStart() -> impl IntoView {
+fn StaticDemoDropdownMenuStart(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuStart>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuStart resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dropdown_menu_start::DemoDropdownMenuStart />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDropdownMenuStartOuter() -> impl IntoView {
+fn StaticDemoDropdownMenuStartOuter(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuStartOuter>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuStartOuter resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dropdown_menu_start_outer::DemoDropdownMenuStartOuter />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDropdownMenuUser() -> impl IntoView {
+fn StaticDemoDropdownMenuUser(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuUser>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuUser resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dropdown_menu_user::DemoDropdownMenuUser />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDropdownMenuUserIcon() -> impl IntoView {
+fn StaticDemoDropdownMenuUserIcon(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuUserIcon>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuUserIcon resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dropdown_menu_user_icon::DemoDropdownMenuUserIcon />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoDropzone() -> impl IntoView {
+fn StaticDemoDropzone(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropzone>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropzone resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_dropzone::DemoDropzone />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoEmpty() -> impl IntoView {
+fn StaticDemoEmpty(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmpty>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmpty resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_empty::DemoEmpty />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoEmptyAvatarGroup() -> impl IntoView {
+fn StaticDemoEmptyAvatarGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyAvatarGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyAvatarGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_empty_avatar_group::DemoEmptyAvatarGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoEmptyBackground() -> impl IntoView {
+fn StaticDemoEmptyBackground(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyBackground>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyBackground resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_empty_background::DemoEmptyBackground />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoEmptyCard() -> impl IntoView {
+fn StaticDemoEmptyCard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyCard>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyCard resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_empty_card::DemoEmptyCard />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoEmptyInputGroup() -> impl IntoView {
+fn StaticDemoEmptyInputGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyInputGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyInputGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_empty_input_group::DemoEmptyInputGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoEmptyMuted() -> impl IntoView {
+fn StaticDemoEmptyMuted(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyMuted>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyMuted resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_empty_muted::DemoEmptyMuted />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoEmptyOutline() -> impl IntoView {
+fn StaticDemoEmptyOutline(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyOutline>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyOutline resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_empty_outline::DemoEmptyOutline />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoEmptyRtl() -> impl IntoView {
+fn StaticDemoEmptyRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_empty_rtl::DemoEmptyRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoField() -> impl IntoView {
+fn StaticDemoField(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoField>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoField resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_field::DemoField />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoFieldCheckbox() -> impl IntoView {
+fn StaticDemoFieldCheckbox(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldCheckbox>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldCheckbox resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_field_checkbox::DemoFieldCheckbox />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoFieldFieldset() -> impl IntoView {
+fn StaticDemoFieldFieldset(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldFieldset>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldFieldset resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_field_fieldset::DemoFieldFieldset />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoFieldInput() -> impl IntoView {
+fn StaticDemoFieldInput(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldInput>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldInput resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_field_input::DemoFieldInput />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoFieldInputInline() -> impl IntoView {
+fn StaticDemoFieldInputInline(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldInputInline>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldInputInline resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_field_input_inline::DemoFieldInputInline />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoFieldRtl() -> impl IntoView {
+fn StaticDemoFieldRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_field_rtl::DemoFieldRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoForm() -> impl IntoView {
+fn StaticDemoForm(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoForm>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoForm resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_form::DemoForm />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoFormError() -> impl IntoView {
+fn StaticDemoFormError(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFormError>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFormError resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_form_error::DemoFormError />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoFormFieldset() -> impl IntoView {
+fn StaticDemoFormFieldset(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFormFieldset>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFormFieldset resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_form_fieldset::DemoFormFieldset />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoFormGroup() -> impl IntoView {
+fn StaticDemoFormGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFormGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFormGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_form_group::DemoFormGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoFormSelect() -> impl IntoView {
+fn StaticDemoFormSelect(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFormSelect>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFormSelect resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_form_select::DemoFormSelect />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoFormValidation() -> impl IntoView {
+fn StaticDemoFormValidation(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFormValidation>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFormValidation resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_form_validation::DemoFormValidation />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoHoverCard() -> impl IntoView {
+fn StaticDemoHoverCard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoHoverCard>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoHoverCard resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_hover_card::DemoHoverCard />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoHoverCardRtl() -> impl IntoView {
+fn StaticDemoHoverCardRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoHoverCardRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoHoverCardRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_hover_card_rtl::DemoHoverCardRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInput() -> impl IntoView {
+fn StaticDemoInput(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInput>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInput resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input::DemoInput />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputCopy() -> impl IntoView {
+fn StaticDemoInputCopy(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputCopy>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputCopy resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_copy::DemoInputCopy />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputGroup() -> impl IntoView {
+fn StaticDemoInputGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_group::DemoInputGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputGroupBlock() -> impl IntoView {
+fn StaticDemoInputGroupBlock(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupBlock>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupBlock resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_group_block::DemoInputGroupBlock />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputGroupCustom() -> impl IntoView {
+fn StaticDemoInputGroupCustom(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupCustom>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupCustom resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_group_custom::DemoInputGroupCustom />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputGroupDropdown() -> impl IntoView {
+fn StaticDemoInputGroupDropdown(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupDropdown>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupDropdown resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_group_dropdown::DemoInputGroupDropdown />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputGroupInCard() -> impl IntoView {
+fn StaticDemoInputGroupInCard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupInCard>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupInCard resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_group_in_card::DemoInputGroupInCard />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputGroupKbd() -> impl IntoView {
+fn StaticDemoInputGroupKbd(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupKbd>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupKbd resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_group_kbd::DemoInputGroupKbd />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputGroupRtl() -> impl IntoView {
+fn StaticDemoInputGroupRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_group_rtl::DemoInputGroupRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputGroupSpinner() -> impl IntoView {
+fn StaticDemoInputGroupSpinner(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupSpinner>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupSpinner resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_group_spinner::DemoInputGroupSpinner />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputGroupText() -> impl IntoView {
+fn StaticDemoInputGroupText(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupText>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupText resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_group_text::DemoInputGroupText />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputGroupTooltip() -> impl IntoView {
+fn StaticDemoInputGroupTooltip(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupTooltip>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupTooltip resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_group_tooltip::DemoInputGroupTooltip />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputOtp() -> impl IntoView {
+fn StaticDemoInputOtp(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputOtp>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputOtp resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_otp::DemoInputOtp />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputOtpDisabled() -> impl IntoView {
+fn StaticDemoInputOtpDisabled(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputOtpDisabled>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputOtpDisabled resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_otp_disabled::DemoInputOtpDisabled />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputOtpRtl() -> impl IntoView {
+fn StaticDemoInputOtpRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputOtpRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputOtpRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_otp_rtl::DemoInputOtpRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputOtpSeparator() -> impl IntoView {
+fn StaticDemoInputOtpSeparator(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputOtpSeparator>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputOtpSeparator resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_otp_separator::DemoInputOtpSeparator />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputPhone() -> impl IntoView {
+fn StaticDemoInputPhone(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputPhone>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputPhone resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_phone::DemoInputPhone />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputPhoneDisabled() -> impl IntoView {
+fn StaticDemoInputPhoneDisabled(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputPhoneDisabled>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputPhoneDisabled resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_phone_disabled::DemoInputPhoneDisabled />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputPrompt() -> impl IntoView {
+fn StaticDemoInputPrompt(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputPrompt>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputPrompt resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_prompt::DemoInputPrompt />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputPromptWithTools() -> impl IntoView {
+fn StaticDemoInputPromptWithTools(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputPromptWithTools>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputPromptWithTools resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_prompt_with_tools::DemoInputPromptWithTools />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoInputRtl() -> impl IntoView {
+fn StaticDemoInputRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_input_rtl::DemoInputRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoItem() -> impl IntoView {
+fn StaticDemoItem(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItem>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItem resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_item::DemoItem />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoItemDropdownMenu() -> impl IntoView {
+fn StaticDemoItemDropdownMenu(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemDropdownMenu>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemDropdownMenu resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_item_dropdown_menu::DemoItemDropdownMenu />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoItemFileUpload() -> impl IntoView {
+fn StaticDemoItemFileUpload(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemFileUpload>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemFileUpload resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_item_file_upload::DemoItemFileUpload />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoItemGroup() -> impl IntoView {
+fn StaticDemoItemGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_item_group::DemoItemGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoItemMediaImage() -> impl IntoView {
+fn StaticDemoItemMediaImage(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemMediaImage>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemMediaImage resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_item_media_image::DemoItemMediaImage />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoItemRtl() -> impl IntoView {
+fn StaticDemoItemRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_item_rtl::DemoItemRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoItemVariants() -> impl IntoView {
+fn StaticDemoItemVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemVariants>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemVariants resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_item_variants::DemoItemVariants />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoKbd() -> impl IntoView {
+fn StaticDemoKbd(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoKbd>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoKbd resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_kbd::DemoKbd />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoKbdButton() -> impl IntoView {
+fn StaticDemoKbdButton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoKbdButton>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoKbdButton resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_kbd_button::DemoKbdButton />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoKbdInputGroup() -> impl IntoView {
+fn StaticDemoKbdInputGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoKbdInputGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoKbdInputGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_kbd_input_group::DemoKbdInputGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoKbdRtl() -> impl IntoView {
+fn StaticDemoKbdRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoKbdRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoKbdRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_kbd_rtl::DemoKbdRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoLabel() -> impl IntoView {
+fn StaticDemoLabel(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoLabel>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoLabel resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_label::DemoLabel />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoLabelRtl() -> impl IntoView {
+fn StaticDemoLabelRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoLabelRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoLabelRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_label_rtl::DemoLabelRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMarker() -> impl IntoView {
+fn StaticDemoMarker(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarker>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarker resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_marker::DemoMarker />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMarkerBorder() -> impl IntoView {
+fn StaticDemoMarkerBorder(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerBorder>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerBorder resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_marker_border::DemoMarkerBorder />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMarkerIcon() -> impl IntoView {
+fn StaticDemoMarkerIcon(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerIcon>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerIcon resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_marker_icon::DemoMarkerIcon />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMarkerLinkButton() -> impl IntoView {
+fn StaticDemoMarkerLinkButton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerLinkButton>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerLinkButton resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_marker_link_button::DemoMarkerLinkButton />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMarkerSeparator() -> impl IntoView {
+fn StaticDemoMarkerSeparator(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerSeparator>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerSeparator resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_marker_separator::DemoMarkerSeparator />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMarkerShimmer() -> impl IntoView {
+fn StaticDemoMarkerShimmer(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerShimmer>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerShimmer resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_marker_shimmer::DemoMarkerShimmer />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMarkerStatus() -> impl IntoView {
+fn StaticDemoMarkerStatus(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerStatus>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerStatus resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_marker_status::DemoMarkerStatus />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMarkerVariants() -> impl IntoView {
+fn StaticDemoMarkerVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerVariants>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerVariants resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_marker_variants::DemoMarkerVariants />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMarquee() -> impl IntoView {
+fn StaticDemoMarquee(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarquee>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarquee resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_marquee::DemoMarquee />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMenubar() -> impl IntoView {
+fn StaticDemoMenubar(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMenubar>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMenubar resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_menubar::DemoMenubar />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMenubarRtl() -> impl IntoView {
+fn StaticDemoMenubarRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMenubarRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMenubarRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_menubar_rtl::DemoMenubarRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMessage() -> impl IntoView {
+fn StaticDemoMessage(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessage>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessage resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_message::DemoMessage />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMessageActions() -> impl IntoView {
+fn StaticDemoMessageActions(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageActions>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageActions resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_message_actions::DemoMessageActions />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMessageAttachment() -> impl IntoView {
+fn StaticDemoMessageAttachment(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageAttachment>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageAttachment resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_message_attachment::DemoMessageAttachment />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMessageAvatar() -> impl IntoView {
+fn StaticDemoMessageAvatar(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageAvatar>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageAvatar resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_message_avatar::DemoMessageAvatar />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMessageGroup() -> impl IntoView {
+fn StaticDemoMessageGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_message_group::DemoMessageGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMessageHeaderFooter() -> impl IntoView {
+fn StaticDemoMessageHeaderFooter(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageHeaderFooter>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageHeaderFooter resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_message_header_footer::DemoMessageHeaderFooter />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMultiSelect() -> impl IntoView {
+fn StaticDemoMultiSelect(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMultiSelect>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMultiSelect resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_multi_select::DemoMultiSelect />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMultiSelectAlign() -> impl IntoView {
+fn StaticDemoMultiSelectAlign(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMultiSelectAlign>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMultiSelectAlign resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_multi_select_align::DemoMultiSelectAlign />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoMultiSelectScrollable() -> impl IntoView {
+fn StaticDemoMultiSelectScrollable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMultiSelectScrollable>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMultiSelectScrollable resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_multi_select_scrollable::DemoMultiSelectScrollable />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoNavigationMenu() -> impl IntoView {
+fn StaticDemoNavigationMenu(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoNavigationMenu>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoNavigationMenu resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_navigation_menu::DemoNavigationMenu />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoNavigationMenuComplex() -> impl IntoView {
+fn StaticDemoNavigationMenuComplex(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoNavigationMenuComplex>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoNavigationMenuComplex resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_navigation_menu_complex::DemoNavigationMenuComplex />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoNavigationMenuRtl() -> impl IntoView {
+fn StaticDemoNavigationMenuRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoNavigationMenuRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoNavigationMenuRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_navigation_menu_rtl::DemoNavigationMenuRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoPagination() -> impl IntoView {
+fn StaticDemoPagination(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPagination>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPagination resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_pagination::DemoPagination />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoPaginationRtl() -> impl IntoView {
+fn StaticDemoPaginationRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPaginationRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPaginationRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_pagination_rtl::DemoPaginationRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoPopover() -> impl IntoView {
+fn StaticDemoPopover(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopover>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopover resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_popover::DemoPopover />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoPopoverEnd() -> impl IntoView {
+fn StaticDemoPopoverEnd(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverEnd>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverEnd resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_popover_end::DemoPopoverEnd />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoPopoverEndOuter() -> impl IntoView {
+fn StaticDemoPopoverEndOuter(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverEndOuter>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverEndOuter resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_popover_end_outer::DemoPopoverEndOuter />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoPopoverRtl() -> impl IntoView {
+fn StaticDemoPopoverRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_popover_rtl::DemoPopoverRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoPopoverStart() -> impl IntoView {
+fn StaticDemoPopoverStart(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverStart>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverStart resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_popover_start::DemoPopoverStart />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoPopoverStartOuter() -> impl IntoView {
+fn StaticDemoPopoverStartOuter(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverStartOuter>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverStartOuter resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_popover_start_outer::DemoPopoverStartOuter />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoPressable() -> impl IntoView {
+fn StaticDemoPressable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPressable>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPressable resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_pressable::DemoPressable />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoProgress() -> impl IntoView {
+fn StaticDemoProgress(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoProgress>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoProgress resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_progress::DemoProgress />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoProgressControlled() -> impl IntoView {
+fn StaticDemoProgressControlled(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoProgressControlled>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoProgressControlled resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_progress_controlled::DemoProgressControlled />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoProgressLabel() -> impl IntoView {
+fn StaticDemoProgressLabel(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoProgressLabel>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoProgressLabel resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_progress_label::DemoProgressLabel />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoProgressRtl() -> impl IntoView {
+fn StaticDemoProgressRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoProgressRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoProgressRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_progress_rtl::DemoProgressRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoRadioButton() -> impl IntoView {
+fn StaticDemoRadioButton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioButton>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioButton resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_radio_button::DemoRadioButton />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoRadioButtonCustom() -> impl IntoView {
+fn StaticDemoRadioButtonCustom(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioButtonCustom>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioButtonCustom resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_radio_button_custom::DemoRadioButtonCustom />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoRadioButtonGroup() -> impl IntoView {
+fn StaticDemoRadioButtonGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioButtonGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioButtonGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_radio_button_group::DemoRadioButtonGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoRadioButtonGroupRtl() -> impl IntoView {
+fn StaticDemoRadioButtonGroupRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioButtonGroupRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioButtonGroupRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_radio_button_group_rtl::DemoRadioButtonGroupRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoRadioChoiceCard() -> impl IntoView {
+fn StaticDemoRadioChoiceCard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioChoiceCard>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioChoiceCard resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_radio_choice_card::DemoRadioChoiceCard />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoRangeSlider() -> impl IntoView {
+fn StaticDemoRangeSlider(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRangeSlider>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRangeSlider resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_range_slider::DemoRangeSlider />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoRangeSliderDual() -> impl IntoView {
+fn StaticDemoRangeSliderDual(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRangeSliderDual>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRangeSliderDual resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_range_slider_dual::DemoRangeSliderDual />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoResizable() -> impl IntoView {
+fn StaticDemoResizable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoResizable>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoResizable resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_resizable::DemoResizable />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoScrollArea() -> impl IntoView {
+fn StaticDemoScrollArea(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoScrollArea>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoScrollArea resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_scroll_area::DemoScrollArea />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoScrollAreaHorizontal() -> impl IntoView {
+fn StaticDemoScrollAreaHorizontal(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoScrollAreaHorizontal>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoScrollAreaHorizontal resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_scroll_area_horizontal::DemoScrollAreaHorizontal />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoScrollAreaRtl() -> impl IntoView {
+fn StaticDemoScrollAreaRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoScrollAreaRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoScrollAreaRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_scroll_area_rtl::DemoScrollAreaRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoScrollAreaSnap() -> impl IntoView {
+fn StaticDemoScrollAreaSnap(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoScrollAreaSnap>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoScrollAreaSnap resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_scroll_area_snap::DemoScrollAreaSnap />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSelect() -> impl IntoView {
+fn StaticDemoSelect(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelect>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelect resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_select::DemoSelect />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSelectNativeAutoWidth() -> impl IntoView {
+fn StaticDemoSelectNativeAutoWidth(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeAutoWidth>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeAutoWidth resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_select_native_auto_width::DemoSelectNativeAutoWidth />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSelectNativeError() -> impl IntoView {
+fn StaticDemoSelectNativeError(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeError>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeError resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_select_native_error::DemoSelectNativeError />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSelectNativeGroup() -> impl IntoView {
+fn StaticDemoSelectNativeGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_select_native_group::DemoSelectNativeGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSelectNativeOverlappingLabel() -> impl IntoView {
+fn StaticDemoSelectNativeOverlappingLabel(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeOverlappingLabel>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeOverlappingLabel resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_select_native_overlapping_label::DemoSelectNativeOverlappingLabel />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSelectNativeTimezone() -> impl IntoView {
+fn StaticDemoSelectNativeTimezone(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeTimezone>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeTimezone resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_select_native_timezone::DemoSelectNativeTimezone />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSelectRtl() -> impl IntoView {
+fn StaticDemoSelectRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_select_rtl::DemoSelectRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSelectScrollable() -> impl IntoView {
+fn StaticDemoSelectScrollable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectScrollable>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectScrollable resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_select_scrollable::DemoSelectScrollable />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSeparator() -> impl IntoView {
+fn StaticDemoSeparator(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSeparator>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSeparator resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_separator::DemoSeparator />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSeparatorRtl() -> impl IntoView {
+fn StaticDemoSeparatorRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSeparatorRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSeparatorRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_separator_rtl::DemoSeparatorRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSheet() -> impl IntoView {
+fn StaticDemoSheet(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheet>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheet resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_sheet::DemoSheet />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSheetDirections() -> impl IntoView {
+fn StaticDemoSheetDirections(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheetDirections>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheetDirections resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_sheet_directions::DemoSheetDirections />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSheetExperimental() -> impl IntoView {
+fn StaticDemoSheetExperimental(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheetExperimental>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheetExperimental resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_sheet_experimental::DemoSheetExperimental />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSheetNoCloseButton() -> impl IntoView {
+fn StaticDemoSheetNoCloseButton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheetNoCloseButton>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheetNoCloseButton resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_sheet_no_close_button::DemoSheetNoCloseButton />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSheetRtl() -> impl IntoView {
+fn StaticDemoSheetRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheetRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheetRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_sheet_rtl::DemoSheetRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoShimmer() -> impl IntoView {
+fn StaticDemoShimmer(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoShimmer>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoShimmer resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_shimmer::DemoShimmer />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoShimmerMarker() -> impl IntoView {
+fn StaticDemoShimmerMarker(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoShimmerMarker>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoShimmerMarker resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_shimmer_marker::DemoShimmerMarker />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSkeleton() -> impl IntoView {
+fn StaticDemoSkeleton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeleton>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeleton resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_skeleton::DemoSkeleton />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSkeletonAvatar() -> impl IntoView {
+fn StaticDemoSkeletonAvatar(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonAvatar>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonAvatar resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_skeleton_avatar::DemoSkeletonAvatar />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSkeletonForm() -> impl IntoView {
+fn StaticDemoSkeletonForm(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonForm>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonForm resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_skeleton_form::DemoSkeletonForm />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSkeletonImage() -> impl IntoView {
+fn StaticDemoSkeletonImage(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonImage>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonImage resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_skeleton_image::DemoSkeletonImage />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSkeletonRtl() -> impl IntoView {
+fn StaticDemoSkeletonRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_skeleton_rtl::DemoSkeletonRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSkeletonTable() -> impl IntoView {
+fn StaticDemoSkeletonTable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonTable>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonTable resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_skeleton_table::DemoSkeletonTable />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSkeletonText() -> impl IntoView {
+fn StaticDemoSkeletonText(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonText>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonText resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_skeleton_text::DemoSkeletonText />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSlider() -> impl IntoView {
+fn StaticDemoSlider(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSlider>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSlider resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_slider::DemoSlider />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSliderControlled() -> impl IntoView {
+fn StaticDemoSliderControlled(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderControlled>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderControlled resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_slider_controlled::DemoSliderControlled />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSliderFlat() -> impl IntoView {
+fn StaticDemoSliderFlat(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderFlat>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderFlat resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_slider_flat::DemoSliderFlat />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSliderMultiple() -> impl IntoView {
+fn StaticDemoSliderMultiple(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderMultiple>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderMultiple resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_slider_multiple::DemoSliderMultiple />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSliderRtl() -> impl IntoView {
+fn StaticDemoSliderRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_slider_rtl::DemoSliderRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSliderVertical() -> impl IntoView {
+fn StaticDemoSliderVertical(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderVertical>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderVertical resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_slider_vertical::DemoSliderVertical />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSonner() -> impl IntoView {
+fn StaticDemoSonner(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSonner>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSonner resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_sonner::DemoSonner />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSonnerPositions() -> impl IntoView {
+fn StaticDemoSonnerPositions(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSonnerPositions>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSonnerPositions resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_sonner_positions::DemoSonnerPositions />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSonnerVariants() -> impl IntoView {
+fn StaticDemoSonnerVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSonnerVariants>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSonnerVariants resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_sonner_variants::DemoSonnerVariants />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSpinner() -> impl IntoView {
+fn StaticDemoSpinner(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSpinner>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSpinner resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_spinner::DemoSpinner />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSpinnerButton() -> impl IntoView {
+fn StaticDemoSpinnerButton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSpinnerButton>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSpinnerButton resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_spinner_button::DemoSpinnerButton />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSpinnerRtl() -> impl IntoView {
+fn StaticDemoSpinnerRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSpinnerRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSpinnerRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_spinner_rtl::DemoSpinnerRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoStatus() -> impl IntoView {
+fn StaticDemoStatus(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoStatus>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoStatus resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_status::DemoStatus />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoStatusVariants() -> impl IntoView {
+fn StaticDemoStatusVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoStatusVariants>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoStatusVariants resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_status_variants::DemoStatusVariants />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSwitch() -> impl IntoView {
+fn StaticDemoSwitch(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSwitch>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSwitch resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_switch::DemoSwitch />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSwitchChoiceCard() -> impl IntoView {
+fn StaticDemoSwitchChoiceCard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSwitchChoiceCard>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSwitchChoiceCard resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_switch_choice_card::DemoSwitchChoiceCard />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoSwitchRtl() -> impl IntoView {
+fn StaticDemoSwitchRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSwitchRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSwitchRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_switch_rtl::DemoSwitchRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoTable() -> impl IntoView {
+fn StaticDemoTable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTable>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTable resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_table::DemoTable />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoTableRtl() -> impl IntoView {
+fn StaticDemoTableRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTableRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTableRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_table_rtl::DemoTableRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoTabs() -> impl IntoView {
+fn StaticDemoTabs(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTabs>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTabs resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_tabs::DemoTabs />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoTabsLine() -> impl IntoView {
+fn StaticDemoTabsLine(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTabsLine>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTabsLine resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_tabs_line::DemoTabsLine />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoTabsRtl() -> impl IntoView {
+fn StaticDemoTabsRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTabsRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTabsRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_tabs_rtl::DemoTabsRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoTabsVertical() -> impl IntoView {
+fn StaticDemoTabsVertical(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTabsVertical>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTabsVertical resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_tabs_vertical::DemoTabsVertical />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoTextarea() -> impl IntoView {
+fn StaticDemoTextarea(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTextarea>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTextarea resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_textarea::DemoTextarea />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoTextareaRtl() -> impl IntoView {
+fn StaticDemoTextareaRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTextareaRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTextareaRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_textarea_rtl::DemoTextareaRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoThemeToggle() -> impl IntoView {
+fn StaticDemoThemeToggle(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoThemeToggle>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoThemeToggle resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_theme_toggle::DemoThemeToggle />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoToast() -> impl IntoView {
+fn StaticDemoToast(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToast>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToast resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_toast::DemoToast />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoToastVariants() -> impl IntoView {
+fn StaticDemoToastVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToastVariants>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToastVariants resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_toast_variants::DemoToastVariants />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoToggleGroup() -> impl IntoView {
+fn StaticDemoToggleGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroup>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroup resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_toggle_group::DemoToggleGroup />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoToggleGroupFontWeight() -> impl IntoView {
+fn StaticDemoToggleGroupFontWeight(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupFontWeight>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupFontWeight resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_toggle_group_font_weight::DemoToggleGroupFontWeight />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoToggleGroupOutline() -> impl IntoView {
+fn StaticDemoToggleGroupOutline(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupOutline>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupOutline resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_toggle_group_outline::DemoToggleGroupOutline />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoToggleGroupRtl() -> impl IntoView {
+fn StaticDemoToggleGroupRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_toggle_group_rtl::DemoToggleGroupRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoToggleGroupSpacing() -> impl IntoView {
+fn StaticDemoToggleGroupSpacing(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupSpacing>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupSpacing resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_toggle_group_spacing::DemoToggleGroupSpacing />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoToggleGroupVertical() -> impl IntoView {
+fn StaticDemoToggleGroupVertical(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupVertical>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupVertical resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_toggle_group_vertical::DemoToggleGroupVertical />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoTooltip() -> impl IntoView {
+fn StaticDemoTooltip(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTooltip>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTooltip resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_tooltip::DemoTooltip />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoTooltipRtl() -> impl IntoView {
+fn StaticDemoTooltipRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTooltipRtl>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTooltipRtl resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_tooltip_rtl::DemoTooltipRtl />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoUseCopyToClipboard() -> impl IntoView {
+fn StaticDemoUseCopyToClipboard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseCopyToClipboard>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseCopyToClipboard resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_use_copy_to_clipboard::DemoUseCopyToClipboard />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoUseHistory() -> impl IntoView {
+fn StaticDemoUseHistory(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseHistory>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseHistory resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_use_history::DemoUseHistory />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoUseHorizontalScroll() -> impl IntoView {
+fn StaticDemoUseHorizontalScroll(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseHorizontalScroll>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseHorizontalScroll resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_use_horizontal_scroll::DemoUseHorizontalScroll />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoUseIsMobile() -> impl IntoView {
+fn StaticDemoUseIsMobile(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseIsMobile>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseIsMobile resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_use_is_mobile::DemoUseIsMobile />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoUseLockBodyScroll() -> impl IntoView {
+fn StaticDemoUseLockBodyScroll(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseLockBodyScroll>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseLockBodyScroll resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_use_lock_body_scroll::DemoUseLockBodyScroll />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoUseLocks() -> impl IntoView {
+fn StaticDemoUseLocks(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseLocks>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseLocks resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_use_locks::DemoUseLocks />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoUseMediaQuery() -> impl IntoView {
+fn StaticDemoUseMediaQuery(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseMediaQuery>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseMediaQuery resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_use_media_query::DemoUseMediaQuery />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoUsePressHold() -> impl IntoView {
+fn StaticDemoUsePressHold(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUsePressHold>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUsePressHold resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_use_press_hold::DemoUsePressHold />
         </StaticDemoWrapper>
     }
 }
 
 #[component]
-fn StaticDemoUseRandom() -> impl IntoView {
+fn StaticDemoUseRandom(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseRandom>
+        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseRandom resizable_wrapper_class=resizable_wrapper_class>
             <registry::demos::demo_use_random::DemoUseRandom />
         </StaticDemoWrapper>
     }

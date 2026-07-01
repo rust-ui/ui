@@ -8,7 +8,7 @@ image_dark = "/images/thumbnails/_placeholder-dark.webp"
 +++
 
 
-<StaticAttachment />
+<StaticAttachment class="bg-accent" />
 
 
 

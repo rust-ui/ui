@@ -27,7 +27,11 @@ fn transform_code_for_display(code: &str) -> String {
 }
 
 #[component]
-pub fn StaticDemoWrapper(demo_type: MarkdownType, children: Children) -> impl IntoView {
+pub fn StaticDemoWrapper(
+    demo_type: MarkdownType,
+    #[prop(into, optional)] resizable_wrapper_class: String,
+    children: Children,
+) -> impl IntoView {
     let current_tab = RwSignal::new(Tab::default());
 
     // Zero-allocation static lookup
@@ -140,7 +144,9 @@ pub fn StaticDemoWrapper(demo_type: MarkdownType, children: Children) -> impl In
 
             // TODO 🚑 Show does not work at the moment. Using display as shortfix solution.
             <div style:display=move || { if current_tab.get() == Tab::Preview { "block" } else { "none" } }>
-                <ResizableWrapper preview_class="px-4">{children_view}</ResizableWrapper>
+                <ResizableWrapper preview_class="px-4" resizable_wrapper_class=resizable_wrapper_class>
+                    {children_view}
+                </ResizableWrapper>
             </div>
 
             <div style:display=move || { if current_tab.get() == Tab::Code { "block" } else { "none" } }>
