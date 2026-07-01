@@ -30,7 +30,7 @@ use crate::components::ui::marker::{Marker, MarkerContent, MarkerVariant};
 #[component]
 pub fn DemoMarkerVariants() -> impl IntoView {
     view! {
-        <div class="flex w-full max-w-sm flex-col gap-8 py-12">
+        <div class="flex flex-col gap-8 py-12 w-full max-w-sm">
             <Marker>
                 <MarkerContent>"A default marker for inline notes."</MarkerContent>
             </Marker>

@@ -37,19 +37,22 @@ use crate::components::ui::marker::{Marker, MarkerContent, MarkerIcon};
 #[component]
 pub fn DemoMarkerLinkButton() -> impl IntoView {
     view! {
-        <div class="flex w-full max-w-sm flex-col gap-8 py-12">
+        <div class="flex flex-col gap-8 py-12 w-full max-w-sm">
             <Marker href="#links-and-buttons">
-                <MarkerIcon><GitBranch /></MarkerIcon>
+                <MarkerIcon>
+                    <GitBranch />
+                </MarkerIcon>
                 <MarkerContent>"View the pull request"</MarkerContent>
             </Marker>
             <Marker
                 class="transition-colors hover:text-foreground"
                 on_click=Callback::new(move |_| {
-                    web_sys::window()
-                        .and_then(|w| w.alert_with_message("You clicked the revert button").ok());
+                    web_sys::window().and_then(|w| w.alert_with_message("You clicked the revert button").ok());
                 })
             >
-                <MarkerIcon><RotateCcw /></MarkerIcon>
+                <MarkerIcon>
+                    <RotateCcw />
+                </MarkerIcon>
                 <MarkerContent>"Revert this change"</MarkerContent>
             </Marker>
         </div>

@@ -30,7 +30,7 @@ use crate::components::ui::marker::{Marker, MarkerContent, MarkerVariant};
 #[component]
 pub fn DemoMarkerShimmer() -> impl IntoView {
     view! {
-        <div class="flex w-full max-w-sm flex-col gap-8 py-12">
+        <div class="flex flex-col gap-8 py-12 w-full max-w-sm">
             <Marker role="status">
                 <MarkerContent class="shimmer">"Thinking..."</MarkerContent>
             </Marker>

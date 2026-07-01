@@ -12,8 +12,13 @@ pub fn get_all_arc_demos_for_components() -> Vec<(&'static str, Arc<Vec<Registry
 }
 
 pub fn get_all_arc_demos_for_hooks() -> Vec<(&'static str, Arc<Vec<RegistryEntry>>)> {
-    vec![("Get Started", Arc::new(SHARED_GET_STARTED.to_vec())), ("Hooks", Arc::new(ALL_SIDENAV_HOOKS.to_vec()))]
+    vec![
+        ("Get Started", Arc::new(SHARED_GET_STARTED.to_vec())),
+        ("Hooks", Arc::new(ALL_SIDENAV_HOOKS.to_vec())),
+    ]
 }
+
+
 
 /* ========================================================== */
 /*                     ✨ CONSTANTS ✨                        */
@@ -164,6 +169,17 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
         is_new: false,
+        order: None,
+    },
+    RegistryEntry {
+        title: "Attachment",
+        path_url: "attachment",
+        path_md: "public/docs/components/attachment.md",
+        description: "Displays a file or image attachment with media, name, metadata, and optional actions. Use it for files and images in chat composers, message threads, and upload lists.",
+        tags: &[],
+        image: "/images/thumbnails/_placeholder.webp",
+        image_dark: "/images/thumbnails/_placeholder-dark.webp",
+        is_new: true,
         order: None,
     },
     RegistryEntry {
@@ -629,6 +645,17 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         order: None,
     },
     RegistryEntry {
+        title: "Message",
+        path_url: "message",
+        path_md: "public/docs/components/message.md",
+        description: "Displays a message in a conversation, with optional avatar, header, footer, and alignment.",
+        tags: &[],
+        image: "/images/thumbnails/_placeholder.webp",
+        image_dark: "/images/thumbnails/_placeholder-dark.webp",
+        is_new: true,
+        order: None,
+    },
+    RegistryEntry {
         title: "MultiSelect",
         path_url: "multi-select",
         path_md: "public/docs/components/multi-select.md",
@@ -1017,3 +1044,4 @@ pub const ALL_SIDENAV_HOOKS: &[RegistryEntry] = &[
         order: None,
     },
 ];
+

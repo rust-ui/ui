@@ -18,6 +18,8 @@ Each dependency level is shown with progressive bullet points: * for components,
 * animate (ui)
   ** cargo: strum
 * aspect_ratio (ui)
+* attachment (ui)
+  ** button (ui)
 * auto_form (ui)
   ** cargo: serde
   ** cargo: validator
@@ -47,6 +49,7 @@ Each dependency level is shown with progressive bullet points: * for components,
 * bottom_nav (ui)
 * breadcrumb (ui)
   ** cargo: icons/leptos
+* bubble (ui)
 * button (ui)
 * button_action (ui)
   ** button (ui)
@@ -188,6 +191,34 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** aspect_ratio (ui)
 * demo_aspect_ratio_square (demos)
   ** aspect_ratio (ui)
+* demo_attachment (demos)
+  ** cargo: icons/leptos
+  ** attachment (ui)
+    *** button (ui)
+  ** spinner (ui)
+    *** cargo: icons/leptos
+* demo_attachment_group (demos)
+  ** cargo: icons/leptos
+  ** attachment (ui)
+    *** button (ui)
+* demo_attachment_image (demos)
+  ** cargo: icons/leptos
+  ** attachment (ui)
+    *** button (ui)
+* demo_attachment_sizes (demos)
+  ** cargo: icons/leptos
+  ** attachment (ui)
+    *** button (ui)
+* demo_attachment_states (demos)
+  ** cargo: icons/leptos
+  ** attachment (ui)
+    *** button (ui)
+  ** spinner (ui)
+    *** cargo: icons/leptos
+* demo_attachment_trigger (demos)
+  ** cargo: icons/leptos
+  ** attachment (ui)
+    *** button (ui)
 * demo_auto_form (demos)
   ** cargo: autoform
   ** cargo: serde
@@ -1350,6 +1381,34 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** menubar (ui)
     *** cargo: icons/leptos
     *** use_random (hooks)
+* demo_message (demos)
+  ** avatar (ui)
+  ** bubble (ui)
+  ** marker (ui)
+  ** message (ui)
+* demo_message_actions (demos)
+  ** cargo: icons/leptos
+  ** bubble (ui)
+  ** button (ui)
+  ** message (ui)
+* demo_message_attachment (demos)
+  ** cargo: icons/leptos
+  ** attachment (ui)
+    *** button (ui)
+  ** bubble (ui)
+  ** button (ui)
+  ** message (ui)
+* demo_message_avatar (demos)
+  ** avatar (ui)
+  ** bubble (ui)
+  ** message (ui)
+* demo_message_group (demos)
+  ** avatar (ui)
+  ** bubble (ui)
+  ** message (ui)
+* demo_message_header_footer (demos)
+  ** bubble (ui)
+  ** message (ui)
 * demo_multi_select (demos)
   ** multi_select (ui)
     *** cargo: icons/leptos
@@ -1784,6 +1843,7 @@ Each dependency level is shown with progressive bullet points: * for components,
 * menubar (ui)
   ** cargo: icons/leptos
   ** use_random (hooks)
+* message (ui)
 * multi_select (ui)
   ** cargo: icons/leptos
   ** use_can_scroll_vertical (hooks)

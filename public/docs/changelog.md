@@ -13,8 +13,14 @@ image_dark = "/images/thumbnails/_placeholder-dark.webp"
 
 ### New Components
 
+- **[Attachment](/docs/components/attachment)**: File and image attachment card with media slot, title, description, upload states (`Idle`, `Uploading`, `Processing`, `Error`, `Done`), three sizes, and an `AttachmentTrigger` overlay for link/button activation. Includes 6 demos.
+- **[Bubble](/docs/components/bubble)**: Chat message bubble with 7 variants, `BubbleReactions` overlay, and `BubbleContent` that renders as `<a>`, `<button>`, or `<div>`. Includes 9 demos.
 - **[Message](/docs/components/message)**: Conversation row layout with avatar, alignment, header, and footer. `MessageGroup` stacks consecutive messages. Supports `align=End` for sender bubbles, avatar shift on footer presence, and ghost-variant padding reset. Includes 6 demos.
 - **[Marker](/docs/components/marker)**: Contextual event row for chat transcripts. Three variants — `Default` (system events with icon), `Separator` (full-width divider with centered content), `Border` (activity markers with bottom rule). Supports icons, shimmer text, Spinner, Accordion, and Drawer composition. Includes 5 demos.
+
+### Improvements
+
+- **[Button](/docs/components/button)**: Added `ButtonSize::IconSm` (`size-8`) and `ButtonSize::IconXs` (`size-6`) variants.
 
 ---
 

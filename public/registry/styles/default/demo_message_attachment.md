@@ -1,13 +1,38 @@
+---
+title: "Demo Message Attachment"
+name: "demo_message_attachment"
+cargo_dependencies: ["icons/leptos"]
+registry_dependencies: ["attachment", "bubble", "button", "message"]
+type: "components:demos"
+path: "demos/demo_message_attachment.rs"
+---
+
+# Demo Message Attachment
+
+This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality.
+
+## Installation
+
+To add this component demo in your app, run:
+
+```bash
+# cargo install ui-cli --force
+ui add demo_message_attachment
+```
+
+## Component Code
+
+```rust
 use icons::Download;
 use leptos::prelude::*;
 
-use crate::ui::attachment::{
+use crate::components::ui::attachment::{
     Attachment, AttachmentAction, AttachmentActions, AttachmentContent, AttachmentDescription, AttachmentMedia,
     AttachmentMediaVariant, AttachmentOrientation, AttachmentTitle,
 };
-use crate::ui::bubble::{Bubble, BubbleContent, BubbleVariant};
-use crate::ui::button::{ButtonSize, ButtonVariant};
-use crate::ui::message::{Message, MessageAlign, MessageContent};
+use crate::components::ui::bubble::{Bubble, BubbleContent, BubbleVariant};
+use crate::components::ui::button::{ButtonSize, ButtonVariant};
+use crate::components::ui::message::{Message, MessageAlign, MessageContent};
 
 #[component]
 pub fn DemoMessageAttachment() -> impl IntoView {
@@ -66,3 +91,4 @@ pub fn DemoMessageAttachment() -> impl IntoView {
         </div>
     }
 }
+```

@@ -4,6 +4,7 @@ pub mod alert;
 pub mod alert_dialog;
 pub mod animate;
 pub mod aspect_ratio;
+pub mod attachment;
 pub mod auto_form;
 pub mod avatar;
 pub mod badge;

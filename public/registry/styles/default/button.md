@@ -52,6 +52,8 @@ variants! {
                 Sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
                 Lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
                 Icon: "size-9",
+                IconSm: "size-8 rounded-md",
+                IconXs: "size-6 rounded-md",
                 //
                 Mobile: "px-6 py-3 rounded-[24px]",
                 Badge: "px-2.5 py-0.5 text-xs"

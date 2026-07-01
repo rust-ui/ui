@@ -10,9 +10,9 @@
 | Component | UI file | Demos | Doc | Registry |
 |-----------|---------|-------|-----|----------|
 | Marker | ✅ Done | ✅ Done (5) | ✅ Done | ✅ Done |
-| Message | ⬜ Todo | ⬜ Todo (6) | ⬜ Todo | ⬜ Todo |
-| Bubble | ⬜ Todo | ⬜ Todo (9) | ⬜ Todo | ⬜ Todo |
-| Attachment | ⬜ Todo | ⬜ Todo (6) | ⬜ Todo | ⬜ Todo |
+| Message | ✅ Done | ✅ Done (6) | ✅ Done | ✅ Done |
+| Bubble | ✅ Done | ✅ Done (9) | ✅ Done | ✅ Done |
+| Attachment | ✅ Done | ✅ Done (6) | ✅ Done | ✅ Done |
 | MessageScroller | ⬜ Todo | ⬜ Todo | ⬜ Todo | ⬜ Todo |
 
 ---
