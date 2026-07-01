@@ -190,7 +190,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &["input"],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -267,7 +267,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &[],
         image: "/images/thumbnails/button.webp",
         image_dark: "/images/thumbnails/button-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -278,7 +278,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &["button"],
         image: "/images/thumbnails/button.webp",
         image_dark: "/images/thumbnails/button-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -289,7 +289,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &["utils"],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -388,7 +388,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &[],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -399,7 +399,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &["table"],
         image: "/images/thumbnails/table.webp",
         image_dark: "/images/thumbnails/table-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -410,7 +410,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &["table"],
         image: "/images/thumbnails/table.webp",
         image_dark: "/images/thumbnails/table-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -443,7 +443,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &[],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -454,7 +454,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &[],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -509,7 +509,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &["input"],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -520,7 +520,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &["input"],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -531,7 +531,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &[],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -553,7 +553,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &["input"],
         image: "/images/thumbnails/input.webp",
         image_dark: "/images/thumbnails/input-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -575,7 +575,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &["input"],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -586,7 +586,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &["input"],
         image: "/images/thumbnails/input.webp",
         image_dark: "/images/thumbnails/input-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -597,7 +597,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &[],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -718,7 +718,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &[],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -729,7 +729,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &[],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -762,7 +762,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &["utils"],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -806,7 +806,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &[],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -916,7 +916,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &["button", "animation"],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -938,7 +938,7 @@ pub const ALL_SIDENAV_COMPONENTS: &[RegistryEntry] = &[
         tags: &[],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -974,7 +974,7 @@ pub const ALL_SIDENAV_HOOKS: &[RegistryEntry] = &[
         tags: &["utils"],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -996,7 +996,7 @@ pub const ALL_SIDENAV_HOOKS: &[RegistryEntry] = &[
         tags: &["utils"],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -1018,7 +1018,7 @@ pub const ALL_SIDENAV_HOOKS: &[RegistryEntry] = &[
         tags: &["utils"],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -1029,7 +1029,7 @@ pub const ALL_SIDENAV_HOOKS: &[RegistryEntry] = &[
         tags: &["utils"],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
@@ -1040,7 +1040,7 @@ pub const ALL_SIDENAV_HOOKS: &[RegistryEntry] = &[
         tags: &[],
         image: "/images/thumbnails/_placeholder.webp",
         image_dark: "/images/thumbnails/_placeholder-dark.webp",
-        is_new: true,
+        is_new: false,
         order: None,
     },
     RegistryEntry {
