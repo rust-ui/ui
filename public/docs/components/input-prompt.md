@@ -2,7 +2,7 @@
 title = "Input Prompt"
 description = "A compound input component for AI chat interfaces — combines an auto-growing textarea with a footer toolbar and a submit button."
 tags = ["input"]
-is_new = true
+is_new = false
 image = "/images/thumbnails/input.webp"
 image_dark = "/images/thumbnails/input-dark.webp"
 +++

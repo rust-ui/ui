@@ -2,7 +2,7 @@
 title = "Progress"
 description = "Rust/UI component that displays a progress bar indicating task completion."
 tags = []
-is_new = true
+is_new = false
 image = "/images/thumbnails/_placeholder.webp"
 image_dark = "/images/thumbnails/_placeholder-dark.webp"
 +++

@@ -2,7 +2,7 @@
 title = "Use Locks"
 description = "Context hook for locking design params against randomization — each param can be individually toggled."
 tags = ["utils"]
-is_new = true
+is_new = false
 image = "/images/thumbnails/_placeholder.webp"
 image_dark = "/images/thumbnails/_placeholder-dark.webp"
 +++

@@ -2,7 +2,7 @@
 title = "Input Phone"
 description = "Rust/UI component that displays a phone number input with country code selector and automatic formatting."
 tags = ["input"]
-is_new = true
+is_new = false
 image = "/images/thumbnails/_placeholder.webp"
 image_dark = "/images/thumbnails/_placeholder-dark.webp"
 +++

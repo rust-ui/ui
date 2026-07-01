@@ -2,7 +2,7 @@
 title = "Callout"
 description = "A styled alert block for docs and rich content, with Default, Info, and Warning variants."
 tags = ["utils"]
-is_new = true
+is_new = false
 image = "/images/thumbnails/_placeholder.webp"
 image_dark = "/images/thumbnails/_placeholder-dark.webp"
 +++

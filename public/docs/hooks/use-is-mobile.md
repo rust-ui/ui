@@ -2,7 +2,7 @@
 title = "Use Is Mobile"
 description = "A reactive hook that returns true when the viewport is below the mobile breakpoint (768px)."
 tags = ["utils"]
-is_new = true
+is_new = false
 image = "/images/thumbnails/_placeholder.webp"
 image_dark = "/images/thumbnails/_placeholder-dark.webp"
 +++

@@ -2,7 +2,7 @@
 title = "Data Grid"
 description = "High-performance data grid with virtual scrolling, column pinning, cell selection, inline editing, and drag selection."
 tags = ["table"]
-is_new = true
+is_new = false
 image = "/images/thumbnails/table.webp"
 image_dark = "/images/thumbnails/table-dark.webp"
 +++

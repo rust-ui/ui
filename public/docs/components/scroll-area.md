@@ -2,7 +2,7 @@
 title = "Scroll Area"
 description = "Rust/UI component that provides custom scrolling functionality with cross-browser styling."
 tags = ["utils"]
-is_new = true
+is_new = false
 image = "/images/thumbnails/_placeholder.webp"
 image_dark = "/images/thumbnails/_placeholder-dark.webp"
 +++

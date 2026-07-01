@@ -2,7 +2,7 @@
 title = "Direction Provider"
 description = "Rust/UI wrapper component that sets text direction (LTR or RTL) for all children, enabling right-to-left layout support."
 tags = []
-is_new = true
+is_new = false
 image = "/images/thumbnails/_placeholder.webp"
 image_dark = "/images/thumbnails/_placeholder-dark.webp"
 +++

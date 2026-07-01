@@ -44,8 +44,15 @@ pub fn SharedSidenavDemos(
 
                                                 view! {
                                                     <li>
-                                                        <A href=href>
+                                                        <A href=href attr:class="flex items-center gap-1.5">
                                                             <span class=class>{demo.title}</span>
+                                                            {demo
+                                                                .is_new
+                                                                .then(|| {
+                                                                    view! {
+                                                                        <span class="size-1.5 shrink-0 rounded-full bg-green-500" />
+                                                                    }
+                                                                })}
                                                         </A>
                                                     </li>
                                                 }

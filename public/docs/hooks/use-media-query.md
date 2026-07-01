@@ -2,7 +2,7 @@
 title = "Use Media Query"
 description = "A reactive hook that tracks whether a CSS media query matches, updating automatically when the viewport changes."
 tags = ["utils"]
-is_new = true
+is_new = false
 image = "/images/thumbnails/_placeholder.webp"
 image_dark = "/images/thumbnails/_placeholder-dark.webp"
 +++

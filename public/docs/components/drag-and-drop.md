@@ -2,7 +2,7 @@
 title = "Drag and Drop"
 description = "Rust/UI component that allows users to drag and drop elements."
 tags = []
-is_new = true
+is_new = false
 image = "/images/thumbnails/_placeholder.webp"
 image_dark = "/images/thumbnails/_placeholder-dark.webp"
 +++

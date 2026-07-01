@@ -2,7 +2,7 @@
 title = "Input Group"
 description = "A component that combines inputs with addons like icons, text, or buttons."
 tags = ["input"]
-is_new = true
+is_new = false
 image = "/images/thumbnails/input.webp"
 image_dark = "/images/thumbnails/input-dark.webp"
 +++

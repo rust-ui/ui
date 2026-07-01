@@ -1,7 +1,7 @@
 +++
 title = "Button Action"
 description = "A button that requires press-and-hold to activate, showing a progress indicator."
-is_new = true
+is_new = false
 image = "/images/thumbnails/button.webp"
 image_dark = "/images/thumbnails/button-dark.webp"
 +++

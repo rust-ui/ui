@@ -2,7 +2,7 @@
 title = "Toggle Group"
 description = "A set of toggle buttons that can be used to group related options."
 tags = []
-is_new = true
+is_new = false
 image = "/images/thumbnails/_placeholder.webp"
 image_dark = "/images/thumbnails/_placeholder-dark.webp"
 +++
