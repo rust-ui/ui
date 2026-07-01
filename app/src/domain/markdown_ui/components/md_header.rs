@@ -80,10 +80,10 @@ pub fn MdHeaderDemo(
                 </BreadcrumbList>
             </Breadcrumb>
 
-            <div class="mt-2 flex min-w-0 items-center justify-between gap-3">
-                <h1 class="min-w-0 flex-1 truncate text-4xl font-semibold">{name}</h1>
-                <div class="relative z-20 flex shrink-0 gap-2 items-center">
-                    <ButtonGroup class="relative z-20 hidden shrink-0 md:flex">
+            <div class="flex gap-3 justify-between items-center mt-2 min-w-0">
+                <h1 class="flex-1 min-w-0 text-4xl font-semibold truncate">{name}</h1>
+                <div class="flex relative z-20 gap-2 items-center shrink-0">
+                    <ButtonGroup class="hidden relative z-20 md:flex shrink-0">
                         <Button variant=ButtonVariant::Outline size=ButtonSize::Sm on:click=handle_copy>
                             {move || {
                                 if copied.get() {

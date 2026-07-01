@@ -4516,7 +4516,10 @@ fn StaticDemoAccordion(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoAccordionBordered(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordionBordered resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAccordionBordered
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_accordion_bordered::DemoAccordionBordered />
         </StaticDemoWrapper>
     }
@@ -4525,7 +4528,10 @@ fn StaticDemoAccordionBordered(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoAccordionCard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordionCard resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAccordionCard
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_accordion_card::DemoAccordionCard />
         </StaticDemoWrapper>
     }
@@ -4534,7 +4540,10 @@ fn StaticDemoAccordionCard(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoAccordionIcons(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordionIcons resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAccordionIcons
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_accordion_icons::DemoAccordionIcons />
         </StaticDemoWrapper>
     }
@@ -4543,7 +4552,10 @@ fn StaticDemoAccordionIcons(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoAccordionRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAccordionRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAccordionRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_accordion_rtl::DemoAccordionRtl />
         </StaticDemoWrapper>
     }
@@ -4561,7 +4573,10 @@ fn StaticDemoAlert(#[prop(optional, into)] resizable_wrapper_class: String) -> i
 #[component]
 fn StaticDemoAlertColors(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertColors resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAlertColors
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_alert_colors::DemoAlertColors />
         </StaticDemoWrapper>
     }
@@ -4570,7 +4585,10 @@ fn StaticDemoAlertColors(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoAlertDialog(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialog resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAlertDialog
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_alert_dialog::DemoAlertDialog />
         </StaticDemoWrapper>
     }
@@ -4579,7 +4597,10 @@ fn StaticDemoAlertDialog(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoAlertDialogMedia(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialogMedia resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAlertDialogMedia
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_alert_dialog_media::DemoAlertDialogMedia />
         </StaticDemoWrapper>
     }
@@ -4588,7 +4609,10 @@ fn StaticDemoAlertDialogMedia(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoAlertDialogRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialogRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAlertDialogRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_alert_dialog_rtl::DemoAlertDialogRtl />
         </StaticDemoWrapper>
     }
@@ -4597,7 +4621,10 @@ fn StaticDemoAlertDialogRtl(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoAlertDialogSmall(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialogSmall resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAlertDialogSmall
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_alert_dialog_small::DemoAlertDialogSmall />
         </StaticDemoWrapper>
     }
@@ -4606,7 +4633,10 @@ fn StaticDemoAlertDialogSmall(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoAlertDialogSmallMedia(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAlertDialogSmallMedia resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAlertDialogSmallMedia
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_alert_dialog_small_media::DemoAlertDialogSmallMedia />
         </StaticDemoWrapper>
     }
@@ -4633,7 +4663,10 @@ fn StaticDemoAnimate(#[prop(optional, into)] resizable_wrapper_class: String) ->
 #[component]
 fn StaticDemoAnimateGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAnimateGroup resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAnimateGroup
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_animate_group::DemoAnimateGroup />
         </StaticDemoWrapper>
     }
@@ -4642,7 +4675,10 @@ fn StaticDemoAnimateGroup(#[prop(optional, into)] resizable_wrapper_class: Strin
 #[component]
 fn StaticDemoAspectRatio(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAspectRatio resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAspectRatio
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_aspect_ratio::DemoAspectRatio />
         </StaticDemoWrapper>
     }
@@ -4651,7 +4687,10 @@ fn StaticDemoAspectRatio(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoAspectRatioPortrait(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAspectRatioPortrait resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAspectRatioPortrait
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_aspect_ratio_portrait::DemoAspectRatioPortrait />
         </StaticDemoWrapper>
     }
@@ -4660,7 +4699,10 @@ fn StaticDemoAspectRatioPortrait(#[prop(optional, into)] resizable_wrapper_class
 #[component]
 fn StaticDemoAspectRatioSquare(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAspectRatioSquare resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAspectRatioSquare
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_aspect_ratio_square::DemoAspectRatioSquare />
         </StaticDemoWrapper>
     }
@@ -4678,7 +4720,10 @@ fn StaticDemoAttachment(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoAttachmentGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentGroup resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAttachmentGroup
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_attachment_group::DemoAttachmentGroup />
         </StaticDemoWrapper>
     }
@@ -4687,7 +4732,10 @@ fn StaticDemoAttachmentGroup(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoAttachmentImage(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentImage resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAttachmentImage
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_attachment_image::DemoAttachmentImage />
         </StaticDemoWrapper>
     }
@@ -4696,7 +4744,10 @@ fn StaticDemoAttachmentImage(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoAttachmentSizes(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentSizes resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAttachmentSizes
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_attachment_sizes::DemoAttachmentSizes />
         </StaticDemoWrapper>
     }
@@ -4705,7 +4756,10 @@ fn StaticDemoAttachmentSizes(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoAttachmentStates(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentStates resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAttachmentStates
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_attachment_states::DemoAttachmentStates />
         </StaticDemoWrapper>
     }
@@ -4714,7 +4768,10 @@ fn StaticDemoAttachmentStates(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoAttachmentTrigger(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAttachmentTrigger resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAttachmentTrigger
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_attachment_trigger::DemoAttachmentTrigger />
         </StaticDemoWrapper>
     }
@@ -4741,7 +4798,10 @@ fn StaticDemoAvatar(#[prop(optional, into)] resizable_wrapper_class: String) -> 
 #[component]
 fn StaticDemoAvatarBadge(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarBadge resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAvatarBadge
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_avatar_badge::DemoAvatarBadge />
         </StaticDemoWrapper>
     }
@@ -4750,7 +4810,10 @@ fn StaticDemoAvatarBadge(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoAvatarBadgeIcon(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarBadgeIcon resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAvatarBadgeIcon
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_avatar_badge_icon::DemoAvatarBadgeIcon />
         </StaticDemoWrapper>
     }
@@ -4759,7 +4822,10 @@ fn StaticDemoAvatarBadgeIcon(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoAvatarGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarGroup resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAvatarGroup
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_avatar_group::DemoAvatarGroup />
         </StaticDemoWrapper>
     }
@@ -4768,7 +4834,10 @@ fn StaticDemoAvatarGroup(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoAvatarGroupCount(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarGroupCount resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAvatarGroupCount
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_avatar_group_count::DemoAvatarGroupCount />
         </StaticDemoWrapper>
     }
@@ -4777,7 +4846,10 @@ fn StaticDemoAvatarGroupCount(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoAvatarGroupCountIcon(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoAvatarGroupCountIcon resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoAvatarGroupCountIcon
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_avatar_group_count_icon::DemoAvatarGroupCountIcon />
         </StaticDemoWrapper>
     }
@@ -4813,7 +4885,10 @@ fn StaticDemoBadge(#[prop(optional, into)] resizable_wrapper_class: String) -> i
 #[component]
 fn StaticDemoBadgeColors(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadgeColors resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBadgeColors
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_badge_colors::DemoBadgeColors />
         </StaticDemoWrapper>
     }
@@ -4822,7 +4897,10 @@ fn StaticDemoBadgeColors(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoBadgeCustom(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadgeCustom resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBadgeCustom
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_badge_custom::DemoBadgeCustom />
         </StaticDemoWrapper>
     }
@@ -4840,7 +4918,10 @@ fn StaticDemoBadgeRtl(#[prop(optional, into)] resizable_wrapper_class: String) -
 #[component]
 fn StaticDemoBadgeVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBadgeVariants resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBadgeVariants
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_badge_variants::DemoBadgeVariants />
         </StaticDemoWrapper>
     }
@@ -4894,7 +4975,10 @@ fn StaticDemoBreadcrumb(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoBreadcrumbDropdown(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBreadcrumbDropdown resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBreadcrumbDropdown
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_breadcrumb_dropdown::DemoBreadcrumbDropdown />
         </StaticDemoWrapper>
     }
@@ -4903,7 +4987,10 @@ fn StaticDemoBreadcrumbDropdown(#[prop(optional, into)] resizable_wrapper_class:
 #[component]
 fn StaticDemoBreadcrumbRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBreadcrumbRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBreadcrumbRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_breadcrumb_rtl::DemoBreadcrumbRtl />
         </StaticDemoWrapper>
     }
@@ -4921,7 +5008,10 @@ fn StaticDemoBubble(#[prop(optional, into)] resizable_wrapper_class: String) -> 
 #[component]
 fn StaticDemoBubbleAlignment(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleAlignment resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBubbleAlignment
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_bubble_alignment::DemoBubbleAlignment />
         </StaticDemoWrapper>
     }
@@ -4930,7 +5020,10 @@ fn StaticDemoBubbleAlignment(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoBubbleCollapsible(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleCollapsible resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBubbleCollapsible
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_bubble_collapsible::DemoBubbleCollapsible />
         </StaticDemoWrapper>
     }
@@ -4939,7 +5032,10 @@ fn StaticDemoBubbleCollapsible(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoBubbleGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleGroup resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBubbleGroup
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_bubble_group::DemoBubbleGroup />
         </StaticDemoWrapper>
     }
@@ -4948,7 +5044,10 @@ fn StaticDemoBubbleGroup(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoBubbleLinkButton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleLinkButton resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBubbleLinkButton
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_bubble_link_button::DemoBubbleLinkButton />
         </StaticDemoWrapper>
     }
@@ -4957,7 +5056,10 @@ fn StaticDemoBubbleLinkButton(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoBubblePopover(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubblePopover resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBubblePopover
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_bubble_popover::DemoBubblePopover />
         </StaticDemoWrapper>
     }
@@ -4966,7 +5068,10 @@ fn StaticDemoBubblePopover(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoBubbleReactions(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleReactions resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBubbleReactions
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_bubble_reactions::DemoBubbleReactions />
         </StaticDemoWrapper>
     }
@@ -4975,7 +5080,10 @@ fn StaticDemoBubbleReactions(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoBubbleTooltip(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleTooltip resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBubbleTooltip
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_bubble_tooltip::DemoBubbleTooltip />
         </StaticDemoWrapper>
     }
@@ -4984,7 +5092,10 @@ fn StaticDemoBubbleTooltip(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoBubbleVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoBubbleVariants resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoBubbleVariants
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_bubble_variants::DemoBubbleVariants />
         </StaticDemoWrapper>
     }
@@ -5002,7 +5113,10 @@ fn StaticDemoButton(#[prop(optional, into)] resizable_wrapper_class: String) -> 
 #[component]
 fn StaticDemoButtonAction(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonAction resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonAction
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_action::DemoButtonAction />
         </StaticDemoWrapper>
     }
@@ -5011,7 +5125,10 @@ fn StaticDemoButtonAction(#[prop(optional, into)] resizable_wrapper_class: Strin
 #[component]
 fn StaticDemoButtonDisabled(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonDisabled resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonDisabled
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_disabled::DemoButtonDisabled />
         </StaticDemoWrapper>
     }
@@ -5020,7 +5137,10 @@ fn StaticDemoButtonDisabled(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoButtonGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroup resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonGroup
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_group::DemoButtonGroup />
         </StaticDemoWrapper>
     }
@@ -5029,7 +5149,10 @@ fn StaticDemoButtonGroup(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoButtonGroupIcon(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupIcon resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonGroupIcon
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_group_icon::DemoButtonGroupIcon />
         </StaticDemoWrapper>
     }
@@ -5038,7 +5161,10 @@ fn StaticDemoButtonGroupIcon(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoButtonGroupInput(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupInput resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonGroupInput
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_group_input::DemoButtonGroupInput />
         </StaticDemoWrapper>
     }
@@ -5047,7 +5173,10 @@ fn StaticDemoButtonGroupInput(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoButtonGroupRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonGroupRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_group_rtl::DemoButtonGroupRtl />
         </StaticDemoWrapper>
     }
@@ -5056,7 +5185,10 @@ fn StaticDemoButtonGroupRtl(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoButtonGroupSelect(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupSelect resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonGroupSelect
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_group_select::DemoButtonGroupSelect />
         </StaticDemoWrapper>
     }
@@ -5065,7 +5197,10 @@ fn StaticDemoButtonGroupSelect(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoButtonGroupSeparator(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupSeparator resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonGroupSeparator
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_group_separator::DemoButtonGroupSeparator />
         </StaticDemoWrapper>
     }
@@ -5074,7 +5209,10 @@ fn StaticDemoButtonGroupSeparator(#[prop(optional, into)] resizable_wrapper_clas
 #[component]
 fn StaticDemoButtonGroupSizes(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonGroupSizes resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonGroupSizes
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_group_sizes::DemoButtonGroupSizes />
         </StaticDemoWrapper>
     }
@@ -5092,7 +5230,10 @@ fn StaticDemoButtonHref(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoButtonOverride(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonOverride resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonOverride
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_override::DemoButtonOverride />
         </StaticDemoWrapper>
     }
@@ -5101,7 +5242,10 @@ fn StaticDemoButtonOverride(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoButtonReactive(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonReactive resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonReactive
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_reactive::DemoButtonReactive />
         </StaticDemoWrapper>
     }
@@ -5119,7 +5263,10 @@ fn StaticDemoButtonRtl(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoButtonSizes(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonSizes resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonSizes
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_sizes::DemoButtonSizes />
         </StaticDemoWrapper>
     }
@@ -5128,7 +5275,10 @@ fn StaticDemoButtonSizes(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoButtonStateful(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonStateful resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonStateful
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_stateful::DemoButtonStateful />
         </StaticDemoWrapper>
     }
@@ -5137,7 +5287,10 @@ fn StaticDemoButtonStateful(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoButtonVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonVariants resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonVariants
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_variants::DemoButtonVariants />
         </StaticDemoWrapper>
     }
@@ -5146,7 +5299,10 @@ fn StaticDemoButtonVariants(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoButtonWithClx(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoButtonWithClx resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoButtonWithClx
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_button_with_clx::DemoButtonWithClx />
         </StaticDemoWrapper>
     }
@@ -5164,7 +5320,10 @@ fn StaticDemoCallout(#[prop(optional, into)] resizable_wrapper_class: String) ->
 #[component]
 fn StaticDemoCalloutInfo(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCalloutInfo resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCalloutInfo
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_callout_info::DemoCalloutInfo />
         </StaticDemoWrapper>
     }
@@ -5173,7 +5332,10 @@ fn StaticDemoCalloutInfo(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoCalloutWarning(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCalloutWarning resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCalloutWarning
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_callout_warning::DemoCalloutWarning />
         </StaticDemoWrapper>
     }
@@ -5200,7 +5362,10 @@ fn StaticDemoCardAction(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoCardCarousel(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardCarousel resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCardCarousel
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_card_carousel::DemoCardCarousel />
         </StaticDemoWrapper>
     }
@@ -5218,7 +5383,10 @@ fn StaticDemoCardGroup(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoCardReverse(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCardReverse resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCardReverse
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_card_reverse::DemoCardReverse />
         </StaticDemoWrapper>
     }
@@ -5254,7 +5422,10 @@ fn StaticDemoCarousel(#[prop(optional, into)] resizable_wrapper_class: String) -
 #[component]
 fn StaticDemoCarouselApi(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselApi resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCarouselApi
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_carousel_api::DemoCarouselApi />
         </StaticDemoWrapper>
     }
@@ -5263,7 +5434,10 @@ fn StaticDemoCarouselApi(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoCarouselOrientation(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselOrientation resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCarouselOrientation
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_carousel_orientation::DemoCarouselOrientation />
         </StaticDemoWrapper>
     }
@@ -5272,7 +5446,10 @@ fn StaticDemoCarouselOrientation(#[prop(optional, into)] resizable_wrapper_class
 #[component]
 fn StaticDemoCarouselRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCarouselRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_carousel_rtl::DemoCarouselRtl />
         </StaticDemoWrapper>
     }
@@ -5281,7 +5458,10 @@ fn StaticDemoCarouselRtl(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoCarouselSize(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselSize resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCarouselSize
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_carousel_size::DemoCarouselSize />
         </StaticDemoWrapper>
     }
@@ -5290,7 +5470,10 @@ fn StaticDemoCarouselSize(#[prop(optional, into)] resizable_wrapper_class: Strin
 #[component]
 fn StaticDemoCarouselSnapScroll(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselSnapScroll resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCarouselSnapScroll
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_carousel_snap_scroll::DemoCarouselSnapScroll />
         </StaticDemoWrapper>
     }
@@ -5299,7 +5482,10 @@ fn StaticDemoCarouselSnapScroll(#[prop(optional, into)] resizable_wrapper_class:
 #[component]
 fn StaticDemoCarouselSpacing(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCarouselSpacing resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCarouselSpacing
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_carousel_spacing::DemoCarouselSpacing />
         </StaticDemoWrapper>
     }
@@ -5317,7 +5503,10 @@ fn StaticDemoCheckbox(#[prop(optional, into)] resizable_wrapper_class: String) -
 #[component]
 fn StaticDemoCheckboxRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCheckboxRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCheckboxRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_checkbox_rtl::DemoCheckboxRtl />
         </StaticDemoWrapper>
     }
@@ -5335,7 +5524,10 @@ fn StaticDemoChips(#[prop(optional, into)] resizable_wrapper_class: String) -> i
 #[component]
 fn StaticDemoCollapsible(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsible resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCollapsible
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_collapsible::DemoCollapsible />
         </StaticDemoWrapper>
     }
@@ -5344,7 +5536,10 @@ fn StaticDemoCollapsible(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoCollapsibleBasic(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsibleBasic resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCollapsibleBasic
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_collapsible_basic::DemoCollapsibleBasic />
         </StaticDemoWrapper>
     }
@@ -5353,7 +5548,10 @@ fn StaticDemoCollapsibleBasic(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoCollapsibleFileTree(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsibleFileTree resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCollapsibleFileTree
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_collapsible_file_tree::DemoCollapsibleFileTree />
         </StaticDemoWrapper>
     }
@@ -5362,7 +5560,10 @@ fn StaticDemoCollapsibleFileTree(#[prop(optional, into)] resizable_wrapper_class
 #[component]
 fn StaticDemoCollapsibleRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsibleRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCollapsibleRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_collapsible_rtl::DemoCollapsibleRtl />
         </StaticDemoWrapper>
     }
@@ -5371,7 +5572,10 @@ fn StaticDemoCollapsibleRtl(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoCollapsibleSettings(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCollapsibleSettings resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCollapsibleSettings
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_collapsible_settings::DemoCollapsibleSettings />
         </StaticDemoWrapper>
     }
@@ -5398,7 +5602,10 @@ fn StaticDemoCommand(#[prop(optional, into)] resizable_wrapper_class: String) ->
 #[component]
 fn StaticDemoCommandDialog(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoCommandDialog resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoCommandDialog
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_command_dialog::DemoCommandDialog />
         </StaticDemoWrapper>
     }
@@ -5407,7 +5614,10 @@ fn StaticDemoCommandDialog(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoContextMenu(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoContextMenu resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoContextMenu
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_context_menu::DemoContextMenu />
         </StaticDemoWrapper>
     }
@@ -5416,7 +5626,10 @@ fn StaticDemoContextMenu(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoContextMenuAction(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoContextMenuAction resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoContextMenuAction
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_context_menu_action::DemoContextMenuAction />
         </StaticDemoWrapper>
     }
@@ -5425,7 +5638,10 @@ fn StaticDemoContextMenuAction(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoContextMenuRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoContextMenuRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoContextMenuRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_context_menu_rtl::DemoContextMenuRtl />
         </StaticDemoWrapper>
     }
@@ -5452,7 +5668,10 @@ fn StaticDemoDataTable(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoDataTableFilters(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDataTableFilters resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDataTableFilters
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_data_table_filters::DemoDataTableFilters />
         </StaticDemoWrapper>
     }
@@ -5470,7 +5689,10 @@ fn StaticDemoDatePicker(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoDatePickerBooked(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerBooked resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDatePickerBooked
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_date_picker_booked::DemoDatePickerBooked />
         </StaticDemoWrapper>
     }
@@ -5479,7 +5701,10 @@ fn StaticDemoDatePickerBooked(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoDatePickerDropdown(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerDropdown resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDatePickerDropdown
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_date_picker_dropdown::DemoDatePickerDropdown />
         </StaticDemoWrapper>
     }
@@ -5488,7 +5713,10 @@ fn StaticDemoDatePickerDropdown(#[prop(optional, into)] resizable_wrapper_class:
 #[component]
 fn StaticDemoDatePickerDual(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerDual resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDatePickerDual
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_date_picker_dual::DemoDatePickerDual />
         </StaticDemoWrapper>
     }
@@ -5497,7 +5725,10 @@ fn StaticDemoDatePickerDual(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoDatePickerDualFull(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerDualFull resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDatePickerDualFull
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_date_picker_dual_full::DemoDatePickerDualFull />
         </StaticDemoWrapper>
     }
@@ -5506,7 +5737,10 @@ fn StaticDemoDatePickerDualFull(#[prop(optional, into)] resizable_wrapper_class:
 #[component]
 fn StaticDemoDatePickerPresets(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerPresets resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDatePickerPresets
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_date_picker_presets::DemoDatePickerPresets />
         </StaticDemoWrapper>
     }
@@ -5515,7 +5749,10 @@ fn StaticDemoDatePickerPresets(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoDatePickerTime(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerTime resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDatePickerTime
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_date_picker_time::DemoDatePickerTime />
         </StaticDemoWrapper>
     }
@@ -5524,7 +5761,10 @@ fn StaticDemoDatePickerTime(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoDatePickerWeekNumbers(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDatePickerWeekNumbers resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDatePickerWeekNumbers
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_date_picker_week_numbers::DemoDatePickerWeekNumbers />
         </StaticDemoWrapper>
     }
@@ -5551,7 +5791,10 @@ fn StaticDemoDialogRtl(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoDialogScrollable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDialogScrollable resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDialogScrollable
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dialog_scrollable::DemoDialogScrollable />
         </StaticDemoWrapper>
     }
@@ -5560,7 +5803,10 @@ fn StaticDemoDialogScrollable(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoDialogStickyFooter(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDialogStickyFooter resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDialogStickyFooter
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dialog_sticky_footer::DemoDialogStickyFooter />
         </StaticDemoWrapper>
     }
@@ -5569,7 +5815,10 @@ fn StaticDemoDialogStickyFooter(#[prop(optional, into)] resizable_wrapper_class:
 #[component]
 fn StaticDemoDirectionProvider(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDirectionProvider resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDirectionProvider
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_direction_provider::DemoDirectionProvider />
         </StaticDemoWrapper>
     }
@@ -5578,7 +5827,10 @@ fn StaticDemoDirectionProvider(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoDirectionProviderDefault(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDirectionProviderDefault resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDirectionProviderDefault
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_direction_provider_default::DemoDirectionProviderDefault />
         </StaticDemoWrapper>
     }
@@ -5587,7 +5839,10 @@ fn StaticDemoDirectionProviderDefault(#[prop(optional, into)] resizable_wrapper_
 #[component]
 fn StaticDemoDirectionProviderRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDirectionProviderRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDirectionProviderRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_direction_provider_rtl::DemoDirectionProviderRtl />
         </StaticDemoWrapper>
     }
@@ -5605,7 +5860,10 @@ fn StaticDemoDocker(#[prop(optional, into)] resizable_wrapper_class: String) -> 
 #[component]
 fn StaticDemoDragAndDrop(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDragAndDrop resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDragAndDrop
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_drag_and_drop::DemoDragAndDrop />
         </StaticDemoWrapper>
     }
@@ -5623,7 +5881,10 @@ fn StaticDemoDrawer(#[prop(optional, into)] resizable_wrapper_class: String) -> 
 #[component]
 fn StaticDemoDrawerDialog(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerDialog resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDrawerDialog
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_drawer_dialog::DemoDrawerDialog />
         </StaticDemoWrapper>
     }
@@ -5632,7 +5893,10 @@ fn StaticDemoDrawerDialog(#[prop(optional, into)] resizable_wrapper_class: Strin
 #[component]
 fn StaticDemoDrawerFamily(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerFamily resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDrawerFamily
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_drawer_family::DemoDrawerFamily />
         </StaticDemoWrapper>
     }
@@ -5641,7 +5905,10 @@ fn StaticDemoDrawerFamily(#[prop(optional, into)] resizable_wrapper_class: Strin
 #[component]
 fn StaticDemoDrawerFocus(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerFocus resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDrawerFocus
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_drawer_focus::DemoDrawerFocus />
         </StaticDemoWrapper>
     }
@@ -5650,7 +5917,10 @@ fn StaticDemoDrawerFocus(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoDrawerNested(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerNested resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDrawerNested
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_drawer_nested::DemoDrawerNested />
         </StaticDemoWrapper>
     }
@@ -5659,7 +5929,10 @@ fn StaticDemoDrawerNested(#[prop(optional, into)] resizable_wrapper_class: Strin
 #[component]
 fn StaticDemoDrawerNonDismissable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerNonDismissable resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDrawerNonDismissable
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_drawer_non_dismissable::DemoDrawerNonDismissable />
         </StaticDemoWrapper>
     }
@@ -5677,7 +5950,10 @@ fn StaticDemoDrawerRtl(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoDrawerScrollable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerScrollable resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDrawerScrollable
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_drawer_scrollable::DemoDrawerScrollable />
         </StaticDemoWrapper>
     }
@@ -5695,7 +5971,10 @@ fn StaticDemoDrawerSide(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoDrawerSideFloating(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerSideFloating resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDrawerSideFloating
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_drawer_side_floating::DemoDrawerSideFloating />
         </StaticDemoWrapper>
     }
@@ -5704,7 +5983,10 @@ fn StaticDemoDrawerSideFloating(#[prop(optional, into)] resizable_wrapper_class:
 #[component]
 fn StaticDemoDrawerSideScrollable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDrawerSideScrollable resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDrawerSideScrollable
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_drawer_side_scrollable::DemoDrawerSideScrollable />
         </StaticDemoWrapper>
     }
@@ -5713,7 +5995,10 @@ fn StaticDemoDrawerSideScrollable(#[prop(optional, into)] resizable_wrapper_clas
 #[component]
 fn StaticDemoDropdownMenu(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenu resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDropdownMenu
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dropdown_menu::DemoDropdownMenu />
         </StaticDemoWrapper>
     }
@@ -5722,7 +6007,10 @@ fn StaticDemoDropdownMenu(#[prop(optional, into)] resizable_wrapper_class: Strin
 #[component]
 fn StaticDemoDropdownMenuDestructive(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuDestructive resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDropdownMenuDestructive
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dropdown_menu_destructive::DemoDropdownMenuDestructive />
         </StaticDemoWrapper>
     }
@@ -5731,7 +6019,10 @@ fn StaticDemoDropdownMenuDestructive(#[prop(optional, into)] resizable_wrapper_c
 #[component]
 fn StaticDemoDropdownMenuEnd(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuEnd resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDropdownMenuEnd
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dropdown_menu_end::DemoDropdownMenuEnd />
         </StaticDemoWrapper>
     }
@@ -5740,7 +6031,10 @@ fn StaticDemoDropdownMenuEnd(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoDropdownMenuEndOuter(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuEndOuter resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDropdownMenuEndOuter
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dropdown_menu_end_outer::DemoDropdownMenuEndOuter />
         </StaticDemoWrapper>
     }
@@ -5749,7 +6043,10 @@ fn StaticDemoDropdownMenuEndOuter(#[prop(optional, into)] resizable_wrapper_clas
 #[component]
 fn StaticDemoDropdownMenuRadio(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuRadio resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDropdownMenuRadio
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dropdown_menu_radio::DemoDropdownMenuRadio />
         </StaticDemoWrapper>
     }
@@ -5758,7 +6055,10 @@ fn StaticDemoDropdownMenuRadio(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoDropdownMenuRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDropdownMenuRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dropdown_menu_rtl::DemoDropdownMenuRtl />
         </StaticDemoWrapper>
     }
@@ -5767,7 +6067,10 @@ fn StaticDemoDropdownMenuRtl(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoDropdownMenuSelect(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuSelect resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDropdownMenuSelect
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dropdown_menu_select::DemoDropdownMenuSelect />
         </StaticDemoWrapper>
     }
@@ -5776,7 +6079,10 @@ fn StaticDemoDropdownMenuSelect(#[prop(optional, into)] resizable_wrapper_class:
 #[component]
 fn StaticDemoDropdownMenuStart(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuStart resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDropdownMenuStart
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dropdown_menu_start::DemoDropdownMenuStart />
         </StaticDemoWrapper>
     }
@@ -5785,7 +6091,10 @@ fn StaticDemoDropdownMenuStart(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoDropdownMenuStartOuter(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuStartOuter resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDropdownMenuStartOuter
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dropdown_menu_start_outer::DemoDropdownMenuStartOuter />
         </StaticDemoWrapper>
     }
@@ -5794,7 +6103,10 @@ fn StaticDemoDropdownMenuStartOuter(#[prop(optional, into)] resizable_wrapper_cl
 #[component]
 fn StaticDemoDropdownMenuUser(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuUser resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDropdownMenuUser
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dropdown_menu_user::DemoDropdownMenuUser />
         </StaticDemoWrapper>
     }
@@ -5803,7 +6115,10 @@ fn StaticDemoDropdownMenuUser(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoDropdownMenuUserIcon(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoDropdownMenuUserIcon resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoDropdownMenuUserIcon
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_dropdown_menu_user_icon::DemoDropdownMenuUserIcon />
         </StaticDemoWrapper>
     }
@@ -5830,7 +6145,10 @@ fn StaticDemoEmpty(#[prop(optional, into)] resizable_wrapper_class: String) -> i
 #[component]
 fn StaticDemoEmptyAvatarGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyAvatarGroup resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoEmptyAvatarGroup
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_empty_avatar_group::DemoEmptyAvatarGroup />
         </StaticDemoWrapper>
     }
@@ -5839,7 +6157,10 @@ fn StaticDemoEmptyAvatarGroup(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoEmptyBackground(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyBackground resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoEmptyBackground
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_empty_background::DemoEmptyBackground />
         </StaticDemoWrapper>
     }
@@ -5857,7 +6178,10 @@ fn StaticDemoEmptyCard(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoEmptyInputGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyInputGroup resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoEmptyInputGroup
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_empty_input_group::DemoEmptyInputGroup />
         </StaticDemoWrapper>
     }
@@ -5875,7 +6199,10 @@ fn StaticDemoEmptyMuted(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoEmptyOutline(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoEmptyOutline resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoEmptyOutline
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_empty_outline::DemoEmptyOutline />
         </StaticDemoWrapper>
     }
@@ -5902,7 +6229,10 @@ fn StaticDemoField(#[prop(optional, into)] resizable_wrapper_class: String) -> i
 #[component]
 fn StaticDemoFieldCheckbox(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldCheckbox resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoFieldCheckbox
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_field_checkbox::DemoFieldCheckbox />
         </StaticDemoWrapper>
     }
@@ -5911,7 +6241,10 @@ fn StaticDemoFieldCheckbox(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoFieldFieldset(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldFieldset resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoFieldFieldset
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_field_fieldset::DemoFieldFieldset />
         </StaticDemoWrapper>
     }
@@ -5929,7 +6262,10 @@ fn StaticDemoFieldInput(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoFieldInputInline(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFieldInputInline resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoFieldInputInline
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_field_input_inline::DemoFieldInputInline />
         </StaticDemoWrapper>
     }
@@ -5965,7 +6301,10 @@ fn StaticDemoFormError(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoFormFieldset(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFormFieldset resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoFormFieldset
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_form_fieldset::DemoFormFieldset />
         </StaticDemoWrapper>
     }
@@ -5992,7 +6331,10 @@ fn StaticDemoFormSelect(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoFormValidation(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoFormValidation resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoFormValidation
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_form_validation::DemoFormValidation />
         </StaticDemoWrapper>
     }
@@ -6010,7 +6352,10 @@ fn StaticDemoHoverCard(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoHoverCardRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoHoverCardRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoHoverCardRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_hover_card_rtl::DemoHoverCardRtl />
         </StaticDemoWrapper>
     }
@@ -6046,7 +6391,10 @@ fn StaticDemoInputGroup(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoInputGroupBlock(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupBlock resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputGroupBlock
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_group_block::DemoInputGroupBlock />
         </StaticDemoWrapper>
     }
@@ -6055,7 +6403,10 @@ fn StaticDemoInputGroupBlock(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoInputGroupCustom(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupCustom resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputGroupCustom
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_group_custom::DemoInputGroupCustom />
         </StaticDemoWrapper>
     }
@@ -6064,7 +6415,10 @@ fn StaticDemoInputGroupCustom(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoInputGroupDropdown(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupDropdown resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputGroupDropdown
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_group_dropdown::DemoInputGroupDropdown />
         </StaticDemoWrapper>
     }
@@ -6073,7 +6427,10 @@ fn StaticDemoInputGroupDropdown(#[prop(optional, into)] resizable_wrapper_class:
 #[component]
 fn StaticDemoInputGroupInCard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupInCard resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputGroupInCard
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_group_in_card::DemoInputGroupInCard />
         </StaticDemoWrapper>
     }
@@ -6082,7 +6439,10 @@ fn StaticDemoInputGroupInCard(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoInputGroupKbd(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupKbd resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputGroupKbd
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_group_kbd::DemoInputGroupKbd />
         </StaticDemoWrapper>
     }
@@ -6091,7 +6451,10 @@ fn StaticDemoInputGroupKbd(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoInputGroupRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputGroupRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_group_rtl::DemoInputGroupRtl />
         </StaticDemoWrapper>
     }
@@ -6100,7 +6463,10 @@ fn StaticDemoInputGroupRtl(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoInputGroupSpinner(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupSpinner resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputGroupSpinner
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_group_spinner::DemoInputGroupSpinner />
         </StaticDemoWrapper>
     }
@@ -6109,7 +6475,10 @@ fn StaticDemoInputGroupSpinner(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoInputGroupText(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupText resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputGroupText
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_group_text::DemoInputGroupText />
         </StaticDemoWrapper>
     }
@@ -6118,7 +6487,10 @@ fn StaticDemoInputGroupText(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoInputGroupTooltip(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputGroupTooltip resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputGroupTooltip
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_group_tooltip::DemoInputGroupTooltip />
         </StaticDemoWrapper>
     }
@@ -6136,7 +6508,10 @@ fn StaticDemoInputOtp(#[prop(optional, into)] resizable_wrapper_class: String) -
 #[component]
 fn StaticDemoInputOtpDisabled(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputOtpDisabled resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputOtpDisabled
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_otp_disabled::DemoInputOtpDisabled />
         </StaticDemoWrapper>
     }
@@ -6145,7 +6520,10 @@ fn StaticDemoInputOtpDisabled(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoInputOtpRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputOtpRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputOtpRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_otp_rtl::DemoInputOtpRtl />
         </StaticDemoWrapper>
     }
@@ -6154,7 +6532,10 @@ fn StaticDemoInputOtpRtl(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoInputOtpSeparator(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputOtpSeparator resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputOtpSeparator
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_otp_separator::DemoInputOtpSeparator />
         </StaticDemoWrapper>
     }
@@ -6172,7 +6553,10 @@ fn StaticDemoInputPhone(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoInputPhoneDisabled(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputPhoneDisabled resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputPhoneDisabled
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_phone_disabled::DemoInputPhoneDisabled />
         </StaticDemoWrapper>
     }
@@ -6181,7 +6565,10 @@ fn StaticDemoInputPhoneDisabled(#[prop(optional, into)] resizable_wrapper_class:
 #[component]
 fn StaticDemoInputPrompt(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputPrompt resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputPrompt
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_prompt::DemoInputPrompt />
         </StaticDemoWrapper>
     }
@@ -6190,7 +6577,10 @@ fn StaticDemoInputPrompt(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoInputPromptWithTools(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoInputPromptWithTools resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoInputPromptWithTools
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_input_prompt_with_tools::DemoInputPromptWithTools />
         </StaticDemoWrapper>
     }
@@ -6217,7 +6607,10 @@ fn StaticDemoItem(#[prop(optional, into)] resizable_wrapper_class: String) -> im
 #[component]
 fn StaticDemoItemDropdownMenu(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemDropdownMenu resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoItemDropdownMenu
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_item_dropdown_menu::DemoItemDropdownMenu />
         </StaticDemoWrapper>
     }
@@ -6226,7 +6619,10 @@ fn StaticDemoItemDropdownMenu(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoItemFileUpload(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemFileUpload resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoItemFileUpload
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_item_file_upload::DemoItemFileUpload />
         </StaticDemoWrapper>
     }
@@ -6244,7 +6640,10 @@ fn StaticDemoItemGroup(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoItemMediaImage(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemMediaImage resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoItemMediaImage
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_item_media_image::DemoItemMediaImage />
         </StaticDemoWrapper>
     }
@@ -6262,7 +6661,10 @@ fn StaticDemoItemRtl(#[prop(optional, into)] resizable_wrapper_class: String) ->
 #[component]
 fn StaticDemoItemVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoItemVariants resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoItemVariants
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_item_variants::DemoItemVariants />
         </StaticDemoWrapper>
     }
@@ -6289,7 +6691,10 @@ fn StaticDemoKbdButton(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoKbdInputGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoKbdInputGroup resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoKbdInputGroup
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_kbd_input_group::DemoKbdInputGroup />
         </StaticDemoWrapper>
     }
@@ -6334,7 +6739,10 @@ fn StaticDemoMarker(#[prop(optional, into)] resizable_wrapper_class: String) -> 
 #[component]
 fn StaticDemoMarkerBorder(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerBorder resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMarkerBorder
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_marker_border::DemoMarkerBorder />
         </StaticDemoWrapper>
     }
@@ -6352,7 +6760,10 @@ fn StaticDemoMarkerIcon(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoMarkerLinkButton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerLinkButton resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMarkerLinkButton
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_marker_link_button::DemoMarkerLinkButton />
         </StaticDemoWrapper>
     }
@@ -6361,7 +6772,10 @@ fn StaticDemoMarkerLinkButton(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoMarkerSeparator(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerSeparator resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMarkerSeparator
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_marker_separator::DemoMarkerSeparator />
         </StaticDemoWrapper>
     }
@@ -6370,7 +6784,10 @@ fn StaticDemoMarkerSeparator(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoMarkerShimmer(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerShimmer resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMarkerShimmer
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_marker_shimmer::DemoMarkerShimmer />
         </StaticDemoWrapper>
     }
@@ -6379,7 +6796,10 @@ fn StaticDemoMarkerShimmer(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoMarkerStatus(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerStatus resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMarkerStatus
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_marker_status::DemoMarkerStatus />
         </StaticDemoWrapper>
     }
@@ -6388,7 +6808,10 @@ fn StaticDemoMarkerStatus(#[prop(optional, into)] resizable_wrapper_class: Strin
 #[component]
 fn StaticDemoMarkerVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMarkerVariants resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMarkerVariants
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_marker_variants::DemoMarkerVariants />
         </StaticDemoWrapper>
     }
@@ -6433,7 +6856,10 @@ fn StaticDemoMessage(#[prop(optional, into)] resizable_wrapper_class: String) ->
 #[component]
 fn StaticDemoMessageActions(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageActions resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMessageActions
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_message_actions::DemoMessageActions />
         </StaticDemoWrapper>
     }
@@ -6442,7 +6868,10 @@ fn StaticDemoMessageActions(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoMessageAttachment(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageAttachment resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMessageAttachment
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_message_attachment::DemoMessageAttachment />
         </StaticDemoWrapper>
     }
@@ -6451,7 +6880,10 @@ fn StaticDemoMessageAttachment(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoMessageAvatar(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageAvatar resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMessageAvatar
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_message_avatar::DemoMessageAvatar />
         </StaticDemoWrapper>
     }
@@ -6460,7 +6892,10 @@ fn StaticDemoMessageAvatar(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoMessageGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageGroup resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMessageGroup
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_message_group::DemoMessageGroup />
         </StaticDemoWrapper>
     }
@@ -6469,7 +6904,10 @@ fn StaticDemoMessageGroup(#[prop(optional, into)] resizable_wrapper_class: Strin
 #[component]
 fn StaticDemoMessageHeaderFooter(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMessageHeaderFooter resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMessageHeaderFooter
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_message_header_footer::DemoMessageHeaderFooter />
         </StaticDemoWrapper>
     }
@@ -6478,7 +6916,10 @@ fn StaticDemoMessageHeaderFooter(#[prop(optional, into)] resizable_wrapper_class
 #[component]
 fn StaticDemoMultiSelect(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMultiSelect resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMultiSelect
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_multi_select::DemoMultiSelect />
         </StaticDemoWrapper>
     }
@@ -6487,7 +6928,10 @@ fn StaticDemoMultiSelect(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoMultiSelectAlign(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMultiSelectAlign resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMultiSelectAlign
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_multi_select_align::DemoMultiSelectAlign />
         </StaticDemoWrapper>
     }
@@ -6496,7 +6940,10 @@ fn StaticDemoMultiSelectAlign(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoMultiSelectScrollable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoMultiSelectScrollable resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoMultiSelectScrollable
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_multi_select_scrollable::DemoMultiSelectScrollable />
         </StaticDemoWrapper>
     }
@@ -6505,7 +6952,10 @@ fn StaticDemoMultiSelectScrollable(#[prop(optional, into)] resizable_wrapper_cla
 #[component]
 fn StaticDemoNavigationMenu(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoNavigationMenu resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoNavigationMenu
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_navigation_menu::DemoNavigationMenu />
         </StaticDemoWrapper>
     }
@@ -6514,7 +6964,10 @@ fn StaticDemoNavigationMenu(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoNavigationMenuComplex(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoNavigationMenuComplex resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoNavigationMenuComplex
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_navigation_menu_complex::DemoNavigationMenuComplex />
         </StaticDemoWrapper>
     }
@@ -6523,7 +6976,10 @@ fn StaticDemoNavigationMenuComplex(#[prop(optional, into)] resizable_wrapper_cla
 #[component]
 fn StaticDemoNavigationMenuRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoNavigationMenuRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoNavigationMenuRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_navigation_menu_rtl::DemoNavigationMenuRtl />
         </StaticDemoWrapper>
     }
@@ -6541,7 +6997,10 @@ fn StaticDemoPagination(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoPaginationRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPaginationRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoPaginationRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_pagination_rtl::DemoPaginationRtl />
         </StaticDemoWrapper>
     }
@@ -6568,7 +7027,10 @@ fn StaticDemoPopoverEnd(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoPopoverEndOuter(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverEndOuter resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoPopoverEndOuter
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_popover_end_outer::DemoPopoverEndOuter />
         </StaticDemoWrapper>
     }
@@ -6586,7 +7048,10 @@ fn StaticDemoPopoverRtl(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoPopoverStart(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverStart resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoPopoverStart
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_popover_start::DemoPopoverStart />
         </StaticDemoWrapper>
     }
@@ -6595,7 +7060,10 @@ fn StaticDemoPopoverStart(#[prop(optional, into)] resizable_wrapper_class: Strin
 #[component]
 fn StaticDemoPopoverStartOuter(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoPopoverStartOuter resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoPopoverStartOuter
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_popover_start_outer::DemoPopoverStartOuter />
         </StaticDemoWrapper>
     }
@@ -6622,7 +7090,10 @@ fn StaticDemoProgress(#[prop(optional, into)] resizable_wrapper_class: String) -
 #[component]
 fn StaticDemoProgressControlled(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoProgressControlled resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoProgressControlled
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_progress_controlled::DemoProgressControlled />
         </StaticDemoWrapper>
     }
@@ -6631,7 +7102,10 @@ fn StaticDemoProgressControlled(#[prop(optional, into)] resizable_wrapper_class:
 #[component]
 fn StaticDemoProgressLabel(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoProgressLabel resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoProgressLabel
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_progress_label::DemoProgressLabel />
         </StaticDemoWrapper>
     }
@@ -6640,7 +7114,10 @@ fn StaticDemoProgressLabel(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoProgressRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoProgressRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoProgressRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_progress_rtl::DemoProgressRtl />
         </StaticDemoWrapper>
     }
@@ -6649,7 +7126,10 @@ fn StaticDemoProgressRtl(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoRadioButton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioButton resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoRadioButton
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_radio_button::DemoRadioButton />
         </StaticDemoWrapper>
     }
@@ -6658,7 +7138,10 @@ fn StaticDemoRadioButton(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoRadioButtonCustom(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioButtonCustom resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoRadioButtonCustom
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_radio_button_custom::DemoRadioButtonCustom />
         </StaticDemoWrapper>
     }
@@ -6667,7 +7150,10 @@ fn StaticDemoRadioButtonCustom(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoRadioButtonGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioButtonGroup resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoRadioButtonGroup
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_radio_button_group::DemoRadioButtonGroup />
         </StaticDemoWrapper>
     }
@@ -6676,7 +7162,10 @@ fn StaticDemoRadioButtonGroup(#[prop(optional, into)] resizable_wrapper_class: S
 #[component]
 fn StaticDemoRadioButtonGroupRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioButtonGroupRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoRadioButtonGroupRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_radio_button_group_rtl::DemoRadioButtonGroupRtl />
         </StaticDemoWrapper>
     }
@@ -6685,7 +7174,10 @@ fn StaticDemoRadioButtonGroupRtl(#[prop(optional, into)] resizable_wrapper_class
 #[component]
 fn StaticDemoRadioChoiceCard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRadioChoiceCard resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoRadioChoiceCard
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_radio_choice_card::DemoRadioChoiceCard />
         </StaticDemoWrapper>
     }
@@ -6694,7 +7186,10 @@ fn StaticDemoRadioChoiceCard(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoRangeSlider(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRangeSlider resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoRangeSlider
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_range_slider::DemoRangeSlider />
         </StaticDemoWrapper>
     }
@@ -6703,7 +7198,10 @@ fn StaticDemoRangeSlider(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoRangeSliderDual(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoRangeSliderDual resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoRangeSliderDual
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_range_slider_dual::DemoRangeSliderDual />
         </StaticDemoWrapper>
     }
@@ -6730,7 +7228,10 @@ fn StaticDemoScrollArea(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoScrollAreaHorizontal(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoScrollAreaHorizontal resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoScrollAreaHorizontal
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_scroll_area_horizontal::DemoScrollAreaHorizontal />
         </StaticDemoWrapper>
     }
@@ -6739,7 +7240,10 @@ fn StaticDemoScrollAreaHorizontal(#[prop(optional, into)] resizable_wrapper_clas
 #[component]
 fn StaticDemoScrollAreaRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoScrollAreaRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoScrollAreaRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_scroll_area_rtl::DemoScrollAreaRtl />
         </StaticDemoWrapper>
     }
@@ -6748,7 +7252,10 @@ fn StaticDemoScrollAreaRtl(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoScrollAreaSnap(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoScrollAreaSnap resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoScrollAreaSnap
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_scroll_area_snap::DemoScrollAreaSnap />
         </StaticDemoWrapper>
     }
@@ -6766,7 +7273,10 @@ fn StaticDemoSelect(#[prop(optional, into)] resizable_wrapper_class: String) -> 
 #[component]
 fn StaticDemoSelectNativeAutoWidth(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeAutoWidth resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSelectNativeAutoWidth
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_select_native_auto_width::DemoSelectNativeAutoWidth />
         </StaticDemoWrapper>
     }
@@ -6775,7 +7285,10 @@ fn StaticDemoSelectNativeAutoWidth(#[prop(optional, into)] resizable_wrapper_cla
 #[component]
 fn StaticDemoSelectNativeError(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeError resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSelectNativeError
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_select_native_error::DemoSelectNativeError />
         </StaticDemoWrapper>
     }
@@ -6784,7 +7297,10 @@ fn StaticDemoSelectNativeError(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoSelectNativeGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeGroup resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSelectNativeGroup
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_select_native_group::DemoSelectNativeGroup />
         </StaticDemoWrapper>
     }
@@ -6793,7 +7309,10 @@ fn StaticDemoSelectNativeGroup(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoSelectNativeOverlappingLabel(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeOverlappingLabel resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSelectNativeOverlappingLabel
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_select_native_overlapping_label::DemoSelectNativeOverlappingLabel />
         </StaticDemoWrapper>
     }
@@ -6802,7 +7321,10 @@ fn StaticDemoSelectNativeOverlappingLabel(#[prop(optional, into)] resizable_wrap
 #[component]
 fn StaticDemoSelectNativeTimezone(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectNativeTimezone resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSelectNativeTimezone
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_select_native_timezone::DemoSelectNativeTimezone />
         </StaticDemoWrapper>
     }
@@ -6820,7 +7342,10 @@ fn StaticDemoSelectRtl(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoSelectScrollable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSelectScrollable resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSelectScrollable
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_select_scrollable::DemoSelectScrollable />
         </StaticDemoWrapper>
     }
@@ -6838,7 +7363,10 @@ fn StaticDemoSeparator(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoSeparatorRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSeparatorRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSeparatorRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_separator_rtl::DemoSeparatorRtl />
         </StaticDemoWrapper>
     }
@@ -6856,7 +7384,10 @@ fn StaticDemoSheet(#[prop(optional, into)] resizable_wrapper_class: String) -> i
 #[component]
 fn StaticDemoSheetDirections(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheetDirections resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSheetDirections
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_sheet_directions::DemoSheetDirections />
         </StaticDemoWrapper>
     }
@@ -6865,7 +7396,10 @@ fn StaticDemoSheetDirections(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoSheetExperimental(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheetExperimental resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSheetExperimental
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_sheet_experimental::DemoSheetExperimental />
         </StaticDemoWrapper>
     }
@@ -6874,7 +7408,10 @@ fn StaticDemoSheetExperimental(#[prop(optional, into)] resizable_wrapper_class: 
 #[component]
 fn StaticDemoSheetNoCloseButton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSheetNoCloseButton resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSheetNoCloseButton
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_sheet_no_close_button::DemoSheetNoCloseButton />
         </StaticDemoWrapper>
     }
@@ -6901,7 +7438,10 @@ fn StaticDemoShimmer(#[prop(optional, into)] resizable_wrapper_class: String) ->
 #[component]
 fn StaticDemoShimmerMarker(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoShimmerMarker resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoShimmerMarker
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_shimmer_marker::DemoShimmerMarker />
         </StaticDemoWrapper>
     }
@@ -6919,7 +7459,10 @@ fn StaticDemoSkeleton(#[prop(optional, into)] resizable_wrapper_class: String) -
 #[component]
 fn StaticDemoSkeletonAvatar(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonAvatar resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSkeletonAvatar
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_skeleton_avatar::DemoSkeletonAvatar />
         </StaticDemoWrapper>
     }
@@ -6928,7 +7471,10 @@ fn StaticDemoSkeletonAvatar(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoSkeletonForm(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonForm resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSkeletonForm
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_skeleton_form::DemoSkeletonForm />
         </StaticDemoWrapper>
     }
@@ -6937,7 +7483,10 @@ fn StaticDemoSkeletonForm(#[prop(optional, into)] resizable_wrapper_class: Strin
 #[component]
 fn StaticDemoSkeletonImage(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonImage resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSkeletonImage
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_skeleton_image::DemoSkeletonImage />
         </StaticDemoWrapper>
     }
@@ -6946,7 +7495,10 @@ fn StaticDemoSkeletonImage(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoSkeletonRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSkeletonRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_skeleton_rtl::DemoSkeletonRtl />
         </StaticDemoWrapper>
     }
@@ -6955,7 +7507,10 @@ fn StaticDemoSkeletonRtl(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoSkeletonTable(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonTable resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSkeletonTable
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_skeleton_table::DemoSkeletonTable />
         </StaticDemoWrapper>
     }
@@ -6964,7 +7519,10 @@ fn StaticDemoSkeletonTable(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoSkeletonText(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSkeletonText resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSkeletonText
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_skeleton_text::DemoSkeletonText />
         </StaticDemoWrapper>
     }
@@ -6982,7 +7540,10 @@ fn StaticDemoSlider(#[prop(optional, into)] resizable_wrapper_class: String) -> 
 #[component]
 fn StaticDemoSliderControlled(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderControlled resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSliderControlled
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_slider_controlled::DemoSliderControlled />
         </StaticDemoWrapper>
     }
@@ -7000,7 +7561,10 @@ fn StaticDemoSliderFlat(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoSliderMultiple(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderMultiple resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSliderMultiple
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_slider_multiple::DemoSliderMultiple />
         </StaticDemoWrapper>
     }
@@ -7018,7 +7582,10 @@ fn StaticDemoSliderRtl(#[prop(optional, into)] resizable_wrapper_class: String) 
 #[component]
 fn StaticDemoSliderVertical(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSliderVertical resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSliderVertical
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_slider_vertical::DemoSliderVertical />
         </StaticDemoWrapper>
     }
@@ -7036,7 +7603,10 @@ fn StaticDemoSonner(#[prop(optional, into)] resizable_wrapper_class: String) -> 
 #[component]
 fn StaticDemoSonnerPositions(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSonnerPositions resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSonnerPositions
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_sonner_positions::DemoSonnerPositions />
         </StaticDemoWrapper>
     }
@@ -7045,7 +7615,10 @@ fn StaticDemoSonnerPositions(#[prop(optional, into)] resizable_wrapper_class: St
 #[component]
 fn StaticDemoSonnerVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSonnerVariants resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSonnerVariants
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_sonner_variants::DemoSonnerVariants />
         </StaticDemoWrapper>
     }
@@ -7063,7 +7636,10 @@ fn StaticDemoSpinner(#[prop(optional, into)] resizable_wrapper_class: String) ->
 #[component]
 fn StaticDemoSpinnerButton(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSpinnerButton resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSpinnerButton
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_spinner_button::DemoSpinnerButton />
         </StaticDemoWrapper>
     }
@@ -7090,7 +7666,10 @@ fn StaticDemoStatus(#[prop(optional, into)] resizable_wrapper_class: String) -> 
 #[component]
 fn StaticDemoStatusVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoStatusVariants resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoStatusVariants
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_status_variants::DemoStatusVariants />
         </StaticDemoWrapper>
     }
@@ -7108,7 +7687,10 @@ fn StaticDemoSwitch(#[prop(optional, into)] resizable_wrapper_class: String) -> 
 #[component]
 fn StaticDemoSwitchChoiceCard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoSwitchChoiceCard resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoSwitchChoiceCard
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_switch_choice_card::DemoSwitchChoiceCard />
         </StaticDemoWrapper>
     }
@@ -7171,7 +7753,10 @@ fn StaticDemoTabsRtl(#[prop(optional, into)] resizable_wrapper_class: String) ->
 #[component]
 fn StaticDemoTabsVertical(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTabsVertical resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoTabsVertical
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_tabs_vertical::DemoTabsVertical />
         </StaticDemoWrapper>
     }
@@ -7189,7 +7774,10 @@ fn StaticDemoTextarea(#[prop(optional, into)] resizable_wrapper_class: String) -
 #[component]
 fn StaticDemoTextareaRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoTextareaRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoTextareaRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_textarea_rtl::DemoTextareaRtl />
         </StaticDemoWrapper>
     }
@@ -7198,7 +7786,10 @@ fn StaticDemoTextareaRtl(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoThemeToggle(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoThemeToggle resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoThemeToggle
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_theme_toggle::DemoThemeToggle />
         </StaticDemoWrapper>
     }
@@ -7216,7 +7807,10 @@ fn StaticDemoToast(#[prop(optional, into)] resizable_wrapper_class: String) -> i
 #[component]
 fn StaticDemoToastVariants(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToastVariants resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoToastVariants
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_toast_variants::DemoToastVariants />
         </StaticDemoWrapper>
     }
@@ -7225,7 +7819,10 @@ fn StaticDemoToastVariants(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoToggleGroup(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroup resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoToggleGroup
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_toggle_group::DemoToggleGroup />
         </StaticDemoWrapper>
     }
@@ -7234,7 +7831,10 @@ fn StaticDemoToggleGroup(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoToggleGroupFontWeight(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupFontWeight resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoToggleGroupFontWeight
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_toggle_group_font_weight::DemoToggleGroupFontWeight />
         </StaticDemoWrapper>
     }
@@ -7243,7 +7843,10 @@ fn StaticDemoToggleGroupFontWeight(#[prop(optional, into)] resizable_wrapper_cla
 #[component]
 fn StaticDemoToggleGroupOutline(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupOutline resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoToggleGroupOutline
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_toggle_group_outline::DemoToggleGroupOutline />
         </StaticDemoWrapper>
     }
@@ -7252,7 +7855,10 @@ fn StaticDemoToggleGroupOutline(#[prop(optional, into)] resizable_wrapper_class:
 #[component]
 fn StaticDemoToggleGroupRtl(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupRtl resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoToggleGroupRtl
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_toggle_group_rtl::DemoToggleGroupRtl />
         </StaticDemoWrapper>
     }
@@ -7261,7 +7867,10 @@ fn StaticDemoToggleGroupRtl(#[prop(optional, into)] resizable_wrapper_class: Str
 #[component]
 fn StaticDemoToggleGroupSpacing(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupSpacing resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoToggleGroupSpacing
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_toggle_group_spacing::DemoToggleGroupSpacing />
         </StaticDemoWrapper>
     }
@@ -7270,7 +7879,10 @@ fn StaticDemoToggleGroupSpacing(#[prop(optional, into)] resizable_wrapper_class:
 #[component]
 fn StaticDemoToggleGroupVertical(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoToggleGroupVertical resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoToggleGroupVertical
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_toggle_group_vertical::DemoToggleGroupVertical />
         </StaticDemoWrapper>
     }
@@ -7297,7 +7909,10 @@ fn StaticDemoTooltipRtl(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoUseCopyToClipboard(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseCopyToClipboard resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoUseCopyToClipboard
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_use_copy_to_clipboard::DemoUseCopyToClipboard />
         </StaticDemoWrapper>
     }
@@ -7315,7 +7930,10 @@ fn StaticDemoUseHistory(#[prop(optional, into)] resizable_wrapper_class: String)
 #[component]
 fn StaticDemoUseHorizontalScroll(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseHorizontalScroll resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoUseHorizontalScroll
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_use_horizontal_scroll::DemoUseHorizontalScroll />
         </StaticDemoWrapper>
     }
@@ -7324,7 +7942,10 @@ fn StaticDemoUseHorizontalScroll(#[prop(optional, into)] resizable_wrapper_class
 #[component]
 fn StaticDemoUseIsMobile(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseIsMobile resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoUseIsMobile
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_use_is_mobile::DemoUseIsMobile />
         </StaticDemoWrapper>
     }
@@ -7333,7 +7954,10 @@ fn StaticDemoUseIsMobile(#[prop(optional, into)] resizable_wrapper_class: String
 #[component]
 fn StaticDemoUseLockBodyScroll(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseLockBodyScroll resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoUseLockBodyScroll
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_use_lock_body_scroll::DemoUseLockBodyScroll />
         </StaticDemoWrapper>
     }
@@ -7351,7 +7975,10 @@ fn StaticDemoUseLocks(#[prop(optional, into)] resizable_wrapper_class: String) -
 #[component]
 fn StaticDemoUseMediaQuery(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUseMediaQuery resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoUseMediaQuery
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_use_media_query::DemoUseMediaQuery />
         </StaticDemoWrapper>
     }
@@ -7360,7 +7987,10 @@ fn StaticDemoUseMediaQuery(#[prop(optional, into)] resizable_wrapper_class: Stri
 #[component]
 fn StaticDemoUsePressHold(#[prop(optional, into)] resizable_wrapper_class: String) -> impl IntoView {
     view! {
-        <StaticDemoWrapper demo_type=MarkdownType::StaticDemoUsePressHold resizable_wrapper_class=resizable_wrapper_class>
+        <StaticDemoWrapper
+            demo_type=MarkdownType::StaticDemoUsePressHold
+            resizable_wrapper_class=resizable_wrapper_class
+        >
             <registry::demos::demo_use_press_hold::DemoUsePressHold />
         </StaticDemoWrapper>
     }

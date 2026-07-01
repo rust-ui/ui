@@ -68,31 +68,31 @@ Wrap multiple attachments in `AttachmentGroup` for a horizontally scrollable sna
 
 Set `variant=AttachmentMediaVariant::Image` on `AttachmentMedia` and render an `<img>` inside it. Use `orientation=AttachmentOrientation::Vertical` to stack the media above the content.
 
-<StaticAttachmentImage />
+<StaticAttachmentImage class="bg-accent" />
 
 ### States
 
 Use the `state` prop on `Attachment` to reflect upload progress. Available states: `Idle`, `Uploading`, `Processing`, `Error`, `Done`.
 
-<StaticAttachmentStates />
+<StaticAttachmentStates class="bg-accent" />
 
 ### Sizes
 
 Use the `size` prop to control padding and icon sizing. Available: `Default`, `Sm`, `Xs`.
 
-<StaticAttachmentSizes />
+<StaticAttachmentSizes class="bg-accent" />
 
 ### Group
 
 Wrap attachments in `AttachmentGroup` to lay them out in a horizontally scrollable, snapping row.
 
-<StaticAttachmentGroup />
+<StaticAttachmentGroup class="bg-accent" />
 
 ### Trigger
 
 Add `AttachmentTrigger` inside an `Attachment` to make the whole card clickable. Pass `href` to render as an `<a>`, or `on_click` for a button trigger. Actions inside `AttachmentActions` remain independently clickable above the trigger.
 
-<StaticAttachmentTrigger />
+<StaticAttachmentTrigger class="bg-accent" />
 
 ## See Also
 
