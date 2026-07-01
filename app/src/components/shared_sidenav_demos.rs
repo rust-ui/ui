@@ -50,7 +50,7 @@ pub fn SharedSidenavDemos(
                                                                 .is_new
                                                                 .then(|| {
                                                                     view! {
-                                                                        <span class="size-1.5 shrink-0 rounded-full bg-green-500" />
+                                                                        <span class="bg-green-500 rounded-full size-1.5 shrink-0" />
                                                                     }
                                                                 })}
                                                         </A>
