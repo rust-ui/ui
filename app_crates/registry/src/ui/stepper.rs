@@ -3,7 +3,7 @@ use leptos::prelude::*;
 use leptos_ui::{clx, variants, void};
 use tw_merge::tw_merge;
 
-use crate::hooks::use_stepper::{StepState, use_stepper};
+use crate::hooks::use_stepper::{StepState, StepperContext, use_stepper};
 
 /* ========================================================== */
 /*                       Enums                                */
@@ -74,7 +74,7 @@ mod components {
     void! {
         StepperSeparator, div,
         "shrink-0 bg-border transition-colors",
-        "group-data-[orientation=Horizontal]/stepper:mt-4 group-data-[orientation=Horizontal]/stepper:h-0.5 group-data-[orientation=Horizontal]/stepper:w-full",
+        "group-data-[orientation=Horizontal]/stepper:self-center group-data-[orientation=Horizontal]/stepper:h-0.5 group-data-[orientation=Horizontal]/stepper:w-full",
         "group-data-[orientation=Vertical]/stepper:absolute group-data-[orientation=Vertical]/stepper:top-8 group-data-[orientation=Vertical]/stepper:left-4 group-data-[orientation=Vertical]/stepper:h-full group-data-[orientation=Vertical]/stepper:w-0.5",
         "group-data-[state=Completed]/stepper-item:bg-primary"
     }
@@ -122,7 +122,7 @@ pub fn StepperItem(
     #[prop(into, optional)] class: String,
     children: Children,
 ) -> impl IntoView {
-    let ctx = expect_context::<crate::hooks::use_stepper::StepperContext>();
+    let ctx = expect_context::<StepperContext>();
 
     let state = Memo::new(move |_| if disabled { StepState::Disabled } else { ctx.step_state.run(step) });
     provide_context(StepperItemCtx { step, state });
