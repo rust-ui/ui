@@ -79,6 +79,7 @@ pub mod slider;
 pub mod sonner;
 pub mod spinner;
 pub mod status;
+pub mod stepper;
 pub mod switch;
 pub mod table;
 pub mod tabs;

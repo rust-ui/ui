@@ -6,7 +6,7 @@ use leptos::prelude::*;
 /// comparison. `Disabled` is not produced by this hook — it's applied by
 /// the caller (e.g. `StepperItem`) on top of the computed state, since it
 /// depends on external conditions the hook has no visibility into.
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, strum::Display)]
 pub enum StepState {
     Completed,
     Active,
