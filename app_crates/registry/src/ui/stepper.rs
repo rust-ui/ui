@@ -9,6 +9,9 @@ use crate::hooks::use_stepper::{StepState, StepperContext, use_stepper};
 /*                       Enums                                */
 /* ========================================================== */
 
+/// Layout direction for a `Stepper` — controls both the root flex direction
+/// and which `StepperSeparator` styling (inline bar vs. absolute vertical
+/// line) applies, via the `data-orientation` attribute on the root element.
 #[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
 pub enum StepperOrientation {
     #[default]
@@ -145,7 +148,7 @@ pub fn StepperItem(
 /// `aria-current="step"` when active.
 #[component]
 pub fn StepperTrigger(#[prop(into, optional)] class: String, children: Children) -> impl IntoView {
-    let stepper_ctx = expect_context::<crate::hooks::use_stepper::StepperContext>();
+    let stepper_ctx = expect_context::<StepperContext>();
     let item_ctx = expect_context::<StepperItemCtx>();
     let step = item_ctx.step;
 
