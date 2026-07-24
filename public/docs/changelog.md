@@ -13,6 +13,7 @@ image_dark = "/images/thumbnails/_placeholder-dark.webp"
 
 ### New Components
 
+- **[Stepper](/docs/components/stepper)**: Multi-step workflow indicator with horizontal and vertical orientations, `Completed`/`Active`/`Pending`/`Disabled` step states, clickable native-button triggers with `aria-current="step"`, and custom indicator content support. Includes 3 demos.
 - **[Attachment](/docs/components/attachment)**: File and image attachment card with media slot, title, description, upload states (`Idle`, `Uploading`, `Processing`, `Error`, `Done`), three sizes, and an `AttachmentTrigger` overlay for link/button activation. Includes 6 demos.
 - **[Bubble](/docs/components/bubble)**: Chat message bubble with 7 variants, `BubbleReactions` overlay, and `BubbleContent` that renders as `<a>`, `<button>`, or `<div>`. Includes 9 demos.
 - **[Message](/docs/components/message)**: Conversation row layout with avatar, alignment, header, and footer. `MessageGroup` stacks consecutive messages. Supports `align=End` for sender bubbles, avatar shift on footer presence, and ghost-variant padding reset. Includes 6 demos.
