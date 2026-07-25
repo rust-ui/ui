@@ -1,6 +1,8 @@
+use leptos::ev;
 use leptos::prelude::*;
 use leptos_router::hooks::use_location;
 use leptos_ui::{clx, variants, void};
+use wasm_bindgen::JsCast;
 
 mod components {
     use super::*;
@@ -67,6 +69,27 @@ pub fn SidenavWrapper(
 ) -> impl IntoView {
     let open = RwSignal::new(default_open);
     provide_context(SidenavContext { open });
+
+    let listener = window_event_listener(ev::keydown, move |event| {
+        if !((event.ctrl_key() || event.meta_key()) && event.key().eq_ignore_ascii_case("b")) {
+            return;
+        }
+
+        if let Some(element) = document().active_element() {
+            let tag_name = element.tag_name();
+            let is_text_input = tag_name.eq_ignore_ascii_case("input") || tag_name.eq_ignore_ascii_case("textarea");
+            let is_content_editable =
+                element.dyn_ref::<web_sys::HtmlElement>().is_some_and(web_sys::HtmlElement::is_content_editable);
+
+            if is_text_input || is_content_editable {
+                return;
+            }
+        }
+
+        event.prevent_default();
+        SidenavContext { open }.toggle();
+    });
+    on_cleanup(move || listener.remove());
 
     let merged_class = tw_merge!("group/sidenav-wrapper has-data-[variant=Inset]:bg-sidenav flex h-full w-full", class);
 

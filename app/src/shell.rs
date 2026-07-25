@@ -142,7 +142,6 @@ pub fn shell(options: LeptosOptions) -> impl IntoView {
                 <script async src="/app_components/resizable.bundle.js"></script>
                 <script async src="/app_components/shimmer_init.js?v=3"></script>
                 <script async src="/app_components/lazy_load_sonner.js"></script>
-                <script async src="/app_components/sidenav.js?v=1"></script>
 
                 // JSON-LD Structured Data for SEO (inlined at compile time — readable by AI crawlers)
                 <script type="application/ld+json" inner_html=include_str!("../../public/schema.json")></script>
