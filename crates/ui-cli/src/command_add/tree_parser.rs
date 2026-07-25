@@ -363,4 +363,13 @@ mod tests {
         sorted.sort();
         assert_eq!(keys, sorted);
     }
+
+    #[test]
+    fn sidenav_resolves_its_compile_time_cargo_dependencies() {
+        let parser = TreeParser::parse_tree_md(include_str!("../../../../public/registry/tree.md")).unwrap();
+        let resolved = parser.resolve_dependencies(&["sidenav".to_string()]).unwrap();
+
+        assert!(resolved.cargo_deps.contains("leptos_router"));
+        assert!(resolved.cargo_deps.contains("strum/derive"));
+    }
 }

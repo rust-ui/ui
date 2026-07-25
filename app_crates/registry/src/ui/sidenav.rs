@@ -1,8 +1,9 @@
 use leptos::ev;
 use leptos::prelude::*;
+use leptos::wasm_bindgen::JsCast;
+use leptos::web_sys::HtmlElement;
 use leptos_router::hooks::use_location;
 use leptos_ui::{clx, variants, void};
-use wasm_bindgen::JsCast;
 
 mod components {
     use super::*;
@@ -60,6 +61,9 @@ impl SidenavContext {
 
 /// Root layout wrapper for the Sidenav system.
 /// Provides `SidenavContext` to all descendants automatically.
+/// Owns the `Ctrl+B` / `Cmd+B` shortcut while mounted. If multiple wrappers
+/// share a window, the first one to handle the event prevents later handlers
+/// from toggling additional Sidenavs.
 /// Use `default_open` to set the initial state (default: `true` = expanded).
 #[component]
 pub fn SidenavWrapper(
@@ -68,18 +72,22 @@ pub fn SidenavWrapper(
     children: Children,
 ) -> impl IntoView {
     let open = RwSignal::new(default_open);
-    provide_context(SidenavContext { open });
+    let context = SidenavContext { open };
+    provide_context(context);
 
     let listener = window_event_listener(ev::keydown, move |event| {
-        if !((event.ctrl_key() || event.meta_key()) && event.key().eq_ignore_ascii_case("b")) {
+        if event.default_prevented()
+            || event.shift_key()
+            || event.alt_key()
+            || !((event.ctrl_key() || event.meta_key()) && event.key() == "b")
+        {
             return;
         }
 
         if let Some(element) = document().active_element() {
             let tag_name = element.tag_name();
             let is_text_input = tag_name.eq_ignore_ascii_case("input") || tag_name.eq_ignore_ascii_case("textarea");
-            let is_content_editable =
-                element.dyn_ref::<web_sys::HtmlElement>().is_some_and(web_sys::HtmlElement::is_content_editable);
+            let is_content_editable = element.dyn_ref::<HtmlElement>().is_some_and(HtmlElement::is_content_editable);
 
             if is_text_input || is_content_editable {
                 return;
@@ -87,7 +95,7 @@ pub fn SidenavWrapper(
         }
 
         event.prevent_default();
-        SidenavContext { open }.toggle();
+        context.toggle();
     });
     on_cleanup(move || listener.remove());
 
@@ -270,6 +278,10 @@ pub enum SidenavState {
 
 const ONCLICK_TRIGGER: &str = "document.querySelector('[data-name=\"Sidenav\"]').setAttribute('data-state', document.querySelector('[data-name=\"Sidenav\"]').getAttribute('data-state') === 'Collapsed' ? 'Expanded' : 'Collapsed')";
 
+/// Toggles the nearest context-owned Sidenav when clicked.
+///
+/// Keyboard shortcuts require an ancestor [`SidenavWrapper`]. The inline
+/// fallback preserves click behavior for standalone Sidenavs without context.
 #[component]
 pub fn SidenavTrigger(children: Children) -> impl IntoView {
     let ctx = use_context::<SidenavContext>();

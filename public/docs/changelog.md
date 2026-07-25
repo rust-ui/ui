@@ -21,6 +21,7 @@ image_dark = "/images/thumbnails/_placeholder-dark.webp"
 
 ### Improvements
 
+- **[Sidenav](/docs/components/sidenav)**: Moved the `Ctrl+B` / `Cmd+B` shortcut into the lifecycle-owned Leptos component, including editable-focus guards, multi-wrapper event arbitration, and explicit listener cleanup.
 - **[Button](/docs/components/button)**: Added `ButtonSize::IconSm` (`size-8`) and `ButtonSize::IconXs` (`size-6`) variants.
 
 ---
@@ -457,5 +458,4 @@ use icons::LucideIcon;
 - Consolidated animation imports into single file
 - Registry flattening for cleaner directory structure
 - Slot component simplified to support only `A` variant
-
 

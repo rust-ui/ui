@@ -1958,6 +1958,8 @@ Each dependency level is shown with progressive bullet points: * for components,
 * shimmer (ui)
   ** use_random (hooks)
 * sidenav (ui)
+  ** cargo: leptos_router
+  ** cargo: strum/derive
 * skeleton (ui)
 * slider (ui)
 * sonner (ui)
