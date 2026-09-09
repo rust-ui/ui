@@ -2,3 +2,6 @@
 	path = dioxus-ui
 	url = https://github.com/rust-ui/dioxus-ui.git
 	ignore = dirty
+[submodule "leptos-ui"]
+	path = leptos-ui
+	url = https://github.com/rust-ui/leptos-ui.git
