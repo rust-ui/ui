@@ -176,6 +176,7 @@ pub struct WorkflowState {
 
 // Manual Copy/Clone/PartialEq — Signal<Vec<T>> is Copy regardless of T.
 impl Copy for WorkflowState {}
+#[allow(clippy::expl_impl_clone_on_copy)] // hand-written to match the manual Copy above
 impl Clone for WorkflowState {
     fn clone(&self) -> Self {
         *self

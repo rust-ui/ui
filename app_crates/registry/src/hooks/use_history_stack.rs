@@ -7,6 +7,7 @@ pub struct UseHistoryStack<T: Clone + 'static> {
 
 // Signal<T> is Copy regardless of T — derived impls would add T: Copy/PartialEq bounds unnecessarily.
 impl<T: Clone + 'static> Copy for UseHistoryStack<T> {}
+#[allow(clippy::expl_impl_clone_on_copy)] // hand-written to avoid the derive's T: Copy bound
 impl<T: Clone + 'static> Clone for UseHistoryStack<T> {
     fn clone(&self) -> Self {
         *self

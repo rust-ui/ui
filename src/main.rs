@@ -220,9 +220,11 @@ mod server {
 
     use super::App;
 
-    /// Directory the CLI bundles static assets into. Mirrors the private
-    /// `dioxus_server::public_path()`: honour `DIOXUS_PUBLIC_PATH` if set,
-    /// otherwise `<exe dir>/public` (what `dx serve` and the prod binary use).
+    /// Directory the CLI bundles static assets into.
+    ///
+    /// Mirrors the private `dioxus_server::public_path()`: honour
+    /// `DIOXUS_PUBLIC_PATH` if set, otherwise `<exe dir>/public` (what `dx serve`
+    /// and the prod binary use).
     fn public_path() -> std::path::PathBuf {
         if let Ok(path) = std::env::var("DIOXUS_PUBLIC_PATH") {
             return path.into();

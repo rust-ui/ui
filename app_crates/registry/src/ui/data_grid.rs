@@ -175,6 +175,7 @@ pub fn get_column_width<C: PinnableColumn + 'static>(col: C) -> i32 {
 }
 
 /// Generates CSS custom properties for column sizes from pinnable columns.
+///
 /// Includes max-height for proper viewport sizing.
 /// Use with `LazyLock` to compute once: `static GRID_STYLE: LazyLock<String> = LazyLock::new(generate_grid_style::<Column>);`
 pub fn generate_grid_style<C: PinnableColumn + AsRef<str> + 'static>() -> String {

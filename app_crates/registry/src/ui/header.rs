@@ -203,7 +203,7 @@ pub fn Header(#[props(into, optional)] data_state: Option<String>, children: Ele
         header {
             "data-name": "Header",
             class: "[--color-popover:color-mix(in_oklch,var(--color-muted)_25%,var(--color-background))]",
-            "data-state": data_state.as_deref().unwrap_or(if is_data_scrolled() { "active" } else { "inactive" }),
+            "data-state": data_state.as_deref().unwrap_or_else(|| if is_data_scrolled() { "active" } else { "inactive" }),
             "data-scrolled": if is_data_scrolled() { "true" } else { "false" },
             {children}
         }

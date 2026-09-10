@@ -37,7 +37,7 @@ pub fn DemoDatePickerDropdown() -> Element {
     };
 
     let handle_year_change = move |ev: Event<FormData>| {
-        let val = ev.value().parse::<i32>().unwrap_or(today.year());
+        let val = ev.value().parse::<i32>().unwrap_or_else(|_| today.year());
         let current = display_date();
         if let Ok(new_date) = Date::from_calendar_date(val, current.month(), 1) {
             display_date.set(new_date);

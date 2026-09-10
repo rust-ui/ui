@@ -200,12 +200,9 @@ significant_drop_tightening = "allow"         # ~4 (nursery; guards already drop
 unused_self = "allow"                         # ~4
 if_not_else = "allow"                         # ~4
 implicit_hasher = "allow"                     # ~3
-or_fun_call = "allow"                         # ~2
-expl_impl_clone_on_copy = "allow"             # ~2
 struct_field_names = "allow"                  # ~2
-too_long_first_doc_paragraph = "allow"        # ~2
 unnecessary_wraps = "allow"                   # ~2
-unused_unit = "allow"                         # ~2
+unused_unit = "allow"                         # ~2 (all sites inside #[server] macro expansion)
 # `MarkdownType` in the generated src/__registry__/static_md_registry.rs has a
 # `Static` prefix on every variant. The file is codegen output from
 # rust_ui_internals/build_registry_dioxus, so fix the generator to emit an inline
