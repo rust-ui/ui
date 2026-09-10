@@ -71,7 +71,7 @@ Open [http://127.0.0.1:8080](http://127.0.0.1:8080).
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=rust-ui/dioxus-ui&type=Date)](https://star-history.com/#rust-ui/dioxus-ui&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=rust-ui/ui&type=Date)](https://star-history.com/#rust-ui/ui&Date)
 
 ## License
 
