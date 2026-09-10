@@ -98,3 +98,5 @@ __TMP/
 X__TMP/
 dioxus_ui_internals/
 rust_ui_internals/
+CLIPPY_FULL_DUMP.txt
+CLIPPY_TRACKER.md
