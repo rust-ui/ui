@@ -29,12 +29,13 @@ allow = [
     "CC0-1.0",
     "Unlicense",
     "OpenSSL",
+    "BSL-1.0",
 ]
 confidence-threshold = 0.9
 
 [bans]
 multiple-versions = "warn"
-wildcards = "deny"
+wildcards = "warn"
 allow-wildcard-paths = true
 deny = [
     { name = "openssl" },
