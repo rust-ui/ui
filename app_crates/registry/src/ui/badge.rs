@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-#[derive(Default, Clone, PartialEq)]
+#[derive(Default, Clone, PartialEq, Eq)]
 pub enum BadgeVariant {
     #[default]
     Default,
@@ -35,7 +35,7 @@ impl BadgeVariant {
     }
 }
 
-#[derive(Default, Clone, PartialEq)]
+#[derive(Default, Clone, PartialEq, Eq)]
 pub enum BadgeSize {
     #[default]
     Default,

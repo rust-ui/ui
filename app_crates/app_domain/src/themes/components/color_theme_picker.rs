@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use registry::ui::select::{Select, SelectContent, SelectGroup, SelectOption, SelectTrigger};
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum ColorTheme {
     #[default]
     None,

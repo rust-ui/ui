@@ -4,7 +4,7 @@ use strum::Display;
 const DEFAULT_SCROLL_PERCENTAGE: f64 = 0.5;
 const DEFAULT_UPDATE_DELAY_MS: i32 = 300;
 
-#[derive(Default, Clone, Copy, Display, PartialEq, Debug)]
+#[derive(Default, Clone, Copy, Display, PartialEq, Eq, Debug)]
 #[strum(serialize_all = "PascalCase")]
 pub enum HorizontalScrollState {
     #[default]

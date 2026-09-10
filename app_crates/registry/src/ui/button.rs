@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-#[derive(Default, Clone, PartialEq)]
+#[derive(Default, Clone, PartialEq, Eq)]
 pub enum ButtonVariant {
     #[default]
     Default,
@@ -15,7 +15,7 @@ pub enum ButtonVariant {
 }
 
 #[allow(dead_code)]
-#[derive(Default, Clone, PartialEq)]
+#[derive(Default, Clone, PartialEq, Eq)]
 pub enum ButtonSize {
     #[default]
     Default,

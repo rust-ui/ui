@@ -1,6 +1,6 @@
 use time::{Date, Month};
 
-#[derive(PartialEq, Clone)]
+#[derive(PartialEq, Eq, Clone)]
 pub struct DatePickerDualState {
     pub start_date: Date,
     pub end_date: Date,

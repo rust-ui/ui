@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum AnimateVariant {
     #[default]
     Default,
@@ -25,7 +25,7 @@ impl AnimateVariant {
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Default, strum::Display)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
 pub enum AnimateHoverVariant {
     #[default]
     Default,

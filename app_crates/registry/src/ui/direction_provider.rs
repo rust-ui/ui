@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-#[derive(Default, Clone, Copy, PartialEq, strum::IntoStaticStr)]
+#[derive(Default, Clone, Copy, PartialEq, Eq, strum::IntoStaticStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum Direction {
     #[default]

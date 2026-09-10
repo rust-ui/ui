@@ -4,7 +4,7 @@ use tw_merge::tw_merge;
 use crate::ui::button::{Button, ButtonSize, ButtonVariant};
 use crate::ui::dialog::use_dialog_trigger_id;
 
-#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum AttachmentSize {
     #[default]
     Default,
@@ -18,7 +18,7 @@ impl AttachmentSize {
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum AttachmentOrientation {
     #[default]
     Horizontal,
@@ -31,7 +31,7 @@ impl AttachmentOrientation {
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum AttachmentState {
     #[default]
     Done,
@@ -47,7 +47,7 @@ impl AttachmentState {
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum AttachmentMediaVariant {
     #[default]
     Icon,

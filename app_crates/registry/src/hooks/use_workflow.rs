@@ -8,7 +8,7 @@ use super::use_history_stack::UseHistoryStack;
 
 // ── WorkflowNodeKind ──────────────────────────────────────────────────────────
 
-#[derive(Clone, PartialEq, Serialize, Deserialize, strum::IntoStaticStr)]
+#[derive(Clone, PartialEq, Eq, Serialize, Deserialize, strum::IntoStaticStr)]
 pub enum WorkflowNodeKind {
     Trigger,
     Data,
@@ -42,7 +42,7 @@ impl WorkflowNodeKind {
 
 // ── Data types ────────────────────────────────────────────────────────────────
 
-#[derive(Clone, PartialEq, Default, Display, EnumIter, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Default, Display, EnumIter, Serialize, Deserialize)]
 pub enum EdgeStyle {
     #[default]
     Dashed,
@@ -77,7 +77,7 @@ pub struct WorkflowNode {
     pub kind: WorkflowNodeKind,
 }
 
-#[derive(Clone, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Default, Serialize, Deserialize)]
 pub struct WorkflowEdge {
     pub from: String,
     pub to: String,

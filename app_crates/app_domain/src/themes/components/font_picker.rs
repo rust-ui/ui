@@ -5,7 +5,7 @@ use registry::ui::select::{Select, SelectContent, SelectGroup, SelectOption, Sel
 /*                       ✨ TYPES ✨                          */
 /* ========================================================== */
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum FontName {
     // Sans (indices 0-9)
     #[default]

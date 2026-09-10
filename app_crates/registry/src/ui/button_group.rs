@@ -4,7 +4,7 @@ use tw_merge::tw_merge;
 use crate::ui::separator::{Separator, SeparatorOrientation};
 
 #[allow(dead_code)]
-#[derive(Default, Clone, PartialEq)]
+#[derive(Default, Clone, PartialEq, Eq)]
 pub enum ButtonGroupOrientation {
     #[default]
     Horizontal,

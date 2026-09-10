@@ -81,7 +81,7 @@ impl SortableColumn<RowData> for Column {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
 pub struct RowData {
     pub name: String,
     pub age: i32,

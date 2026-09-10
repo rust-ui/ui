@@ -7,7 +7,7 @@ use crate::domain::blocks::block_entry::{BlockEntry, BlockFile, BlockFileTreeIte
 
 // ─── Enum ─────────────────────────────────────────────────────────────────────
 
-#[derive(Clone, Debug, PartialEq, Copy)]
+#[derive(Clone, Debug, PartialEq, Eq, Copy)]
 pub enum BlockIdKebab {
     Faq01,
     Faq02,

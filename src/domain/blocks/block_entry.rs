@@ -20,7 +20,7 @@ impl BlockFileTreeItem {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, Copy)]
+#[derive(Clone, Debug, PartialEq, Eq, Copy)]
 pub struct BlockFile {
     pub name: &'static str,
     pub target: &'static str,
@@ -28,7 +28,7 @@ pub struct BlockFile {
     pub language: &'static str,
 }
 
-#[derive(Clone, Debug, PartialEq, Copy)]
+#[derive(Clone, Debug, PartialEq, Eq, Copy)]
 pub struct BlockMeta {
     pub iframe_height: &'static str,
     pub container_class: &'static str,
@@ -43,7 +43,7 @@ impl BlockMeta {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, Copy)]
+#[derive(Clone, Debug, PartialEq, Eq, Copy)]
 pub struct BlockEntry {
     pub block_id_str: &'static str,
     pub block_title: &'static str,

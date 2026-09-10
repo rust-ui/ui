@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use serde::Serialize;
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct BreadcrumbItem {
     pub name: String,
     pub url: Option<String>, // None for current page (no link)

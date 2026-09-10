@@ -11,14 +11,14 @@ use registry::ui::toggle_group::{ToggleGroup, ToggleGroupAction, ToggleGroupItem
 
 use crate::domain::blocks::block_entry::BlockEntry;
 
-#[derive(Default, Clone, Copy, PartialEq)]
+#[derive(Default, Clone, Copy, PartialEq, Eq)]
 pub enum BlockView {
     #[default]
     Preview,
     Code,
 }
 
-#[derive(Default, Clone, Copy, PartialEq)]
+#[derive(Default, Clone, Copy, PartialEq, Eq)]
 pub enum ScreenSize {
     #[default]
     Desktop,

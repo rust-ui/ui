@@ -8,12 +8,12 @@ use crate::ui::button::{ButtonSize, ButtonVariant};
 
 static SHEET_COUNTER: AtomicUsize = AtomicUsize::new(0);
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Eq)]
 pub struct SheetContext {
     pub target_id: String,
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum SheetDirection {
     Top,
     Bottom,

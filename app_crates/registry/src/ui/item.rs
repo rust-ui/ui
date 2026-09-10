@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum ItemVariant {
     #[default]
     Default,
@@ -19,7 +19,7 @@ impl ItemVariant {
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum ItemSize {
     #[default]
     Default,
@@ -37,7 +37,7 @@ impl ItemSize {
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum ItemMediaVariant {
     #[default]
     Default,

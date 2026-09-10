@@ -5,7 +5,7 @@ use registry::ui::button::Button;
 
 use crate::Route;
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TocItem {
     pub title: String,
     pub level: u8, // 2 = h2, 3 = h3

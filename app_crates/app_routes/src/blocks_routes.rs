@@ -1,6 +1,6 @@
 use strum::{AsRefStr, Display, EnumIter, EnumString, IntoStaticStr};
 
-#[derive(Default, Clone, Copy, Display, AsRefStr, IntoStaticStr, EnumString, EnumIter, Debug, PartialEq)]
+#[derive(Default, Clone, Copy, Display, AsRefStr, IntoStaticStr, EnumString, EnumIter, Debug, PartialEq, Eq)]
 #[strum(serialize_all = "kebab-case")]
 pub enum BlockRoutes {
     #[default]

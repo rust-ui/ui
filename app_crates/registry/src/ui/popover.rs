@@ -19,7 +19,7 @@ struct PopoverContext {
     content_id: String,
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum PopoverAlign {
     Start,
     StartOuter,

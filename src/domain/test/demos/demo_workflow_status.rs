@@ -9,7 +9,7 @@ use tw_merge::tw_merge;
 
 // ── NodeStatus ────────────────────────────────────────────────────────────────
 
-#[derive(Clone, PartialEq, Default)]
+#[derive(Clone, PartialEq, Eq, Default)]
 pub enum NodeStatus {
     #[default]
     Idle,

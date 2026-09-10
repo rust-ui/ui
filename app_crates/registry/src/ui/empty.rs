@@ -34,7 +34,7 @@ pub fn EmptyContent(#[props(into, optional)] class: Option<String>, children: El
     rsx! { div { class: "{merged}", {children} } }
 }
 
-#[derive(Default, Clone, PartialEq)]
+#[derive(Default, Clone, PartialEq, Eq)]
 pub enum EmptyMediaVariant {
     #[default]
     Default,

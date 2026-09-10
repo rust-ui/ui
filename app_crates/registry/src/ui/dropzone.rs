@@ -5,7 +5,7 @@ use tw_merge::tw_merge;
 
 // ── ViewMode ──────────────────────────────────────────────────────────────────
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub enum ViewMode {
     List,
     Grid,
@@ -13,7 +13,7 @@ pub enum ViewMode {
 
 // ── File type ─────────────────────────────────────────────────────────────────
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Eq)]
 pub struct DropzoneFile {
     pub name: String,
     pub size_bytes: u64,

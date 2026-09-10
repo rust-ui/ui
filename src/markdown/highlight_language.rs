@@ -1,6 +1,6 @@
 use strum::{AsRefStr, IntoStaticStr};
 
-#[derive(Debug, Clone, Copy, PartialEq, Default, IntoStaticStr, AsRefStr)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, IntoStaticStr, AsRefStr)]
 #[strum(serialize_all = "lowercase")]
 pub enum HighlightLanguage {
     #[default]

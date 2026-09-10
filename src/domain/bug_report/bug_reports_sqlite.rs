@@ -139,7 +139,7 @@ pub fn save_bug_report(report: &BugReportRequest) -> Result<i64, String> {
 }
 
 /// A stored bug report retrieved from the database.
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub struct StoredBugReport {
     pub id: i64,
     pub bug_type: String,

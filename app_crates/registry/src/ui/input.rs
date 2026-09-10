@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
 #[allow(dead_code)]
-#[derive(Default, Clone, PartialEq, strum::IntoStaticStr)]
+#[derive(Default, Clone, PartialEq, Eq, strum::IntoStaticStr)]
 #[strum(serialize_all = "kebab-case")]
 pub enum InputType {
     #[default]

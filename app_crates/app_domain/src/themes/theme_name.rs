@@ -1,7 +1,7 @@
 use super::components::color_theme_picker::ColorTheme;
 use super::components::font_picker::FontName;
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum ThemeName {
     #[default]
     Neutral,

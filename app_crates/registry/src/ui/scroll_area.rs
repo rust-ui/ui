@@ -24,7 +24,7 @@ pub fn ScrollAreaViewport(#[props(into, optional)] class: Option<String>, childr
     }
 }
 
-#[derive(Clone, Copy, Default, PartialEq)]
+#[derive(Clone, Copy, Default, PartialEq, Eq)]
 pub enum ScrollBarOrientation {
     #[default]
     Vertical,
@@ -64,7 +64,7 @@ pub fn ScrollAreaCorner(#[props(into, optional)] class: Option<String>) -> Eleme
     rsx! { div { class: "{merged}" } }
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum SnapAreaVariant {
     #[default]
     Center,
@@ -83,7 +83,7 @@ pub fn SnapScrollArea(
     rsx! { div { "data-name": "SnapScrollArea", class: "{merged}", {children} } }
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum SnapVariant {
     #[default]
     Center,

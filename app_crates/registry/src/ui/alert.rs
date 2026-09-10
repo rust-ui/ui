@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
 #[allow(dead_code)]
-#[derive(Default, Clone, PartialEq)]
+#[derive(Default, Clone, PartialEq, Eq)]
 pub enum AlertVariant {
     #[default]
     Default,

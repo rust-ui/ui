@@ -7,7 +7,7 @@ use crate::ui::button::{ButtonSize, ButtonVariant};
 
 static DRAWER_COUNTER: AtomicUsize = AtomicUsize::new(0);
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum DrawerPosition {
     #[default]
     Bottom,
@@ -16,7 +16,7 @@ pub enum DrawerPosition {
     Right,
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum DrawerVariant {
     #[default]
     Default,

@@ -5,7 +5,7 @@ use crate::ui::data_grid::DataGridColumn;
 /// Return type for the drag selection hook
 // The `_signal` suffix is the project-wide convention for stored `Signal` fields.
 #[allow(clippy::struct_field_names)]
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub struct UseDragSelection<C: DataGridColumn> {
     /// Whether a drag is currently in progress (mouse held down)
     is_dragging_signal: Signal<bool>,

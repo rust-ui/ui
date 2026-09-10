@@ -13,7 +13,7 @@ fn use_carousel_id() -> String {
     })
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default)]
 pub enum CarouselOrientation {
     #[default]
     Horizontal,

@@ -8,7 +8,7 @@ use crate::ui::workflow::{
     WorkflowControls, WorkflowNodeWrapper,
 };
 
-#[derive(Clone, PartialEq, Default)]
+#[derive(Clone, PartialEq, Eq, Default)]
 pub enum NodeStatus {
     #[default]
     Idle,

@@ -60,7 +60,7 @@ pub fn ToolbarItem(#[props(into, optional)] class: Option<String>, children: Ele
 
 // ─── ToolbarButton ───────────────────────────────────────────────────────────
 
-#[derive(Default, Clone, PartialEq)]
+#[derive(Default, Clone, PartialEq, Eq)]
 pub enum ToolbarButtonVariant {
     #[default]
     Default,

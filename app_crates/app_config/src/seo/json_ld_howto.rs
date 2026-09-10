@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use serde::Serialize;
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct HowToStep {
     pub name: String,
     pub text: String,

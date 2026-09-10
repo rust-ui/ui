@@ -5,7 +5,7 @@ use crate::domain::workflows::workflow_entry::{WorkflowEntry, WorkflowMeta};
 
 // ─── Enum ─────────────────────────────────────────────────────────────────────
 
-#[derive(Clone, Debug, PartialEq, Copy)]
+#[derive(Clone, Debug, PartialEq, Eq, Copy)]
 pub enum WorkflowIdKebab {
     Workflow01,
     Workflow02,

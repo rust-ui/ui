@@ -6,7 +6,7 @@ pub struct DatePickerDay {
     pub disabled: bool,
 }
 
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Eq, Clone, Copy)]
 pub struct DatePickerState {
     pub start_date: Date,
     pub end_date: Date,
