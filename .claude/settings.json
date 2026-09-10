@@ -26,7 +26,6 @@
       "Bash(pwd:*)",
       "Bash(rm:*)",
       "Bash(tail:*)",
-      "Bash(timeout 10 cargo leptos watch)",
       "Bash(typos:*)",
       "WebFetch(domain:crates.io)",
       "WebFetch(domain:docs.rs)",

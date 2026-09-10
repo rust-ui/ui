@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
-members = ["app", "server", "app_crates/*", "crates/tw_merge/tw_merge", "crates/tw_merge/tw_merge_variants"]
-exclude = ["build_registry", "crates/ui-cli", "crates/ui-cli-ratatui", "crates/_starters", "crates/_markdown_config", "src-tauri", "dioxus-ui", "!!!*"]
+members = ["crates/tw_merge/tw_merge", "crates/tw_merge/tw_merge_variants"]
+exclude = ["build_registry", "crates/ui-cli", "crates/ui-cli-ratatui", "crates/_starters", "crates/_markdown_config", "dioxus-ui", "!!!*"]
 
 
 [profile.dev]
@@ -36,79 +36,6 @@ opt-level = 'z'
 
 [workspace.dependencies]
 tw_merge = { path = "crates/tw_merge/tw_merge", features = ["variant", "debug"]}
-leptos_ui = { path = "crates/leptos_ui" }
-icons = { path = "crates/icons", features = ["leptos", "leptos_animated"] }
-markdown_crate = { path = "crates/_markdown_crate", features = ["leptos"] }
-autoform = { path = "crates/autoform" }
-registry = { path = "app_crates/registry" }
-app_domain = { path = "app_crates/app_domain" }
-app_config = { path = "app_crates/app_config" }
-app_routes = { path = "app_crates/app_routes" }
-app_components = { path = "app_crates/app_components" }
-
-axum = "0.8"
-console_error_panic_hook = "0.1"
-console_log = "1"
-derive_more = { version = "2", features = ["display", "from", "as_ref"] }
-dotenv = "0.15"
-heck = "0.5"
-http = "1"
-itertools = "0.12"
-leptos = { version = "0.8", features = ["nightly"] }
-leptos_axum = "0.8"
-leptos_meta = "0.8"
-leptos_router = { version = "0.8", features = ["nightly"] }
-log = "0.4"
-reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
-rusqlite = { version = "0.32", features = ["bundled"] }
-# Mail
-resend-rs = { version = "0.19", default-features = false, features = ["rustls-tls"] }
-serde = { version = "1", features = ["derive"] }
-serde_json = "1.0"
-strum = { version = "0.27", features = ["derive"] }
-time = { version = "0.3", features = ["serde", "wasm-bindgen"] }
-tokio = { version = "1", features = ["rt-multi-thread"] }
-tower = "0.5"
-tower-http = { version = "0.6", features = ["fs"] }
-tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["env-filter"] }
-url = "2.5"
-validator = { version = "0.20", features = ["derive"] }
-js-sys = "0.3"
-wasm-bindgen = "0.2"
-wasm-bindgen-futures = "0.4"
-web-sys = { version = "0.3", default-features = false, features = [
-    "Clipboard",
-    "console",
-    "CssStyleDeclaration",
-    "Document",
-    "DomRect",
-    "DomTokenList",
-    "DragEvent",
-    "Element",
-    "Event",
-    "EventTarget",
-    "Headers",
-    "HtmlElement",
-    "HtmlInputElement",
-    "InputEvent",
-    "KeyboardEvent",
-    "Location",
-    "MediaQueryList",
-    "MouseEvent",
-    "MutationObserver",
-    "MutationObserverInit",
-    "MutationRecord",
-    "Navigator",
-    "Node",
-    "NodeList",
-    "Request",
-    "RequestInit",
-    "RequestMode",
-    "Response",
-    "Storage",
-    "Window",
-] }
 
 
 # See also clippy.toml
@@ -155,29 +82,6 @@ needless_borrow = "warn"
 [workspace.lints.rust]
 irrefutable_let_patterns = "deny"
 
-
-[[workspace.metadata.leptos]]
-name = "deploy_rust_ui"
-bin-package = "server"
-lib-package = "app"
-site-root = "target/site"
-site-pkg-dir = "pkg"
-tailwind-input-file = "style/tailwind.css"
-assets-dir = "public"
-site-addr = "0.0.0.0:3000"
-reload-port = 3001
-browserquery = "defaults"
-bin-features = []
-bin-default-features = false
-lib-features = ["hydrate"]
-lib-default-features = false
-# Disabled: Using build.rs CSS hash instead for better cache control
-# CSS cache-busting via query parameter: /pkg/deploy_rust_ui.css?v=HASH
-# hash-files = true
-
-# End-to-end testing with Playwright
-end2end-cmd = "pnpm exec playwright test"
-end2end-dir = "e2e"
 
 
 # [workspace.lints.rustdoc]
