@@ -16,13 +16,19 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>0.1.0</string>
+	<!-- Single value only. altool rejects [iPhoneOS, iPadOS]; iPad support
+	     comes from UIDeviceFamily (1,2), not from this key. -->
 	<key>CFBundleSupportedPlatforms</key>
 	<array>
 		<string>iPhoneOS</string>
-		<string>iPadOS</string>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>2</string>
+	<!-- The App Store validator wants app icons in a compiled asset catalog
+	     (Assets.car) plus this key. deploy_ios_testflight_dioxus.sh builds
+	     that with actool from ios/AppIcon-1024.png and merges the icon keys. -->
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
 	<key>DTPlatformName</key>
 	<string>iphoneos</string>
 	<key>LSRequiresIPhoneOS</key>
