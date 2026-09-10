@@ -15,7 +15,7 @@ pub fn LeptosLink() -> Element {
             img {
                 src: LEPTOS_LOGO,
                 alt: "Leptos",
-                class: "size-5",
+                class: "size-5 rounded-full",
                 "aria-hidden": "true",
             }
         }
