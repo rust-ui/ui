@@ -1,7 +1,8 @@
 use dioxus::prelude::*;
 
+use crate::utils::assets::LEPTOS_LOGO;
+
 const LEPTOS_URL: &str = "https://leptos.rust-ui.com";
-const LEPTOS_LOGO: &str = "/images/logos/leptos.png";
 
 #[component]
 pub fn LeptosLink() -> Element {

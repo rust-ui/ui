@@ -3,6 +3,7 @@ use dioxus::prelude::*;
 use crate::__registry__::demos_sidenav::SIDENAV_ITEMS;
 use crate::__registry__::sidenav_hooks::SIDENAV_HOOKS_ITEMS;
 use crate::Route;
+use crate::utils::assets::{LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT};
 
 #[component]
 pub fn NavMobile() -> Element {
@@ -34,12 +35,12 @@ pub fn NavMobile() -> Element {
                             to: Route::Home {},
                             onclick: move |_| open.set(false),
                             img {
-                                src: "/icons/logo-dark-square-48.webp",
+                                src: LOGO_SQUARE_DARK,
                                 alt: "Logo Rust/UI",
                                 class: "hidden dark:block size-6",
                             }
                             img {
-                                src: "/icons/logo-light-square-48.webp",
+                                src: LOGO_SQUARE_LIGHT,
                                 alt: "Logo Rust/UI",
                                 class: "dark:hidden size-6",
                             }

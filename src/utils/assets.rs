@@ -17,6 +17,22 @@ use dioxus::prelude::*;
 /// `public/images/thumbnails/` (light + dark, `.webp` + `.png`).
 pub const THUMBNAILS: Asset = asset!("/public/images/thumbnails");
 
+/// Rust/UI square mark, dark and light variants (used in the navbars).
+pub const LOGO_SQUARE_DARK: Asset = asset!("/public/icons/logo-dark-square-48.webp");
+pub const LOGO_SQUARE_LIGHT: Asset = asset!("/public/icons/logo-light-square-48.webp");
+
+/// Leptos mark for the cross-site link in the navbar.
+pub const LEPTOS_LOGO: Asset = asset!("/public/images/logos/leptos.png");
+
+/// AI-provider marks in the table-of-contents "Summarize with AI" row.
+pub const AI_LOGO_CHATGPT: Asset = asset!("/public/images/logos/ai/chatgpt.svg");
+pub const AI_LOGO_GOOGLE: Asset = asset!("/public/images/logos/ai/google.svg");
+pub const AI_LOGO_CLAUDE: Asset = asset!("/public/images/logos/ai/claude.svg");
+pub const AI_LOGO_PERPLEXITY: Asset = asset!("/public/images/logos/ai/perplexity.svg");
+
+/// Table-of-contents scroll-spy script.
+pub const TOC_JS: Asset = asset!("/public/app_components/table_of_contents.js");
+
 /// Resolve a stored `/images/thumbnails/<file>` path (as emitted by the
 /// registry generator into `SidenavItem`) to its bundled URL. Empty input
 /// yields an empty string, so the caller's `is_empty()` guard still works.

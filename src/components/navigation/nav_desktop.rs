@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 
 use crate::Route;
+use crate::utils::assets::{LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT};
 
 #[component]
 pub fn NavDesktop() -> Element {
@@ -32,12 +33,12 @@ pub fn NavDesktop() -> Element {
                 class: "inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent",
                 to: Route::Home {},
                 img {
-                    src: "/icons/logo-dark-square-48.webp",
+                    src: LOGO_SQUARE_DARK,
                     alt: "Logo Rust/UI",
                     class: "hidden dark:block size-6",
                 }
                 img {
-                    src: "/icons/logo-light-square-48.webp",
+                    src: LOGO_SQUARE_LIGHT,
                     alt: "Logo Rust/UI",
                     class: "dark:hidden size-6",
                 }
@@ -57,9 +58,9 @@ pub fn NavDesktop() -> Element {
                 to: Route::PageIcons {},
                 "Icons"
             }
-            a {
+            Link {
                 class: "inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent",
-                href: "/blocks",
+                to: Route::LoginBlocks {},
                 "Blocks"
             }
             Link {

@@ -14,6 +14,15 @@ Internal changelog for the dioxus-ui site (not user-facing).
   now maps stored paths through it. Interim shim until the registry generator
   can emit `asset!()` into `SidenavItem` directly (TODO noted in the file).
 
+- **Remaining site-chrome assets on iOS**: Same broken-image cause for the
+  navbar Rust/UI mark (`nav_desktop`, `nav_mobile`), the Leptos cross-link mark
+  (`leptos_link`), the four "Summarize with AI" provider logos and the
+  table-of-contents scroll-spy script (`table_of_contents`). All now go through
+  named `asset!()` consts in `src/utils/assets.rs`; the ToC script switched to
+  `document::Script`. Also swapped the last raw `a href="/blocks"` in
+  `nav_desktop` for `Link { to: Route::LoginBlocks {} }` (same iOS
+  "not an http url" class as `7ac104c`).
+
 ### Improvements
 
 - **Mobile bottom nav**: Added `AppBottomNav` (Home, Components, Hooks, Icons,

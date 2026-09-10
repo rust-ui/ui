@@ -4,6 +4,9 @@ use icons::ExternalLink;
 use registry::ui::button::Button;
 
 use crate::Route;
+use crate::utils::assets::{
+    AI_LOGO_CHATGPT, AI_LOGO_CLAUDE, AI_LOGO_GOOGLE, AI_LOGO_PERPLEXITY, TOC_JS,
+};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TocItem {
@@ -60,7 +63,7 @@ pub fn TableOfContents(toc_items: Vec<TocItem>) -> Element {
                 TocCTACard {}
             }
         }
-        script { src: "/app_components/table_of_contents.js" }
+        document::Script { src: TOC_JS }
     }
 }
 
@@ -84,7 +87,7 @@ fn SummarizeWithAi() -> Element {
                     rel: "noopener noreferrer",
                     title: "Summarize with ChatGPT",
                     class: "no-underline transition-opacity hover:opacity-75 shrink-0",
-                    img { src: "/images/logos/ai/chatgpt.svg", alt: "ChatGPT", class: "size-9" }
+                    img { src: AI_LOGO_CHATGPT, alt: "ChatGPT", class: "size-9" }
                 }
                 a {
                     href: "https://www.google.com/search?udm=50&aep=11&q={encoded_prompt}",
@@ -92,7 +95,7 @@ fn SummarizeWithAi() -> Element {
                     rel: "noopener noreferrer",
                     title: "Summarize with Google AI",
                     class: "no-underline inline-flex items-center justify-center size-9 rounded-full bg-white transition-opacity hover:opacity-75 shrink-0",
-                    img { src: "/images/logos/ai/google.svg", alt: "Google AI", class: "size-5" }
+                    img { src: AI_LOGO_GOOGLE, alt: "Google AI", class: "size-5" }
                 }
                 a {
                     href: "https://claude.ai/new?q={encoded_prompt}",
@@ -100,7 +103,7 @@ fn SummarizeWithAi() -> Element {
                     rel: "noopener noreferrer",
                     title: "Summarize with Claude",
                     class: "no-underline transition-opacity hover:opacity-75 shrink-0",
-                    img { src: "/images/logos/ai/claude.svg", alt: "Claude", class: "size-9" }
+                    img { src: AI_LOGO_CLAUDE, alt: "Claude", class: "size-9" }
                 }
                 a {
                     href: "https://www.perplexity.ai/search/new?q={encoded_prompt}",
@@ -108,7 +111,7 @@ fn SummarizeWithAi() -> Element {
                     rel: "noopener noreferrer",
                     title: "Summarize with Perplexity",
                     class: "no-underline transition-opacity hover:opacity-75 shrink-0",
-                    img { src: "/images/logos/ai/perplexity.svg", alt: "Perplexity", class: "size-9" }
+                    img { src: AI_LOGO_PERPLEXITY, alt: "Perplexity", class: "size-9" }
                 }
             }
         }
