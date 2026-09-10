@@ -22,17 +22,13 @@
 		<string>iPadOS</string>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
-	<!-- Required by the App Store validator. dx 0.7.x copies this plist
-	     verbatim and injects none of these; the rest of the DT* build
-	     metadata is added at bundle time by deploy_ios_testflight_dioxus.sh.
-	     Keep MinimumOSVersion in sync with [ios].deployment_target in Dioxus.toml. -->
-	<key>MinimumOSVersion</key>
-	<string>16.0</string>
+	<string>2</string>
 	<key>DTPlatformName</key>
 	<string>iphoneos</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MinimumOSVersion</key>
+	<string>16.0</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
