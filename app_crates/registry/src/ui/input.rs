@@ -2,7 +2,8 @@ use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
 #[allow(dead_code)]
-#[derive(Default, Clone, PartialEq)]
+#[derive(Default, Clone, PartialEq, strum::IntoStaticStr)]
+#[strum(serialize_all = "kebab-case")]
 pub enum InputType {
     #[default]
     Text,
@@ -27,26 +28,7 @@ pub enum InputType {
 
 impl InputType {
     pub fn as_str(&self) -> &'static str {
-        match self {
-            InputType::Text => "text",
-            InputType::Email => "email",
-            InputType::Password => "password",
-            InputType::Number => "number",
-            InputType::Tel => "tel",
-            InputType::Url => "url",
-            InputType::Search => "search",
-            InputType::Time => "time",
-            InputType::DatetimeLocal => "datetime-local",
-            InputType::Date => "date",
-            InputType::Month => "month",
-            InputType::Week => "week",
-            InputType::Hidden => "hidden",
-            InputType::File => "file",
-            InputType::Checkbox => "checkbox",
-            InputType::Radio => "radio",
-            InputType::Color => "color",
-            InputType::Range => "range",
-        }
+        self.into()
     }
 }
 

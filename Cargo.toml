@@ -185,7 +185,6 @@ return_self_not_must_use = "allow"
 # These block `-D warnings` but sit almost entirely inside rsx! macro bodies, so
 # `cargo clippy --fix` cannot touch them. Remove one entry per pass, fix its sites,
 # keep the gate green. Site counts captured 2026-09-10.
-use_self = "allow"                            # ~215
 # `MarkdownType` in the generated src/__registry__/static_md_registry.rs has a
 # `Static` prefix on every variant. The file is codegen output from
 # rust_ui_internals/build_registry_dioxus, so fix the generator to emit an inline

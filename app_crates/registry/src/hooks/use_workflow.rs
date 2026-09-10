@@ -8,7 +8,7 @@ use super::use_history_stack::UseHistoryStack;
 
 // ── WorkflowNodeKind ──────────────────────────────────────────────────────────
 
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Serialize, Deserialize, strum::IntoStaticStr)]
 pub enum WorkflowNodeKind {
     Trigger,
     Data,
@@ -19,29 +19,24 @@ pub enum WorkflowNodeKind {
 impl WorkflowNodeKind {
     pub fn dot_color(&self) -> &'static str {
         match self {
-            WorkflowNodeKind::Trigger => "bg-yellow-500",
-            WorkflowNodeKind::Data => "bg-blue-500",
-            WorkflowNodeKind::Agent => "bg-purple-500",
-            WorkflowNodeKind::Output => "bg-green-500",
+            Self::Trigger => "bg-yellow-500",
+            Self::Data => "bg-blue-500",
+            Self::Agent => "bg-purple-500",
+            Self::Output => "bg-green-500",
         }
     }
 
     pub fn text_color(&self) -> &'static str {
         match self {
-            WorkflowNodeKind::Trigger => "text-yellow-600 dark:text-yellow-400",
-            WorkflowNodeKind::Data => "text-blue-600 dark:text-blue-400",
-            WorkflowNodeKind::Agent => "text-purple-600 dark:text-purple-400",
-            WorkflowNodeKind::Output => "text-green-600 dark:text-green-400",
+            Self::Trigger => "text-yellow-600 dark:text-yellow-400",
+            Self::Data => "text-blue-600 dark:text-blue-400",
+            Self::Agent => "text-purple-600 dark:text-purple-400",
+            Self::Output => "text-green-600 dark:text-green-400",
         }
     }
 
     pub fn label(&self) -> &'static str {
-        match self {
-            WorkflowNodeKind::Trigger => "Trigger",
-            WorkflowNodeKind::Data => "Data",
-            WorkflowNodeKind::Agent => "Agent",
-            WorkflowNodeKind::Output => "Output",
-        }
+        self.into()
     }
 }
 
@@ -58,14 +53,14 @@ pub enum EdgeStyle {
 impl EdgeStyle {
     pub fn dasharray(&self) -> &'static str {
         match self {
-            EdgeStyle::Solid => "none",
-            EdgeStyle::Dashed => "6 3",
-            EdgeStyle::Dotted => "2 3",
+            Self::Solid => "none",
+            Self::Dashed => "6 3",
+            Self::Dotted => "2 3",
         }
     }
 
-    pub fn all() -> impl Iterator<Item = EdgeStyle> {
-        EdgeStyle::iter()
+    pub fn all() -> impl Iterator<Item = Self> {
+        Self::iter()
     }
 }
 

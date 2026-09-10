@@ -107,7 +107,7 @@ pub fn Form(#[props(into, optional)] class: Option<String>, children: Element) -
 /*                     ✨ FORM LEGEND ✨                      */
 /* ========================================================== */
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum FormLegendVariant {
     #[default]
     Legend,
@@ -116,10 +116,7 @@ pub enum FormLegendVariant {
 
 impl FormLegendVariant {
     fn as_str(&self) -> &'static str {
-        match self {
-            FormLegendVariant::Legend => "Legend",
-            FormLegendVariant::Label => "Label",
-        }
+        self.into()
     }
 }
 
@@ -147,7 +144,7 @@ pub fn FormLegend(
 /*                  ✨ FORM FIELD WRAPPER ✨                  */
 /* ========================================================== */
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum FormFieldVariant {
     #[default]
     Vertical,
@@ -157,20 +154,16 @@ pub enum FormFieldVariant {
 
 impl FormFieldVariant {
     fn as_str(&self) -> &'static str {
-        match self {
-            FormFieldVariant::Vertical => "Vertical",
-            FormFieldVariant::Horizontal => "Horizontal",
-            FormFieldVariant::Responsive => "Responsive",
-        }
+        self.into()
     }
 
     fn class(&self) -> &'static str {
         match self {
-            FormFieldVariant::Vertical => "flex-col [&>*]:w-full [&>.hidden]:w-auto",
-            FormFieldVariant::Horizontal => {
+            Self::Vertical => "flex-col [&>*]:w-full [&>.hidden]:w-auto",
+            Self::Horizontal => {
                 "flex-row items-center [&>[data-name=FieldLabel]]:flex-auto has-[>[data-name=FormContent]]:items-start has-[>[data-name=FormContent]]:[&>[role=checkbox],[role=radio]]:mt-px"
             }
-            FormFieldVariant::Responsive => {
+            Self::Responsive => {
                 "flex-col [&>*]:w-full [&>.hidden]:w-auto @md/field-group:flex-row @md/field-group:items-center @md/field-group:[&>*]:w-auto @md/field-group:[&>[data-name=FieldLabel]]:flex-auto @md/field-group:has-[>[data-name=FormContent]]:items-start @md/field-group:has-[>[data-name=FormContent]]:[&>[role=checkbox],[role=radio]]:mt-px"
             }
         }

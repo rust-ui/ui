@@ -12,8 +12,8 @@ pub enum AlertVariant {
 impl AlertVariant {
     fn as_str(&self) -> &'static str {
         match self {
-            AlertVariant::Default => "bg-background text-foreground",
-            AlertVariant::Destructive => {
+            Self::Default => "bg-background text-foreground",
+            Self::Destructive => {
                 "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive"
             }
         }

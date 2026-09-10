@@ -23,13 +23,13 @@ macro_rules! define_countries {
         impl Country {
             pub const fn alpha2(&self) -> &'static str {
                 match self {
-                    $(Country::$variant => $alpha2),+
+                    $(Self::$variant => $alpha2),+
                 }
             }
 
             pub const fn dial_code(&self) -> u16 {
                 match self {
-                    $(Country::$variant => $dial_code),+
+                    $(Self::$variant => $dial_code),+
                 }
             }
 
@@ -37,8 +37,8 @@ macro_rules! define_countries {
                 format!("+{}", self.dial_code())
             }
 
-            pub const fn all() -> &'static [Country] {
-                &[$(Country::$variant),+]
+            pub const fn all() -> &'static [Self] {
+                &[$(Self::$variant),+]
             }
         }
     };
@@ -271,20 +271,20 @@ impl Country {
     #[allow(clippy::match_same_arms)]
     pub const fn trunk_prefix(&self) -> Option<&'static str> {
         match self {
-            Country::UnitedStatesOfAmerica
-            | Country::Canada
-            | Country::Bahamas
-            | Country::Barbados
-            | Country::DominicanRepublic
-            | Country::Jamaica
-            | Country::TrinidadAndTobago => None,
-            Country::Italy | Country::SanMarino | Country::VaticanCity => None,
-            Country::Denmark
-            | Country::Norway
-            | Country::Iceland
-            | Country::Liechtenstein
-            | Country::Monaco
-            | Country::Andorra => None,
+            Self::UnitedStatesOfAmerica
+            | Self::Canada
+            | Self::Bahamas
+            | Self::Barbados
+            | Self::DominicanRepublic
+            | Self::Jamaica
+            | Self::TrinidadAndTobago => None,
+            Self::Italy | Self::SanMarino | Self::VaticanCity => None,
+            Self::Denmark
+            | Self::Norway
+            | Self::Iceland
+            | Self::Liechtenstein
+            | Self::Monaco
+            | Self::Andorra => None,
             _ => Some("0"),
         }
     }

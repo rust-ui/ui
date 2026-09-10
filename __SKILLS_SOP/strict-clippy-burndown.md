@@ -63,6 +63,15 @@ python3 __SKILLS_SOP/strict-clippy-burndown.py   # CLIPPY_FULL_DUMP.txt -> CLIPP
 - For a subtle lint pull its block on demand: `grep -A20 'path:line' CLIPPY_FULL_DUMP.txt`.
 - As sites are fixed, delete their `- [ ]` lines and decrement the section count.
   Regenerate the tracker after each full re-scan.
+- ALWAYS update `CLIPPY_TRACKER.md` in the SAME batch as the code edits, before
+  committing: collapse the finished section to `## <lint> (0) — DONE`, add a
+  `- [x] <lint> — <approach>` line under `### Fixed in code`, drop the lint from the
+  `### Bucketed to Cargo.toml` summary, refresh the STATUS date. The tracker is the
+  only record of intent (it is gitignored, not in diff history) — a stale tracker is
+  a silent loss of context for the next session.
+- `cargo clippy --fix` CANNOT fix bucket lints in this repo: `[workspace.lints.rust]
+  warnings = "allow"` squashes clippy warnings and `cargo fix` does not forward the
+  trailing `-- -D warnings`, so `--fix` sees nothing. Hand-edit, or scoped `perl`.
 - Re-scan (full workspace, 1-4 min) only after a batch, never per fix.
 - One lint per commit during burn-down: `chore(clippy): burn down <lint>`. Keeps each
   diff reviewable and lets a regression be bisected to a single lint.

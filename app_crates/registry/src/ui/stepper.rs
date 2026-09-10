@@ -4,7 +4,7 @@ use tw_merge::tw_merge;
 
 use crate::hooks::use_stepper::{StepState, StepperContext, use_stepper};
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum StepperOrientation {
     #[default]
     Horizontal,
@@ -13,10 +13,7 @@ pub enum StepperOrientation {
 
 impl StepperOrientation {
     fn as_str(&self) -> &'static str {
-        match self {
-            StepperOrientation::Horizontal => "Horizontal",
-            StepperOrientation::Vertical => "Vertical",
-        }
+        self.into()
     }
 }
 

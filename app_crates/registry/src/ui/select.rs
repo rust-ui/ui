@@ -98,7 +98,7 @@ pub fn SelectValue(#[props(into, optional)] placeholder: Option<String>) -> Elem
 /*                   ✨ SELECT CONTENT ✨                     */
 /* ========================================================== */
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum SelectPosition {
     #[default]
     Below,
@@ -107,10 +107,7 @@ pub enum SelectPosition {
 
 impl SelectPosition {
     fn as_str(self) -> &'static str {
-        match self {
-            SelectPosition::Below => "Below",
-            SelectPosition::Above => "Above",
-        }
+        self.into()
     }
 }
 

@@ -21,51 +21,51 @@ pub enum NodeStatus {
 impl NodeStatus {
     fn label(&self) -> &'static str {
         match self {
-            NodeStatus::Idle => "Idle",
-            NodeStatus::Queued => "Queued",
-            NodeStatus::Running => "In progress",
-            NodeStatus::Success => "Success",
-            NodeStatus::Failed => "Failed",
+            Self::Idle => "Idle",
+            Self::Queued => "Queued",
+            Self::Running => "In progress",
+            Self::Success => "Success",
+            Self::Failed => "Failed",
         }
     }
 
     fn border_class(&self) -> &'static str {
         match self {
-            NodeStatus::Idle => "border-l-zinc-200 dark:border-l-zinc-700",
-            NodeStatus::Queued => "border-l-amber-400",
-            NodeStatus::Running => "border-l-orange-400",
-            NodeStatus::Success => "border-l-emerald-500",
-            NodeStatus::Failed => "border-l-red-500",
+            Self::Idle => "border-l-zinc-200 dark:border-l-zinc-700",
+            Self::Queued => "border-l-amber-400",
+            Self::Running => "border-l-orange-400",
+            Self::Success => "border-l-emerald-500",
+            Self::Failed => "border-l-red-500",
         }
     }
 
     fn bg_class(&self) -> &'static str {
         match self {
-            NodeStatus::Idle => "",
-            NodeStatus::Queued => "bg-amber-50/40 dark:bg-amber-950/10",
-            NodeStatus::Running => "bg-orange-50/40 dark:bg-orange-950/10",
-            NodeStatus::Success => "bg-emerald-50/40 dark:bg-emerald-950/10",
-            NodeStatus::Failed => "bg-red-50/40 dark:bg-red-950/10",
+            Self::Idle => "",
+            Self::Queued => "bg-amber-50/40 dark:bg-amber-950/10",
+            Self::Running => "bg-orange-50/40 dark:bg-orange-950/10",
+            Self::Success => "bg-emerald-50/40 dark:bg-emerald-950/10",
+            Self::Failed => "bg-red-50/40 dark:bg-red-950/10",
         }
     }
 
     fn icon_class(&self) -> &'static str {
         match self {
-            NodeStatus::Idle => "size-3.5 text-zinc-400",
-            NodeStatus::Queued => "size-3.5 text-amber-500",
-            NodeStatus::Running => "size-3.5 text-orange-500 animate-spin",
-            NodeStatus::Success => "size-3.5 text-emerald-500",
-            NodeStatus::Failed => "size-3.5 text-red-500",
+            Self::Idle => "size-3.5 text-zinc-400",
+            Self::Queued => "size-3.5 text-amber-500",
+            Self::Running => "size-3.5 text-orange-500 animate-spin",
+            Self::Success => "size-3.5 text-emerald-500",
+            Self::Failed => "size-3.5 text-red-500",
         }
     }
 
     fn label_class(&self) -> &'static str {
         match self {
-            NodeStatus::Idle => "text-[11px] font-medium text-zinc-400",
-            NodeStatus::Queued => "text-[11px] font-medium text-amber-600 dark:text-amber-400",
-            NodeStatus::Running => "text-[11px] font-medium text-orange-600 dark:text-orange-400",
-            NodeStatus::Success => "text-[11px] font-medium text-emerald-600 dark:text-emerald-400",
-            NodeStatus::Failed => "text-[11px] font-medium text-red-600 dark:text-red-400",
+            Self::Idle => "text-[11px] font-medium text-zinc-400",
+            Self::Queued => "text-[11px] font-medium text-amber-600 dark:text-amber-400",
+            Self::Running => "text-[11px] font-medium text-orange-600 dark:text-orange-400",
+            Self::Success => "text-[11px] font-medium text-emerald-600 dark:text-emerald-400",
+            Self::Failed => "text-[11px] font-medium text-red-600 dark:text-red-400",
         }
     }
 }

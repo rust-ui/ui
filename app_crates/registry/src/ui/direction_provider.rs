@@ -1,7 +1,8 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-#[derive(Default, Clone, Copy, PartialEq)]
+#[derive(Default, Clone, Copy, PartialEq, strum::IntoStaticStr)]
+#[strum(serialize_all = "lowercase")]
 pub enum Direction {
     #[default]
     Ltr,
@@ -10,10 +11,7 @@ pub enum Direction {
 
 impl Direction {
     fn as_str(&self) -> &'static str {
-        match self {
-            Direction::Ltr => "ltr",
-            Direction::Rtl => "rtl",
-        }
+        self.into()
     }
 }
 

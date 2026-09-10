@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
 pub enum MessageAlign {
     #[default]
     Start,
@@ -10,10 +10,7 @@ pub enum MessageAlign {
 
 impl MessageAlign {
     fn as_str(&self) -> &'static str {
-        match self {
-            MessageAlign::Start => "Start",
-            MessageAlign::End => "End",
-        }
+        self.into()
     }
 }
 

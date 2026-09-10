@@ -6,7 +6,7 @@ use crate::ui::dropdown_menu::{
     DropdownMenuTrigger,
 };
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 enum Registry {
     #[default]
     Components,
@@ -16,11 +16,7 @@ enum Registry {
 
 impl Registry {
     fn label(self) -> &'static str {
-        match self {
-            Registry::Components => "Components",
-            Registry::Icons => "Icons",
-            Registry::Extensions => "Extensions",
-        }
+        self.into()
     }
 }
 

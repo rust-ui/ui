@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum MarkerVariant {
     #[default]
     Default,
@@ -11,11 +11,7 @@ pub enum MarkerVariant {
 
 impl MarkerVariant {
     fn as_str(&self) -> &'static str {
-        match self {
-            MarkerVariant::Default => "Default",
-            MarkerVariant::Separator => "Separator",
-            MarkerVariant::Border => "Border",
-        }
+        self.into()
     }
 }
 

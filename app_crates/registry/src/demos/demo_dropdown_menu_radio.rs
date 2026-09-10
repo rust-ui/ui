@@ -17,9 +17,9 @@ pub enum SortDirection {
 impl SortDirection {
     fn label(self) -> &'static str {
         match self {
-            SortDirection::None => "No sort",
-            SortDirection::Asc => "Ascending",
-            SortDirection::Desc => "Descending",
+            Self::None => "No sort",
+            Self::Asc => "Ascending",
+            Self::Desc => "Descending",
         }
     }
 }

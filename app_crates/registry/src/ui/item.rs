@@ -12,9 +12,9 @@ pub enum ItemVariant {
 impl ItemVariant {
     pub fn class(self) -> &'static str {
         match self {
-            ItemVariant::Default => "bg-transparent",
-            ItemVariant::Outline => "border-border",
-            ItemVariant::Muted => "bg-muted/50",
+            Self::Default => "bg-transparent",
+            Self::Outline => "border-border",
+            Self::Muted => "bg-muted/50",
         }
     }
 }
@@ -30,9 +30,9 @@ pub enum ItemSize {
 impl ItemSize {
     pub fn class(self) -> &'static str {
         match self {
-            ItemSize::Default => "p-4 gap-4",
-            ItemSize::Sm => "py-3 px-4 gap-2.5",
-            ItemSize::Xs => "py-2 px-3 gap-2",
+            Self::Default => "p-4 gap-4",
+            Self::Sm => "py-3 px-4 gap-2.5",
+            Self::Xs => "py-2 px-3 gap-2",
         }
     }
 }
@@ -48,9 +48,9 @@ pub enum ItemMediaVariant {
 impl ItemMediaVariant {
     pub fn class(self) -> &'static str {
         match self {
-            ItemMediaVariant::Default => "bg-transparent",
-            ItemMediaVariant::Icon => "size-8 border rounded-sm bg-muted [&_svg:not([class*='size-'])]:size-4",
-            ItemMediaVariant::Image => "size-10 rounded-sm overflow-hidden [&_img]:size-full [&_img]:object-cover",
+            Self::Default => "bg-transparent",
+            Self::Icon => "size-8 border rounded-sm bg-muted [&_svg:not([class*='size-'])]:size-4",
+            Self::Image => "size-10 rounded-sm overflow-hidden [&_img]:size-full [&_img]:object-cover",
         }
     }
 }

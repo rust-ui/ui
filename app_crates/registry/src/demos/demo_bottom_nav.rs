@@ -3,7 +3,7 @@ use icons::{CircleUser, House, SlidersHorizontal, Wallet};
 
 use crate::ui::bottom_nav::{BottomNav, BottomNavButton, BottomNavGrid, BottomNavLabel};
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 enum NavPage {
     Home,
     #[default]
@@ -14,20 +14,15 @@ enum NavPage {
 
 impl NavPage {
     fn label(self) -> &'static str {
-        match self {
-            NavPage::Home => "Home",
-            NavPage::Wallet => "Wallet",
-            NavPage::Settings => "Settings",
-            NavPage::Profile => "Profile",
-        }
+        self.into()
     }
 
     fn icon(self) -> Element {
         match self {
-            NavPage::Home => rsx! { House { class: "size-5" } },
-            NavPage::Wallet => rsx! { Wallet { class: "size-5" } },
-            NavPage::Settings => rsx! { SlidersHorizontal { class: "size-5" } },
-            NavPage::Profile => rsx! { CircleUser { class: "size-5" } },
+            Self::Home => rsx! { House { class: "size-5" } },
+            Self::Wallet => rsx! { Wallet { class: "size-5" } },
+            Self::Settings => rsx! { SlidersHorizontal { class: "size-5" } },
+            Self::Profile => rsx! { CircleUser { class: "size-5" } },
         }
     }
 }

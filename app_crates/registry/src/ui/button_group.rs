@@ -14,10 +14,10 @@ pub enum ButtonGroupOrientation {
 impl ButtonGroupOrientation {
     fn as_str(&self) -> &'static str {
         match self {
-            ButtonGroupOrientation::Horizontal => {
+            Self::Horizontal => {
                 "[&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none"
             }
-            ButtonGroupOrientation::Vertical => {
+            Self::Vertical => {
                 "flex-col [&>*:not(:first-child)]:rounded-t-none [&>*:not(:first-child)]:border-t-0 [&>*:not(:last-child)]:rounded-b-none"
             }
         }

@@ -4,7 +4,7 @@ use tw_merge::tw_merge;
 use crate::ui::button::{Button, ButtonSize, ButtonVariant};
 use crate::ui::dialog::use_dialog_trigger_id;
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
 pub enum AttachmentSize {
     #[default]
     Default,
@@ -14,15 +14,11 @@ pub enum AttachmentSize {
 
 impl AttachmentSize {
     fn as_str(&self) -> &'static str {
-        match self {
-            AttachmentSize::Default => "Default",
-            AttachmentSize::Sm => "Sm",
-            AttachmentSize::Xs => "Xs",
-        }
+        self.into()
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
 pub enum AttachmentOrientation {
     #[default]
     Horizontal,
@@ -31,14 +27,11 @@ pub enum AttachmentOrientation {
 
 impl AttachmentOrientation {
     fn as_str(&self) -> &'static str {
-        match self {
-            AttachmentOrientation::Horizontal => "Horizontal",
-            AttachmentOrientation::Vertical => "Vertical",
-        }
+        self.into()
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
 pub enum AttachmentState {
     #[default]
     Done,
@@ -50,17 +43,11 @@ pub enum AttachmentState {
 
 impl AttachmentState {
     fn as_str(&self) -> &'static str {
-        match self {
-            AttachmentState::Done => "Done",
-            AttachmentState::Idle => "Idle",
-            AttachmentState::Uploading => "Uploading",
-            AttachmentState::Processing => "Processing",
-            AttachmentState::Error => "Error",
-        }
+        self.into()
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
 pub enum AttachmentMediaVariant {
     #[default]
     Icon,
@@ -69,10 +56,7 @@ pub enum AttachmentMediaVariant {
 
 impl AttachmentMediaVariant {
     fn as_str(&self) -> &'static str {
-        match self {
-            AttachmentMediaVariant::Icon => "Icon",
-            AttachmentMediaVariant::Image => "Image",
-        }
+        self.into()
     }
 }
 

@@ -1,7 +1,8 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
+#[strum(serialize_all = "lowercase")]
 pub enum AvatarSize {
     Sm,
     #[default]
@@ -11,11 +12,7 @@ pub enum AvatarSize {
 
 impl AvatarSize {
     fn as_str(&self) -> &'static str {
-        match self {
-            AvatarSize::Sm => "sm",
-            AvatarSize::Default => "default",
-            AvatarSize::Lg => "lg",
-        }
+        self.into()
     }
 }
 

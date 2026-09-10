@@ -16,7 +16,8 @@ pub fn InputGroup(#[props(into, optional)] class: Option<String>, children: Elem
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
+#[strum(serialize_all = "kebab-case")]
 pub enum InputGroupAddonAlign {
     #[default]
     InlineStart,
@@ -27,24 +28,17 @@ pub enum InputGroupAddonAlign {
 
 impl InputGroupAddonAlign {
     fn as_str(&self) -> &'static str {
-        match self {
-            InputGroupAddonAlign::InlineStart => "inline-start",
-            InputGroupAddonAlign::InlineEnd => "inline-end",
-            InputGroupAddonAlign::BlockStart => "block-start",
-            InputGroupAddonAlign::BlockEnd => "block-end",
-        }
+        self.into()
     }
 
     fn class(&self) -> &'static str {
         match self {
-            InputGroupAddonAlign::InlineStart => {
-                "order-first pl-3 has-[>button]:ml-[-0.45rem] has-[>kbd]:ml-[-0.35rem]"
-            }
-            InputGroupAddonAlign::InlineEnd => "order-last pr-3 has-[>button]:mr-[-0.45rem] has-[>kbd]:mr-[-0.35rem]",
-            InputGroupAddonAlign::BlockStart => {
+            Self::InlineStart => "order-first pl-3 has-[>button]:ml-[-0.45rem] has-[>kbd]:ml-[-0.35rem]",
+            Self::InlineEnd => "order-last pr-3 has-[>button]:mr-[-0.45rem] has-[>kbd]:mr-[-0.35rem]",
+            Self::BlockStart => {
                 "order-first w-full justify-start px-3 pt-3 [.border-b]:pb-3 group-has-[>input]/input-group:pt-2.5"
             }
-            InputGroupAddonAlign::BlockEnd => {
+            Self::BlockEnd => {
                 "order-last w-full justify-start px-3 pb-3 [.border-t]:pt-3 group-has-[>input]/input-group:pb-2.5"
             }
         }
@@ -101,12 +95,10 @@ pub enum InputGroupButtonSize {
 impl InputGroupButtonSize {
     fn class(&self) -> &'static str {
         match self {
-            InputGroupButtonSize::Xs => {
-                "h-6 gap-1 px-2 rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-3.5 has-[>svg]:px-2"
-            }
-            InputGroupButtonSize::Sm => "h-8 px-2.5 gap-1.5 rounded-md has-[>svg]:px-2.5",
-            InputGroupButtonSize::IconXs => "size-6 rounded-[calc(var(--radius)-5px)] p-0 has-[>svg]:p-0",
-            InputGroupButtonSize::IconSm => "size-8 p-0 has-[>svg]:p-0",
+            Self::Xs => "h-6 gap-1 px-2 rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-3.5 has-[>svg]:px-2",
+            Self::Sm => "h-8 px-2.5 gap-1.5 rounded-md has-[>svg]:px-2.5",
+            Self::IconXs => "size-6 rounded-[calc(var(--radius)-5px)] p-0 has-[>svg]:p-0",
+            Self::IconSm => "size-8 p-0 has-[>svg]:p-0",
         }
     }
 }

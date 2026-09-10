@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-#[derive(Default, Clone, Copy, PartialEq)]
+#[derive(Default, Clone, Copy, PartialEq, strum::IntoStaticStr)]
 pub enum SliderVariant {
     #[default]
     Round,
@@ -10,10 +10,7 @@ pub enum SliderVariant {
 
 impl SliderVariant {
     fn as_str(&self) -> &'static str {
-        match self {
-            SliderVariant::Round => "Round",
-            SliderVariant::Flat => "Flat",
-        }
+        self.into()
     }
 }
 

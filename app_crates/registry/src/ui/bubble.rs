@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
 pub enum BubbleVariant {
     #[default]
     Default,
@@ -15,19 +15,11 @@ pub enum BubbleVariant {
 
 impl BubbleVariant {
     fn as_str(&self) -> &'static str {
-        match self {
-            BubbleVariant::Default => "Default",
-            BubbleVariant::Secondary => "Secondary",
-            BubbleVariant::Muted => "Muted",
-            BubbleVariant::Tinted => "Tinted",
-            BubbleVariant::Outline => "Outline",
-            BubbleVariant::Ghost => "Ghost",
-            BubbleVariant::Destructive => "Destructive",
-        }
+        self.into()
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
 pub enum BubbleAlign {
     #[default]
     Start,
@@ -36,14 +28,11 @@ pub enum BubbleAlign {
 
 impl BubbleAlign {
     fn as_str(&self) -> &'static str {
-        match self {
-            BubbleAlign::Start => "Start",
-            BubbleAlign::End => "End",
-        }
+        self.into()
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Default, strum::IntoStaticStr)]
 pub enum BubbleReactionsSide {
     #[default]
     Bottom,
@@ -52,10 +41,7 @@ pub enum BubbleReactionsSide {
 
 impl BubbleReactionsSide {
     fn as_str(&self) -> &'static str {
-        match self {
-            BubbleReactionsSide::Bottom => "Bottom",
-            BubbleReactionsSide::Top => "Top",
-        }
+        self.into()
     }
 }
 

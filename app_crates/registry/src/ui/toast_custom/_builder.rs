@@ -19,7 +19,7 @@ impl ToastBuilder {
     where
         T: Display,
     {
-        ToastBuilder {
+        Self {
             progress: true,
             dismissable: true,
             expiry: Some(2_500),

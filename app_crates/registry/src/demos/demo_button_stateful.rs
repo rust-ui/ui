@@ -12,17 +12,17 @@ enum ButtonState {
 impl ButtonState {
     fn label(&self) -> &'static str {
         match self {
-            ButtonState::Idle => "Do some hard work",
-            ButtonState::Working => "⏳ Working...",
-            ButtonState::Done => "Done! ✅",
+            Self::Idle => "Do some hard work",
+            Self::Working => "⏳ Working...",
+            Self::Done => "Done! ✅",
         }
     }
 
     fn next(&self) -> Self {
         match self {
-            ButtonState::Idle => ButtonState::Working,
-            ButtonState::Working => ButtonState::Done,
-            ButtonState::Done => ButtonState::Idle,
+            Self::Idle => Self::Working,
+            Self::Working => Self::Done,
+            Self::Done => Self::Idle,
         }
     }
 }

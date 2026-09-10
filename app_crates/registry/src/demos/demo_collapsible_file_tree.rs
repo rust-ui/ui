@@ -12,7 +12,7 @@ pub enum FileTreeItem {
     },
     Folder {
         name: &'static str,
-        items: Vec<FileTreeItem>,
+        items: Vec<Self>,
     },
 }
 

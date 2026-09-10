@@ -14,11 +14,11 @@ pub enum MaskSide {
 impl MaskSide {
     pub fn class(self) -> &'static str {
         match self {
-            MaskSide::Default => "",
-            MaskSide::Left => "left-0 w-1/3 bg-gradient-to-r",
-            MaskSide::Right => "right-0 w-1/3 bg-gradient-to-l",
-            MaskSide::Top => "top-0 w-full bg-gradient-to-b",
-            MaskSide::Bottom => "bottom-0 w-full bg-gradient-to-t",
+            Self::Default => "",
+            Self::Left => "left-0 w-1/3 bg-gradient-to-r",
+            Self::Right => "right-0 w-1/3 bg-gradient-to-l",
+            Self::Top => "top-0 w-full bg-gradient-to-b",
+            Self::Bottom => "bottom-0 w-full bg-gradient-to-t",
         }
     }
 }
