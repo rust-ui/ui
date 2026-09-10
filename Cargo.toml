@@ -8,6 +8,11 @@ name = "dioxus-ui"
 version = "0.1.0"
 authors = ["Max Wells <maxwells.pro@proton.me>"]
 edition = "2024"
+rust-version = "1.97"
+publish = false
+
+[lints]
+workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -98,36 +103,103 @@ lto = true
 opt-level = 'z'
 
 [workspace.lints.clippy]
+# Groups first, negative priority: explicit policy below always wins.
+all = { level = "warn", priority = -2 }
+pedantic = { level = "warn", priority = -2 }
+nursery = { level = "warn", priority = -2 }
+cargo = { level = "warn", priority = -2 }
+
+# Critical safety. CI/deploy promote all warnings to errors.
 unwrap_used = "deny"
 expect_used = "deny"
 panic = "deny"
 todo = "deny"
+unimplemented = "deny"
+unreachable = "deny"
 indexing_slicing = "deny"
+get_unwrap = "deny"
 await_holding_lock = "deny"
+await_holding_invalid_type = "deny"
 dbg_macro = "deny"
 undocumented_unsafe_blocks = "deny"
-enum_glob_use = "deny"
 missing_safety_doc = "deny"
-get_unwrap = "deny"
+enum_glob_use = "deny"
 infinite_loop = "deny"
 large_stack_arrays = "deny"
-lossy_float_literal = "warn"
+lossy_float_literal = "deny"
+float_cmp = "deny"
+mem_forget = "deny"
+exit = "deny"
+disallowed_macros = "deny"
+disallowed_methods = "deny"
+disallowed_types = "deny"
+mutex_atomic = "deny"
+str_to_string = "deny"
+string_add = "deny"
+format_push_string = "deny"
+unwrap_in_result = "deny"
+panic_in_result_fn = "deny"
+iter_over_hash_type = "deny"
+as_underscore = "deny"
+semicolon_if_nothing_returned = "warn"
+
+# Quality ratchet.
+cast_possible_truncation = "warn"
+cast_sign_loss = "warn"
 cast_precision_loss = "warn"
+cast_lossless = "warn"
 redundant_clone = "warn"
 inefficient_to_string = "warn"
 cloned_instead_of_copied = "warn"
 manual_let_else = "warn"
 trivially_copy_pass_by_ref = "warn"
-print_stdout = "warn"
-print_stderr = "warn"
 explicit_iter_loop = "warn"
 from_over_into = "warn"
 fallible_impl_from = "warn"
 clone_on_ref_ptr = "warn"
 needless_borrow = "warn"
+needless_pass_by_value = "warn"
+unused_async = "warn"
+print_stdout = "warn" # build.rs needs Cargo directive output
+print_stderr = "deny"
+
+# Intentional project choices.
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+must_use_candidate = "allow"
+cognitive_complexity = "allow"
+multiple_crate_versions = "allow"
+cargo_common_metadata = "allow"
+too_many_lines = "allow"
+allow_attributes = "allow"
+allow_attributes_without_reason = "allow"
 
 [workspace.lints.rust]
+unsafe_code = "forbid"
 irrefutable_let_patterns = "deny"
+unused_must_use = "deny"
+non_ascii_idents = "deny"
+let_underscore_lock = "deny"
+unit_bindings = "deny"
+macro_use_extern_crate = "deny"
+unused_lifetimes = "deny"
+single_use_lifetimes = "warn"
+unused_qualifications = "warn"
+unreachable_pub = "warn"
+redundant_lifetimes = "warn"
+trivial_numeric_casts = "warn"
+keyword_idents_2024 = "warn"
+elided_lifetimes_in_paths = "warn"
+redundant_imports = "warn"
+meta_variable_misuse = "warn"
+
+[workspace.lints.rustdoc]
+broken_intra_doc_links = "deny"
+invalid_html_tags = "deny"
+invalid_rust_codeblocks = "deny"
+bare_urls = "warn"
+unescaped_backticks = "warn"
 
 [features]
 default = ["web"]

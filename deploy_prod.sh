@@ -22,21 +22,15 @@ typos .
 echo "✅ No typos found"
 
 echo "🎨 Formatting..."
-cargo fmt --all
-if ! git diff --quiet; then
-  echo "📝 Formatting changes detected, committing..."
-  git add -A
-  git commit -m "fmt: auto-format before deploy"
-  git push origin main
-fi
+cargo fmt --all -- --check
 echo "✅ Formatting OK"
 
 echo "📎 Running clippy..."
-cargo clippy --all-features
+cargo clippy --all-targets --all-features -- -D warnings
 echo "✅ Clippy OK"
 
 echo "🔒 Security audit..."
-cargo audit
+cargo deny check
 echo "✅ No vulnerabilities found"
 
 echo "🧪 Running tests..."

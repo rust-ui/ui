@@ -2,6 +2,9 @@ allow-unwrap-in-tests = true
 allow-expect-in-tests = true
 allow-panic-in-tests = true
 allow-indexing-slicing-in-tests = true
+allow-dbg-in-tests = true
+
+# Keep async UI borrows from crossing await points.
 
 await-holding-invalid-types = [
   "generational_box::GenerationalRef",
@@ -10,4 +13,26 @@ await-holding-invalid-types = [
   { path = "generational_box::GenerationalRefMut", reason = "Write should not be held over an await point. This will cause any reads or writes to fail while the await is pending since the write borrow is still active." },
   "dioxus_signals::WriteLock",
   { path = "dioxus_signals::WriteLock", reason = "Write should not be held over an await point. This will cause any reads or writes to fail while the await is pending since the write borrow is still active." },
+]
+
+# Ratchet thresholds. Lower values catch complexity before review.
+avoid-breaking-exported-api = false
+msrv = "1.97.0"
+too-many-arguments-threshold = 8
+too-many-lines-threshold = 120
+type-complexity-threshold = 250
+cognitive-complexity-threshold = 30
+excessive-nesting-threshold = 6
+future-size-threshold = 16384
+stack-size-threshold = 262144
+check-private-items = true
+
+# Ban runtime APIs with unsafe or nondeterministic behavior.
+disallowed-methods = [
+  { path = "std::env::set_var", reason = "mutating process env at runtime is unsafe under async" },
+  { path = "std::env::remove_var", reason = "mutating process env at runtime is unsafe under async" },
+  { path = "std::time::SystemTime::now", reason = "use time::OffsetDateTime::now_utc for UTC timestamps" },
+]
+disallowed-types = [
+  { path = "std::sync::RwLock", reason = "use async-aware lock or short non-async lock" },
 ]
