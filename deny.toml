@@ -5,6 +5,11 @@ all-features = true
 [advisories]
 version = 2
 yanked = "deny"
+# TODO: Replace syntect or remove its legacy parser dependencies.
+ignore = [
+    "RUSTSEC-2025-0141", # bincode, pulled by syntect
+    "RUSTSEC-2024-0320", # yaml-rust, pulled by syntect
+]
 
 [licenses]
 version = 2
