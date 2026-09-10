@@ -24,7 +24,7 @@ pub fn DemoCombobox() -> Element {
         Popover {
             PopoverTrigger { class: "justify-between w-[200px]",
                 span { class: "truncate",
-                    {value_signal().map(|l| l.to_string()).unwrap_or_else(|| "Select language...".into())}
+                    {value_signal().map_or_else(|| "Select language...".into(), |l| l.to_string())}
                 }
                 icons::ChevronsUpDown { class: "ml-auto opacity-50 size-4" }
             }

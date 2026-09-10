@@ -42,7 +42,7 @@ pub fn DemoToggleGroupFontWeight() -> Element {
             p { class: "text-sm text-muted-foreground",
                 "Selected: "
                 code { class: "font-mono text-foreground",
-                    {WEIGHTS.iter().find(|(w, _)| *w == selected()).map(|(_, c)| *c).unwrap_or("")}
+                    {WEIGHTS.iter().find(|(w, _)| *w == selected()).map_or("", |(_, c)| *c)}
                 }
             }
         }

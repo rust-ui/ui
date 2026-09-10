@@ -293,7 +293,7 @@ pub struct PhoneNumber(String);
 
 impl PhoneNumber {
     pub fn new(input: &str, max_digits: usize) -> Self {
-        Self(input.chars().filter(|c| c.is_ascii_digit()).take(max_digits).collect())
+        Self(input.chars().filter(char::is_ascii_digit).take(max_digits).collect())
     }
 
     pub fn as_str(&self) -> &str {

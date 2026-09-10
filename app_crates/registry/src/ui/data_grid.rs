@@ -170,8 +170,7 @@ pub fn get_column_width<C: PinnableColumn + 'static>(col: C) -> i32 {
     C::pinnable_columns()
         .iter()
         .find(|(c, _)| *c == col)
-        .map(|(_, w)| *w)
-        .unwrap_or(150)
+        .map_or(150, |(_, w)| *w)
 }
 
 /// Generates CSS custom properties for column sizes from pinnable columns.

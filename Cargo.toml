@@ -186,10 +186,6 @@ return_self_not_must_use = "allow"
 # `cargo clippy --fix` cannot touch them. Remove one entry per pass, fix its sites,
 # keep the gate green. Site counts captured 2026-09-10.
 use_self = "allow"                            # ~215
-redundant_closure_for_method_calls = "allow"  # ~24
-needless_collect = "allow"                    # ~13
-map_unwrap_or = "allow"                       # ~8
-used_underscore_binding = "allow"             # ~7
 wrong_self_convention = "allow"               # ~6
 match_same_arms = "allow"                     # ~6
 manual_midpoint = "allow"                     # ~6

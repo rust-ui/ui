@@ -104,12 +104,8 @@ pub fn DatePickerCell(
         None
     };
 
-    let is_current = current_date
-        .map(|d| d == *start_date.read() || d == *end_date.read())
-        .unwrap_or(false);
-    let is_selected = current_date
-        .map(|d| d > *start_date.read() && d < *end_date.read())
-        .unwrap_or(false);
+    let is_current = current_date.is_some_and(|d| d == *start_date.read() || d == *end_date.read());
+    let is_selected = current_date.is_some_and(|d| d > *start_date.read() && d < *end_date.read());
 
     let cell_class = tw_merge!(
         "inline-flex items-center justify-center text-sm size-9 rounded-md select-none",

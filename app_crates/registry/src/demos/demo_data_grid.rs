@@ -723,8 +723,7 @@ fn PressHoldDeleteRow(
         let idx = index();
         let (min_row, max_row) = drag_selection
             .get_selection_bounds()
-            .map(|(min, max, _, _)| (min, max))
-            .unwrap_or((idx, idx));
+            .map_or((idx, idx), |(min, max, _, _)| (min, max));
 
         let sorted = sorted_rows_signal();
         let names_to_delete: Vec<String> = (min_row..=max_row)

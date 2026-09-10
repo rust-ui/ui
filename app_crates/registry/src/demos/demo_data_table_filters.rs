@@ -44,7 +44,7 @@ const COLUMNS: [&str; 3] = ["Status", "Email", "Amount"];
 #[component]
 pub fn DemoDataTableFilters() -> Element {
     let mut selected_ids_signal = use_signal(HashSet::<usize>::new);
-    let columns_signal = use_signal(|| HashSet::from(COLUMNS.map(|c| c.to_string())));
+    let columns_signal = use_signal(|| HashSet::from(COLUMNS.map(ToString::to_string)));
     let mut sort_order_signal = use_signal(SortOrder::default);
     let mut email_filter_signal = use_signal(String::new);
     let mut status_filter_signal = use_signal(HashSet::<PaymentStatus>::new);
@@ -94,9 +94,9 @@ pub fn DemoDataTableFilters() -> Element {
     });
 
     let has_active_filters =
-        use_memo(move || !status_filter_signal.with(|s| s.is_empty()) || !email_filter_signal.with(|s| s.is_empty()));
+        use_memo(move || !status_filter_signal.with(HashSet::is_empty) || !email_filter_signal.with(String::is_empty));
 
-    let active_status_count = use_memo(move || status_filter_signal.with(|s| s.len()));
+    let active_status_count = use_memo(move || status_filter_signal.with(HashSet::len));
 
     let selected_count_signal = use_memo(move || {
         filtered_payments_signal.with(|payments| {
@@ -171,7 +171,7 @@ pub fn DemoDataTableFilters() -> Element {
                                 }
                             })}
                         }
-                        if !status_filter_signal.with(|s| s.is_empty()) {
+                        if !status_filter_signal.with(HashSet::is_empty) {
                             Separator {}
                             div { class: "p-1",
                                 Button {
@@ -360,7 +360,7 @@ pub fn DemoDataTableFilters() -> Element {
                     {format!(
                         "{} of {} row(s) selected.",
                         selected_count_signal(),
-                        filtered_payments_signal.with(|p| p.len()),
+                        filtered_payments_signal.with(Vec::len),
                     )}
                 }
                 div { class: "space-x-2",

@@ -20,6 +20,9 @@ const MONTHS: [(u8, &str); 12] = [
 ];
 
 #[component]
+// Reference demo code: the bare method-path form and dropping the typed weeks
+// binding read worse than the explicit closure and collect here.
+#[allow(clippy::redundant_closure_for_method_calls, clippy::needless_collect)]
 pub fn DemoDatePickerDropdown() -> Element {
     let today = OffsetDateTime::now_utc().date();
     let mut selected_date = use_signal(|| today);

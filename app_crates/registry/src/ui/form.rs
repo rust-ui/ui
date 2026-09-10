@@ -316,7 +316,7 @@ pub fn FormError(
     if !is_touched {
         return rsx! { {} };
     }
-    let err = form_ctx.errors_signal.read().get(&field_name).and_then(|e| e.clone());
+    let err = form_ctx.errors_signal.read().get(&field_name).and_then(Clone::clone);
     if let Some(err) = err {
         return rsx! {
             div { role: "alert", "data-name": "FormError", class: "{merged}",
@@ -338,7 +338,7 @@ pub fn FormField(#[props(into)] field: String, children: Element) -> Element {
 
     let ctx = consume_context::<FormContext>();
     let is_touched = ctx.touched_signal.read().contains(&field);
-    let has_error = ctx.errors_signal.read().get(&field).is_some_and(|e| e.is_some());
+    let has_error = ctx.errors_signal.read().get(&field).is_some_and(Option::is_some);
     let invalid = if is_touched && has_error { "true" } else { "false" };
 
     rsx! {
@@ -372,7 +372,7 @@ pub fn FormInput(
         .errors_signal
         .read()
         .get(&field_name)
-        .is_some_and(|e| e.is_some());
+        .is_some_and(Option::is_some);
     let aria_invalid = if is_touched && has_error { Some("true") } else { None };
 
     let set_value = form_ctx.set_value.clone();

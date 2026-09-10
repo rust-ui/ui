@@ -250,7 +250,7 @@ pub fn WorkflowCanvas(state: WorkflowState, children: Element, #[props(optional)
                 let touches = ev.data().touches();
                 match touches.len() {
                     1 => {
-                        let Some(c0) = touches.first().map(|touch| touch.client_coordinates()) else { return };
+                        let Some(c0) = touches.first().map(InteractionLocation::client_coordinates) else { return };
                         state.stop_pinch();
                         state.deselect();
                         state.start_pan(c0.x, c0.y);
@@ -275,7 +275,7 @@ pub fn WorkflowCanvas(state: WorkflowState, children: Element, #[props(optional)
                 let touches = ev.data().touches();
                 match touches.len() {
                     1 if !state.is_pinching() => {
-                        let Some(c0) = touches.first().map(|touch| touch.client_coordinates()) else { return };
+                        let Some(c0) = touches.first().map(InteractionLocation::client_coordinates) else { return };
                         state.update_pan(c0.x, c0.y);
                     }
                     2 => {
@@ -302,7 +302,7 @@ pub fn WorkflowCanvas(state: WorkflowState, children: Element, #[props(optional)
                     1 => {
                         state.stop_pinch();
                         if !locked {
-                            let Some(c0) = touches.first().map(|touch| touch.client_coordinates()) else { return };
+                            let Some(c0) = touches.first().map(InteractionLocation::client_coordinates) else { return };
                             state.start_pan(c0.x, c0.y);
                         }
                     }

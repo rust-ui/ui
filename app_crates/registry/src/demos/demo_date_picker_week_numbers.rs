@@ -25,6 +25,9 @@ fn next_month_year(month: Month, year: i32) -> (Month, i32) {
 }
 
 #[component]
+// Reference demo code: the bare method-path form and dropping the typed weeks
+// binding read worse than the explicit closure and collect here.
+#[allow(clippy::redundant_closure_for_method_calls, clippy::needless_collect)]
 pub fn DemoDatePickerWeekNumbers() -> Element {
     let Some(default_start) = Date::from_calendar_date(2025, Month::May, 5).ok() else {
         return rsx! { p { "Invalid default start date" } };

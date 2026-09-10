@@ -429,9 +429,7 @@ pub fn Sidenav(
     children: Element,
 ) -> Element {
     let ctx = has_context::<SidenavContext>();
-    let is_open = ctx
-        .map(|c| c.open)
-        .unwrap_or_else(|| use_signal(|| data_state == SidenavState::Expanded));
+    let is_open = ctx.map_or_else(|| use_signal(|| data_state == SidenavState::Expanded), |c| c.open);
     let class_value = class.as_deref().unwrap_or("").to_string();
 
     if data_collapsible == SidenavCollapsible::None {

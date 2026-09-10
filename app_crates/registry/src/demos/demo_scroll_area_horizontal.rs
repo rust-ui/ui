@@ -4,7 +4,7 @@ use crate::ui::scroll_area::ScrollArea;
 
 #[component]
 pub fn DemoScrollAreaHorizontal() -> Element {
-    let images = (1..=5_u32).map(|i| format!("Image {i}")).collect::<Vec<_>>();
+    let images = (1..=5_u32).map(|i| format!("Image {i}"));
 
     rsx! {
         ScrollArea { class: "w-96 whitespace-nowrap rounded-md border",

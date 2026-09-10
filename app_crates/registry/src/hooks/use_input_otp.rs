@@ -33,7 +33,8 @@ pub fn init() {
 struct OtpManager {
     controllers: HashMap<String, OtpController>,
     next_key: u64,
-    _observer_callback: Option<Closure<dyn FnMut(js_sys::Array, web_sys::MutationObserver)>>,
+    /// Retained to keep the `MutationObserver` callback alive; never read.
+    observer_callback: Option<Closure<dyn FnMut(js_sys::Array, web_sys::MutationObserver)>>,
     observer: Option<web_sys::MutationObserver>,
 }
 
@@ -42,7 +43,7 @@ impl OtpManager {
         Self {
             controllers: HashMap::new(),
             next_key: 0,
-            _observer_callback: None,
+            observer_callback: None,
             observer: None,
         }
     }
@@ -151,7 +152,7 @@ impl OtpManager {
         }
 
         self.observer = Some(observer);
-        self._observer_callback = Some(callback);
+        self.observer_callback = Some(callback);
     }
 }
 

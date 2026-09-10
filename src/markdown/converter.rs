@@ -77,9 +77,9 @@ pub fn convert_md(md: &str, components: &MdComponents) -> Element {
         Ok(d) => d,
         Err(_) => return rsx! {},
     };
-    let children: Vec<Element> = dom.children.iter().map(|n| process_node(n, components)).collect();
+    let children = dom.children.iter().map(|n| process_node(n, components));
     rsx! {
-        {children.into_iter()}
+        {children}
     }
 }
 

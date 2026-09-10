@@ -4,7 +4,7 @@ use crate::ui::scroll_area::{SnapItem, SnapScrollArea};
 
 #[component]
 pub fn DemoScrollAreaSnap() -> Element {
-    let images: Vec<String> = (1..=6).map(|i| format!("Image {i}")).collect();
+    let images = (1..=6).map(|i| format!("Image {i}"));
 
     rsx! {
         div { class: "overflow-hidden relative",
