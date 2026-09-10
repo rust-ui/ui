@@ -211,6 +211,11 @@ redundant_else = "allow"                      # ~1
 redundant_closure = "allow"                   # ~1
 needless_return = "allow"                     # ~1
 flat_map_option = "allow"                     # ~1
+# `MarkdownType` in the generated src/__registry__/static_md_registry.rs has a
+# `Static` prefix on every variant. The file is codegen output from
+# rust_ui_internals/build_registry_dioxus, so fix the generator to emit an inline
+# allow, then drop this. Hand-written route enums already carry inline allows.
+enum_variant_names = "allow"                  # 1 (generated file)
 # `&Option<T>` params in bug_reports_sqlite: hashed as-is for similarity grouping,
 # switching to `Option<&T>` would change stored hash values.
 ref_option = "allow"
