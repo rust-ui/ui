@@ -281,7 +281,6 @@
     --animate-Wobble: Wobble 1s ease-in-out;
     --animate-ZoomIn: ZoomIn 0.6s ease-out;
     --animate-ZoomOut: ZoomOut 0.6s ease-out;
-    --spacing-bottom__nav__height: var(--bottom__nav__height);
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-card: var(--card);
@@ -2354,6 +2353,10 @@
   }
   .translate-y-0 {
     --tw-translate-y: calc(var(--spacing) * 0);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .translate-y-1 {
+    --tw-translate-y: calc(var(--spacing) * 1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .translate-y-3\/4 {
@@ -4615,6 +4618,9 @@
     @media (min-width: 640px) {
       padding-bottom: 0;
     }
+  }
+  .pb-0 {
+    padding-bottom: calc(var(--spacing) * 0);
   }
   .pb-1 {
     padding-bottom: calc(var(--spacing) * 1);
