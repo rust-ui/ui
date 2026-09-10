@@ -53,7 +53,7 @@ echo "Pushing tag to origin..."
 git push origin $TAG_NAME
 
 echo "Triggering deployment workflow..."
-gh workflow run prod-vps.yml --repo rust-ui/dioxus-ui
+gh workflow run prod-vps.yml --repo rust-ui/ui
 
 echo "✅ Deploy tag created and workflow triggered!"
 echo "Tag: $TAG_NAME"

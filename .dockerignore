@@ -1,0 +1,9 @@
+.git
+.gitmodules
+leptos-ui
+target
+node_modules
+rust_ui_internals
+X__TMP
+bug_reports.db
+e2e

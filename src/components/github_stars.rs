@@ -1,10 +1,10 @@
 use dioxus::prelude::*;
 use registry::ui::skeleton::Skeleton;
 
-const GITHUB_REPO_URL: &str = "https://github.com/rust-ui/dioxus-ui";
+const GITHUB_REPO_URL: &str = "https://github.com/rust-ui/ui";
 
 #[cfg(feature = "server")]
-const GITHUB_API_URL: &str = "https://api.github.com/repos/rust-ui/dioxus-ui";
+const GITHUB_API_URL: &str = "https://api.github.com/repos/rust-ui/ui";
 
 #[cfg(feature = "server")]
 #[derive(serde::Deserialize)]

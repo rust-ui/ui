@@ -1,7 +1,7 @@
 name: Build and Deploy Dioxus SSR App
 
 on:
-  # gh workflow run prod-vps.yml
+  # gh workflow run prod-vps.yml --repo rust-ui/ui
   # gh workflow run prod-vps.yml -f skip_build=true   ← redeploy only, no rebuild
   workflow_dispatch:
     inputs:

@@ -39,7 +39,7 @@ pub fn Footer() -> Element {
                         }
                         a {
                             class: "text-muted-foreground hover:text-foreground transition-colors",
-                            href: "https://github.com/rust-ui/dioxus-ui",
+                            href: "https://github.com/rust-ui/ui",
                             target: "_blank",
                             rel: "noopener noreferrer",
                             "GitHub"

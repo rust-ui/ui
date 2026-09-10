@@ -28,7 +28,7 @@ dx serve --platform ios
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=rust-ui/dioxus-ui&type=Date)](https://star-history.com/#rust-ui/dioxus-ui&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=rust-ui/ui&type=Date)](https://star-history.com/#rust-ui/ui&Date)
 
 ## License
 
