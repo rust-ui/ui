@@ -5,6 +5,14 @@ cd "$(dirname "$0")"
 # Exit on any error
 set -e
 
+SKIP_CLIPPY=0
+for arg in "$@"; do
+  case "$arg" in
+    --skip-clippy) SKIP_CLIPPY=1 ;;
+    *) echo "❌ Unknown argument: $arg"; exit 1 ;;
+  esac
+done
+
 echo "🔒 Pre-flight checks..."
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 if [ "$BRANCH" != "main" ]; then
@@ -25,9 +33,13 @@ echo "🎨 Formatting..."
 cargo fmt --all -- --check
 echo "✅ Formatting OK"
 
-echo "📎 Running clippy..."
-cargo clippy --all-targets --all-features -- -D warnings
-echo "✅ Clippy OK"
+if [ "$SKIP_CLIPPY" -eq 1 ]; then
+  echo "⏭️  Skipping clippy (--skip-clippy)"
+else
+  echo "📎 Running clippy..."
+  cargo clippy --all-targets --all-features -- -D warnings
+  echo "✅ Clippy OK"
+fi
 
 echo "🔒 Security audit..."
 cargo deny check
