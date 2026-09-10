@@ -14,8 +14,10 @@ node_modules/
 
 assets/tailwind.css
 
+pnpm-lock.yaml
 
 __TMP/
 dioxus_ui_internals/
+rust_ui_internals/
 
 .playwright-mcp
