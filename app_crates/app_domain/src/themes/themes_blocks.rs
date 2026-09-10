@@ -18,7 +18,7 @@ use super::cards::total_revenue::CardTotalRevenue;
 pub fn ThemesBlocks() -> Element {
     use_effect(move || {
         spawn(async move {
-            let js = r#"
+            let js = r"
                 (function() {
                     if (document.getElementById('chart-init-script')) return;
                     var s = document.createElement('script');
@@ -26,7 +26,7 @@ pub fn ThemesBlocks() -> Element {
                     s.src = '/app_components/chart_init.js?v=6';
                     document.head.appendChild(s);
                 })();
-            "#;
+            ";
             dioxus::document::eval(js).await.ok();
         });
     });

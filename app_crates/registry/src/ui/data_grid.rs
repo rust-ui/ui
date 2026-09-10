@@ -1,4 +1,5 @@
 use std::collections::{HashMap, HashSet};
+use std::fmt::Write as _;
 use std::hash::Hash;
 
 use dioxus::prelude::*;
@@ -185,7 +186,7 @@ pub fn generate_grid_style<C: PinnableColumn + AsRef<str> + 'static>() -> String
     for (col, width) in C::pinnable_columns() {
         // Remove spaces for CSS-safe variable names (e.g., "Is Active" -> "IsActive")
         let name: String = col.as_ref().chars().filter(|c| *c != ' ').collect();
-        style.push_str(&format!("--header-{name}-size: {width}; --col-{name}-size: {width}; "));
+        let _ = write!(style, "--header-{name}-size: {width}; --col-{name}-size: {width}; ");
     }
     style.push_str("max-height: calc(100vh - 16rem);");
     style

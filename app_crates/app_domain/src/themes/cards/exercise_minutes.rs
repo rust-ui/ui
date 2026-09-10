@@ -26,7 +26,7 @@ pub fn CardExerciseMinutes() -> Element {
 
 #[component]
 fn ChartExerciseMinutes() -> Element {
-    let values = r#"[[30,45,35,60,55,65,75],[25,30,40,35,45,50,55]]"#;
+    let values = r"[[30,45,35,60,55,65,75],[25,30,40,35,45,50,55]]";
     let labels = r#"["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]"#;
     let series_names = r#"["This Week","Average"]"#;
 

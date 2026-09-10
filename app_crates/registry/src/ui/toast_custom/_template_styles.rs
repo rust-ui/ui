@@ -1,4 +1,4 @@
-pub const TEMPLATE_STYLES: &str = r#"
+pub const TEMPLATE_STYLES: &str = r"
 :root {
     --leptoaster-width: 320px;
     --leptoaster-max-width: 80vw;
@@ -87,4 +87,4 @@ pub const TEMPLATE_STYLES: &str = r#"
     width: var(--leptoaster-width);
     max-width: var(--leptoaster-max-width);
 }
-"#;
+";

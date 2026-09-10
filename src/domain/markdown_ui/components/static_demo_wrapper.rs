@@ -66,7 +66,7 @@ pub fn StaticDemoWrapper(
     let bgid = bg_id.clone();
     use_effect(move || {
         let js = format!(
-            r#"
+            r"
             (function() {{
                 const handle = document.getElementById('{hid}');
                 const bg = document.getElementById('{bgid}');
@@ -93,7 +93,7 @@ pub fn StaticDemoWrapper(
                     document.removeEventListener('mouseup', onUp);
                 }}
             }})();
-            "#
+            "
         );
         spawn(async move {
             let _ = eval(&js).await;

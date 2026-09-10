@@ -86,7 +86,7 @@ pub fn HoverCard(children: Element, #[props(default = HoverCardSide::Bottom)] si
     );
 
     let script = format!(
-        r#"(function() {{
+        r"(function() {{
             const setup = () => {{
                 const trigger = document.getElementById('{trigger_id}');
                 const content = document.getElementById('{content_id}');
@@ -108,7 +108,7 @@ pub fn HoverCard(children: Element, #[props(default = HoverCardSide::Bottom)] si
             }} else {{
                 setup();
             }}
-        }})();"#
+        }})();"
     );
 
     provide_context(HoverCardContext {

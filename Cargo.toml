@@ -138,7 +138,6 @@ mutex_atomic = "deny"
 str_to_string = "allow"
 # TODO: Re-enable after string-building cleanup in registry.
 string_add = "allow"
-format_push_string = "allow"
 unwrap_in_result = "deny"
 panic_in_result_fn = "deny"
 # TODO: Re-enable after making unordered iteration deterministic where needed.
@@ -159,8 +158,6 @@ needless_borrow = "allow"
 needless_pass_by_value = "allow"
 # TODO: Clean up documentation markup, literal separators, and derives, then re-enable.
 doc_markdown = "allow"
-# TODO: Raise this after migrating JSX/event-handler syntax across the registry.
-needless_raw_string_hashes = "allow"
 print_stdout = "warn" # build.rs needs Cargo directive output
 # TODO: Replace diagnostic stderr output with structured logging.
 print_stderr = "allow"
@@ -168,7 +165,6 @@ print_stderr = "allow"
 # Nursery group is unstable and false-positive prone; keep the group at `warn`
 # but silence the members that flood the registry. Revisit per the group TODO above.
 missing_const_for_fn = "allow"
-imprecise_flops = "allow"
 option_if_let_else = "allow"
 
 # TODO(strict-clippy): burn-down bucket. See __SKILLS_SOP/strict-clippy-burndown.md.

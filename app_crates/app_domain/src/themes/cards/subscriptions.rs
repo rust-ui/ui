@@ -25,7 +25,7 @@ pub fn CardSubscriptions() -> Element {
 
 #[component]
 fn ChartSubscriptions() -> Element {
-    let values = r#"[560,700,467,649,441,558,649,441]"#;
+    let values = r"[560,700,467,649,441,558,649,441]";
     let labels = r#"["","","","","","","",""]"#;
 
     rsx! {

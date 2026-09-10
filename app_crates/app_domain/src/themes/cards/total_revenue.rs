@@ -25,7 +25,7 @@ pub fn CardTotalRevenue() -> Element {
 
 #[component]
 fn ChartTotalRevenue() -> Element {
-    let values = r#"[186,305,237,273,209,237,264,486]"#;
+    let values = r"[186,305,237,273,209,237,264,486]";
     let labels = r#"["","","","","","","",""]"#;
 
     rsx! {

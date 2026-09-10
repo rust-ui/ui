@@ -887,7 +887,5 @@ pub fn WorkflowControls(state: WorkflowState) -> Element {
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 fn touch_dist(ax: f64, ay: f64, bx: f64, by: f64) -> f64 {
-    let dx = ax - bx;
-    let dy = ay - by;
-    (dx * dx + dy * dy).sqrt()
+    (ax - bx).hypot(ay - by)
 }

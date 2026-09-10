@@ -69,7 +69,7 @@ pub fn Popover(#[props(default = PopoverAlign::Center)] align: PopoverAlign, chi
     let tid = trigger_id.clone();
     let cid = content_id.clone();
     let script = format!(
-        r#"(function() {{
+        r"(function() {{
         const setup = () => {{
             const trigger = document.getElementById('{tid}');
             const content = document.getElementById('{cid}');
@@ -88,7 +88,7 @@ pub fn Popover(#[props(default = PopoverAlign::Center)] align: PopoverAlign, chi
             document.addEventListener('keydown', e => {{ if (e.key === 'Escape') close(); }});
         }};
         if (document.readyState === 'loading') {{ document.addEventListener('DOMContentLoaded', setup); }} else {{ setup(); }}
-    }})();"#
+    }})();"
     );
 
     rsx! {

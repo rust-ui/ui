@@ -181,7 +181,7 @@ pub fn CommandDialog(children: Element, #[props(into, optional)] class: Option<S
     let trigger_id = format!("{TRIGGER_ID_QUALIFIER}__{dialog_id}");
 
     let script_content = format!(
-        r#"
+        r"
         (function() {{
             const KEY_HANDLER_KEY = '__commandDialog_{dialog_id}_keyHandler';
             const CLICK_HANDLER_KEY = '__commandDialog_{dialog_id}_clickHandler';
@@ -284,7 +284,7 @@ pub fn CommandDialog(children: Element, #[props(into, optional)] class: Option<S
                 setupDialog();
             }}
         }})();
-        "#
+        "
     );
 
     rsx! {

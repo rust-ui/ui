@@ -264,7 +264,7 @@ pub fn RadiusSelector() -> Element {
 /*                      ✨ CONSTANTS ✨                       */
 /* ========================================================== */
 
-const THEME_TEMPLATE: &str = r#":root {
+const THEME_TEMPLATE: &str = r":root {
   --radius: 0.625rem;
   --primary: {primary};
   --primary-foreground: oklch(0.985 0 0);
@@ -307,4 +307,4 @@ const THEME_TEMPLATE: &str = r#":root {
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-}"#;
+}";

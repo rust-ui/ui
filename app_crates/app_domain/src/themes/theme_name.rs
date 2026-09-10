@@ -1,3 +1,5 @@
+use std::fmt::Write as _;
+
 use super::components::color_theme_picker::ColorTheme;
 use super::components::font_picker::FontName;
 
@@ -103,17 +105,17 @@ impl ThemeName {
             font.css_value()
         );
         for (k, v) in self.light_vars() {
-            out.push_str(&format!("  {k}: {v};\n"));
+            let _ = writeln!(out, "  {k}: {v};");
         }
         for (k, v) in color_theme.light_vars() {
-            out.push_str(&format!("  {k}: {v};\n"));
+            let _ = writeln!(out, "  {k}: {v};");
         }
         out.push_str("}\n\n.dark {\n");
         for (k, v) in self.dark_vars() {
-            out.push_str(&format!("  {k}: {v};\n"));
+            let _ = writeln!(out, "  {k}: {v};");
         }
         for (k, v) in color_theme.dark_vars() {
-            out.push_str(&format!("  {k}: {v};\n"));
+            let _ = writeln!(out, "  {k}: {v};");
         }
         out.push('}');
         out

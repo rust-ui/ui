@@ -45,7 +45,7 @@ pub fn DemoWrapper(
     let bgid = bg_id.clone();
     use_effect(move || {
         let js = format!(
-            r#"
+            r"
             (function() {{
                 const handle = document.getElementById('{hid}');
                 const bg = document.getElementById('{bgid}');
@@ -73,7 +73,7 @@ pub fn DemoWrapper(
                     document.removeEventListener('mouseup', onUp);
                 }}
             }})();
-            "#
+            "
         );
         spawn(async move {
             let _ = eval(&js).await;
@@ -171,10 +171,10 @@ pub fn DemoWrapper(
                                         let cid = cid.clone();
                                         spawn(async move {
                                             let js = format!(
-                                                r#"navigator.clipboard.writeText({code:?}).then(() => {{
+                                                r"navigator.clipboard.writeText({code:?}).then(() => {{
                                                                                                                     const btn = document.getElementById('{cid}');
                                                                                                                     if (btn) {{ btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = 'Copy', 1500); }}
-                                                                                                                }})"#,
+                                                                                                                }})",
                                             );
                                             let _ = eval(&js).await;
                                         });
