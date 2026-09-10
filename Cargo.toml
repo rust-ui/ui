@@ -189,7 +189,6 @@ must_use_candidate = "allow"
 cognitive_complexity = "allow"
 multiple_crate_versions = "allow"
 cargo_common_metadata = "allow"
-too_many_lines = "allow"
 allow_attributes = "allow"
 allow_attributes_without_reason = "allow"
 

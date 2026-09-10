@@ -2,6 +2,8 @@ use ::registry::hooks::use_theme_mode::ThemeMode;
 use ::registry::ui::toast_custom::toaster::{Toaster, provide_toaster};
 use dioxus::prelude::*;
 
+// Generated registry data: giant match/vec builders that exceed the line cap by design.
+#[allow(clippy::too_many_lines)]
 pub mod __registry__;
 pub mod components;
 mod domain;
