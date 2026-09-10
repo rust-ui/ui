@@ -51,6 +51,9 @@ playwright-report/
 .env.*.local
 .env.apple
 
+# iOS signing: provisioning profile is downloaded per-machine, never committed
+ios/*.mobileprovision
+
 # ---------------------------------------------------------------------------
 # SQLite (created at runtime, shared schema with leptos site)
 # ---------------------------------------------------------------------------
