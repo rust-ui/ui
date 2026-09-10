@@ -12,8 +12,9 @@ edition = "2024"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.7", features = ["router", "fullstack"] }
-dioxus-html = { version = "0.7" }
+# Pin 0.7.9: dioxus 0.7.10 requires dioxus-desktop 0.7.10, unavailable on crates.io.
+dioxus = { version = "=0.7.9", features = ["router", "fullstack"] }
+dioxus-html = { version = "=0.7.9" }
 registry.workspace = true
 app_config.workspace = true
 app_routes.workspace = true
