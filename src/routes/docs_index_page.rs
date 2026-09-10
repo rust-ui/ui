@@ -60,10 +60,18 @@ fn DocsIndexPage(
                         Card { class: "transition-all duration-200 hover:shadow-lg hover:scale-101",
                             CardContent {
                                 if !item.image.is_empty() {
-                                    img { src: item.image, alt: item.label, class: "w-full rounded-md dark:hidden" }
+                                    img {
+                                        src: crate::utils::assets::thumbnail(item.image),
+                                        alt: item.label,
+                                        class: "w-full rounded-md dark:hidden",
+                                    }
                                 }
                                 if !item.image_dark.is_empty() {
-                                    img { src: item.image_dark, alt: item.label, class: "hidden w-full rounded-md dark:block" }
+                                    img {
+                                        src: crate::utils::assets::thumbnail(item.image_dark),
+                                        alt: item.label,
+                                        class: "hidden w-full rounded-md dark:block",
+                                    }
                                 }
 
                                 CardHeader { class: "px-0",

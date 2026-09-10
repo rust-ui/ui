@@ -4,6 +4,16 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ## 2026-09-10
 
+### Fixes
+
+- **Component/hook thumbnails on iOS**: Index-page thumbnails were plain
+  `public/` paths (`/images/thumbnails/*.webp`), which `dx serve --platform ios`
+  does not serve (only `asset!()`-bundled files reach the device), so they
+  rendered as broken images. Added `src/utils/assets.rs` with a bundled
+  `THUMBNAILS` folder asset and a `thumbnail()` resolver; `docs_index_page.rs`
+  now maps stored paths through it. Interim shim until the registry generator
+  can emit `asset!()` into `SidenavItem` directly (TODO noted in the file).
+
 ### Improvements
 
 - **Mobile bottom nav**: Added `AppBottomNav` (Home, Components, Hooks, Icons,
