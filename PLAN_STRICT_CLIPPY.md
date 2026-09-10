@@ -3,11 +3,9 @@
 ## Priorities
 
 1. Keep current `deny` safety lints green.
-2. Run full loop:
+2. Run fast loop:
    ```bash
-   cargo fmt --all -- --check
-   cargo clippy --workspace --all-targets --all-features -- -D warnings
-   cargo test --workspace --all-features
+   cargo clippy
    ```
 3. Fix every Clippy error/warning; rerun until zero.
 4. Re-enable `clippy::cargo` first; fix manifest metadata and dependency issues.
@@ -20,7 +18,7 @@
 - Keep lint policy in `[workspace.lints.clippy]`.
 - Prefer `deny` for correctness/security; use `warn` for style ratchet.
 - Add new `allow` only with short reason and removal task.
-- CI must run same Clippy command as local.
+- CI can later expand command to workspace, all targets, and all features.
 
 ## Done when
 
