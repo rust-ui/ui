@@ -859,9 +859,8 @@ impl WorkflowState {
     }
 
     pub fn update_pinch(&mut self, dist: f64, cx: f64, cy: f64) {
-        let prev = match *self.touch_pinch.read() {
-            Some(p) => p,
-            None => return,
+        let Some(prev) = *self.touch_pinch.read() else {
+            return;
         };
         if prev.prev_dist > 1.0 {
             let scale = dist / prev.prev_dist;
@@ -884,7 +883,8 @@ impl WorkflowState {
         let new_z = (old_z * scale).clamp(0.2, 4.0);
         let ratio = new_z / old_z;
         let (px, py) = *self.pan.read();
-        self.pan.set((ex - (ex - px) * ratio, ey - (ey - py) * ratio));
+        self.pan
+            .set(((px - ex).mul_add(ratio, ex), (py - ey).mul_add(ratio, ey)));
         self.zoom.set(new_z);
     }
 
@@ -900,7 +900,8 @@ impl WorkflowState {
         let new_z = (old_z * factor).clamp(0.2, 4.0);
         let ratio = new_z / old_z;
         let (px, py) = *self.pan.read();
-        self.pan.set((ex - (ex - px) * ratio, ey - (ey - py) * ratio));
+        self.pan
+            .set(((px - ex).mul_add(ratio, ex), (py - ey).mul_add(ratio, ey)));
         self.zoom.set(new_z);
     }
 
@@ -911,7 +912,8 @@ impl WorkflowState {
         let cx = 400.0_f64;
         let cy = 225.0_f64;
         let (px, py) = *self.pan.read();
-        self.pan.set((cx - (cx - px) * ratio, cy - (cy - py) * ratio));
+        self.pan
+            .set(((px - cx).mul_add(ratio, cx), (py - cy).mul_add(ratio, cy)));
         self.zoom.set(new_z);
     }
 
@@ -964,8 +966,8 @@ impl WorkflowState {
             .clamp(0.2, 4.0);
         self.zoom.set(z);
         self.pan.set((
-            (viewport_w - content_w * z) / 2.0 - min_x * z,
-            (viewport_h - content_h * z) / 2.0 - min_y * z,
+            min_x.mul_add(-z, content_w.mul_add(-z, viewport_w) / 2.0),
+            min_y.mul_add(-z, content_h.mul_add(-z, viewport_h) / 2.0),
         ));
     }
 

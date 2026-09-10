@@ -84,7 +84,7 @@ pub fn OklchSelector(
                 min: 0.0,
                 max: 1.0,
                 step: 0.01,
-                value: l() as f64,
+                value: f64::from(l()),
                 oninput: move |e: FormEvent| {
                     let val = e.value().parse().unwrap_or(DEFAULT_L);
                     l.set(val);
@@ -99,7 +99,7 @@ pub fn OklchSelector(
                 min: 0.0,
                 max: 0.4,
                 step: 0.01,
-                value: c() as f64,
+                value: f64::from(c()),
                 oninput: move |e: FormEvent| {
                     let val = e.value().parse().unwrap_or(DEFAULT_C);
                     c.set(val);
@@ -114,7 +114,7 @@ pub fn OklchSelector(
                 min: 0.0,
                 max: 360.0,
                 step: 1.0,
-                value: h() as f64,
+                value: f64::from(h()),
                 oninput: move |e: FormEvent| {
                     let val = e.value().parse().unwrap_or(DEFAULT_H);
                     h.set(val);

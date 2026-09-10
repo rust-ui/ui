@@ -8,8 +8,8 @@ pub fn use_can_scroll() -> (impl Fn(Event<ScrollData>) + Clone, ReadSignal<bool>
 
     let on_scroll = move |ev: Event<ScrollData>| {
         let scroll_left = ev.scroll_left();
-        let scroll_width = ev.scroll_width() as f64;
-        let client_width = ev.client_width() as f64;
+        let scroll_width = f64::from(ev.scroll_width());
+        let client_width = f64::from(ev.client_width());
         *show_left.write_unchecked() = scroll_left > 0.0;
         *show_right.write_unchecked() = scroll_left < scroll_width - client_width - 1.0;
     };

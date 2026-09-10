@@ -40,7 +40,7 @@ pub fn ToggleGroup(
     let gap_style = if spacing == 0 {
         "gap: 0px".to_string()
     } else {
-        format!("gap: {}rem", spacing as f64 * 0.25)
+        format!("gap: {}rem", f64::from(spacing) * 0.25)
     };
 
     let class = tw_merge!(

@@ -147,13 +147,9 @@ as_underscore = "deny"
 
 # Quality ratchet.
 cast_possible_truncation = "allow"
-cast_sign_loss = "allow"
-cast_precision_loss = "allow"
-cast_lossless = "allow"
 redundant_clone = "allow"
 inefficient_to_string = "allow"
 cloned_instead_of_copied = "allow"
-manual_let_else = "allow"
 trivially_copy_pass_by_ref = "allow"
 explicit_iter_loop = "allow"
 from_over_into = "allow"
@@ -161,7 +157,6 @@ fallible_impl_from = "allow"
 clone_on_ref_ptr = "allow"
 needless_borrow = "allow"
 needless_pass_by_value = "allow"
-unused_async = "allow"
 # TODO: Clean up documentation markup, literal separators, and derives, then re-enable.
 doc_markdown = "allow"
 # TODO: Raise this after migrating JSX/event-handler syntax across the registry.
@@ -173,10 +168,8 @@ print_stderr = "allow"
 # Nursery group is unstable and false-positive prone; keep the group at `warn`
 # but silence the members that flood the registry. Revisit per the group TODO above.
 missing_const_for_fn = "allow"
-suboptimal_flops = "allow"
 imprecise_flops = "allow"
 option_if_let_else = "allow"
-return_self_not_must_use = "allow"
 
 # TODO(strict-clippy): burn-down bucket. See __SKILLS_SOP/strict-clippy-burndown.md.
 # These block `-D warnings` but sit almost entirely inside rsx! macro bodies, so

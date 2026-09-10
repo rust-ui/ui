@@ -67,7 +67,7 @@ pub fn use_virtual_scroll(
 
         // Update container height immediately
         if is_mounted_for_effect.load(Ordering::SeqCst) {
-            container_height_signal.clone().set(el.client_height().max(0) as usize);
+            container_height_signal.clone().set(usize::try_from(el.client_height().max(0)).unwrap_or(0));
         }
 
         // Set up scroll listener with mounted check
@@ -80,8 +80,8 @@ pub fn use_virtual_scroll(
             if !is_mounted_for_handler.load(Ordering::SeqCst) {
                 return;
             }
-            scroll_top_signal_clone.set(el_clone.scroll_top().max(0) as usize);
-            container_height_signal_clone.set(el_clone.client_height().max(0) as usize);
+            scroll_top_signal_clone.set(usize::try_from(el_clone.scroll_top().max(0)).unwrap_or(0));
+            container_height_signal_clone.set(usize::try_from(el_clone.client_height().max(0)).unwrap_or(0));
         }) as Box<dyn FnMut()>);
 
         let _ = el.add_event_listener_with_callback("scroll", scroll_handler.as_ref().unchecked_ref());

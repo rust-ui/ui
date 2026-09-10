@@ -8,8 +8,8 @@ pub fn use_can_scroll_vertical() -> (impl Fn(Event<ScrollData>) + Clone, ReadSig
 
     let on_scroll = move |ev: Event<ScrollData>| {
         let scroll_top = ev.scroll_top();
-        let scroll_height = ev.scroll_height() as f64;
-        let client_height = ev.client_height() as f64;
+        let scroll_height = f64::from(ev.scroll_height());
+        let client_height = f64::from(ev.client_height());
         *can_up.write_unchecked() = scroll_top > 0.0;
         *can_down.write_unchecked() = scroll_top < scroll_height - client_height - 1.0;
     };

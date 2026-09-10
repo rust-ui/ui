@@ -143,7 +143,7 @@ pub fn use_press_hold(duration_ms: u32, on_complete: Callback<()>, disabled: boo
         is_holding_signal: use_signal(|| false),
         interval_id: Rc::new(Cell::new(None)),
         last_update: Rc::new(Cell::new(0.0)),
-        duration: duration_ms as f64,
+        duration: f64::from(duration_ms),
         on_complete,
         disabled,
     }

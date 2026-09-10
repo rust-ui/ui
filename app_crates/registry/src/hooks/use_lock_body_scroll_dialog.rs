@@ -38,7 +38,7 @@ pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
             let Some(inner_width) = window.inner_width().ok().and_then(|w| w.as_f64()) else {
                 return;
             };
-            let scrollbar_width = inner_width - body.client_width() as f64;
+            let scrollbar_width = inner_width - f64::from(body.client_width());
 
             // Apply body lock styles
             let style = body.style();

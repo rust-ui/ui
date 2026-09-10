@@ -14,6 +14,7 @@ impl Oklch {
         format!("oklch({} {} {})", self.l, self.c, self.h)
     }
 
+    #[must_use]
     pub fn secondary_with_factor(&self, factor: f32) -> Self {
         Self {
             l: self.l * factor,

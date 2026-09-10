@@ -57,6 +57,7 @@ impl ToastWrapper {
     }
 
     /// Override the default position
+    #[must_use]
     pub fn position(mut self, position: ToastPosition) -> Self {
         self.position = position;
         self

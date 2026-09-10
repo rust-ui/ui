@@ -44,9 +44,8 @@ impl MdComponents {
 /// Extract H2/H3 headings from markdown for the Table of Contents.
 pub fn extract_toc_from_md(md: &str) -> Vec<TocItem> {
     let html = markdown_to_html(md);
-    let dom = match Dom::parse(&html) {
-        Ok(d) => d,
-        Err(_) => return vec![],
+    let Ok(dom) = Dom::parse(&html) else {
+        return vec![];
     };
     let mut items = Vec::new();
     for node in &dom.children {
@@ -73,9 +72,8 @@ pub fn extract_toc_from_md(md: &str) -> Vec<TocItem> {
 /// Convert a markdown string to a Dioxus Element tree.
 pub fn convert_md(md: &str, components: &MdComponents) -> Element {
     let html = markdown_to_html(md);
-    let dom = match Dom::parse(&html) {
-        Ok(d) => d,
-        Err(_) => return rsx! {},
+    let Ok(dom) = Dom::parse(&html) else {
+        return rsx! {};
     };
     let children = dom.children.iter().map(|n| process_node(n, components));
     rsx! {

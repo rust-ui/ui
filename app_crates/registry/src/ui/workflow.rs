@@ -779,8 +779,8 @@ pub fn WorkflowMinimap(state: WorkflowState) -> Element {
                 let world_y = ec.y / scale_y;
                 let zoom = state.zoom_value();
                 state.pan.set((
-                    VIEWPORT_W / 2.0 - world_x * zoom,
-                    VIEWPORT_H / 2.0 - world_y * zoom,
+                    world_x.mul_add(-zoom, VIEWPORT_W / 2.0),
+                    world_y.mul_add(-zoom, VIEWPORT_H / 2.0),
                 ));
             },
 

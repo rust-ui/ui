@@ -316,6 +316,8 @@ fn BugReportCard(report: StoredBugReport, on_delete: EventHandler) -> Element {
 /*                     SERVER FUNCTIONS                       */
 /* ========================================================== */
 
+// `#[server]` requires `async`; the non-server cfg branch has nothing to await.
+#[allow(clippy::unused_async)]
 #[server]
 pub async fn fetch_bug_reports(limit: i64) -> Result<Vec<StoredBugReport>, ServerFnError> {
     #[cfg(feature = "server")]
@@ -330,6 +332,8 @@ pub async fn fetch_bug_reports(limit: i64) -> Result<Vec<StoredBugReport>, Serve
     }
 }
 
+// `#[server]` requires `async`; the non-server cfg branch has nothing to await.
+#[allow(clippy::unused_async)]
 #[server]
 pub async fn delete_bug_report(similarity_hash: i64) -> Result<usize, ServerFnError> {
     #[cfg(feature = "server")]
@@ -345,7 +349,8 @@ pub async fn delete_bug_report(similarity_hash: i64) -> Result<usize, ServerFnEr
 }
 
 // `unused_unit` fires inside the `#[server]` macro expansion, not our code.
-#[allow(clippy::unused_unit)]
+// `#[server]` requires `async`; the non-server cfg branch has nothing to await.
+#[allow(clippy::unused_unit, clippy::unused_async)]
 #[server]
 pub async fn delete_all_bug_reports() -> Result<usize, ServerFnError> {
     #[cfg(feature = "server")]

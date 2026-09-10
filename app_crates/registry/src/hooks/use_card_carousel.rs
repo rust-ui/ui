@@ -108,7 +108,9 @@ fn handle_scroll(event: Event) {
 
     let client_width = track.client_width();
     let index = if client_width > 0 {
-        (f64::from(track.scroll_left()) / f64::from(client_width)).round() as u32
+        // Rounded integer division; scroll_left and client_width are both non-negative here.
+        let rounded = (track.scroll_left().max(0) + client_width / 2) / client_width;
+        u32::try_from(rounded).unwrap_or(0)
     } else {
         0
     };
