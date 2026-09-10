@@ -49,6 +49,7 @@ playwright-report/
 .env.local
 .env.development
 .env.*.local
+.env.apple
 
 # ---------------------------------------------------------------------------
 # SQLite (created at runtime, shared schema with leptos site)

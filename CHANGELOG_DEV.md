@@ -6,6 +6,20 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ### Fixes
 
+- **TestFlight upload rejected with 7 validation errors**: `dx bundle`
+  (0.7.10) copies `ios/Info.plist` verbatim and injects no App Store build
+  metadata, so altool failed on missing `DTPlatformName`, empty
+  `MinimumOSVersion` (which also triggers the phantom "arm64 needs armv7"),
+  missing `CFBundlePackageType`/deployment target. Separately, `.env.apple`
+  had `APPLE_SIGNING_IDENTITY` set to the macOS "Developer ID Application"
+  cert (not the profile's "iPhone Distribution" cert), and the ipa repack
+  used `zip -qr`, which dereferenced the `CodeResources` symlink. Added the
+  static keys to `ios/Info.plist`, pointed `APPLE_SIGNING_IDENTITY` at the
+  iPhone Distribution SHA-1, and reworked `deploy_ios_testflight_dioxus.sh`
+  to resolve/verify a real Distribution identity, stamp the volatile `DT*`
+  keys from the active Xcode/SDK, re-sign with `--generate-entitlement-der`,
+  and repack with `zip -qXy -r`.
+
 - **Component/hook thumbnails on iOS**: Index-page thumbnails were plain
   `public/` paths (`/images/thumbnails/*.webp`), which `dx serve --platform ios`
   does not serve (only `asset!()`-bundled files reach the device), so they
