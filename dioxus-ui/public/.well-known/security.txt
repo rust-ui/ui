@@ -1,0 +1,22 @@
+Contact: https://rust-ui.com/
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://rust-ui.com/.well-known/security.txt
+
+# Security Disclosure Policy
+#
+# We take security seriously. If you discover a security vulnerability,
+# please report it via our website contact form (link above).
+#
+# Please include:
+# - Description of the vulnerability
+# - Steps to reproduce
+# - Potential impact
+# - Suggested fix (if any)
+#
+# We will respond within 48 hours and work with you to resolve the issue.
+# We appreciate responsible disclosure and will acknowledge contributors.
+#
+# For general questions, contact us via:
+# - Website: https://rust-ui.com/
+# - Twitter: @RustUI

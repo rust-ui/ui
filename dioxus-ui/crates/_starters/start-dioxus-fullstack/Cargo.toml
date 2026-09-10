@@ -1,0 +1,43 @@
+[package]
+name = "start_dioxus_fullstack"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "start_dioxus_fullstack"
+path = "src/main.rs"
+
+[dependencies]
+dioxus = { version = "0.7", features = ["router", "fullstack"] }
+icons = { version = "0.18", features = ["dioxus"] }
+tw_merge = { version = "0.1", features = ["debug"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+uuid = { version = "1", features = ["v4", "v7", "serde", "js"] }
+
+# Server-only
+sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "postgres", "macros", "uuid", "time", "json"], optional = true }
+dotenv = { version = "0.15", optional = true }
+anyhow = { version = "1", optional = true }
+
+[lints.clippy]
+disallowed_macros = "deny"
+dbg_macro = "deny"
+print_stdout = "deny"
+print_stderr = "deny"
+todo = "deny"
+undocumented_unsafe_blocks = "deny"
+await_holding_lock = "deny"
+unused_async = "warn"
+redundant_clone = "warn"
+
+[features]
+default = ["web"]
+server = [
+    "dioxus/server",
+    "dep:sqlx",
+    "dep:dotenv",
+    "dep:anyhow",
+]
+web = ["dioxus/web"]
+mobile = ["dioxus/mobile"]

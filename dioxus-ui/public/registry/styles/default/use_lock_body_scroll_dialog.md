@@ -1,0 +1,141 @@
+---
+title: "Use Lock Body Scroll Dialog"
+name: "use_lock_body_scroll_dialog"
+cargo_dependencies: ["wasm_bindgen"]
+registry_dependencies: []
+type: "components:hooks"
+path: "hooks/use_lock_body_scroll_dialog.rs"
+description: "This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality."
+tags: []
+---
+
+# Use Lock Body Scroll Dialog
+
+This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality.
+
+## Installation
+
+To add this component demo in your app, run:
+
+```bash
+# cargo install ui-cli --force
+ui add use_lock_body_scroll_dialog
+```
+
+## Component Code
+
+```rust
+use dioxus::prelude::*;
+use wasm_bindgen::JsCast;
+
+/// Hook to lock/unlock body scroll and prevent background interactions for dialogs.
+///
+/// This prevents the page from scrolling when dialogs are open and makes
+/// background elements non-interactive by setting pointer-events: none on #target__dialog_lock_body,
+/// while keeping the dialog interactive by setting pointer-events: auto on dialog elements,
+/// maintaining the current scroll position by using fixed positioning with
+/// a negative top offset.
+///
+/// When unlocking, it delays the restoration by 100ms to allow dialog
+/// closing animations to complete, preventing visual flashing during the
+/// transition where the page would briefly jump to the top.
+///
+/// # Arguments
+/// * `initial_locked` - Whether the body scroll should be initially locked
+///
+/// # Returns
+/// A reactive signal that controls the lock state - set to `true` to lock,
+/// `false` to unlock with delayed restoration
+pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
+    const TARGET_DIALOG_LOCK_BODY: &str = "#target__dialog_lock_body";
+
+    let locked_signal = use_signal(|| initial_locked);
+    let mut scroll_position_signal = use_signal(|| 0.0_f64);
+
+    use_effect(move || {
+        let Some(document) = web_sys::window().and_then(|w| w.document()) else { return };
+        let Some(body) = document.body() else { return };
+        let window = web_sys::window().unwrap();
+
+        if locked_signal() {
+            // Store current scroll position
+            scroll_position_signal.set(window.scroll_y().unwrap_or(0.0));
+
+            // Calculate scrollbar width for compensation
+            let Some(inner_width) = window.inner_width().ok().and_then(|w| w.as_f64()) else {
+                return;
+            };
+            let scrollbar_width = inner_width - body.client_width() as f64;
+
+            // Apply body lock styles
+            let style = body.style();
+            let _ = style.set_property("position", "fixed");
+            let _ = style.set_property("top", &format!("-{}px", scroll_position_signal()));
+            let _ = style.set_property("width", "100%");
+            let _ = style.set_property("overflow", "hidden");
+
+            if scrollbar_width > 0.0 {
+                let _ = style.set_property("padding-right", &format!("{scrollbar_width}px"));
+            }
+
+            // Manage pointer events
+            set_pointer_events(&document, TARGET_DIALOG_LOCK_BODY, "none");
+            set_dialog_pointer_events(&document, "auto");
+        } else {
+            // Delayed unlock to allow closing animations
+            let stored_position = scroll_position_signal();
+            let body_clone = body.clone();
+            let document_clone = document.clone();
+            let _ = window.set_timeout_with_callback_and_timeout_and_arguments_0(
+                wasm_bindgen::closure::Closure::once_into_js(move || {
+                    // Remove body lock styles
+                    let style = body_clone.style();
+                    for prop in ["position", "top", "width", "overflow", "padding-right"] {
+                        let _ = style.remove_property(prop);
+                    }
+                    if let Some(w) = web_sys::window() {
+                        w.scroll_to_with_x_and_y(0.0, stored_position);
+                    }
+
+                    // Restore pointer events
+                    set_pointer_events(&document_clone, TARGET_DIALOG_LOCK_BODY, "");
+                })
+                .unchecked_ref(),
+                100,
+            );
+        }
+    });
+
+    locked_signal
+}
+
+/* ========================================================== */
+/*                     ✨ FUNCTIONS ✨                        */
+/* ========================================================== */
+
+/// Used twice to set/unset pointer-events when dialog open/closes.
+fn set_pointer_events(document: &web_sys::Document, selector: &str, value: &str) {
+    if let Ok(Some(element)) = document.query_selector(selector)
+        && let Some(html_element) = element.dyn_ref::<web_sys::HtmlElement>()
+    {
+        if value.is_empty() {
+            let _ = html_element.style().remove_property("pointer-events");
+        } else {
+            let _ = html_element.style().set_property("pointer-events", value);
+        }
+    }
+}
+
+/// When dialog is open, set the pointer-events only to the dialog.
+fn set_dialog_pointer_events(document: &web_sys::Document, value: &str) {
+    if let Ok(elements) = document.query_selector_all("[data-target='target__dialog']") {
+        for i in 0..elements.length() {
+            if let Some(element) = elements.item(i)
+                && let Some(html_element) = element.dyn_ref::<web_sys::HtmlElement>()
+            {
+                let _ = html_element.style().set_property("pointer-events", value);
+            }
+        }
+    }
+}
+```

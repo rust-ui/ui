@@ -1,0 +1,65 @@
+/**  scale-[2]  */
+.clipboard__animation {
+  transform: scale(2);
+}
+
+/** opacity-90 transition-opacity duration-200 ease */
+.clipboard__animation svg {
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+/** stroke-[1.5] stroke-gray-800 fill-gray-600 rounded-full */
+.clipboard__animation svg path {
+  stroke-width: 1.5;
+  stroke: #303030;
+  fill: #F5F5F5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/** origin-center */
+.clipboard__animation svg path.page {
+  transform-origin: center;
+}
+
+/** origin-center stroke-dasharray-8 stroke-dashoffset-8 stroke-[#83F5AD] */
+.clipboard__animation svg path.check__animation {
+  transform-origin: center;
+  stroke-dasharray: 8;
+  stroke-dashoffset: 8;
+  stroke: var(--success);
+}
+
+
+/** hover:opacity-100 */
+.clipboard__animation:hover svg {
+  opacity: 1;
+}
+
+/** animate-copiedPage */
+.clipboard__animation.copied svg path.page {
+  animation: copiedPage 2s ease forwards;
+}
+
+/** stroke-dasharray-16 transition-all duration-500 ease animate-copiedPage */
+.clipboard__animation.copied svg path.check__animation {
+  stroke-dasharray: 16;
+  transition: all 0.5s ease;
+  animation: copiedPage 2s ease forwards;
+}
+
+@keyframes copiedPage {
+  0% {
+    transform: rotate(0) translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(0) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(10deg) translateY(16px);
+    opacity: 0;
+  }
+}

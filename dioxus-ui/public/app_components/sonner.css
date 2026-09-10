@@ -1,0 +1,288 @@
+/* ========================================================== */
+/*                   TOAST REMOVAL ANIMATIONS                 */
+/* ========================================================== */
+
+/* Front toast (most recent) - slides up/down and fades out */
+[data-name="SonnerItem"][data-removed="true"][data-front="true"][data-swipe-out="false"] {
+  --y: translateY(calc(var(--fold-multiplier) * -100%));
+  opacity: 0;
+}
+
+/* Non-front toasts when expanded - slide with offset */
+[data-name="SonnerList"][data-expanded="true"] [data-name="SonnerItem"][data-removed="true"][data-front="false"][data-swipe-out="false"] {
+  --y: translateY(calc(var(--fold-multiplier) * var(--index) * var(--expand-spacing) + var(--fold-multiplier) * -100%));
+  opacity: 0;
+}
+
+/* Non-front toasts when collapsed - gentle slide down with slower transition */
+[data-name="SonnerList"][data-expanded="false"] [data-name="SonnerItem"][data-removed="true"][data-front="false"][data-swipe-out="false"] {
+  --y: translateY(40%);
+  opacity: 0;
+  transition: transform 500ms var(--transition-easing), opacity 200ms;
+}
+
+/* ========================================================== */
+/*                   INITIAL/MOUNTED STATE                    */
+/* ========================================================== */
+
+/* Initial state - hidden and off-screen before mounted */
+/* BottomUp: start below screen (translateY(100%)) */
+[data-name="SonnerList"][data-direction="BottomUp"] [data-name="SonnerItem"][data-mounted="false"] {
+  --y: translateY(100%);
+  opacity: 0;
+}
+
+/* TopDown: start above screen (translateY(-100%)) */
+[data-name="SonnerList"][data-direction="TopDown"] [data-name="SonnerItem"][data-mounted="false"] {
+  --y: translateY(-100%);
+  opacity: 0;
+}
+
+/* Mounted state - slide to on-screen position with fade in */
+[data-name="SonnerItem"][data-mounted="true"] {
+  --y: translateY(0);
+  opacity: 1;
+}
+
+/* Entry animation override - ensure entry animation completes before stacking applies */
+/* This rule has higher specificity to override the collapsed stacking rule during entry */
+[data-name="SonnerList"] [data-name="SonnerItem"][data-mounted="true"][data-entering="true"] {
+  --y: translateY(0);
+  transform: var(--y);
+  opacity: 1;
+}
+
+/* ========================================================== */
+/*                   FOLD DIRECTION & BASE                    */
+/* ========================================================== */
+
+/* Fold direction CSS custom properties */
+[data-name="SonnerList"][data-direction="BottomUp"] {
+  --fold-multiplier: -1;
+}
+
+[data-name="SonnerList"][data-direction="TopDown"] {
+  --fold-multiplier: 1;
+}
+
+[data-name="SonnerList"] {
+  /* Base container styles */
+  position: fixed;
+  z-index: 9999; /* Must be above all other UI elements like headers (z-60) */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  opacity: 1;
+  height: 100px;
+  width: 400px;
+}
+
+/* Position-specific styles */
+[data-name="SonnerList"][data-position="TopLeft"] {
+  top: 0.75rem;
+  left: 0.75rem;
+}
+
+[data-name="SonnerList"][data-position="TopCenter"] {
+  top: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+[data-name="SonnerList"][data-position="TopRight"] {
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+[data-name="SonnerList"][data-position="BottomLeft"] {
+  bottom: 0.75rem;
+  left: 0.75rem;
+}
+
+[data-name="SonnerList"][data-position="BottomCenter"] {
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+[data-name="SonnerList"][data-position="BottomRight"] {
+  bottom: 0.75rem;
+  right: 0.75rem;
+}
+
+[data-name="SonnerItem"] {
+  --y: translateY(0);
+  /* Base transform using CSS variable */
+  transform: var(--y);
+  /* Unified transition properties for all toast animations */
+  transition: transform var(--stack-duration) var(--transition-easing),
+              opacity var(--exit-duration) var(--transition-easing);
+}
+
+/* ========================================================== */
+/*                   VISIBILITY & LIMITS                      */
+/* ========================================================== */
+
+/* CSS-based toast limit - hide toasts beyond visible limit */
+/* This is now controlled by JS via data-hidden attribute to properly handle
+   the transition period when old toasts are being dismissed */
+[data-name="SonnerItem"][data-hidden="true"] {
+  display: none;
+}
+
+/* Hide toasts beyond visible limit (controlled by JS) */
+[data-name="SonnerItem"][data-visible="false"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ========================================================== */
+/*                   STACKING & EXPANSION                     */
+/* ========================================================== */
+
+/* Default collapsed state - stacked with scaling */
+[data-name="SonnerItem"][data-mounted="true"][data-expanded="false"] {
+  --y: translateY(calc(var(--fold-multiplier) * var(--index) * var(--stack-spacing)));
+  transform: var(--y) scale(calc(1 - var(--index) * var(--scale-factor)));
+  z-index: var(--z-index);
+}
+
+/* Expanded state - expanded spacing with no scaling */
+[data-name="SonnerList"][data-expanded="true"] [data-name="SonnerItem"][data-mounted="true"] {
+  --y: translateY(calc(var(--fold-multiplier) * var(--index) * var(--expand-spacing)));
+  transform: var(--y) scale(1);
+  z-index: var(--z-index);
+}
+
+/* Gap spacer - extends hover area between toasts when expanded */
+[data-name="SonnerItem"][data-expanded="true"]::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  height: calc(var(--gap) + 1px);
+  bottom: 100%;
+  width: 100%;
+}
+
+/* ========================================================== */
+/*                   TOAST TYPES & COLORS                     */
+/* ========================================================== */
+
+/* Icon SVG sizing */
+[data-icon] svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Loading spinner uses Tailwind's animate-spin class */
+
+/* ========================================================== */
+/*                   CLOSE BUTTON                             */
+/* ========================================================== */
+
+/* Close button SVG sizing */
+[data-close-button] svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+
+
+
+/* Fallback transition for progress bar (duration set dynamically in JS) */
+[data-duration-progress] {
+  transition: transform linear;
+}
+
+/* Pause animation when toast list is expanded */
+[data-name="SonnerList"][data-expanded="true"] [data-name="SonnerItem"] [data-duration-progress] {
+  animation-play-state: paused !important;
+}
+
+/* Hide duration track for loading toasts */
+[data-name="SonnerItem"][data-variant="Loading"] [data-duration-track] {
+  display: none;
+}
+
+/* ========================================================== */
+/*                   SWIPE TO DISMISS                         */
+/* ========================================================== */
+
+/* Swiping state - disable transitions and apply manual transform */
+[data-name="SonnerItem"][data-swiping="true"] {
+  transition: none !important;
+  cursor: grabbing;
+  user-select: none;
+}
+
+/* Apply swipe transform during dragging */
+[data-name="SonnerItem"][data-swiping="true"][data-mounted="true"] {
+  transform: var(--y)
+             scale(calc(1 - var(--index) * var(--scale-factor)))
+             translateX(var(--swipe-amount-x, 0px))
+             translateY(var(--swipe-amount-y, 0px));
+}
+
+/* Swipe out animations for each direction */
+[data-name="SonnerItem"][data-swipe-out="true"][data-swipe-direction="Right"] {
+  animation: swipe-out-right var(--exit-duration) ease-out forwards;
+}
+
+[data-name="SonnerItem"][data-swipe-out="true"][data-swipe-direction="Left"] {
+  animation: swipe-out-left var(--exit-duration) ease-out forwards;
+}
+
+[data-name="SonnerItem"][data-swipe-out="true"][data-swipe-direction="Up"] {
+  animation: swipe-out-up var(--exit-duration) ease-out forwards;
+}
+
+[data-name="SonnerItem"][data-swipe-out="true"][data-swipe-direction="Down"] {
+  animation: swipe-out-down var(--exit-duration) ease-out forwards;
+}
+
+@keyframes swipe-out-right {
+  from {
+    transform: var(--y) translateX(var(--swipe-amount-x, 0px));
+    opacity: 1;
+  }
+  to {
+    transform: var(--y) translateX(calc(100% + 100px));
+    opacity: 0;
+  }
+}
+
+@keyframes swipe-out-left {
+  from {
+    transform: var(--y) translateX(var(--swipe-amount-x, 0px));
+    opacity: 1;
+  }
+  to {
+    transform: var(--y) translateX(calc(-100% - 100px));
+    opacity: 0;
+  }
+}
+
+@keyframes swipe-out-up {
+  from {
+    transform: var(--y) translateY(var(--swipe-amount-y, 0px));
+    opacity: 1;
+  }
+  to {
+    transform: var(--y) translateY(calc(-100% - 100px));
+    opacity: 0;
+  }
+}
+
+@keyframes swipe-out-down {
+  from {
+    transform: var(--y) translateY(var(--swipe-amount-y, 0px));
+    opacity: 1;
+  }
+  to {
+    transform: var(--y) translateY(calc(100% + 100px));
+    opacity: 0;
+  }
+}

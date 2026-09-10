@@ -1,0 +1,8 @@
+[application]
+ios_info_plist = "ios/Info.plist"
+
+[web]
+
+[serve]
+port = 8080
+fullstack = true

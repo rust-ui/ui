@@ -1,0 +1,134 @@
+[workspace]
+resolver = "2"
+members = ["app_crates/*"]
+exclude = ["crates/_starters/start-dioxus-fullstack"]
+
+[package]
+name = "dioxus-ui"
+version = "0.1.0"
+authors = ["Max Wells <maxwells.pro@proton.me>"]
+edition = "2024"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = { version = "0.7", features = ["router", "fullstack"] }
+dioxus-html = { version = "0.7" }
+registry.workspace = true
+app_config.workspace = true
+app_routes.workspace = true
+app_domain.workspace = true
+icons.workspace = true
+tw_merge.workspace = true
+pulldown-cmark = { version = "0.12", default-features = false, features = ["html"] }
+html_parser = "0.7.0"
+toml = "0.8"
+serde.workspace = true
+serde_json.workspace = true
+js-sys.workspace = true
+syntect = { version = "5.2", default-features = false, features = ["default-fancy", "regex-fancy"] }
+html-escape = { version = "0.2" }
+reqwest = { workspace = true, optional = true }
+resend-rs = { workspace = true, optional = true }
+validator = { workspace = true, optional = true }
+tracing = { workspace = true, optional = true }
+tower-http = { workspace = true, optional = true }
+tokio = { workspace = true, optional = true }
+rusqlite = { workspace = true, optional = true }
+strum.workspace = true
+wasm-bindgen.workspace = true
+wasm-bindgen-futures.workspace = true
+web-sys.workspace = true
+
+[build-dependencies]
+time = { version = "0.3", features = ["local-offset"] }
+
+[workspace.dependencies]
+registry = { path = "app_crates/registry" }
+app_config = { path = "app_crates/app_config" }
+app_domain = { path = "app_crates/app_domain" }
+app_routes = { path = "app_crates/app_routes" }
+
+icons = { version = "0.18", features = ["dioxus", "dioxus_animated"] }
+tw_merge = { version = "0.1", features = ["debug"] }
+heck = "0.5"
+strum = { version = "0.27", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0"
+time = { version = "0.3", features = ["serde", "wasm-bindgen"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+resend-rs = { version = "0.19", default-features = false, features = ["rustls-tls"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+validator = { version = "0.20", features = ["derive"] }
+tracing = "0.1"
+tower-http = { version = "0.6", features = ["fs"] }
+tokio = { version = "1", features = ["rt-multi-thread"] }
+js-sys = "0.3"
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+web-sys = { version = "0.3", default-features = false, features = [
+  "Blob", "BlobPropertyBag", "Clipboard", "console", "CssStyleDeclaration",
+  "Document", "DomRect", "DomTokenList", "DragEvent", "Element", "Event",
+  "EventTarget", "Headers", "History", "HtmlAnchorElement", "HtmlElement",
+  "HtmlInputElement", "InputEvent", "KeyboardEvent", "Location", "MediaQueryList",
+  "MouseEvent", "MutationObserver", "MutationObserverInit", "MutationRecord",
+  "Navigator", "Node", "NodeList", "Request", "RequestInit", "RequestMode",
+  "Response", "ScrollToOptions", "Storage", "Url", "Window",
+] }
+
+[profile.dev]
+debug = false
+panic = "abort"
+incremental = true
+codegen-units = 256
+overflow-checks = false
+split-debuginfo = "unpacked"
+
+[profile.dev.build-override]
+opt-level = 3
+codegen-units = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 'z'
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+todo = "deny"
+indexing_slicing = "deny"
+await_holding_lock = "deny"
+dbg_macro = "deny"
+undocumented_unsafe_blocks = "deny"
+enum_glob_use = "deny"
+missing_safety_doc = "deny"
+get_unwrap = "deny"
+infinite_loop = "deny"
+large_stack_arrays = "deny"
+lossy_float_literal = "warn"
+cast_precision_loss = "warn"
+redundant_clone = "warn"
+inefficient_to_string = "warn"
+cloned_instead_of_copied = "warn"
+manual_let_else = "warn"
+trivially_copy_pass_by_ref = "warn"
+print_stdout = "warn"
+print_stderr = "warn"
+explicit_iter_loop = "warn"
+from_over_into = "warn"
+fallible_impl_from = "warn"
+clone_on_ref_ptr = "warn"
+needless_borrow = "warn"
+
+[workspace.lints.rust]
+irrefutable_let_patterns = "deny"
+
+[features]
+default = ["web"]
+server = ["dioxus/server", "dep:reqwest", "dep:resend-rs", "dep:validator", "dep:tracing", "dep:tower-http", "dep:tokio", "dep:rusqlite"]
+web = ["dioxus/web"]

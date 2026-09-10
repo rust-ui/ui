@@ -1,0 +1,38 @@
+# Registry index
+
+Complete list of all components available in dioxus-ui:
+
+```
+* use_breadcrumb (hooks)
+* use_can_scroll (hooks)
+* use_can_scroll_vertical (hooks)
+* use_card_carousel (hooks)
+* use_cell_edit (hooks)
+* use_cell_selection (hooks)
+* use_click_outside (hooks)
+* use_column_state (hooks)
+* use_copy_clipboard (hooks)
+* use_data_grid_state (hooks)
+* use_data_scrolled (hooks)
+* use_drag_selection (hooks)
+* use_form (hooks)
+* use_handle_day_click (hooks)
+* use_history (hooks)
+* use_history_stack (hooks)
+* use_horizontal_scroll (hooks)
+* use_input_otp (hooks)
+* use_is_mobile (hooks)
+* use_lock_body_scroll (hooks)
+* use_lock_body_scroll_dialog (hooks)
+* use_lock_body_scroll_popover (hooks)
+* use_locks (hooks)
+* use_media_query (hooks)
+* use_pagination (hooks)
+* use_press_hold (hooks)
+* use_random (hooks)
+* use_scroll_lock (hooks)
+* use_stepper (hooks)
+* use_theme_mode (hooks)
+* use_virtual_scroll (hooks)
+* use_workflow (hooks)
+```

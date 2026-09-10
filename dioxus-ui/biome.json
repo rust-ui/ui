@@ -1,0 +1,74 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
+  "assist": { "actions": { "source": { "organizeImports": "off" } } },
+  "files": {
+    "includes": [
+      "**/*.js",
+      "!**/target",
+      "!**/node_modules",
+      "!**/crates",
+      "!**/public",
+      "!**/*.css",
+      "!**/*.rs"
+    ]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedVariables": "warn",
+        "useExhaustiveDependencies": "warn",
+        "noInvalidUseBeforeDeclaration": "warn",
+        "useJsxKeyInIterable": "warn",
+        "noInnerDeclarations": "warn"
+      },
+      "a11y": {
+        "useValidAnchor": "off",
+        "noSvgWithoutTitle": "off",
+        "useButtonType": "off",
+        "noNoninteractiveTabindex": "off",
+        "useMediaCaption": "warn",
+        "noRedundantAlt": "error",
+        "useKeyWithClickEvents": "warn",
+        "noAutofocus": "warn"
+      },
+      "suspicious": {
+        "noExplicitAny": "warn",
+        "noArrayIndexKey": "off",
+        "noAssignInExpressions": "off",
+        "noImplicitAnyLet": "off",
+        "noSuspiciousSemicolonInJsx": "warn",
+        "noGlobalIsNan": "warn",
+        "noVar": "warn"
+      },
+      "style": {
+        "noUselessElse": "warn",
+        "noNonNullAssertion": "warn",
+        "noUnusedTemplateLiteral": "error",
+        "useSingleVarDeclarator": "warn",
+        "useConst": "warn",
+        "noParameterAssign": "warn",
+        "useNumberNamespace": "warn"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "complexity": {
+        "noBannedTypes": "off",
+        "noForEach": "off",
+        "useLiteralKeys": "warn",
+        "noCommaOperator": "warn"
+      },
+      "performance": {
+        "noAccumulatingSpread": "off"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "lineWidth": 90,
+    "indentWidth": 2
+  }
+}

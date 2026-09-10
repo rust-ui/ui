@@ -1,0 +1,99 @@
+
+.stack__container {
+    .stack__item_transition:nth-child(1) {
+      margin-bottom: -21.5%;
+    }
+  
+    .stack__item_transition:nth-child(2) {
+      margin-bottom: -21.5%;
+      transform: scale(0.95);
+    }
+  
+    .stack__item_transition:nth-child(3) {
+      transform: scale(0.9);
+    }
+  
+    .hide__btn {
+      display: none;
+    }
+  
+    &.expanded {
+      .stack__item_transition:nth-child(1),
+      .stack__item_transition:nth-child(2) {
+        margin-bottom: 0;
+        transform: scale(1);
+      }
+  
+      .stack__item_transition:nth-child(3) {
+        transform: scale(1);
+      }
+  
+      .show__btn {
+        display: none;
+      }
+  
+      .hide__btn {
+        display: block;
+      }
+  
+      .show_hide_btn svg {
+        transform: rotate(180deg);
+        transition: transform 0.6s;
+      }
+    }
+  }
+  
+
+.stack__item_transition:nth-child(1) {
+  view-transition-name: stack__item_transition-1;
+  z-index: 2;
+}
+
+.stack__item_transition:nth-child(2) {
+  view-transition-name: stack__item_transition-2;
+  z-index: 1;
+}
+
+.stack__item_transition:nth-child(3) {
+  view-transition-name: stack__item_transition-3;
+  z-index: 0;
+}
+
+
+
+.stack__container.expanded .show_hide_btn svg {
+  transform: rotate(-180deg);
+}
+
+
+@keyframes stack-fade-out {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.6s;
+  animation-timing-function: linear(0, 0.402 7.4%, 0.711 15.3%, 0.929 23.7%, 1.008 28.2%, 1.067 33%, 1.099 36.9%, 1.12 41%, 1.13 45.4%, 1.13 50.1%, 1.111 58.5%, 1.019 83.2%, 1.004 91.3%, 1);
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  height: 100%;
+}
+
+::view-transition-old(button-label),
+::view-transition-new(button-label) {
+  width: fit-content; 
+}
+
+::view-transition-old(button-label) {
+  animation-name: stack-fade-out;
+  animation-duration: 0.6s;
+}
