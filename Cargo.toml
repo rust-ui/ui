@@ -206,11 +206,6 @@ struct_field_names = "allow"                  # ~2
 too_long_first_doc_paragraph = "allow"        # ~2
 unnecessary_wraps = "allow"                   # ~2
 unused_unit = "allow"                         # ~2
-match_bool = "allow"                          # ~1
-redundant_else = "allow"                      # ~1
-redundant_closure = "allow"                   # ~1
-needless_return = "allow"                     # ~1
-flat_map_option = "allow"                     # ~1
 # `MarkdownType` in the generated src/__registry__/static_md_registry.rs has a
 # `Static` prefix on every variant. The file is codegen output from
 # rust_ui_internals/build_registry_dioxus, so fix the generator to emit an inline

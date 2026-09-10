@@ -82,6 +82,9 @@ impl UsePressHold {
         let mut is_holding = self.is_holding_signal;
         is_holding.set(false);
 
+        // Guard clause; the early return reads clearer than inverting the whole
+        // method around the cfg-gated wasm block below.
+        #[allow(clippy::needless_return)]
         if *self.progress_signal.read() <= 0.0 {
             return;
         }

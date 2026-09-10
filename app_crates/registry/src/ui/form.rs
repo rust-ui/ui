@@ -285,25 +285,25 @@ pub fn FormError(
         let merged = tw_merge!("text-destructive text-sm font-normal", class.as_deref().unwrap_or(""));
         if errs.is_empty() {
             return rsx! { {} };
-        } else if errs.len() == 1 {
+        }
+        if errs.len() == 1 {
             let msg = errs.first().cloned().unwrap_or_default();
             return rsx! {
                 div { role: "alert", "data-name": "FormError", class: "{merged}",
                     span { "{msg}" }
                 }
             };
-        } else {
-            let errs = errs.clone();
-            return rsx! {
-                div { role: "alert", "data-name": "FormError", class: "{merged}",
-                    ul { class: "flex flex-col gap-1 ml-4 list-disc",
-                        for error in errs {
-                            li { "{error}" }
-                        }
+        }
+        let errs = errs.clone();
+        return rsx! {
+            div { role: "alert", "data-name": "FormError", class: "{merged}",
+                ul { class: "flex flex-col gap-1 ml-4 list-disc",
+                    for error in errs {
+                        li { "{error}" }
                     }
                 }
-            };
-        }
+            }
+        };
     }
 
     // Otherwise, try to get error from field context

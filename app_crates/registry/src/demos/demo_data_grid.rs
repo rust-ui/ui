@@ -546,6 +546,9 @@ pub fn DataGridFull() -> Element {
                                                     ContextMenuItem {
                                                         ContextMenuAction {
                                                             onclick: move |_| {
+                                                                // `copy_value_signal` is a Signal, not `FnOnce`; the closure wrapper
+                                                                // is required, so clippy::redundant_closure is a false positive here.
+                                                                #[allow(clippy::redundant_closure)]
                                                                 let value = drag_selection
                                                                     .collect_selection_values(&sorted_rows_signal(), PINNABLE_COLUMNS, |row, col| col.get_value(row))
                                                                     .unwrap_or_else(|| copy_value_signal());

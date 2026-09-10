@@ -127,8 +127,5 @@ fn get_initial_positions(position: &ToastPosition) -> (&'static str, &'static st
 }
 
 fn get_cursor(dismissable: bool) -> &'static str {
-    match dismissable {
-        true => "pointer",
-        false => "default",
-    }
+    if dismissable { "pointer" } else { "default" }
 }

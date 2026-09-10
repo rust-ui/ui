@@ -262,7 +262,7 @@ impl Country {
     pub fn flag_emoji(&self) -> String {
         self.alpha2()
             .chars()
-            .flat_map(|c| std::char::from_u32(0x1F1E6 + (c.to_ascii_uppercase() as u32 - 'A' as u32)))
+            .filter_map(|c| std::char::from_u32(0x1F1E6 + (c.to_ascii_uppercase() as u32 - 'A' as u32)))
             .collect()
     }
 
