@@ -4,6 +4,8 @@ use crate::ui::data_grid::DataGridColumn;
 
 /// Return type for the cell selection hook.
 /// Manages active cell (click) and context menu cell (right-click) state.
+// The `_signal` suffix is the project-wide convention for stored `Signal` fields.
+#[allow(clippy::struct_field_names)]
 #[derive(Clone, Copy, PartialEq)]
 pub struct UseCellSelection<C: DataGridColumn> {
     /// The currently active/focused cell (left-clicked)

@@ -994,8 +994,8 @@ impl WorkflowState {
                 Some((
                     bezier_path(sx, sy, tx2, ty2),
                     edge.style.clone(),
-                    (sx + tx2) / 2.0,
-                    (sy + ty2) / 2.0,
+                    f64::midpoint(sx, tx2),
+                    f64::midpoint(sy, ty2),
                     edge.label.clone(),
                 ))
             })

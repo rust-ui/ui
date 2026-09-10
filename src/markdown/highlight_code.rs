@@ -42,7 +42,7 @@ fn highlight_impl(
     };
 
     let lang = language
-        .or_else(|| filename.and_then(HighlightLanguage::detect_from_filename))
+        .or_else(|| filename.map(HighlightLanguage::detect_from_filename))
         .unwrap_or("plain");
 
     let syntax = match lang {

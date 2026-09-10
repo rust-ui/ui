@@ -266,6 +266,9 @@ impl Country {
             .collect()
     }
 
+    // Per-country reference table: identical arms are kept split by country so each
+    // entry stays independently editable.
+    #[allow(clippy::match_same_arms)]
     pub const fn trunk_prefix(&self) -> Option<&'static str> {
         match self {
             Country::UnitedStatesOfAmerica
@@ -330,6 +333,9 @@ pub struct PhoneFormat {
 }
 
 impl PhoneFormat {
+    // Per-country reference table: identical group layouts are kept split by country
+    // so each entry stays independently editable.
+    #[allow(clippy::match_same_arms)]
     pub const fn for_country(country: Country) -> Self {
         match country {
             Country::UnitedStatesOfAmerica

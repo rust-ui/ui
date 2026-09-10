@@ -93,7 +93,7 @@ where
         self.touched_signal.read().contains(field)
     }
 
-    fn map_to_struct(&self, values: &HashMap<String, String>) -> Option<T> {
+    fn map_to_struct(values: &HashMap<String, String>) -> Option<T> {
         let default_value = serde_json::to_value(T::default()).ok()?;
         let mut default_map: HashMap<String, serde_json::Value> = serde_json::from_value(default_value).ok()?;
 
@@ -130,12 +130,11 @@ where
     }
 
     pub fn get_data(&self) -> Option<T> {
-        self.map_to_struct(&self.values_signal.read())
+        Self::map_to_struct(&self.values_signal.read())
     }
 
     pub fn validate_and_get(&self) -> Result<T, String> {
-        let data = self
-            .map_to_struct(&self.values_signal.read())
+        let data = Self::map_to_struct(&self.values_signal.read())
             .ok_or_else(|| "Please fill in all required fields.".to_string())?;
         Ok(data)
     }

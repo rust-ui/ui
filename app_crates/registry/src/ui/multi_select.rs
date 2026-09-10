@@ -203,10 +203,10 @@ pub fn MultiSelectTrigger(
     let multi_select_ctx = use_context::<MultiSelectContext>();
 
     let id_str = id.clone().unwrap_or_default();
-    let peer_class = if !id_str.is_empty() {
-        format!("peer/{id_str}")
-    } else {
+    let peer_class = if id_str.is_empty() {
         String::new()
+    } else {
+        format!("peer/{id_str}")
     };
 
     let button_class = tw_merge!(
@@ -215,10 +215,10 @@ pub fn MultiSelectTrigger(
         class.as_deref().unwrap_or("")
     );
 
-    let button_id = if !id_str.is_empty() {
-        id_str
-    } else {
+    let button_id = if id_str.is_empty() {
         format!("trigger_{}", multi_select_ctx.target_id)
+    } else {
+        id_str
     };
 
     rsx! {

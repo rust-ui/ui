@@ -344,6 +344,8 @@ pub async fn delete_bug_report(similarity_hash: i64) -> Result<usize, ServerFnEr
     }
 }
 
+// `unused_unit` fires inside the `#[server]` macro expansion, not our code.
+#[allow(clippy::unused_unit)]
 #[server]
 pub async fn delete_all_bug_reports() -> Result<usize, ServerFnError> {
     #[cfg(feature = "server")]

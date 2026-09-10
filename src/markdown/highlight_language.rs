@@ -24,7 +24,7 @@ impl HighlightLanguage {
         }
     }
 
-    pub fn detect_from_filename(filename: &str) -> Option<&'static str> {
-        Some(Self::from_filename(filename).into())
+    pub fn detect_from_filename(filename: &str) -> &'static str {
+        Self::from_filename(filename).into()
     }
 }

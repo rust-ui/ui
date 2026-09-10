@@ -155,8 +155,7 @@ pub fn StepperIndicator(#[props(into, optional)] class: Option<String>, children
 
     let variant_class = match state {
         StepState::Pending => "border-border bg-background text-muted-foreground",
-        StepState::Active => "border-primary bg-primary text-primary-foreground",
-        StepState::Completed => "border-primary bg-primary text-primary-foreground",
+        StepState::Active | StepState::Completed => "border-primary bg-primary text-primary-foreground",
         StepState::Disabled => "border-border bg-muted text-muted-foreground/50",
     };
     let merged = tw_merge!(

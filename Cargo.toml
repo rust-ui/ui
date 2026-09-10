@@ -186,16 +186,6 @@ return_self_not_must_use = "allow"
 # `cargo clippy --fix` cannot touch them. Remove one entry per pass, fix its sites,
 # keep the gate green. Site counts captured 2026-09-10.
 use_self = "allow"                            # ~215
-wrong_self_convention = "allow"               # ~6
-match_same_arms = "allow"                     # ~6
-manual_midpoint = "allow"                     # ~6
-significant_drop_tightening = "allow"         # ~4 (nursery; guards already drop at fn end)
-unused_self = "allow"                         # ~4
-if_not_else = "allow"                         # ~4
-implicit_hasher = "allow"                     # ~3
-struct_field_names = "allow"                  # ~2
-unnecessary_wraps = "allow"                   # ~2
-unused_unit = "allow"                         # ~2 (all sites inside #[server] macro expansion)
 # `MarkdownType` in the generated src/__registry__/static_md_registry.rs has a
 # `Static` prefix on every variant. The file is codegen output from
 # rust_ui_internals/build_registry_dioxus, so fix the generator to emit an inline

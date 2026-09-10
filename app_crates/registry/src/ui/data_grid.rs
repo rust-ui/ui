@@ -152,7 +152,10 @@ pub trait DataGridColumn: PinnableColumn + AsRef<str> + Send + Sync + 'static {
 
 /// Calculate the left position for a pinned column based on which columns are pinned before it.
 /// Starts at 60px to account for the checkbox column.
-pub fn get_pinned_left_position<C: PinnableColumn + 'static>(col: C, pinned: &HashSet<C>) -> i32 {
+pub fn get_pinned_left_position<C: PinnableColumn + 'static, S: std::hash::BuildHasher>(
+    col: C,
+    pinned: &HashSet<C, S>,
+) -> i32 {
     let mut left = 60; // Start after checkbox (60px)
     for (c, width) in C::pinnable_columns() {
         if *c == col {
@@ -189,12 +192,13 @@ pub fn generate_grid_style<C: PinnableColumn + AsRef<str> + 'static>() -> String
 }
 
 /// Returns columns that are both pinned AND visible for rendering.
-pub fn get_pinned_visible_columns<C>(
-    pinned_columns_signal: Signal<HashSet<C>>,
-    visible_columns_signal: Signal<HashSet<String>>,
+pub fn get_pinned_visible_columns<C, S>(
+    pinned_columns_signal: Signal<HashSet<C, S>>,
+    visible_columns_signal: Signal<HashSet<String, S>>,
 ) -> Vec<(C, i32)>
 where
     C: PinnableColumn + AsRef<str> + Copy + Eq + std::hash::Hash + Send + Sync + 'static,
+    S: std::hash::BuildHasher + 'static,
 {
     C::pinnable_columns()
         .iter()

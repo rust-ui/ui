@@ -158,6 +158,9 @@ pub struct StoredBugReport {
 /// Fetch all bug reports from SQLite, grouped by similarity_hash with counts.
 /// Returns one representative bug per unique similarity_hash, ordered by most recent first.
 #[cfg(feature = "server")]
+// The prepared `Statement` borrows `conn` until the rows are collected, so the
+// connection guard cannot be dropped any earlier than the function return.
+#[allow(clippy::significant_drop_tightening)]
 pub fn fetch_all_bug_reports(limit: i64) -> Result<Vec<StoredBugReport>, String> {
     let conn = get_conn()?;
 
@@ -215,6 +218,7 @@ pub fn delete_bug_reports_by_hash(similarity_hash: i64) -> Result<usize, String>
     let count = conn
         .execute("DELETE FROM bug_reports WHERE similarity_hash = ?1", [similarity_hash])
         .map_err(|err| format!("Failed to delete bug reports: {err}"))?;
+    drop(conn);
 
     Ok(count)
 }
@@ -227,6 +231,7 @@ pub fn delete_all_bug_reports() -> Result<usize, String> {
     let count = conn
         .execute("DELETE FROM bug_reports", [])
         .map_err(|err| format!("Failed to delete all bug reports: {err}"))?;
+    drop(conn);
 
     Ok(count)
 }
@@ -240,6 +245,7 @@ pub fn count_bug_reports() -> Result<i64, String> {
     let count: i64 = conn
         .query_row("SELECT COUNT(*) FROM bug_reports", [], |row| row.get(0))
         .map_err(|err| format!("Failed to count bug reports: {err}"))?;
+    drop(conn);
 
     Ok(count)
 }

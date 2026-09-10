@@ -262,8 +262,8 @@ pub fn WorkflowCanvas(state: WorkflowState, children: Element, #[props(optional)
                         state.stop_pan();
                         let dist = touch_dist(c0.x, c0.y, c1.x, c1.y);
                         let (ox, oy) = *canvas_origin.read();
-                        let cx = (c0.x + c1.x) / 2.0 - ox;
-                        let cy = (c0.y + c1.y) / 2.0 - oy;
+                        let cx = f64::midpoint(c0.x, c1.x) - ox;
+                        let cy = f64::midpoint(c0.y, c1.y) - oy;
                         state.start_pinch(dist, cx, cy);
                     }
                     _ => {}
@@ -284,8 +284,8 @@ pub fn WorkflowCanvas(state: WorkflowState, children: Element, #[props(optional)
                         let c1 = c1.client_coordinates();
                         let dist = touch_dist(c0.x, c0.y, c1.x, c1.y);
                         let (ox, oy) = *canvas_origin.read();
-                        let cx = (c0.x + c1.x) / 2.0 - ox;
-                        let cy = (c0.y + c1.y) / 2.0 - oy;
+                        let cx = f64::midpoint(c0.x, c1.x) - ox;
+                        let cy = f64::midpoint(c0.y, c1.y) - oy;
                         state.update_pinch(dist, cx, cy);
                     }
                     _ => {}
@@ -358,7 +358,7 @@ pub fn WorkflowCanvas(state: WorkflowState, children: Element, #[props(optional)
                             "stroke-linecap": "round",
                             "stroke-dasharray": style.dasharray(),
                             "marker-end": "url(#wf-arrow)",
-                            style: if style.dasharray() != "none" { "animation: edge-flow 1.2s linear infinite; cursor: pointer; pointer-events: visibleStroke;" } else { "cursor: pointer; pointer-events: visibleStroke;" },
+                            style: if style.dasharray() == "none" { "cursor: pointer; pointer-events: visibleStroke;" } else { "animation: edge-flow 1.2s linear infinite; cursor: pointer; pointer-events: visibleStroke;" },
                             oncontextmenu: move |ev| {
                                 ev.prevent_default();
                                 ev.stop_propagation();

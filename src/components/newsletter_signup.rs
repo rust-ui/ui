@@ -39,10 +39,9 @@ pub fn NewsletterSignup() -> Element {
     };
 
     let button_label = match *status.read() {
-        SubmitStatus::Idle => "Subscribe",
+        SubmitStatus::Idle | SubmitStatus::Error(_) => "Subscribe",
         SubmitStatus::Submitting => "Subscribing...",
         SubmitStatus::Success => "Subscribed!",
-        SubmitStatus::Error(_) => "Subscribe",
     };
 
     let disabled = matches!(*status.read(), SubmitStatus::Submitting | SubmitStatus::Success);

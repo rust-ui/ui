@@ -23,7 +23,7 @@ pub struct VirtualScrollState {
 /// Get the virtual scroll context from a parent VirtualizedGrid.
 /// Returns None if used outside of a VirtualizedGrid.
 pub fn use_virtual_scroll_context() -> Option<VirtualScrollState> {
-    Some(consume_context::<VirtualScrollState>())
+    try_consume_context::<VirtualScrollState>()
 }
 
 /// Hook for virtual scrolling in data grids.

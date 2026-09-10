@@ -85,6 +85,9 @@ impl std::fmt::Display for BlockIdKebab {
 
 // ─── from_kebab ──────────────────────────────────────────────────────────────
 
+// `to_*` helpers take `&self` on this `Copy` id enum to keep call sites ergonomic
+// and match the sibling `WorkflowIdKebab` impl.
+#[allow(clippy::wrong_self_convention)]
 impl BlockIdKebab {
     pub fn from_kebab(s: &str) -> Option<Self> {
         match s {

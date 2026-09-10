@@ -3,6 +3,8 @@ use dioxus::prelude::*;
 use crate::ui::data_grid::DataGridColumn;
 
 /// Return type for the drag selection hook
+// The `_signal` suffix is the project-wide convention for stored `Signal` fields.
+#[allow(clippy::struct_field_names)]
 #[derive(Clone, Copy, PartialEq)]
 pub struct UseDragSelection<C: DataGridColumn> {
     /// Whether a drag is currently in progress (mouse held down)
@@ -103,11 +105,11 @@ impl<C: DataGridColumn> UseDragSelection<C> {
     /// Returns false if selection was preserved (click was inside selection).
     pub fn handle_contextmenu(&mut self, row_idx: usize, col: C) -> bool {
         let in_selection = self.is_cell_in_range(row_idx, col);
-        if !in_selection {
+        if in_selection {
+            false
+        } else {
             self.clear_selection();
             true
-        } else {
-            false
         }
     }
 
