@@ -3,7 +3,7 @@ use tw_merge::tw_merge;
 
 #[component]
 pub fn AspectRatio(
-    #[props(default = 1.7777777777777777_f64)] ratio: f64,
+    #[props(default = 16.0_f64 / 9.0)] ratio: f64,
     #[props(into, optional)] class: Option<String>,
     children: Element,
 ) -> Element {
