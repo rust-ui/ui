@@ -173,6 +173,14 @@ print_stdout = "warn" # build.rs needs Cargo directive output
 # TODO: Replace diagnostic stderr output with structured logging.
 print_stderr = "allow"
 
+# Nursery group is unstable and false-positive prone; keep the group at `warn`
+# but silence the members that flood the registry. Revisit per the group TODO above.
+missing_const_for_fn = "allow"
+suboptimal_flops = "allow"
+imprecise_flops = "allow"
+option_if_let_else = "allow"
+return_self_not_must_use = "allow"
+
 # Intentional project choices.
 module_name_repetitions = "allow"
 missing_errors_doc = "allow"
