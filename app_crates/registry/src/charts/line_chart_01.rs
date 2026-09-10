@@ -12,18 +12,54 @@ struct ChartDataPoint {
 }
 
 const CHART_DATA: &[ChartDataPoint] = &[
-    ChartDataPoint { label: "Jan", value: 1500 },
-    ChartDataPoint { label: "Feb", value: 1800 },
-    ChartDataPoint { label: "Mar", value: 2100 },
-    ChartDataPoint { label: "Apr", value: 1900 },
-    ChartDataPoint { label: "May", value: 2400 },
-    ChartDataPoint { label: "Jun", value: 2800 },
-    ChartDataPoint { label: "Jul", value: 2600 },
-    ChartDataPoint { label: "Aug", value: 3200 },
-    ChartDataPoint { label: "Sep", value: 2900 },
-    ChartDataPoint { label: "Oct", value: 3500 },
-    ChartDataPoint { label: "Nov", value: 3800 },
-    ChartDataPoint { label: "Dec", value: 4000 },
+    ChartDataPoint {
+        label: "Jan",
+        value: 1500,
+    },
+    ChartDataPoint {
+        label: "Feb",
+        value: 1800,
+    },
+    ChartDataPoint {
+        label: "Mar",
+        value: 2100,
+    },
+    ChartDataPoint {
+        label: "Apr",
+        value: 1900,
+    },
+    ChartDataPoint {
+        label: "May",
+        value: 2400,
+    },
+    ChartDataPoint {
+        label: "Jun",
+        value: 2800,
+    },
+    ChartDataPoint {
+        label: "Jul",
+        value: 2600,
+    },
+    ChartDataPoint {
+        label: "Aug",
+        value: 3200,
+    },
+    ChartDataPoint {
+        label: "Sep",
+        value: 2900,
+    },
+    ChartDataPoint {
+        label: "Oct",
+        value: 3500,
+    },
+    ChartDataPoint {
+        label: "Nov",
+        value: 3800,
+    },
+    ChartDataPoint {
+        label: "Dec",
+        value: 4000,
+    },
 ];
 
 #[component]

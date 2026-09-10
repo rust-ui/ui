@@ -44,8 +44,10 @@ pub fn FooterLink(
     #[props(into, optional)] href: Option<String>,
     children: Element,
 ) -> Element {
-    let merged_class =
-        tw_merge!("block duration-150 text-foreground/70 hover:text-primary", class.as_deref().unwrap_or(""));
+    let merged_class = tw_merge!(
+        "block duration-150 text-foreground/70 hover:text-primary",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         Link {
             "data-name": "FooterLink",
@@ -64,7 +66,10 @@ pub fn FooterLinks(#[props(into, optional)] class: Option<String>, children: Ele
 
 #[component]
 pub fn FooterDescription(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged_class = tw_merge!("text-sm text-foreground/70 text-balance", class.as_deref().unwrap_or(""));
+    let merged_class = tw_merge!(
+        "text-sm text-foreground/70 text-balance",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { p { "data-name": "FooterDescription", class: "{merged_class}", {children} } }
 }
 
@@ -115,7 +120,10 @@ pub fn FooterCopyright(#[props(into, optional)] class: Option<String>, children:
 
 #[component]
 pub fn FooterNavContainer(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged_class = tw_merge!("flex flex-wrap gap-6 justify-center my-8 text-sm", class.as_deref().unwrap_or(""));
+    let merged_class = tw_merge!(
+        "flex flex-wrap gap-6 justify-center my-8 text-sm",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { "data-name": "FooterNavContainer", class: "{merged_class}", {children} } }
 }
 
@@ -126,7 +134,10 @@ pub fn FooterExternalLink(
     #[props(into, optional)] aria_label: Option<String>,
     children: Element,
 ) -> Element {
-    let merged_class = tw_merge!("block text-foreground/70 hover:text-primary", class.as_deref().unwrap_or(""));
+    let merged_class = tw_merge!(
+        "block text-foreground/70 hover:text-primary",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         a {
             "data-name": "FooterExternalLink",

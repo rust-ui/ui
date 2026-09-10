@@ -3,7 +3,11 @@ use dioxus::prelude::*;
 use crate::ui::direction_provider::{Direction, DirectionProvider};
 use crate::ui::select::{Select, SelectContent, SelectGroup, SelectOption, SelectTrigger, SelectValue};
 
-const OPTIONS: [(&str, &str); 3] = [("components", "المكونات"), ("extensions", "الإضافات"), ("icons", "الأيقونات")];
+const OPTIONS: [(&str, &str); 3] = [
+    ("components", "المكونات"),
+    ("extensions", "الإضافات"),
+    ("icons", "الأيقونات"),
+];
 
 #[component]
 pub fn DemoSelectRtl() -> Element {

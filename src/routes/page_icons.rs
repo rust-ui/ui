@@ -27,13 +27,20 @@ pub fn PageIcons() -> Element {
         if search.is_empty() {
             ALL_ICONS.iter().collect::<Vec<_>>()
         } else {
-            ALL_ICONS.iter().filter(|(_, name)| name.to_lowercase().contains(&search)).collect::<Vec<_>>()
+            ALL_ICONS
+                .iter()
+                .filter(|(_, name)| name.to_lowercase().contains(&search))
+                .collect::<Vec<_>>()
         }
     });
 
     let container_style = use_memo(move || {
         let color = class_color();
-        if color.is_empty() { String::new() } else { format!("--icon-color: {color}") }
+        if color.is_empty() {
+            String::new()
+        } else {
+            format!("--icon-color: {color}")
+        }
     });
 
     rsx! {

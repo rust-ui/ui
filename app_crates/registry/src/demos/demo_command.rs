@@ -94,16 +94,52 @@ impl CommandItemData {
 }
 
 const PAGES_ITEMS: &[CommandItemData] = &[
-    CommandItemData { label: "Docs", href: "/docs", category: CommandCategory::Pages },
-    CommandItemData { label: "Components", href: "/components", category: CommandCategory::Pages },
-    CommandItemData { label: "Blocks", href: "/blocks", category: CommandCategory::Pages },
+    CommandItemData {
+        label: "Docs",
+        href: "/docs",
+        category: CommandCategory::Pages,
+    },
+    CommandItemData {
+        label: "Components",
+        href: "/components",
+        category: CommandCategory::Pages,
+    },
+    CommandItemData {
+        label: "Blocks",
+        href: "/blocks",
+        category: CommandCategory::Pages,
+    },
 ];
 
 const COMPONENTS_ITEMS: &[CommandItemData] = &[
-    CommandItemData { label: "Accordion", href: "/components/accordion", category: CommandCategory::Components },
-    CommandItemData { label: "Alert", href: "/components/alert", category: CommandCategory::Components },
-    CommandItemData { label: "Alert Dialog", href: "/components/alert-dialog", category: CommandCategory::Components },
-    CommandItemData { label: "Avatar", href: "/components/avatar", category: CommandCategory::Components },
-    CommandItemData { label: "Badge", href: "/components/badge", category: CommandCategory::Components },
-    CommandItemData { label: "Breadcrumb", href: "/components/breadcrumb", category: CommandCategory::Components },
+    CommandItemData {
+        label: "Accordion",
+        href: "/components/accordion",
+        category: CommandCategory::Components,
+    },
+    CommandItemData {
+        label: "Alert",
+        href: "/components/alert",
+        category: CommandCategory::Components,
+    },
+    CommandItemData {
+        label: "Alert Dialog",
+        href: "/components/alert-dialog",
+        category: CommandCategory::Components,
+    },
+    CommandItemData {
+        label: "Avatar",
+        href: "/components/avatar",
+        category: CommandCategory::Components,
+    },
+    CommandItemData {
+        label: "Badge",
+        href: "/components/badge",
+        category: CommandCategory::Components,
+    },
+    CommandItemData {
+        label: "Breadcrumb",
+        href: "/components/breadcrumb",
+        category: CommandCategory::Components,
+    },
 ];

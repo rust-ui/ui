@@ -28,17 +28,21 @@ pub fn TooltipContent(
     const SHARED: &str = "absolute opacity-0 transition-all duration-300 ease-in-out pointer-events-none group-hover/tooltip:opacity-100 group-hover/tooltip:pointer-events-auto z-[1000000]";
 
     let (pos_class, arrow_pos_class, pos_str) = match position {
-        TooltipPosition::Top => {
-            ("left-1/2 bottom-full mb-1 -ml-2.5", "left-1/2 bottom-full -mb-2 border-t-foreground/90", "Top")
-        }
+        TooltipPosition::Top => (
+            "left-1/2 bottom-full mb-1 -ml-2.5",
+            "left-1/2 bottom-full -mb-2 border-t-foreground/90",
+            "Top",
+        ),
         TooltipPosition::Right => (
             "bottom-1/2 left-full ml-2.5 -mb-3.5",
             "bottom-1/2 left-full -mr-0.5 -mb-1 border-r-foreground/90",
             "Right",
         ),
-        TooltipPosition::Bottom => {
-            ("left-1/2 top-full mt-1 -ml-2.5", "left-1/2 top-full -mt-2 border-b-foreground/90", "Bottom")
-        }
+        TooltipPosition::Bottom => (
+            "left-1/2 top-full mt-1 -ml-2.5",
+            "left-1/2 top-full -mt-2 border-b-foreground/90",
+            "Bottom",
+        ),
         TooltipPosition::Left => (
             "bottom-1/2 right-full mr-2.5 -mb-3.5",
             "bottom-1/2 right-full -mb-1 -ml-0.5 border-l-foreground/90",

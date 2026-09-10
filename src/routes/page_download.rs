@@ -48,24 +48,51 @@ impl Platform {
 
     fn downloads(self) -> &'static [DownloadFile] {
         match self {
-            Platform::MacOs => &[DownloadFile { label: ".dmg", filename: "rust-ui.dmg", size: "1.6 MB" }],
+            Platform::MacOs => &[DownloadFile {
+                label: ".dmg",
+                filename: "rust-ui.dmg",
+                size: "1.6 MB",
+            }],
             Platform::Linux => &[
-                DownloadFile { label: ".AppImage", filename: "rust-ui_amd64.AppImage", size: "~5 MB" },
-                DownloadFile { label: ".deb", filename: "rust-ui_amd64.deb", size: "~3 MB" },
+                DownloadFile {
+                    label: ".AppImage",
+                    filename: "rust-ui_amd64.AppImage",
+                    size: "~5 MB",
+                },
+                DownloadFile {
+                    label: ".deb",
+                    filename: "rust-ui_amd64.deb",
+                    size: "~3 MB",
+                },
             ],
             Platform::Windows => &[
-                DownloadFile { label: ".msi", filename: "rust-ui_x64_en-US.msi", size: "~4 MB" },
-                DownloadFile { label: ".exe", filename: "rust-ui_x64-setup.exe", size: "~4 MB" },
+                DownloadFile {
+                    label: ".msi",
+                    filename: "rust-ui_x64_en-US.msi",
+                    size: "~4 MB",
+                },
+                DownloadFile {
+                    label: ".exe",
+                    filename: "rust-ui_x64-setup.exe",
+                    size: "~4 MB",
+                },
             ],
         }
     }
 
     fn requirements(self) -> &'static [&'static str] {
         match self {
-            Platform::MacOs => &["macOS 11.0 (Big Sur) or later", "Apple Silicon (M1, M2, M3, M4)", "~4 MB disk space"],
-            Platform::Linux => {
-                &["Ubuntu 22.04 / Debian 11 or later", "x86_64 architecture", "WebKit2GTK 4.1", "~5 MB disk space"]
-            }
+            Platform::MacOs => &[
+                "macOS 11.0 (Big Sur) or later",
+                "Apple Silicon (M1, M2, M3, M4)",
+                "~4 MB disk space",
+            ],
+            Platform::Linux => &[
+                "Ubuntu 22.04 / Debian 11 or later",
+                "x86_64 architecture",
+                "WebKit2GTK 4.1",
+                "~5 MB disk space",
+            ],
             Platform::Windows => &["Windows 10 or later", "x64 architecture", "~4 MB disk space"],
         }
     }

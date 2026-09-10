@@ -88,5 +88,8 @@ impl StepperContext {
 pub fn use_stepper(total_steps: usize, default_index: usize) -> StepperContext {
     // Clamp in case `default_index` is out of range (e.g. caller passes total_steps itself).
     let current_index = use_signal(|| default_index.min(total_steps.saturating_sub(1)));
-    StepperContext { current_index, total_steps }
+    StepperContext {
+        current_index,
+        total_steps,
+    }
 }

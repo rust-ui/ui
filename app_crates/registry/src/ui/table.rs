@@ -3,13 +3,19 @@ use tw_merge::tw_merge;
 
 #[component]
 pub fn TableWrapper(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("overflow-auto rounded-md border max-h-96", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "overflow-auto rounded-md border max-h-96",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { "data-name": "TableWrapper", class: "{merged}", {children} } }
 }
 
 #[component]
 pub fn Table(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("w-full max-w-7xl text-sm caption-bottom", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "w-full max-w-7xl text-sm caption-bottom",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         table { class: "{merged}", {children} }
     }
@@ -17,7 +23,10 @@ pub fn Table(#[props(into, optional)] class: Option<String>, children: Element) 
 
 #[component]
 pub fn TableHeader(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("[&_tr]:border-b sticky top-0 z-10 bg-card", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "[&_tr]:border-b sticky top-0 z-10 bg-card",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { thead { class: "{merged}", {children} } }
 }
 
@@ -71,8 +80,10 @@ pub fn TableCell(#[props(into, optional)] class: Option<String>, children: Eleme
 
 #[component]
 pub fn TableFooter(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged =
-        tw_merge!("font-medium border border-t bg-muted/50 [&>tr]:last:border-b-0", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "font-medium border border-t bg-muted/50 [&>tr]:last:border-b-0",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { tfoot { class: "{merged}", {children} } }
 }
 

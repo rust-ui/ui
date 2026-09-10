@@ -23,7 +23,9 @@ pub fn use_handle_day_click(
         let month = start_date_signal().month();
 
         // Create new date for the selected day
-        let Some(new_date) = Date::from_calendar_date(year, month, day).ok() else { return };
+        let Some(new_date) = Date::from_calendar_date(year, month, day).ok() else {
+            return;
+        };
 
         // Determine which date to update based on proximity
         let current_start = start_date_signal().day();

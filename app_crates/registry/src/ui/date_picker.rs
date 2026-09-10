@@ -54,7 +54,10 @@ pub fn DatePickerTitle(
 
 #[component]
 pub fn DatePickerHeader(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged_class = tw_merge!("grid grid-cols-[auto_1fr_auto] items-center pt-1", class.as_deref().unwrap_or(""));
+    let merged_class = tw_merge!(
+        "grid grid-cols-[auto_1fr_auto] items-center pt-1",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { header { "data-name": "DatePickerHeader", class: "{merged_class}", {children} } }
 }
 
@@ -64,8 +67,10 @@ pub fn DatePickerWeekDay(
     #[props(into, optional)] aria_label: Option<String>,
     children: Element,
 ) -> Element {
-    let merged_class =
-        tw_merge!("text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]", class.as_deref().unwrap_or(""));
+    let merged_class = tw_merge!(
+        "text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         th {
             "data-name": "DatePickerWeekDay",
@@ -93,10 +98,18 @@ pub fn DatePickerCell(
     on_click: EventHandler<u8>,
     #[props(into, optional)] class: Option<String>,
 ) -> Element {
-    let current_date = if day > 0 && !disabled { Date::from_calendar_date(year, month, day).ok() } else { None };
+    let current_date = if day > 0 && !disabled {
+        Date::from_calendar_date(year, month, day).ok()
+    } else {
+        None
+    };
 
-    let is_current = current_date.map(|d| d == *start_date.read() || d == *end_date.read()).unwrap_or(false);
-    let is_selected = current_date.map(|d| d > *start_date.read() && d < *end_date.read()).unwrap_or(false);
+    let is_current = current_date
+        .map(|d| d == *start_date.read() || d == *end_date.read())
+        .unwrap_or(false);
+    let is_selected = current_date
+        .map(|d| d > *start_date.read() && d < *end_date.read())
+        .unwrap_or(false);
 
     let cell_class = tw_merge!(
         "inline-flex items-center justify-center text-sm size-9 rounded-md select-none",
@@ -125,8 +138,10 @@ pub fn DatePickerCell(
 
 #[component]
 pub fn DatePickerMonth(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged_class =
-        tw_merge!("flex flex-col items-center justify-start gap-2 size-full", class.as_deref().unwrap_or(""));
+    let merged_class = tw_merge!(
+        "flex flex-col items-center justify-start gap-2 size-full",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { "data-name": "DatePickerMonth", class: "{merged_class}", {children} } }
 }
 
@@ -169,7 +184,9 @@ pub fn DatePickerWeekNumberHeader(
 
 #[component]
 pub fn DatePickerWeekNumberCell(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged_class =
-        tw_merge!("w-6 text-center text-[0.8rem] text-muted-foreground select-none", class.as_deref().unwrap_or(""));
+    let merged_class = tw_merge!(
+        "w-6 text-center text-[0.8rem] text-muted-foreground select-none",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { td { "data-name": "DatePickerWeekNumberCell", class: "{merged_class}", {children} } }
 }

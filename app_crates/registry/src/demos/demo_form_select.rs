@@ -3,8 +3,16 @@ use dioxus::prelude::*;
 use crate::ui::form::{FormContent, FormDescription, FormLabel};
 use crate::ui::select::{Select, SelectContent, SelectGroup, SelectOption, SelectTrigger, SelectValue};
 
-const DEPARTMENTS: [&str; 8] =
-    ["Engineering", "Design", "Marketing", "Sales", "Customer Support", "Human Resources", "Finance", "Operations"];
+const DEPARTMENTS: [&str; 8] = [
+    "Engineering",
+    "Design",
+    "Marketing",
+    "Sales",
+    "Customer Support",
+    "Human Resources",
+    "Finance",
+    "Operations",
+];
 
 #[component]
 pub fn DemoFormSelect() -> Element {

@@ -71,8 +71,14 @@ pub fn JsonLdHowTo(
     /// List of steps in order
     steps: Vec<HowToStep>,
 ) -> Element {
-    let schema_steps: Vec<Step> =
-        steps.into_iter().map(|s| Step { type_: "HowToStep".to_string(), name: s.name, text: s.text }).collect();
+    let schema_steps: Vec<Step> = steps
+        .into_iter()
+        .map(|s| Step {
+            type_: "HowToStep".to_string(),
+            name: s.name,
+            text: s.text,
+        })
+        .collect();
 
     let schema = HowToSchema {
         context: "https://schema.org".to_string(),
@@ -97,19 +103,31 @@ mod unit_tests {
 
     fn create_test_steps() -> Vec<HowToStep> {
         vec![
-            HowToStep { name: "Install dependencies".to_string(), text: "Run 'cargo add dioxus'".to_string() },
+            HowToStep {
+                name: "Install dependencies".to_string(),
+                text: "Run 'cargo add dioxus'".to_string(),
+            },
             HowToStep {
                 name: "Import component".to_string(),
                 text: "Add 'use registry::ui::button::Button;'".to_string(),
             },
-            HowToStep { name: "Use in view".to_string(), text: "Add 'Button { \"Click\" }'".to_string() },
+            HowToStep {
+                name: "Use in view".to_string(),
+                text: "Add 'Button { \"Click\" }'".to_string(),
+            },
         ]
     }
 
     fn create_test_schema() -> HowToSchema {
         let steps = create_test_steps();
-        let schema_steps: Vec<Step> =
-            steps.into_iter().map(|s| Step { type_: "HowToStep".to_string(), name: s.name, text: s.text }).collect();
+        let schema_steps: Vec<Step> = steps
+            .into_iter()
+            .map(|s| Step {
+                type_: "HowToStep".to_string(),
+                name: s.name,
+                text: s.text,
+            })
+            .collect();
 
         HowToSchema {
             context: "https://schema.org".to_string(),
@@ -223,10 +241,19 @@ mod unit_tests {
 
     #[test]
     fn test_minimum_steps() {
-        let steps = vec![HowToStep { name: "Step 1".to_string(), text: "Do something".to_string() }];
+        let steps = vec![HowToStep {
+            name: "Step 1".to_string(),
+            text: "Do something".to_string(),
+        }];
 
-        let schema_steps: Vec<Step> =
-            steps.into_iter().map(|s| Step { type_: "HowToStep".to_string(), name: s.name, text: s.text }).collect();
+        let schema_steps: Vec<Step> = steps
+            .into_iter()
+            .map(|s| Step {
+                type_: "HowToStep".to_string(),
+                name: s.name,
+                text: s.text,
+            })
+            .collect();
 
         assert_eq!(schema_steps.len(), 1);
     }

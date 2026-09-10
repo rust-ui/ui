@@ -5,7 +5,13 @@ use tw_merge::tw_merge;
 pub fn Pressable(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
     let mut is_pressed = use_signal(|| false);
     let base = tw_merge!("transition-transform", class.as_deref().unwrap_or(""));
-    let class_str = use_memo(move || if is_pressed() { format!("{base} scale-[0.98]") } else { base.clone() });
+    let class_str = use_memo(move || {
+        if is_pressed() {
+            format!("{base} scale-[0.98]")
+        } else {
+            base.clone()
+        }
+    });
 
     rsx! {
         div {

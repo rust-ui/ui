@@ -9,8 +9,11 @@ use crate::Route;
 pub fn SidenavDemoLayout() -> Element {
     let path = use_route::<Route>().to_string();
     let sidenav_route = SidenavRoutes::from_path(&path);
-    let current_section =
-        if path.contains(DocsRoutes::Components.as_ref()) { DocsRoutes::Components } else { DocsRoutes::Hooks };
+    let current_section = if path.contains(DocsRoutes::Components.as_ref()) {
+        DocsRoutes::Components
+    } else {
+        DocsRoutes::Hooks
+    };
 
     rsx! {
         div { class: "bg-background",

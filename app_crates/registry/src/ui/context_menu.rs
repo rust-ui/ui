@@ -13,7 +13,10 @@ pub fn close_context_menu() {
         let Some(document) = web_sys::window().and_then(|w| w.document()) else {
             return;
         };
-        let Some(menu) = document.query_selector("[data-target='target__context'][data-state='open']").ok().flatten()
+        let Some(menu) = document
+            .query_selector("[data-target='target__context'][data-state='open']")
+            .ok()
+            .flatten()
         else {
             return;
         };
@@ -39,7 +42,10 @@ struct ContextMenuContext {
 
 #[component]
 pub fn ContextMenuLabel(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("px-2 py-1.5 text-sm font-medium data-inset:pl-8 mb-1", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "px-2 py-1.5 text-sm font-medium data-inset:pl-8 mb-1",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { span { "data-name": "ContextMenuLabel", class: "{merged}", {children} } }
 }
 
@@ -132,7 +138,9 @@ pub fn ContextMenuAction(
 pub fn ContextMenu(children: Element) -> Element {
     let context_target_id = use_random_id_for("context");
 
-    let ctx = ContextMenuContext { target_id: context_target_id };
+    let ctx = ContextMenuContext {
+        target_id: context_target_id,
+    };
     provide_context(ctx);
 
     rsx! {
@@ -370,7 +378,10 @@ pub fn ContextMenuSub(children: Element) -> Element {
 
 #[component]
 pub fn ContextMenuSubTrigger(children: Element, #[props(into, optional)] class: Option<String>) -> Element {
-    let merged = tw_merge!("flex items-center justify-between w-full", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "flex items-center justify-between w-full",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         span { "data-name": "ContextMenuSubTrigger", class: "{merged}",
             span { class: "flex gap-2 items-center", {children} }

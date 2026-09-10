@@ -29,8 +29,11 @@ pub fn Home() -> Element {
         let ct = color_theme();
         let is_dark = theme_mode.is_dark();
 
-        let vars: Vec<(&'static str, &'static str)> =
-            if is_dark { ct.dark_vars().to_vec() } else { ct.light_vars().to_vec() };
+        let vars: Vec<(&'static str, &'static str)> = if is_dark {
+            ct.dark_vars().to_vec()
+        } else {
+            ct.light_vars().to_vec()
+        };
         let label = ct.label();
 
         spawn(async move {

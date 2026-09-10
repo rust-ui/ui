@@ -7,7 +7,10 @@ pub fn NavDesktop() -> Element {
     let route = use_route::<Route>();
     let is_get_started = match &route {
         Route::ComponentPage { name } => {
-            matches!(name.as_str(), "introduction" | "installation" | "cli" | "icons" | "figma" | "changelog" | "rtl")
+            matches!(
+                name.as_str(),
+                "introduction" | "installation" | "cli" | "icons" | "figma" | "changelog" | "rtl"
+            )
         }
         _ => false,
     };

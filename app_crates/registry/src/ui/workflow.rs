@@ -752,7 +752,11 @@ pub fn WorkflowMinimap(state: WorkflowState) -> Element {
             let ty2 = (ty + NODE_H / 2.0) * scale_y;
             let dx = (tx2 - sx).abs();
             let off = (dx / 2.0).clamp(4.0, 12.0);
-            Some(format!("M {sx:.1} {sy:.1} C {:.1} {sy:.1}, {:.1} {ty2:.1}, {tx2:.1} {ty2:.1}", sx + off, tx2 - off,))
+            Some(format!(
+                "M {sx:.1} {sy:.1} C {:.1} {sy:.1}, {:.1} {ty2:.1}, {tx2:.1} {ty2:.1}",
+                sx + off,
+                tx2 - off,
+            ))
         })
         .collect();
 

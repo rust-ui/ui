@@ -50,5 +50,10 @@ pub fn use_data_grid_state<C: DataGridColumn + 'static>() -> DataGridState<C> {
         drag_selection.clone().clear_selection();
     });
 
-    DataGridState { cell_selection, drag_selection, copy_value_signal, grid_wrapper_element }
+    DataGridState {
+        cell_selection,
+        drag_selection,
+        copy_value_signal,
+        grid_wrapper_element,
+    }
 }

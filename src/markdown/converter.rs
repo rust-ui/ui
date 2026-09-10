@@ -59,7 +59,11 @@ pub fn extract_toc_from_md(md: &str) -> Vec<TocItem> {
             let text = extract_text(&el.children);
             if !text.is_empty() {
                 let anchor = create_anchor_id(&text);
-                items.push(TocItem { title: text, level: depth, anchor });
+                items.push(TocItem {
+                    title: text,
+                    level: depth,
+                    anchor,
+                });
             }
         }
     }
@@ -111,7 +115,11 @@ fn extract_code_block(pre: &HtmlElement) -> Option<(Option<String>, String)> {
         if let Node::Element(code_el) = child
             && code_el.name == "code"
         {
-            let lang = code_el.classes.iter().find(|c| c.starts_with("language-")).map(|c| c[9..].to_string());
+            let lang = code_el
+                .classes
+                .iter()
+                .find(|c| c.starts_with("language-"))
+                .map(|c| c[9..].to_string());
             let text = extract_text(&code_el.children);
             return Some((lang, text));
         }
@@ -271,8 +279,10 @@ mod tests {
         let dom = Dom::parse(html).unwrap();
         eprintln!("dom children: {:?}", dom.children);
         // html_parser preserves original case — name is "DemoButton" not "demobutton"
-        let has_element =
-            dom.children.iter().any(|n| matches!(n, Node::Element(e) if e.name.to_lowercase() == "demobutton"));
+        let has_element = dom
+            .children
+            .iter()
+            .any(|n| matches!(n, Node::Element(e) if e.name.to_lowercase() == "demobutton"));
         assert!(has_element, "html_parser did not parse <DemoButton /> as element");
     }
 

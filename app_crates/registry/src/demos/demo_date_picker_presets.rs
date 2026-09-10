@@ -49,7 +49,9 @@ pub fn DemoDatePickerPresets() -> Element {
         }
         let year = display_date().year();
         let month = display_date().month();
-        let Some(new_date) = Date::from_calendar_date(year, month, day).ok() else { return };
+        let Some(new_date) = Date::from_calendar_date(year, month, day).ok() else {
+            return;
+        };
         let mut selected_signal = selected_date;
         selected_signal.set(new_date);
     };
@@ -65,8 +67,13 @@ pub fn DemoDatePickerPresets() -> Element {
         display_signal.set(month_start);
     };
 
-    let presets: Vec<(&str, i64)> =
-        vec![("Today", 0), ("Tomorrow", 1), ("In 3 days", 3), ("In a week", 7), ("In 2 weeks", 14)];
+    let presets: Vec<(&str, i64)> = vec![
+        ("Today", 0),
+        ("Tomorrow", 1),
+        ("In 3 days", 3),
+        ("In a week", 7),
+        ("In 2 weeks", 14),
+    ];
 
     let year = display_date().year();
     let month = display_date().month();

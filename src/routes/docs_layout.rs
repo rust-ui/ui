@@ -17,10 +17,12 @@ pub fn DocsLayout() -> Element {
     let route = use_route::<Route>();
     retrigger_page_fade();
     let toc_items: Vec<TocItem> = match &route {
-        Route::ComponentPage { name } => {
-            find_docs_component_entry(name).map(|e| extract_toc_from_md(e.body_md())).unwrap_or_default()
-        }
-        Route::HookPage { name } => find_hook_entry(name).map(|e| extract_toc_from_md(e.body_md())).unwrap_or_default(),
+        Route::ComponentPage { name } => find_docs_component_entry(name)
+            .map(|e| extract_toc_from_md(e.body_md()))
+            .unwrap_or_default(),
+        Route::HookPage { name } => find_hook_entry(name)
+            .map(|e| extract_toc_from_md(e.body_md()))
+            .unwrap_or_default(),
         _ => Vec::new(),
     };
 

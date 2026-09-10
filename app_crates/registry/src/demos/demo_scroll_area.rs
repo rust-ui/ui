@@ -5,7 +5,10 @@ use crate::ui::separator::Separator;
 
 #[component]
 pub fn DemoScrollArea() -> Element {
-    let tags = (0..=50_u32).rev().map(|i| format!("v1.2.0-beta.{i}")).collect::<Vec<_>>();
+    let tags = (0..=50_u32)
+        .rev()
+        .map(|i| format!("v1.2.0-beta.{i}"))
+        .collect::<Vec<_>>();
 
     rsx! {
         ScrollArea { class: "w-48 h-72 rounded-md border",

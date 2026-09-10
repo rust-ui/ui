@@ -11,8 +11,12 @@ use crate::ui::sidenav::{SidenavInset, SidenavTrigger, SidenavVariant};
 
 pub fn breadcrumb_from_path(path: &str, segment: &str) -> Vec<(String, String, bool)> {
     let parts: Vec<&str> = path.split('/').filter(|part| !part.is_empty()).collect();
-    let Some(index) = parts.iter().position(|part| *part == segment) else { return Vec::new() };
-    let Some(breadcrumb_parts) = parts.get(index..) else { return Vec::new() };
+    let Some(index) = parts.iter().position(|part| *part == segment) else {
+        return Vec::new();
+    };
+    let Some(breadcrumb_parts) = parts.get(index..) else {
+        return Vec::new();
+    };
     breadcrumb_parts
         .iter()
         .enumerate()
@@ -27,8 +31,11 @@ pub fn breadcrumb_from_path(path: &str, segment: &str) -> Vec<(String, String, b
 #[component]
 pub fn SidenavInsetRight(path: String, data_variant: Option<SidenavVariant>) -> Element {
     let breadcrumb_items = breadcrumb_from_path(&path, DocsRoutes::base_segment());
-    let current_section =
-        if path.contains(DocsRoutes::Components.as_ref()) { DocsRoutes::Components } else { DocsRoutes::Hooks };
+    let current_section = if path.contains(DocsRoutes::Components.as_ref()) {
+        DocsRoutes::Components
+    } else {
+        DocsRoutes::Hooks
+    };
     let sidenav_route = SidenavRoutes::from_path(&path);
 
     let data_variant = data_variant.map(|variant| match variant {

@@ -256,9 +256,14 @@ mod server {
         // trailing-slash form before falling through. Disabling it makes `ServeDir`
         // return "not found" for a bare directory hit, so those paths fall straight
         // to the SSR handler and render at their canonical (no trailing slash) URL.
-        let static_files = ServeDir::new(public_path()).append_index_html_on_directories(false).fallback(ssr);
+        let static_files = ServeDir::new(public_path())
+            .append_index_html_on_directories(false)
+            .fallback(ssr);
 
-        Router::new().register_server_functions().fallback_service(static_files).with_state(state)
+        Router::new()
+            .register_server_functions()
+            .fallback_service(static_files)
+            .with_state(state)
     }
 }
 

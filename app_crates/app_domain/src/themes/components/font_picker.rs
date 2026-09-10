@@ -45,8 +45,12 @@ impl FontName {
 
     pub const MONO: &'static [FontName] = &[FontName::JetBrainsMono, FontName::GeistMono];
 
-    pub const SERIF: &'static [FontName] =
-        &[FontName::Lora, FontName::Merriweather, FontName::PlayfairDisplay, FontName::NotoSerif];
+    pub const SERIF: &'static [FontName] = &[
+        FontName::Lora,
+        FontName::Merriweather,
+        FontName::PlayfairDisplay,
+        FontName::NotoSerif,
+    ];
 
     pub fn label(&self) -> &'static str {
         match self {

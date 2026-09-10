@@ -26,7 +26,9 @@ pub fn Dialog(#[props(into, optional)] class: Option<String>, children: Element)
         format!("dialog_{id}")
     });
 
-    provide_context(DialogContext { target_id: dialog_target_id });
+    provide_context(DialogContext {
+        target_id: dialog_target_id,
+    });
 
     let merged = tw_merge!("w-fit", class.as_deref().unwrap_or(""));
 
@@ -220,7 +222,10 @@ pub fn DialogAction(#[props(into, optional)] class: Option<String>, children: El
 
 #[component]
 pub fn DialogHeader(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("flex flex-col gap-2 text-center sm:text-left", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "flex flex-col gap-2 text-center sm:text-left",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { class: "{merged}", {children} } }
 }
 
@@ -244,6 +249,9 @@ pub fn DialogBody(#[props(into, optional)] class: Option<String>, children: Elem
 
 #[component]
 pub fn DialogFooter(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { footer { class: "{merged}", {children} } }
 }

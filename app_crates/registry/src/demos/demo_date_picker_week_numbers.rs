@@ -9,11 +9,19 @@ use crate::ui::date_picker::{
 use crate::ui::date_picker_state::{DatePickerDay, DatePickerState};
 
 fn prev_month_year(month: Month, year: i32) -> (Month, i32) {
-    if month == Month::January { (Month::December, year - 1) } else { (month.previous(), year) }
+    if month == Month::January {
+        (Month::December, year - 1)
+    } else {
+        (month.previous(), year)
+    }
 }
 
 fn next_month_year(month: Month, year: i32) -> (Month, i32) {
-    if month == Month::December { (Month::January, year + 1) } else { (month.next(), year) }
+    if month == Month::December {
+        (Month::January, year + 1)
+    } else {
+        (month.next(), year)
+    }
 }
 
 #[component]
@@ -51,7 +59,9 @@ pub fn DemoDatePickerWeekNumbers() -> Element {
         }
         let year = display_date_signal().year();
         let month = display_date_signal().month();
-        let Some(new_date) = Date::from_calendar_date(year, month, day).ok() else { return };
+        let Some(new_date) = Date::from_calendar_date(year, month, day).ok() else {
+            return;
+        };
 
         let current_start = start_date_signal();
         let current_end = end_date_signal();

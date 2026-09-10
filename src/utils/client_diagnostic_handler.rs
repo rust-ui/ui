@@ -49,7 +49,9 @@ pub fn init() {
 /// Sends a bug report via server function (saves to SQLite + forwards to RUSTIFY).
 #[cfg(target_arch = "wasm32")]
 async fn send_bug_report(report: BugReportRequest) -> Result<(), String> {
-    report_client_bug(report).await.map_err(|err| format!("Failed to send bug report: {err}"))
+    report_client_bug(report)
+        .await
+        .map_err(|err| format!("Failed to send bug report: {err}"))
 }
 
 /// Adds an additional panic handler that automatically reports bugs to RUSTIFY.
@@ -137,7 +139,9 @@ fn should_ignore_warning(message: &str) -> bool {
 #[cfg(target_arch = "wasm32")]
 fn is_leptos_warning(message: &str) -> bool {
     let lower = message.to_lowercase();
-    LEPTOS_WARNING_PATTERNS.iter().any(|pattern| lower.contains(&pattern.to_lowercase()))
+    LEPTOS_WARNING_PATTERNS
+        .iter()
+        .any(|pattern| lower.contains(&pattern.to_lowercase()))
 }
 
 /// Intercepts console.warn to capture framework-specific warnings and report them.
@@ -165,7 +169,11 @@ fn intercept_console_warnings() -> Result<(), wasm_bindgen::JsValue> {
             return;
         }
 
-        let bug_type = if is_leptos_warning(&message) { BugType::LeptosWarning } else { BugType::BrowserWarning };
+        let bug_type = if is_leptos_warning(&message) {
+            BugType::LeptosWarning
+        } else {
+            BugType::BrowserWarning
+        };
 
         let stack_trace = get_javascript_stack_trace();
 

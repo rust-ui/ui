@@ -20,7 +20,10 @@ impl<T: Clone + 'static> PartialEq for UseHistoryStack<T> {
 
 impl<T: Clone + 'static> UseHistoryStack<T> {
     pub fn new(initial: T) -> Self {
-        Self { history: use_signal(|| vec![initial]), index: use_signal(|| 0) }
+        Self {
+            history: use_signal(|| vec![initial]),
+            index: use_signal(|| 0),
+        }
     }
 
     pub fn push(&mut self, state: T) {

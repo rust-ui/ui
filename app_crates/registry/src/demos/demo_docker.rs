@@ -3,7 +3,16 @@ use icons::FileQuestion;
 
 #[component]
 pub fn DemoDocker() -> Element {
-    let button_titles = vec!["Settings", "Browser", "Mail", "Map", "Messages", "Music Player", "Apps", "Documents"];
+    let button_titles = vec![
+        "Settings",
+        "Browser",
+        "Mail",
+        "Map",
+        "Messages",
+        "Music Player",
+        "Apps",
+        "Documents",
+    ];
 
     rsx! {
         link { rel: "stylesheet", href: "/app_components/docker.css" }

@@ -22,7 +22,10 @@ pub fn InputOTP(
     #[props(into, optional)] class: Option<String>,
 ) -> Element {
     let container_id = use_otp_id();
-    let c = tw_merge!("relative flex items-center gap-2 has-[:disabled]:opacity-50", class.as_deref().unwrap_or(""));
+    let c = tw_merge!(
+        "relative flex items-center gap-2 has-[:disabled]:opacity-50",
+        class.as_deref().unwrap_or("")
+    );
 
     rsx! {
         div {
@@ -83,7 +86,10 @@ pub fn InputOTPSlot(
 
 #[component]
 pub fn InputOTPSeparator(#[props(into, optional)] class: Option<String>) -> Element {
-    let c = tw_merge!("flex items-center justify-center text-muted-foreground", class.as_deref().unwrap_or(""));
+    let c = tw_merge!(
+        "flex items-center justify-center text-muted-foreground",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         div { "data-slot": "input-otp-separator", role: "separator", class: "{c}",
             Minus { class: "size-4" }

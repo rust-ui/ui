@@ -57,7 +57,9 @@ pub fn use_virtual_scroll(
     let is_mounted_for_effect = Arc::clone(&is_mounted);
     let is_mounted_for_scroll = Arc::clone(&is_mounted);
     use_effect(move || {
-        let Some(el) = container_element.peek().clone() else { return };
+        let Some(el) = container_element.peek().clone() else {
+            return;
+        };
         let el: web_sys::HtmlElement = match el.dyn_into() {
             Ok(e) => e,
             Err(_) => return,
@@ -108,5 +110,9 @@ pub fn use_virtual_scroll(
 
     let total_height = use_memo(move || total_rows() * ROW_HEIGHT);
 
-    VirtualScrollState { start_index, end_index, total_height: total_height.into() }
+    VirtualScrollState {
+        start_index,
+        end_index,
+        total_height: total_height.into(),
+    }
 }

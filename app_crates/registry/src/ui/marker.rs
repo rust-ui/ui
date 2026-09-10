@@ -30,7 +30,10 @@ pub fn MarkerContent(#[props(into, optional)] class: Option<String>, children: E
 
 #[component]
 pub fn MarkerIcon(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("size-4 shrink-0 [&_svg:not([class*='size-'])]:size-4", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "size-4 shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         span { "data-name": "MarkerIcon", "aria-hidden": "true", class: "{merged}", {children} }
     }

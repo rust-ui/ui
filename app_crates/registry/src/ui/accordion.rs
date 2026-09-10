@@ -13,8 +13,10 @@ pub fn Accordion(#[props(into, optional)] class: Option<String>, children: Eleme
 
 #[component]
 pub fn AccordionItem(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged =
-        tw_merge!("w-full [&:has(>input:checked)>label>svg:last-child]:rotate-180", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "w-full [&:has(>input:checked)>label>svg:last-child]:rotate-180",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { class: "{merged}", {children} } }
 }
 
@@ -76,8 +78,10 @@ pub fn AccordionContent(#[props(into, optional)] class: Option<String>, children
 
 #[component]
 pub fn AccordionHeader(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged =
-        tw_merge!("flex gap-2 items-center [&_svg:not([class*='size-'])]:size-4", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "flex gap-2 items-center [&_svg:not([class*='size-'])]:size-4",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { class: "{merged}", {children} } }
 }
 

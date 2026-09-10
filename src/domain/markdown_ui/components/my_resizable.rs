@@ -7,7 +7,10 @@ pub fn Resizable(
     #[props(into, optional)] instance_id: Option<String>,
     children: Element,
 ) -> Element {
-    let merged = tw_merge!("border rounded-xl flex flex-row md:touch-none w-full", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "border rounded-xl flex flex-row md:touch-none w-full",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         div {
             class: "{merged}",
@@ -30,8 +33,10 @@ pub fn ResizableContainer(#[props(into, optional)] class: Option<String>, childr
 
 #[component]
 pub fn ResizableBackground(#[props(into, optional)] class: Option<String>) -> Element {
-    let merged =
-        tw_merge!("flex-[0_0_auto] w-[0px] bg-muted transition-all duration-300", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "flex-[0_0_auto] w-[0px] bg-muted transition-all duration-300",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         div {
             class: "{merged}",

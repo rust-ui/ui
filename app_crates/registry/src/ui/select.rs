@@ -4,7 +4,10 @@ use tw_merge::tw_merge;
 
 #[component]
 pub fn SelectLabel(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("px-2 py-1.5 text-sm font-medium data-inset:pl-8 mb-1", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "px-2 py-1.5 text-sm font-medium data-inset:pl-8 mb-1",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { span { "data-name": "SelectLabel", class: "{merged}", {children} } }
 }
 
@@ -35,7 +38,11 @@ pub fn Select(
 ) -> Element {
     let target_id = use_random_id_for("select");
     let value = use_signal(|| default_value);
-    provide_context(SelectContext { target_id, value, on_change });
+    provide_context(SelectContext {
+        target_id,
+        value,
+        on_change,
+    });
 
     let merged = tw_merge!("relative w-fit", class.as_deref().unwrap_or(""));
     rsx! {
@@ -74,7 +81,12 @@ pub fn SelectTrigger(children: Element, #[props(into, optional)] class: Option<S
 #[component]
 pub fn SelectValue(#[props(into, optional)] placeholder: Option<String>) -> Element {
     let ctx = use_context::<SelectContext>();
-    let text = use_memo(move || ctx.value.read().clone().unwrap_or_else(|| placeholder.clone().unwrap_or_default()));
+    let text = use_memo(move || {
+        ctx.value
+            .read()
+            .clone()
+            .unwrap_or_else(|| placeholder.clone().unwrap_or_default())
+    });
     rsx! {
         span { "data-name": "SelectValue", class: "text-sm text-muted-foreground truncate",
             {text}

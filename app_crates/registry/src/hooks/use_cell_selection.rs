@@ -101,5 +101,9 @@ pub fn use_cell_selection<C: DataGridColumn>() -> UseCellSelection<C> {
     let context_menu_cell_signal = use_signal(|| None);
     let context_menu_reopening_signal = use_signal(|| false);
 
-    UseCellSelection { active_cell_signal, context_menu_cell_signal, context_menu_reopening_signal }
+    UseCellSelection {
+        active_cell_signal,
+        context_menu_cell_signal,
+        context_menu_reopening_signal,
+    }
 }

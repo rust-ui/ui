@@ -35,7 +35,11 @@ impl UseHistory {
     /// Sets up `⌘Z` / `⌘⇧Z` / `⌃Y` keyboard shortcuts on the document.
     #[must_use]
     pub fn init() -> Self {
-        let hook = Self { history: use_signal(Vec::new), index: use_signal(|| 0), is_navigating: use_signal(|| false) };
+        let hook = Self {
+            history: use_signal(Vec::new),
+            index: use_signal(|| 0),
+            is_navigating: use_signal(|| false),
+        };
 
         provide_context(hook);
 
@@ -43,7 +47,9 @@ impl UseHistory {
         use_effect(move || {
             #[cfg(target_arch = "wasm32")]
             {
-                let search = web_sys::window().and_then(|w| w.location().search().ok()).unwrap_or_default();
+                let search = web_sys::window()
+                    .and_then(|w| w.location().search().ok())
+                    .unwrap_or_default();
                 let mut history = hook.history;
                 history.with_mut(|h| h.push(search));
             }
@@ -185,7 +191,9 @@ impl UseHistory {
     fn replace_state(url: &str) {
         #[cfg(target_arch = "wasm32")]
         {
-            let Ok(history) = web_sys::window().and_then(|w| w.history().ok()).ok_or(()) else { return };
+            let Ok(history) = web_sys::window().and_then(|w| w.history().ok()).ok_or(()) else {
+                return;
+            };
             let _ = history.replace_state_with_url(&wasm_bindgen::JsValue::NULL, "", Some(url));
         }
         #[cfg(not(target_arch = "wasm32"))]

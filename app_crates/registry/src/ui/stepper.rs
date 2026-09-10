@@ -69,7 +69,11 @@ pub fn Stepper(
 
     let merged = tw_merge!(
         "group/stepper flex w-full",
-        if orientation == StepperOrientation::Horizontal { "flex-row flex-wrap items-start" } else { "flex-col" },
+        if orientation == StepperOrientation::Horizontal {
+            "flex-row flex-wrap items-start"
+        } else {
+            "flex-col"
+        },
         class.as_deref().unwrap_or("")
     );
 
@@ -88,7 +92,11 @@ pub fn StepperItem(
     let stepper_ctx = use_context::<StepperContext>();
     use_context_provider(|| StepperItemCtx { step, disabled });
 
-    let state = if disabled { StepState::Disabled } else { stepper_ctx.step_state(step) };
+    let state = if disabled {
+        StepState::Disabled
+    } else {
+        stepper_ctx.step_state(step)
+    };
     let merged = tw_merge!(
         "group/stepper-item relative flex flex-1 flex-col items-center gap-2",
         "group-data-[orientation=Vertical]/stepper:flex-row group-data-[orientation=Vertical]/stepper:items-start",
@@ -106,7 +114,11 @@ pub fn StepperTrigger(#[props(into, optional)] class: Option<String>, children: 
     let item_ctx = use_context::<StepperItemCtx>();
     let step = item_ctx.step;
 
-    let state = if item_ctx.disabled { StepState::Disabled } else { stepper_ctx.step_state(step) };
+    let state = if item_ctx.disabled {
+        StepState::Disabled
+    } else {
+        stepper_ctx.step_state(step)
+    };
     let is_disabled = state == StepState::Disabled;
     let is_active = state == StepState::Active;
 
@@ -135,7 +147,11 @@ pub fn StepperTrigger(#[props(into, optional)] class: Option<String>, children: 
 pub fn StepperIndicator(#[props(into, optional)] class: Option<String>, children: Option<Element>) -> Element {
     let stepper_ctx = use_context::<StepperContext>();
     let item_ctx = use_context::<StepperItemCtx>();
-    let state = if item_ctx.disabled { StepState::Disabled } else { stepper_ctx.step_state(item_ctx.step) };
+    let state = if item_ctx.disabled {
+        StepState::Disabled
+    } else {
+        stepper_ctx.step_state(item_ctx.step)
+    };
 
     let variant_class = match state {
         StepState::Pending => "border-border bg-background text-muted-foreground",

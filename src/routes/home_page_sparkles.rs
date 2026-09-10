@@ -51,7 +51,13 @@ pub fn SparklesEffect(
         SparklesSize::Normal => "after:aspect-[1/0.8]",
         SparklesSize::Rounded => "after:aspect-[1/1.8]",
     };
-    let merged = tw_merge!(SPARKLES_BASE, dir_class, color_class, size_class, class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        SPARKLES_BASE,
+        dir_class,
+        color_class,
+        size_class,
+        class.as_deref().unwrap_or("")
+    );
 
     rsx! {
         div { class: "{merged}", {children} }
@@ -60,7 +66,10 @@ pub fn SparklesEffect(
 
 #[component]
 pub fn SparklesSection(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("min-h-[500px] w-full overflow-hidden mx-auto", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "min-h-[500px] w-full overflow-hidden mx-auto",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         div { class: "{merged}", {children} }
     }
@@ -79,7 +88,10 @@ pub fn SparklesHeader(#[props(into, optional)] class: Option<String>, children: 
 
 #[component]
 pub fn SparklesDescription(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("w-full block text-center text-pretty px-2", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "w-full block text-center text-pretty px-2",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         div { class: "{merged}", {children} }
     }

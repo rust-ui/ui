@@ -31,7 +31,11 @@ const DB_PATH_PROD: &str = "/tmp/bug_reports.db";
 
 #[cfg(feature = "server")]
 fn get_db_path() -> &'static str {
-    if cfg!(debug_assertions) { DB_PATH_DEV } else { DB_PATH_PROD }
+    if cfg!(debug_assertions) {
+        DB_PATH_DEV
+    } else {
+        DB_PATH_PROD
+    }
 }
 
 /// Initialize the SQLite database and create the bug_reports table if it doesn't exist.
@@ -60,13 +64,21 @@ fn init_db() -> Result<(), String> {
 
     // Migration: add similarity_hash column if missing (for existing DBs created before this column)
     // SQLite doesn't have "ADD COLUMN IF NOT EXISTS", so we ignore the error if column exists
-    let _ = conn.execute("ALTER TABLE bug_reports ADD COLUMN similarity_hash INTEGER NOT NULL DEFAULT 0", []);
+    let _ = conn.execute(
+        "ALTER TABLE bug_reports ADD COLUMN similarity_hash INTEGER NOT NULL DEFAULT 0",
+        [],
+    );
 
     // Add index on similarity_hash for efficient grouping
-    conn.execute("CREATE INDEX IF NOT EXISTS idx_bug_reports_similarity_hash ON bug_reports (similarity_hash)", [])
-        .map_err(|err| format!("Failed to create similarity_hash index: {err}"))?;
+    conn.execute(
+        "CREATE INDEX IF NOT EXISTS idx_bug_reports_similarity_hash ON bug_reports (similarity_hash)",
+        [],
+    )
+    .map_err(|err| format!("Failed to create similarity_hash index: {err}"))?;
 
-    DB_CONN.set(Mutex::new(conn)).map_err(|_| "Database connection already initialized".to_string())?;
+    DB_CONN
+        .set(Mutex::new(conn))
+        .map_err(|_| "Database connection already initialized".to_string())?;
 
     tracing::info!("SQLite bug reports database initialized at {db_path}");
     Ok(())

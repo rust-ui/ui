@@ -98,7 +98,10 @@ impl ThemeName {
     }
 
     pub fn css_string(&self, radius: f32, color_theme: ColorTheme, font: FontName) -> String {
-        let mut out = format!(":root {{\n  --radius: {radius}rem;\n  --font-sans: {};\n", font.css_value());
+        let mut out = format!(
+            ":root {{\n  --radius: {radius}rem;\n  --font-sans: {};\n",
+            font.css_value()
+        );
         for (k, v) in self.light_vars() {
             out.push_str(&format!("  {k}: {v};\n"));
         }

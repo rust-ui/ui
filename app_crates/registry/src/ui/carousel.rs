@@ -35,7 +35,10 @@ pub fn Carousel(
 ) -> Element {
     let carousel_id = use_carousel_id();
 
-    provide_context(CarouselContext { carousel_id: carousel_id.clone(), orientation });
+    provide_context(CarouselContext {
+        carousel_id: carousel_id.clone(),
+        orientation,
+    });
 
     let orientation_str = match orientation {
         CarouselOrientation::Horizontal => "horizontal",
@@ -128,7 +131,11 @@ pub fn CarouselItem(#[props(into, optional)] class: Option<String>, children: El
         CarouselOrientation::Vertical => "pt-4",
     };
 
-    let c = tw_merge!("min-w-0 shrink-0 grow-0 basis-full snap-start", padding, class.as_deref().unwrap_or(""));
+    let c = tw_merge!(
+        "min-w-0 shrink-0 grow-0 basis-full snap-start",
+        padding,
+        class.as_deref().unwrap_or("")
+    );
 
     rsx! {
         div {
@@ -198,7 +205,10 @@ pub fn CarouselNext(#[props(into, optional)] class: Option<String>) -> Element {
 #[component]
 pub fn CarouselIndicator(#[props(into, optional)] class: Option<String>) -> Element {
     let ctx = use_context::<CarouselContext>();
-    let c = tw_merge!("py-2 text-center text-sm text-muted-foreground", class.as_deref().unwrap_or(""));
+    let c = tw_merge!(
+        "py-2 text-center text-sm text-muted-foreground",
+        class.as_deref().unwrap_or("")
+    );
 
     rsx! {
         div {

@@ -165,12 +165,30 @@ impl BlockIdKebab {
 
     pub fn meta(&self) -> BlockMeta {
         match self {
-            Self::Footer01 => BlockMeta { iframe_height: "897px", container_class: "w-full bg-background" },
-            Self::Footer02 => BlockMeta { iframe_height: "448px", container_class: "bg-muted" },
-            Self::Footer03 => BlockMeta { iframe_height: "474px", container_class: "w-full bg-background" },
-            Self::Footer04 => BlockMeta { iframe_height: "606px", container_class: "w-full bg-background" },
-            Self::Footer05 => BlockMeta { iframe_height: "536px", container_class: "bg-muted" },
-            Self::Header01 => BlockMeta { iframe_height: "930px", container_class: "min-h-[1200px] bg-muted" },
+            Self::Footer01 => BlockMeta {
+                iframe_height: "897px",
+                container_class: "w-full bg-background",
+            },
+            Self::Footer02 => BlockMeta {
+                iframe_height: "448px",
+                container_class: "bg-muted",
+            },
+            Self::Footer03 => BlockMeta {
+                iframe_height: "474px",
+                container_class: "w-full bg-background",
+            },
+            Self::Footer04 => BlockMeta {
+                iframe_height: "606px",
+                container_class: "w-full bg-background",
+            },
+            Self::Footer05 => BlockMeta {
+                iframe_height: "536px",
+                container_class: "bg-muted",
+            },
+            Self::Header01 => BlockMeta {
+                iframe_height: "930px",
+                container_class: "min-h-[1200px] bg-muted",
+            },
             _ => BlockMeta::default(),
         }
     }
@@ -824,358 +842,613 @@ impl BlockIdKebab {
             Self::Faq01 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "faq01.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "faq01.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "badge.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "badge.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Faq02 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "faq02.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "faq02.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "accordion.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "accordion.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Faq03 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "faq03.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "faq03.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
                     items: vec![
-                        BlockFileTreeItem::File { name: "accordion.rs", index: 1 },
-                        BlockFileTreeItem::File { name: "button.rs", index: 2 },
+                        BlockFileTreeItem::File {
+                            name: "accordion.rs",
+                            index: 1,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "button.rs",
+                            index: 2,
+                        },
                     ],
                 },
             ],
             Self::Footer01 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "footer01.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "footer01.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
                     items: vec![
-                        BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        BlockFileTreeItem::File { name: "footer.rs", index: 3 },
+                        BlockFileTreeItem::File {
+                            name: "button.rs",
+                            index: 1,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "card.rs",
+                            index: 2,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "footer.rs",
+                            index: 3,
+                        },
                     ],
                 },
             ],
             Self::Footer02 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "footer02.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "footer02.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "footer.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "footer.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Footer03 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "footer03.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "footer03.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "footer.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "footer.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Footer04 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "footer04.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "footer04.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
                     items: vec![
-                        BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        BlockFileTreeItem::File { name: "footer.rs", index: 2 },
-                        BlockFileTreeItem::File { name: "input.rs", index: 3 },
+                        BlockFileTreeItem::File {
+                            name: "button.rs",
+                            index: 1,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "footer.rs",
+                            index: 2,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "input.rs",
+                            index: 3,
+                        },
                     ],
                 },
             ],
             Self::Footer05 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "footer05.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "footer05.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
                     items: vec![
-                        BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        BlockFileTreeItem::File { name: "footer.rs", index: 2 },
-                        BlockFileTreeItem::File { name: "input.rs", index: 3 },
+                        BlockFileTreeItem::File {
+                            name: "button.rs",
+                            index: 1,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "footer.rs",
+                            index: 2,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "input.rs",
+                            index: 3,
+                        },
                     ],
                 },
             ],
             Self::Header01 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "header01.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "header01.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
                     items: vec![
-                        BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        BlockFileTreeItem::File { name: "header.rs", index: 2 },
-                        BlockFileTreeItem::File { name: "theme_toggle.rs", index: 3 },
+                        BlockFileTreeItem::File {
+                            name: "button.rs",
+                            index: 1,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "header.rs",
+                            index: 2,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "theme_toggle.rs",
+                            index: 3,
+                        },
                     ],
                 },
             ],
             Self::Integration01 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "integration01.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "integration01.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "image.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "image.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Integration02 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "integration02.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "integration02.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "button.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "button.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Integration03 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "integration03.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "integration03.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "button.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "button.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Integration04 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "integration04.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "integration04.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "button.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "button.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Integration05 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "integration05.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "integration05.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "button.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "button.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Integration06 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "integration06.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "integration06.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "button.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "button.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Integration07 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "integration07.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "integration07.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
                     items: vec![
-                        BlockFileTreeItem::File { name: "badge.rs", index: 1 },
-                        BlockFileTreeItem::File { name: "button.rs", index: 2 },
+                        BlockFileTreeItem::File {
+                            name: "badge.rs",
+                            index: 1,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "button.rs",
+                            index: 2,
+                        },
                     ],
                 },
             ],
             Self::Login01 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "login01.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "login01.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
                     items: vec![
-                        BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                        BlockFileTreeItem::File { name: "label.rs", index: 4 },
+                        BlockFileTreeItem::File {
+                            name: "button.rs",
+                            index: 1,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "card.rs",
+                            index: 2,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "input.rs",
+                            index: 3,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "label.rs",
+                            index: 4,
+                        },
                     ],
                 },
             ],
             Self::Login02 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "login02.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "login02.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
                     items: vec![
-                        BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        BlockFileTreeItem::File { name: "input.rs", index: 2 },
-                        BlockFileTreeItem::File { name: "label.rs", index: 3 },
+                        BlockFileTreeItem::File {
+                            name: "button.rs",
+                            index: 1,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "input.rs",
+                            index: 2,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "label.rs",
+                            index: 3,
+                        },
                     ],
                 },
             ],
             Self::Login03 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "login03.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "login03.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
                     items: vec![
-                        BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                        BlockFileTreeItem::File { name: "label.rs", index: 4 },
+                        BlockFileTreeItem::File {
+                            name: "button.rs",
+                            index: 1,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "card.rs",
+                            index: 2,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "input.rs",
+                            index: 3,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "label.rs",
+                            index: 4,
+                        },
                     ],
                 },
             ],
             Self::Login04 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "login04.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "login04.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
                     items: vec![
-                        BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        BlockFileTreeItem::File { name: "card.rs", index: 2 },
-                        BlockFileTreeItem::File { name: "input.rs", index: 3 },
-                        BlockFileTreeItem::File { name: "label.rs", index: 4 },
+                        BlockFileTreeItem::File {
+                            name: "button.rs",
+                            index: 1,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "card.rs",
+                            index: 2,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "input.rs",
+                            index: 3,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "label.rs",
+                            index: 4,
+                        },
                     ],
                 },
             ],
             Self::Sidenav01 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "sidenav01.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "sidenav01.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
                     items: vec![
-                        BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        BlockFileTreeItem::File { name: "input.rs", index: 2 },
+                        BlockFileTreeItem::File {
+                            name: "button.rs",
+                            index: 1,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "input.rs",
+                            index: 2,
+                        },
                     ],
                 },
             ],
             Self::Sidenav02 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "sidenav02.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "sidenav02.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
                     items: vec![
-                        BlockFileTreeItem::File { name: "button.rs", index: 1 },
-                        BlockFileTreeItem::File { name: "input.rs", index: 2 },
+                        BlockFileTreeItem::File {
+                            name: "button.rs",
+                            index: 1,
+                        },
+                        BlockFileTreeItem::File {
+                            name: "input.rs",
+                            index: 2,
+                        },
                     ],
                 },
             ],
             Self::Sidenav03 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "sidenav03.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "sidenav03.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "input.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "input.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Sidenav04 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "sidenav04.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "sidenav04.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "input.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "input.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Sidenav05 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "sidenav05.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "sidenav05.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "input.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "input.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Sidenav06 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "sidenav06.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "sidenav06.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "input.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "input.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Sidenav07 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "sidenav07.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "sidenav07.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "input.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "input.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Sidenav08 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "sidenav08.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "sidenav08.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "input.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "input.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Sidenav09 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "sidenav09.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "sidenav09.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "input.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "input.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Sidenav10 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "sidenav10.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "sidenav10.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "input.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "input.rs",
+                        index: 1,
+                    }],
                 },
             ],
             Self::Sidenav11 => vec![
                 BlockFileTreeItem::Folder {
                     name: "blocks",
-                    items: vec![BlockFileTreeItem::File { name: "sidenav11.rs", index: 0 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "sidenav11.rs",
+                        index: 0,
+                    }],
                 },
                 BlockFileTreeItem::Folder {
                     name: "ui",
-                    items: vec![BlockFileTreeItem::File { name: "input.rs", index: 1 }],
+                    items: vec![BlockFileTreeItem::File {
+                        name: "input.rs",
+                        index: 1,
+                    }],
                 },
             ],
         }

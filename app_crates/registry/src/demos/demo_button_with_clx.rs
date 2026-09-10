@@ -8,7 +8,10 @@ pub fn MyButton(
     #[props(optional)] onclick: Option<EventHandler<MouseEvent>>,
     children: Element,
 ) -> Element {
-    let merged = tw_merge!("px-4 py-2 bg-neutral-900 text-white rounded-md", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "px-4 py-2 bg-neutral-900 text-white rounded-md",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         button {
             class: "{merged}",

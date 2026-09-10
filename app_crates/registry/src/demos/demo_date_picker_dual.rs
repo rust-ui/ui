@@ -62,7 +62,9 @@ pub fn DemoDatePickerDual() -> Element {
             return;
         }
 
-        let Some(new_date) = Date::from_calendar_date(year, month, day).ok() else { return };
+        let Some(new_date) = Date::from_calendar_date(year, month, day).ok() else {
+            return;
+        };
         let mut start_signal = start_date_signal;
         let mut end_signal = end_date_signal;
 

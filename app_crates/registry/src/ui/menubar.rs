@@ -17,7 +17,10 @@ pub fn MenubarGroup(#[props(into, optional)] class: Option<String>, children: El
 
 #[component]
 pub fn MenubarLabel(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("px-1.5 py-1 text-sm font-medium data-inset:pl-7", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "px-1.5 py-1 text-sm font-medium data-inset:pl-7",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { class: "{merged}", {children} } }
 }
 
@@ -36,7 +39,10 @@ pub fn MenubarSubContent(#[props(into, optional)] class: Option<String>, childre
 
 #[component]
 pub fn MenubarShortcut(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("ml-auto text-xs tracking-widest text-muted-foreground", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "ml-auto text-xs tracking-widest text-muted-foreground",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         span { "data-slot": "menubar-shortcut", class: "{merged}", {children} }
     }
@@ -151,7 +157,9 @@ struct MenubarContext {
 #[component]
 pub fn Menubar(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
     let menubar_id = use_random_id_for("menubar");
-    provide_context(MenubarContext { menubar_id: menubar_id.clone() });
+    provide_context(MenubarContext {
+        menubar_id: menubar_id.clone(),
+    });
 
     let merged = tw_merge!(
         "flex h-8 items-center gap-0.5 rounded-lg border bg-background p-[3px]",
@@ -205,7 +213,10 @@ pub fn MenubarMenu(children: Element) -> Element {
     let menubar_ctx = use_context::<MenubarContext>();
     let menu_id = use_random_id_for("menubarmenu");
 
-    provide_context(MenubarMenuContext { menu_id, menubar_id: menubar_ctx.menubar_id });
+    provide_context(MenubarMenuContext {
+        menu_id,
+        menubar_id: menubar_ctx.menubar_id,
+    });
 
     rsx! {
         div { "data-name": "MenubarMenu", class: "relative", {children} }
@@ -415,7 +426,10 @@ pub fn MenubarSub(children: Element) -> Element {
 
 #[component]
 pub fn MenubarSubTrigger(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("flex items-center justify-between w-full", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "flex items-center justify-between w-full",
+        class.as_deref().unwrap_or("")
+    );
 
     rsx! {
         span { "data-name": "MenubarSubTrigger", class: "{merged}",

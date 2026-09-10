@@ -18,7 +18,9 @@ impl DatePickerState {
     }
 
     pub fn get_calendar_days(year: i32, month: Month) -> Vec<DatePickerDay> {
-        let Some(first_day) = Date::from_calendar_date(year, month, 1).ok() else { return vec![] };
+        let Some(first_day) = Date::from_calendar_date(year, month, 1).ok() else {
+            return vec![];
+        };
         let first_weekday = first_day.weekday().number_from_monday() as usize - 1;
 
         let (prev_month, prev_year) = prev_month_year(month, year);
@@ -46,5 +48,9 @@ impl DatePickerState {
 }
 
 fn prev_month_year(month: Month, year: i32) -> (Month, i32) {
-    if month == Month::January { (Month::December, year - 1) } else { (month.previous(), year) }
+    if month == Month::January {
+        (Month::December, year - 1)
+    } else {
+        (month.previous(), year)
+    }
 }

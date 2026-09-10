@@ -14,8 +14,10 @@ pub fn RadioButtonText(#[props(into, optional)] class: Option<String>, children:
 
 #[component]
 pub fn RadioButtonGroup(children: Element) -> Element {
-    let button_group_class =
-        tw_merge!(BASE, "[&>label:first-child>span]:rounded-l-md [&>label:last-child>span]:rounded-r-md");
+    let button_group_class = tw_merge!(
+        BASE,
+        "[&>label:first-child>span]:rounded-l-md [&>label:last-child>span]:rounded-r-md"
+    );
     rsx! {
         fieldset { class: "{BASE}",
             div { class: "{button_group_class}", role: "radio-button-group", {children} }

@@ -176,7 +176,9 @@ pub async fn report_client_bug(report: BugReportRequest) -> Result<(), ServerFnE
             }
         }
 
-        send_bug_report(report).await.map_err(|err| ServerFnError::new(format!("Failed to save bug report: {err}")))
+        send_bug_report(report)
+            .await
+            .map_err(|err| ServerFnError::new(format!("Failed to save bug report: {err}")))
     }
     #[cfg(not(feature = "server"))]
     {

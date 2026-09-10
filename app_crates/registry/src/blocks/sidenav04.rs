@@ -6,7 +6,12 @@ use crate::ui::sidenav::SidenavVariant;
 
 #[component]
 pub fn Sidenav04Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
-    sidenav_common::standard_sidebar(current_section, sidenav_route, SidenavPattern::Floating, SidenavVariant::Floating)
+    sidenav_common::standard_sidebar(
+        current_section,
+        sidenav_route,
+        SidenavPattern::Floating,
+        SidenavVariant::Floating,
+    )
 }
 #[component]
 pub fn Sidenav04Content(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
@@ -14,7 +19,13 @@ pub fn Sidenav04Content(current_section: DocsRoutes, sidenav_route: SidenavRoute
 }
 #[component]
 pub fn Sidenav04MobileSheet(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
-    sidenav_common::standard_mobile(current_section, sidenav_route, SidenavPattern::Floating, Default::default(), false)
+    sidenav_common::standard_mobile(
+        current_section,
+        sidenav_route,
+        SidenavPattern::Floating,
+        Default::default(),
+        false,
+    )
 }
 #[component]
 pub fn Sidenav04() -> Element {

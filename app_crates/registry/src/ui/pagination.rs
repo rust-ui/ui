@@ -118,8 +118,10 @@ pub fn PaginationNext(
 
 #[component]
 pub fn PaginationEllipsis(#[props(into, optional)] class: Option<String>) -> Element {
-    let merged =
-        tw_merge!("flex items-center justify-center size-9 text-muted-foreground", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "flex items-center justify-center size-9 text-muted-foreground",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         span { class: "{merged}", "aria-hidden": "true",
             svg {

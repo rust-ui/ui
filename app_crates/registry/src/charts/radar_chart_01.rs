@@ -12,12 +12,30 @@ struct ChartDataPoint {
 }
 
 const CHART_DATA: &[ChartDataPoint] = &[
-    ChartDataPoint { label: "Speed", value: 85 },
-    ChartDataPoint { label: "Quality", value: 92 },
-    ChartDataPoint { label: "Design", value: 78 },
-    ChartDataPoint { label: "Support", value: 88 },
-    ChartDataPoint { label: "Features", value: 95 },
-    ChartDataPoint { label: "Price", value: 82 },
+    ChartDataPoint {
+        label: "Speed",
+        value: 85,
+    },
+    ChartDataPoint {
+        label: "Quality",
+        value: 92,
+    },
+    ChartDataPoint {
+        label: "Design",
+        value: 78,
+    },
+    ChartDataPoint {
+        label: "Support",
+        value: 88,
+    },
+    ChartDataPoint {
+        label: "Features",
+        value: 95,
+    },
+    ChartDataPoint {
+        label: "Price",
+        value: 82,
+    },
 ];
 
 #[component]

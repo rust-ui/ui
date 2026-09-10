@@ -64,8 +64,12 @@ pub fn DemoDataTable() -> Element {
 
     let selected_count_signal = use_memo(move || {
         sorted_payments_signal.with(|payments| {
-            selected_emails_signal
-                .with(|selected| payments.iter().filter(|payment| selected.contains(&payment.email)).count())
+            selected_emails_signal.with(|selected| {
+                payments
+                    .iter()
+                    .filter(|payment| selected.contains(&payment.email))
+                    .count()
+            })
         })
     });
 
@@ -289,14 +293,44 @@ struct Payment {
 
 impl Payment {
     fn new(id: usize) -> Self {
-        Self { id, status: PaymentStatus::default(), email: "newuser@example.com", amount: 500.00 }
+        Self {
+            id,
+            status: PaymentStatus::default(),
+            email: "newuser@example.com",
+            amount: 500.00,
+        }
     }
 }
 
 const INITIAL_PAYMENTS: &[Payment] = &[
-    Payment { id: 1, status: PaymentStatus::Failed, email: "isabella.n@gmail.com", amount: 874.00 },
-    Payment { id: 2, status: PaymentStatus::Success, email: "jackson.lee@email.com", amount: 837.00 },
-    Payment { id: 3, status: PaymentStatus::Success, email: "ken99@yahoo.com", amount: 316.00 },
-    Payment { id: 4, status: PaymentStatus::Processing, email: "olivia@example.com", amount: 242.00 },
-    Payment { id: 5, status: PaymentStatus::Success, email: "william@company.com", amount: 721.00 },
+    Payment {
+        id: 1,
+        status: PaymentStatus::Failed,
+        email: "isabella.n@gmail.com",
+        amount: 874.00,
+    },
+    Payment {
+        id: 2,
+        status: PaymentStatus::Success,
+        email: "jackson.lee@email.com",
+        amount: 837.00,
+    },
+    Payment {
+        id: 3,
+        status: PaymentStatus::Success,
+        email: "ken99@yahoo.com",
+        amount: 316.00,
+    },
+    Payment {
+        id: 4,
+        status: PaymentStatus::Processing,
+        email: "olivia@example.com",
+        amount: 242.00,
+    },
+    Payment {
+        id: 5,
+        status: PaymentStatus::Success,
+        email: "william@company.com",
+        amount: 721.00,
+    },
 ];

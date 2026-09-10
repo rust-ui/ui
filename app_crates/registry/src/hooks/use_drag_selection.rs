@@ -155,5 +155,9 @@ pub fn use_drag_selection<C: DataGridColumn>() -> UseDragSelection<C> {
     let drag_start_signal: Signal<Option<(usize, C)>> = use_signal(|| None);
     let drag_end_signal: Signal<Option<(usize, C)>> = use_signal(|| None);
 
-    UseDragSelection { is_dragging_signal, drag_start_signal, drag_end_signal }
+    UseDragSelection {
+        is_dragging_signal,
+        drag_start_signal,
+        drag_end_signal,
+    }
 }

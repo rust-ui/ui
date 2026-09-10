@@ -25,8 +25,12 @@ use crate::ui::multi_select::{
 use crate::ui::popover::{Popover, PopoverAlign, PopoverContent, PopoverTrigger};
 use crate::ui::separator::{Separator, SeparatorOrientation};
 
-const ALL_STATUSES: [PaymentStatus; 4] =
-    [PaymentStatus::Processing, PaymentStatus::Pending, PaymentStatus::Success, PaymentStatus::Failed];
+const ALL_STATUSES: [PaymentStatus; 4] = [
+    PaymentStatus::Processing,
+    PaymentStatus::Pending,
+    PaymentStatus::Success,
+    PaymentStatus::Failed,
+];
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 enum SortOrder {
@@ -395,19 +399,74 @@ struct Payment {
 
 impl Payment {
     fn new(id: usize) -> Self {
-        Self { id, status: PaymentStatus::default(), email: "newuser@example.com", amount: 500.00 }
+        Self {
+            id,
+            status: PaymentStatus::default(),
+            email: "newuser@example.com",
+            amount: 500.00,
+        }
     }
 }
 
 const INITIAL_PAYMENTS: &[Payment] = &[
-    Payment { id: 1, status: PaymentStatus::Failed, email: "isabella.n@gmail.com", amount: 874.00 },
-    Payment { id: 2, status: PaymentStatus::Success, email: "jackson.lee@email.com", amount: 837.00 },
-    Payment { id: 3, status: PaymentStatus::Success, email: "ken99@yahoo.com", amount: 316.00 },
-    Payment { id: 4, status: PaymentStatus::Processing, email: "olivia@example.com", amount: 242.00 },
-    Payment { id: 5, status: PaymentStatus::Success, email: "william@company.com", amount: 721.00 },
-    Payment { id: 6, status: PaymentStatus::Pending, email: "sofia.h@example.com", amount: 430.00 },
-    Payment { id: 7, status: PaymentStatus::Processing, email: "liam.j@work.com", amount: 155.00 },
-    Payment { id: 8, status: PaymentStatus::Pending, email: "emma.w@email.com", amount: 620.00 },
-    Payment { id: 9, status: PaymentStatus::Failed, email: "noah.b@company.com", amount: 990.00 },
-    Payment { id: 10, status: PaymentStatus::Success, email: "ava.m@example.com", amount: 375.00 },
+    Payment {
+        id: 1,
+        status: PaymentStatus::Failed,
+        email: "isabella.n@gmail.com",
+        amount: 874.00,
+    },
+    Payment {
+        id: 2,
+        status: PaymentStatus::Success,
+        email: "jackson.lee@email.com",
+        amount: 837.00,
+    },
+    Payment {
+        id: 3,
+        status: PaymentStatus::Success,
+        email: "ken99@yahoo.com",
+        amount: 316.00,
+    },
+    Payment {
+        id: 4,
+        status: PaymentStatus::Processing,
+        email: "olivia@example.com",
+        amount: 242.00,
+    },
+    Payment {
+        id: 5,
+        status: PaymentStatus::Success,
+        email: "william@company.com",
+        amount: 721.00,
+    },
+    Payment {
+        id: 6,
+        status: PaymentStatus::Pending,
+        email: "sofia.h@example.com",
+        amount: 430.00,
+    },
+    Payment {
+        id: 7,
+        status: PaymentStatus::Processing,
+        email: "liam.j@work.com",
+        amount: 155.00,
+    },
+    Payment {
+        id: 8,
+        status: PaymentStatus::Pending,
+        email: "emma.w@email.com",
+        amount: 620.00,
+    },
+    Payment {
+        id: 9,
+        status: PaymentStatus::Failed,
+        email: "noah.b@company.com",
+        amount: 990.00,
+    },
+    Payment {
+        id: 10,
+        status: PaymentStatus::Success,
+        email: "ava.m@example.com",
+        amount: 375.00,
+    },
 ];

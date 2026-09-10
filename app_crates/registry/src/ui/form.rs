@@ -41,8 +41,10 @@ pub fn FormGroup(
 
 #[component]
 pub fn FormContent(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged =
-        tw_merge!("group/field-content flex flex-1 flex-col gap-1.5 leading-snug", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "group/field-content flex flex-1 flex-col gap-1.5 leading-snug",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { "data-name": "FormContent", class: "{merged}", {children} } }
 }
 
@@ -208,7 +210,11 @@ pub fn FormLabel(
     #[props(into, optional)] html_for: Option<String>,
     children: Element,
 ) -> Element {
-    let field_name = if let Some(f) = html_for { f } else { consume_context::<FieldContext>().name };
+    let field_name = if let Some(f) = html_for {
+        f
+    } else {
+        consume_context::<FieldContext>().name
+    };
 
     let merged = tw_merge!(
         "group/form-label peer/form-label flex gap-2 leading-snug w-fit group-data-[disabled=true]/field:opacity-50 has-[>[data-name=Field]]:w-full has-[>[data-name=Field]]:flex-col has-[>[data-name=Field]]:rounded-md has-[>[data-name=Field]]:border [&>*]:data-[name=Field]:p-4 has-data-[state=checked]:bg-primary/5 has-data-[state=checked]:border-primary dark:has-data-[state=checked]:bg-primary/10",
@@ -353,11 +359,20 @@ pub fn FormInput(
     let field_id = id.unwrap_or_else(|| field_name.clone());
     let input_type = r#type.unwrap_or_else(|| "text".to_string());
 
-    let current_value = form_ctx.values_signal.read().get(&field_name).cloned().unwrap_or_default();
+    let current_value = form_ctx
+        .values_signal
+        .read()
+        .get(&field_name)
+        .cloned()
+        .unwrap_or_default();
 
     // Mirrors leptos `FormInput`, which wires `attr:aria-invalid` reactively from touched + error state.
     let is_touched = form_ctx.touched_signal.read().contains(&field_name);
-    let has_error = form_ctx.errors_signal.read().get(&field_name).is_some_and(|e| e.is_some());
+    let has_error = form_ctx
+        .errors_signal
+        .read()
+        .get(&field_name)
+        .is_some_and(|e| e.is_some());
     let aria_invalid = if is_touched && has_error { Some("true") } else { None };
 
     let set_value = form_ctx.set_value.clone();

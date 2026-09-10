@@ -36,14 +36,22 @@ pub fn HoverCard(children: Element, #[props(default = HoverCardSide::Bottom)] si
     let content_id = format!("hc_content_{id}");
 
     let (position_styles, transform_origin) = match side {
-        HoverCardSide::Bottom => ("position-area: block-end; margin-top: 8px;".to_string(), "center top".to_string()),
-        HoverCardSide::Top => {
-            ("position-area: block-start; margin-bottom: 8px;".to_string(), "center bottom".to_string())
-        }
-        HoverCardSide::Left => {
-            ("position-area: inline-start; margin-right: 8px;".to_string(), "right center".to_string())
-        }
-        HoverCardSide::Right => ("position-area: inline-end; margin-left: 8px;".to_string(), "left center".to_string()),
+        HoverCardSide::Bottom => (
+            "position-area: block-end; margin-top: 8px;".to_string(),
+            "center top".to_string(),
+        ),
+        HoverCardSide::Top => (
+            "position-area: block-start; margin-bottom: 8px;".to_string(),
+            "center bottom".to_string(),
+        ),
+        HoverCardSide::Left => (
+            "position-area: inline-start; margin-right: 8px;".to_string(),
+            "right center".to_string(),
+        ),
+        HoverCardSide::Right => (
+            "position-area: inline-end; margin-left: 8px;".to_string(),
+            "left center".to_string(),
+        ),
     };
 
     let css = format!(

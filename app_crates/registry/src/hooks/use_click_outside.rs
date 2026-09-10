@@ -15,9 +15,13 @@ where
             let callback = _on_click_outside.clone();
             let handler =
                 wasm_bindgen::closure::Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |ev: web_sys::MouseEvent| {
-                    let Some(ref element) = *_element_signal.read() else { return };
+                    let Some(ref element) = *_element_signal.read() else {
+                        return;
+                    };
                     let Some(target) = ev.target() else { return };
-                    let Ok(target_node) = target.dyn_into::<web_sys::Node>() else { return };
+                    let Ok(target_node) = target.dyn_into::<web_sys::Node>() else {
+                        return;
+                    };
                     if !element.contains(Some(&target_node)) {
                         callback();
                     }

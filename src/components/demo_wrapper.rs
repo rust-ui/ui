@@ -84,13 +84,26 @@ pub fn DemoWrapper(
     let active = "bg-background text-foreground shadow-sm";
     let inactive = "text-muted-foreground hover:text-foreground";
 
-    let preview_cls = move || format!("{tab_base} {}", if tab() == DemoTab::Preview { active } else { inactive });
+    let preview_cls = move || {
+        format!(
+            "{tab_base} {}",
+            if tab() == DemoTab::Preview { active } else { inactive }
+        )
+    };
     let code_cls = move || format!("{tab_base} {}", if tab() == DemoTab::Code { active } else { inactive });
     let preview_display = move || {
-        if tab() == DemoTab::Preview { "display:block" } else { "display:none" }
+        if tab() == DemoTab::Preview {
+            "display:block"
+        } else {
+            "display:none"
+        }
     };
     let code_display = move || {
-        if tab() == DemoTab::Code { "display:block" } else { "display:none" }
+        if tab() == DemoTab::Code {
+            "display:block"
+        } else {
+            "display:none"
+        }
     };
 
     rsx! {

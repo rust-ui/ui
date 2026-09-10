@@ -7,7 +7,10 @@ use web_sys::HtmlElement;
 
 #[component]
 pub fn DraggableZone(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("dragabble__container bg-neutral-600 p-4 mt-4", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "dragabble__container bg-neutral-600 p-4 mt-4",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         div { "data-name": "DraggableZone", class: "{merged}", {children} }
     }
@@ -26,7 +29,9 @@ pub fn Draggable(#[props(into, optional)] class: Option<String>, children: Eleme
         {
             use wasm_bindgen::closure::Closure;
 
-            let Some(document) = web_sys::window().and_then(|w| w.document()) else { return };
+            let Some(document) = web_sys::window().and_then(|w| w.document()) else {
+                return;
+            };
 
             // dragstart — mark the element being dragged
             let dragstart = Closure::<dyn Fn(web_sys::DragEvent)>::new(move |e: web_sys::DragEvent| {
@@ -58,8 +63,11 @@ pub fn Draggable(#[props(into, optional)] class: Option<String>, children: Eleme
                 let container = target.and_then(|el| el.closest("[data-name='DraggableZone']").ok().flatten());
                 let Some(container) = container else { return };
 
-                let dragging =
-                    container.query_selector(".dragging").ok().flatten().and_then(|n| n.dyn_into::<HtmlElement>().ok());
+                let dragging = container
+                    .query_selector(".dragging")
+                    .ok()
+                    .flatten()
+                    .and_then(|n| n.dyn_into::<HtmlElement>().ok());
                 let Some(dragging_el) = dragging else { return };
 
                 let after_el = get_drag_after_element(&container, e.client_y() as f64);
@@ -112,7 +120,9 @@ fn get_drag_after_element(container: &WebElement, y: f64) -> Option<WebElement> 
 
     for i in 0..items.length() {
         let Some(node) = items.get(i) else { continue };
-        let Ok(el) = node.dyn_into::<WebElement>() else { continue };
+        let Ok(el) = node.dyn_into::<WebElement>() else {
+            continue;
+        };
         let top = js_sys::Reflect::get(el.as_ref(), &wasm_bindgen::JsValue::from_str("offsetTop"))
             .ok()
             .and_then(|v| v.as_f64())

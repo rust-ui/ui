@@ -153,8 +153,12 @@ impl Column {
             Self::Department => row.department = value,
             Self::Status => row.status = value,
             Self::Skills => {
-                row.skills =
-                    value.split(',').map(str::trim).filter(|item| !item.is_empty()).map(ToOwned::to_owned).collect();
+                row.skills = value
+                    .split(',')
+                    .map(str::trim)
+                    .filter(|item| !item.is_empty())
+                    .map(ToOwned::to_owned)
+                    .collect();
             }
             Self::IsActive => {
                 let normalized = value.trim().to_ascii_lowercase();
@@ -264,11 +268,18 @@ pub fn DataGridFull() -> Element {
     let mut rows_signal = use_signal(Vec::<RowData>::new);
     let mut selected_indices_signal = use_signal(HashSet::<usize>::new);
 
-    let ColumnState { sort_signals, pinned_columns_signal, visible_columns_signal } =
-        use_column_state::<Column>(PINNABLE_COLUMNS);
+    let ColumnState {
+        sort_signals,
+        pinned_columns_signal,
+        visible_columns_signal,
+    } = use_column_state::<Column>(PINNABLE_COLUMNS);
 
-    let DataGridState { cell_selection, mut drag_selection, mut copy_value_signal, mut grid_wrapper_element } =
-        use_data_grid_state::<Column>();
+    let DataGridState {
+        cell_selection,
+        mut drag_selection,
+        mut copy_value_signal,
+        mut grid_wrapper_element,
+    } = use_data_grid_state::<Column>();
 
     let copy_to_clipboard = use_copy_clipboard(None).0;
     let _cell_edit = use_cell_edit::<Column>();
@@ -707,12 +718,15 @@ fn PressHoldDeleteRow(
 ) -> Element {
     let on_delete = Callback::new(move |_: ()| {
         let idx = index();
-        let (min_row, max_row) =
-            drag_selection.get_selection_bounds().map(|(min, max, _, _)| (min, max)).unwrap_or((idx, idx));
+        let (min_row, max_row) = drag_selection
+            .get_selection_bounds()
+            .map(|(min, max, _, _)| (min, max))
+            .unwrap_or((idx, idx));
 
         let sorted = sorted_rows_signal();
-        let names_to_delete: Vec<String> =
-            (min_row..=max_row).filter_map(|i| sorted.get(i).map(|r| r.name.clone())).collect();
+        let names_to_delete: Vec<String> = (min_row..=max_row)
+            .filter_map(|i| sorted.get(i).map(|r| r.name.clone()))
+            .collect();
 
         let count = names_to_delete.len();
         handle_delete_rows.call(names_to_delete);
@@ -737,8 +751,11 @@ fn PressHoldDeleteRow(
         )
     };
 
-    let is_multi_row =
-        move || drag_selection.get_selection_bounds().is_some_and(|(min_row, max_row, _, _)| max_row > min_row);
+    let is_multi_row = move || {
+        drag_selection
+            .get_selection_bounds()
+            .is_some_and(|(min_row, max_row, _, _)| max_row > min_row)
+    };
 
     rsx! {
         button {

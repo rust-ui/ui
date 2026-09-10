@@ -87,11 +87,17 @@ pub fn JsonLdArticle(
         type_: "TechArticle".to_string(),
         headline: title,
         description,
-        author: Author { type_: "Organization".to_string(), id: format!("{}/#organization", SiteConfig::BASE_URL) },
+        author: Author {
+            type_: "Organization".to_string(),
+            id: format!("{}/#organization", SiteConfig::BASE_URL),
+        },
         date_published: date_published.unwrap_or_else(|| "2024-01-01".to_string()),
         date_modified: date_modified.unwrap_or_else(|| "2025-11-08".to_string()),
         url: url.clone(),
-        main_entity_of_page: MainEntity { type_: "WebPage".to_string(), id: url },
+        main_entity_of_page: MainEntity {
+            type_: "WebPage".to_string(),
+            id: url,
+        },
         keywords,
         article_section,
     };
@@ -115,7 +121,10 @@ mod unit_tests {
             type_: "TechArticle".to_string(),
             headline: "Test Article".to_string(),
             description: "Test description".to_string(),
-            author: Author { type_: "Organization".to_string(), id: format!("{}/#organization", SiteConfig::BASE_URL) },
+            author: Author {
+                type_: "Organization".to_string(),
+                id: format!("{}/#organization", SiteConfig::BASE_URL),
+            },
             date_published: "2024-01-01".to_string(),
             date_modified: "2025-11-08".to_string(),
             url: format!("{}/docs/test", SiteConfig::BASE_URL),

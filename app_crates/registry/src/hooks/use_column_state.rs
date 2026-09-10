@@ -37,12 +37,18 @@ pub fn use_column_state<C>(pinnable_columns: &[(C, i32)]) -> ColumnState<C>
 where
     C: DataGridColumn + IntoEnumIterator + ToString + Hash + Eq + Copy + 'static,
 {
-    let sort_signals: HashMap<C, Signal<SortDirection>> =
-        pinnable_columns.iter().map(|(col, _)| (*col, use_signal(|| SortDirection::None))).collect();
+    let sort_signals: HashMap<C, Signal<SortDirection>> = pinnable_columns
+        .iter()
+        .map(|(col, _)| (*col, use_signal(|| SortDirection::None)))
+        .collect();
 
     let pinned_columns_signal = use_signal(|| HashSet::<C>::new());
 
     let visible_columns_signal = use_signal(|| C::iter().map(|c| c.to_string()).collect::<HashSet<String>>());
 
-    ColumnState { sort_signals, pinned_columns_signal, visible_columns_signal }
+    ColumnState {
+        sort_signals,
+        pinned_columns_signal,
+        visible_columns_signal,
+    }
 }

@@ -65,7 +65,11 @@ pub fn TabsList(
         "group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-[3px] text-muted-foreground",
         "group-data-[orientation=Horizontal]/tabs:h-8",
         "group-data-[orientation=Vertical]/tabs:h-fit group-data-[orientation=Vertical]/tabs:flex-col",
-        if is_line { "gap-1 bg-transparent rounded-none p-0" } else { "bg-muted" },
+        if is_line {
+            "gap-1 bg-transparent rounded-none p-0"
+        } else {
+            "bg-muted"
+        },
         class.as_deref().unwrap_or("")
     );
 
@@ -99,9 +103,21 @@ pub fn TabsTrigger(
         "after:absolute after:bg-foreground after:transition-opacity",
         "group-data-[orientation=Horizontal]/tabs:after:inset-x-0 group-data-[orientation=Horizontal]/tabs:after:bottom-[-5px] group-data-[orientation=Horizontal]/tabs:after:h-0.5",
         "group-data-[orientation=Vertical]/tabs:after:inset-y-0 group-data-[orientation=Vertical]/tabs:after:-right-1 group-data-[orientation=Vertical]/tabs:after:w-0.5",
-        if is_active { "text-foreground" } else { "text-foreground/60 hover:text-foreground" },
-        if !is_line && is_active { "bg-background shadow-sm dark:border-input dark:bg-input/30" } else { "" },
-        if is_line && is_active { "after:opacity-100" } else { "after:opacity-0" },
+        if is_active {
+            "text-foreground"
+        } else {
+            "text-foreground/60 hover:text-foreground"
+        },
+        if !is_line && is_active {
+            "bg-background shadow-sm dark:border-input dark:bg-input/30"
+        } else {
+            ""
+        },
+        if is_line && is_active {
+            "after:opacity-100"
+        } else {
+            "after:opacity-0"
+        },
         class.as_deref().unwrap_or("")
     );
 

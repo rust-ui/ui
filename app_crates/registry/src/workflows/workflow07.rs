@@ -161,9 +161,21 @@ fn initial_nodes() -> Vec<WorkflowNode> {
 
 fn initial_edges() -> Vec<WorkflowEdge> {
     vec![
-        WorkflowEdge { from: "trigger".to_string(), to: "agent".to_string(), ..Default::default() },
-        WorkflowEdge { from: "data".to_string(), to: "agent".to_string(), ..Default::default() },
-        WorkflowEdge { from: "agent".to_string(), to: "output".to_string(), ..Default::default() },
+        WorkflowEdge {
+            from: "trigger".to_string(),
+            to: "agent".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "data".to_string(),
+            to: "agent".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "agent".to_string(),
+            to: "output".to_string(),
+            ..Default::default()
+        },
     ]
 }
 

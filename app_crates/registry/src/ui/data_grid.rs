@@ -167,7 +167,11 @@ pub fn get_pinned_left_position<C: PinnableColumn + 'static>(col: C, pinned: &Ha
 
 /// Get the width for a pinnable column, or 150 as default if not found.
 pub fn get_column_width<C: PinnableColumn + 'static>(col: C) -> i32 {
-    C::pinnable_columns().iter().find(|(c, _)| *c == col).map(|(_, w)| *w).unwrap_or(150)
+    C::pinnable_columns()
+        .iter()
+        .find(|(c, _)| *c == col)
+        .map(|(_, w)| *w)
+        .unwrap_or(150)
 }
 
 /// Generates CSS custom properties for column sizes from pinnable columns.
@@ -229,8 +233,10 @@ pub fn Grid(
     #[props(into, optional)] class: Option<String>,
 ) -> Element {
     // NOTE: Avoid `select-none` here to allow text selection via double-click
-    let merged_class =
-        tw_merge!("grid overflow-auto relative rounded-md border focus:outline-none", class.as_deref().unwrap_or(""));
+    let merged_class = tw_merge!(
+        "grid overflow-auto relative rounded-md border focus:outline-none",
+        class.as_deref().unwrap_or("")
+    );
 
     rsx! {
         div {
@@ -336,7 +342,9 @@ pub fn VirtualFor<T: Clone + 'static>(data: Signal<Vec<T>>, render: impl Fn(usiz
     let end = (virtual_scroll.end_index)();
     let visible: Vec<(usize, T)> = {
         let rows = data.read();
-        (start..end).filter_map(|idx| rows.get(idx).map(|row| (idx, row.clone()))).collect()
+        (start..end)
+            .filter_map(|idx| rows.get(idx).map(|row| (idx, row.clone())))
+            .collect()
     };
     rsx! {
         for (idx, row) in visible {
@@ -799,7 +807,10 @@ pub fn EditableCellContent<C: DataGridColumn + 'static>(
 
 #[component]
 pub fn DataGridToolbar(children: Element, #[props(into, optional)] class: Option<String>) -> Element {
-    let merged_class = tw_merge!("flex gap-4 justify-between items-center mb-4", class.as_deref().unwrap_or(""));
+    let merged_class = tw_merge!(
+        "flex gap-4 justify-between items-center mb-4",
+        class.as_deref().unwrap_or("")
+    );
 
     rsx! {
         div { "data-name": "DataGridToolbar", role: "toolbar", "aria-orientation": "horizontal", class: "{merged_class}",

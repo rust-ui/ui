@@ -94,14 +94,19 @@ pub fn ItemGroup(#[props(into, optional)] class: Option<String>, children: Eleme
 
 #[component]
 pub fn ItemContent(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let c =
-        tw_merge!("flex flex-1 flex-col gap-1 [&+[data-slot=item-content]]:flex-none", class.as_deref().unwrap_or(""));
+    let c = tw_merge!(
+        "flex flex-1 flex-col gap-1 [&+[data-slot=item-content]]:flex-none",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { "data-name": "ItemContent", "data-slot": "item-content", class: "{c}", {children} } }
 }
 
 #[component]
 pub fn ItemTitle(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let c = tw_merge!("flex w-fit items-center gap-2 text-sm leading-snug font-medium", class.as_deref().unwrap_or(""));
+    let c = tw_merge!(
+        "flex w-fit items-center gap-2 text-sm leading-snug font-medium",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { "data-name": "ItemTitle", class: "{c}", {children} } }
 }
 
@@ -122,13 +127,19 @@ pub fn ItemActions(#[props(into, optional)] class: Option<String>, children: Ele
 
 #[component]
 pub fn ItemHeader(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let c = tw_merge!("flex basis-full items-center justify-between gap-2", class.as_deref().unwrap_or(""));
+    let c = tw_merge!(
+        "flex basis-full items-center justify-between gap-2",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { "data-name": "ItemHeader", class: "{c}", {children} } }
 }
 
 #[component]
 pub fn ItemFooter(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let c = tw_merge!("flex basis-full items-center justify-between gap-2", class.as_deref().unwrap_or(""));
+    let c = tw_merge!(
+        "flex basis-full items-center justify-between gap-2",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { "data-name": "ItemFooter", class: "{c}", {children} } }
 }
 

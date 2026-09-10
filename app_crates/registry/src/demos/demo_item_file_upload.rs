@@ -13,10 +13,26 @@ struct UploadFile {
 }
 
 const FILES: &[UploadFile] = &[
-    UploadFile { name: "document.pdf", progress: 45.0, time_remaining: "2m 30s" },
-    UploadFile { name: "presentation.pptx", progress: 78.0, time_remaining: "45s" },
-    UploadFile { name: "spreadsheet.xlsx", progress: 12.0, time_remaining: "5m 12s" },
-    UploadFile { name: "image.jpg", progress: 100.0, time_remaining: "Complete" },
+    UploadFile {
+        name: "document.pdf",
+        progress: 45.0,
+        time_remaining: "2m 30s",
+    },
+    UploadFile {
+        name: "presentation.pptx",
+        progress: 78.0,
+        time_remaining: "45s",
+    },
+    UploadFile {
+        name: "spreadsheet.xlsx",
+        progress: 12.0,
+        time_remaining: "5m 12s",
+    },
+    UploadFile {
+        name: "image.jpg",
+        progress: 100.0,
+        time_remaining: "Complete",
+    },
 ];
 
 #[component]

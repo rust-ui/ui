@@ -36,11 +36,36 @@ pub struct CommandItemData {
 
 /// PAGES_ITEMS
 pub const PAGES_ITEMS: &[CommandItemData] = &[
-    CommandItemData { label: "Home", href: "/", category: CommandCategory::Pages, add_cmd: None },
-    CommandItemData { label: "Components", href: "/docs/components", category: CommandCategory::Pages, add_cmd: None },
-    CommandItemData { label: "Hooks", href: "/docs/hooks", category: CommandCategory::Pages, add_cmd: None },
-    CommandItemData { label: "CLI", href: "/docs/components/cli", category: CommandCategory::Pages, add_cmd: None },
-    CommandItemData { label: "Icons", href: "/docs/components/icons", category: CommandCategory::Pages, add_cmd: None },
+    CommandItemData {
+        label: "Home",
+        href: "/",
+        category: CommandCategory::Pages,
+        add_cmd: None,
+    },
+    CommandItemData {
+        label: "Components",
+        href: "/docs/components",
+        category: CommandCategory::Pages,
+        add_cmd: None,
+    },
+    CommandItemData {
+        label: "Hooks",
+        href: "/docs/hooks",
+        category: CommandCategory::Pages,
+        add_cmd: None,
+    },
+    CommandItemData {
+        label: "CLI",
+        href: "/docs/components/cli",
+        category: CommandCategory::Pages,
+        add_cmd: None,
+    },
+    CommandItemData {
+        label: "Icons",
+        href: "/docs/components/icons",
+        category: CommandCategory::Pages,
+        add_cmd: None,
+    },
     CommandItemData {
         label: "Installation",
         href: "/docs/components/installation",

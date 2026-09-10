@@ -5,7 +5,12 @@ use super::sidenav_routes::{DocsRoutes, SidenavRoutes};
 
 #[component]
 pub fn Sidenav02Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
-    sidenav_common::standard_sidebar(current_section, sidenav_route, SidenavPattern::Collapsible, Default::default())
+    sidenav_common::standard_sidebar(
+        current_section,
+        sidenav_route,
+        SidenavPattern::Collapsible,
+        Default::default(),
+    )
 }
 #[component]
 pub fn Sidenav02Content(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {

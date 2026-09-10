@@ -35,7 +35,14 @@ impl ParsedUserAgent {
         };
         let (os, os_version) = Self::detect_os(ua);
         let (browser, browser_version) = Self::detect_browser(ua);
-        Self { browser, browser_version, os, os_version, device_type, is_mobile: is_mobile || is_tablet }
+        Self {
+            browser,
+            browser_version,
+            os,
+            os_version,
+            device_type,
+            is_mobile: is_mobile || is_tablet,
+        }
     }
 
     fn detect_os(ua: &str) -> (&'static str, String) {
@@ -91,7 +98,11 @@ impl ParsedUserAgent {
     }
 
     fn os_display(&self) -> String {
-        if self.os_version.is_empty() { self.os.to_string() } else { format!("{} {}", self.os, self.os_version) }
+        if self.os_version.is_empty() {
+            self.os.to_string()
+        } else {
+            format!("{} {}", self.os, self.os_version)
+        }
     }
 }
 

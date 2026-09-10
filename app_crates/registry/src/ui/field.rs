@@ -34,8 +34,10 @@ pub fn FieldGroup(
 
 #[component]
 pub fn FieldContent(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged =
-        tw_merge!("group/field-content flex flex-1 flex-col gap-1.5 leading-snug", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "group/field-content flex flex-1 flex-col gap-1.5 leading-snug",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         div { "data-name": "FieldContent", class: "{merged}", {children} }
     }

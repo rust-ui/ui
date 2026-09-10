@@ -197,12 +197,18 @@ pub fn DrawerDescription(#[props(into, optional)] class: Option<String>, childre
 
 #[component]
 pub fn DrawerBody(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let c = tw_merge!("flex flex-col gap-4 mx-auto max-w-[500px]", class.as_deref().unwrap_or(""));
+    let c = tw_merge!(
+        "flex flex-col gap-4 mx-auto max-w-[500px]",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { "data-name": "DrawerBody", class: "{c}", {children} } }
 }
 
 #[component]
 pub fn DrawerFooter(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let c = tw_merge!("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", class.as_deref().unwrap_or(""));
+    let c = tw_merge!(
+        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { footer { "data-name": "DrawerFooter", class: "{c}", {children} } }
 }

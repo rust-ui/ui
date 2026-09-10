@@ -22,27 +22,81 @@ struct ArticleAnnotation {
 }
 
 const CHART_DATA: &[ChartDataPoint] = &[
-    ChartDataPoint { date: "2024-01-01", visitors: 142 },
-    ChartDataPoint { date: "2024-01-03", visitors: 189 },
-    ChartDataPoint { date: "2024-01-05", visitors: 156 },
-    ChartDataPoint { date: "2024-01-07", visitors: 210 },
-    ChartDataPoint { date: "2024-01-09", visitors: 287 },
-    ChartDataPoint { date: "2024-01-11", visitors: 324 },
-    ChartDataPoint { date: "2024-01-13", visitors: 298 },
-    ChartDataPoint { date: "2024-01-15", visitors: 412 },
-    ChartDataPoint { date: "2024-01-17", visitors: 376 },
-    ChartDataPoint { date: "2024-01-19", visitors: 340 },
-    ChartDataPoint { date: "2024-01-21", visitors: 298 },
-    ChartDataPoint { date: "2024-01-23", visitors: 265 },
-    ChartDataPoint { date: "2024-01-25", visitors: 389 },
-    ChartDataPoint { date: "2024-01-27", visitors: 445 },
-    ChartDataPoint { date: "2024-01-29", visitors: 398 },
+    ChartDataPoint {
+        date: "2024-01-01",
+        visitors: 142,
+    },
+    ChartDataPoint {
+        date: "2024-01-03",
+        visitors: 189,
+    },
+    ChartDataPoint {
+        date: "2024-01-05",
+        visitors: 156,
+    },
+    ChartDataPoint {
+        date: "2024-01-07",
+        visitors: 210,
+    },
+    ChartDataPoint {
+        date: "2024-01-09",
+        visitors: 287,
+    },
+    ChartDataPoint {
+        date: "2024-01-11",
+        visitors: 324,
+    },
+    ChartDataPoint {
+        date: "2024-01-13",
+        visitors: 298,
+    },
+    ChartDataPoint {
+        date: "2024-01-15",
+        visitors: 412,
+    },
+    ChartDataPoint {
+        date: "2024-01-17",
+        visitors: 376,
+    },
+    ChartDataPoint {
+        date: "2024-01-19",
+        visitors: 340,
+    },
+    ChartDataPoint {
+        date: "2024-01-21",
+        visitors: 298,
+    },
+    ChartDataPoint {
+        date: "2024-01-23",
+        visitors: 265,
+    },
+    ChartDataPoint {
+        date: "2024-01-25",
+        visitors: 389,
+    },
+    ChartDataPoint {
+        date: "2024-01-27",
+        visitors: 445,
+    },
+    ChartDataPoint {
+        date: "2024-01-29",
+        visitors: 398,
+    },
 ];
 
 const ARTICLES: &[ArticleAnnotation] = &[
-    ArticleAnnotation { x: "2024-01-09", title: "Getting Started with Rust" },
-    ArticleAnnotation { x: "2024-01-15", title: "Rust Async Programming with Tokio" },
-    ArticleAnnotation { x: "2024-01-27", title: "Building REST APIs with Axum" },
+    ArticleAnnotation {
+        x: "2024-01-09",
+        title: "Getting Started with Rust",
+    },
+    ArticleAnnotation {
+        x: "2024-01-15",
+        title: "Rust Async Programming with Tokio",
+    },
+    ArticleAnnotation {
+        x: "2024-01-27",
+        title: "Building REST APIs with Axum",
+    },
 ];
 
 #[component]

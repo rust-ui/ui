@@ -64,7 +64,10 @@ pub fn InputPromptTextarea(
 /// Block-end footer row. Holds tools on the left, submit on the right.
 #[component]
 pub fn InputPromptFooter(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("border-t px-2 py-2 justify-between gap-1", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "border-t px-2 py-2 justify-between gap-1",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         InputGroupAddon { align: InputGroupAddonAlign::BlockEnd, class: merged,
             {children}

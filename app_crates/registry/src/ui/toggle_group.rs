@@ -30,15 +30,27 @@ pub fn ToggleGroup(
     #[props(default = 1)] spacing: i32,
     children: Element,
 ) -> Element {
-    provide_context(ToggleGroupCtx { variant, orientation, spacing });
+    provide_context(ToggleGroupCtx {
+        variant,
+        orientation,
+        spacing,
+    });
 
     let is_vertical = orientation == ToggleGroupOrientation::Vertical;
-    let gap_style = if spacing == 0 { "gap: 0px".to_string() } else { format!("gap: {}rem", spacing as f64 * 0.25) };
+    let gap_style = if spacing == 0 {
+        "gap: 0px".to_string()
+    } else {
+        format!("gap: {}rem", spacing as f64 * 0.25)
+    };
 
     let class = tw_merge!(
         "flex items-center rounded-md group/toggle-group w-fit",
         if is_vertical { "flex-col" } else { "" },
-        if variant == ToggleGroupVariant::Outline { "shadow-xs" } else { "" },
+        if variant == ToggleGroupVariant::Outline {
+            "shadow-xs"
+        } else {
+            ""
+        },
         class.as_deref().unwrap_or("")
     );
 
@@ -98,7 +110,11 @@ pub fn ToggleGroupItem(
     };
 
     let border = if is_outline && is_grouped {
-        if is_vertical { "border border-t-0 first:border-t" } else { "border border-l-0 first:border-l" }
+        if is_vertical {
+            "border border-t-0 first:border-t"
+        } else {
+            "border border-l-0 first:border-l"
+        }
     } else if is_outline {
         "border"
     } else {

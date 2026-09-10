@@ -12,28 +12,48 @@ pub struct ToastWrapper {
 }
 
 pub fn show_toast() -> ToastWrapper {
-    ToastWrapper { message: String::new(), level: None, position: DEFAULT_POSITION }
+    ToastWrapper {
+        message: String::new(),
+        level: None,
+        position: DEFAULT_POSITION,
+    }
 }
 
 impl ToastWrapper {
     pub fn success(self, message: impl Into<String>) {
         let toaster = expect_toaster();
-        toaster.toast(ToastBuilder::new(message.into()).with_level(ToastLevel::Success).with_position(self.position));
+        toaster.toast(
+            ToastBuilder::new(message.into())
+                .with_level(ToastLevel::Success)
+                .with_position(self.position),
+        );
     }
 
     pub fn error(self, message: impl Into<String>) {
         let toaster = expect_toaster();
-        toaster.toast(ToastBuilder::new(message.into()).with_level(ToastLevel::Error).with_position(self.position));
+        toaster.toast(
+            ToastBuilder::new(message.into())
+                .with_level(ToastLevel::Error)
+                .with_position(self.position),
+        );
     }
 
     pub fn info(self, message: impl Into<String>) {
         let toaster = expect_toaster();
-        toaster.toast(ToastBuilder::new(message.into()).with_level(ToastLevel::Info).with_position(self.position));
+        toaster.toast(
+            ToastBuilder::new(message.into())
+                .with_level(ToastLevel::Info)
+                .with_position(self.position),
+        );
     }
 
     pub fn warning(self, message: impl Into<String>) {
         let toaster = expect_toaster();
-        toaster.toast(ToastBuilder::new(message.into()).with_level(ToastLevel::Warn).with_position(self.position));
+        toaster.toast(
+            ToastBuilder::new(message.into())
+                .with_level(ToastLevel::Warn)
+                .with_position(self.position),
+        );
     }
 
     /// Override the default position

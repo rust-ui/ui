@@ -30,7 +30,9 @@ pub fn ThemeSelector() -> Element {
     let color_secondary_memo = use_memo(move || Oklch::new(l(), c(), h()).secondary_with_factor(0.9).to_oklch_string());
 
     let theme_memo = use_memo(move || {
-        THEME_TEMPLATE.replace("{primary}", &color_primary_memo()).replace("{secondary}", &color_secondary_memo())
+        THEME_TEMPLATE
+            .replace("{primary}", &color_primary_memo())
+            .replace("{secondary}", &color_secondary_memo())
     });
 
     rsx! {
@@ -139,7 +141,9 @@ pub fn CopyCodeDialog(
         let text = theme();
         spawn(async move {
             let escaped = text.replace('`', "\\`").replace('$', "\\$");
-            eval(&format!("await navigator.clipboard.writeText(`{escaped}`)")).await.ok();
+            eval(&format!("await navigator.clipboard.writeText(`{escaped}`)"))
+                .await
+                .ok();
             copied.set(true);
             eval("await new Promise(r => setTimeout(r, 2000))").await.ok();
             copied.set(false);

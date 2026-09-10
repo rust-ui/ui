@@ -35,7 +35,10 @@ pub fn BreadcrumbLink(
     #[props(into, optional)] class: Option<String>,
     children: Element,
 ) -> Element {
-    let merged = tw_merge!("transition-colors hover:text-foreground", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "transition-colors hover:text-foreground",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { a { class: "{merged}", href: "{href}", {children} } }
 }
 
@@ -77,7 +80,10 @@ pub fn BreadcrumbEllipsis(#[props(into, optional)] class: Option<String>) -> Ele
 
 #[component]
 pub fn BreadcrumbSeparator(#[props(into, optional)] class: Option<String>) -> Element {
-    let merged = tw_merge!("[&>svg]:size-3.5 [&_svg:not([class*='size-'])]:size-4", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "[&>svg]:size-3.5 [&_svg:not([class*='size-'])]:size-4",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         li { class: "{merged}", role: "presentation", "aria-hidden": "true",
             ChevronRight {}

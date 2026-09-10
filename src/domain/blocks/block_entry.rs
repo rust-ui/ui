@@ -2,8 +2,14 @@ use crate::__registry__::all_blocks::BlockIdKebab;
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum BlockFileTreeItem {
-    File { name: &'static str, index: usize },
-    Folder { name: &'static str, items: Vec<BlockFileTreeItem> },
+    File {
+        name: &'static str,
+        index: usize,
+    },
+    Folder {
+        name: &'static str,
+        items: Vec<BlockFileTreeItem>,
+    },
 }
 
 impl BlockFileTreeItem {
@@ -30,7 +36,10 @@ pub struct BlockMeta {
 
 impl BlockMeta {
     pub const fn default() -> Self {
-        Self { iframe_height: "930px", container_class: "w-full bg-background" }
+        Self {
+            iframe_height: "930px",
+            container_class: "w-full bg-background",
+        }
     }
 }
 

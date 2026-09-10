@@ -127,7 +127,12 @@ async fn subscribe_newsletter(email: String) -> Result<String, ServerFnError> {
 
         let client = reqwest::Client::new();
         let url = format!("https://api.resend.com/audiences/{}/contacts/{}", audience_id, email);
-        match client.get(&url).header("Authorization", format!("Bearer {token}")).send().await {
+        match client
+            .get(&url)
+            .header("Authorization", format!("Bearer {token}"))
+            .send()
+            .await
+        {
             Ok(resp) if resp.status().is_success() => {
                 tracing::error!("Email already subscribed: {}", email);
                 return Err(ServerFnError::new("This email is already subscribed!".to_string()));
@@ -139,7 +144,9 @@ async fn subscribe_newsletter(email: String) -> Result<String, ServerFnError> {
         }
 
         let resend = Resend::new(&token);
-        let contact = CreateContactOptions::new(&email).with_audience_id(&audience_id).with_unsubscribed(false);
+        let contact = CreateContactOptions::new(&email)
+            .with_audience_id(&audience_id)
+            .with_unsubscribed(false);
         match resend.contacts.create(contact).await {
             Ok(_) => Ok("Successfully subscribed!".to_string()),
             Err(err) => {

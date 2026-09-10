@@ -15,6 +15,10 @@ impl Oklch {
     }
 
     pub fn secondary_with_factor(&self, factor: f32) -> Self {
-        Self { l: self.l * factor, c: self.c * factor, h: self.h * factor }
+        Self {
+            l: self.l * factor,
+            c: self.c * factor,
+            h: self.h * factor,
+        }
     }
 }

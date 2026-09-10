@@ -27,7 +27,10 @@ struct CommandContext {
 
 #[component]
 pub fn CommandHeader(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("flex flex-col gap-2 text-center hidden sm:text-left", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "flex flex-col gap-2 text-center hidden sm:text-left",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { div { "data-name": "CommandHeader", class: "{merged}", {children} } }
 }
 
@@ -116,7 +119,10 @@ pub fn CommandGroupLabel(
     #[props(into, optional)] aria_hidden: Option<String>,
     children: Element,
 ) -> Element {
-    let merged = tw_merge!("text-muted-foreground px-2 py-1.5 text-xs font-medium", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "text-muted-foreground px-2 py-1.5 text-xs font-medium",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         div {
             "data-name": "CommandGroupLabel",
@@ -318,7 +324,10 @@ pub fn Command(
 ) -> Element {
     let dialog_context = try_use_context::<CommandDialogContext>();
     let search_query_signal = use_signal(String::new);
-    let command_context = CommandContext { search_query_signal, should_filter };
+    let command_context = CommandContext {
+        search_query_signal,
+        should_filter,
+    };
 
     use_context_provider(|| command_context);
 

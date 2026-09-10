@@ -121,7 +121,11 @@ pub fn InputGroupButton(
     children: Element,
 ) -> Element {
     let _ = variant;
-    let merged = tw_merge!("text-sm shadow-none flex gap-2 items-center", size.class(), class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "text-sm shadow-none flex gap-2 items-center",
+        size.class(),
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         button {
             r#type: "button",

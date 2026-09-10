@@ -53,10 +53,26 @@ fn initial_nodes() -> Vec<WorkflowNode> {
 
 fn initial_edges() -> Vec<WorkflowEdge> {
     vec![
-        WorkflowEdge { from: "input".to_string(), to: "proc".to_string(), ..Default::default() },
-        WorkflowEdge { from: "input".to_string(), to: "val".to_string(), ..Default::default() },
-        WorkflowEdge { from: "proc".to_string(), to: "out".to_string(), ..Default::default() },
-        WorkflowEdge { from: "val".to_string(), to: "out".to_string(), ..Default::default() },
+        WorkflowEdge {
+            from: "input".to_string(),
+            to: "proc".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "input".to_string(),
+            to: "val".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "proc".to_string(),
+            to: "out".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "val".to_string(),
+            to: "out".to_string(),
+            ..Default::default()
+        },
     ]
 }
 

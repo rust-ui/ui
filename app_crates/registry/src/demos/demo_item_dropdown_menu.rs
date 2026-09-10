@@ -45,7 +45,19 @@ struct Person {
 }
 
 const PEOPLE: &[Person] = &[
-    Person { username: "Ryan Smith", initials: "RS", email: "ryan.smith@example.com" },
-    Person { username: "Morgan Williams", initials: "MW", email: "morgan.williams@example.com" },
-    Person { username: "Max Murphy", initials: "MM", email: "max.murphy@example.com" },
+    Person {
+        username: "Ryan Smith",
+        initials: "RS",
+        email: "ryan.smith@example.com",
+    },
+    Person {
+        username: "Morgan Williams",
+        initials: "MW",
+        email: "morgan.williams@example.com",
+    },
+    Person {
+        username: "Max Murphy",
+        initials: "MM",
+        email: "max.murphy@example.com",
+    },
 ];

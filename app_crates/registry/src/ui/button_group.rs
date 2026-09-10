@@ -54,8 +54,10 @@ pub fn ButtonGroupText(#[props(into, optional)] class: Option<String>, children:
 
 #[component]
 pub fn ButtonGroupSeparator(#[props(into, optional)] class: Option<String>) -> Element {
-    let merged =
-        tw_merge!("relative !m-0 self-stretch data-[orientation=vertical]:h-auto", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "relative !m-0 self-stretch data-[orientation=vertical]:h-auto",
+        class.as_deref().unwrap_or("")
+    );
     rsx! {
         Separator {
             class: "{merged}",

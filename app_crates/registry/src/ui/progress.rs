@@ -10,8 +10,10 @@ pub fn Progress(
     let pct = (value / max * 100.0).clamp(0.0, 100.0);
     let style = format!("transform: translateX(-{}%)", 100.0 - pct);
 
-    let merged =
-        tw_merge!("relative h-2 w-full overflow-hidden rounded-full bg-secondary", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "relative h-2 w-full overflow-hidden rounded-full bg-secondary",
+        class.as_deref().unwrap_or("")
+    );
 
     rsx! {
         div {

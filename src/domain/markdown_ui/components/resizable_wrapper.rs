@@ -11,8 +11,10 @@ pub fn ResizableWrapper(
     #[props(into, optional)] resizable_wrapper_class: Option<String>,
     children: Element,
 ) -> Element {
-    let preview_classes =
-        format!("flex justify-center items-center w-full min-h-[370px] {}", preview_class.as_deref().unwrap_or(""));
+    let preview_classes = format!(
+        "flex justify-center items-center w-full min-h-[370px] {}",
+        preview_class.as_deref().unwrap_or("")
+    );
 
     rsx! {
         Resizable { instance_id: instance_id.clone(), class: resizable_wrapper_class.clone(),

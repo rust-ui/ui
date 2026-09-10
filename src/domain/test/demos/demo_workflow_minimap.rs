@@ -121,17 +121,61 @@ fn initial_nodes() -> Vec<WorkflowNode> {
 
 fn initial_edges() -> Vec<WorkflowEdge> {
     vec![
-        WorkflowEdge { from: "input".to_string(), to: "auth".to_string(), ..Default::default() },
-        WorkflowEdge { from: "input".to_string(), to: "cache".to_string(), ..Default::default() },
-        WorkflowEdge { from: "input".to_string(), to: "retrieval".to_string(), ..Default::default() },
-        WorkflowEdge { from: "retrieval".to_string(), to: "rerank".to_string(), ..Default::default() },
-        WorkflowEdge { from: "cache".to_string(), to: "agent".to_string(), ..Default::default() },
-        WorkflowEdge { from: "auth".to_string(), to: "agent".to_string(), ..Default::default() },
-        WorkflowEdge { from: "rerank".to_string(), to: "agent".to_string(), ..Default::default() },
-        WorkflowEdge { from: "agent".to_string(), to: "guard".to_string(), ..Default::default() },
-        WorkflowEdge { from: "agent".to_string(), to: "formatter".to_string(), ..Default::default() },
-        WorkflowEdge { from: "guard".to_string(), to: "logger".to_string(), ..Default::default() },
-        WorkflowEdge { from: "formatter".to_string(), to: "output".to_string(), ..Default::default() },
+        WorkflowEdge {
+            from: "input".to_string(),
+            to: "auth".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "input".to_string(),
+            to: "cache".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "input".to_string(),
+            to: "retrieval".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "retrieval".to_string(),
+            to: "rerank".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "cache".to_string(),
+            to: "agent".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "auth".to_string(),
+            to: "agent".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "rerank".to_string(),
+            to: "agent".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "agent".to_string(),
+            to: "guard".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "agent".to_string(),
+            to: "formatter".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "guard".to_string(),
+            to: "logger".to_string(),
+            ..Default::default()
+        },
+        WorkflowEdge {
+            from: "formatter".to_string(),
+            to: "output".to_string(),
+            ..Default::default()
+        },
     ]
 }
 

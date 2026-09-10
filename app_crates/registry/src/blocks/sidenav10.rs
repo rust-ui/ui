@@ -5,7 +5,12 @@ use super::sidenav_routes::{DocsRoutes, SidenavRoutes};
 
 #[component]
 pub fn Sidenav10Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
-    sidenav_common::standard_sidebar(current_section, sidenav_route, SidenavPattern::Search, Default::default())
+    sidenav_common::standard_sidebar(
+        current_section,
+        sidenav_route,
+        SidenavPattern::Search,
+        Default::default(),
+    )
 }
 #[component]
 pub fn Sidenav10Content(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
@@ -13,7 +18,13 @@ pub fn Sidenav10Content(current_section: DocsRoutes, sidenav_route: SidenavRoute
 }
 #[component]
 pub fn Sidenav10MobileSheet(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
-    sidenav_common::standard_mobile(current_section, sidenav_route, SidenavPattern::Search, Default::default(), false)
+    sidenav_common::standard_mobile(
+        current_section,
+        sidenav_route,
+        SidenavPattern::Search,
+        Default::default(),
+        false,
+    )
 }
 #[component]
 pub fn Sidenav10() -> Element {
