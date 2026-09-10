@@ -1,3 +1,4 @@
+pub mod app_bottom_nav;
 pub mod app_footer;
 pub mod command_search_docs;
 pub mod demo_wrapper;

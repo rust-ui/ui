@@ -281,6 +281,7 @@
     --animate-Wobble: Wobble 1s ease-in-out;
     --animate-ZoomIn: ZoomIn 0.6s ease-out;
     --animate-ZoomOut: ZoomOut 0.6s ease-out;
+    --spacing-bottom__nav__height: var(--bottom__nav__height);
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-card: var(--card);
@@ -1448,6 +1449,14 @@
   .size-full {
     width: 100%;
     height: 100%;
+  }
+  .safe__dvh__content {
+    height: 100vh;
+    height: 100dvh;
+    padding-bottom: var(--bottom__nav__height);
+    @media (min-width: 640px) {
+      padding-bottom: 0;
+    }
   }
   .\!h-4 {
     height: calc(var(--spacing) * 4) !important;

@@ -6,6 +6,16 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ### Improvements
 
+- **Mobile bottom nav**: Added `AppBottomNav` (Home, Components, Hooks, Icons,
+  Charts) shown below `sm`, mounted once in `AppLayout`. Fixed to the viewport
+  bottom, respects the iOS safe-area inset, active item tracks the current route
+  via `use_route` + typed `matches!` (no string parsing). Ported from the Leptos
+  site; reuses the existing `registry::ui::bottom_nav` primitives and the
+  `bottom__safe` / `--bottom__nav__height` CSS already in `tailwind.css`. Also
+  added an empty `ontouchstart` shim on the shell root so iOS WKWebView fires
+  `:active`. `src/components/app_bottom_nav.rs`, `src/components/mod.rs`,
+  `src/routes/app_layout.rs`
+
 - **Verbatim sidenav routing port**: Ported the Leptos sidenav demo family to
   Dioxus with nested `/view/:sidenav/docs/...` routes, responsive sheets,
   section switching, search filtering, breadcrumb updates, and direct sidenav
