@@ -5752,8 +5752,8 @@ fn prev_next_in(
     match pos {
         None => (None, None),
         Some(i) => (
-            if i > 0 { Some(registry[i - 1]) } else { None },
-            if i + 1 < registry.len() { Some(registry[i + 1]) } else { None },
+            i.checked_sub(1).and_then(|previous| registry.get(previous).copied()),
+            registry.get(i + 1).copied(),
         ),
     }
 }
