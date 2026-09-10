@@ -28,7 +28,7 @@ reached in controlled batches instead of one unreviewable mega-diff.
 ## Scan command
 
 ```bash
-touch src/main.rs src/lib.rs */src/lib.rs **/src/lib.rs 2>/dev/null
+git ls-files '*.rs' | xargs touch          # bust the clippy cache in every crate
 rtk proxy cargo clippy --all-targets --all-features \
   -- --force-warn clippy::all --force-warn clippy::pedantic \
      --force-warn clippy::nursery --force-warn clippy::cargo \
@@ -64,6 +64,8 @@ python3 __SKILLS_SOP/strict-clippy-burndown.py   # CLIPPY_FULL_DUMP.txt -> CLIPP
 - As sites are fixed, delete their `- [ ]` lines and decrement the section count.
   Regenerate the tracker after each full re-scan.
 - Re-scan (full workspace, 1-4 min) only after a batch, never per fix.
+- One lint per commit during burn-down: `chore(clippy): burn down <lint>`. Keeps each
+  diff reviewable and lets a regression be bisected to a single lint.
 
 ## Fix policy
 
@@ -79,79 +81,135 @@ python3 __SKILLS_SOP/strict-clippy-burndown.py   # CLIPPY_FULL_DUMP.txt -> CLIPP
   `# TODO(strict-clippy)` and the site count. Burn down one entry per later pass.
 - After any `Cargo.toml` lint change: `cargo check`, then re-scan.
 
-## Reference: clippy policy this repo runs
+## Reference: starter lint policy
 
-Lives in root `Cargo.toml` under `[workspace.lints.*]`. Member crates opt in with
-`[lints] workspace = true`. Groups are set with negative `priority` so the explicit
-per-lint policy below always wins.
+Paste into a fresh client's root `Cargo.toml`, then relax entries as that repo needs.
+Member crates opt in with `[lints] workspace = true`. Groups carry negative `priority`
+so the explicit per-lint policy always wins. A nested workspace has its own lints;
+the root `cargo clippy` never descends into it.
 
-### `[workspace.lints.clippy]` — groups
+Policy shape:
+- **`deny`**: correctness, panics, safety. Never relaxed, even in the burn-down.
+- **temporary `allow`**: every entry carries a `# TODO`, removed as debt clears.
+- **permanent `allow`**: intentional project choices, no TODO.
 
-| Lint group | Level | Priority |
-| --- | --- | --- |
-| `all` | warn | -2 |
-| `pedantic` | warn | -2 |
-| `nursery` | warn | -2 |
-| `cargo` | warn | -2 |
+```toml
+[workspace.lints.clippy]
+# Groups at negative priority so per-lint policy below wins.
+all = { level = "warn", priority = -2 }
+pedantic = { level = "warn", priority = -2 }
+nursery = { level = "warn", priority = -2 }
+cargo = { level = "warn", priority = -2 }
 
-### `deny` — correctness, panics, safety (never relax)
+# deny: correctness / panics / safety — never relax
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+todo = "deny"
+unimplemented = "deny"
+unreachable = "deny"
+indexing_slicing = "deny"
+get_unwrap = "deny"
+unwrap_in_result = "deny"
+panic_in_result_fn = "deny"
+await_holding_lock = "deny"
+await_holding_invalid_type = "deny"
+dbg_macro = "deny"
+undocumented_unsafe_blocks = "deny"
+missing_safety_doc = "deny"
+enum_glob_use = "deny"
+infinite_loop = "deny"
+large_stack_arrays = "deny"
+lossy_float_literal = "deny"
+float_cmp = "deny"
+mem_forget = "deny"
+exit = "deny"
+disallowed_macros = "deny"
+disallowed_methods = "deny"
+disallowed_types = "deny"
+mutex_atomic = "deny"
+as_underscore = "deny"
 
-`unwrap_used`, `expect_used`, `panic`, `todo`, `unimplemented`, `unreachable`,
-`indexing_slicing`, `get_unwrap`, `unwrap_in_result`, `panic_in_result_fn`,
-`await_holding_lock`, `await_holding_invalid_type`, `dbg_macro`,
-`undocumented_unsafe_blocks`, `missing_safety_doc`, `enum_glob_use`, `infinite_loop`,
-`large_stack_arrays`, `lossy_float_literal`, `float_cmp`, `mem_forget`, `exit`,
-`disallowed_macros`, `disallowed_methods`, `disallowed_types`, `mutex_atomic`,
-`as_underscore`.
+# temporary allow — each needs a # TODO and a removal task
+str_to_string = "allow"            # TODO: literal .to_string() -> .to_owned()
+string_add = "allow"               # TODO: string-building cleanup
+format_push_string = "allow"       # TODO: string-building cleanup
+iter_over_hash_type = "allow"      # TODO: make unordered iteration deterministic
+semicolon_if_nothing_returned = "allow"
+cast_possible_truncation = "allow"
+cast_sign_loss = "allow"
+cast_precision_loss = "allow"
+cast_lossless = "allow"
+redundant_clone = "allow"
+inefficient_to_string = "allow"
+cloned_instead_of_copied = "allow"
+manual_let_else = "allow"
+trivially_copy_pass_by_ref = "allow"
+explicit_iter_loop = "allow"
+from_over_into = "allow"
+fallible_impl_from = "allow"
+clone_on_ref_ptr = "allow"
+needless_borrow = "allow"
+needless_pass_by_value = "allow"
+unused_async = "allow"
+doc_markdown = "allow"             # TODO: clean doc markup, then re-enable
+unreadable_literal = "allow"
+derive_partial_eq_without_eq = "allow"
+needless_raw_string_hashes = "allow"
+# nursery noise, silenced while the group stays warn
+missing_const_for_fn = "allow"
+suboptimal_flops = "allow"
+imprecise_flops = "allow"
+option_if_let_else = "allow"
+return_self_not_must_use = "allow"
+print_stdout = "warn"             # build.rs needs Cargo directive output
+print_stderr = "allow"           # TODO: structured logging
 
-### `[workspace.lints.rust]` — `deny`
+# permanent allow — intentional project choices
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+must_use_candidate = "allow"
+cognitive_complexity = "allow"
+multiple_crate_versions = "allow"
+cargo_common_metadata = "allow"
+too_many_lines = "allow"
+allow_attributes = "allow"
+allow_attributes_without_reason = "allow"
 
-`irrefutable_let_patterns`, `unused_must_use`, `non_ascii_idents`,
-`let_underscore_lock`, `unit_bindings`, `macro_use_extern_crate`, `unused_lifetimes`.
+[workspace.lints.rust]
+warnings = "allow"               # TODO: deployment mode; drop to surface all debt
+unsafe_code = "forbid"
+dead_code = "allow"
+unused_variables = "allow"
+unused_mut = "allow"
+irrefutable_let_patterns = "deny"
+unused_must_use = "deny"
+non_ascii_idents = "deny"
+let_underscore_lock = "deny"
+unit_bindings = "deny"
+macro_use_extern_crate = "deny"
+unused_lifetimes = "deny"
+single_use_lifetimes = "allow"
+unused_qualifications = "allow"
+unreachable_pub = "allow"
+redundant_lifetimes = "allow"
+trivial_numeric_casts = "allow"
+keyword_idents_2024 = "allow"
+elided_lifetimes_in_paths = "allow"
+redundant_imports = "allow"
+meta_variable_misuse = "allow"
 
-`unsafe_code = "forbid"`.
+[workspace.lints.rustdoc]
+broken_intra_doc_links = "deny"
+invalid_html_tags = "deny"
+invalid_rust_codeblocks = "deny"
+bare_urls = "warn"
+unescaped_backticks = "warn"
+```
 
-### `[workspace.lints.rustdoc]`
-
-`deny`: `broken_intra_doc_links`, `invalid_html_tags`, `invalid_rust_codeblocks`.
-`warn`: `bare_urls`, `unescaped_backticks`.
-
-### Temporary `allow` — each carries a TODO, remove as debt clears
-
-- String building: `str_to_string`, `string_add`, `format_push_string`.
-- Determinism: `iter_over_hash_type`.
-- Style ratchet: `semicolon_if_nothing_returned`, `cast_possible_truncation`,
-  `cast_sign_loss`, `cast_precision_loss`, `cast_lossless`, `redundant_clone`,
-  `inefficient_to_string`, `cloned_instead_of_copied`, `manual_let_else`,
-  `trivially_copy_pass_by_ref`, `explicit_iter_loop`, `from_over_into`,
-  `fallible_impl_from`, `clone_on_ref_ptr`, `needless_borrow`, `needless_pass_by_value`,
-  `unused_async`, `doc_markdown`, `unreadable_literal`, `derive_partial_eq_without_eq`,
-  `needless_raw_string_hashes`.
-- `nursery` noise kept silenced while the group stays `warn`: `missing_const_for_fn`,
-  `suboptimal_flops`, `imprecise_flops`, `option_if_let_else`, `return_self_not_must_use`.
-- Diagnostics output: `print_stderr` (allow), `print_stdout` (warn, `build.rs` needs it).
-
-### Permanent `allow` — intentional project choices
-
-`module_name_repetitions`, `missing_errors_doc`, `missing_panics_doc`,
-`must_use_candidate`, `cognitive_complexity`, `multiple_crate_versions`,
-`cargo_common_metadata`, `too_many_lines`, `allow_attributes`,
-`allow_attributes_without_reason`.
-
-### `[workspace.lints.rust]` — temporary `allow` (deployment mode)
-
-`warnings`, `dead_code`, `unused_variables`, `unused_mut`, `single_use_lifetimes`,
-`unused_qualifications`, `unreachable_pub`, `redundant_lifetimes`,
-`trivial_numeric_casts`, `keyword_idents_2024`, `elided_lifetimes_in_paths`,
-`redundant_imports`, `meta_variable_misuse`.
-
-### Cargo.toml policy
-
-- Lint policy lives only in `[workspace.lints.*]`.
-- `deny` for correctness/security; `warn` for the style ratchet.
-- A new `allow` needs a short reason and a removal task.
-- A nested workspace (e.g. `leptos-ui/`) has its own lints; the root `cargo clippy`
-  never descends into it.
+The burn-down bucket (style lints trapped in macro bodies) goes in a separate block
+below this one, each `= "allow"` with `# TODO(strict-clippy)` and a site count.
 
 ## Done when
 
