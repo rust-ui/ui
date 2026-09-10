@@ -1,6 +1,6 @@
-# Pin lint, rustfmt, and MSRV baseline. Bump deliberately.
+# Use current stable Rust. No exact version pin.
 [toolchain]
-channel = "1.97.1"
+channel = "stable"
 targets = ["wasm32-unknown-unknown"]
 components = ["clippy", "rustfmt", "rust-src"]
 profile = "default"
