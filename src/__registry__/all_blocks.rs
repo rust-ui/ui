@@ -246,14 +246,14 @@ impl BlockIdKebab {
             Self::Sidenav09 => "/view/sidenav09/docs/components".to_string(),
             Self::Sidenav10 => "/view/sidenav10/docs/components".to_string(),
             Self::Sidenav11 => "/view/sidenav11/docs/components".to_string(),
-            _ => format!("/view/block/{}", self),
+            _ => format!("/view/block/{self}"),
         }
     }
 
     // ─── to_md ───────────────────────────────────────────────────────────────
 
     pub fn to_md(&self) -> String {
-        format!("{}.md", self)
+        format!("{self}.md")
     }
 
     // ─── files ───────────────────────────────────────────────────────────────

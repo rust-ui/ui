@@ -22,7 +22,7 @@ impl BlockRoutes {
     }
 
     pub fn to_route(self) -> String {
-        format!("/{}/{}", BlockRoutes::base_segment(), self.as_ref())
+        format!("/{}/{}", Self::base_segment(), self.as_ref())
     }
 
     pub fn to_view_route_kebab(self, num: u8) -> String {

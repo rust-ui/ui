@@ -47,10 +47,10 @@ impl ParsedUserAgent {
 
     fn detect_os(ua: &str) -> (&'static str, String) {
         match () {
-            _ if ua.contains("iPhone OS") || ua.contains("iPad") => ("iOS", Self::extract_version(ua, "OS ", " ")),
-            _ if ua.contains("Android") => ("Android", Self::extract_version(ua, "Android ", ";")),
-            _ if ua.contains("Mac OS X") => ("macOS", Self::extract_version(ua, "Mac OS X ", ")").replace('_', ".")),
-            _ if ua.contains("Windows NT") => {
+            () if ua.contains("iPhone OS") || ua.contains("iPad") => ("iOS", Self::extract_version(ua, "OS ", " ")),
+            () if ua.contains("Android") => ("Android", Self::extract_version(ua, "Android ", ";")),
+            () if ua.contains("Mac OS X") => ("macOS", Self::extract_version(ua, "Mac OS X ", ")").replace('_', ".")),
+            () if ua.contains("Windows NT") => {
                 let raw_version = Self::extract_version(ua, "Windows NT ", ";");
                 let version = match raw_version.as_str() {
                     "10.0" => "10/11".to_string(),
@@ -60,22 +60,22 @@ impl ParsedUserAgent {
                 };
                 ("Windows", version)
             }
-            _ if ua.contains("Linux") => ("Linux", String::new()),
-            _ => ("Unknown", String::new()),
+            () if ua.contains("Linux") => ("Linux", String::new()),
+            () => ("Unknown", String::new()),
         }
     }
 
     fn detect_browser(ua: &str) -> (&'static str, String) {
         match () {
-            _ if ua.contains("Edg/") => ("Edge", Self::extract_version(ua, "Edg/", " ")),
-            _ if ua.contains("Chrome/") && !ua.contains("Chromium") => {
+            () if ua.contains("Edg/") => ("Edge", Self::extract_version(ua, "Edg/", " ")),
+            () if ua.contains("Chrome/") && !ua.contains("Chromium") => {
                 ("Chrome", Self::extract_version(ua, "Chrome/", " "))
             }
-            _ if ua.contains("Safari/") && !ua.contains("Chrome") => {
+            () if ua.contains("Safari/") && !ua.contains("Chrome") => {
                 ("Safari", Self::extract_version(ua, "Version/", " "))
             }
-            _ if ua.contains("Firefox/") => ("Firefox", Self::extract_version(ua, "Firefox/", " ")),
-            _ => ("Unknown", String::new()),
+            () if ua.contains("Firefox/") => ("Firefox", Self::extract_version(ua, "Firefox/", " ")),
+            () => ("Unknown", String::new()),
         }
     }
 
@@ -127,7 +127,7 @@ pub fn PageBugReports() -> Element {
                             AlertDialogFooter {
                                 AlertDialogClose { "Cancel" }
                                 DeleteAllConfirmButton {
-                                    on_confirm: move |_| {
+                                    on_confirm: move |()| {
                                         spawn(async move {
                                             let _ = delete_all_bug_reports().await;
                                             reports.restart();
@@ -160,7 +160,7 @@ pub fn PageBugReports() -> Element {
                                     report: report.clone(),
                                     on_delete: {
                                         let similarity_hash = report.similarity_hash;
-                                        move |_| {
+                                        move |()| {
                                             spawn(async move {
                                                 let _ = delete_bug_report(similarity_hash).await;
                                                 reports.restart();

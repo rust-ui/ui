@@ -87,7 +87,7 @@ async fn send_bug_report_to_rustify(report: &BugReportRequest) -> Result<(), Str
         return Ok(());
     };
 
-    let url = format!("{}/rust-ui-api/bug-reports", base_url);
+    let url = format!("{base_url}/rust-ui-api/bug-reports");
 
     let client = reqwest::Client::new();
     let response = client

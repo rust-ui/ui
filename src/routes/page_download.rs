@@ -32,28 +32,28 @@ enum Platform {
 impl Platform {
     fn title(self) -> &'static str {
         match self {
-            Platform::MacOs => "macOS",
-            Platform::Linux => "Linux",
-            Platform::Windows => "Windows",
+            Self::MacOs => "macOS",
+            Self::Linux => "Linux",
+            Self::Windows => "Windows",
         }
     }
 
     fn subtitle(self) -> &'static str {
         match self {
-            Platform::MacOs => "Apple Silicon (M1/M2/M3/M4)",
-            Platform::Linux => "x86_64",
-            Platform::Windows => "x64",
+            Self::MacOs => "Apple Silicon (M1/M2/M3/M4)",
+            Self::Linux => "x86_64",
+            Self::Windows => "x64",
         }
     }
 
     fn downloads(self) -> &'static [DownloadFile] {
         match self {
-            Platform::MacOs => &[DownloadFile {
+            Self::MacOs => &[DownloadFile {
                 label: ".dmg",
                 filename: "rust-ui.dmg",
                 size: "1.6 MB",
             }],
-            Platform::Linux => &[
+            Self::Linux => &[
                 DownloadFile {
                     label: ".AppImage",
                     filename: "rust-ui_amd64.AppImage",
@@ -65,7 +65,7 @@ impl Platform {
                     size: "~3 MB",
                 },
             ],
-            Platform::Windows => &[
+            Self::Windows => &[
                 DownloadFile {
                     label: ".msi",
                     filename: "rust-ui_x64_en-US.msi",
@@ -82,18 +82,18 @@ impl Platform {
 
     fn requirements(self) -> &'static [&'static str] {
         match self {
-            Platform::MacOs => &[
+            Self::MacOs => &[
                 "macOS 11.0 (Big Sur) or later",
                 "Apple Silicon (M1, M2, M3, M4)",
                 "~4 MB disk space",
             ],
-            Platform::Linux => &[
+            Self::Linux => &[
                 "Ubuntu 22.04 / Debian 11 or later",
                 "x86_64 architecture",
                 "WebKit2GTK 4.1",
                 "~5 MB disk space",
             ],
-            Platform::Windows => &["Windows 10 or later", "x64 architecture", "~4 MB disk space"],
+            Self::Windows => &["Windows 10 or later", "x64 architecture", "~4 MB disk space"],
         }
     }
 }

@@ -29,9 +29,9 @@ pub enum ScreenSize {
 impl ScreenSize {
     fn as_str(&self) -> &'static str {
         match self {
-            ScreenSize::Desktop => "Desktop",
-            ScreenSize::Tablet => "Tablet",
-            ScreenSize::Phone => "Phone",
+            Self::Desktop => "Desktop",
+            Self::Tablet => "Tablet",
+            Self::Phone => "Phone",
         }
     }
 }

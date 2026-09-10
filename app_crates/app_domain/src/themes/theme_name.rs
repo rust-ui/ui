@@ -14,86 +14,86 @@ pub enum ThemeName {
 }
 
 impl ThemeName {
-    pub const ALL: &'static [ThemeName] = &[
-        ThemeName::Neutral,
-        ThemeName::Stone,
-        ThemeName::Zinc,
-        ThemeName::Mauve,
-        ThemeName::Olive,
-        ThemeName::Mist,
-        ThemeName::Taupe,
+    pub const ALL: &'static [Self] = &[
+        Self::Neutral,
+        Self::Stone,
+        Self::Zinc,
+        Self::Mauve,
+        Self::Olive,
+        Self::Mist,
+        Self::Taupe,
     ];
 
     pub fn label(&self) -> &'static str {
         match self {
-            ThemeName::Neutral => "Neutral",
-            ThemeName::Stone => "Stone",
-            ThemeName::Zinc => "Zinc",
-            ThemeName::Mauve => "Mauve",
-            ThemeName::Olive => "Olive",
-            ThemeName::Mist => "Mist",
-            ThemeName::Taupe => "Taupe",
+            Self::Neutral => "Neutral",
+            Self::Stone => "Stone",
+            Self::Zinc => "Zinc",
+            Self::Mauve => "Mauve",
+            Self::Olive => "Olive",
+            Self::Mist => "Mist",
+            Self::Taupe => "Taupe",
         }
     }
 
     pub fn swatch(&self) -> &'static str {
         match self {
-            ThemeName::Neutral => "#737373",
-            ThemeName::Stone => "#79716b",
-            ThemeName::Zinc => "#71717a",
-            ThemeName::Mauve => "#7c6e7c",
-            ThemeName::Olive => "#6b7045",
-            ThemeName::Mist => "#5f7070",
-            ThemeName::Taupe => "#736050",
+            Self::Neutral => "#737373",
+            Self::Stone => "#79716b",
+            Self::Zinc => "#71717a",
+            Self::Mauve => "#7c6e7c",
+            Self::Olive => "#6b7045",
+            Self::Mist => "#5f7070",
+            Self::Taupe => "#736050",
         }
     }
 
     pub fn to_index(self) -> usize {
         match self {
-            ThemeName::Neutral => 0,
-            ThemeName::Stone => 1,
-            ThemeName::Zinc => 2,
-            ThemeName::Mauve => 3,
-            ThemeName::Olive => 4,
-            ThemeName::Mist => 5,
-            ThemeName::Taupe => 6,
+            Self::Neutral => 0,
+            Self::Stone => 1,
+            Self::Zinc => 2,
+            Self::Mauve => 3,
+            Self::Olive => 4,
+            Self::Mist => 5,
+            Self::Taupe => 6,
         }
     }
 
     pub fn from_index(idx: u32) -> Option<Self> {
         match idx {
-            0 => Some(ThemeName::Neutral),
-            1 => Some(ThemeName::Stone),
-            2 => Some(ThemeName::Zinc),
-            3 => Some(ThemeName::Mauve),
-            4 => Some(ThemeName::Olive),
-            5 => Some(ThemeName::Mist),
-            6 => Some(ThemeName::Taupe),
+            0 => Some(Self::Neutral),
+            1 => Some(Self::Stone),
+            2 => Some(Self::Zinc),
+            3 => Some(Self::Mauve),
+            4 => Some(Self::Olive),
+            5 => Some(Self::Mist),
+            6 => Some(Self::Taupe),
             _ => None,
         }
     }
 
     pub fn light_vars(&self) -> &'static [(&'static str, &'static str)] {
         match self {
-            ThemeName::Neutral => NEUTRAL_LIGHT,
-            ThemeName::Stone => STONE_LIGHT,
-            ThemeName::Zinc => ZINC_LIGHT,
-            ThemeName::Mauve => MAUVE_LIGHT,
-            ThemeName::Olive => OLIVE_LIGHT,
-            ThemeName::Mist => MIST_LIGHT,
-            ThemeName::Taupe => TAUPE_LIGHT,
+            Self::Neutral => NEUTRAL_LIGHT,
+            Self::Stone => STONE_LIGHT,
+            Self::Zinc => ZINC_LIGHT,
+            Self::Mauve => MAUVE_LIGHT,
+            Self::Olive => OLIVE_LIGHT,
+            Self::Mist => MIST_LIGHT,
+            Self::Taupe => TAUPE_LIGHT,
         }
     }
 
     pub fn dark_vars(&self) -> &'static [(&'static str, &'static str)] {
         match self {
-            ThemeName::Neutral => NEUTRAL_DARK,
-            ThemeName::Stone => STONE_DARK,
-            ThemeName::Zinc => ZINC_DARK,
-            ThemeName::Mauve => MAUVE_DARK,
-            ThemeName::Olive => OLIVE_DARK,
-            ThemeName::Mist => MIST_DARK,
-            ThemeName::Taupe => TAUPE_DARK,
+            Self::Neutral => NEUTRAL_DARK,
+            Self::Stone => STONE_DARK,
+            Self::Zinc => ZINC_DARK,
+            Self::Mauve => MAUVE_DARK,
+            Self::Olive => OLIVE_DARK,
+            Self::Mist => MIST_DARK,
+            Self::Taupe => TAUPE_DARK,
         }
     }
 

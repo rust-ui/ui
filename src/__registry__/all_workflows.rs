@@ -76,7 +76,7 @@ impl WorkflowIdKebab {
     // ─── to_full_view_url ─────────────────────────────────────────────────────
 
     pub fn to_full_view_url(&self) -> String {
-        format!("/view/{}", self)
+        format!("/view/{self}")
     }
 
     // ─── files ────────────────────────────────────────────────────────────────

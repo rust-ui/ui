@@ -39,16 +39,16 @@ pub fn Home() -> Element {
         spawn(async move {
             let mut remove_js = String::from("(function() { var el = document.documentElement;");
             for key in ColorTheme::KEYS {
-                remove_js.push_str(&format!("el.style.removeProperty('{}');", key));
+                remove_js.push_str(&format!("el.style.removeProperty('{key}');"));
             }
             remove_js.push_str("})();");
             dioxus::document::eval(&remove_js).await.ok();
 
             let mut set_js = String::from("(function() { var el = document.documentElement;");
             for (key, val) in &vars {
-                set_js.push_str(&format!("el.style.setProperty('{}', '{}');", key, val));
+                set_js.push_str(&format!("el.style.setProperty('{key}', '{val}');"));
             }
-            set_js.push_str(&format!("el.setAttribute('data-color-theme', '{}');", label));
+            set_js.push_str(&format!("el.setAttribute('data-color-theme', '{label}');"));
             set_js.push_str("})();");
             dioxus::document::eval(&set_js).await.ok();
         });

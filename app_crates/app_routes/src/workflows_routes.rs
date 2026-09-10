@@ -17,6 +17,6 @@ impl WorkflowRoutes {
     }
 
     pub fn to_route(self) -> String {
-        format!("/{}", WorkflowRoutes::base_segment())
+        format!("/{}", Self::base_segment())
     }
 }

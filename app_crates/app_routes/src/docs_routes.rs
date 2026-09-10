@@ -19,7 +19,7 @@ impl ComponentsRoutes {
     }
 
     pub fn to_route(self) -> String {
-        format!("{}/{}", ComponentsRoutes::base_url(), self.as_ref())
+        format!("{}/{}", Self::base_url(), self.as_ref())
     }
 }
 
@@ -41,6 +41,6 @@ impl HooksRoutes {
     }
 
     pub fn to_route(self) -> String {
-        format!("{}/{}", HooksRoutes::base_url(), self.as_ref())
+        format!("{}/{}", Self::base_url(), self.as_ref())
     }
 }

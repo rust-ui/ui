@@ -65,7 +65,7 @@ pub fn ComponentPage(name: String) -> Element {
                             title: e.title(),
                             description: e.description(),
                             url: canonical_url,
-                            keywords: e.tags.iter().map(|t| t.to_string()).collect(),
+                            keywords: e.tags.iter().map(std::string::ToString::to_string).collect(),
                             article_section: "Components".to_string(),
                         }
 

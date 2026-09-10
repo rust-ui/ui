@@ -126,7 +126,7 @@ async fn subscribe_newsletter(email: String) -> Result<String, ServerFnError> {
         };
 
         let client = reqwest::Client::new();
-        let url = format!("https://api.resend.com/audiences/{}/contacts/{}", audience_id, email);
+        let url = format!("https://api.resend.com/audiences/{audience_id}/contacts/{email}");
         match client
             .get(&url)
             .header("Authorization", format!("Bearer {token}"))
@@ -164,7 +164,7 @@ async fn subscribe_newsletter(email: String) -> Result<String, ServerFnError> {
 
 #[component]
 fn DecorativeGlowSvg(filter_id: String, class: String) -> Element {
-    let filter_url = format!("url(#{})", filter_id);
+    let filter_url = format!("url(#{filter_id})");
     rsx! {
         svg {
             class: "{class}",

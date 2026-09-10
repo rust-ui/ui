@@ -14,13 +14,13 @@ pub enum ChartRoutes {
 }
 
 impl ChartRoutes {
-    pub const ALL: &'static [ChartRoutes] = &[
-        ChartRoutes::AreaChart,
-        ChartRoutes::BarChart,
-        ChartRoutes::LineChart,
-        ChartRoutes::PieChart,
-        ChartRoutes::RadarChart,
-        ChartRoutes::RadialChart,
+    pub const ALL: &'static [Self] = &[
+        Self::AreaChart,
+        Self::BarChart,
+        Self::LineChart,
+        Self::PieChart,
+        Self::RadarChart,
+        Self::RadialChart,
     ];
 
     pub fn base_segment() -> &'static str {
@@ -28,7 +28,7 @@ impl ChartRoutes {
     }
 
     pub fn to_route(self) -> String {
-        format!("/{}/{}", ChartRoutes::base_segment(), self.as_ref())
+        format!("/{}/{}", Self::base_segment(), self.as_ref())
     }
 
     pub fn to_title(self) -> String {

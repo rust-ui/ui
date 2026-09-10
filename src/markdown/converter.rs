@@ -106,8 +106,7 @@ fn extract_text(nodes: &[Node]) -> String {
             Node::Element(el) => extract_text(&el.children),
             _ => String::new(),
         })
-        .collect::<Vec<_>>()
-        .join("")
+        .collect::<String>()
 }
 
 fn extract_code_block(pre: &HtmlElement) -> Option<(Option<String>, String)> {
@@ -167,7 +166,7 @@ fn process_element(el: &HtmlElement, components: &MdComponents) -> Element {
         "ol" => rsx! { ol { class: "pl-6 my-6 list-decimal", {children.into_iter()} } },
         "li" => rsx! { li { class: "mt-2", {children.into_iter()} } },
         "a" => {
-            let href = el.attributes.get("href").and_then(|v| v.clone()).unwrap_or_default();
+            let href = el.attributes.get("href").and_then(std::clone::Clone::clone).unwrap_or_default();
             rsx! { a { class: "font-medium underline underline-offset-4", href: "{href}", {children.into_iter()} } }
         }
         "code" => {
@@ -269,7 +268,7 @@ mod tests {
     fn pascal_case_tag_passes_through_pulldown() {
         use crate::markdown::markdown_to_html;
         let html = markdown_to_html("\n<DemoButton />\n");
-        eprintln!("pulldown output: {:?}", html);
+        eprintln!("pulldown output: {html:?}");
         assert!(!html.contains("&lt;"), "pulldown-cmark escaped the PascalCase tag");
     }
 

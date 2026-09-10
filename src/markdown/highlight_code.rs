@@ -75,7 +75,7 @@ fn highlight_impl(
 
 #[cfg(feature = "server")]
 mod ssr {
-    use super::*;
+    use super::{OnceLock, SyntaxSet, ThemeSet, highlight_impl};
 
     static SYNTAX_SET: OnceLock<SyntaxSet> = OnceLock::new();
     static THEME_SET: OnceLock<ThemeSet> = OnceLock::new();

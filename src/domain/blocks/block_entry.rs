@@ -8,7 +8,7 @@ pub enum BlockFileTreeItem {
     },
     Folder {
         name: &'static str,
-        items: Vec<BlockFileTreeItem>,
+        items: Vec<Self>,
     },
 }
 
