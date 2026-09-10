@@ -2,10 +2,10 @@
 
 Baseline:
 
-- Parent branch: `phase-3-remove-leptos-parent`
-- Parent rollback commit: record before production cleanup commit
-- First production `leptos-ui` commit: record from deployment log
-- Current `leptos-ui` commit: `d1283eb`
+- Parent branch: `main`
+- Parent cleanup commit: `34ecfa5`
+- Production `leptos-ui` commit: `75b833e`
+- Phase 3 plan hardening commit: `d1283eb`
 
 ## Delete: migrated website source
 
@@ -44,4 +44,4 @@ Exact copies verified against `leptos-ui`:
 - Validate SQLite persistence after container recreation.
 - Run rollback drill against previous parent deployment.
 - Validate Tauri targets from `leptos-ui`.
-- Repair parent `.gitmodules` mapping for `crates/_starters/start-dioxus-fullstack`.
+- ~~Repair parent `.gitmodules` mapping for `crates/_starters/start-dioxus-fullstack`.~~ Done in parent cleanup commit `34ecfa5`.
