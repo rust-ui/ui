@@ -32,12 +32,14 @@ fn highlight_impl(
     syntax_set: &SyntaxSet,
     theme_set: &ThemeSet,
 ) -> String {
-    let theme = theme_set
+    let Some(theme) = theme_set
         .themes
         .get(HIGHLIGHT_THEME)
         .or_else(|| theme_set.themes.get("InspiredGitHub"))
         .or_else(|| theme_set.themes.values().next())
-        .expect("no syntect theme available");
+    else {
+        return html_escape::encode_text(code).into_owned();
+    };
 
     let lang = language.or_else(|| filename.and_then(HighlightLanguage::detect_from_filename)).unwrap_or("plain");
 

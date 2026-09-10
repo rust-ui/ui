@@ -227,7 +227,11 @@ mod server {
         if let Ok(path) = std::env::var("DIOXUS_PUBLIC_PATH") {
             return path.into();
         }
-        std::env::current_exe().expect("current_exe").parent().expect("exe has a parent directory").join("public")
+        std::env::current_exe()
+            .ok()
+            .and_then(|path| path.parent().map(std::path::Path::to_path_buf))
+            .unwrap_or_else(|| std::path::PathBuf::from("."))
+            .join("public")
     }
 
     /// Equivalent of `Router::new().serve_dioxus_application(cfg, App)` but with

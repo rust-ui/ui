@@ -110,15 +110,13 @@ nursery = { level = "allow", priority = -2 }
 cargo = { level = "allow", priority = -2 }
 
 # Temporary deployment mode: lint policy relaxed; restore strict checks after deploy.
-# TODO: Restore strict unwrap/expect policy after deployment stabilization.
-unwrap_used = "allow"
-expect_used = "allow"
+unwrap_used = "deny"
+expect_used = "deny"
 panic = "deny"
 todo = "deny"
 unimplemented = "deny"
 unreachable = "deny"
-# TODO: Replace remaining trusted indexing with checked access.
-indexing_slicing = "allow"
+indexing_slicing = "deny"
 get_unwrap = "deny"
 await_holding_lock = "deny"
 await_holding_invalid_type = "deny"
