@@ -1,10 +1,12 @@
 ---
 title: "Use Input Otp"
 name: "use_input_otp"
-cargo_dependencies: []
+cargo_dependencies: ["wasm_bindgen", "web_sys"]
 registry_dependencies: []
-type: "components:hooks/"
+type: "components:hooks"
 path: "hooks/use_input_otp.rs"
+description: "This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality."
+tags: []
 ---
 
 # Use Input Otp
@@ -29,10 +31,7 @@ use std::rc::Rc;
 
 use wasm_bindgen::JsCast;
 use wasm_bindgen::closure::Closure;
-use web_sys::{
-    Element, Event, EventTarget, HtmlElement, HtmlInputElement, InputEvent, MutationObserver, MutationObserverInit,
-    MutationRecord, Node,
-};
+use web_sys::{Element, Event, EventTarget, HtmlElement, HtmlInputElement, Node};
 
 const OTP_ROOT_SELECTOR: &str = "[data-otp-root]";
 const OTP_INPUT_SELECTOR: &str = "input[data-otp-input]";
@@ -61,13 +60,13 @@ pub fn init() {
 struct OtpManager {
     controllers: HashMap<String, OtpController>,
     next_key: u64,
-    observer: Option<MutationObserver>,
-    observer_callback: Option<Closure<dyn FnMut(js_sys::Array, MutationObserver)>>,
+    _observer_callback: Option<Closure<dyn FnMut(js_sys::Array, web_sys::MutationObserver)>>,
+    observer: Option<web_sys::MutationObserver>,
 }
 
 impl OtpManager {
     fn new() -> Self {
-        Self { controllers: HashMap::new(), next_key: 0, observer: None, observer_callback: None }
+        Self { controllers: HashMap::new(), next_key: 0, _observer_callback: None, observer: None }
     }
 
     fn init_all(&mut self) {
@@ -106,7 +105,7 @@ impl OtpManager {
 
     fn handle_mutations(&mut self, records: js_sys::Array) {
         for record in records.iter() {
-            let Ok(record) = record.dyn_into::<MutationRecord>() else { continue };
+            let Ok(record) = record.dyn_into::<web_sys::MutationRecord>() else { continue };
 
             self.handle_node_list(record.removed_nodes(), false);
             self.handle_node_list(record.added_nodes(), true);
@@ -147,19 +146,19 @@ impl OtpManager {
         let Some(document) = document() else { return };
         let Some(body) = document.body() else { return };
 
-        let callback = Closure::wrap(Box::new(move |records: js_sys::Array, _observer: MutationObserver| {
+        let callback = Closure::wrap(Box::new(move |records: js_sys::Array, _observer: web_sys::MutationObserver| {
             MANAGER.with(|manager| {
                 if let Some(manager) = manager.borrow_mut().as_mut() {
                     manager.handle_mutations(records);
                 }
             });
-        }) as Box<dyn FnMut(js_sys::Array, MutationObserver)>);
+        }) as Box<dyn FnMut(js_sys::Array, web_sys::MutationObserver)>);
 
-        let Ok(observer) = MutationObserver::new(callback.as_ref().unchecked_ref()) else {
+        let Ok(observer) = web_sys::MutationObserver::new(callback.as_ref().unchecked_ref()) else {
             return;
         };
 
-        let options = MutationObserverInit::new();
+        let options = web_sys::MutationObserverInit::new();
         options.set_child_list(true);
         options.set_subtree(true);
 
@@ -168,7 +167,7 @@ impl OtpManager {
         }
 
         self.observer = Some(observer);
-        self.observer_callback = Some(callback);
+        self._observer_callback = Some(callback);
     }
 }
 
@@ -367,20 +366,19 @@ where
 }
 
 fn filter_input(event: Event, _dom: &Rc<OtpDom>) {
-    let Some(input_event) = event.dyn_ref::<InputEvent>() else {
-        return;
-    };
+    use wasm_bindgen::JsCast;
+    if let Some(input_event) = event.dyn_ref::<web_sys::InputEvent>() {
+        if input_event.input_type() != "insertText" {
+            return;
+        }
 
-    if input_event.input_type() != "insertText" {
-        return;
+        if let Some(data) = input_event.data() {
+            if data.chars().all(|ch| ch.is_ascii_digit()) {
+                return;
+            }
+            input_event.prevent_default();
+        }
     }
-
-    let Some(data) = input_event.data() else { return };
-    if data.chars().all(|ch| ch.is_ascii_digit()) {
-        return;
-    }
-
-    input_event.prevent_default();
 }
 
 fn move_cursor_to_end(input: &HtmlInputElement) {

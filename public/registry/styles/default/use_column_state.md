@@ -3,8 +3,10 @@ title: "Use Column State"
 name: "use_column_state"
 cargo_dependencies: ["strum"]
 registry_dependencies: ["data_grid"]
-type: "components:hooks/"
+type: "components:hooks"
 path: "hooks/use_column_state.rs"
+description: "This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality."
+tags: []
 ---
 
 # Use Column State
@@ -33,7 +35,7 @@ ui add use_column_state
 use std::collections::{HashMap, HashSet};
 use std::hash::Hash;
 
-use leptos::prelude::*;
+use dioxus::prelude::*;
 use strum::IntoEnumIterator;
 
 use crate::components::ui::data_grid::{DataGridColumn, SortDirection};
@@ -41,11 +43,11 @@ use crate::components::ui::data_grid::{DataGridColumn, SortDirection};
 /// State returned by `use_column_state` hook.
 pub struct ColumnState<C: DataGridColumn> {
     /// Sort signals for each column.
-    pub sort_signals: StoredValue<HashMap<C, RwSignal<SortDirection>>>,
+    pub sort_signals: HashMap<C, Signal<SortDirection>>,
     /// Which columns are pinned (sticky).
-    pub pinned_columns_signal: RwSignal<HashSet<C>>,
+    pub pinned_columns_signal: Signal<HashSet<C>>,
     /// Which columns are visible.
-    pub visible_columns_signal: RwSignal<HashSet<String>>,
+    pub visible_columns_signal: Signal<HashSet<String>>,
 }
 
 /// Hook that sets up column state for data grids.
@@ -62,13 +64,12 @@ pub fn use_column_state<C>(pinnable_columns: &[(C, i32)]) -> ColumnState<C>
 where
     C: DataGridColumn + IntoEnumIterator + ToString + Hash + Eq + Copy + 'static,
 {
-    let sort_signals: HashMap<C, RwSignal<SortDirection>> =
-        pinnable_columns.iter().map(|(col, _)| (*col, RwSignal::new(SortDirection::None))).collect();
-    let sort_signals = StoredValue::new(sort_signals);
+    let sort_signals: HashMap<C, Signal<SortDirection>> =
+        pinnable_columns.iter().map(|(col, _)| (*col, use_signal(|| SortDirection::None))).collect();
 
-    let pinned_columns_signal = RwSignal::new(HashSet::<C>::new());
+    let pinned_columns_signal = use_signal(|| HashSet::<C>::new());
 
-    let visible_columns_signal = RwSignal::new(C::iter().map(|c| c.to_string()).collect::<HashSet<String>>());
+    let visible_columns_signal = use_signal(|| C::iter().map(|c| c.to_string()).collect::<HashSet<String>>());
 
     ColumnState { sort_signals, pinned_columns_signal, visible_columns_signal }
 }

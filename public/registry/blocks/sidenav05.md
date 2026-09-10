@@ -2,194 +2,32 @@
 
 
 ```rust
-use icons::PanelLeft;
-use leptos::prelude::*;
-use leptos_router::StaticSegment;
-use leptos_router::components::{Outlet, ParentRoute};
-use leptos_router::hooks::use_location;
+use dioxus::prelude::*;
+use icons::Search;
 
-use crate::components::blocks::sidenav_routes::{DocsRoutes, SidenavRoutes};
-use crate::components::blocks::sidenav_routes_selector::SidenavRoutesSelector;
-use crate::components::blocks::sidenav_routes_simplified::SidenavRoutesSimplified;
-use crate::components::demos::demo_dropdown_menu_user::DemoDropdownMenuUser;
-use crate::components::ui::accordion::{AccordionContent, AccordionHeader, AccordionItem, AccordionTitle, AccordionTrigger};
-use crate::components::ui::button::{ButtonSize, ButtonVariant};
-use crate::components::ui::sheet::{Sheet, SheetContent, SheetContext, SheetDirection, SheetTrigger};
-use crate::components::ui::sidenav::{
-    Sidenav, SidenavContent, SidenavFooter, SidenavGroup, SidenavGroupContent, SidenavGroupLabel, SidenavHeader,
-    SidenavLink, SidenavMenu, SidenavMenuItem, SidenavMenuSub, SidenavWrapper,
-};
+use crate::components::ui::input::{Input, InputType};
 
-#[component(transparent)]
-pub fn Sidenav05Routes() -> impl MatchNestedRoutes + Clone {
-    view! {
-        <ParentRoute path=StaticSegment(SidenavRoutes::view_segment()) view=|| view! { <Outlet /> }>
-            <ParentRoute
-                path=StaticSegment(SidenavRoutes::Sidenav05.as_ref())
-                view=move || view! { <SidenavLayout sidenav_route=SidenavRoutes::Sidenav05 /> }
-            >
-                <SidenavRoutesSimplified />
-            </ParentRoute>
-        </ParentRoute>
-    }
-    .into_inner()
-}
-
-/* ========================================================== */
-/*                     ✨ FUNCTIONS ✨                        */
-/* ========================================================== */
-
-// * ---> Layout with [📍 OUTLET] for nested routing (SidenavInset).
 #[component]
-pub fn SidenavLayout(sidenav_route: SidenavRoutes) -> impl IntoView {
-    let location = use_location();
-
-    // Determine current section from URL
-    let current_section = Memo::new(move |_| {
-        let path = location.pathname.get();
-        if path.contains(DocsRoutes::Components.as_ref()) { DocsRoutes::Components } else { DocsRoutes::Hooks }
-    });
-
-    view! {
-        <div class="bg-background">
-            <SidenavWrapper attr:style="--sidenav-width:16rem;">
-                // * Desktop Sidenav (hidden on mobile)
-                <Sidenav>
-                    <Sidenav05Content current_section sidenav_route />
-                </Sidenav>
-
-                // * ---> [📍 OUTLET] for nested routing (SidenavInset).
-                // * Mobile Sheet is rendered in SidenavInsetRight header
-                <Outlet />
-            </SidenavWrapper>
-        </div>
-    }
-}
-
-/* ========================================================== */
-/*                     ✨ SHARED CONTENT ✨                   */
-/* ========================================================== */
-
-/// Shared sidenav content used by both desktop Sidenav and mobile Sheet
-#[component]
-fn Sidenav05Content(current_section: Memo<DocsRoutes>, sidenav_route: SidenavRoutes) -> impl IntoView {
-    // Try to get SheetContext - will be Some when inside a Sheet (mobile), None otherwise (desktop)
-    let sheet_ctx = use_context::<SheetContext>();
-
-    view! {
-        <SidenavHeader>
-            <SidenavRoutesSelector current_section sidenav_route />
-        </SidenavHeader>
-
-        <SidenavContent>
-            {move || {
-                let sheet_target_id = sheet_ctx.as_ref().map(|ctx| ctx.target_id.clone());
-                let links = match current_section.get() {
-                    DocsRoutes::Components => COMPONENT_LINKS,
-                    DocsRoutes::Hooks => HOOKS_LINKS,
-                };
-
-                view! {
-                    <SidenavGroup>
-                        <SidenavGroupContent>
-                            <SidenavGroupLabel>{move || current_section.get().to_title()}</SidenavGroupLabel>
-                            <SidenavMenu>
-                                <SidenavMenuItem>
-                                    <AccordionItem>
-                                        <AccordionTrigger open=true class="p-2 peer-checked:bg-accent hover:bg-accent">
-                                            <AccordionHeader>
-                                                <AccordionTitle>
-                                                    {move || current_section.get().to_title()}
-                                                </AccordionTitle>
-                                            </AccordionHeader>
-                                        </AccordionTrigger>
-                                        <AccordionContent class="p-0">
-                                            <SidenavMenuSub>
-                                                {links
-                                                    .iter()
-                                                    .map(|(href, link_title)| {
-                                                        if let Some(ref target_id) = sheet_target_id {
-                                                            // Wrap in div with data-sheet-close when inside a Sheet (mobile)
-                                                            view! {
-                                                                <div data-sheet-close=target_id.clone()>
-                                                                    <SidenavLink href=*href>{*link_title}</SidenavLink>
-                                                                </div>
-                                                            }
-                                                                .into_any()
-                                                        } else {
-                                                            view! {
-                                                                <SidenavLink href=*href>{*link_title}</SidenavLink>
-                                                            }
-                                                                .into_any()
-                                                        }
-                                                    })
-                                                    .collect_view()}
-                                            </SidenavMenuSub>
-                                        </AccordionContent>
-                                    </AccordionItem>
-                                </SidenavMenuItem>
-                            </SidenavMenu>
-                        </SidenavGroupContent>
-                    </SidenavGroup>
+pub fn Sidenav05() -> Element {
+    rsx! {
+        div { class: "min-h-[760px] bg-muted/40",
+            div { class: "mx-auto grid max-w-7xl gap-6 px-6 py-8 lg:grid-cols-[18rem_minmax(0,1fr)]",
+                aside { class: "flex flex-col rounded-xl border bg-sidenav p-3 text-sidenav-foreground shadow-sm",
+                    div { class: "space-y-2 border-b border-sidenav-border/70 pb-3",
+                        div { class: "text-lg font-semibold", "Collapsible Submenus" }
+                        p { class: "text-xs text-sidenav-foreground/70", "A sidebar variant that keeps the structure compact but readable." }
+                        div { class: "relative",
+                            Input { r#type: InputType::Search, placeholder: "Search collapsible items...", class: "h-8 pl-9 bg-background" }
+                            Search { class: "pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" }
+                        }
+                    }
+                    div { class: "mt-auto border-t border-sidenav-border/70 pt-3 text-xs text-sidenav-foreground/70", "Designed for compact documentation pages" }
                 }
-            }}
-        </SidenavContent>
-
-        <SidenavFooter>
-            <DemoDropdownMenuUser />
-        </SidenavFooter>
+                main { class: "rounded-xl border bg-background p-6 shadow-sm",
+                    h1 { class: "text-3xl font-semibold tracking-tight", "Collapsible Submenus" }
+                }
+            }
+        }
     }
 }
-
-/* ========================================================== */
-/*                     ✨ MOBILE SHEET ✨                     */
-/* ========================================================== */
-
-/// Mobile sheet containing sidenav content - uses the proper Sheet component
-#[component]
-pub fn Sidenav05MobileSheet(current_section: Memo<DocsRoutes>, sidenav_route: SidenavRoutes) -> impl IntoView {
-    view! {
-        <Sheet>
-            // * Trigger visible only on mobile, positioned in header flow
-            <div class="md:hidden">
-                <SheetTrigger class="size-7" variant=ButtonVariant::Ghost size=ButtonSize::Icon>
-                    <PanelLeft class="size-4" />
-                    <span class="hidden">"Toggle Sidenav"</span>
-                </SheetTrigger>
-            </div>
-
-            <SheetContent
-                direction=SheetDirection::Left
-                class="p-0 w-[18rem] bg-sidenav text-sidenav-foreground"
-                show_close_button=false
-            >
-                <div class="flex flex-col h-full">
-                    <Sidenav05Content current_section sidenav_route />
-                </div>
-            </SheetContent>
-        </Sheet>
-    }
-}
-
-/* ========================================================== */
-/*                     ✨ CONSTANTS ✨                        */
-/* ========================================================== */
-
-// * A simple example with basic links.
-
-const COMPONENT_LINKS: &[(&str, &str)] = &[
-    ("/view/sidenav05/docs/components/accordion", "Accordion"),
-    ("/view/sidenav05/docs/components/alert", "Alert"),
-    ("/view/sidenav05/docs/components/alert-dialog", "Alert Dialog"),
-    ("/view/sidenav05/docs/components/button", "Button"),
-    ("/view/sidenav05/docs/components/card", "Card"),
-    ("/view/sidenav05/docs/components/checkbox", "Checkbox"),
-    ("/view/sidenav05/docs/components/dialog", "Dialog"),
-];
-
-const HOOKS_LINKS: &[(&str, &str)] = &[
-    ("/view/sidenav05/docs/hooks/use-copy-clipboard", "Use Copy Clipboard"),
-    ("/view/sidenav05/docs/hooks/use-lock-body-scroll", "Use Lock Body Scroll"),
-    ("/view/sidenav05/docs/hooks/use-random", "Use Random"),
-];
 ```

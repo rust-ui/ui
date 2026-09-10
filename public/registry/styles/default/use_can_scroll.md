@@ -3,8 +3,10 @@ title: "Use Can Scroll"
 name: "use_can_scroll"
 cargo_dependencies: []
 registry_dependencies: []
-type: "components:hooks/"
+type: "components:hooks"
 path: "hooks/use_can_scroll.rs"
+description: "This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality."
+tags: []
 ---
 
 # Use Can Scroll
@@ -23,30 +25,22 @@ ui add use_can_scroll
 ## Component Code
 
 ```rust
-use leptos::html::Nav;
-use leptos::prelude::*;
+use dioxus::prelude::*;
 
-/// Hook for detecting scroll state of a horizontally scrollable element
-///
-/// Returns a tuple of (update_fn, show_left_signal, show_right_signal) where:
-/// - `update_fn`: Function to call on scroll events to update fade states
-/// - `show_left_signal`: ReadSignal<bool> indicating if left fade should be visible
-/// - `show_right_signal`: ReadSignal<bool> indicating if right fade should be visible
-pub fn use_can_scroll(node_ref: NodeRef<Nav>) -> (impl Fn() + Clone, ReadSignal<bool>, ReadSignal<bool>) {
-    let show_left_fade_signal = RwSignal::new(false);
-    let show_right_fade_signal = RwSignal::new(true);
+/// Returns (update_fn, show_left, show_right).
+/// Call update_fn on scroll events of the target element.
+pub fn use_can_scroll() -> (impl Fn(Event<ScrollData>) + Clone, ReadSignal<bool>, ReadSignal<bool>) {
+    let show_left = use_signal(|| false);
+    let show_right = use_signal(|| true);
 
-    let update_fades = move || {
-        if let Some(element) = node_ref.get() {
-            let scroll_left = element.scroll_left();
-            let scroll_width = element.scroll_width();
-            let client_width = element.client_width();
-
-            show_left_fade_signal.set(scroll_left > 0);
-            show_right_fade_signal.set(scroll_left < scroll_width - client_width - 1);
-        }
+    let on_scroll = move |_ev: Event<ScrollData>| {
+        let scroll_left = _ev.scroll_left();
+        let scroll_width = _ev.scroll_width() as f64;
+        let client_width = _ev.client_width() as f64;
+        *show_left.write_unchecked() = scroll_left > 0.0;
+        *show_right.write_unchecked() = scroll_left < scroll_width - client_width - 1.0;
     };
 
-    (update_fades, show_left_fade_signal.read_only(), show_right_fade_signal.read_only())
+    (on_scroll, show_left.into(), show_right.into())
 }
 ```

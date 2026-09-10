@@ -1,10 +1,12 @@
 ---
 title: "Use Horizontal Scroll"
 name: "use_horizontal_scroll"
-cargo_dependencies: ["strum"]
+cargo_dependencies: ["strum", "wasm_bindgen"]
 registry_dependencies: []
-type: "components:hooks/"
+type: "components:hooks"
 path: "hooks/use_horizontal_scroll.rs"
+description: "This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality."
+tags: []
 ---
 
 # Use Horizontal Scroll
@@ -23,14 +25,11 @@ ui add use_horizontal_scroll
 ## Component Code
 
 ```rust
-use leptos::html::Div;
-use leptos::prelude::*;
+use dioxus::prelude::*;
 use strum::Display;
-use web_sys::wasm_bindgen::JsCast;
-use web_sys::{Element, Event};
 
 const DEFAULT_SCROLL_PERCENTAGE: f64 = 0.5;
-const DEFAULT_UPDATE_DELAY_MS: u64 = 300;
+const DEFAULT_UPDATE_DELAY_MS: i32 = 300;
 
 #[derive(Default, Clone, Copy, Display, PartialEq, Debug)]
 #[strum(serialize_all = "PascalCase")]
@@ -43,59 +42,66 @@ pub enum HorizontalScrollState {
 
 #[derive(Clone)]
 pub struct HorizontalScrollContext {
-    pub scroll_state: RwSignal<HorizontalScrollState>,
+    pub scroll_state: Signal<HorizontalScrollState>,
     pub scroll_by: Callback<i32>,
-    pub on_scroll: Callback<Event>,
+    pub on_scroll: Callback<Event<ScrollData>>,
 }
 
 pub fn use_horizontal_scroll(
-    node_ref: NodeRef<Div>,
+    _element_signal: ReadSignal<Option<web_sys::Element>>,
     scroll_percentage: Option<f64>,
-    update_delay_ms: Option<u64>,
+    update_delay_ms: Option<i32>,
 ) -> HorizontalScrollContext {
-    let scroll_state_signal = RwSignal::new(HorizontalScrollState::default());
-    let scroll_pct = scroll_percentage.unwrap_or(DEFAULT_SCROLL_PERCENTAGE);
-    let delay_ms = update_delay_ms.unwrap_or(DEFAULT_UPDATE_DELAY_MS);
+    let scroll_state = use_signal(HorizontalScrollState::default);
+    let _scroll_pct = scroll_percentage.unwrap_or(DEFAULT_SCROLL_PERCENTAGE);
+    let _delay_ms = update_delay_ms.unwrap_or(DEFAULT_UPDATE_DELAY_MS);
 
-    let update_scroll_state = move || {
-        if let Some(element) = node_ref.get() {
-            let element: Element = element.unchecked_into();
-            let scroll_left = element.scroll_left();
-            let scroll_width = element.scroll_width();
-            let client_width = element.client_width();
+    let update_state = move || {
+        #[cfg(target_arch = "wasm32")]
+        {
+            if let Some(el) = _element_signal.read().as_ref() {
+                let scroll_left = el.scroll_left();
+                let scroll_width = el.scroll_width();
+                let client_width = el.client_width();
 
-            let state = if scroll_left <= 0 {
-                HorizontalScrollState::Start
-            } else if scroll_left >= scroll_width - client_width - 1 {
-                HorizontalScrollState::End
-            } else {
-                HorizontalScrollState::Middle
-            };
-
-            // Use try_set to avoid panic if component is unmounted before timeout fires
-            let _ = scroll_state_signal.try_set(state);
+                let state = if scroll_left <= 0 {
+                    HorizontalScrollState::Start
+                } else if scroll_left >= scroll_width - client_width - 1 {
+                    HorizontalScrollState::End
+                } else {
+                    HorizontalScrollState::Middle
+                };
+                *scroll_state.write_unchecked() = state;
+            }
         }
     };
 
-    let scroll_by = Callback::new(move |direction: i32| {
-        if let Some(element) = node_ref.get() {
-            let element: Element = element.unchecked_into();
-            let container_width = element.client_width();
-            let scroll_amount = (container_width as f64 * scroll_pct) as i32;
-            element.set_scroll_left(element.scroll_left() + (scroll_amount * direction));
-            set_timeout(
-                move || {
-                    update_scroll_state();
-                },
-                std::time::Duration::from_millis(delay_ms),
-            );
+    let scroll_by = Callback::new(move |_direction: i32| {
+        #[cfg(target_arch = "wasm32")]
+        {
+            use wasm_bindgen::JsCast;
+            if let Some(el) = _element_signal.read().as_ref() {
+                if let Ok(html_el) = el.clone().dyn_into::<web_sys::HtmlElement>() {
+                    let container_width = html_el.client_width();
+                    let scroll_amount = (container_width as f64 * _scroll_pct) as i32;
+                    html_el.set_scroll_left(html_el.scroll_left() + (scroll_amount * _direction));
+
+                    let closure = wasm_bindgen::closure::Closure::once_into_js(move || {
+                        update_state();
+                    });
+                    let _ = web_sys::window().unwrap().set_timeout_with_callback_and_timeout_and_arguments_0(
+                        closure.as_ref().unchecked_ref(),
+                        _delay_ms,
+                    );
+                }
+            }
         }
     });
 
-    let on_scroll = Callback::new(move |_: Event| {
-        update_scroll_state();
+    let on_scroll = Callback::new(move |_ev: Event<ScrollData>| {
+        update_state();
     });
 
-    HorizontalScrollContext { scroll_state: scroll_state_signal, scroll_by, on_scroll }
+    HorizontalScrollContext { scroll_state, scroll_by, on_scroll }
 }
 ```

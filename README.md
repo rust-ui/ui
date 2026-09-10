@@ -1,26 +1,35 @@
-# Rust/UI
+# Dioxus UI
 
-Rust/UI hosts shared registry tooling and Rust UI ecosystem assets.
+The goal: bring the shadcn/ui component registry model to Dioxus — Tailwind CSS, copy-paste ready components for Rust web apps.
 
-Repository ownership:
+> **Early stage, experimental** — expect breaking changes. Open to contributors.
 
-- [`leptos-ui`](https://github.com/rust-ui/leptos-ui): Leptos website, deployment, Tauri app, and site assets.
-- [`dioxus-ui`](https://github.com/rust-ui/dioxus-ui): Dioxus website and application source.
-- This repository: shared crates, CLI, starters, registry artifacts, and repository governance.
+> **Not affiliated with or endorsed by the Dioxus team.** This is an independent personal project.
 
-## Shared crates
+This project will eventually be integrated into [rust-ui.com](https://www.rust-ui.com), alongside the existing Leptos component library.
 
-- [`tw-merge`](https://crates.io/crates/tw-merge): Tailwind class merging.
-- [`ui-cli`](https://crates.io/crates/ui-cli): CLI for adding Rust/UI components.
+Live demo: **[dioxus-ui.wasmer.app](https://dioxus-ui.wasmer.app)**
 
-## Registry
+## Stack
 
-Browse components at [rust-ui.com](https://www.rust-ui.com). Generated registry artifacts remain under [`public/registry`](public/registry).
+- [Dioxus](https://dioxuslabs.com/) 0.7
+- [Tailwind CSS](https://tailwindcss.com/) v4
+- [tw_merge](https://crates.io/crates/tw_merge) — class merging
+- [icons](https://crates.io/crates/icons) — Lucide icons for Dioxus
+- Deployed on [Wasmer Edge](https://wasmer.io/)
 
-## Contributing
+## Run locally
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+```bash
+dx serve --web --fullstack
+dx serve --platform desktop
+dx serve --platform ios
+```
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=rust-ui/dioxus-ui&type=Date)](https://star-history.com/#rust-ui/dioxus-ui&Date)
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT — see [LICENSE](./LICENSE)

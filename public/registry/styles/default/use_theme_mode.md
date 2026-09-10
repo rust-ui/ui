@@ -3,8 +3,10 @@ title: "Use Theme Mode"
 name: "use_theme_mode"
 cargo_dependencies: []
 registry_dependencies: []
-type: "components:hooks/"
+type: "components:hooks"
 path: "hooks/use_theme_mode.rs"
+description: "This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality."
+tags: []
 ---
 
 # Use Theme Mode
@@ -23,111 +25,97 @@ ui add use_theme_mode
 ## Component Code
 
 ```rust
-use leptos::prelude::*;
-use web_sys::Storage;
+use dioxus::prelude::*;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Clone, Copy)]
 pub struct ThemeMode {
-    state: RwSignal<bool>,
+    state: Signal<bool>,
 }
 
+#[cfg(target_arch = "wasm32")]
 const LOCALSTORAGE_KEY: &str = "darkmode";
 
-/// Hook to access the dark mode context
-///
-/// Returns the ThemeMode instance from context for easy access
 pub fn use_theme_mode() -> ThemeMode {
-    expect_context::<ThemeMode>()
+    consume_context::<ThemeMode>()
 }
 
-/* ========================================================== */
-/*                     ✨ FUNCTIONS ✨                        */
-/* ========================================================== */
-
 impl ThemeMode {
-    #[must_use]
-    /// Initializes a new ThemeMode instance.
     pub fn init() -> Self {
-        let theme_mode = Self { state: RwSignal::new(false) };
+        let state = use_signal(|| false);
+        let theme_mode = Self { state };
 
-        provide_context(theme_mode);
+        use_context_provider(|| theme_mode);
 
-        // Use Effect to handle browser-only initialization
-        Effect::new(move |_| {
-            let initial = Self::get_storage_state().unwrap_or(Self::prefers_dark_mode());
-            theme_mode.state.set(initial);
+        use_effect(move || {
+            let initial = Self::get_storage_state().unwrap_or_else(Self::prefers_dark_mode);
+            let mut s = state;
+            s.set(initial);
         });
 
         theme_mode
     }
 
-    pub fn toggle(&self) {
-        self.state.update(|state| {
-            *state = !*state;
-            Self::set_storage_state(*state);
-        });
+    pub fn toggle(&mut self) {
+        let new = !*self.state.read();
+        self.state.set(new);
+        Self::set_storage_state(new);
     }
 
-    pub fn set_dark(&self) {
+    pub fn set_dark(&mut self) {
         self.set(true);
     }
 
-    pub fn set_light(&self) {
+    pub fn set_light(&mut self) {
         self.set(false);
     }
 
-    /// - `dark`: Set to `true` for dark mode, and `false` for light mode.
-    pub fn set(&self, dark: bool) {
+    pub fn set(&mut self, dark: bool) {
         self.state.set(dark);
         Self::set_storage_state(dark);
     }
 
-    #[must_use]
     pub fn get(&self) -> bool {
-        self.state.get()
+        *self.state.read()
     }
 
-    #[must_use]
     pub fn is_dark(&self) -> bool {
-        self.state.get()
+        *self.state.read()
     }
 
-    #[must_use]
     pub fn is_light(&self) -> bool {
-        !self.state.get()
+        !*self.state.read()
     }
 
-    /* ========================================================== */
-    /*                     ✨ FUNCTIONS ✨                        */
-    /* ========================================================== */
-
-    /// Retrieves the local storage object, if available.
-    fn get_storage() -> Option<Storage> {
-        window().local_storage().ok().flatten()
-    }
-
-    /// Retrieves the dark mode state from local storage, if available.
     fn get_storage_state() -> Option<bool> {
-        Self::get_storage()
-            .and_then(|storage| storage.get(LOCALSTORAGE_KEY).ok())
-            .flatten()
-            .and_then(|entry| entry.parse::<bool>().ok())
+        #[cfg(target_arch = "wasm32")]
+        {
+            web_sys::window()
+                .and_then(|w| w.local_storage().ok().flatten())
+                .and_then(|s| s.get(LOCALSTORAGE_KEY).ok().flatten())
+                .and_then(|v| v.parse::<bool>().ok())
+        }
+        #[cfg(not(target_arch = "wasm32"))]
+        None
     }
 
-    /// Checks whether the user's system prefers dark mode based on media queries.
     fn prefers_dark_mode() -> bool {
-        window()
-            .match_media("(prefers-color-scheme: dark)")
-            .ok()
-            .flatten()
-            .map(|media| media.matches())
-            .unwrap_or_default()
+        #[cfg(target_arch = "wasm32")]
+        {
+            web_sys::window()
+                .and_then(|w| w.match_media("(prefers-color-scheme: dark)").ok().flatten())
+                .map(|mql| mql.matches())
+                .unwrap_or(false)
+        }
+        #[cfg(not(target_arch = "wasm32"))]
+        false
     }
 
-    /// Stores the dark mode state in local storage.
-    fn set_storage_state(state: bool) {
-        if let Some(storage) = Self::get_storage() {
-            storage.set(LOCALSTORAGE_KEY, state.to_string().as_str()).ok();
+    fn set_storage_state(_state: bool) {
+        #[cfg(target_arch = "wasm32")]
+        {
+            if let Some(storage) = web_sys::window().and_then(|w| w.local_storage().ok().flatten()) {
+                let _ = storage.set(LOCALSTORAGE_KEY, &_state.to_string());
+            }
         }
     }
 }

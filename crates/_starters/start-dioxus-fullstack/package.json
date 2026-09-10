@@ -1,0 +1,11 @@
+{
+	"scripts": {
+		"css": "tailwindcss -i style/tailwind.css -o public/tailwind.css --watch",
+		"css:build": "tailwindcss -i style/tailwind.css -o public/tailwind.css --minify"
+	},
+	"type": "module",
+	"dependencies": {
+		"@tailwindcss/cli": "^4.1.13",
+		"tailwindcss": "^4.1.13"
+	}
+}

@@ -1,0 +1,75 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Rust/UI - Changelog",
+  "home_page_url": "https://rust-ui.com/",
+  "feed_url": "https://rust-ui.com/feed.json",
+  "description": "Latest updates and announcements for Rust/UI - Leptos component library",
+  "icon": "https://rust-ui.com/icons/apple-touch-icon.png",
+  "favicon": "https://rust-ui.com/favicon.ico",
+  "language": "en-US",
+  "authors": [
+    {
+      "name": "Rustify",
+      "url": "https://rust-ui.com/",
+      "avatar": "https://rust-ui.com/og-image.webp"
+    }
+  ],
+  "items": [
+    {
+      "id": "https://rust-ui.com/docs/changelog#january-2026",
+      "url": "https://rust-ui.com/docs/changelog#january-2026",
+      "title": "January 2026 - iOS & Tauri Native Experience",
+      "content_html": "<h2>January 2026 - iOS & Tauri Native Experience</h2><p>First-class iOS support lands in Rust UI. Native loading screens, proper safe area handling, and a dedicated bottom navigation bring a polished mobile experience. Tauri builds are now optimized with trim-paths for significantly smaller binaries.</p><h3>Highlights</h3><ul><li>Native iOS loading screen with safe area support</li><li>Bottom navigation designed for mobile</li><li>Tauri binary size reduction with trim-paths optimization</li><li>Desktop releases v0.1.6 → v0.1.9</li><li>iOS releases v0.1.21 → v0.1.24</li></ul><h3>tw_merge v0.1.16</h3><p>Major improvements to the Tailwind merge utility, now supporting modern Tailwind features.</p><ul><li>tailwindcss-animate classes support</li><li>CSS logical inset properties</li><li>Child selector variant (*:) for Tailwind 3.4+</li><li>Arbitrary duration/delay values</li></ul>",
+      "summary": "First-class iOS support lands in Rust UI. Native loading screens, proper safe area handling, and a dedicated bottom navigation bring a polished mobile experience.",
+      "date_published": "2026-01-01T00:00:00Z",
+      "authors": [
+        {
+          "name": "Rustify"
+        }
+      ],
+      "tags": ["iOS", "Tauri", "Mobile", "Native"]
+    },
+    {
+      "id": "https://rust-ui.com/docs/changelog#december-2025",
+      "url": "https://rust-ui.com/docs/changelog#december-2025",
+      "title": "December 2025 - CLI 2.0 & Interactive Components",
+      "content_html": "<h2>December 2025 - CLI 2.0 & Interactive Components</h2><p>The CLI gets a complete rewrite with Ratatui, bringing a modern terminal UI with tabs, scrolling, mouse support, and keyboard shortcuts. New interactive components make building rich user experiences easier.</p><h3>Highlights</h3><ul><li><strong>ui-cli 2.0</strong>: Built with Ratatui featuring tabs, scrolling, mouse support, and help popup</li><li><strong>Context Menu</strong>: Right-click menus with full keyboard navigation</li><li><strong>ButtonAction</strong>: Press-and-hold interaction pattern</li><li><strong>Chat Blocks</strong>: Ready-to-use chat interface components</li></ul>",
+      "summary": "The CLI gets a complete rewrite with Ratatui, bringing a modern terminal UI with tabs, scrolling, mouse support, and keyboard shortcuts.",
+      "date_published": "2025-12-01T00:00:00Z",
+      "authors": [
+        {
+          "name": "Rustify"
+        }
+      ],
+      "tags": ["CLI", "Ratatui", "Interactive", "Components"]
+    },
+    {
+      "id": "https://rust-ui.com/docs/changelog#november-2025",
+      "url": "https://rust-ui.com/docs/changelog#november-2025",
+      "title": "November 2025 - Mobile First & Charts",
+      "content_html": "<h2>November 2025 - Mobile First & Charts</h2><p>A major shift towards mobile-first design. Extensions are consolidated into Core components, with select pieces moving to Blocks. The UI now works seamlessly with Tauri for native mobile apps.</p><h3>Highlights</h3><ul><li>Mobile-first approach, optimized for Tauri</li><li>Removed Extensions in favor of Core components</li><li>Newsletter components</li><li>Charts integration</li></ul>",
+      "summary": "A major shift towards mobile-first design. Extensions are consolidated into Core components, with select pieces moving to Blocks.",
+      "date_published": "2025-11-01T00:00:00Z",
+      "authors": [
+        {
+          "name": "Rustify"
+        }
+      ],
+      "tags": ["Mobile", "Charts", "Design"]
+    },
+    {
+      "id": "https://rust-ui.com/docs/changelog#october-2025",
+      "url": "https://rust-ui.com/docs/changelog#october-2025",
+      "title": "October 2025 - Forms & ScrollArea",
+      "content_html": "<h2>October 2025 - Forms & ScrollArea</h2><p>A major focus on form handling and scrollable content. The new use_form hook brings validation to Leptos forms, while ScrollArea adds smooth scrolling with snap support.</p><h3>Highlights</h3><ul><li><strong>Form Validation</strong>: New use_form hook with field validation</li><li><strong>ScrollArea</strong>: Complete scroll component with horizontal, vertical, and snap modes</li><li><strong>Pagination</strong>: URL query params support for shareable pagination state</li><li><strong>Icons v0.15</strong>: Animated icons and performance optimizations</li></ul>",
+      "summary": "A major focus on form handling and scrollable content. The new use_form hook brings validation to Leptos forms.",
+      "date_published": "2025-10-01T00:00:00Z",
+      "authors": [
+        {
+          "name": "Rustify"
+        }
+      ],
+      "tags": ["Forms", "Validation", "ScrollArea"]
+    }
+  ]
+}

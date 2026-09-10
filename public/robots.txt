@@ -1,0 +1,116 @@
+# Allow all crawlers (search engines + AI) for optimal GEO
+# This enables visibility in both traditional search and generative AI responses
+User-agent: *
+Allow: /
+
+# Block preview/view routes from being indexed
+Disallow: /view/
+
+# Block deprecated routes (permanently removed)
+# /docs/extensions bare path + full subtree (both → 410)
+Disallow: /docs/extensions
+Disallow: /docs/extensions/
+Disallow: /docs/ui
+Disallow: /docs/ui/
+Disallow: /core
+Disallow: /core/
+Disallow: /ui
+Disallow: /ui/
+Disallow: /extensions
+Disallow: /extensions/
+Disallow: /theme-generator
+Disallow: /blocks/hooks
+Disallow: /blocks/charts
+Disallow: /blocks/parallax
+Disallow: /parallax-ipad-scroll
+Disallow: /parallax-scrolls
+Disallow: /registry/tree
+
+# NOTE: /components/* and /demo-components/* are intentionally NOT disallowed.
+# They 301-redirect to /docs/components/* so Google can follow the redirect
+# and transfer link equity to the canonical URL.
+
+# Block non-.md registry routes (only .md files should be indexed)
+# Example: /registry/blocks/footer03 should be 404, only /registry/blocks/footer03.md is valid
+Disallow: /registry/blocks/*
+Allow: /registry/blocks/*.md
+Disallow: /registry/styles/*
+Allow: /registry/styles/*.md
+
+# Sitemap location
+Sitemap: https://rust-ui.com/sitemap.xml
+
+# RSS/JSON Feeds for content discovery
+# RSS Feed: https://rust-ui.com/feed.xml
+# JSON Feed: https://rust-ui.com/feed.json
+
+# Explicitly allow AI crawlers for Generative Engine Optimization (GEO)
+# These help your content appear in AI-generated answers and citations
+
+# OpenAI (ChatGPT Search, ChatGPT citations)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Common Crawl (used by many AI models for training)
+User-agent: CCBot
+Allow: /
+
+# Anthropic Claude
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Google AI (AI Overviews, Gemini)
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Microsoft (Bing AI, Copilot)
+User-agent: Bingbot
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+# Amazon (Alexa answers)
+User-agent: Amazonbot
+Allow: /
+
+# ByteDance (used in various AI products)
+User-agent: Bytespider
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Other search engines
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Crawl-delay for politeness (optional)
+# Crawl-delay: 1

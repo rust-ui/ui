@@ -1,0 +1,17 @@
+[package]
+name = "app_domain"
+version = "0.1.0"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[dependencies]
+dioxus = { version = "0.7", features = ["router", "fullstack"] }
+registry.workspace = true
+icons.workspace = true
+
+[features]
+default = []
+web = ["dioxus/web"]
+server = ["dioxus/server"]

@@ -1,3 +1,0 @@
-[workspace]
-members = ["tw_merge", "tw_merge_variants"]
-resolver = "2"

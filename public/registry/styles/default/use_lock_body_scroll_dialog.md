@@ -1,10 +1,12 @@
 ---
 title: "Use Lock Body Scroll Dialog"
 name: "use_lock_body_scroll_dialog"
-cargo_dependencies: []
+cargo_dependencies: ["wasm_bindgen"]
 registry_dependencies: []
-type: "components:hooks/"
+type: "components:hooks"
 path: "hooks/use_lock_body_scroll_dialog.rs"
+description: "This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality."
+tags: []
 ---
 
 # Use Lock Body Scroll Dialog
@@ -23,7 +25,7 @@ ui add use_lock_body_scroll_dialog
 ## Component Code
 
 ```rust
-use leptos::prelude::*;
+use dioxus::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Hook to lock/unlock body scroll and prevent background interactions for dialogs.
@@ -44,22 +46,23 @@ use wasm_bindgen::JsCast;
 /// # Returns
 /// A reactive signal that controls the lock state - set to `true` to lock,
 /// `false` to unlock with delayed restoration
-pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> RwSignal<bool> {
+pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
     const TARGET_DIALOG_LOCK_BODY: &str = "#target__dialog_lock_body";
 
-    let locked_signal = RwSignal::new(initial_locked);
-    let scroll_position_signal = RwSignal::new(0.0);
+    let locked_signal = use_signal(|| initial_locked);
+    let mut scroll_position_signal = use_signal(|| 0.0_f64);
 
-    Effect::new(move |_| {
-        let Some(document) = window().document() else { return };
+    use_effect(move || {
+        let Some(document) = web_sys::window().and_then(|w| w.document()) else { return };
         let Some(body) = document.body() else { return };
+        let window = web_sys::window().unwrap();
 
-        if locked_signal.get() {
+        if locked_signal() {
             // Store current scroll position
-            scroll_position_signal.set(window().scroll_y().unwrap_or(0.0));
+            scroll_position_signal.set(window.scroll_y().unwrap_or(0.0));
 
             // Calculate scrollbar width for compensation
-            let Some(inner_width) = window().inner_width().ok().and_then(|w| w.as_f64()) else {
+            let Some(inner_width) = window.inner_width().ok().and_then(|w| w.as_f64()) else {
                 return;
             };
             let scrollbar_width = inner_width - body.client_width() as f64;
@@ -67,7 +70,7 @@ pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> RwSignal<bool> {
             // Apply body lock styles
             let style = body.style();
             let _ = style.set_property("position", "fixed");
-            let _ = style.set_property("top", &format!("-{}px", scroll_position_signal.get()));
+            let _ = style.set_property("top", &format!("-{}px", scroll_position_signal()));
             let _ = style.set_property("width", "100%");
             let _ = style.set_property("overflow", "hidden");
 
@@ -80,20 +83,25 @@ pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> RwSignal<bool> {
             set_dialog_pointer_events(&document, "auto");
         } else {
             // Delayed unlock to allow closing animations
-            let stored_position = scroll_position_signal.get();
-            set_timeout(
-                move || {
+            let stored_position = scroll_position_signal();
+            let body_clone = body.clone();
+            let document_clone = document.clone();
+            let _ = window.set_timeout_with_callback_and_timeout_and_arguments_0(
+                wasm_bindgen::closure::Closure::once_into_js(move || {
                     // Remove body lock styles
-                    let style = body.style();
+                    let style = body_clone.style();
                     for prop in ["position", "top", "width", "overflow", "padding-right"] {
                         let _ = style.remove_property(prop);
                     }
-                    window().scroll_to_with_x_and_y(0.0, stored_position);
+                    if let Some(w) = web_sys::window() {
+                        w.scroll_to_with_x_and_y(0.0, stored_position);
+                    }
 
                     // Restore pointer events
-                    set_pointer_events(&document, TARGET_DIALOG_LOCK_BODY, "");
-                },
-                std::time::Duration::from_millis(100),
+                    set_pointer_events(&document_clone, TARGET_DIALOG_LOCK_BODY, "");
+                })
+                .unchecked_ref(),
+                100,
             );
         }
     });

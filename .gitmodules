@@ -1,15 +1,3 @@
 [submodule "leptos-ui"]
 	path = leptos-ui
 	url = https://github.com/rust-ui/leptos-ui.git
-
-[submodule "crates/_starters/start-dioxus-fullstack"]
-	path = crates/_starters/start-dioxus-fullstack
-	url = https://github.com/rust-ui/start-dioxus-fullstack.git
-
-[submodule "crates/_starters/start-tauri"]
-	path = crates/_starters/start-tauri
-	url = https://github.com/rust-ui/start-tauri.git
-
-[submodule "crates/_starters/start-tauri-fullstack"]
-	path = crates/_starters/start-tauri-fullstack
-	url = https://github.com/rust-ui/start-tauri-fullstack.git

@@ -1,0 +1,26 @@
+[package]
+name = "registry"
+version = "0.1.0"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[dependencies]
+dioxus = { version = "0.7", features = ["router", "fullstack"] }
+heck.workspace = true
+icons.workspace = true
+tw_merge.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+strum.workspace = true
+js-sys.workspace = true
+wasm-bindgen.workspace = true
+time = { version = "0.3", features = ["formatting", "macros"] }
+gloo-timers = { version = "0.3", features = ["futures"] }
+web-sys.workspace = true
+
+[features]
+default = []
+web = ["dioxus/web"]
+server = ["dioxus/server"]

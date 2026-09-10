@@ -1,10 +1,12 @@
 ---
 title: "Use History"
 name: "use_history"
-cargo_dependencies: []
+cargo_dependencies: ["wasm_bindgen", "web_sys"]
 registry_dependencies: []
-type: "components:hooks/"
+type: "components:hooks"
 path: "hooks/use_history.rs"
+description: "This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality."
+tags: []
 ---
 
 # Use History
@@ -23,9 +25,9 @@ ui add use_history
 ## Component Code
 
 ```rust
-use leptos::prelude::*;
-use leptos::wasm_bindgen::closure::Closure;
+use dioxus::prelude::*;
 use wasm_bindgen::JsCast;
+use wasm_bindgen::closure::Closure;
 use web_sys::KeyboardEvent;
 
 /// Undo/redo history stack for URL-based state.
@@ -44,17 +46,12 @@ use web_sys::KeyboardEvent;
 /// // In child component:
 /// let history = use_history();
 /// history.push("?color=red".to_string());
-///
-/// view! {
-///     <button on:click=move |_| history.go_back()>"Undo"</button>
-///     <button on:click=move |_| history.go_forward()>"Redo"</button>
-/// }
 /// ```
 #[derive(Clone, Copy)]
 pub struct UseHistory {
-    history: RwSignal<Vec<String>>,
-    index: RwSignal<usize>,
-    is_navigating: RwSignal<bool>,
+    history: Signal<Vec<String>>,
+    index: Signal<usize>,
+    is_navigating: Signal<bool>,
 }
 
 impl UseHistory {
@@ -62,48 +59,54 @@ impl UseHistory {
     /// Sets up `⌘Z` / `⌘⇧Z` / `⌃Y` keyboard shortcuts on the document.
     #[must_use]
     pub fn init() -> Self {
-        let hook =
-            Self { history: RwSignal::new(Vec::new()), index: RwSignal::new(0), is_navigating: RwSignal::new(false) };
+        let hook = Self { history: use_signal(Vec::new), index: use_signal(|| 0), is_navigating: use_signal(|| false) };
 
         provide_context(hook);
 
-        // Seed the stack with the current query string (same format as push())
-        Effect::new(move |_| {
-            let search = window().location().search().unwrap_or_default();
-            hook.history.update(|h| h.push(search));
+        // Seed the stack with the current query string
+        use_effect(move || {
+            #[cfg(target_arch = "wasm32")]
+            {
+                let search = web_sys::window().and_then(|w| w.location().search().ok()).unwrap_or_default();
+                let mut history = hook.history;
+                history.with_mut(|h| h.push(search));
+            }
         });
 
         // Register ⌘Z / ⌘⇧Z / ⌃Y shortcuts
-        Effect::new(move |_| {
-            let closure = Closure::<dyn Fn(KeyboardEvent)>::new(move |e: KeyboardEvent| {
-                let key = e.key().to_lowercase();
-                let meta = e.meta_key() || e.ctrl_key();
-                let shift = e.shift_key();
+        use_effect(move || {
+            #[cfg(target_arch = "wasm32")]
+            {
+                let closure = Closure::<dyn Fn(KeyboardEvent)>::new(move |e: KeyboardEvent| {
+                    let key = e.key().to_lowercase();
+                    let meta = e.meta_key() || e.ctrl_key();
+                    let shift = e.shift_key();
 
-                // Skip if focus is in an input / textarea / select
-                if let Some(target) = e.target()
-                    && let Some(el) = target.dyn_ref::<web_sys::HtmlElement>()
-                {
-                    let tag = el.tag_name().to_lowercase();
-                    if matches!(tag.as_str(), "input" | "textarea" | "select") {
-                        return;
+                    // Skip if focus is in an input / textarea / select
+                    if let Some(target) = e.target()
+                        && let Some(el) = target.dyn_ref::<web_sys::HtmlElement>()
+                    {
+                        let tag = el.tag_name().to_lowercase();
+                        if matches!(tag.as_str(), "input" | "textarea" | "select") {
+                            return;
+                        }
                     }
+
+                    if meta && key == "z" && !shift {
+                        e.prevent_default();
+                        hook.go_back();
+                    } else if meta && ((key == "z" && shift) || key == "y") {
+                        e.prevent_default();
+                        hook.go_forward();
+                    }
+                });
+
+                if let Some(document) = web_sys::window().and_then(|w| w.document()) {
+                    let _ = document.add_event_listener_with_callback("keydown", closure.as_ref().unchecked_ref());
                 }
 
-                if meta && key == "z" && !shift {
-                    e.prevent_default();
-                    hook.go_back();
-                } else if meta && ((key == "z" && shift) || key == "y") {
-                    e.prevent_default();
-                    hook.go_forward();
-                }
-            });
-
-            if let Some(document) = window().document() {
-                let _ = document.add_event_listener_with_callback("keydown", closure.as_ref().unchecked_ref());
+                closure.forget();
             }
-
-            closure.forget();
         });
 
         hook
@@ -111,85 +114,92 @@ impl UseHistory {
 
     /// Push a new URL onto the stack (truncates any forward history).
     pub fn push(&self, url: String) {
-        if self.is_navigating.get_untracked() {
+        if *self.is_navigating.peek() {
             return;
         }
 
-        let idx = self.index.get_untracked();
-        self.history.update(|h| {
+        let idx = *self.index.peek();
+
+        // Truncate forward history
+        let mut history = self.history;
+        history.with_mut(|h| {
             h.truncate(idx + 1);
             h.push(url.clone());
         });
-        self.index.update(|i| *i += 1);
+        let mut index = self.index;
+        index.set(idx + 1);
 
         Self::replace_state(&url);
     }
 
-    /// Navigate one step back in the stack.
+    /// Navigate backwards (undo).
     pub fn go_back(&self) {
-        let idx = self.index.get_untracked();
+        let idx = *self.index.peek();
         if idx == 0 {
             return;
         }
 
-        self.is_navigating.set(true);
+        let mut is_navigating = self.is_navigating;
+        is_navigating.set(true);
         let new_idx = idx - 1;
-        self.index.set(new_idx);
+        let mut index = self.index;
+        index.set(new_idx);
 
-        let url = self.history.with_untracked(|h| h.get(new_idx).cloned()).unwrap_or_default();
+        let url = self.history.peek().get(new_idx).cloned().unwrap_or_default();
         Self::replace_state(&url);
 
-        self.is_navigating.set(false);
+        is_navigating.set(false);
     }
 
-    /// Navigate one step forward in the stack.
+    /// Navigate forwards (redo).
     pub fn go_forward(&self) {
-        let idx = self.index.get_untracked();
-        let len = self.history.with_untracked(|h| h.len());
+        let idx = *self.index.peek();
+        let len = self.history.peek().len();
         if idx + 1 >= len {
             return;
         }
 
-        self.is_navigating.set(true);
+        let mut is_navigating = self.is_navigating;
+        is_navigating.set(true);
         let new_idx = idx + 1;
-        self.index.set(new_idx);
+        let mut index = self.index;
+        index.set(new_idx);
 
-        let url = self.history.with_untracked(|h| h.get(new_idx).cloned()).unwrap_or_default();
+        let url = self.history.peek().get(new_idx).cloned().unwrap_or_default();
         Self::replace_state(&url);
 
-        self.is_navigating.set(false);
+        is_navigating.set(false);
     }
 
     /// `true` when there is a previous state to undo to.
-    pub fn can_go_back(&self) -> Signal<bool> {
-        let index = self.index;
-        Signal::derive(move || index.get() > 0)
+    pub fn can_go_back(&self) -> bool {
+        self.index() > 0
     }
 
     /// `true` when there is a future state to redo to.
-    pub fn can_go_forward(&self) -> Signal<bool> {
-        let history = self.history;
-        let index = self.index;
-        Signal::derive(move || index.get() + 1 < history.with(|h| h.len()))
+    pub fn can_go_forward(&self) -> bool {
+        self.index() + 1 < (self.history)().len()
     }
 
     /// Current position in the stack (1-based for display).
-    pub fn position(&self) -> Signal<usize> {
-        let index = self.index;
-        Signal::derive(move || index.get() + 1)
+    pub fn position(&self) -> usize {
+        self.index() + 1
     }
 
     /// Total number of states in the stack.
-    pub fn total(&self) -> Signal<usize> {
-        let history = self.history;
-        Signal::derive(move || history.with(|h| h.len()))
+    pub fn total(&self) -> usize {
+        (self.history)().len()
     }
 
     /// The current URL in the history stack (reactive).
-    pub fn current(&self) -> Signal<String> {
-        let history = self.history;
-        let index = self.index;
-        Signal::derive(move || history.with(|h| h.get(index.get()).cloned().unwrap_or_default()))
+    pub fn current(&self) -> String {
+        let history = (self.history)();
+        let idx = self.index();
+        history.get(idx).cloned().unwrap_or_default()
+    }
+
+    fn index(&self) -> usize {
+        (self.index)()
     }
 
     /* ========================================================== */
@@ -197,13 +207,18 @@ impl UseHistory {
     /* ========================================================== */
 
     fn replace_state(url: &str) {
-        let Ok(history) = window().history() else { return };
-        let _ = history.replace_state_with_url(&wasm_bindgen::JsValue::NULL, "", Some(url));
+        #[cfg(target_arch = "wasm32")]
+        {
+            let Ok(history) = web_sys::window().and_then(|w| w.history().ok()).ok_or(()) else { return };
+            let _ = history.replace_state_with_url(&wasm_bindgen::JsValue::NULL, "", Some(url));
+        }
+        #[cfg(not(target_arch = "wasm32"))]
+        let _ = url;
     }
 }
 
 /// Access the `UseHistory` context initialized by `UseHistory::init()`.
 pub fn use_history() -> UseHistory {
-    expect_context::<UseHistory>()
+    consume_context::<UseHistory>()
 }
 ```

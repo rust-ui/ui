@@ -1,0 +1,8 @@
+allow-unwrap-in-tests = true
+allow-expect-in-tests = true
+allow-panic-in-tests = true
+
+# Ban query! macro - enforce query_as! or query_scalar! for type safety
+disallowed-macros = [
+    { path = "sqlx::query", reason = "Use query_as! or query_scalar! for type safety instead" },
+]

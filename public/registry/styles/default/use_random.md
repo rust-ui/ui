@@ -3,8 +3,10 @@ title: "Use Random"
 name: "use_random"
 cargo_dependencies: []
 registry_dependencies: []
-type: "components:hooks/"
+type: "components:hooks"
 path: "hooks/use_random.rs"
+description: "This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality."
+tags: []
 ---
 
 # Use Random
@@ -27,7 +29,7 @@ use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-const PREFIX: &str = "rust_ui"; // Must NOT contain "/" or "-"
+const PREFIX: &str = "rust_ui";
 
 pub fn use_random_id() -> String {
     format!("_{PREFIX}_{}", generate_hash())
@@ -41,10 +43,6 @@ pub fn use_random_transition_name() -> String {
     let random_id = use_random_id();
     format!("view-transition-name: {random_id}")
 }
-
-/* ========================================================== */
-/*                     ✨ FUNCTIONS ✨                        */
-/* ========================================================== */
 
 static COUNTER: AtomicUsize = AtomicUsize::new(1);
 

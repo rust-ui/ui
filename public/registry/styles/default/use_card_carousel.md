@@ -1,10 +1,12 @@
 ---
 title: "Use Card Carousel"
 name: "use_card_carousel"
-cargo_dependencies: []
+cargo_dependencies: ["wasm_bindgen", "web_sys"]
 registry_dependencies: []
-type: "components:hooks/"
+type: "components:hooks"
 path: "hooks/use_card_carousel.rs"
+description: "This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality."
+tags: []
 ---
 
 # Use Card Carousel

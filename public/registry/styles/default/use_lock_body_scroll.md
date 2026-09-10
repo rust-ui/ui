@@ -3,8 +3,10 @@ title: "Use Lock Body Scroll"
 name: "use_lock_body_scroll"
 cargo_dependencies: []
 registry_dependencies: []
-type: "components:hooks/"
+type: "components:hooks"
 path: "hooks/use_lock_body_scroll.rs"
+description: "This component demo demonstrates practical implementation patterns and provides a concrete usage example for LLMs to understand the code structure and functionality."
+tags: []
 ---
 
 # Use Lock Body Scroll
@@ -23,14 +25,14 @@ ui add use_lock_body_scroll
 ## Component Code
 
 ```rust
-use leptos::prelude::*;
+use dioxus::prelude::*;
 
-pub fn use_lock_body_scroll(initial_locked: bool) -> RwSignal<bool> {
-    let locked_signal = RwSignal::new(initial_locked);
+pub fn use_lock_body_scroll(initial_locked: bool) -> Signal<bool> {
+    let locked_signal = use_signal(|| initial_locked);
 
-    Effect::new(move |_| {
-        if let Some(body) = window().document().and_then(|d| d.body()) {
-            let overflow = if locked_signal.get() { "hidden" } else { "" };
+    use_effect(move || {
+        if let Some(body) = web_sys::window().and_then(|w| w.document()).and_then(|d| d.body()) {
+            let overflow = if locked_signal() { "hidden" } else { "" };
             let _ = body.style().set_property("overflow", overflow);
         }
     });
