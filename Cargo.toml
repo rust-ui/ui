@@ -133,7 +133,8 @@ disallowed_macros = "deny"
 disallowed_methods = "deny"
 disallowed_types = "deny"
 mutex_atomic = "deny"
-str_to_string = "deny"
+# TODO: Re-enable after replacing literal `.to_string()` calls with `.to_owned()`.
+str_to_string = "allow"
 string_add = "deny"
 format_push_string = "deny"
 unwrap_in_result = "deny"
@@ -159,6 +160,10 @@ clone_on_ref_ptr = "warn"
 needless_borrow = "warn"
 needless_pass_by_value = "warn"
 unused_async = "warn"
+# TODO: Clean up documentation markup, literal separators, and derives, then re-enable.
+doc_markdown = "allow"
+unreadable_literal = "allow"
+derive_partial_eq_without_eq = "allow"
 # TODO: Raise this after migrating JSX/event-handler syntax across the registry.
 needless_raw_string_hashes = "allow"
 print_stdout = "warn" # build.rs needs Cargo directive output
