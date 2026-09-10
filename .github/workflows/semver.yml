@@ -4,10 +4,8 @@ on:
   pull_request:
     branches: [master]
     paths:
-      - "crates/leptos_ui/**"
       - "crates/tw_merge/**"
       - "crates/tw_merge/tw_merge_variants/**"
-      - "crates/icons/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -23,12 +21,8 @@ jobs:
       fail-fast: false
       matrix:
         crate:
-          - manifest: crates/leptos_ui/Cargo.toml
-            package: leptos_ui
-          - manifest: crates/tw_merge/Cargo.toml
+          - manifest: crates/tw_merge/tw_merge/Cargo.toml
             package: tw_merge
-          - manifest: crates/icons/Cargo.toml
-            package: icons
 
     steps:
       - uses: actions/checkout@v4

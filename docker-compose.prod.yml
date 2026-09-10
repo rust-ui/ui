@@ -1,8 +1,0 @@
-services:
-  app:
-    image: ${APP_IMAGE}
-    ports:
-      - "127.0.0.1:4001:3000"
-    restart: always
-
-networks: {}

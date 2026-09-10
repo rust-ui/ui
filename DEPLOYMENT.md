@@ -135,7 +135,7 @@ Planned. When Dioxus is ready to own the apex:
 3. scp + `nginx -t && reload`.
 4. `leptos.rust-ui.com` stays pointed at `:4002` permanently.
 
-The Leptos apex code lives in the parent `RUST-UI` repo today; the standalone
-copy is in `leptos-ui` (see `PLAN_MOVE_LEPTOS_SITE_PHASE_*.md`). Replacing the
-parent `RUST-UI` app with Dioxus does not affect `leptos.rust-ui.com`, which is
-served entirely from `rust-ui/leptos-ui`.
+The Leptos apex code lives in `rust-ui/leptos-ui` (see
+`leptos-ui/PLAN_MOVE_LEPTOS_SITE_PHASE_*.md`). Replacing or removing parent
+website source does not affect `leptos.rust-ui.com`, which is served entirely
+from `rust-ui/leptos-ui`.
