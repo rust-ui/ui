@@ -3,6 +3,8 @@ use strum::{AsRefStr, Display, EnumIter, EnumString, IntoStaticStr};
 
 #[derive(Default, Clone, Copy, Display, AsRefStr, IntoStaticStr, EnumString, EnumIter, Debug, PartialEq)]
 #[strum(serialize_all = "kebab-case")]
+// Route enum variant names are the public API; the `Chart` suffix is intentional.
+#[allow(clippy::enum_variant_names)]
 pub enum ChartRoutes {
     #[default]
     AreaChart,

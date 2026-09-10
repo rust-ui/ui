@@ -85,6 +85,8 @@ impl ComponentsRoutes {
 
 #[derive(Clone, Copy, Debug, Display, AsRefStr, IntoStaticStr, EnumString, EnumIter, PartialEq, Eq)]
 #[strum(serialize_all = "kebab-case")]
+// Route enum variant names are the public API; the `Use` prefix is intentional.
+#[allow(clippy::enum_variant_names)]
 pub enum HooksRoutes {
     UseCopyClipboard,
     UseLockBodyScroll,

@@ -16,6 +16,8 @@ impl WorkflowRoutes {
         "/workflows"
     }
 
+    // `self` kept for method-call ergonomics and parity with the other route enums.
+    #[allow(clippy::unused_self)]
     pub fn to_route(self) -> String {
         format!("/{}", Self::base_segment())
     }

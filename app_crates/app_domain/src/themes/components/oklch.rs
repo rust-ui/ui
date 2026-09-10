@@ -10,7 +10,7 @@ impl Oklch {
         Self { l, c, h }
     }
 
-    pub fn to_oklch_string(&self) -> String {
+    pub fn to_oklch_string(self) -> String {
         format!("oklch({} {} {})", self.l, self.c, self.h)
     }
 

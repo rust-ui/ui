@@ -181,6 +181,42 @@ imprecise_flops = "allow"
 option_if_let_else = "allow"
 return_self_not_must_use = "allow"
 
+# TODO(strict-clippy): burn-down bucket. See __SKILLS_SOP/strict-clippy-burndown.md.
+# These block `-D warnings` but sit almost entirely inside rsx! macro bodies, so
+# `cargo clippy --fix` cannot touch them. Remove one entry per pass, fix its sites,
+# keep the gate green. Site counts captured 2026-09-10.
+use_self = "allow"                            # ~215
+redundant_closure_for_method_calls = "allow"  # ~24
+default_trait_access = "allow"                # ~21
+uninlined_format_args = "allow"               # ~17
+ignored_unit_patterns = "allow"               # ~15
+needless_collect = "allow"                    # ~13
+map_unwrap_or = "allow"                       # ~8
+used_underscore_binding = "allow"             # ~7
+wrong_self_convention = "allow"               # ~6
+match_same_arms = "allow"                     # ~6
+manual_midpoint = "allow"                     # ~6
+significant_drop_tightening = "allow"         # ~4 (nursery; guards already drop at fn end)
+unused_self = "allow"                         # ~4
+if_not_else = "allow"                         # ~4
+implicit_hasher = "allow"                     # ~3
+or_fun_call = "allow"                         # ~2
+expl_impl_clone_on_copy = "allow"             # ~2
+struct_field_names = "allow"                  # ~2
+too_long_first_doc_paragraph = "allow"        # ~2
+unnecessary_wraps = "allow"                   # ~2
+unused_unit = "allow"                         # ~2
+match_bool = "allow"                          # ~1
+redundant_else = "allow"                      # ~1
+redundant_closure = "allow"                   # ~1
+needless_return = "allow"                     # ~1
+flat_map_option = "allow"                     # ~1
+# `&Option<T>` params in bug_reports_sqlite: hashed as-is for similarity grouping,
+# switching to `Option<&T>` would change stored hash values.
+ref_option = "allow"
+# False positive from the dioxus `asset!` macro expansion (`&[u8]` not volatile).
+volatile_composites = "allow"
+
 # Intentional project choices.
 module_name_repetitions = "allow"
 missing_errors_doc = "allow"

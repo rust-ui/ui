@@ -105,7 +105,9 @@ fn compute_similarity_hash(message: &str, exception_message: &Option<String>, st
     message.hash(&mut hasher);
     exception_message.hash(&mut hasher);
     stack_trace.hash(&mut hasher);
-    hasher.finish() as i64
+    // Reinterpret the 64 hash bits as i64 for SQLite's INTEGER column; value identity,
+    // not magnitude, is what matters for grouping.
+    i64::from_ne_bytes(hasher.finish().to_ne_bytes())
 }
 
 /// Save a bug report to SQLite.

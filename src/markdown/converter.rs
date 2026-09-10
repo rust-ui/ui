@@ -104,7 +104,7 @@ fn extract_text(nodes: &[Node]) -> String {
         .map(|n| match n {
             Node::Text(t) => t.clone(),
             Node::Element(el) => extract_text(&el.children),
-            _ => String::new(),
+            Node::Comment(_) => String::new(),
         })
         .collect::<String>()
 }
@@ -227,7 +227,7 @@ mod tests {
         // registering "DemoCard" should produce a hit for "democard"
         let mut c = MdComponents::new();
         c.add("DemoCard", |_| rsx! {});
-        assert!(c.0.get("democard").is_some());
+        assert!(c.0.contains_key("democard"));
     }
 
     #[test]
