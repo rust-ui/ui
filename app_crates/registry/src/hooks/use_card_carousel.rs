@@ -55,6 +55,8 @@ fn setup_listeners() -> Option<Listeners> {
 
 // ── Click handler ─────────────────────────────────────────────────────────────
 
+// Bound via `Closure::new` which requires `FnMut(Event)`; the owned `Event` is mandated by web-sys.
+#[allow(clippy::needless_pass_by_value)]
 fn handle_click(event: Event) {
     let Some(target) = event.target() else { return };
     let Ok(el) = target.dyn_into::<Element>() else { return };
@@ -89,6 +91,8 @@ fn handle_click(event: Event) {
 
 // ── Scroll handler ────────────────────────────────────────────────────────────
 
+// Bound via `Closure::new` which requires `FnMut(Event)`; the owned `Event` is mandated by web-sys.
+#[allow(clippy::needless_pass_by_value)]
 fn handle_scroll(event: Event) {
     let Some(target) = event.target() else { return };
     let Ok(el) = target.dyn_into::<Element>() else { return };

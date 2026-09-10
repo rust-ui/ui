@@ -57,12 +57,12 @@ impl OtpManager {
         for idx in 0..nodes.length() {
             let Some(node) = nodes.item(idx) else { continue };
             let Ok(root) = node.dyn_into::<Element>() else { continue };
-            self.init_container(root);
+            self.init_container(&root);
         }
     }
 
-    fn init_container(&mut self, root: Element) {
-        let key = self.ensure_key(&root);
+    fn init_container(&mut self, root: &Element) {
+        let key = self.ensure_key(root);
         if self.controllers.contains_key(&key) {
             return;
         }
@@ -82,18 +82,18 @@ impl OtpManager {
         self.controllers.remove(&key);
     }
 
-    fn handle_mutations(&mut self, records: js_sys::Array) {
+    fn handle_mutations(&mut self, records: &js_sys::Array) {
         for record in records.iter() {
             let Ok(record) = record.dyn_into::<web_sys::MutationRecord>() else {
                 continue;
             };
 
-            self.handle_node_list(record.removed_nodes(), false);
-            self.handle_node_list(record.added_nodes(), true);
+            self.handle_node_list(&record.removed_nodes(), false);
+            self.handle_node_list(&record.added_nodes(), true);
         }
     }
 
-    fn handle_node_list(&mut self, nodes: web_sys::NodeList, added: bool) {
+    fn handle_node_list(&mut self, nodes: &web_sys::NodeList, added: bool) {
         for idx in 0..nodes.length() {
             let Some(node) = nodes.item(idx) else { continue };
             self.handle_node(node, added);
@@ -107,7 +107,7 @@ impl OtpManager {
 
         for root in collect_roots(&element) {
             if added {
-                self.init_container(root);
+                self.init_container(&root);
             } else {
                 self.remove_container(&root);
             }
@@ -133,7 +133,7 @@ impl OtpManager {
             Box::new(move |records: js_sys::Array, _observer: web_sys::MutationObserver| {
                 MANAGER.with(|manager| {
                     if let Some(manager) = manager.borrow_mut().as_mut() {
-                        manager.handle_mutations(records);
+                        manager.handle_mutations(&records);
                     }
                 });
             }) as Box<dyn FnMut(js_sys::Array, web_sys::MutationObserver)>,
@@ -170,9 +170,9 @@ struct OtpController {
 }
 
 impl OtpController {
-    fn new(root: Element) -> Option<Self> {
-        let input = find_input(&root)?;
-        let dom = Rc::new(OtpDom::new(input, collect_slots(&root)));
+    fn new(root: &Element) -> Option<Self> {
+        let input = find_input(root)?;
+        let dom = Rc::new(OtpDom::new(input, collect_slots(root)));
         let listeners = register_listeners(&dom);
         update(&dom);
         Some(Self {
@@ -316,7 +316,7 @@ fn register_input_listeners(dom: &Rc<OtpDom>) -> Vec<Listener> {
         {
             let dom = Rc::clone(dom);
             add_listener(target.clone(), "beforeinput", move |event| {
-                filter_input(event, &dom);
+                filter_input(&event, &dom);
             })
         },
         {
@@ -372,7 +372,7 @@ where
     })
 }
 
-fn filter_input(event: Event, _dom: &Rc<OtpDom>) {
+fn filter_input(event: &Event, _dom: &Rc<OtpDom>) {
     use wasm_bindgen::JsCast;
     if let Some(input_event) = event.dyn_ref::<web_sys::InputEvent>() {
         if input_event.input_type() != "insertText" {

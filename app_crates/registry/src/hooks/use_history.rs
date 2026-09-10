@@ -21,7 +21,7 @@ use web_sys::KeyboardEvent;
 ///
 /// // In child component:
 /// let history = use_history();
-/// history.push("?color=red".to_string());
+/// history.push("?color=red");
 /// ```
 #[derive(Clone, Copy)]
 pub struct UseHistory {
@@ -95,7 +95,7 @@ impl UseHistory {
     }
 
     /// Push a new URL onto the stack (truncates any forward history).
-    pub fn push(&self, url: String) {
+    pub fn push(&self, url: &str) {
         if *self.is_navigating.peek() {
             return;
         }
@@ -106,12 +106,12 @@ impl UseHistory {
         let mut history = self.history;
         history.with_mut(|h| {
             h.truncate(idx + 1);
-            h.push(url.clone());
+            h.push(url.to_owned());
         });
         let mut index = self.index;
         index.set(idx + 1);
 
-        Self::replace_state(&url);
+        Self::replace_state(url);
     }
 
     /// Navigate backwards (undo).

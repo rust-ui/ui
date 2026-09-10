@@ -155,7 +155,6 @@ from_over_into = "allow"
 fallible_impl_from = "allow"
 clone_on_ref_ptr = "allow"
 needless_borrow = "allow"
-needless_pass_by_value = "allow"
 # TODO: Clean up documentation markup, literal separators, and derives, then re-enable.
 doc_markdown = "allow"
 print_stdout = "warn" # build.rs needs Cargo directive output

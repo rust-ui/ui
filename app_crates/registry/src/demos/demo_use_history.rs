@@ -51,7 +51,7 @@ fn DemoUseHistoryInner() -> Element {
                         "data-color": name,
                         "data-active": if active() == name { "true" } else { "false" },
                         onclick: move |_| {
-                            history.push(format!("?color={name}"));
+                            history.push(&format!("?color={name}"));
                         },
                     }
                 }
