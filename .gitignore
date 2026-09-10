@@ -12,7 +12,8 @@ bug_reports.db
 
 node_modules/
 
-assets/tailwind.css
+# assets/tailwind.css # ⚠️ Track tailwind.css generated file for now otherwise CI fails :  > [builder 4/4] RUN dx build --release --fullstack:
+# 243.5 49 | const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 
 pnpm-lock.yaml
 
