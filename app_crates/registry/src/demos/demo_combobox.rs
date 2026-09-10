@@ -42,7 +42,7 @@ pub fn DemoCombobox() -> Element {
                                 CommandItem {
                                     value: language.to_string(),
                                     selected: value_signal() == Some(language),
-                                    on_select: move |_| {
+                                    on_select: move |()| {
                                         value_signal.set(Some(language));
                                     },
                                     {language.to_string()}

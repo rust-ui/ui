@@ -66,7 +66,7 @@ pub fn DrawerContent(
 ) -> Element {
     let ctx = use_context::<DrawerContext>();
     let target_id = ctx.target_id.clone();
-    let backdrop_id = format!("{}_backdrop", target_id);
+    let backdrop_id = format!("{target_id}_backdrop");
     let backdrop_behavior = if dismissible { "auto" } else { "manual" };
 
     let is_floating = variant == DrawerVariant::Floating;

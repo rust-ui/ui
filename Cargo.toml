@@ -187,9 +187,6 @@ return_self_not_must_use = "allow"
 # keep the gate green. Site counts captured 2026-09-10.
 use_self = "allow"                            # ~215
 redundant_closure_for_method_calls = "allow"  # ~24
-default_trait_access = "allow"                # ~21
-uninlined_format_args = "allow"               # ~17
-ignored_unit_patterns = "allow"               # ~15
 needless_collect = "allow"                    # ~13
 map_unwrap_or = "allow"                       # ~8
 used_underscore_binding = "allow"             # ~7

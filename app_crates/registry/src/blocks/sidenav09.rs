@@ -3,6 +3,7 @@ use icons::{Component, Layers};
 
 use super::sidenav_common::{self, SidenavPattern};
 use super::sidenav_routes::{DocsRoutes, SidenavRoutes};
+use crate::ui::sheet::SheetDirection;
 use crate::demos::demo_dropdown_menu_user_icon::DemoDropdownMenuUserIcon;
 use crate::ui::sidenav::{Sidenav, SidenavCollapsible, SidenavMenu, SidenavMenuButton, SidenavMenuItem};
 
@@ -33,7 +34,7 @@ pub fn Sidenav09MobileSheet(current_section: DocsRoutes, sidenav_route: SidenavR
         current_section,
         sidenav_route,
         SidenavPattern::CollapsibleSubmenus,
-        Default::default(),
+        SheetDirection::default(),
         false,
     )
 }

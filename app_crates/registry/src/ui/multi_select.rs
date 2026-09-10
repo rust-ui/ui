@@ -101,7 +101,7 @@ pub fn MultiSelectValue(#[props(into, optional)] placeholder: Option<String>) ->
                     placeholder.clone().unwrap_or_default()
                 } else {
                     let count = values.len();
-                    if count == 1 { "1 selected".to_string() } else { format!("{} selected", count) }
+                    if count == 1 { "1 selected".to_string() } else { format!("{count} selected") }
                 }
             }
         }
@@ -204,7 +204,7 @@ pub fn MultiSelectTrigger(
 
     let id_str = id.clone().unwrap_or_default();
     let peer_class = if !id_str.is_empty() {
-        format!("peer/{}", id_str)
+        format!("peer/{id_str}")
     } else {
         String::new()
     };

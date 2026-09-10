@@ -481,7 +481,7 @@ fn CountryItem(country: Country, selected_country: Signal<Country>) -> Element {
             value: search_value,
             selected: is_selected,
             reserve_check_space: true,
-            on_select: move |_| {
+            on_select: move |()| {
                 selected_country.set(country);
             },
             span { class: "text-base", "{country.flag_emoji()}" }

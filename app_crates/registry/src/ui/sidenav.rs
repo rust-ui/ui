@@ -344,7 +344,7 @@ pub fn SidenavLink(
         .unwrap_or_default();
     #[cfg(not(target_arch = "wasm32"))]
     let path = String::new();
-    let is_active = path == href || path.starts_with(&format!("{}/", href));
+    let is_active = path == href || path.starts_with(&format!("{href}/"));
 
     rsx! {
         a {
@@ -543,7 +543,7 @@ pub fn SidenavMenuSubButton(
         .unwrap_or_default();
     #[cfg(not(target_arch = "wasm32"))]
     let path = String::new();
-    let is_active = path == href || path.starts_with(&format!("{}/", href));
+    let is_active = path == href || path.starts_with(&format!("{href}/"));
 
     rsx! {
         a {

@@ -7,7 +7,7 @@ use crate::ui::input_prompt::{InputPrompt, InputPromptFooter, InputPromptSubmit,
 pub fn DemoInputPrompt() -> Element {
     let mut value = use_signal(String::new);
 
-    let on_submit = move |_| {
+    let on_submit = move |()| {
         let text = value.peek().trim().to_string();
         if !text.is_empty() {
             value.set(String::new());

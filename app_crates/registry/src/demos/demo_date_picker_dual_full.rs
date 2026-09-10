@@ -92,10 +92,10 @@ pub fn DemoDatePickerDualFull() -> Element {
 
                 div { class: "flex flex-1 gap-8 justify-around",
                     DatePickerTitle { role: "presentation",
-                        {format!("{} {}", left_month, left_year)}
+                        {format!("{left_month} {left_year}")}
                     }
                     DatePickerTitle { role: "presentation",
-                        {format!("{} {}", right_month, right_year)}
+                        {format!("{right_month} {right_year}")}
                     }
                 }
 

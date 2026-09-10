@@ -133,6 +133,9 @@ pub fn DropdownMenuContent(
     };
     let target_id = ctx.target_id.clone();
 
+    // Large inline JS template with trailing named args; inlining every `{tid}`
+    // into the format string would not improve readability.
+    #[allow(clippy::uninlined_format_args)]
     let script = format!(
         r#"(function() {{
             const setupDropdown = () => {{

@@ -2,6 +2,8 @@ use dioxus::prelude::*;
 
 use super::sidenav_common::{self, SidenavPattern};
 use super::sidenav_routes::{DocsRoutes, SidenavRoutes};
+use crate::ui::sheet::SheetDirection;
+use crate::ui::sidenav::SidenavVariant;
 
 #[component]
 pub fn Sidenav07Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
@@ -9,7 +11,7 @@ pub fn Sidenav07Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoute
         current_section,
         sidenav_route,
         SidenavPattern::Icons,
-        Default::default(),
+        SidenavVariant::default(),
     )
 }
 #[component]
@@ -22,7 +24,7 @@ pub fn Sidenav07MobileSheet(current_section: DocsRoutes, sidenav_route: SidenavR
         current_section,
         sidenav_route,
         SidenavPattern::Icons,
-        Default::default(),
+        SheetDirection::default(),
         false,
     )
 }

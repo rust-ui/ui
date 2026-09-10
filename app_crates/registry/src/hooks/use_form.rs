@@ -123,11 +123,11 @@ where
 
     pub fn reset(&self) {
         let mut values_signal = self.values_signal;
-        values_signal.set(Default::default());
+        values_signal.set(HashMap::default());
         let mut errors_signal = self.errors_signal;
-        errors_signal.set(Default::default());
+        errors_signal.set(HashMap::default());
         let mut touched_signal = self.touched_signal;
-        touched_signal.set(Default::default());
+        touched_signal.set(HashSet::default());
     }
 
     pub fn get_data(&self) -> Option<T> {

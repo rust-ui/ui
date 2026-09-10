@@ -55,7 +55,7 @@ fn build_page_href(page: u32) -> String {
             }
         }
     }
-    format!("?{}={}", PAGE_QUERY_KEY, page)
+    format!("?{PAGE_QUERY_KEY}={page}")
 }
 
 pub fn use_pagination() -> PaginationContext {

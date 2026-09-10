@@ -474,7 +474,7 @@ pub fn DataGridFull() -> Element {
                                     rsx! {
                                         ContextMenu {
                                             ContextMenuTrigger {
-                                                on_open: move |_| {
+                                                on_open: move |()| {
                                                     cell_selection.clone().start_contextmenu();
                                                 },
                                                 GridRow { rowindex, index: index_signal,
@@ -511,22 +511,22 @@ pub fn DataGridFull() -> Element {
                                                                     active: cell_selection.clone().is_active(index, col),
                                                                     current: cell_selection.clone().is_context_menu(index, col),
                                                                     in_range: drag_selection.is_cell_in_range(index, col),
-                                                                    on_click: move |_| {
+                                                                    on_click: move |()| {
                                                                         cell_selection.clone().handle_click(index, col);
                                                                         drag_selection.clear_selection();
                                                                     },
-                                                                    on_contextmenu: move |_| {
+                                                                    on_contextmenu: move |()| {
                                                                         if drag_selection.handle_contextmenu(index, col) {
                                                                             cell_selection.clone().set_active(index, col);
                                                                         }
                                                                         cell_selection.clone().set_context_menu(index, col);
                                                                         copy_value_signal.set(col.get_value(&row_for_copy));
                                                                     },
-                                                                    on_mousedown: move |_| {
+                                                                    on_mousedown: move |()| {
                                                                         cell_selection.clone().set_active(index, col);
                                                                         drag_selection.start_drag(index, col);
                                                                     },
-                                                                    on_mouseenter: move |_| {
+                                                                    on_mouseenter: move |()| {
                                                                         drag_selection.update_drag(index, col);
                                                                     },
                                                                     GridCellWrapper { class: col.wrapper_class(),
@@ -539,13 +539,13 @@ pub fn DataGridFull() -> Element {
                                                 }
                                             }
                                             ContextMenuContent {
-                                                on_close: move |_| {
+                                                on_close: move |()| {
                                                     cell_selection.clone().handle_contextmenu_close();
                                                 },
                                                 ContextMenuGroup {
                                                     ContextMenuItem {
                                                         ContextMenuAction {
-                                                            onclick: move |_| {
+                                                            onclick: move |()| {
                                                                 // `copy_value_signal` is a Signal, not `FnOnce`; the closure wrapper
                                                                 // is required, so clippy::redundant_closure is a false positive here.
                                                                 #[allow(clippy::redundant_closure)]
@@ -719,7 +719,7 @@ fn PressHoldDeleteRow(
     sorted_rows_signal: Signal<Vec<RowData>>,
     handle_delete_rows: EventHandler<Vec<String>>,
 ) -> Element {
-    let on_delete = Callback::new(move |_: ()| {
+    let on_delete = Callback::new(move |()| {
         let idx = index();
         let (min_row, max_row) = drag_selection
             .get_selection_bounds()
@@ -737,7 +737,7 @@ fn PressHoldDeleteRow(
         cell_selection.clone().clear_all();
 
         let suffix = if count == 1 { "" } else { "s" };
-        expect_toaster().success(format!("Deleted {} row{}", count, suffix));
+        expect_toaster().success(format!("Deleted {count} row{suffix}"));
     });
 
     let press_hold = use_press_hold(1500, on_delete, false);

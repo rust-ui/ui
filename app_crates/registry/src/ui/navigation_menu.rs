@@ -43,6 +43,9 @@ pub fn NavigationMenu(#[props(into, optional)] class: Option<String>, children: 
         class.as_deref().unwrap_or("")
     );
 
+    // Large inline JS template with trailing named args; inlining every `{menu_id}`
+    // into the format string would not improve readability.
+    #[allow(clippy::uninlined_format_args)]
     let script = format!(
         r#"(function() {{
             const setup = () => {{

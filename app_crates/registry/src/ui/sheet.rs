@@ -81,7 +81,7 @@ pub fn SheetContent(
 ) -> Element {
     let ctx = use_context::<SheetContext>();
     let target_id = ctx.target_id.clone();
-    let backdrop_id = format!("{}_backdrop", target_id);
+    let backdrop_id = format!("{target_id}_backdrop");
     let backdrop_behavior = if close_on_backdrop_click { "auto" } else { "manual" };
 
     let c = tw_merge!(

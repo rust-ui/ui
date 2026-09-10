@@ -264,6 +264,9 @@ pub fn MenubarContent(#[props(into, optional)] class: Option<String>, children: 
     let menu_id = ctx.menu_id.clone();
     let menubar_id = ctx.menubar_id.clone();
 
+    // Large inline JS template with trailing named args; inlining every positional
+    // arg into the format string would not improve readability.
+    #[allow(clippy::uninlined_format_args)]
     let script = format!(
         r#"(function() {{
             const setupMenu = () => {{

@@ -10,7 +10,7 @@ use crate::ui::separator::Separator;
 
 #[component]
 pub fn DemoContextMenuAction() -> Element {
-    let on_confirm = Callback::new(move |_: ()| {
+    let on_confirm = Callback::new(move |()| {
         close_context_menu();
     });
 

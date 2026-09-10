@@ -264,7 +264,7 @@ pub fn DropzoneArea(#[props(into, optional)] class: Option<String>, children: El
     rsx! {
         div {
             class: "{tw_merge!(base, class.as_deref().unwrap_or(\"\"))}",
-            onclick: move |_| { eval(&format!("document.getElementById('{}').click()", input_id)); },
+            onclick: move |_| { eval(&format!("document.getElementById('{input_id}').click()")); },
             {children}
         }
     }

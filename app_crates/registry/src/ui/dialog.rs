@@ -73,7 +73,7 @@ pub fn DialogContent(
 ) -> Element {
     let ctx = use_context::<DialogContext>();
     let target_id = ctx.target_id.clone();
-    let backdrop_id = format!("{}_backdrop", target_id);
+    let backdrop_id = format!("{target_id}_backdrop");
     let backdrop_behavior = if close_on_backdrop_click { "auto" } else { "manual" };
 
     let merged = tw_merge!(

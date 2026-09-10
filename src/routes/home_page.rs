@@ -1,6 +1,7 @@
 use app_config::SeoMeta;
 use app_domain::constants::route_paths::RoutePaths;
 use app_domain::themes::components::color_theme_picker::{ColorTheme, ColorThemePicker};
+use app_domain::themes::components::font_picker::FontName;
 use app_domain::themes::components::theme_selector::CopyCodeDialog;
 use app_domain::themes::theme_name::ThemeName;
 use app_domain::themes::themes_blocks::ThemesBlocks;
@@ -23,7 +24,7 @@ pub fn Home() -> Element {
     let color_theme = use_signal(ColorTheme::default);
     let theme_mode = use_theme_mode();
 
-    let css_signal = use_memo(move || ThemeName::default().css_string(0.5, color_theme(), Default::default()));
+    let css_signal = use_memo(move || ThemeName::default().css_string(0.5, color_theme(), FontName::default()));
 
     use_effect(move || {
         let ct = color_theme();

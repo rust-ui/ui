@@ -11,7 +11,7 @@ pub fn DemoInputPromptWithTools() -> Element {
     let mut value = use_signal(String::new);
     let mut is_loading = use_signal(|| false);
 
-    let on_submit = move |_| {
+    let on_submit = move |()| {
         let text = value.peek().trim().to_string();
         if text.is_empty() || is_loading() {
             return;
