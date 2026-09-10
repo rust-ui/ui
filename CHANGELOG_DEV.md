@@ -45,6 +45,17 @@ Internal changelog for the dioxus-ui site (not user-facing).
     added `text-muted-foreground` and dropped `data-inset:pl-8`), matching the
     leptos re-export of `select::SelectLabel`.
 
+### Bug Fixes
+
+- **iOS navigation broken from raw `<a href>` links**: On `dx serve --platform
+  ios` the webview loads from a non-http custom scheme, so a real anchor
+  navigation is handed to the OS and fails with `Failed to open URL: not an
+  http url`. Replaced the internal `a { href: "/..." }` links with dioxus-router
+  `Link { to: Route::... }` in `page_not_found.rs`, `component_page.rs` (prev/next
+  bottom nav), `hook_page.rs` (prev/next bottom nav), and `docs_index_page.rs`
+  (card grid). External links and `Button { href }` (already wraps `Link`) are
+  unchanged.
+
 ## 2026-09-09
 
 ### Improvements

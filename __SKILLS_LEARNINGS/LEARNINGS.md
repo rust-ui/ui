@@ -12,3 +12,6 @@ not want.
 
 ## Inbox
 
+- 2026-09-10 [dioxus] avoid `dx fmt` in this workspace, do use `cargo fmt` only (rustfmt leaves rsx! bodies alone), because `dx fmt` reformats the entire workspace (300+ files, incl. leptos-ui submodule) and corrupts `app_crates/registry/src/blocks/sidenav_common.rs` (unexpected closing delimiter at :260) since it cannot round-trip that file's rsx.
+- 2026-09-10 [dioxus] avoid raw `a { href: "/internal/path" }` for in-app navigation, do use `Link { to: Route::Variant { .. } }` (or `Link { to: format!(..) }`), because on `dx serve --platform ios` the webview loads from a non-http custom scheme so a real `<a>` nav triggers wry `Failed to open URL: not an http url`; `Link` intercepts the click in Rust and routes in-memory.
+

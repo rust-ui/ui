@@ -56,7 +56,7 @@ fn DocsIndexPage(
 
             div { class: "grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3",
                 for item in items {
-                    a { href: format!("{}/{}", base_url, item.slug),
+                    Link { to: format!("{}/{}", base_url, item.slug),
                         Card { class: "transition-all duration-200 hover:shadow-lg hover:scale-101",
                             CardContent {
                                 if !item.image.is_empty() {

@@ -3,6 +3,7 @@ use dioxus::prelude::*;
 use icons::{ChevronLeft, ChevronRight};
 
 use crate::__registry__::static_md_registry::{MyMd, find_hook_entry, hook_prev_next};
+use crate::Route;
 use crate::components::doc_header::DocHeader;
 use crate::components::footer_layout::FooterLayout;
 use crate::components::newsletter_signup::NewsletterSignup;
@@ -98,8 +99,8 @@ fn HookBottomNav(prev: Option<&'static RegistryEntry>, next: Option<&'static Reg
     rsx! {
         div { class: "flex justify-between items-center mt-8",
             if let Some(p) = prev {
-                a {
-                    href: "/docs/hooks/{p.slug}",
+                Link {
+                    to: Route::HookPage { name: p.slug.to_string() },
                     class: "py-0 px-2 h-8 inline-flex justify-center items-center text-sm font-medium whitespace-nowrap rounded-md transition-colors w-fit focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring border bg-background border-input hover:bg-accent hover:text-accent-foreground z-50",
                     ChevronLeft {}
                     span { "{p.title()}" }
@@ -108,8 +109,8 @@ fn HookBottomNav(prev: Option<&'static RegistryEntry>, next: Option<&'static Reg
                 div {}
             }
             if let Some(n) = next {
-                a {
-                    href: "/docs/hooks/{n.slug}",
+                Link {
+                    to: Route::HookPage { name: n.slug.to_string() },
                     class: "py-0 px-2 h-8 inline-flex justify-center items-center text-sm font-medium whitespace-nowrap rounded-md transition-colors w-fit focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring border bg-background border-input hover:bg-accent hover:text-accent-foreground z-50",
                     span { "{n.title()}" }
                     ChevronRight {}
