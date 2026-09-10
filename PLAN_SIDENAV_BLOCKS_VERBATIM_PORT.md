@@ -16,7 +16,7 @@ Two decisions already taken with the user:
 1. Routing: "le plus proche du comportement de leptos" -> real Dioxus nested
    routing (`#[layout(...)]` + child `#[route]` + `Outlet`), NOT a
    `/:..segments` catch-all with internal string matching.
-2. Generator: "Edit all_blocks.rs a la main pour l'instant" -> hand-edit
+2. Generator: "Hand-edit all_blocks.rs for now" -> hand-edit
    `src/__registry__/all_blocks.rs`; do not patch the private generator repo
    `rust_ui_internals/build_registry_dioxus`.
 
