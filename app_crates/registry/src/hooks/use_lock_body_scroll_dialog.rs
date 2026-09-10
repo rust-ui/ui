@@ -26,9 +26,9 @@ pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
     let mut scroll_position_signal = use_signal(|| 0.0_f64);
 
     use_effect(move || {
-        let Some(document) = web_sys::window().and_then(|w| w.document()) else { return };
+        let Some(window) = web_sys::window() else { return };
+        let Some(document) = window.document() else { return };
         let Some(body) = document.body() else { return };
-        let window = web_sys::window().unwrap();
 
         if locked_signal() {
             // Store current scroll position
@@ -57,12 +57,10 @@ pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
         } else {
             // Delayed unlock to allow closing animations
             let stored_position = scroll_position_signal();
-            let body_clone = body.clone();
-            let document_clone = document.clone();
             let _ = window.set_timeout_with_callback_and_timeout_and_arguments_0(
                 wasm_bindgen::closure::Closure::once_into_js(move || {
                     // Remove body lock styles
-                    let style = body_clone.style();
+                    let style = body.style();
                     for prop in ["position", "top", "width", "overflow", "padding-right"] {
                         let _ = style.remove_property(prop);
                     }
@@ -71,7 +69,7 @@ pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
                     }
 
                     // Restore pointer events
-                    set_pointer_events(&document_clone, TARGET_DIALOG_LOCK_BODY, "");
+                    set_pointer_events(&document, TARGET_DIALOG_LOCK_BODY, "");
                 })
                 .unchecked_ref(),
                 100,

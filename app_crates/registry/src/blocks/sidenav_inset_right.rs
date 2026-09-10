@@ -12,13 +12,14 @@ use crate::ui::sidenav::{SidenavInset, SidenavTrigger, SidenavVariant};
 pub fn breadcrumb_from_path(path: &str, segment: &str) -> Vec<(String, String, bool)> {
     let parts: Vec<&str> = path.split('/').filter(|part| !part.is_empty()).collect();
     let Some(index) = parts.iter().position(|part| *part == segment) else { return Vec::new() };
-    parts[index..]
+    let Some(breadcrumb_parts) = parts.get(index..) else { return Vec::new() };
+    breadcrumb_parts
         .iter()
         .enumerate()
-        .map(|(offset, part)| {
+        .filter_map(|(offset, part)| {
             let end = index + offset;
-            let href = format!("/{}", parts[..=end].join("/"));
-            (part.to_title_case(), href, end == parts.len() - 1)
+            let href = format!("/{}", parts.get(..=end)?.join("/"));
+            Some((part.to_title_case(), href, end == parts.len() - 1))
         })
         .collect()
 }

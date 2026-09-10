@@ -10,8 +10,8 @@ use crate::ui::date_picker_state::{DatePickerDay, DatePickerState};
 
 #[component]
 pub fn DemoDatePicker() -> Element {
-    let default_start = Date::from_calendar_date(2025, Month::May, 5).unwrap();
-    let default_end = Date::from_calendar_date(2025, Month::May, 14).unwrap();
+    let Ok(default_start) = Date::from_calendar_date(2025, Month::May, 5) else { return rsx! {} };
+    let Ok(default_end) = Date::from_calendar_date(2025, Month::May, 14) else { return rsx! {} };
 
     let mut start_date = use_signal(|| default_start);
     let mut end_date = use_signal(|| default_end);

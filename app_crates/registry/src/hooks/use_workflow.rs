@@ -335,7 +335,7 @@ impl WorkflowState {
     }
 
     pub fn start_edit(&mut self, idx: usize) {
-        let label = self.nodes.read()[idx].label.clone();
+        let Some(label) = self.nodes.read().get(idx).map(|node| node.label.clone()) else { return };
         self.edit_buffer.set(label);
         self.editing_node.set(Some(idx));
     }
@@ -425,7 +425,7 @@ impl WorkflowState {
         let positions = self.positions.read();
         let mut sel = self.selected.write();
         for (i, node) in nodes.iter().enumerate() {
-            let (nx, ny) = positions[i];
+            let Some((nx, ny)) = positions.get(i).copied() else { continue };
             if nx < wx1 && nx + node.width > wx0 && ny < wy1 && ny + node_h > wy0 {
                 sel.insert(i);
             }
@@ -478,7 +478,7 @@ impl WorkflowState {
     // ── delete ───────────────────────────────────────────────────────────────
 
     pub fn delete_selected(&mut self) {
-        let mut indices: Vec<usize> = self.selected.read().iter().cloned().collect();
+        let mut indices: Vec<usize> = self.selected.read().iter().copied().collect();
         if indices.is_empty() {
             return;
         }
@@ -504,7 +504,7 @@ impl WorkflowState {
     // ── keyboard nudge ───────────────────────────────────────────────────────
 
     pub fn nudge_selected(&mut self, dx: f64, dy: f64) {
-        let indices: Vec<usize> = self.selected.read().iter().cloned().collect();
+        let indices: Vec<usize> = self.selected.read().iter().copied().collect();
         if indices.is_empty() {
             return;
         }
@@ -512,11 +512,16 @@ impl WorkflowState {
         {
             let mut pos = self.positions.write();
             for i in indices {
-                let (x, y) = pos[i];
+                let Some((x, y)) = pos.get(i).copied() else { continue };
                 let raw_x = (x + dx).max(0.0);
                 let raw_y = (y + dy).max(0.0);
-                pos[i] =
-                    if snap { ((raw_x / 20.0).round() * 20.0, (raw_y / 20.0).round() * 20.0) } else { (raw_x, raw_y) };
+                if let Some(position) = pos.get_mut(i) {
+                    *position = if snap {
+                        ((raw_x / 20.0).round() * 20.0, (raw_y / 20.0).round() * 20.0)
+                    } else {
+                        (raw_x, raw_y)
+                    };
+                }
             }
         }
         self.push_history();
@@ -525,14 +530,17 @@ impl WorkflowState {
     // ── copy / paste ─────────────────────────────────────────────────────────
 
     pub fn copy_selected(&mut self) {
-        let sel: Vec<usize> = self.selected.read().iter().cloned().collect();
+        let sel: Vec<usize> = self.selected.read().iter().copied().collect();
         if sel.is_empty() {
             return;
         }
         let nodes = self.nodes.read();
         let pos = self.positions.read();
-        let cb: Vec<(WorkflowNode, f64, f64)> =
-            sel.iter().filter_map(|&i| nodes.get(i).map(|n| (n.clone(), pos[i].0, pos[i].1))).collect();
+        let cb: Vec<(WorkflowNode, f64, f64)> = sel
+            .iter()
+            .filter_map(|&i| nodes.get(i).zip(pos.get(i)))
+            .map(|(node, &(x, y))| (node.clone(), x, y))
+            .collect();
         self.clipboard.set(cb);
     }
 
@@ -581,7 +589,7 @@ impl WorkflowState {
     }
 
     pub fn duplicate_selected(&mut self) {
-        let sel: Vec<usize> = self.selected.read().iter().cloned().collect();
+        let sel: Vec<usize> = self.selected.read().iter().copied().collect();
         if sel.is_empty() {
             return;
         }
@@ -591,7 +599,8 @@ impl WorkflowState {
                 let nodes = self.nodes.read();
                 let pos = self.positions.read();
                 let Some(node) = nodes.get(*idx) else { continue };
-                (node.clone(), pos[*idx].0, pos[*idx].1)
+                let Some(&(x, y)) = pos.get(*idx) else { continue };
+                (node.clone(), x, y)
             };
             let nx = x + 20.0;
             let ny = y + 20.0;
@@ -620,7 +629,8 @@ impl WorkflowState {
             let nodes = self.nodes.read();
             let pos = self.positions.read();
             let Some(node) = nodes.get(idx) else { return };
-            (node.clone(), pos[idx].0, pos[idx].1)
+            let Some(&(x, y)) = pos.get(idx) else { return };
+            (node.clone(), x, y)
         };
         let nx = x + 20.0;
         let ny = y + 20.0;
@@ -685,7 +695,7 @@ impl WorkflowState {
     // ── node drag ────────────────────────────────────────────────────────────
 
     pub fn pos(&self, idx: usize) -> (f64, f64) {
-        self.positions.read()[idx]
+        self.positions.read().get(idx).copied().unwrap_or_default()
     }
 
     pub fn is_dragging(&self) -> bool {
@@ -703,16 +713,13 @@ impl WorkflowState {
         let starts: Vec<(usize, f64, f64)> = {
             let pos = self.positions.read();
             let sel = self.selected.read();
-            sel.iter().map(|&i| (i, pos[i].0, pos[i].1)).collect()
+            sel.iter().filter_map(|&i| pos.get(i).map(|&(x, y)| (i, x, y))).collect()
         };
         self.drag.set(Some(DragState { node_idx: idx, mouse_start_x: mx, mouse_start_y: my, starts }));
     }
 
     pub fn update_drag(&mut self, mx: f64, my: f64) {
-        let d = match self.drag.read().clone() {
-            Some(d) => d,
-            None => return,
-        };
+        let Some(d) = self.drag.read().clone() else { return };
         let z = *self.zoom.read();
         let snap = *self.snap_to_grid.read();
         let dx = (mx - d.mouse_start_x) / z;
@@ -720,8 +727,10 @@ impl WorkflowState {
         for (idx, sx, sy) in &d.starts {
             let raw_x = (sx + dx).max(0.0);
             let raw_y = (sy + dy).max(0.0);
-            self.positions.write()[*idx] =
-                if snap { ((raw_x / 20.0).round() * 20.0, (raw_y / 20.0).round() * 20.0) } else { (raw_x, raw_y) };
+            if let Some(position) = self.positions.write().get_mut(*idx) {
+                *position =
+                    if snap { ((raw_x / 20.0).round() * 20.0, (raw_y / 20.0).round() * 20.0) } else { (raw_x, raw_y) };
+            }
         }
     }
 
@@ -858,10 +867,20 @@ impl WorkflowState {
         }
         let padding = 48.0;
         let pos = self.positions.read();
-        let min_x = nodes.iter().enumerate().map(|(i, _)| pos[i].0).fold(f64::INFINITY, f64::min);
-        let min_y = nodes.iter().enumerate().map(|(i, _)| pos[i].1).fold(f64::INFINITY, f64::min);
-        let max_x = nodes.iter().enumerate().map(|(i, n)| pos[i].0 + n.width).fold(f64::NEG_INFINITY, f64::max);
-        let max_y = nodes.iter().enumerate().map(|(i, _)| pos[i].1 + node_h).fold(f64::NEG_INFINITY, f64::max);
+        let min_x =
+            nodes.iter().enumerate().filter_map(|(i, _)| pos.get(i).map(|&(x, _)| x)).fold(f64::INFINITY, f64::min);
+        let min_y =
+            nodes.iter().enumerate().filter_map(|(i, _)| pos.get(i).map(|&(_, y)| y)).fold(f64::INFINITY, f64::min);
+        let max_x = nodes
+            .iter()
+            .enumerate()
+            .filter_map(|(i, n)| pos.get(i).map(|&(x, _)| x + n.width))
+            .fold(f64::NEG_INFINITY, f64::max);
+        let max_y = nodes
+            .iter()
+            .enumerate()
+            .filter_map(|(i, _)| pos.get(i).map(|&(_, y)| y + node_h))
+            .fold(f64::NEG_INFINITY, f64::max);
         drop(pos);
         drop(nodes);
         let content_w = (max_x - min_x).max(1.0);
@@ -883,8 +902,8 @@ impl WorkflowState {
             .filter_map(|edge| {
                 let (fi, from) = nodes.iter().enumerate().find(|(_, n)| n.id == edge.from)?;
                 let (ti, _) = nodes.iter().enumerate().find(|(_, n)| n.id == edge.to)?;
-                let (fx, fy) = pos[fi];
-                let (tx, ty) = pos[ti];
+                let (fx, fy) = pos.get(fi).copied()?;
+                let (tx, ty) = pos.get(ti).copied()?;
                 let sx = fx + from.width;
                 let sy = fy + node_h / 2.0;
                 let tx2 = tx;

@@ -1,6 +1,9 @@
 use dioxus::prelude::*;
+#[cfg(target_arch = "wasm32")]
 use wasm_bindgen::JsCast;
+#[cfg(target_arch = "wasm32")]
 use wasm_bindgen::closure::Closure;
+#[cfg(target_arch = "wasm32")]
 use web_sys::KeyboardEvent;
 
 /// Undo/redo history stack for URL-based state.

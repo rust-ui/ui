@@ -280,7 +280,7 @@ pub fn FormError(
         if errs.is_empty() {
             return rsx! { {} };
         } else if errs.len() == 1 {
-            let msg = errs[0].clone();
+            let msg = errs.first().cloned().unwrap_or_default();
             return rsx! {
                 div { role: "alert", "data-name": "FormError", class: "{merged}",
                     span { "{msg}" }

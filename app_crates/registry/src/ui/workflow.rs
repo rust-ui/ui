@@ -250,14 +250,15 @@ pub fn WorkflowCanvas(state: WorkflowState, children: Element, #[props(optional)
                 let touches = ev.data().touches();
                 match touches.len() {
                     1 => {
-                        let c0 = touches[0].client_coordinates();
+                        let Some(c0) = touches.first().map(|touch| touch.client_coordinates()) else { return };
                         state.stop_pinch();
                         state.deselect();
                         state.start_pan(c0.x, c0.y);
                     }
                     2 => {
-                        let c0 = touches[0].client_coordinates();
-                        let c1 = touches[1].client_coordinates();
+                        let (Some(c0), Some(c1)) = (touches.first(), touches.get(1)) else { return };
+                        let c0 = c0.client_coordinates();
+                        let c1 = c1.client_coordinates();
                         state.stop_pan();
                         let dist = touch_dist(c0.x, c0.y, c1.x, c1.y);
                         let (ox, oy) = *canvas_origin.read();
@@ -274,12 +275,13 @@ pub fn WorkflowCanvas(state: WorkflowState, children: Element, #[props(optional)
                 let touches = ev.data().touches();
                 match touches.len() {
                     1 if !state.is_pinching() => {
-                        let c0 = touches[0].client_coordinates();
+                        let Some(c0) = touches.first().map(|touch| touch.client_coordinates()) else { return };
                         state.update_pan(c0.x, c0.y);
                     }
                     2 => {
-                        let c0 = touches[0].client_coordinates();
-                        let c1 = touches[1].client_coordinates();
+                        let (Some(c0), Some(c1)) = (touches.first(), touches.get(1)) else { return };
+                        let c0 = c0.client_coordinates();
+                        let c1 = c1.client_coordinates();
                         let dist = touch_dist(c0.x, c0.y, c1.x, c1.y);
                         let (ox, oy) = *canvas_origin.read();
                         let cx = (c0.x + c1.x) / 2.0 - ox;
@@ -300,7 +302,7 @@ pub fn WorkflowCanvas(state: WorkflowState, children: Element, #[props(optional)
                     1 => {
                         state.stop_pinch();
                         if !locked {
-                            let c0 = touches[0].client_coordinates();
+                            let Some(c0) = touches.first().map(|touch| touch.client_coordinates()) else { return };
                             state.start_pan(c0.x, c0.y);
                         }
                     }
@@ -732,7 +734,7 @@ pub fn WorkflowMinimap(state: WorkflowState) -> Element {
         .iter()
         .enumerate()
         .map(|(i, n)| {
-            let (x, y) = pos_snap[i];
+            let (x, y) = pos_snap.get(i).copied().unwrap_or_default();
             (x * scale_x, y * scale_y, n.width * scale_x, NODE_H * scale_y)
         })
         .collect();
@@ -742,8 +744,8 @@ pub fn WorkflowMinimap(state: WorkflowState) -> Element {
         .filter_map(|edge| {
             let (fi, from) = nodes_snap.iter().enumerate().find(|(_, n)| n.id == edge.from)?;
             let (ti, _) = nodes_snap.iter().enumerate().find(|(_, n)| n.id == edge.to)?;
-            let (fx, fy) = pos_snap[fi];
-            let (tx, ty) = pos_snap[ti];
+            let (fx, fy) = pos_snap.get(fi).copied()?;
+            let (tx, ty) = pos_snap.get(ti).copied()?;
             let sx = (fx + from.width) * scale_x;
             let sy = (fy + NODE_H / 2.0) * scale_y;
             let tx2 = tx * scale_x;
