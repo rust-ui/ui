@@ -15,7 +15,7 @@ Internal changelog for the dioxus-ui site (not user-facing).
 - **Home header parity**: Mirrored the leptos home header. Brand text is now
   `Rust/UI` (was `Dioxus/UI`), a `LeptosLink` cross-link (small brand-coloured
   Leptos mark linking to `https://rust-ui.com`, new
-  `public/images/logos/leptos.svg`) sits next to the GitHub stars in both the
+  `public/images/logos/leptos.png`) sits next to the GitHub stars in both the
   desktop right nav and the mobile menu, and the mobile menu now opens with the
   `DemoAccordionIcons` demo like leptos. `src/components/leptos_link.rs`,
   `src/components/navigation/header_home.rs`, `src/components/mod.rs`

@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
-const LEPTOS_URL: &str = "https://rust-ui.com";
-const LEPTOS_LOGO: &str = "/images/logos/leptos.svg";
+const LEPTOS_URL: &str = "https://leptos.rust-ui.com";
+const LEPTOS_LOGO: &str = "/images/logos/leptos.png";
 
 #[component]
 pub fn LeptosLink() -> Element {
