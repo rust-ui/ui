@@ -144,7 +144,6 @@ panic_in_result_fn = "deny"
 # TODO: Re-enable after making unordered iteration deterministic where needed.
 iter_over_hash_type = "allow"
 as_underscore = "deny"
-semicolon_if_nothing_returned = "allow"
 
 # Quality ratchet.
 cast_possible_truncation = "allow"

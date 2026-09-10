@@ -82,7 +82,7 @@ pub trait SortableColumn<R: Default>: Copy {
             match direction {
                 SortDirection::Asc => rows.sort_by(|a, b| self.compare(a, b).unwrap_or(std::cmp::Ordering::Equal)),
                 SortDirection::Desc => {
-                    rows.sort_by(|a, b| self.compare(a, b).unwrap_or(std::cmp::Ordering::Equal).reverse())
+                    rows.sort_by(|a, b| self.compare(a, b).unwrap_or(std::cmp::Ordering::Equal).reverse());
                 }
                 SortDirection::None => {}
             }
@@ -701,7 +701,7 @@ where
                     if is_pinned {
                         DropdownMenuItem {
                             onclick: move |_| {
-                                pinned_columns_signal.with_mut(|p| { p.remove(&column); })
+                                pinned_columns_signal.with_mut(|p| { p.remove(&column); });
                             },
                             DropdownMenuAction {
                                 PanelLeftClose { class: "text-muted-foreground" }
@@ -711,7 +711,7 @@ where
                     } else {
                         DropdownMenuItem {
                             onclick: move |_| {
-                                pinned_columns_signal.with_mut(|p| { p.insert(column); })
+                                pinned_columns_signal.with_mut(|p| { p.insert(column); });
                             },
                             DropdownMenuAction {
                                 PanelLeft { class: "text-muted-foreground" }
@@ -725,7 +725,7 @@ where
                         DropdownMenuItem {
                             onclick: move |_| {
                                 let col_name = column_name.clone();
-                                vis_signal.with_mut(|v| { v.remove(&col_name); })
+                                vis_signal.with_mut(|v| { v.remove(&col_name); });
                             },
                             DropdownMenuAction {
                                 EyeOff { class: "text-muted-foreground" }
