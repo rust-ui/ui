@@ -30,9 +30,10 @@ pub const AI_LOGO_GOOGLE: Asset = asset!("/public/images/logos/ai/google.svg");
 pub const AI_LOGO_CLAUDE: Asset = asset!("/public/images/logos/ai/claude.svg");
 pub const AI_LOGO_PERPLEXITY: Asset = asset!("/public/images/logos/ai/perplexity.svg");
 
-/// Resolve a stored `/images/thumbnails/<file>` path (as emitted by the
-/// registry generator into `SidenavItem`) to its bundled URL. Empty input
-/// yields an empty string, so the caller's `is_empty()` guard still works.
+/// Resolve a stored `/images/thumbnails/<file>` path to its bundled URL.
+///
+/// The path is as emitted by the registry generator into `SidenavItem`. Empty
+/// input yields an empty string, so the caller's `is_empty()` guard still works.
 ///
 /// TODO(registry-gen): once `build_registry_dioxus` can emit `asset!()`
 /// directly, store `Asset` in `SidenavItem` and delete this shim.
