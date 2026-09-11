@@ -1,12 +1,11 @@
 use dioxus::prelude::*;
 use dioxus::router::use_route;
 use icons::ExternalLink;
+use registry::hooks::use_table_of_contents::use_table_of_contents;
 use registry::ui::button::Button;
 
 use crate::Route;
-use crate::utils::assets::{
-    AI_LOGO_CHATGPT, AI_LOGO_CLAUDE, AI_LOGO_GOOGLE, AI_LOGO_PERPLEXITY, TOC_JS,
-};
+use crate::utils::assets::{AI_LOGO_CHATGPT, AI_LOGO_CLAUDE, AI_LOGO_GOOGLE, AI_LOGO_PERPLEXITY};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct TocItem {
@@ -31,6 +30,10 @@ pub fn create_anchor_id(title: &str) -> String {
 
 #[component]
 pub fn TableOfContents(toc_items: Vec<TocItem>) -> Element {
+    let anchors: Vec<String> = toc_items.iter().map(|item| item.anchor.clone()).collect();
+    let toc_state = use_table_of_contents(anchors);
+    let active_anchor = toc_state.active_anchor;
+
     rsx! {
         aside {
             "data-name": "TableOfContents",
@@ -46,13 +49,36 @@ pub fn TableOfContents(toc_items: Vec<TocItem>) -> Element {
                             "data-name": "TocList",
                             class: "pb-4 space-y-1.5",
                             for item in toc_items {
-                                li {
-                                    a {
-                                        "data-name": "TocLink",
-                                        href: "#{item.anchor}",
-                                        "data-depth": item.level.to_string(),
-                                        class: "block text-sm text-muted-foreground hover:text-foreground aria-[current=true]:text-foreground no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6",
-                                        "{item.title}"
+                                {
+                                    let anchor = item.anchor.clone();
+                                    let is_current = active_anchor().as_deref() == Some(anchor.as_str());
+                                    rsx! {
+                                        li {
+                                            a {
+                                                "data-name": "TocLink",
+                                                href: "#{item.anchor}",
+                                                "data-depth": item.level.to_string(),
+                                                "aria-current": if is_current { "true" } else { "false" },
+                                                class: "block text-sm text-muted-foreground hover:text-foreground aria-[current=true]:text-foreground no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6",
+                                                onclick: move |event| {
+                                                    event.prevent_default();
+                                                    let Some(window) = web_sys::window() else { return };
+                                                    let Some(document) = window.document() else { return };
+                                                    if let Some(el) = document.get_element_by_id(&anchor) {
+                                                        let options = web_sys::ScrollIntoViewOptions::new();
+                                                        options.set_behavior(web_sys::ScrollBehavior::Smooth);
+                                                        options.set_block(web_sys::ScrollLogicalPosition::Start);
+                                                        el.scroll_into_view_with_scroll_into_view_options(&options);
+                                                    }
+                                                    if let Ok(history) = window.history() {
+                                                        let hash = format!("#{anchor}");
+                                                        let _ = history
+                                                            .push_state_with_url(&wasm_bindgen::JsValue::NULL, "", Some(&hash));
+                                                    }
+                                                },
+                                                "{item.title}"
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -63,7 +89,6 @@ pub fn TableOfContents(toc_items: Vec<TocItem>) -> Element {
                 TocCTACard {}
             }
         }
-        document::Script { src: TOC_JS }
     }
 }
 

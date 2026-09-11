@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 use icons::{Check, Copy, Fullscreen, Monitor, Share2, Smartphone, Tablet, Terminal};
 use registry::hooks::use_copy_clipboard::use_copy_clipboard;
+use registry::hooks::use_resizable::ResizablePreset;
 use registry::ui::button::{Button, ButtonSize, ButtonVariant};
 use registry::ui::dialog::{
     Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
@@ -36,14 +37,14 @@ impl ScreenSize {
     }
 }
 
-fn dispatch_resize_event(instance_id: &str, screen_size: ScreenSize) {
-    let js = format!(
-        "document.dispatchEvent(new CustomEvent('resizable:resize_by_screen__interop', \
-         {{ detail: {{ instanceId: '{}', screenType: '{}' }} }}));",
-        instance_id,
-        screen_size.as_str()
-    );
-    let _ = document::eval(&js);
+impl From<ScreenSize> for ResizablePreset {
+    fn from(value: ScreenSize) -> Self {
+        match value {
+            ScreenSize::Desktop => Self::Desktop,
+            ScreenSize::Tablet => Self::Tablet,
+            ScreenSize::Phone => Self::Phone,
+        }
+    }
 }
 
 #[component]
@@ -97,50 +98,26 @@ pub fn BlockViewerToolbar(
                 // Viewport switcher + fullscreen + share
                 div { class: "flex gap-1.5 items-center p-1 h-8 rounded-md border shadow-none",
                     ToggleGroup {
-                        {
-                            let iid = instance_id.clone();
-                            rsx! {
-                                ToggleGroupItem {
-                                    class: "flex-none px-0 w-6 h-6",
-                                    title: "Desktop size",
-                                    pressed: screen_size() == ScreenSize::Desktop,
-                                    onclick: move |_| {
-                                        screen_size.set(ScreenSize::Desktop);
-                                        dispatch_resize_event(&iid, ScreenSize::Desktop);
-                                    },
-                                    Monitor {}
-                                }
-                            }
+                        ToggleGroupItem {
+                            class: "flex-none px-0 w-6 h-6",
+                            title: "Desktop size",
+                            pressed: screen_size() == ScreenSize::Desktop,
+                            onclick: move |_| screen_size.set(ScreenSize::Desktop),
+                            Monitor {}
                         }
-                        {
-                            let iid = instance_id.clone();
-                            rsx! {
-                                ToggleGroupItem {
-                                    class: "flex-none px-0 w-6 h-6",
-                                    title: "Tablet size",
-                                    pressed: screen_size() == ScreenSize::Tablet,
-                                    onclick: move |_| {
-                                        screen_size.set(ScreenSize::Tablet);
-                                        dispatch_resize_event(&iid, ScreenSize::Tablet);
-                                    },
-                                    Tablet {}
-                                }
-                            }
+                        ToggleGroupItem {
+                            class: "flex-none px-0 w-6 h-6",
+                            title: "Tablet size",
+                            pressed: screen_size() == ScreenSize::Tablet,
+                            onclick: move |_| screen_size.set(ScreenSize::Tablet),
+                            Tablet {}
                         }
-                        {
-                            let iid = instance_id.clone();
-                            rsx! {
-                                ToggleGroupItem {
-                                    class: "flex-none px-0 w-6 h-6",
-                                    title: "Phone size",
-                                    pressed: screen_size() == ScreenSize::Phone,
-                                    onclick: move |_| {
-                                        screen_size.set(ScreenSize::Phone);
-                                        dispatch_resize_event(&iid, ScreenSize::Phone);
-                                    },
-                                    Smartphone {}
-                                }
-                            }
+                        ToggleGroupItem {
+                            class: "flex-none px-0 w-6 h-6",
+                            title: "Phone size",
+                            pressed: screen_size() == ScreenSize::Phone,
+                            onclick: move |_| screen_size.set(ScreenSize::Phone),
+                            Smartphone {}
                         }
                     }
 

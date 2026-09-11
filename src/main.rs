@@ -50,7 +50,6 @@ const APPLE_TOUCH_ICON: Asset = asset!("/public/icons/apple-touch-icon.png");
 const MANIFEST: Asset = asset!("/public/manifest.json");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 const CHART_INIT_JS: Asset = asset!("/public/app_components/chart_init.js");
-const RESIZABLE_JS: Asset = asset!("/public/app_components/resizable.js");
 // Loaded globally (not just on chart routes): chart_init.js's own lazy-load
 // fallback uses a hardcoded "/cdn/apexcharts..." path that 404s on iOS, where
 // assets are served from a fingerprinted path. Home's ThemesBlocks cards render
@@ -322,7 +321,6 @@ fn App() -> Element {
         document::Stylesheet { href: TAILWIND_CSS }
         document::Script { src: APEXCHARTS_JS }
         document::Script { src: CHART_INIT_JS }
-        document::Script { src: RESIZABLE_JS }
         Toaster {}
         Router::<Route> {}
     }

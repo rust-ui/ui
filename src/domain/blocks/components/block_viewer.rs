@@ -1,5 +1,7 @@
 use dioxus::prelude::*;
 
+use registry::hooks::use_resizable::ResizablePreset;
+
 use crate::domain::blocks::block_entry::BlockEntry;
 use crate::domain::blocks::components::block_code_panel::BlockCodePanel;
 use crate::domain::blocks::components::block_viewer_toolbar::{BlockView, BlockViewerToolbar, ScreenSize};
@@ -15,6 +17,7 @@ pub fn BlockViewer(block_entry: BlockEntry) -> Element {
 
     let block_view = use_signal(BlockView::default);
     let screen_size = use_signal(ScreenSize::default);
+    let preset = use_memo(move || ResizablePreset::from(screen_size()));
 
     let files = block_id.files();
     let tree = use_hook(|| block_id.file_tree());
@@ -33,7 +36,7 @@ pub fn BlockViewer(block_entry: BlockEntry) -> Element {
             }
 
             if block_view() == BlockView::Preview {
-                ResizableWrapper { instance_id,
+                ResizableWrapper { instance_id, preset: ReadSignal::from(preset),
                     iframe {
                         src: block_id.to_full_view_url(),
                         class: "w-full rounded-lg border-0",

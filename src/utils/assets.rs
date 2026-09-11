@@ -30,9 +30,6 @@ pub const AI_LOGO_GOOGLE: Asset = asset!("/public/images/logos/ai/google.svg");
 pub const AI_LOGO_CLAUDE: Asset = asset!("/public/images/logos/ai/claude.svg");
 pub const AI_LOGO_PERPLEXITY: Asset = asset!("/public/images/logos/ai/perplexity.svg");
 
-/// Table-of-contents scroll-spy script.
-pub const TOC_JS: Asset = asset!("/public/app_components/table_of_contents.js");
-
 /// Resolve a stored `/images/thumbnails/<file>` path (as emitted by the
 /// registry generator into `SidenavItem`) to its bundled URL. Empty input
 /// yields an empty string, so the caller's `is_empty()` guard still works.

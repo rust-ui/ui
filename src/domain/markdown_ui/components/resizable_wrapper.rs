@@ -1,4 +1,5 @@
 use dioxus::prelude::*;
+use registry::hooks::use_resizable::ResizablePreset;
 
 use crate::domain::markdown_ui::components::my_resizable::{
     Resizable, ResizableBackground, ResizableContainer, ResizableHandle,
@@ -9,6 +10,7 @@ pub fn ResizableWrapper(
     #[props(into, optional)] instance_id: Option<String>,
     #[props(into, optional)] preview_class: Option<String>,
     #[props(into, optional)] resizable_wrapper_class: Option<String>,
+    #[props(optional)] preset: Option<ReadSignal<ResizablePreset>>,
     children: Element,
 ) -> Element {
     let preview_classes = format!(
@@ -17,7 +19,7 @@ pub fn ResizableWrapper(
     );
 
     rsx! {
-        Resizable { instance_id: instance_id.clone(), class: resizable_wrapper_class.clone(),
+        Resizable { instance_id: instance_id.clone(), class: resizable_wrapper_class.clone(), preset,
             ResizableContainer {
                 div {
                     "data-name": "Preview",
