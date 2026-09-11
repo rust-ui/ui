@@ -676,3 +676,39 @@ and the three `supports-[-webkit-touch-callout:none]:*` variants). This makes
 Tailwind always emit these utilities regardless of scan completeness, closing
 the last remaining source of intermittent (non-cache) clipping on plain
 relaunches.
+
+## 15. Native WKWebView patch attempt, reverted; `run_ios_dioxus.sh` added (2026-09-11)
+
+After section 14 shipped, tried porting the Leptos site's native fix
+(`viewport-fit=cover` in `index.html` + two ObjC WKWebView swizzle patches,
+`__HideKeyboardAccessory.m` / `__DisableContentInsetAdjustment.m`) over to
+this Dioxus app, using an explicit Rust `unsafe extern "C"` call site from
+`main()` instead of the original `-force_load` + `__attribute__((constructor))`
+approach (the latter is silently dropped by `dx`'s bundling link step, so the
+patches never actually ran under `dx`). Hit a lint error
+(`unsafe extern` block denied by the workspace's `unsafe_code = "forbid"`)
+and while fixing that, decided this was adding real complexity
+(custom `index.html`, `.m` files, `cc` build-dependency, a lint policy change)
+for a fix that section 13/14 already cover. **Reverted** all of it: no
+custom `index.html` (dx's generated default is used again, so no
+`viewport-fit=cover`), no `.m` files, no `cc` build-dep, `unsafe_code` back
+to `"forbid"`. Current layout correctness on iOS relies on the WKWebView's
+default automatic `contentInsetAdjustmentBehavior`, not CSS
+`env(safe-area-inset-*)` (those rules are still present/pinned per section 14
+but resolve to `0px` without `viewport-fit=cover` — harmless, not load-bearing
+right now).
+
+Live-app inspection after the revert (fresh `simctl uninstall` +
+`dx serve --platform ios`) confirmed: no `viewport-fit` anywhere in the
+installed bundle, compiled CSS still has the safe-area utilities pinned
+(6x `env(safe-area-inset-top)`, 3x `env(safe-area-inset-bottom)`), bottom nav
+and header both render clean.
+
+Added `run_ios_dioxus.sh` (repo root) to make the known-good repro/dev loop a
+single command instead of three manual steps: `xcrun simctl uninstall booted
+com.rust-ui`, kill any running `dx serve`, then `dx serve --platform ios`.
+This does NOT replace the section 13/14 automatic purge in `build.rs` (that
+still needs to hold up on a plain Ctrl+C + relaunch with no uninstall) — it's
+a manual escape hatch for when a hard reset is wanted, and the fast way to
+get back to a known-clean state while testing whether the automatic purge
+alone is sufficient on warm relaunches.
