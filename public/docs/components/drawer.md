@@ -42,6 +42,19 @@ rsx! {
 }
 ```
 
+## Examples
+
+<StaticDrawerDialog />
+<StaticDrawerFamily />
+<StaticDrawerFocus />
+<StaticDrawerNested />
+<StaticDrawerNonDismissable />
+<StaticDrawerRtl />
+<StaticDrawerScrollable />
+<StaticDrawerSide />
+<StaticDrawerSideFloating />
+<StaticDrawerSideScrollable />
+
 ## See Also
 
 - [Sheet](/components/sheet)
