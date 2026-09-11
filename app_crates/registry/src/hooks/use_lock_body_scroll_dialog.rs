@@ -25,6 +25,7 @@ pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
     let locked_signal = use_signal(|| initial_locked);
     let mut scroll_position_signal = use_signal(|| 0.0_f64);
 
+    #[cfg(target_arch = "wasm32")]
     use_effect(move || {
         let Some(window) = web_sys::window() else { return };
         let Some(document) = window.document() else { return };

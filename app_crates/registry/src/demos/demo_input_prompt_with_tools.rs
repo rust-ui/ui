@@ -19,6 +19,7 @@ pub fn DemoInputPromptWithTools() -> Element {
         value.set(String::new());
         is_loading.set(true);
         // simulate async response via web_sys timeout
+        #[cfg(target_arch = "wasm32")]
         if let Some(window) = web_sys::window() {
             use wasm_bindgen::JsCast;
             let _ = window.set_timeout_with_callback_and_timeout_and_arguments_0(
@@ -29,6 +30,8 @@ pub fn DemoInputPromptWithTools() -> Element {
                 1500,
             );
         }
+        #[cfg(not(target_arch = "wasm32"))]
+        is_loading.set(false);
     };
 
     let is_submit_disabled = value().trim().is_empty() || is_loading();

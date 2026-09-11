@@ -44,34 +44,41 @@ pub struct ResizableState {
 type PointerClosure = Closure<dyn FnMut(web_sys::PointerEvent)>;
 
 /// Toggles the drag-in-progress cursor/selection lockout on `<html>`/`<body>`.
+#[cfg_attr(not(target_arch = "wasm32"), allow(unused_variables))]
 fn set_drag_cursor_active(active: bool) {
-    let Some(window) = web_sys::window() else { return };
-    let Some(document) = window.document() else { return };
-
-    if let Some(html) = document
-        .document_element()
-        .and_then(|el| el.dyn_into::<web_sys::HtmlElement>().ok())
+    #[cfg(target_arch = "wasm32")]
     {
-        if active {
-            let _ = html.style().set_property("cursor", "col-resize");
-        } else {
-            let _ = html.style().remove_property("cursor");
+        let Some(window) = web_sys::window() else { return };
+        let Some(document) = window.document() else { return };
+
+        if let Some(html) = document
+            .document_element()
+            .and_then(|el| el.dyn_into::<web_sys::HtmlElement>().ok())
+        {
+            if active {
+                let _ = html.style().set_property("cursor", "col-resize");
+            } else {
+                let _ = html.style().remove_property("cursor");
+            }
         }
-    }
-    if let Some(body) = document.body() {
-        if active {
-            let _ = body.class_list().add_2("pointer-events-none", "select-none");
-        } else {
-            let _ = body.class_list().remove_2("pointer-events-none", "select-none");
+        if let Some(body) = document.body() {
+            if active {
+                let _ = body.class_list().add_2("pointer-events-none", "select-none");
+            } else {
+                let _ = body.class_list().remove_2("pointer-events-none", "select-none");
+            }
         }
     }
 }
 
 /// Detaches the `pointermove`/`pointerup` listeners stashed by a drag session.
+#[cfg_attr(not(target_arch = "wasm32"), allow(unused_variables))]
 fn remove_drag_listeners(
     move_holder: &Rc<RefCell<Option<PointerClosure>>>,
     up_holder: &Rc<RefCell<Option<PointerClosure>>>,
 ) {
+    #[cfg(target_arch = "wasm32")]
+    {
     let Some(window) = web_sys::window() else { return };
     let Some(document) = window.document() else { return };
 
@@ -80,6 +87,7 @@ fn remove_drag_listeners(
     }
     if let Some(c) = up_holder.borrow_mut().take() {
         let _ = document.remove_event_listener_with_callback("pointerup", c.as_ref().unchecked_ref());
+    }
     }
 }
 
@@ -107,7 +115,11 @@ pub fn use_resizable(
     });
 
     // Attach the drag machinery once the handle element is available.
+    // wasm32-only: `web_sys`/`js_sys` FFI calls panic unconditionally on a
+    // native (non-wasm) target, even behind `if let Some(...)` — see
+    // use_table_of_contents.rs for the iOS crash this pattern caused.
     let is_mounted_for_drag = Arc::clone(&is_mounted);
+    #[cfg(target_arch = "wasm32")]
     use_effect(move || {
         let Some(handle) = handle_element.peek().clone() else {
             return;

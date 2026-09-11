@@ -13,6 +13,7 @@ pub fn DemoBubbleLinkButton() -> Element {
                 Bubble { variant: BubbleVariant::Tinted, align: BubbleAlign::End,
                     BubbleContent {
                         onclick: move |_| {
+                            #[cfg(target_arch = "wasm32")]
                             let _ = web_sys::window()
                                 .and_then(|w| w.alert_with_message("You clicked forgot password").ok());
                         },
@@ -22,6 +23,7 @@ pub fn DemoBubbleLinkButton() -> Element {
                 Bubble { variant: BubbleVariant::Tinted, align: BubbleAlign::End,
                     BubbleContent {
                         onclick: move |_| {
+                            #[cfg(target_arch = "wasm32")]
                             let _ = web_sys::window()
                                 .and_then(|w| w.alert_with_message("You clicked help with subscription").ok());
                         },
@@ -31,6 +33,7 @@ pub fn DemoBubbleLinkButton() -> Element {
                 Bubble { variant: BubbleVariant::Tinted, align: BubbleAlign::End,
                     BubbleContent {
                         onclick: move |_| {
+                            #[cfg(target_arch = "wasm32")]
                             let _ = web_sys::window()
                                 .and_then(|w| {
                                     w.alert_with_message("You clicked something else. Talk to a human.").ok()

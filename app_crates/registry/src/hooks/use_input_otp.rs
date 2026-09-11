@@ -18,6 +18,7 @@ thread_local! {
 }
 
 pub fn init() {
+    #[cfg(target_arch = "wasm32")]
     MANAGER.with(|manager| {
         if manager.borrow().is_some() {
             return;

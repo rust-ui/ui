@@ -43,6 +43,7 @@ pub fn DemoBubbleReactions() -> Element {
                         variant: ButtonVariant::Ghost,
                         size: ButtonSize::Sm,
                         onclick: move |_| {
+                            #[cfg(target_arch = "wasm32")]
                             let _ = web_sys::window().and_then(|w| w.alert_with_message("Running command...").ok());
                         },
                         "Yes, run it"
