@@ -16,20 +16,8 @@ use super::cards::total_revenue::CardTotalRevenue;
 
 #[component]
 pub fn ThemesBlocks() -> Element {
-    use_effect(move || {
-        spawn(async move {
-            let js = r"
-                (function() {
-                    if (document.getElementById('chart-init-script')) return;
-                    var s = document.createElement('script');
-                    s.id = 'chart-init-script';
-                    s.src = '/app_components/chart_init.js?v=6';
-                    document.head.appendChild(s);
-                })();
-            ";
-            dioxus::document::eval(js).await.ok();
-        });
-    });
+    // chart_init.js + apexcharts.js are loaded globally in main.rs::App
+    // (asset!()-resolved, works on iOS too). No need to inject them here.
 
     rsx! {
         div { class: "grid mx-2 md:gap-4 lg:grid-cols-10 xl:grid-cols-11 xl:gap-4 md:grids-col-2",
