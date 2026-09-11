@@ -300,6 +300,15 @@ fn App() -> Element {
     });
 
     rsx! {
+        // viewport-fit=cover: makes env(safe-area-inset-*) resolve to real values
+        // instead of 0px. Without it the bottom nav's safe-area padding is inert
+        // and correct positioning depends entirely on WKWebView's native
+        // auto-inset behavior, which is not reliably consistent across app
+        // relaunches. Harmless on web/desktop (no safe-area insets there).
+        document::Meta {
+            name: "viewport",
+            content: "width=device-width, initial-scale=1, viewport-fit=cover",
+        }
         document::Title { "Rust/UI" }
         // TODO: Dioxus injects a <div id="main"> between <body> and the App component.
         // Leptos doesn't have this wrapper, so the h-full chain works natively:
