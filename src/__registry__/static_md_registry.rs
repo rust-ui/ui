@@ -88,6 +88,16 @@ use registry::demos::demo_direction_provider_default::DemoDirectionProviderDefau
 use registry::demos::demo_direction_provider_rtl::DemoDirectionProviderRtl;
 use registry::demos::demo_drag_and_drop::DemoDragAndDrop;
 use registry::demos::demo_drawer::DemoDrawer;
+use registry::demos::demo_drawer_dialog::DemoDrawerDialog;
+use registry::demos::demo_drawer_family::DemoDrawerFamily;
+use registry::demos::demo_drawer_focus::DemoDrawerFocus;
+use registry::demos::demo_drawer_nested::DemoDrawerNested;
+use registry::demos::demo_drawer_non_dismissable::DemoDrawerNonDismissable;
+use registry::demos::demo_drawer_rtl::DemoDrawerRtl;
+use registry::demos::demo_drawer_scrollable::DemoDrawerScrollable;
+use registry::demos::demo_drawer_side::DemoDrawerSide;
+use registry::demos::demo_drawer_side_floating::DemoDrawerSideFloating;
+use registry::demos::demo_drawer_side_scrollable::DemoDrawerSideScrollable;
 use registry::demos::demo_dropdown_menu::DemoDropdownMenu;
 use registry::demos::demo_dropdown_menu_destructive::DemoDropdownMenuDestructive;
 use registry::demos::demo_dropdown_menu_end::DemoDropdownMenuEnd;
@@ -333,6 +343,16 @@ pub enum MarkdownType {
     StaticDemoDirectionProviderRtl,
     StaticDemoDragAndDrop,
     StaticDemoDrawer,
+    StaticDemoDrawerDialog,
+    StaticDemoDrawerFamily,
+    StaticDemoDrawerFocus,
+    StaticDemoDrawerNested,
+    StaticDemoDrawerNonDismissable,
+    StaticDemoDrawerRtl,
+    StaticDemoDrawerScrollable,
+    StaticDemoDrawerSide,
+    StaticDemoDrawerSideFloating,
+    StaticDemoDrawerSideScrollable,
     StaticDemoDropdownMenu,
     StaticDemoDropdownMenuDestructive,
     StaticDemoDropdownMenuEnd,
@@ -1076,6 +1096,16 @@ pub fn get_static_registry_entry(markdown_type: MarkdownType) -> Option<&'static
             file_path: "public/docs/components/drawer.md",
             install_name: "drawer",
         }),
+        MarkdownType::StaticDemoDrawerDialog => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_dialog.rs"), demo_name: "demo_drawer_dialog", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
+        MarkdownType::StaticDemoDrawerFamily => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_family.rs"), demo_name: "demo_drawer_family", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
+        MarkdownType::StaticDemoDrawerFocus => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_focus.rs"), demo_name: "demo_drawer_focus", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
+        MarkdownType::StaticDemoDrawerNested => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_nested.rs"), demo_name: "demo_drawer_nested", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
+        MarkdownType::StaticDemoDrawerNonDismissable => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_non_dismissable.rs"), demo_name: "demo_drawer_non_dismissable", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
+        MarkdownType::StaticDemoDrawerRtl => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_rtl.rs"), demo_name: "demo_drawer_rtl", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
+        MarkdownType::StaticDemoDrawerScrollable => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_scrollable.rs"), demo_name: "demo_drawer_scrollable", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
+        MarkdownType::StaticDemoDrawerSide => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_side.rs"), demo_name: "demo_drawer_side", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
+        MarkdownType::StaticDemoDrawerSideFloating => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_side_floating.rs"), demo_name: "demo_drawer_side_floating", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
+        MarkdownType::StaticDemoDrawerSideScrollable => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_side_scrollable.rs"), demo_name: "demo_drawer_side_scrollable", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
         MarkdownType::StaticDemoDropdownMenu => Some(&StaticRegistryEntry {
             raw_code: include_str!("../../app_crates/registry/src/demos/demo_dropdown_menu.rs"),
             demo_name: "demo_dropdown_menu",
@@ -3624,6 +3654,46 @@ fn build_md_components() -> MdComponents {
                 DemoDrawer {}
             }
         }
+    });
+    combined_components.add("StaticDrawerDialog", |props| {
+        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerDialog, class: class, DemoDrawerDialog {} } }
+    });
+    combined_components.add("StaticDrawerFamily", |props| {
+        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerFamily, class: class, DemoDrawerFamily {} } }
+    });
+    combined_components.add("StaticDrawerFocus", |props| {
+        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerFocus, class: class, DemoDrawerFocus {} } }
+    });
+    combined_components.add("StaticDrawerNested", |props| {
+        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerNested, class: class, DemoDrawerNested {} } }
+    });
+    combined_components.add("StaticDrawerNonDismissable", |props| {
+        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerNonDismissable, class: class, DemoDrawerNonDismissable {} } }
+    });
+    combined_components.add("StaticDrawerRtl", |props| {
+        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerRtl, class: class, DemoDrawerRtl {} } }
+    });
+    combined_components.add("StaticDrawerScrollable", |props| {
+        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerScrollable, class: class, DemoDrawerScrollable {} } }
+    });
+    combined_components.add("StaticDrawerSide", |props| {
+        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerSide, class: class, DemoDrawerSide {} } }
+    });
+    combined_components.add("StaticDrawerSideFloating", |props| {
+        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerSideFloating, class: class, DemoDrawerSideFloating {} } }
+    });
+    combined_components.add("StaticDrawerSideScrollable", |props| {
+        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerSideScrollable, class: class, DemoDrawerSideScrollable {} } }
     });
     combined_components.add("StaticDropdownMenu", |props| {
         let class = if props.classes.is_empty() {
