@@ -1315,6 +1315,7 @@ dependencies = [
  "app_config",
  "app_domain",
  "app_routes",
+ "cc",
  "dioxus",
  "dioxus-html",
  "html-escape",

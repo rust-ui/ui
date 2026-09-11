@@ -148,7 +148,32 @@ enum Route {
     PageNotFound { segments: Vec<String> },
 }
 
+// Ported from leptos-ui's `__DisableContentInsetAdjustment.m` /
+// `__HideKeyboardAccessory.m` (native ObjC constructors, compiled and linked
+// by `build.rs` on iOS only). Both swizzle `WKWebView`/`WKContentView` at
+// load: the first forces `contentInsetAdjustmentBehavior = .never` so the
+// CSS `env(safe-area-inset-*)` padding (see `viewport-fit=cover` below) is
+// the only source of bottom-nav inset instead of stacking with WebKit's own
+// automatic inset (the double-inset bug); the second hides the grey
+// prev/next/Done keyboard accessory bar. `dx` has no xcodegen step and
+// silently drops `-force_load`, so referencing these symbols from Rust is
+// what keeps the linker from pruning their object files out of the compiled
+// staticlib before the constructors ever get a chance to run.
+#[cfg(target_os = "ios")]
+#[allow(unsafe_code)]
+unsafe extern "C" {
+    fn DisableContentInsetAdjustment();
+    fn HideKeyboardAccessoryBar();
+}
+
 fn main() {
+    #[cfg(target_os = "ios")]
+    #[allow(unsafe_code)]
+    unsafe {
+        DisableContentInsetAdjustment();
+        HideKeyboardAccessoryBar();
+    }
+
     // Web/wasm build (and any non-server build): the stock launch path. The
     // client-side `Router::<Route>` handles every URL once the page is loaded,
     // so the bug documented on `mod server` below never manifests here.

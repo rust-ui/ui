@@ -6,7 +6,32 @@ fn main() {
 
     if std::env::var("CARGO_CFG_TARGET_OS").as_deref() == Ok("ios") {
         purge_stale_simulator_webkit_cache();
+        build_native_webkit_patches();
     }
+}
+
+/// Ported from leptos-ui's `__DisableContentInsetAdjustment.m` /
+/// `__HideKeyboardAccessory.m` (see justfile `run_ios`/`run_ipad`, which
+/// copies them into the Tauri/xcodegen apple project as direct target
+/// sources). `dx` has no xcodegen step: it compiles the crate as a staticlib
+/// and links the bundle itself, and silently drops `-force_load`, so an
+/// object file whose only symbol is an unreferenced `static` constructor
+/// gets pruned by the linker's archive-member selection before the
+/// constructor ever runs. Fix: the `.m` files declare the constructor
+/// functions with external linkage, and `src/main.rs` declares+calls them
+/// via `unsafe extern "C"`, which forces the linker to pull the object files
+/// in (the constructor then also fires automatically at load, same as
+/// Leptos; the explicit call is just what guarantees inclusion here).
+fn build_native_webkit_patches() {
+    println!("cargo:rerun-if-changed=__DisableContentInsetAdjustment.m");
+    println!("cargo:rerun-if-changed=__HideKeyboardAccessory.m");
+    cc::Build::new()
+        .file("__DisableContentInsetAdjustment.m")
+        .file("__HideKeyboardAccessory.m")
+        .flag("-fobjc-arc")
+        .compile("webkit_ios_patches");
+    println!("cargo:rustc-link-lib=framework=UIKit");
+    println!("cargo:rustc-link-lib=framework=WebKit");
 }
 
 /// `dx serve --platform ios` reinstalls the app bundle on every relaunch but

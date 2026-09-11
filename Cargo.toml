@@ -47,6 +47,7 @@ web-sys.workspace = true
 
 [build-dependencies]
 time = { version = "0.3", features = ["local-offset"] }
+cc = "1"
 
 [workspace.dependencies]
 registry = { path = "app_crates/registry" }
@@ -197,7 +198,7 @@ allow_attributes_without_reason = "allow"
 # Temporary deployment mode: suppress ordinary compiler warnings; explicit safety denies above remain active.
 warnings = "allow"
 dead_code = "allow"
-unsafe_code = "forbid"
+unsafe_code = "deny"
 unused_variables = "allow"
 unused_mut = "allow"
 irrefutable_let_patterns = "deny"
