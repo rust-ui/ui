@@ -1,5 +1,4 @@
 pub mod accordion;
-pub mod action_bar;
 pub mod alert;
 pub mod alert_dialog;
 pub mod animate;
