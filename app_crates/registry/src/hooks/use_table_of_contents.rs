@@ -58,6 +58,7 @@ pub fn use_table_of_contents(anchors: Vec<String>) -> TableOfContentsState {
         is_mounted_cleanup.store(false, Ordering::SeqCst);
     });
 
+    #[cfg(target_arch = "wasm32")]
     use_effect(move || {
         let Some(window) = web_sys::window() else { return };
         let Some(document) = window.document() else { return };
