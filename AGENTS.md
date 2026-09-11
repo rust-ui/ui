@@ -1,5 +1,5 @@
 
-
+- **Cargo clippy**: When finishing a task, run clippy scoped to the crate(s) you touched (`cargo clippy -p <crate>`), in background, not `--workspace --all-targets` (recompiles every crate across all 3 target profiles: wasm/ios/server, very slow). Only run the full `cargo clippy --workspace --all-targets` right before a commit/PR that spans multiple crates.
 
 - **Changelog + versioning**: keep `CHANGELOG_DEV.md` up to date (Keep a Changelog format, entries land under `## [Unreleased]`). Semver tags are `vMAJOR.MINOR.PATCH` (annotated tags, current: `v0.1.0`), separate from the `deploy_prod_v2_*` timestamp tags. When `[Unreleased]` has grown enough to be worth cutting, tell me and propose the next version, then wait for me to confirm before renaming the section, tagging, and pushing.
 

@@ -9,13 +9,13 @@ fn main() {
     ios_webview_fixes();
 }
 
-/// iOS WKWebView runtime patches, ported verbatim from the Leptos site
-/// (`leptos-ui/__HideKeyboardAccessory.m` + `__DisableContentInsetAdjustment.m`,
-/// which it compiles into the Tauri xcodegen project). The Dioxus app is native
-/// dioxus-mobile with no xcodeproj, so compile the same `.m` files straight into
-/// the binary with `cc`. Each file is an `__attribute__((constructor))`, so it
-/// runs at launch with no call site; `-force_load` keeps the objects from being
-/// dead-stripped.
+/// iOS WKWebView runtime patches, ported verbatim from the Leptos site.
+///
+/// Source: `leptos-ui/__HideKeyboardAccessory.m` + `__DisableContentInsetAdjustment.m`,
+/// which the Leptos site compiles into the Tauri xcodegen project. The Dioxus app is
+/// native dioxus-mobile with no xcodeproj, so compile the same `.m` files straight into
+/// the binary with `cc`. Each file is an `__attribute__((constructor))`, so it runs at
+/// launch with no call site; `-force_load` keeps the objects from being dead-stripped.
 ///
 /// - `__HideKeyboardAccessory.m`: swaps `-[WKContentView inputAccessoryView]` for
 ///   `nil` so the grey prev/next/Done bar stops covering the bottom nav.

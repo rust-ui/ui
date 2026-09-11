@@ -16,6 +16,14 @@ pub struct TableOfContentsState {
     pub active_anchor: ReadSignal<Option<String>>,
 }
 
+/// Syncs `window.location.hash` to `id` via `history.replaceState` (no navigation/reload).
+fn sync_hash(id: &str) {
+    let Some(window) = web_sys::window() else { return };
+    let Ok(history) = window.history() else { return };
+    let hash = format!("#{id}");
+    let _ = history.replace_state_with_url(&wasm_bindgen::JsValue::NULL, "", Some(&hash));
+}
+
 fn cache_heading_positions(
     document: &web_sys::Document,
     window: &web_sys::Window,
@@ -70,18 +78,12 @@ pub fn use_table_of_contents(anchors: Vec<String>) -> TableOfContentsState {
             let current = positions_for_scroll
                 .peek()
                 .iter()
-                .filter(|(_, top)| scroll_pos >= *top)
-                .next_back()
+                .rfind(|(_, top)| scroll_pos >= *top)
                 .map(|(id, _)| id.clone());
 
             if active_anchor_for_scroll.peek().as_deref() != current.as_deref() {
                 if let Some(id) = &current {
-                    if let Some(window) = web_sys::window() {
-                        if let Ok(history) = window.history() {
-                            let hash = format!("#{id}");
-                            let _ = history.replace_state_with_url(&wasm_bindgen::JsValue::NULL, "", Some(&hash));
-                        }
-                    }
+                    sync_hash(id);
                 }
                 active_anchor_for_scroll.set(current);
             }

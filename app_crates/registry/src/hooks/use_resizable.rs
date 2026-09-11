@@ -41,6 +41,48 @@ pub struct ResizableState {
     pub background_width: ReadSignal<f64>,
 }
 
+type PointerClosure = Closure<dyn FnMut(web_sys::PointerEvent)>;
+
+/// Toggles the drag-in-progress cursor/selection lockout on `<html>`/`<body>`.
+fn set_drag_cursor_active(active: bool) {
+    let Some(window) = web_sys::window() else { return };
+    let Some(document) = window.document() else { return };
+
+    if let Some(html) = document
+        .document_element()
+        .and_then(|el| el.dyn_into::<web_sys::HtmlElement>().ok())
+    {
+        if active {
+            let _ = html.style().set_property("cursor", "col-resize");
+        } else {
+            let _ = html.style().remove_property("cursor");
+        }
+    }
+    if let Some(body) = document.body() {
+        if active {
+            let _ = body.class_list().add_2("pointer-events-none", "select-none");
+        } else {
+            let _ = body.class_list().remove_2("pointer-events-none", "select-none");
+        }
+    }
+}
+
+/// Detaches the `pointermove`/`pointerup` listeners stashed by a drag session.
+fn remove_drag_listeners(
+    move_holder: &Rc<RefCell<Option<PointerClosure>>>,
+    up_holder: &Rc<RefCell<Option<PointerClosure>>>,
+) {
+    let Some(window) = web_sys::window() else { return };
+    let Some(document) = window.document() else { return };
+
+    if let Some(c) = move_holder.borrow_mut().take() {
+        let _ = document.remove_event_listener_with_callback("pointermove", c.as_ref().unchecked_ref());
+    }
+    if let Some(c) = up_holder.borrow_mut().take() {
+        let _ = document.remove_event_listener_with_callback("pointerup", c.as_ref().unchecked_ref());
+    }
+}
+
 /// Hook driving a `Resizable`/`ResizableHandle`/`ResizableBackground` group.
 ///
 /// Ports `resizable.js`'s pointer-drag resize logic to Dioxus/web-sys, plus
@@ -73,8 +115,8 @@ pub fn use_resizable(
         let Some(window) = web_sys::window() else { return };
         let Some(document) = window.document() else { return };
 
-        let move_holder: Rc<RefCell<Option<Closure<dyn FnMut(web_sys::PointerEvent)>>>> = Rc::new(RefCell::new(None));
-        let up_holder: Rc<RefCell<Option<Closure<dyn FnMut(web_sys::PointerEvent)>>>> = Rc::new(RefCell::new(None));
+        let move_holder: Rc<RefCell<Option<PointerClosure>>> = Rc::new(RefCell::new(None));
+        let up_holder: Rc<RefCell<Option<PointerClosure>>> = Rc::new(RefCell::new(None));
 
         let is_mounted_for_down = Arc::clone(&is_mounted_for_drag);
         let mut background_width_for_down = background_width;
@@ -90,19 +132,7 @@ pub fn use_resizable(
             let start_pos = f64::from(e.client_x());
             let start_size = *background_width_for_down.peek();
 
-            if let Some(window) = web_sys::window() {
-                if let Some(document) = window.document() {
-                    if let Some(html) = document
-                        .document_element()
-                        .and_then(|el| el.dyn_into::<web_sys::HtmlElement>().ok())
-                    {
-                        let _ = html.style().set_property("cursor", "col-resize");
-                    }
-                    if let Some(body) = document.body() {
-                        let _ = body.class_list().add_2("pointer-events-none", "select-none");
-                    }
-                }
-            }
+            set_drag_cursor_active(true);
 
             let is_mounted_for_move = Arc::clone(&is_mounted_for_down);
             let mut background_width_for_move = background_width_for_down;
@@ -118,36 +148,15 @@ pub fn use_resizable(
             let move_holder_for_stop = Rc::clone(&move_holder);
             let up_holder_for_stop = Rc::clone(&up_holder);
             let stop_resize = Closure::wrap(Box::new(move |_e: web_sys::PointerEvent| {
-                if let Some(window) = web_sys::window() {
-                    if let Some(document) = window.document() {
-                        if let Some(html) = document
-                            .document_element()
-                            .and_then(|el| el.dyn_into::<web_sys::HtmlElement>().ok())
-                        {
-                            let _ = html.style().remove_property("cursor");
-                        }
-                        if let Some(body) = document.body() {
-                            let _ = body.class_list().remove_2("pointer-events-none", "select-none");
-                        }
-                        if let Some(c) = move_holder_for_stop.borrow_mut().take() {
-                            let _ =
-                                document.remove_event_listener_with_callback("pointermove", c.as_ref().unchecked_ref());
-                        }
-                        if let Some(c) = up_holder_for_stop.borrow_mut().take() {
-                            let _ =
-                                document.remove_event_listener_with_callback("pointerup", c.as_ref().unchecked_ref());
-                        }
-                    }
-                }
+                set_drag_cursor_active(false);
+                remove_drag_listeners(&move_holder_for_stop, &up_holder_for_stop);
             }) as Box<dyn FnMut(web_sys::PointerEvent)>);
 
-            if let Some(window) = web_sys::window() {
-                if let Some(document) = window.document() {
-                    let _ =
-                        document.add_event_listener_with_callback("pointermove", do_resize.as_ref().unchecked_ref());
-                    let _ =
-                        document.add_event_listener_with_callback("pointerup", stop_resize.as_ref().unchecked_ref());
-                }
+            if let Some(window) = web_sys::window()
+                && let Some(document) = window.document()
+            {
+                let _ = document.add_event_listener_with_callback("pointermove", do_resize.as_ref().unchecked_ref());
+                let _ = document.add_event_listener_with_callback("pointerup", stop_resize.as_ref().unchecked_ref());
             }
             *move_holder.borrow_mut() = Some(do_resize);
             *up_holder.borrow_mut() = Some(stop_resize);
