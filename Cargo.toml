@@ -47,6 +47,9 @@ web-sys.workspace = true
 
 [build-dependencies]
 time = { version = "0.3", features = ["local-offset"] }
+# Compiles the iOS WKWebView `.m` patches (see build.rs). Only used when
+# CARGO_CFG_TARGET_OS == "ios".
+cc = "1"
 
 [workspace.dependencies]
 registry = { path = "app_crates/registry" }
@@ -77,8 +80,9 @@ web-sys = { version = "0.3", default-features = false, features = [
   "EventTarget", "Headers", "History", "HtmlAnchorElement", "HtmlElement",
   "HtmlInputElement", "InputEvent", "KeyboardEvent", "Location", "MediaQueryList",
   "MouseEvent", "MutationObserver", "MutationObserverInit", "MutationRecord",
-  "Navigator", "Node", "NodeList", "Request", "RequestInit", "RequestMode",
-  "Response", "ScrollToOptions", "Storage", "Url", "Window",
+  "Navigator", "Node", "NodeList", "PointerEvent", "Request", "RequestInit",
+  "RequestMode", "Response", "ScrollBehavior", "ScrollIntoViewOptions",
+  "ScrollLogicalPosition", "ScrollToOptions", "Storage", "Url", "Window",
 ] }
 
 [profile.dev]

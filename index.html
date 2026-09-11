@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=cover is what makes env(safe-area-inset-*) non-zero in the
+         iOS WKWebView, so the bottom nav clears the home indicator. Mirrors the
+         Leptos site's app/src/shell.rs. dx injects the rest of <head> (title,
+         stylesheet, wasm loader) around this. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+  </head>
+  <body>
+    <div id="main"></div>
+  </body>
+</html>
