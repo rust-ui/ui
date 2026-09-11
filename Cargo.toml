@@ -47,9 +47,6 @@ web-sys.workspace = true
 
 [build-dependencies]
 time = { version = "0.3", features = ["local-offset"] }
-# Compiles the iOS WKWebView `.m` patches (see build.rs). Only used when
-# CARGO_CFG_TARGET_OS == "ios".
-cc = "1"
 
 [workspace.dependencies]
 registry = { path = "app_crates/registry" }

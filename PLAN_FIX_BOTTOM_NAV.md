@@ -2,9 +2,10 @@
 
 Exhaustive debug dossier for the iOS mobile bottom navigation regression.
 
-Status: **regression identified, fix not yet applied**. Known-good revision is
-`d2f4eb7`. Current `main` tip is `16e96f5`. The bottom nav labels are clipped by
-the iOS home indicator on `main`, and render correctly on `d2f4eb7`.
+Status: **fixed, Option B applied and verified on device (2026-09-11)**. See
+section 13. Known-good revision was `d2f4eb7`. The bottom nav labels were
+clipped by the iOS home indicator on `main`, and rendered correctly on
+`d2f4eb7`.
 
 The user's stated preference: revert to the `d2f4eb7` behaviour rather than keep
 the pile of iOS hotfixes added on top of it.
@@ -483,7 +484,13 @@ Interpretation:
 
 1. `xcrun simctl uninstall booted com.rust-ui` (and any other stale Rust UI
    bundle ids) before testing. Confirm only one Rust UI icon on the home
-   screen.
+   screen. Plain Ctrl+C + relaunch of `dx serve --platform ios` is **not**
+   enough: it only rewrites the `Bundle/Application/<UUID>/DioxusUi.app`
+   folder, it does not touch the separate `Data/Application/<UUID>/Library/WebKit/com.rust-ui/`
+   container, so WKWebView keeps serving cached HTML/CSS/JS from disk. Either
+   `simctl uninstall` (nukes both containers) or manually
+   `rm -rf .../Data/Application/<UUID>/Library/WebKit` between runs. See
+   section 13 for the full explanation.
 2. `cargo clippy --bin dioxus-ui` clean. If Option B, confirm
    `unsafe_code = "forbid"` is back and still compiles (no `unsafe` anywhere in
    the crate).
@@ -524,4 +531,73 @@ Interpretation:
 - iOS internal navigation must use `Link`, never raw `<a href>` (iOS "not an
   http url" bug, commit `7ac104c`).
 - Never run `dx fmt` in this repo (corrupts `sidenav_common.rs`).
-```
+
+## 13. Resolution (2026-09-11)
+
+Applied **Option B1** (section 8): deleted `index.html`,
+`__HideKeyboardAccessory.m`, `__DisableContentInsetAdjustment.m`; restored
+`build.rs` to the plain date-stamp-only version; dropped the `cc = "1"`
+build-dependency from `Cargo.toml`. Kept the layout restructure
+(`src/routes/app_layout.rs`, `src/components/navigation/app_wrapper.rs`) as-is
+on `main` (parity with `leptos-ui`, confirmed not the regression source per
+section 2.4).
+
+By the time this landed, `main` had already moved past the `16e96f5` tip this
+doc was written against (history had been rewritten again; see
+`git log --oneline -- src/main.rs`), and `src/main.rs` no longer had the
+`unsafe extern "C"` FFI block or the `unsafe_code = "deny"` relaxation
+described in section 5 / section 8 step 3 — both were already back to their
+`d2f4eb7` shape. So the only files actually touched for the revert were
+`index.html`, the two `__*.m` files, `build.rs`, and `Cargo.toml`.
+
+**False-negative loop while verifying**: after the revert, a fresh screenshot
+still showed the labels clipped, looking identical to the pre-revert bug. Root
+cause of *that*: no `dx serve` process was running and the sim app had not
+been uninstalled/reinstalled, so the screenshot was WKWebView serving a
+cached pre-revert document (still carrying `viewport-fit=cover`) from an old
+session. This is exactly failure mode 2 in section 6 ("WKWebView HTTP
+cache") plus the stale-app problem in section 6 point 1, just recurring after
+the fix instead of before it. Confirms section 11 item 1 and item 4 are not
+optional steps: `r` / plain reload is not sufficient to validate an iOS nav
+fix, only `xcrun simctl uninstall booted com.rust-ui` + a fresh
+`dx serve --platform ios` is.
+
+Once that clean reinstall was actually done, the bug did not reproduce: the
+`d2f4eb7` no-`viewport-fit=cover` layout renders the bottom nav fully above
+the home indicator, as predicted in section 7.
+
+**Outstanding, not done as part of this fix**: the keyboard accessory bar
+(grey prev/next/Done bar) is back, since `__HideKeyboardAccessory.m` was
+removed along with the other patch. Per section 9, low impact today (only the
+docs-search dialog has a focusable text input on mobile). Revisit in isolation
+if it becomes a real complaint; do not resurrect `viewport-fit=cover` or
+`__DisableContentInsetAdjustment.m` to do it, and do not rely on
+`cargo:rustc-link-arg` / `-force_load` under `dx` — section 6 point 1 in this
+doc shows `dx`'s own bundling link step drops those directives, so any future
+native-patch approach needs either an explicit call site (like `main()` did
+before this revert) or a non-native (JS) fix instead.
+
+**Root cause of "plain kill+relaunch doesn't apply the fix, but `simctl
+uninstall` does" (2026-09-11, post-fix)**: an installed sim app has two
+separate on-disk containers, linked only by bundle id:
+
+- `Containers/Bundle/Application/<UUID-A>/DioxusUi.app` — the app binary +
+  bundled assets (`index.html`, wasm, css). `dx serve` overwrites this on
+  every reinstall.
+- `Containers/Data/Application/<UUID-B>/Library/WebKit/com.rust-ui/` — the
+  WKWebView disk cache (`WebsiteData/Default/...`, LocalStorage, IndexedDB).
+  **Not touched** by a plain reinstall of the bundle.
+
+Ctrl+C + `dx serve --platform ios` again only replaces the `.app` bundle.
+WebKit's on-disk HTTP/document cache in the Data container survives untouched
+and keeps serving the old `index.html`/CSS/JS, so the fix looks like it
+"didn't take" even though the new files are sitting right there on disk.
+`xcrun simctl uninstall booted com.rust-ui` deletes **both** containers, so
+the next install gets a genuinely empty WebKit cache and the new assets load.
+Confirmed by inspecting the booted simulator's containers directly:
+`Info.plist`'s `CFBundleIdentifier` is `com.rust-ui` inside `DioxusUi.app`,
+and a populated `Library/WebKit/com.rust-ui/WebsiteData/` sits in the sibling
+Data container. This is the same WKWebView disk-cache behavior as section 6's
+"WKWebView HTTP cache" failure mode, just triggered by the app's own
+reinstall instead of a dev-server restart. Cheaper alternative to a full
+uninstall: `rm -rf` just that `Library/WebKit` folder between runs.
