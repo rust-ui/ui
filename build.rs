@@ -57,7 +57,14 @@ fn purge_stale_simulator_webkit_cache() {
             continue;
         };
         if String::from_utf8_lossy(&content).contains("com.rust-ui") {
+            // `Library/WebKit/<bundle-id>` (WebsiteData: LocalStorage, IndexedDB,
+            // etc.) and `Library/Caches/<bundle-id>/WebKit` (NSURLCache-backed
+            // HTTP/network disk cache: NetworkCache, CacheStorage, HSTS) are two
+            // separate on-disk stores. Both must be purged or stale HTML/CSS/JS
+            // keeps being served from the network cache even after WebsiteData
+            // is cleared.
             let _ = std::fs::remove_dir_all(entry.path().join("Library/WebKit"));
+            let _ = std::fs::remove_dir_all(entry.path().join("Library/Caches/com.rust-ui"));
         }
     }
 }

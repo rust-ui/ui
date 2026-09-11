@@ -7,6 +7,39 @@
 @source "./src/**/*.rs";
 @source "./app_crates/**/*.rs";
 
+/* =========================================================================
+   DO NOT REMOVE: bottom-nav / iOS safe-area utility pins.
+
+   Without these, `dx serve --platform ios` can silently tree-shake the
+   bottom-nav safe-area utilities out of the compiled CSS on a plain
+   Ctrl+C + relaunch (no full rebuild), even though the `.rs` source using
+   them hasn't changed. Symptom if this regresses: a brief flash of
+   unstyled HTML, then CSS loads, but the bottom nav's labels are clipped
+   by / overlap the iOS home indicator. Full root-cause writeup:
+   PLAN_FIX_BOTTOM_NAV.md section 14 ("Tailwind content-scan tree-shaking").
+
+   Each line below must be the EXACT literal class string as it appears in
+   source, character-for-character (Tailwind matches these as plain text,
+   not a pattern) - source of truth for each:
+     - bottom__safe, safe__dvh__content
+         -> @utility definitions in this file (search "@utility bottom__safe")
+     - pb-[env(safe-area-inset-bottom,0px)]
+         -> app_crates/registry/src/ui/bottom_nav.rs, `BottomNav` root class
+     - supports-[-webkit-touch-callout:none]:justify-end / :pb-0 / :translate-y-1
+         -> app_crates/registry/src/ui/bottom_nav.rs, `BottomNavButton` class
+            (the iOS WKWebView touch-callout hack)
+
+   If you rename/change one of those classes at its source, update the
+   matching line here in the SAME commit, don't just delete it - deleting
+   without checking re-introduces the tree-shaking bug this section fixes.
+   ========================================================================= */
+@source inline("bottom__safe");
+@source inline("safe__dvh__content");
+@source inline("pb-[env(safe-area-inset-bottom,0px)]");
+@source inline("supports-[-webkit-touch-callout:none]:justify-end");
+@source inline("supports-[-webkit-touch-callout:none]:pb-0");
+@source inline("supports-[-webkit-touch-callout:none]:translate-y-1");
+
 
 /* https://www.linkedin.com/posts/theosoti_page-loads-dont-have-to-be-harsh-css-lets-activity-7313869085379878913-ttyY/ */
 /* @view-transition {

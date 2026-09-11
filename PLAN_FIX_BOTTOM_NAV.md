@@ -601,3 +601,78 @@ Data container. This is the same WKWebView disk-cache behavior as section 6's
 "WKWebView HTTP cache" failure mode, just triggered by the app's own
 reinstall instead of a dev-server restart. Cheaper alternative to a full
 uninstall: `rm -rf` just that `Library/WebKit` folder between runs.
+
+## 14. Automatic cache purge in `build.rs` (2026-09-11)
+
+Manually `rm -rf`-ing `Library/WebKit` (or a full `simctl uninstall`) between
+every `dx serve --platform ios` run does not scale to other contributors, so
+the purge was moved into `build.rs`: when `CARGO_CFG_TARGET_OS == "ios"`,
+`purge_stale_simulator_webkit_cache()` reads the booted simulator's UDID via
+`xcrun simctl list devices booted -j`, walks
+`~/Library/Developer/CoreSimulator/Devices/<udid>/data/Containers/Data/Application/*`,
+matches the data container whose
+`.com.apple.mobile_container_manager.metadata.plist` contains `com.rust-ui`,
+and purges it. `println!("cargo:rerun-if-changed={out_dir}/__force_rerun_never_exists")`
+(a path that can never exist) forces cargo to treat the build script as
+always-dirty so this runs on every build, not just when `build.rs` changes.
+Best-effort throughout (`let-else` returns, no panics) so it never fails the
+build if no simulator is booted or the app isn't installed yet.
+
+**Second cache location found (still reproduced after the first purge
+shipped)**: section 13 above only identified and purged
+`Data/Application/<UUID>/Library/WebKit/com.rust-ui/` (the WebsiteData store:
+LocalStorage, IndexedDB, SearchHistory, ResourceLoadStatistics). There is a
+**second, independent** on-disk WKWebView cache in the same data container
+that this missed:
+
+- `Data/Application/<UUID>/Library/Caches/com.rust-ui/WebKit/` — the actual
+  NSURLCache-backed HTTP/network disk cache (`NetworkCache`, `CacheStorage`,
+  `AlternativeServices`, `HSTS`). This is where WKWebView actually caches the
+  HTML/CSS/JS network responses; `Library/WebKit/.../WebsiteData` does not
+  cover it.
+
+Confirmed by inspecting a live data container after a rebuild: the
+`Library/Caches/com.rust-ui/WebKit/NetworkCache` mtime predated the latest
+`build.rs` run, i.e. it survived the WebsiteData-only purge untouched and kept
+serving stale HTML/CSS/JS even though the shipped `.app` binary and CSS were
+already correct (verified by `strings`-grepping the installed binary for
+`viewport-fit`/`name="viewport"` and by parsing the bundled Tailwind CSS for
+the expected `bottom__nav`/`safe-area-inset-bottom` utilities: both clean).
+
+Fix: `purge_stale_simulator_webkit_cache()` now removes both
+`Library/WebKit` and `Library/Caches/com.rust-ui` for the matched data
+container. Anyone still seeing stale nav behavior after pulling this fix needs
+one manual `xcrun simctl uninstall booted com.rust-ui` to clear an
+already-poisoned container from before the fix landed; every `dx serve
+--platform ios` after that stays clean automatically since both paths are
+purged pre-build.
+
+**Third factor found: Tailwind content-scan tree-shaking, not cache.** After
+the double-cache-purge fix above landed and was verified working (fresh
+`simctl uninstall` + `dx serve` gave a clean bottom nav, confirmed live via
+`xcrun simctl io booted screenshot` and by checking that both
+`Library/WebKit` and `Library/Caches/com.rust-ui` mtimes matched the latest
+`build.rs` rerun), a **plain Ctrl+C + `dx serve --platform ios` relaunch**
+(no `simctl uninstall`) still reproduced clipping intermittently. Observed
+symptom: briefly unstyled HTML (raw blue underlined links = FOUC), then CSS
+applies, but the bottom nav is still broken after CSS loads. That pattern
+means the CSS that loaded was missing the bottom-nav utilities entirely, not
+that an old cached CSS was served.
+
+Root cause: `tailwind.css` had no `@source inline(...)` pin (checked,
+none existed anywhere in the repo) for `bottom__safe`, `safe__dvh__content`,
+or the `pb-[env(safe-area-inset-bottom,0px)]` / `supports-[-webkit-touch-callout:none]:*`
+literal classes in `app_crates/registry/src/ui/bottom_nav.rs`. Per section 12,
+`dx serve --platform ios` reruns Tailwind's content scan from scratch on
+every pass and tree-shakes unreferenced `@utility` rules; an incremental/fast
+relaunch scan can miss them even though the `.rs` source is unchanged,
+producing CSS that renders everything except the safe-area padding.
+
+Fix: added explicit `@source inline(...)` pins right after the existing
+`@source "./src/**/*.rs"` / `@source "./app_crates/**/*.rs"` lines in
+`tailwind.css`, one per literal class string used by the bottom nav
+(`bottom__safe`, `safe__dvh__content`, `pb-[env(safe-area-inset-bottom,0px)]`,
+and the three `supports-[-webkit-touch-callout:none]:*` variants). This makes
+Tailwind always emit these utilities regardless of scan completeness, closing
+the last remaining source of intermittent (non-cache) clipping on plain
+relaunches.
