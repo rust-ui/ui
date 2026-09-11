@@ -13,8 +13,13 @@ enum NavPage {
     Charts,
 }
 
-const PAGES: &[NavPage] =
-    &[NavPage::Home, NavPage::Components, NavPage::Hooks, NavPage::Icons, NavPage::Charts];
+const PAGES: &[NavPage] = &[
+    NavPage::Home,
+    NavPage::Components,
+    NavPage::Hooks,
+    NavPage::Icons,
+    NavPage::Charts,
+];
 
 impl NavPage {
     fn label(self) -> &'static str {

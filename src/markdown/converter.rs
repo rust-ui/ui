@@ -164,7 +164,11 @@ fn process_element(el: &HtmlElement, components: &MdComponents) -> Element {
         "ol" => rsx! { ol { class: "pl-6 my-6 list-decimal", {children.into_iter()} } },
         "li" => rsx! { li { class: "mt-2", {children.into_iter()} } },
         "a" => {
-            let href = el.attributes.get("href").and_then(std::clone::Clone::clone).unwrap_or_default();
+            let href = el
+                .attributes
+                .get("href")
+                .and_then(std::clone::Clone::clone)
+                .unwrap_or_default();
             rsx! { a { class: "font-medium underline underline-offset-4", href: "{href}", {children.into_iter()} } }
         }
         "code" => {

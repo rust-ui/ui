@@ -2,14 +2,8 @@ use crate::__registry__::all_blocks::BlockIdKebab;
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum BlockFileTreeItem {
-    File {
-        name: &'static str,
-        index: usize,
-    },
-    Folder {
-        name: &'static str,
-        items: Vec<Self>,
-    },
+    File { name: &'static str, index: usize },
+    Folder { name: &'static str, items: Vec<Self> },
 }
 
 impl BlockFileTreeItem {

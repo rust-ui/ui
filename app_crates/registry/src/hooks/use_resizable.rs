@@ -73,10 +73,8 @@ pub fn use_resizable(
         let Some(window) = web_sys::window() else { return };
         let Some(document) = window.document() else { return };
 
-        let move_holder: Rc<RefCell<Option<Closure<dyn FnMut(web_sys::PointerEvent)>>>> =
-            Rc::new(RefCell::new(None));
-        let up_holder: Rc<RefCell<Option<Closure<dyn FnMut(web_sys::PointerEvent)>>>> =
-            Rc::new(RefCell::new(None));
+        let move_holder: Rc<RefCell<Option<Closure<dyn FnMut(web_sys::PointerEvent)>>>> = Rc::new(RefCell::new(None));
+        let up_holder: Rc<RefCell<Option<Closure<dyn FnMut(web_sys::PointerEvent)>>>> = Rc::new(RefCell::new(None));
 
         let is_mounted_for_down = Arc::clone(&is_mounted_for_drag);
         let mut background_width_for_down = background_width;
@@ -132,14 +130,12 @@ pub fn use_resizable(
                             let _ = body.class_list().remove_2("pointer-events-none", "select-none");
                         }
                         if let Some(c) = move_holder_for_stop.borrow_mut().take() {
-                            let _ = document.remove_event_listener_with_callback(
-                                "pointermove",
-                                c.as_ref().unchecked_ref(),
-                            );
+                            let _ =
+                                document.remove_event_listener_with_callback("pointermove", c.as_ref().unchecked_ref());
                         }
                         if let Some(c) = up_holder_for_stop.borrow_mut().take() {
-                            let _ = document
-                                .remove_event_listener_with_callback("pointerup", c.as_ref().unchecked_ref());
+                            let _ =
+                                document.remove_event_listener_with_callback("pointerup", c.as_ref().unchecked_ref());
                         }
                     }
                 }

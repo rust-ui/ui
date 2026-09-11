@@ -1096,16 +1096,66 @@ pub fn get_static_registry_entry(markdown_type: MarkdownType) -> Option<&'static
             file_path: "public/docs/components/drawer.md",
             install_name: "drawer",
         }),
-        MarkdownType::StaticDemoDrawerDialog => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_dialog.rs"), demo_name: "demo_drawer_dialog", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
-        MarkdownType::StaticDemoDrawerFamily => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_family.rs"), demo_name: "demo_drawer_family", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
-        MarkdownType::StaticDemoDrawerFocus => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_focus.rs"), demo_name: "demo_drawer_focus", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
-        MarkdownType::StaticDemoDrawerNested => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_nested.rs"), demo_name: "demo_drawer_nested", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
-        MarkdownType::StaticDemoDrawerNonDismissable => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_non_dismissable.rs"), demo_name: "demo_drawer_non_dismissable", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
-        MarkdownType::StaticDemoDrawerRtl => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_rtl.rs"), demo_name: "demo_drawer_rtl", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
-        MarkdownType::StaticDemoDrawerScrollable => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_scrollable.rs"), demo_name: "demo_drawer_scrollable", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
-        MarkdownType::StaticDemoDrawerSide => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_side.rs"), demo_name: "demo_drawer_side", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
-        MarkdownType::StaticDemoDrawerSideFloating => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_side_floating.rs"), demo_name: "demo_drawer_side_floating", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
-        MarkdownType::StaticDemoDrawerSideScrollable => Some(&StaticRegistryEntry { raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_side_scrollable.rs"), demo_name: "demo_drawer_side_scrollable", file_path: "public/docs/components/drawer.md", install_name: "drawer" }),
+        MarkdownType::StaticDemoDrawerDialog => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_dialog.rs"),
+            demo_name: "demo_drawer_dialog",
+            file_path: "public/docs/components/drawer.md",
+            install_name: "drawer",
+        }),
+        MarkdownType::StaticDemoDrawerFamily => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_family.rs"),
+            demo_name: "demo_drawer_family",
+            file_path: "public/docs/components/drawer.md",
+            install_name: "drawer",
+        }),
+        MarkdownType::StaticDemoDrawerFocus => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_focus.rs"),
+            demo_name: "demo_drawer_focus",
+            file_path: "public/docs/components/drawer.md",
+            install_name: "drawer",
+        }),
+        MarkdownType::StaticDemoDrawerNested => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_nested.rs"),
+            demo_name: "demo_drawer_nested",
+            file_path: "public/docs/components/drawer.md",
+            install_name: "drawer",
+        }),
+        MarkdownType::StaticDemoDrawerNonDismissable => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_non_dismissable.rs"),
+            demo_name: "demo_drawer_non_dismissable",
+            file_path: "public/docs/components/drawer.md",
+            install_name: "drawer",
+        }),
+        MarkdownType::StaticDemoDrawerRtl => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_rtl.rs"),
+            demo_name: "demo_drawer_rtl",
+            file_path: "public/docs/components/drawer.md",
+            install_name: "drawer",
+        }),
+        MarkdownType::StaticDemoDrawerScrollable => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_scrollable.rs"),
+            demo_name: "demo_drawer_scrollable",
+            file_path: "public/docs/components/drawer.md",
+            install_name: "drawer",
+        }),
+        MarkdownType::StaticDemoDrawerSide => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_side.rs"),
+            demo_name: "demo_drawer_side",
+            file_path: "public/docs/components/drawer.md",
+            install_name: "drawer",
+        }),
+        MarkdownType::StaticDemoDrawerSideFloating => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_side_floating.rs"),
+            demo_name: "demo_drawer_side_floating",
+            file_path: "public/docs/components/drawer.md",
+            install_name: "drawer",
+        }),
+        MarkdownType::StaticDemoDrawerSideScrollable => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_drawer_side_scrollable.rs"),
+            demo_name: "demo_drawer_side_scrollable",
+            file_path: "public/docs/components/drawer.md",
+            install_name: "drawer",
+        }),
         MarkdownType::StaticDemoDropdownMenu => Some(&StaticRegistryEntry {
             raw_code: include_str!("../../app_crates/registry/src/demos/demo_dropdown_menu.rs"),
             demo_name: "demo_dropdown_menu",
@@ -3664,7 +3714,11 @@ fn build_md_components() -> MdComponents {
         rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerFamily, class: class, DemoDrawerFamily {} } }
     });
     combined_components.add("StaticDrawerFocus", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerFocus, class: class, DemoDrawerFocus {} } }
     });
     combined_components.add("StaticDrawerNested", |props| {
@@ -3676,7 +3730,11 @@ fn build_md_components() -> MdComponents {
         rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerNonDismissable, class: class, DemoDrawerNonDismissable {} } }
     });
     combined_components.add("StaticDrawerRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerRtl, class: class, DemoDrawerRtl {} } }
     });
     combined_components.add("StaticDrawerScrollable", |props| {
@@ -3684,7 +3742,11 @@ fn build_md_components() -> MdComponents {
         rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerScrollable, class: class, DemoDrawerScrollable {} } }
     });
     combined_components.add("StaticDrawerSide", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! { StaticDemoWrapper { demo_type: MarkdownType::StaticDemoDrawerSide, class: class, DemoDrawerSide {} } }
     });
     combined_components.add("StaticDrawerSideFloating", |props| {

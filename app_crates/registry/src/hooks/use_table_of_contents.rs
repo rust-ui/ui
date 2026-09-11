@@ -16,7 +16,11 @@ pub struct TableOfContentsState {
     pub active_anchor: ReadSignal<Option<String>>,
 }
 
-fn cache_heading_positions(document: &web_sys::Document, window: &web_sys::Window, anchors: &[String]) -> Vec<(String, f64)> {
+fn cache_heading_positions(
+    document: &web_sys::Document,
+    window: &web_sys::Window,
+    anchors: &[String],
+) -> Vec<(String, f64)> {
     let scroll_y = window.scroll_y().unwrap_or(0.0);
     anchors
         .iter()
