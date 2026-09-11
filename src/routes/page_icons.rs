@@ -2,14 +2,22 @@ use app_domain::icons::all_icons::ALL_ICONS;
 use dioxus::document::eval;
 use dioxus::prelude::*;
 use icons::RotateCw;
+use registry::hooks::use_grid_virtual_scroll::use_grid_virtual_scroll;
 use registry::ui::card::{Card, CardContent, CardHeader, CardTitle};
 use registry::ui::drawer::{Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerHandle, DrawerTitle, DrawerTrigger};
 use registry::ui::input::{Input, InputType};
-use registry::ui::scroll_area::ScrollArea;
 
 use crate::components::navigation::header_docs::HeaderDocs;
 
 type IconFn = fn(&str) -> Element;
+
+/// Cell size (px) of one icon button, gap included: button is `size-16`
+/// (64px, fixed regardless of icon display size) plus the grid's `gap-2`
+/// (8px). ~1500 icons rendered at once made the grid slow to build/diff on
+/// iOS's native webview (VDOM cost, not paint cost, so CSS
+/// content-visibility alone didn't fix it) — virtual-scroll it instead,
+/// same `use_grid_virtual_scroll` hook the data grid demo uses.
+const ICON_ITEM_SIZE: usize = 72;
 
 #[component]
 pub fn PageIcons() -> Element {
@@ -33,6 +41,10 @@ pub fn PageIcons() -> Element {
                 .collect::<Vec<_>>()
         }
     });
+    let total_icons = use_memo(move || filtered_icons().len());
+
+    let mut grid_element: Signal<Option<web_sys::Element>> = use_signal(|| None);
+    let grid_scroll = use_grid_virtual_scroll(grid_element.into(), total_icons.into(), ICON_ITEM_SIZE);
 
     let container_style = use_memo(move || {
         let color = class_color();
@@ -97,63 +109,82 @@ pub fn PageIcons() -> Element {
             }
 
             div { class: "container flex-1 px-2 mx-auto",
-                ScrollArea { class: "h-full",
-                    div { class: "py-4",
-                        div { class: "px-4 mx-auto mb-6 w-full max-w-md sm:px-0",
-                            div { class: "flex gap-3 items-center",
-                                Input {
-                                    r#type: InputType::Search,
-                                    placeholder: "Search icons... (Press Escape to clear)",
-                                    value: search_text(),
-                                    oninput: move |e: FormEvent| search_text.set(e.value()),
-                                }
-                                div { class: "text-sm whitespace-nowrap text-muted-foreground",
-                                    {
-                                        let count = filtered_icons().len();
-                                        let search = search_text();
-                                        if search.is_empty() {
-                                            format!("{count} icons")
-                                        } else if count == 0 {
-                                            "No icons found".to_string()
-                                        } else {
-                                            format!("{count} icons found")
-                                        }
+                div {
+                    class: "overflow-y-auto py-4 h-full",
+                    onmounted: move |event| {
+                        if let Some(element) = event.data().downcast::<web_sys::Element>().cloned() {
+                            grid_element.set(Some(element));
+                        }
+                    },
+                    div { class: "px-4 mx-auto mb-6 w-full max-w-md sm:px-0",
+                        div { class: "flex gap-3 items-center",
+                            Input {
+                                r#type: InputType::Search,
+                                placeholder: "Search icons... (Press Escape to clear)",
+                                value: search_text(),
+                                oninput: move |e: FormEvent| search_text.set(e.value()),
+                            }
+                            div { class: "text-sm whitespace-nowrap text-muted-foreground",
+                                {
+                                    let count = filtered_icons().len();
+                                    let search = search_text();
+                                    if search.is_empty() {
+                                        format!("{count} icons")
+                                    } else if count == 0 {
+                                        "No icons found".to_string()
+                                    } else {
+                                        format!("{count} icons found")
                                     }
                                 }
                             }
                         }
+                    }
 
+                    div {
+                        style: format!("position: relative; height: {}px;", (grid_scroll.total_height)()),
                         div {
-                            class: "grid grid-cols-5 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 [&_svg]:transition-colors xl:grid-cols-13 2xl:grid-cols-15",
-                            style: container_style(),
-                            {filtered_icons().into_iter().map(|(icon, name)| {
-                                let size = display_size();
-                                let name_str = name.to_string();
-                                let icon_fn = *icon;
-                                rsx! {
-                                    button {
-                                        key: "{name}",
-                                        class: "flex relative justify-center items-center p-4 rounded-md cursor-pointer bg-muted size-16 group hover:bg-muted/80",
-                                        onclick: move |_| {
-                                            selected_icon_name.set(name_str.clone());
-                                            selected_icon_fn.set(Some(icon_fn));
-                                            spawn(async move {
-                                                let _ = eval(r#"
-                                                    const t = document.querySelector('[data-name="DrawerTrigger"]');
-                                                    if (t) t.click();
-                                                "#).await;
-                                            });
-                                        },
-                                        div {
-                                            style: "content-visibility: auto; contain-intrinsic-size: 4rem; color: var(--icon-color, currentColor)",
-                                            {icon(&size)}
-                                        }
-                                        div { class: "absolute left-1/2 top-full z-10 py-1 px-2 -mt-3 text-xs whitespace-nowrap rounded border shadow-md opacity-0 transition-opacity duration-200 transform -translate-x-1/2 pointer-events-none group-hover:opacity-100 bg-popover text-popover-foreground",
-                                            "{name}"
+                            class: "grid absolute inset-x-0 gap-2 [&_svg]:transition-colors",
+                            style: {
+                                let columns = (grid_scroll.columns)().max(1);
+                                let row_offset = (grid_scroll.start_index)() / columns;
+                                format!(
+                                    "grid-template-columns: repeat({columns}, 1fr); transform: translateY({}px); {}",
+                                    row_offset * ICON_ITEM_SIZE,
+                                    container_style(),
+                                )
+                            },
+                            {
+                                let start = (grid_scroll.start_index)();
+                                let end = (grid_scroll.end_index)();
+                                filtered_icons().into_iter().skip(start).take(end - start).map(|(icon, name)| {
+                                    let size = display_size();
+                                    let name_str = name.to_string();
+                                    let icon_fn = *icon;
+                                    rsx! {
+                                        button {
+                                            key: "{name}",
+                                            class: "flex relative justify-center items-center p-4 rounded-md cursor-pointer bg-muted size-16 group hover:bg-muted/80",
+                                            onclick: move |_| {
+                                                selected_icon_name.set(name_str.clone());
+                                                selected_icon_fn.set(Some(icon_fn));
+                                                spawn(async move {
+                                                    let _ = eval(r#"
+                                                        const t = document.querySelector('[data-name="DrawerTrigger"]');
+                                                        if (t) t.click();
+                                                    "#).await;
+                                                });
+                                            },
+                                            div {
+                                                style: "content-visibility: auto; contain-intrinsic-size: 4rem; color: var(--icon-color, currentColor)",
+                                                {icon(&size)}
+                                            }
+                                            div { class: "absolute left-1/2 top-full z-10 py-1 px-2 -mt-3 text-xs whitespace-nowrap rounded border shadow-md opacity-0 transition-opacity duration-200 transform -translate-x-1/2 pointer-events-none group-hover:opacity-100 bg-popover text-popover-foreground",
+                                                "{name}"
+                                            }
                                         }
                                     }
-                                }
-                            })}
+                                })
+                            }
                         }
                     }
                 }

@@ -11,6 +11,7 @@ pub mod use_data_grid_state;
 pub mod use_data_scrolled;
 pub mod use_drag_selection;
 pub mod use_form;
+pub mod use_grid_virtual_scroll;
 pub mod use_handle_day_click;
 pub mod use_history;
 pub mod use_history_stack;
