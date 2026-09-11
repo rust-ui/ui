@@ -7,13 +7,8 @@ use crate::ui::tabs::{Tabs, TabsList, TabsTrigger};
 
 #[derive(Clone, PartialEq)]
 pub enum FileTreeItem {
-    File {
-        name: &'static str,
-    },
-    Folder {
-        name: &'static str,
-        items: Vec<Self>,
-    },
+    File { name: &'static str },
+    Folder { name: &'static str, items: Vec<Self> },
 }
 
 #[component]

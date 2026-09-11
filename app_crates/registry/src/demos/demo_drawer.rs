@@ -1,9 +1,8 @@
 use dioxus::prelude::*;
 
-use crate::ui::button::Button;
 use crate::ui::drawer::{
-    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHandle, DrawerHeader,
-    DrawerTitle, DrawerTrigger,
+    Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerDescription, DrawerHandle, DrawerHeader, DrawerTitle,
+    DrawerTrigger,
 };
 
 #[component]
@@ -13,18 +12,12 @@ pub fn DemoDrawer() -> Element {
             DrawerTrigger { "Open Drawer" }
             DrawerContent {
                 DrawerHandle {}
-                DrawerHeader {
-                    DrawerTitle { "Are you sure?" }
-                    DrawerDescription { "This action cannot be undone." }
-                }
                 DrawerBody {
-                    p { class: "text-sm text-muted-foreground",
-                        "Drawer content goes here. Swipe down or click outside to close."
+                    DrawerHeader {
+                        DrawerTitle { "Drawer Title" }
+                        DrawerDescription { "Drag down to close or click outside." }
                     }
-                }
-                DrawerFooter {
-                    DrawerClose { "Cancel" }
-                    Button { "Continue" }
+                    DrawerClose { "Close" }
                 }
             }
         }

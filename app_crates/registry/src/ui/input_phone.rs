@@ -279,12 +279,7 @@ impl Country {
             | Self::Jamaica
             | Self::TrinidadAndTobago => None,
             Self::Italy | Self::SanMarino | Self::VaticanCity => None,
-            Self::Denmark
-            | Self::Norway
-            | Self::Iceland
-            | Self::Liechtenstein
-            | Self::Monaco
-            | Self::Andorra => None,
+            Self::Denmark | Self::Norway | Self::Iceland | Self::Liechtenstein | Self::Monaco | Self::Andorra => None,
             _ => Some("0"),
         }
     }

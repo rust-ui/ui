@@ -67,7 +67,9 @@ pub fn use_virtual_scroll(
 
         // Update container height immediately
         if is_mounted_for_effect.load(Ordering::SeqCst) {
-            container_height_signal.clone().set(usize::try_from(el.client_height().max(0)).unwrap_or(0));
+            container_height_signal
+                .clone()
+                .set(usize::try_from(el.client_height().max(0)).unwrap_or(0));
         }
 
         // Set up scroll listener with mounted check

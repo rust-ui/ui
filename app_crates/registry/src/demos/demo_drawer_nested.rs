@@ -61,7 +61,7 @@ pub fn DemoDrawerNested() -> Element {
 
             div {
                 id: "nested-drawer-overlay",
-                class: "hidden drawer-overlay",
+                class: "hidden drawer-overlay overlay-nested",
                 "data-vaul-overlay": "",
                 "data-vaul-snap-points": "false",
                 "data-vaul-animate": "true",
@@ -70,7 +70,7 @@ pub fn DemoDrawerNested() -> Element {
 
             div {
                 id: "nested-drawer-content",
-                class: "hidden bg-white drawer-content rounded-t-[10px]",
+                class: "hidden bg-white drawer-content drawer-nested rounded-t-[10px]",
                 "data-vaul-drawer": "",
                 "data-vaul-drawer-direction": "bottom",
                 "data-vaul-snap-points": "false",
@@ -79,6 +79,7 @@ pub fn DemoDrawerNested() -> Element {
                 style: "--initial-transform: 100%;",
 
                 div { class: "flex overflow-y-auto flex-col flex-1 gap-4 p-6",
+                    DrawerHandle {}
                     h2 { class: "text-2xl font-bold text-foreground", "Nested Drawer" }
                     p { class: "text-muted-foreground",
                         "Notice how the parent drawer scales down when this nested drawer opens."

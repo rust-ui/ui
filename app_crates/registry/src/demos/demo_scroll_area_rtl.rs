@@ -6,9 +6,7 @@ use crate::ui::separator::Separator;
 
 #[component]
 pub fn DemoScrollAreaRtl() -> Element {
-    let tags = (0..=50_u32)
-        .rev()
-        .map(|i| format!("v1.2.0-beta.{i}"));
+    let tags = (0..=50_u32).rev().map(|i| format!("v1.2.0-beta.{i}"));
 
     rsx! {
         DirectionProvider { dir: Direction::Rtl, class: "max-w-fit",

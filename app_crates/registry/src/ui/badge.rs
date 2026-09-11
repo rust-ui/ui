@@ -19,9 +19,7 @@ impl BadgeVariant {
     fn as_str(&self) -> &'static str {
         match self {
             Self::Default => "border-transparent shadow bg-primary text-primary-foreground hover:bg-primary/80",
-            Self::Secondary => {
-                "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80"
-            }
+            Self::Secondary => "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
             Self::Accent => "border-transparent bg-accent text-accent-foreground hover:bg-accent/80",
             Self::Muted => "border-transparent bg-muted text-muted-foreground hover:bg-muted/80",
             Self::Destructive => {

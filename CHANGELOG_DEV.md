@@ -2,6 +2,14 @@
 
 Internal changelog for the dioxus-ui site (not user-facing).
 
+## [Unreleased]
+
+### Improvements
+
+- **Drawer demo parity**: ported all 11 Leptos drawer demos to Dioxus verbatim,
+  including default, dialog, family, focus, nested, non-dismissable, RTL,
+  scrollable, side, floating side, and scrollable side variants.
+
 ## 2026-09-10
 
 ### Fixes

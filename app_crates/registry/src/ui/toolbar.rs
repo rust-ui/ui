@@ -73,9 +73,7 @@ impl ToolbarButtonVariant {
         match self {
             Self::Default => "bg-transparent hover:bg-accent hover:text-accent-foreground",
             Self::Ghost => "bg-transparent hover:bg-muted hover:text-muted-foreground",
-            Self::Outline => {
-                "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground"
-            }
+            Self::Outline => "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
         }
     }
 }

@@ -3,8 +3,8 @@ use icons::{Component, Layers};
 
 use super::sidenav_common::{self, SidenavPattern};
 use super::sidenav_routes::{DocsRoutes, SidenavRoutes};
-use crate::ui::sheet::SheetDirection;
 use crate::demos::demo_dropdown_menu_user_icon::DemoDropdownMenuUserIcon;
+use crate::ui::sheet::SheetDirection;
 use crate::ui::sidenav::{Sidenav, SidenavCollapsible, SidenavMenu, SidenavMenuButton, SidenavMenuItem};
 
 #[component]
