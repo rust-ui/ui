@@ -161,6 +161,7 @@ impl WorkflowIdKebab {
 
     // ─── to_component ─────────────────────────────────────────────────────────
 
+    #[allow(clippy::missing_errors_doc)] // Generated Dioxus adapter; framework owns rendering errors.
     pub fn to_component(self) -> Element {
         match self {
             Self::Workflow01 => registry::workflows::workflow01::Workflow01(),

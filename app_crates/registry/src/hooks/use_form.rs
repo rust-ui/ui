@@ -137,6 +137,10 @@ where
         Self::map_to_struct(&self.values_signal.read())
     }
 
+    /// Validate fields and return typed form data.
+    ///
+    /// # Errors
+    /// Returns an error when required field data is missing or invalid.
     pub fn validate_and_get(&self) -> Result<T, String> {
         let data = Self::map_to_struct(&self.values_signal.read())
             .ok_or_else(|| "Please fill in all required fields.".to_string())?;

@@ -167,8 +167,6 @@ volatile_composites = "allow"
 
 # Intentional project choices.
 module_name_repetitions = "allow"
-missing_errors_doc = "allow"
-missing_panics_doc = "allow"
 must_use_candidate = "allow"
 cognitive_complexity = "allow"
 multiple_crate_versions = "allow"

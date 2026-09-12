@@ -337,14 +337,17 @@ impl FileKind {
         }
     }
 
+    #[allow(clippy::missing_errors_doc)] // `Element` is Dioxus result alias; private icon helper cannot fail independently.
     fn icon(&self) -> Element {
         self.icon_sized("size-4 text-muted-foreground")
     }
 
+    #[allow(clippy::missing_errors_doc)] // `Element` is Dioxus result alias; private icon helper cannot fail independently.
     fn icon_lg(&self) -> Element {
         self.icon_sized("size-6 text-muted-foreground")
     }
 
+    #[allow(clippy::missing_errors_doc)] // `Element` is Dioxus result alias; private icon helper cannot fail independently.
     fn icon_sized(&self, class: &'static str) -> Element {
         match self {
             Self::Image => rsx! { FileImage { class } },

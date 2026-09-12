@@ -110,6 +110,9 @@ pub trait DataGridRow: Clone + Send + Sync + 'static {
     fn get_value(&self, col: Self::Column) -> String;
 
     /// Renders the cell content for a column.
+    ///
+    /// # Errors
+    /// Returns Dioxus rendering errors from the cell content.
     fn render_cell(&self, col: Self::Column) -> Element;
 }
 
@@ -340,6 +343,9 @@ pub fn VirtualizedGridBody(children: Element, #[props(into, optional)] class: Op
 /// ```rust
 /// {VirtualFor(data_signal, move |idx, row| rsx! { GridRow { ... } })}
 /// ```
+///
+/// # Errors
+/// Returns Dioxus rendering errors from rendered rows.
 #[allow(non_snake_case)]
 pub fn VirtualFor<T: Clone + 'static>(data: Signal<Vec<T>>, render: impl Fn(usize, T) -> Element) -> Element {
     let virtual_scroll = consume_context::<VirtualScrollState>();

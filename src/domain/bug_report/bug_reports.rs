@@ -62,7 +62,10 @@ impl BugReportRequest {
     }
 }
 
-/// Send a bug report to both `SQLite` (local) and RUSTIFY (remote).
+/// Send a bug report to both `SQLite` (local) and `RUSTIFY` (remote).
+///
+/// # Errors
+/// Returns an error when local or remote report delivery fails.
 #[cfg(feature = "server")]
 pub async fn send_bug_report(report: BugReportRequest) -> Result<(), String> {
     // Save to local SQLite first (fast, synchronous)
@@ -75,6 +78,9 @@ pub async fn send_bug_report(report: BugReportRequest) -> Result<(), String> {
 }
 
 /// Send a bug report to RUSTIFY only.
+///
+/// # Errors
+/// Returns an error when remote report delivery fails.
 #[cfg(feature = "server")]
 async fn send_bug_report_to_rustify(report: &BugReportRequest) -> Result<(), String> {
     let Ok(base_url) = std::env::var("RUSTIFY_API_URL") else {
@@ -154,6 +160,9 @@ pub fn report_database_error(message: impl Into<String>, url: Option<String>) {
 /// Server function for client-side bug reporting.
 /// Saves to local `SQLite` and forwards to RUSTIFY.
 /// Extracts user agent and URL from HTTP headers for reliability.
+///
+/// # Errors
+/// Returns an error when report persistence or server-function handling fails.
 #[server]
 pub async fn report_client_bug(report: BugReportRequest) -> Result<(), ServerFnError> {
     #[cfg(feature = "server")]

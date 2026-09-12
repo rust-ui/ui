@@ -95,6 +95,7 @@ pub fn NewsletterSignup() -> Element {
     }
 }
 
+#[allow(clippy::missing_errors_doc)] // `#[server]` macro owns adapter/error boundary.
 #[server]
 async fn subscribe_newsletter(email: String) -> Result<String, ServerFnError> {
     #[cfg(feature = "server")]

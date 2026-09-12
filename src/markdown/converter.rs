@@ -42,6 +42,9 @@ impl MdComponents {
 // ---------------------------------------------------------------------------
 
 /// Extract H2/H3 headings from markdown for the Table of Contents.
+///
+/// # Errors
+/// Returns Dioxus rendering errors while building heading content.
 pub fn extract_toc_from_md(md: &str) -> Vec<TocItem> {
     let html = markdown_to_html(md);
     let Ok(dom) = Dom::parse(&html) else {
@@ -70,6 +73,9 @@ pub fn extract_toc_from_md(md: &str) -> Vec<TocItem> {
 }
 
 /// Convert a markdown string to a Dioxus Element tree.
+///
+/// # Errors
+/// Returns Dioxus rendering errors while converting markdown nodes.
 pub fn convert_md(md: &str, components: &MdComponents) -> Element {
     let html = markdown_to_html(md);
     let Ok(dom) = Dom::parse(&html) else {
@@ -85,6 +91,7 @@ pub fn convert_md(md: &str, components: &MdComponents) -> Element {
 // Recursive processing
 // ---------------------------------------------------------------------------
 
+#[allow(clippy::missing_errors_doc)] // Private recursive Dioxus helper; framework owns rendering errors.
 fn process_node(node: &Node, components: &MdComponents) -> Element {
     match node {
         Node::Text(t) => {
@@ -124,6 +131,7 @@ fn extract_code_block(pre: &HtmlElement) -> Option<(Option<String>, String)> {
     None
 }
 
+#[allow(clippy::missing_errors_doc)] // Private recursive Dioxus helper; framework owns rendering errors.
 fn process_element(el: &HtmlElement, components: &MdComponents) -> Element {
     let children: Vec<Element> = el.children.iter().map(|n| process_node(n, components)).collect();
 
@@ -212,6 +220,7 @@ fn process_element(el: &HtmlElement, components: &MdComponents) -> Element {
 // ---------------------------------------------------------------------------
 
 #[cfg(test)]
+#[allow(clippy::missing_panics_doc)] // Test assertions intentionally panic on failure.
 mod tests {
     use super::*;
 

@@ -85,6 +85,7 @@ struct CommandItemData {
 }
 
 impl CommandItemData {
+    #[allow(clippy::missing_errors_doc)] // `Element` is Dioxus result alias; private icon helper cannot fail independently.
     fn icon(&self) -> Element {
         match self.category {
             CommandCategory::Pages => rsx! { ArrowRight {} },

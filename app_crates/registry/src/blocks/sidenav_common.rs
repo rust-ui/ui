@@ -272,6 +272,10 @@ fn ProjectItem() -> Element {
     }
 }
 
+/// Render standard sidebar.
+///
+/// # Errors
+/// Returns Dioxus rendering errors from child components.
 pub fn standard_sidebar(
     current_section: DocsRoutes,
     sidenav_route: SidenavRoutes,
@@ -281,6 +285,10 @@ pub fn standard_sidebar(
     rsx! { Sidenav { variant, SidenavStandardContent { current_section, sidenav_route, pattern } } }
 }
 
+/// Render standard mobile sidebar.
+///
+/// # Errors
+/// Returns Dioxus rendering errors from child components.
 pub fn standard_mobile(
     current_section: DocsRoutes,
     sidenav_route: SidenavRoutes,

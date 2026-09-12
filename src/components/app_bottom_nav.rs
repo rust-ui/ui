@@ -36,6 +36,7 @@ impl NavPage {
         }
     }
 
+    #[allow(clippy::missing_errors_doc)] // Private Dioxus helper; framework owns rendering errors.
     fn icon(self) -> Element {
         match self {
             Self::Home => rsx! { House { class: "size-5" } },

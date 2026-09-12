@@ -17,7 +17,7 @@ static STARS_CACHE: std::sync::OnceLock<std::sync::Mutex<Option<(u32, std::time:
     std::sync::OnceLock::new();
 
 // `unused_unit` fires inside the `#[server]` macro expansion, not our code.
-#[allow(clippy::unused_unit)]
+#[allow(clippy::unused_unit, clippy::missing_errors_doc)] // `#[server]` macro owns adapter/error boundary.
 #[server]
 async fn fetch_github_stars() -> Result<u32, ServerFnError> {
     const CACHE_TTL_SECS: u64 = 3600;

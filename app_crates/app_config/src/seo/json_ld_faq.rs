@@ -84,6 +84,7 @@ pub fn JsonLdFaq(items: Vec<FaqItem>) -> Element {
 }
 
 #[cfg(test)]
+#[allow(clippy::missing_panics_doc)] // Test assertions intentionally panic on failure.
 mod unit_tests {
     use serde_json::Value;
 

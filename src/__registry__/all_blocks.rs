@@ -196,6 +196,7 @@ impl BlockIdKebab {
 
     // ─── to_component ────────────────────────────────────────────────────────
 
+    #[allow(clippy::missing_errors_doc)] // Generated Dioxus adapter; framework owns rendering errors.
     pub fn to_component(self) -> Element {
         match self {
             Self::Faq01 => registry::blocks::faq01::Faq01(),

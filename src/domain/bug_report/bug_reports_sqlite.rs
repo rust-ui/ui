@@ -39,6 +39,9 @@ fn get_db_path() -> &'static str {
 }
 
 /// Initialize the `SQLite` database and create the `bug_reports` table if it doesn't exist.
+///
+/// # Errors
+/// Returns an error when database setup fails.
 #[cfg(feature = "server")]
 fn init_db() -> Result<(), String> {
     let db_path = get_db_path();
@@ -85,6 +88,9 @@ fn init_db() -> Result<(), String> {
 }
 
 /// Get the database connection, initializing if necessary.
+///
+/// # Errors
+/// Returns an error when initialization or mutex locking fails.
 #[cfg(feature = "server")]
 fn get_conn() -> Result<std::sync::MutexGuard<'static, Connection>, String> {
     if DB_CONN.get().is_none() {
@@ -111,6 +117,9 @@ fn compute_similarity_hash(message: &str, exception_message: &Option<String>, st
 }
 
 /// Save a bug report to `SQLite`.
+///
+/// # Errors
+/// Returns an error when database access or insertion fails.
 #[cfg(feature = "server")]
 pub fn save_bug_report(report: &BugReportRequest) -> Result<i64, String> {
     let conn = get_conn()?;
@@ -157,6 +166,9 @@ pub struct StoredBugReport {
 
 /// Fetch all bug reports from `SQLite`, grouped by `similarity_hash` with counts.
 /// Returns one representative bug per unique `similarity_hash`, ordered by most recent first.
+///
+/// # Errors
+/// Returns an error when database access or query execution fails.
 #[cfg(feature = "server")]
 // The prepared `Statement` borrows `conn` until the rows are collected, so the
 // connection guard cannot be dropped any earlier than the function return.
@@ -211,6 +223,9 @@ pub fn fetch_all_bug_reports(limit: i64) -> Result<Vec<StoredBugReport>, String>
 }
 
 /// Delete all bug reports with the given `similarity_hash`.
+///
+/// # Errors
+/// Returns an error when database access or deletion fails.
 #[cfg(feature = "server")]
 pub fn delete_bug_reports_by_hash(similarity_hash: i64) -> Result<usize, String> {
     let conn = get_conn()?;
@@ -224,6 +239,9 @@ pub fn delete_bug_reports_by_hash(similarity_hash: i64) -> Result<usize, String>
 }
 
 /// Delete all bug reports.
+///
+/// # Errors
+/// Returns an error when database access or deletion fails.
 #[cfg(feature = "server")]
 pub fn delete_all_bug_reports() -> Result<usize, String> {
     let conn = get_conn()?;
@@ -237,6 +255,9 @@ pub fn delete_all_bug_reports() -> Result<usize, String> {
 }
 
 /// Get count of bug reports.
+///
+/// # Errors
+/// Returns an error when database access or query execution fails.
 #[cfg(feature = "server")]
 #[allow(dead_code)]
 pub fn count_bug_reports() -> Result<i64, String> {

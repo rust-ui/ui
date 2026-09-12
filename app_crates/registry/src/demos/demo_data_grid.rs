@@ -194,6 +194,10 @@ static GRID_STYLE: LazyLock<String> = LazyLock::new(generate_grid_style::<Column
 /*                     ✨ SERVER FUNCTION ✨                  */
 /* ========================================================== */
 
+/// Load demo grid rows.
+///
+/// # Errors
+/// Returns server-function errors when row loading fails.
 pub async fn get_data_grid_rows() -> Result<Vec<RowData>, ServerFnError> {
     let rows = vec![
         RowData {
