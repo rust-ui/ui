@@ -136,8 +136,6 @@ disallowed_macros = "deny"
 disallowed_methods = "deny"
 disallowed_types = "deny"
 mutex_atomic = "deny"
-# TODO: Re-enable after string-building cleanup in registry.
-string_add = "allow"
 unwrap_in_result = "deny"
 panic_in_result_fn = "deny"
 # TODO: Re-enable after making unordered iteration deterministic where needed.
