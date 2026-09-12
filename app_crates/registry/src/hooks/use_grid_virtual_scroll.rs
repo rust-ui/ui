@@ -66,77 +66,78 @@ pub fn use_grid_virtual_scroll(
         let is_mounted_for_scroll = Arc::clone(&is_mounted);
         let is_mounted_for_resize = Arc::clone(&is_mounted);
         use_effect(move || {
-        let Some(el) = container_element.peek().clone() else {
-            return;
-        };
-        let el: web_sys::HtmlElement = match el.dyn_into() {
-            Ok(e) => e,
-            Err(_) => return,
-        };
-
-        let measure = move |el: &web_sys::HtmlElement| {
-            let width = usize::try_from(el.client_width().max(0)).unwrap_or(0);
-            (width + item_size).max(item_size) / item_size
-        };
-
-        if is_mounted_for_effect.load(Ordering::SeqCst) {
-            let mut container_height_signal = container_height_signal;
-            let mut columns_signal = columns_signal;
-            container_height_signal.set(usize::try_from(el.client_height().max(0)).unwrap_or(0));
-            columns_signal.set(measure(&el).max(1));
-        }
-
-        // iOS's native webview can report `client_width` 0 at `onmounted`
-        // time (layout not settled yet), permanently locking the grid to 1
-        // column since nothing else re-measures until the user scrolls or
-        // resizes — re-measure a beat later once layout has caught up.
-        let is_mounted_for_remeasure = Arc::clone(&is_mounted_for_effect);
-        let el_for_remeasure = el.clone();
-        let mut container_height_signal_for_remeasure = container_height_signal;
-        let mut columns_signal_for_remeasure = columns_signal;
-        spawn(async move {
-            gloo_timers::future::TimeoutFuture::new(50).await;
-            if !is_mounted_for_remeasure.load(Ordering::SeqCst) {
+            let Some(el) = container_element.peek().clone() else {
                 return;
-            }
-            container_height_signal_for_remeasure
-                .set(usize::try_from(el_for_remeasure.client_height().max(0)).unwrap_or(0));
-            columns_signal_for_remeasure.set(measure(&el_for_remeasure).max(1));
-        });
+            };
+            let el: web_sys::HtmlElement = match el.dyn_into() {
+                Ok(e) => e,
+                Err(_) => return,
+            };
 
-        let mut scroll_top_signal_clone = scroll_top_signal;
-        let mut container_height_signal_clone = container_height_signal;
-        let mut columns_signal_clone = columns_signal;
-        let el_clone = el.clone();
-        let is_mounted_for_scroll = Arc::clone(&is_mounted_for_scroll);
-        let scroll_handler = Closure::wrap(Box::new(move || {
-            if !is_mounted_for_scroll.load(Ordering::SeqCst) {
-                return;
-            }
-            scroll_top_signal_clone.set(usize::try_from(el_clone.scroll_top().max(0)).unwrap_or(0));
-            container_height_signal_clone.set(usize::try_from(el_clone.client_height().max(0)).unwrap_or(0));
-            columns_signal_clone.set(measure(&el_clone).max(1));
-        }) as Box<dyn FnMut()>);
-        let _ = el.add_event_listener_with_callback("scroll", scroll_handler.as_ref().unchecked_ref());
-        scroll_handler.forget();
+            let measure = move |el: &web_sys::HtmlElement| {
+                let width = usize::try_from(el.client_width().max(0)).unwrap_or(0);
+                (width + item_size).max(item_size) / item_size
+            };
 
-        // Column count depends on container width, which only `scroll`
-        // doesn't cover (e.g. device rotation) — also recompute on resize.
-        let mut container_height_signal_for_resize = container_height_signal;
-        let mut columns_signal_for_resize = columns_signal;
-        let el_for_resize = el.clone();
-        let is_mounted_for_resize = Arc::clone(&is_mounted_for_resize);
-        let resize_handler = Closure::wrap(Box::new(move || {
-            if !is_mounted_for_resize.load(Ordering::SeqCst) {
-                return;
+            if is_mounted_for_effect.load(Ordering::SeqCst) {
+                let mut container_height_signal = container_height_signal;
+                let mut columns_signal = columns_signal;
+                container_height_signal.set(usize::try_from(el.client_height().max(0)).unwrap_or(0));
+                columns_signal.set(measure(&el).max(1));
             }
-            container_height_signal_for_resize.set(usize::try_from(el_for_resize.client_height().max(0)).unwrap_or(0));
-            columns_signal_for_resize.set(measure(&el_for_resize).max(1));
-        }) as Box<dyn FnMut()>);
-        if let Some(window) = web_sys::window() {
-            let _ = window.add_event_listener_with_callback("resize", resize_handler.as_ref().unchecked_ref());
-        }
-        resize_handler.forget();
+
+            // iOS's native webview can report `client_width` 0 at `onmounted`
+            // time (layout not settled yet), permanently locking the grid to 1
+            // column since nothing else re-measures until the user scrolls or
+            // resizes — re-measure a beat later once layout has caught up.
+            let is_mounted_for_remeasure = Arc::clone(&is_mounted_for_effect);
+            let el_for_remeasure = el.clone();
+            let mut container_height_signal_for_remeasure = container_height_signal;
+            let mut columns_signal_for_remeasure = columns_signal;
+            spawn(async move {
+                gloo_timers::future::TimeoutFuture::new(50).await;
+                if !is_mounted_for_remeasure.load(Ordering::SeqCst) {
+                    return;
+                }
+                container_height_signal_for_remeasure
+                    .set(usize::try_from(el_for_remeasure.client_height().max(0)).unwrap_or(0));
+                columns_signal_for_remeasure.set(measure(&el_for_remeasure).max(1));
+            });
+
+            let mut scroll_top_signal_clone = scroll_top_signal;
+            let mut container_height_signal_clone = container_height_signal;
+            let mut columns_signal_clone = columns_signal;
+            let el_clone = el.clone();
+            let is_mounted_for_scroll = Arc::clone(&is_mounted_for_scroll);
+            let scroll_handler = Closure::wrap(Box::new(move || {
+                if !is_mounted_for_scroll.load(Ordering::SeqCst) {
+                    return;
+                }
+                scroll_top_signal_clone.set(usize::try_from(el_clone.scroll_top().max(0)).unwrap_or(0));
+                container_height_signal_clone.set(usize::try_from(el_clone.client_height().max(0)).unwrap_or(0));
+                columns_signal_clone.set(measure(&el_clone).max(1));
+            }) as Box<dyn FnMut()>);
+            let _ = el.add_event_listener_with_callback("scroll", scroll_handler.as_ref().unchecked_ref());
+            scroll_handler.forget();
+
+            // Column count depends on container width, which only `scroll`
+            // doesn't cover (e.g. device rotation) — also recompute on resize.
+            let mut container_height_signal_for_resize = container_height_signal;
+            let mut columns_signal_for_resize = columns_signal;
+            let el_for_resize = el.clone();
+            let is_mounted_for_resize = Arc::clone(&is_mounted_for_resize);
+            let resize_handler = Closure::wrap(Box::new(move || {
+                if !is_mounted_for_resize.load(Ordering::SeqCst) {
+                    return;
+                }
+                container_height_signal_for_resize
+                    .set(usize::try_from(el_for_resize.client_height().max(0)).unwrap_or(0));
+                columns_signal_for_resize.set(measure(&el_for_resize).max(1));
+            }) as Box<dyn FnMut()>);
+            if let Some(window) = web_sys::window() {
+                let _ = window.add_event_listener_with_callback("resize", resize_handler.as_ref().unchecked_ref());
+            }
+            resize_handler.forget();
         });
     }
 

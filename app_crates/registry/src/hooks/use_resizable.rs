@@ -1,6 +1,9 @@
 #![cfg_attr(
     not(target_arch = "wasm32"),
-    allow(dead_code, reason = "DOM resize handlers are only executable in the wasm browser target")
+    allow(
+        dead_code,
+        reason = "DOM resize handlers are only executable in the wasm browser target"
+    )
 )]
 
 use std::cell::RefCell;
@@ -85,15 +88,15 @@ fn remove_drag_listeners(
 ) {
     #[cfg(target_arch = "wasm32")]
     {
-    let Some(window) = web_sys::window() else { return };
-    let Some(document) = window.document() else { return };
+        let Some(window) = web_sys::window() else { return };
+        let Some(document) = window.document() else { return };
 
-    if let Some(c) = move_holder.borrow_mut().take() {
-        let _ = document.remove_event_listener_with_callback("pointermove", c.as_ref().unchecked_ref());
-    }
-    if let Some(c) = up_holder.borrow_mut().take() {
-        let _ = document.remove_event_listener_with_callback("pointerup", c.as_ref().unchecked_ref());
-    }
+        if let Some(c) = move_holder.borrow_mut().take() {
+            let _ = document.remove_event_listener_with_callback("pointermove", c.as_ref().unchecked_ref());
+        }
+        if let Some(c) = up_holder.borrow_mut().take() {
+            let _ = document.remove_event_listener_with_callback("pointerup", c.as_ref().unchecked_ref());
+        }
     }
 }
 

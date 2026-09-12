@@ -74,17 +74,14 @@ fn purge_stale_simulator_webkit_cache() {
     };
 
     let home = std::env::var("HOME").unwrap_or_default();
-    let data_apps_dir = format!(
-        "{home}/Library/Developer/CoreSimulator/Devices/{udid}/data/Containers/Data/Application"
-    );
+    let data_apps_dir =
+        format!("{home}/Library/Developer/CoreSimulator/Devices/{udid}/data/Containers/Data/Application");
     let Ok(entries) = std::fs::read_dir(&data_apps_dir) else {
         return;
     };
 
     for entry in entries.flatten() {
-        let metadata_plist = entry
-            .path()
-            .join(".com.apple.mobile_container_manager.metadata.plist");
+        let metadata_plist = entry.path().join(".com.apple.mobile_container_manager.metadata.plist");
         let Ok(content) = std::fs::read(&metadata_plist) else {
             continue;
         };
