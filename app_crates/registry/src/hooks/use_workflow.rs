@@ -144,7 +144,8 @@ pub struct RubberBandState {
 
 // ── WorkflowState ─────────────────────────────────────────────────────────────
 
-#[allow(clippy::type_complexity)]
+pub type WorkflowHistory = UseHistoryStack<(Vec<(f64, f64)>, Vec<WorkflowEdge>)>;
+
 pub struct WorkflowState {
     pub nodes: Signal<Vec<WorkflowNode>>,
     pub edges: Signal<Vec<WorkflowEdge>>,
@@ -156,7 +157,7 @@ pub struct WorkflowState {
     pub connecting: Signal<Option<ConnectingState>>,
     canvas_drag: Signal<Option<PanState>>,
     touch_pinch: Signal<Option<PinchState>>,
-    pub history: UseHistoryStack<(Vec<(f64, f64)>, Vec<WorkflowEdge>)>,
+    pub history: WorkflowHistory,
     next_id: Signal<usize>,
     pub locked: Signal<bool>,
     pub snap_to_grid: Signal<bool>,
