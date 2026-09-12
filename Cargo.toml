@@ -147,7 +147,6 @@ iter_over_hash_type = "allow"
 as_underscore = "deny"
 
 # Quality ratchet.
-cast_possible_truncation = "allow"
 redundant_clone = "allow"
 inefficient_to_string = "allow"
 cloned_instead_of_copied = "allow"

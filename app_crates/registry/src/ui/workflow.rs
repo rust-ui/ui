@@ -830,6 +830,7 @@ pub fn WorkflowMinimap(state: WorkflowState) -> Element {
 
 #[component]
 pub fn WorkflowControls(state: WorkflowState) -> Element {
+    #[allow(clippy::cast_possible_truncation)]
     let pct = (state.zoom_value() * 100.0).round() as i32;
     let mut state = state;
 

@@ -46,13 +46,17 @@ fn from_base62(s: &str) -> Option<u32> {
 }
 
 pub fn encode_preset(theme: ThemeName, radius: f32, color_theme: ColorTheme, font: FontName) -> String {
-    let color_idx = theme.to_index() as u32;
-    let radius_idx = RADII
-        .iter()
-        .position(|&r| (r - radius).abs() < f32::EPSILON)
-        .unwrap_or(2) as u32;
-    let ct_idx = color_theme.to_index() as u32;
-    let font_idx = font.to_index() as u32;
+    // Indices are all tiny (<20), so `u32::try_from` truncation is unreachable.
+    let color_idx = u32::try_from(theme.to_index()).unwrap_or(0);
+    let radius_idx = u32::try_from(
+        RADII
+            .iter()
+            .position(|&r| (r - radius).abs() < f32::EPSILON)
+            .unwrap_or(2),
+    )
+    .unwrap_or(2);
+    let ct_idx = u32::try_from(color_theme.to_index()).unwrap_or(0);
+    let font_idx = u32::try_from(font.to_index()).unwrap_or(0);
     let bits = color_idx | (radius_idx << 3) | (ct_idx << 6) | (font_idx << 11);
     format!("{}{}", VERSION, to_base62(bits))
 }

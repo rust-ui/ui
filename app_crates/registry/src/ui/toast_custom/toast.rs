@@ -35,7 +35,7 @@ pub fn Toast(toast: ToastData) -> Element {
             animation_name_signal.set(slide_out_animation_name);
             let toast_id = toast.id;
             spawn(async move {
-                gloo_timers::future::TimeoutFuture::new(ANIMATION_DURATION as u32).await;
+                gloo_timers::future::TimeoutFuture::new(u32::try_from(ANIMATION_DURATION).unwrap_or(u32::MAX)).await;
                 toaster.remove(toast_id);
             });
         }

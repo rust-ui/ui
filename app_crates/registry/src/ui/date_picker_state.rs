@@ -29,6 +29,9 @@ impl DatePickerState {
 
         let mut days = vec![];
 
+        // `first_weekday` and `i` are both bounded to 0..7 (weekday index), so the
+        // `u8` casts below never truncate.
+        #[allow(clippy::cast_possible_truncation)]
         for i in 0..first_weekday {
             let day = days_in_prev_month - (first_weekday as u8) + (i as u8) + 1;
             days.push(DatePickerDay { day, disabled: true });
@@ -38,7 +41,9 @@ impl DatePickerState {
             days.push(DatePickerDay { day, disabled: false });
         }
 
+        // `trailing` is `% 7`, so it is bounded to 0..7 and the `u8` cast never truncates.
         let trailing = (7 - days.len() % 7) % 7;
+        #[allow(clippy::cast_possible_truncation)]
         for day in 1..=trailing as u8 {
             days.push(DatePickerDay { day, disabled: true });
         }

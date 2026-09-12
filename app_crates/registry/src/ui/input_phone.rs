@@ -426,6 +426,8 @@ impl PhoneFormat {
     }
 
     pub fn placeholder(&self) -> String {
+        // `i % 10` is bounded to 0..10, so the `u8` cast never truncates.
+        #[allow(clippy::cast_possible_truncation)]
         let digits: String = (0..self.max_digits)
             .map(|i| char::from(b'0' + (i % 10) as u8))
             .collect();

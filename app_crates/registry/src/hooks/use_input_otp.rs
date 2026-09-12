@@ -390,7 +390,7 @@ fn filter_input(event: &Event, _dom: &Rc<OtpDom>) {
 }
 
 fn move_cursor_to_end(input: &HtmlInputElement) {
-    let len = input.value().chars().count() as u32;
+    let len = u32::try_from(input.value().chars().count()).unwrap_or(u32::MAX);
     let _ = input.set_selection_range(len, len);
 }
 
