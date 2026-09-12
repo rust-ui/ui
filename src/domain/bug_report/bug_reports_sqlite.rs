@@ -1,4 +1,4 @@
-//! SQLite storage for bug reports.
+//! `SQLite` storage for bug reports.
 //!
 //! This provides local, ephemeral storage for bug reports that persists
 //! during a deployment session but is lost on redeploy.
@@ -38,7 +38,7 @@ fn get_db_path() -> &'static str {
     }
 }
 
-/// Initialize the SQLite database and create the bug_reports table if it doesn't exist.
+/// Initialize the `SQLite` database and create the `bug_reports` table if it doesn't exist.
 #[cfg(feature = "server")]
 fn init_db() -> Result<(), String> {
     let db_path = get_db_path();
@@ -97,7 +97,7 @@ fn get_conn() -> Result<std::sync::MutexGuard<'static, Connection>, String> {
         .map_err(|err| format!("Failed to lock database connection: {err}"))
 }
 
-/// Compute a similarity hash from message, exception_message, and stack_trace.
+/// Compute a similarity hash from message, `exception_message`, and `stack_trace`.
 /// Used to group identical bug reports together.
 #[cfg(feature = "server")]
 fn compute_similarity_hash(message: &str, exception_message: &Option<String>, stack_trace: &Option<String>) -> i64 {
@@ -110,7 +110,7 @@ fn compute_similarity_hash(message: &str, exception_message: &Option<String>, st
     i64::from_ne_bytes(hasher.finish().to_ne_bytes())
 }
 
-/// Save a bug report to SQLite.
+/// Save a bug report to `SQLite`.
 #[cfg(feature = "server")]
 pub fn save_bug_report(report: &BugReportRequest) -> Result<i64, String> {
     let conn = get_conn()?;
@@ -155,8 +155,8 @@ pub struct StoredBugReport {
     pub created_at: String,
 }
 
-/// Fetch all bug reports from SQLite, grouped by similarity_hash with counts.
-/// Returns one representative bug per unique similarity_hash, ordered by most recent first.
+/// Fetch all bug reports from `SQLite`, grouped by `similarity_hash` with counts.
+/// Returns one representative bug per unique `similarity_hash`, ordered by most recent first.
 #[cfg(feature = "server")]
 // The prepared `Statement` borrows `conn` until the rows are collected, so the
 // connection guard cannot be dropped any earlier than the function return.
@@ -210,7 +210,7 @@ pub fn fetch_all_bug_reports(limit: i64) -> Result<Vec<StoredBugReport>, String>
     Ok(reports)
 }
 
-/// Delete all bug reports with the given similarity_hash.
+/// Delete all bug reports with the given `similarity_hash`.
 #[cfg(feature = "server")]
 pub fn delete_bug_reports_by_hash(similarity_hash: i64) -> Result<usize, String> {
     let conn = get_conn()?;

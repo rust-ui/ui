@@ -1,16 +1,16 @@
 /// Compact preset encoding for /create page state.
 ///
 /// Bit layout (15 bits total):
-///   bits 0-2:   base_color index  (3 bits, 7 values)
+///   bits 0-2:   `base_color` index  (3 bits, 7 values)
 ///   bits 3-5:   radius index      (3 bits, 5 values)
-///   bits 6-10:  color_theme index (5 bits, 18 values: 0=None, 1-17=accent)
+///   bits 6-10:  `color_theme` index (5 bits, 18 values: 0=None, 1-17=accent)
 ///   bits 11-14: font index        (4 bits, 16 values: 0=Inter default)
 ///
 /// Format: 'a' (version prefix) + base62 chars
 /// Example: Neutral + 0.5rem + None + Inter → bits = 0|(2<<3)|0|0 = 16 → "aG"
 ///
 /// Backward-compat rules:
-///   - Never reorder ThemeName::ALL, RADII, ColorTheme::ALL, or FontName indices — only append.
+///   - Never reorder `ThemeName::ALL`, RADII, `ColorTheme::ALL`, or `FontName` indices, only append.
 ///   - Old presets (11-bit) decode font bits as 0 → Inter. No breakage.
 use app_domain::themes::components::color_theme_picker::ColorTheme;
 use app_domain::themes::components::font_picker::FontName;

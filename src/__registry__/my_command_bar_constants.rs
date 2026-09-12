@@ -34,7 +34,7 @@ pub struct CommandItemData {
     pub add_cmd: Option<&'static str>,
 }
 
-/// PAGES_ITEMS
+/// `PAGES_ITEMS`
 pub const PAGES_ITEMS: &[CommandItemData] = &[
     CommandItemData {
         label: "Home",
@@ -74,7 +74,7 @@ pub const PAGES_ITEMS: &[CommandItemData] = &[
     },
 ];
 
-/// COMPONENTS_ITEMS
+/// `COMPONENTS_ITEMS`
 pub const COMPONENTS_ITEMS: &[CommandItemData] = &[
     CommandItemData {
         label: "Accordion",
@@ -564,7 +564,7 @@ pub const COMPONENTS_ITEMS: &[CommandItemData] = &[
     },
 ];
 
-/// HOOKS_ITEMS
+/// `HOOKS_ITEMS`
 pub const HOOKS_ITEMS: &[CommandItemData] = &[
     CommandItemData {
         label: "Use Copy Clipboard",

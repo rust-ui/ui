@@ -13,7 +13,7 @@ pub struct Frontmatter {
     pub description: String,
 }
 
-/// Parse `+++\ntoml\n+++\nbody` into (Frontmatter, body_markdown).
+/// Parse `+++\ntoml\n+++\nbody` into (`Frontmatter`, `body_markdown`).
 pub fn parse_md(raw: &str) -> (Frontmatter, &str) {
     let content = raw.trim();
     if let Some(rest) = content.strip_prefix("+++\n")
