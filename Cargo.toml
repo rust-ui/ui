@@ -138,8 +138,6 @@ disallowed_types = "deny"
 mutex_atomic = "deny"
 unwrap_in_result = "deny"
 panic_in_result_fn = "deny"
-# TODO: Re-enable after making unordered iteration deterministic where needed.
-iter_over_hash_type = "allow"
 as_underscore = "deny"
 
 # Quality ratchet.
