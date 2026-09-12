@@ -35,7 +35,7 @@ pub fn WorkflowViewerToolbar(
     let workflow_id = workflow_entry.workflow_id_kebab;
     let workflow_id_str = workflow_entry.workflow_id_str;
     let share_url = format!("https://rust-ui.dioxus-ui.com/workflows/#{workflow_id_str}");
-    let share_url_signal = use_signal(move || share_url.clone());
+    let share_url_signal = use_signal(move || share_url);
 
     let (copy_fn, copied) = use_copy_clipboard(Some(2000));
 
@@ -104,7 +104,7 @@ pub fn WorkflowViewerToolbar(
                             }
                         }
                         {
-                            let iid = instance_id.clone();
+                            let iid = instance_id;
                             rsx! {
                                 ToggleGroupItem {
                                     class: "flex-none px-0 w-6 h-6",

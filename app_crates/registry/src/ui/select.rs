@@ -245,7 +245,7 @@ pub fn SelectOption(
     let mut value_signal = ctx.value;
     let on_change = ctx.on_change;
     let val = value.clone();
-    let val_check = value.clone();
+    let val_check = value;
 
     let is_selected = move || *value_signal.read() == val_check;
 

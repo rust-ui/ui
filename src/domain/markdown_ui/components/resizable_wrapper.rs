@@ -19,7 +19,7 @@ pub fn ResizableWrapper(
     );
 
     rsx! {
-        Resizable { instance_id: instance_id.clone(), class: resizable_wrapper_class.clone(), preset,
+        Resizable { instance_id, class: resizable_wrapper_class, preset,
             ResizableContainer {
                 div {
                     "data-name": "Preview",

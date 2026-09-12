@@ -60,7 +60,7 @@ pub fn BlockViewerToolbar(
         "https://rust-ui.dioxus-ui.com/blocks/{}#{}",
         block_entry.category, block_id_str
     );
-    let share_url_signal = use_signal(move || share_url.clone());
+    let share_url_signal = use_signal(move || share_url);
 
     let (copy_fn, copied) = use_copy_clipboard(Some(2000));
 

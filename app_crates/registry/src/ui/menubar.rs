@@ -261,8 +261,8 @@ pub fn MenubarContent(#[props(into, optional)] class: Option<String>, children: 
         class.as_deref().unwrap_or("")
     );
 
-    let menu_id = ctx.menu_id.clone();
-    let menubar_id = ctx.menubar_id.clone();
+    let menu_id = ctx.menu_id;
+    let menubar_id = ctx.menubar_id;
 
     // Large inline JS template with trailing named args; inlining every positional
     // arg into the format string would not improve readability.

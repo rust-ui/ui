@@ -176,7 +176,7 @@ pub fn CommandDialog(children: Element, #[props(into, optional)] class: Option<S
         class.as_deref().unwrap_or("")
     );
 
-    let dialog_id = context.dialog_id.clone();
+    let dialog_id = context.dialog_id;
     let backdrop_id = format!("{dialog_id}__{TRIGGER_ID_QUALIFIER}");
     let trigger_id = format!("{TRIGGER_ID_QUALIFIER}__{dialog_id}");
 
@@ -632,7 +632,7 @@ pub fn CommandItem(
     reserve_check_space: bool,
 ) -> Element {
     let command_context = use_context::<CommandContext>();
-    let value_for_filter = value.clone().unwrap_or_default();
+    let value_for_filter = value.unwrap_or_default();
 
     let merged_class = tw_merge!(
         "group relative flex gap-2 items-center px-2 py-1.5 text-sm rounded-sm cursor-default select-none outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 hover:bg-accent hover:text-accent-foreground",

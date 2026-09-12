@@ -299,7 +299,7 @@ pub fn FormError(
     let field_ctx = consume_context::<FieldContext>();
     let form_ctx = consume_context::<FormContext>();
 
-    let field_name = field_ctx.name.clone();
+    let field_name = field_ctx.name;
     let merged = tw_merge!("text-destructive text-sm font-normal", class.as_deref().unwrap_or(""));
     let is_touched = form_ctx.touched_signal.read().contains(&field_name);
     if !is_touched {
@@ -367,7 +367,7 @@ pub fn FormInput(
     let set_value = std::sync::Arc::clone(&form_ctx.set_value);
     let touch_fn = std::sync::Arc::clone(&form_ctx.touch_field);
     let field_name_input = field_name.clone();
-    let field_name_blur = field_name.clone();
+    let field_name_blur = field_name;
 
     // Verbatim leptos `Input` base string (leptos `FormInput` delegates to `<Input />`).
     let class = tw_merge!(

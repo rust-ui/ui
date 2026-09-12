@@ -112,9 +112,9 @@ pub fn HoverCard(children: Element, #[props(default = HoverCardSide::Bottom)] si
     );
 
     provide_context(HoverCardContext {
-        anchor_name: anchor_name.clone(),
-        trigger_id: trigger_id.clone(),
-        content_id: content_id.clone(),
+        anchor_name,
+        trigger_id,
+        content_id,
     });
 
     rsx! {

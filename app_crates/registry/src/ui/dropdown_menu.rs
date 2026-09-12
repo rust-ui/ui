@@ -43,7 +43,7 @@ pub fn DropdownMenu(
 ) -> Element {
     let dropdown_target_id = use_random_id_for("dropdown");
     provide_context(DropdownMenuContext {
-        target_id: dropdown_target_id.clone(),
+        target_id: dropdown_target_id,
         align,
     });
 
@@ -131,7 +131,7 @@ pub fn DropdownMenuContent(
         DropdownMenuPosition::Top => "top",
         DropdownMenuPosition::Bottom => "bottom",
     };
-    let target_id = ctx.target_id.clone();
+    let target_id = ctx.target_id;
 
     // Large inline JS template with trailing named args; inlining every `{tid}`
     // into the format string would not improve readability.

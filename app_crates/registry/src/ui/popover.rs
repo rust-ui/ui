@@ -66,8 +66,8 @@ pub fn Popover(#[props(default = PopoverAlign::Center)] align: PopoverAlign, chi
         "#{content_id} {{ position: fixed; position-anchor: {anchor_name}; {position_styles} transform-origin: {transform_origin}; }}"
     );
 
-    let tid = trigger_id.clone();
-    let cid = content_id.clone();
+    let tid = trigger_id;
+    let cid = content_id;
     let script = format!(
         r"(function() {{
         const setup = () => {{

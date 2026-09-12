@@ -72,7 +72,7 @@ pub fn DialogContent(
     children: Element,
 ) -> Element {
     let ctx = use_context::<DialogContext>();
-    let target_id = ctx.target_id.clone();
+    let target_id = ctx.target_id;
     let backdrop_id = format!("{target_id}_backdrop");
     let backdrop_behavior = if close_on_backdrop_click { "auto" } else { "manual" };
 

@@ -65,7 +65,7 @@ pub fn DrawerContent(
     children: Element,
 ) -> Element {
     let ctx = use_context::<DrawerContext>();
-    let target_id = ctx.target_id.clone();
+    let target_id = ctx.target_id;
     let backdrop_id = format!("{target_id}_backdrop");
     let backdrop_behavior = if dismissible { "auto" } else { "manual" };
 

@@ -385,7 +385,7 @@ pub fn DataGridFull() -> Element {
                             row_count_signal: Signal::new(row_count_signal()),
                             selected_count_signal: Signal::new(selected_count_signal()),
                             handle_select_all,
-                            sort_signals: sort_signals.clone(),
+                            sort_signals,
                             pinned_columns_signal,
                             visible_columns_signal,
                         }
@@ -399,7 +399,7 @@ pub fn DataGridFull() -> Element {
                                     let row_for_render = row.clone();
                                     let row_for_cells = row.clone();
                                     let copy_to_clipboard = copy_to_clipboard.clone();
-                                    let row_name_for_save = row.name.clone();
+                                    let row_name_for_save = row.name;
 
                                     let render_cell_content = move |col: Column| -> Element {
                                         match col {

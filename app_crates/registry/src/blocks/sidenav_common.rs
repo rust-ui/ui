@@ -130,7 +130,7 @@ pub fn SidenavStandardContent(
             .cloned()
             .collect()
     } else {
-        links.clone()
+        links
     };
     let show_search = matches!(
         pattern,

@@ -98,7 +98,7 @@ pub fn MultiSelectValue(#[props(into, optional)] placeholder: Option<String>) ->
             {
                 let values = (multi_select_ctx.values_signal)();
                 if values.is_empty() {
-                    placeholder.clone().unwrap_or_default()
+                    placeholder.unwrap_or_default()
                 } else {
                     let count = values.len();
                     if count == 1 { "1 selected".to_string() } else { format!("{count} selected") }
@@ -202,7 +202,7 @@ pub fn MultiSelectTrigger(
 ) -> Element {
     let multi_select_ctx = use_context::<MultiSelectContext>();
 
-    let id_str = id.clone().unwrap_or_default();
+    let id_str = id.unwrap_or_default();
     let peer_class = if id_str.is_empty() {
         String::new()
     } else {
