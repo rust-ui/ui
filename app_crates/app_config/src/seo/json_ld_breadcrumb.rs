@@ -27,9 +27,9 @@ struct ListItem {
     item: Option<String>,
 }
 
-/// JSON-LD structured data component for BreadcrumbList schema.
+/// JSON-LD structured data component for `BreadcrumbList` schema.
 ///
-/// This component generates Schema.org BreadcrumbList structured data for navigation breadcrumbs,
+/// This component generates Schema.org `BreadcrumbList` structured data for navigation breadcrumbs,
 /// which helps search engines understand site hierarchy and display breadcrumb trails in search results.
 ///
 /// # Example

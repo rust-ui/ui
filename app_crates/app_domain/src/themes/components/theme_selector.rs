@@ -150,7 +150,7 @@ pub fn CopyCodeDialog(
         });
     };
 
-    let trigger_label = children.map_or_else(|| rsx! { "Copy code" }, |c| c);
+    let trigger_label = children.unwrap_or_else(|| rsx! { "Copy code" });
 
     rsx! {
         Dialog {

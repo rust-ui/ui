@@ -41,9 +41,9 @@ struct MainEntity {
     id: String,
 }
 
-/// JSON-LD structured data component for TechArticle schema.
+/// JSON-LD structured data component for `TechArticle` schema.
 ///
-/// This component generates Schema.org TechArticle structured data for documentation pages,
+/// This component generates Schema.org `TechArticle` structured data for documentation pages,
 /// which helps search engines understand the content and display rich snippets in search results.
 ///
 /// # Example

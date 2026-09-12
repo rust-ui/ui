@@ -4,7 +4,7 @@ use wasm_bindgen::JsCast;
 /// Hook to lock/unlock body scroll and prevent background interactions for dialogs.
 ///
 /// This prevents the page from scrolling when dialogs are open and makes
-/// background elements non-interactive by setting pointer-events: none on #target__dialog_lock_body,
+/// background elements non-interactive by setting pointer-events: none on #`target__dialog_lock_body`,
 /// while keeping the dialog interactive by setting pointer-events: auto on dialog elements,
 /// maintaining the current scroll position by using fixed positioning with
 /// a negative top offset.

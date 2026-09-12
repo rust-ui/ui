@@ -5,7 +5,7 @@ use crate::ui::data_grid::DataGridColumn;
 /// Context for sharing cell edit state across components.
 #[derive(Clone, Copy)]
 pub struct CellEditContext<C: DataGridColumn + 'static> {
-    /// The cell currently being edited (row_idx, column)
+    /// The cell currently being edited (`row_idx`, column)
     editing_cell: Signal<Option<(usize, C)>>,
     /// The current value in the edit input
     pub edit_value: Signal<String>,

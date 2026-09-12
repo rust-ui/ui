@@ -46,7 +46,7 @@ struct PublisherRef {
     id: String,
 }
 
-/// JSON-LD structured data component for Organization + WebSite schema.
+/// JSON-LD structured data component for Organization + `WebSite` schema.
 ///
 /// Emits both nodes in a single `@graph` so search engines can attribute the site
 /// to an entity and offer a sitelinks search box. Meant to be rendered once, on

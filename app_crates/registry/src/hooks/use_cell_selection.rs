@@ -66,8 +66,8 @@ impl<C: DataGridColumn> UseCellSelection<C> {
         self.context_menu_cell_signal.set(None);
     }
 
-    /// Signal that a context menu is about to open (call before handle_contextmenu).
-    /// This prevents the race condition where on_close clears newly set values.
+    /// Signal that a context menu is about to open (call before `handle_contextmenu`).
+    /// This prevents the race condition where `on_close` clears newly set values.
     pub fn start_contextmenu(&mut self) {
         self.context_menu_reopening_signal.set(true);
     }

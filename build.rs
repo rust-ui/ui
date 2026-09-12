@@ -11,13 +11,17 @@ fn main() {
 }
 
 /// Ported from leptos-ui's `__DisableContentInsetAdjustment.m` /
-/// `__HideKeyboardAccessory.m` (see justfile `run_ios`/`run_ipad`, which
+/// `__HideKeyboardAccessory.m`.
+///
+/// See justfile `run_ios`/`run_ipad`, which
 /// copies them into the Tauri/xcodegen apple project as direct target
-/// sources). `dx` has no xcodegen step: it compiles the crate as a staticlib
+/// sources. `dx` has no xcodegen step: it compiles the crate as a staticlib
 /// and links the bundle itself, and silently drops `-force_load`, so an
 /// object file whose only symbol is an unreferenced `static` constructor
 /// gets pruned by the linker's archive-member selection before the
-/// constructor ever runs. Fix: the `.m` files declare the constructor
+/// constructor ever runs.
+///
+/// Fix: the `.m` files declare the constructor
 /// functions with external linkage, and `src/main.rs` declares+calls them
 /// via `unsafe extern "C"`, which forces the linker to pull the object files
 /// in (the constructor then also fires automatically at load, same as
@@ -35,11 +39,14 @@ fn build_native_webkit_patches() {
 }
 
 /// `dx serve --platform ios` reinstalls the app bundle on every relaunch but
-/// never touches the simulator's separate WebKit data container, so a plain
-/// kill+relaunch keeps serving stale cached HTML/CSS/JS (see
-/// PLAN_FIX_BOTTOM_NAV.md section 13). Purge it here so every ios build gets
-/// a fresh WKWebView cache, same effect as `xcrun simctl uninstall` without
-/// needing to reinstall the app. Best-effort: no-op (and no build failure) if
+/// never touches the simulator's separate `WebKit` data container.
+///
+/// A plain kill+relaunch keeps serving stale cached HTML/CSS/JS (see
+/// `PLAN_FIX_BOTTOM_NAV.md` section 13). Purge it here so every ios build gets
+/// a fresh `WKWebView` cache, same effect as `xcrun simctl uninstall` without
+/// needing to reinstall the app.
+///
+/// Best-effort: no-op (and no build failure) if
 /// `xcrun`/simctl is unavailable, no simulator is booted, or the app isn't
 /// installed yet.
 fn purge_stale_simulator_webkit_cache() {

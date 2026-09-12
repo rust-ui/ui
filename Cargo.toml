@@ -147,8 +147,6 @@ iter_over_hash_type = "allow"
 as_underscore = "deny"
 
 # Quality ratchet.
-# TODO: Clean up documentation markup, literal separators, and derives, then re-enable.
-doc_markdown = "allow"
 print_stdout = "warn" # build.rs needs Cargo directive output
 # TODO: Replace diagnostic stderr output with structured logging.
 print_stderr = "allow"

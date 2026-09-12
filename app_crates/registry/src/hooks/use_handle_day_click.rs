@@ -3,7 +3,7 @@ use time::Date;
 
 /// Hook for managing date range selection
 ///
-/// Returns a tuple of (start_date, end_date, handle_day_click) where:
+/// Returns a tuple of (`start_date`, `end_date`, `handle_day_click`) where:
 /// - `start_date`: Signal<Date> for the start date
 /// - `end_date`: Signal<Date> for the end date
 /// - `handle_day_click`: Function that takes a day number and updates the closest date

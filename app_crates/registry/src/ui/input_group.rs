@@ -93,7 +93,7 @@ pub enum InputGroupButtonSize {
 }
 
 impl InputGroupButtonSize {
-    fn class(&self) -> &'static str {
+    fn class(self) -> &'static str {
         match self {
             Self::Xs => {
                 "h-6 gap-1 px-2 rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-3.5 has-[>svg]:px-2"

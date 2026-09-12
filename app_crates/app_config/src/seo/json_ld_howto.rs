@@ -27,9 +27,9 @@ struct Step {
     text: String,
 }
 
-/// JSON-LD structured data component for HowTo schema.
+/// JSON-LD structured data component for `HowTo` schema.
 ///
-/// This component generates Schema.org HowTo structured data for step-by-step guides,
+/// This component generates Schema.org `HowTo` structured data for step-by-step guides,
 /// tutorials, and installation instructions. This can help pages appear as featured
 /// snippets in search results with step-by-step formatting.
 ///
@@ -246,6 +246,7 @@ mod unit_tests {
             text: "Do something".to_string(),
         }];
 
+        #[allow(clippy::needless_collect)]
         let schema_steps: Vec<Step> = steps
             .into_iter()
             .map(|s| Step {

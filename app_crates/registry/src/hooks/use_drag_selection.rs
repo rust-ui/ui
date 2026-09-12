@@ -53,7 +53,7 @@ impl<C: DataGridColumn> UseDragSelection<C> {
         start_row != end_row || start_col != end_col
     }
 
-    /// Returns the selection bounds as (min_row, max_row, min_col_idx, max_col_idx).
+    /// Returns the selection bounds as (`min_row`, `max_row`, `min_col_idx`, `max_col_idx`).
     /// Returns None if no selection or single cell selection.
     /// Uses `peek` since this is called from event handlers, not reactive contexts.
     pub fn get_selection_bounds(&self) -> Option<(usize, usize, i32, i32)> {

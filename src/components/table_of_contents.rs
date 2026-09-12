@@ -31,7 +31,7 @@ pub fn create_anchor_id(title: &str) -> String {
 #[component]
 pub fn TableOfContents(toc_items: Vec<TocItem>) -> Element {
     let anchors: Vec<String> = toc_items.iter().map(|item| item.anchor.clone()).collect();
-    let toc_state = use_table_of_contents(anchors);
+    let toc_state = use_table_of_contents(&anchors);
     let active_anchor = toc_state.active_anchor;
 
     rsx! {

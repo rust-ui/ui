@@ -18,7 +18,7 @@ pub fn InputPromptTools(#[props(into, optional)] class: Option<String>, children
 /*                     ✨ FUNCTIONS ✨                        */
 /* ========================================================== */
 
-/// Outer wrapper — InputGroup with overflow clipping.
+/// Outer wrapper — `InputGroup` with overflow clipping.
 #[component]
 pub fn InputPrompt(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
     let merged = tw_merge!("overflow-hidden", class.as_deref().unwrap_or(""));
@@ -26,7 +26,7 @@ pub fn InputPrompt(#[props(into, optional)] class: Option<String>, children: Ele
 }
 
 /// Auto-growing textarea bound to a Signal<String>.
-/// Enter (without Shift) fires on_submit.
+/// Enter (without Shift) fires `on_submit`.
 #[component]
 pub fn InputPromptTextarea(
     value: Signal<String>,

@@ -197,7 +197,7 @@ pub fn NavigationMenuList(#[props(into, optional)] class: Option<String>, childr
 /*                    NAVIGATION MENU ITEM                     */
 /* ========================================================== */
 
-/// NOTE: intentionally has NO `position: relative` so that NavigationMenuContent
+/// NOTE: intentionally has NO `position: relative` so that `NavigationMenuContent`
 /// (with `position: absolute`) escapes to the <nav> root, making all panels
 /// appear at the same position → shared viewport effect.
 #[component]
@@ -242,7 +242,7 @@ pub fn NavigationMenuTrigger(#[props(into, optional)] class: Option<String>, chi
 /*                  NAVIGATION MENU CONTENT                    */
 /* ========================================================== */
 
-/// Absolutely positioned relative to NavigationMenu (not NavigationMenuItem),
+/// Absolutely positioned relative to `NavigationMenu` (not `NavigationMenuItem`),
 /// so all content panels share the same anchor point below the menu bar.
 #[component]
 pub fn NavigationMenuContent(#[props(into, optional)] class: Option<String>, children: Element) -> Element {

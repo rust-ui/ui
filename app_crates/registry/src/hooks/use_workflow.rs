@@ -113,7 +113,7 @@ pub struct DragState {
     pub node_idx: usize,
     pub mouse_start_x: f64,
     pub mouse_start_y: f64,
-    /// Start positions of every node being dragged: (idx, start_x, start_y).
+    /// Start positions of every node being dragged: (idx, `start_x`, `start_y`).
     pub starts: Vec<(usize, f64, f64)>,
 }
 

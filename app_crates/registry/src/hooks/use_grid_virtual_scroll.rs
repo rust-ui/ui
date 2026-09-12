@@ -2,7 +2,9 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 use dioxus::prelude::*;
+#[cfg(target_arch = "wasm32")]
 use wasm_bindgen::JsCast;
+#[cfg(target_arch = "wasm32")]
 use wasm_bindgen::closure::Closure;
 
 /// Extra rows rendered above/below the viewport for smooth scrolling.
@@ -22,7 +24,9 @@ pub struct GridVirtualScrollState {
 }
 
 /// Hook for virtual scrolling a uniform, multi-column item grid (icon
-/// pickers, emoji pickers, etc). Unlike `use_virtual_scroll` (single-column
+/// pickers, emoji pickers, etc).
+///
+/// Unlike `use_virtual_scroll` (single-column
 /// rows, e.g. a data grid), this measures the container width itself to
 /// derive how many square `item_size`-px cells fit per row, then only
 /// renders the row range visible in the viewport.

@@ -4,6 +4,7 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 use dioxus::prelude::*;
+#[cfg(target_arch = "wasm32")]
 use wasm_bindgen::JsCast;
 use wasm_bindgen::closure::Closure;
 

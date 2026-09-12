@@ -8,7 +8,7 @@ use tw_merge::tw_merge;
 use crate::hooks::use_workflow::{WorkflowNode, WorkflowState};
 use crate::ui::context_menu::{ContextMenuGroup, ContextMenuLabel};
 
-/// Passed through component context so WorkflowNodeWrapper can open the node
+/// Passed through component context so `WorkflowNodeWrapper` can open the node
 /// context menu without needing an extra prop (would break every existing demo).
 #[derive(Clone, Copy)]
 struct NodeCmCtx(Signal<Option<(usize, f64, f64)>>);

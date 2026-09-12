@@ -400,7 +400,7 @@ pub fn GridRow(
 /*                     ✨ CONSTANTS ✨                        */
 /* ========================================================== */
 
-/// Z-index for pinned columns. Must be higher than TableSeparator's z-50.
+/// Z-index for pinned columns. Must be higher than `TableSeparator`'s z-50.
 const PINNED_Z_INDEX: i32 = 51;
 
 /* ========================================================== */

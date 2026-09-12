@@ -33,7 +33,7 @@ struct AnswerNode {
     text: String,
 }
 
-/// JSON-LD structured data component for FAQPage schema.
+/// JSON-LD structured data component for `FAQPage` schema.
 ///
 /// Renders nothing if `items` is empty, since an empty `mainEntity` array is
 /// invalid schema and Google requires the markup to match visible on-page

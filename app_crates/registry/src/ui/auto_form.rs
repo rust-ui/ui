@@ -1,4 +1,4 @@
-//! AutoForm component — stub for Dioxus.
+//! `AutoForm` component — stub for Dioxus.
 //!
 //! The Leptos version uses a `#[derive(AutoForm)]` proc macro that does not exist
 //! in Dioxus. This port provides the component shell so demos compile once a
@@ -7,7 +7,7 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-/// Simplified AutoForm component for Dioxus.
+/// Simplified `AutoForm` component for Dioxus.
 /// Renders a `<form>` wrapping any children (typically form fields + a submit button).
 #[component]
 pub fn AutoForm(

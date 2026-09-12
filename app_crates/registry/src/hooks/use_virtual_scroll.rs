@@ -20,8 +20,8 @@ pub struct VirtualScrollState {
     pub total_height: ReadSignal<usize>,
 }
 
-/// Get the virtual scroll context from a parent VirtualizedGrid.
-/// Returns None if used outside of a VirtualizedGrid.
+/// Get the virtual scroll context from a parent `VirtualizedGrid`.
+/// Returns None if used outside of a `VirtualizedGrid`.
 pub fn use_virtual_scroll_context() -> Option<VirtualScrollState> {
     try_consume_context::<VirtualScrollState>()
 }

@@ -69,7 +69,7 @@ pub fn TooltipContent(
     }
 }
 
-/// TooltipProvider is no longer needed — tooltips work with pure CSS via Tailwind's group-hover.
+/// `TooltipProvider` is no longer needed — tooltips work with pure CSS via Tailwind's group-hover.
 /// Kept for backwards compatibility but renders nothing.
 #[component]
 pub fn TooltipProvider() -> Element {

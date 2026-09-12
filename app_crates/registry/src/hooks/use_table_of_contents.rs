@@ -2,7 +2,9 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 use dioxus::prelude::*;
+#[cfg(target_arch = "wasm32")]
 use wasm_bindgen::JsCast;
+#[cfg(target_arch = "wasm32")]
 use wasm_bindgen::closure::Closure;
 
 /// Distance (px) below the top of the viewport a heading must cross before
@@ -48,7 +50,9 @@ fn cache_heading_positions(
 ///
 /// # Arguments
 /// * `anchors` - heading anchor ids, in document order (matches the TOC items)
-pub fn use_table_of_contents(anchors: Vec<String>) -> TableOfContentsState {
+#[cfg_attr(not(target_arch = "wasm32"), allow(unused_variables))]
+pub fn use_table_of_contents(anchors: &[String]) -> TableOfContentsState {
+    let anchors = anchors.to_vec();
     let active_anchor = use_signal(|| None::<String>);
     let positions = use_signal(Vec::<(String, f64)>::new);
 
