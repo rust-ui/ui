@@ -148,8 +148,7 @@ volatile_composites = "allow" # False positive from Dioxus `asset!` macro expans
 multiple_crate_versions = "allow" # Transitive Dioxus, reqwest, and platform stacks require incompatible versions.
 
 [workspace.lints.rust]
-# Temporary deployment mode: suppress ordinary compiler warnings; explicit safety denies above remain active.
-warnings = "allow"
+# Compiler warnings are part of strict quality gate.
 dead_code = "allow"
 unsafe_code = "deny"
 unused_variables = "allow"
