@@ -220,6 +220,22 @@ unescaped_backticks = "warn"
 The burn-down bucket (style lints trapped in macro bodies) goes in a separate block
 below this one, each `= "allow"` with `# TODO(strict-clippy)` and a site count.
 
+## Post-gate hardening
+
+After strict Clippy is green, ratchet compiler and dependency policy separately:
+
+1. Remove `[workspace.lints.rust] warnings = "allow"`, then remove broad Rust allows
+   (`dead_code`, `unused_variables`, `unused_mut`, and similar) one at a time. Fix
+   real warnings at source; use narrow, reasoned local exceptions only for generated
+   or intentionally platform-specific code.
+2. Audit duplicate dependencies with `cargo tree -d --workspace --all-features`.
+   Align direct pins and features where APIs permit, then re-run checks and tests.
+   Keep `multiple_crate_versions` only for unavoidable transitive or platform-stack
+   conflicts, with the affected dependency families documented.
+3. Test suspected macro false positives by removing the lint exception and running
+   the strict gate. Restore a narrow documented exception only when the diagnostic
+   comes exclusively from an external macro expansion and no source-level fix exists.
+
 ## Done when
 
 `rtk proxy cargo clippy --all-targets --all-features -- -D warnings` returns exit 0
