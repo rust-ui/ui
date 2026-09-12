@@ -170,11 +170,6 @@ missing_const_for_fn = "allow"
 # These block `-D warnings` but sit almost entirely inside rsx! macro bodies, so
 # `cargo clippy --fix` cannot touch them. Remove one entry per pass, fix its sites,
 # keep the gate green. Site counts captured 2026-09-10.
-# `MarkdownType` in the generated src/__registry__/static_md_registry.rs has a
-# `Static` prefix on every variant. The file is codegen output from
-# rust_ui_internals/build_registry_dioxus, so fix the generator to emit an inline
-# allow, then drop this. Hand-written route enums already carry inline allows.
-enum_variant_names = "allow"                  # 1 (generated file)
 # `&Option<T>` params in bug_reports_sqlite: hashed as-is for similarity grouping,
 # switching to `Option<&T>` would change stored hash values.
 ref_option = "allow"

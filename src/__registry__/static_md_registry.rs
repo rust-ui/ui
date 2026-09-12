@@ -255,6 +255,9 @@ pub struct StaticRegistryEntry {
     pub install_name: &'static str,
 }
 
+// Generated file (rust_ui_internals/build_registry_dioxus). Variant names are the
+// public API; the `Static` prefix is intentional.
+#[allow(clippy::enum_variant_names)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, EnumString, AsRefStr)]
 pub enum MarkdownType {
     StaticDemoAccordion,
