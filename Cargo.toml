@@ -143,15 +143,9 @@ as_underscore = "deny"
 # Quality ratchet.
 print_stdout = "warn" # build.rs needs Cargo directive output
 
-# TODO(strict-clippy): burn-down bucket. See __SKILLS_SOP/strict-clippy-burndown.md.
-# These block `-D warnings` but sit almost entirely inside rsx! macro bodies, so
-# `cargo clippy --fix` cannot touch them. Remove one entry per pass, fix its sites,
-# keep the gate green. Site counts captured 2026-09-10.
-# False positive from the dioxus `asset!` macro expansion (`&[u8]` not volatile).
-volatile_composites = "allow"
-
-# Intentional project choices.
-multiple_crate_versions = "allow" # Transitive dependency graph spans Dioxus, reqwest, and platform stacks.
+# Verified strict-Clippy exceptions.
+volatile_composites = "allow" # False positive from Dioxus `asset!` macro expansion; source value is not volatile.
+multiple_crate_versions = "allow" # Transitive Dioxus, reqwest, and platform stacks require incompatible versions.
 
 [workspace.lints.rust]
 # Temporary deployment mode: suppress ordinary compiler warnings; explicit safety denies above remain active.
