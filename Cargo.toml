@@ -157,7 +157,6 @@ let_underscore_lock = "deny"
 unit_bindings = "deny"
 macro_use_extern_crate = "deny"
 unused_lifetimes = "deny"
-unreachable_pub = "allow"
 
 [workspace.lints.rustdoc]
 broken_intra_doc_links = "deny"
