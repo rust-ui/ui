@@ -28,7 +28,7 @@ struct Listeners {
 
 /// Register delegated event listeners on `document` for all `CardCarousel`
 /// instances on the page. Safe to call multiple times — subsequent calls are no-ops.
-pub const fn init() {
+pub fn init() {
     #[cfg(target_arch = "wasm32")]
     LISTENERS.with(|cell| {
         if cell.borrow().is_some() {

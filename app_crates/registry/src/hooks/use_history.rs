@@ -193,7 +193,7 @@ impl UseHistory {
     /*                     ✨ FUNCTIONS ✨                        */
     /* ========================================================== */
 
-    const fn replace_state(url: &str) {
+    fn replace_state(url: &str) {
         #[cfg(target_arch = "wasm32")]
         {
             let Ok(history) = web_sys::window().and_then(|w| w.history().ok()).ok_or(()) else {

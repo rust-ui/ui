@@ -100,7 +100,7 @@ fn parse_px(s: &str) -> f64 {
 /// Register `window.ScrollLock` for JS interop.
 ///
 /// Call once at app startup. Subsequent calls are no-ops.
-pub const fn init() {
+pub fn init() {
     #[cfg(target_arch = "wasm32")]
     {
         let Some(window) = web_sys::window() else { return };
@@ -157,7 +157,7 @@ fn is_fixed_excluded(el: &web_sys::Element) -> bool {
 }
 
 /// Lock scrolling on body and all scrollable containers.
-pub const fn lock() {
+pub fn lock() {
     #[cfg(target_arch = "wasm32")]
     {
         let proceed = STATE.with(|s| {
@@ -266,7 +266,7 @@ pub const fn lock() {
 }
 
 /// Unlock scrolling, optionally after a delay in milliseconds.
-pub const fn unlock(_delay_ms: u32) {
+pub fn unlock(_delay_ms: u32) {
     #[cfg(target_arch = "wasm32")]
     {
         let locked = STATE.with(|s| s.borrow().locked);
@@ -291,7 +291,7 @@ pub const fn unlock(_delay_ms: u32) {
 }
 
 #[must_use]
-pub const fn is_locked() -> bool {
+pub fn is_locked() -> bool {
     #[cfg(target_arch = "wasm32")]
     {
         STATE.with(|s| s.borrow().locked)

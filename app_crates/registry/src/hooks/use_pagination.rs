@@ -13,7 +13,7 @@ pub struct PaginationContext {
     pub aria_current: Callback<u32, &'static str>,
 }
 
-const fn get_page_from_query() -> u32 {
+fn get_page_from_query() -> u32 {
     #[cfg(target_arch = "wasm32")]
     {
         if let Some(window) = web_sys::window() {

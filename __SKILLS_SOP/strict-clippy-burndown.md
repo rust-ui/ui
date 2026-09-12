@@ -235,6 +235,11 @@ After strict Clippy is green, ratchet compiler and dependency policy separately:
 3. Test suspected macro false positives by removing the lint exception and running
    the strict gate. Restore a narrow documented exception only when the diagnostic
    comes exclusively from an external macro expansion and no source-level fix exists.
+4. Never apply `missing_const_for_fn` to a function containing `web_sys`,
+   `wasm_bindgen`, DOM, timers, closures, `thread_local!`, or other wasm-only code.
+   Native `cfg` builds can hide non-const wasm branches. Keep these APIs as ordinary
+   `fn`, even when the native branch looks const-compatible, and run the actual wasm
+   build (`dx serve` or the project wasm check) after const-related changes.
 
 ## Done when
 
