@@ -1,3 +1,4 @@
+use app_config::SeoMeta;
 use dioxus::prelude::*;
 use registry::charts::area_chart_01::AreaChart01;
 use registry::charts::area_chart_02::AreaChart02;
@@ -20,6 +21,11 @@ use registry::charts::radial_chart_01::RadialChart01;
 #[component]
 pub fn AreaChartPage() -> Element {
     rsx! {
+        SeoMeta {
+            title: "Area Chart · Rust UI Component Library | Rust/UI".to_string(),
+            description: "Area chart components built with Rust/UI for Dioxus applications. Copy-paste examples ready to use."
+                .to_string(),
+        }
         div { class: "flex flex-col gap-8",
             AreaChart01 {}
 
@@ -43,25 +49,60 @@ pub fn AreaChartPage() -> Element {
 
 #[component]
 pub fn BarChartPage() -> Element {
-    rsx! { BarChart01 {} }
+    rsx! {
+        SeoMeta {
+            title: "Bar Chart · Rust UI Component Library | Rust/UI".to_string(),
+            description: "Bar chart components built with Rust/UI for Dioxus applications. Copy-paste examples ready to use."
+                .to_string(),
+        }
+        BarChart01 {}
+    }
 }
 
 #[component]
 pub fn LineChartPage() -> Element {
-    rsx! { LineChart01 {} }
+    rsx! {
+        SeoMeta {
+            title: "Line Chart · Rust UI Component Library | Rust/UI".to_string(),
+            description: "Line chart components built with Rust/UI for Dioxus applications. Copy-paste examples ready to use."
+                .to_string(),
+        }
+        LineChart01 {}
+    }
 }
 
 #[component]
 pub fn PieChartPage() -> Element {
-    rsx! { PieChart01 {} }
+    rsx! {
+        SeoMeta {
+            title: "Pie Chart · Rust UI Component Library | Rust/UI".to_string(),
+            description: "Pie chart components built with Rust/UI for Dioxus applications. Copy-paste examples ready to use."
+                .to_string(),
+        }
+        PieChart01 {}
+    }
 }
 
 #[component]
 pub fn RadarChartPage() -> Element {
-    rsx! { RadarChart01 {} }
+    rsx! {
+        SeoMeta {
+            title: "Radar Chart · Rust UI Component Library | Rust/UI".to_string(),
+            description: "Radar chart components built with Rust/UI for Dioxus applications. Copy-paste examples ready to use."
+                .to_string(),
+        }
+        RadarChart01 {}
+    }
 }
 
 #[component]
 pub fn RadialChartPage() -> Element {
-    rsx! { RadialChart01 {} }
+    rsx! {
+        SeoMeta {
+            title: "Radial Chart · Rust UI Component Library | Rust/UI".to_string(),
+            description: "Radial chart components built with Rust/UI for Dioxus applications. Copy-paste examples ready to use."
+                .to_string(),
+        }
+        RadialChart01 {}
+    }
 }

@@ -1,3 +1,4 @@
+use app_config::SeoMeta;
 use app_domain::icons::all_icons::ALL_ICONS;
 use dioxus::document::eval;
 use dioxus::prelude::*;
@@ -56,6 +57,11 @@ pub fn PageIcons() -> Element {
     });
 
     rsx! {
+        SeoMeta {
+            title: "Icons · Rust UI Component Library | Rust/UI".to_string(),
+            description: "Browse and copy Rust UI's icon set for Dioxus applications. Search, customize size and color, and get the ready-to-use component code."
+                .to_string(),
+        }
         HeaderDocs {}
         div { class: "flex overflow-hidden flex-1",
             aside { class: "hidden overflow-y-auto p-4 md:block w-[270px] bg-muted",

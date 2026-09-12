@@ -111,6 +111,7 @@ pub fn PageBugReports() -> Element {
     let mut reports = use_resource(move || fetch_bug_reports(100));
 
     rsx! {
+        document::Meta { name: "robots", content: "noindex, nofollow" }
         div { class: "p-8 mx-auto max-w-6xl",
             div { class: "flex justify-between items-center mb-6",
                 h1 { class: "text-2xl font-bold", "Bug Reports" }

@@ -1,3 +1,4 @@
+use app_config::SeoMeta;
 use app_domain::themes::components::color_theme_picker::ColorTheme;
 use app_domain::themes::components::font_picker::FontName;
 use app_domain::themes::theme_name::ThemeName;
@@ -148,6 +149,11 @@ pub fn PageCreate() -> Element {
     });
 
     rsx! {
+        SeoMeta {
+            title: "Theme Customizer · Rust UI Component Library | Rust/UI".to_string(),
+            description: "Customize colors, radius, and fonts for your Rust/UI theme, then copy the generated code for your Dioxus application."
+                .to_string(),
+        }
         HeaderDocs {}
 
         div { class: "flex gap-6 p-6 mx-auto max-w-screen-2xl min-h-screen",

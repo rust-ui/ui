@@ -26,6 +26,9 @@ Disallow: /parallax-ipad-scroll
 Disallow: /parallax-scrolls
 Disallow: /registry/tree
 
+# Internal admin tool, not public content
+Disallow: /bug-reports/
+
 # NOTE: /components/* and /demo-components/* are intentionally NOT disallowed.
 # They 301-redirect to /docs/components/* so Google can follow the redirect
 # and transfer link equity to the canonical URL.

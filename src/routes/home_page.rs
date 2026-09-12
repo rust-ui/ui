@@ -1,6 +1,6 @@
 use std::fmt::Write as _;
 
-use app_config::SeoMeta;
+use app_config::{JsonLdOrganization, SeoMeta};
 use app_domain::constants::route_paths::RoutePaths;
 use app_domain::themes::components::color_theme_picker::{ColorTheme, ColorThemePicker};
 use app_domain::themes::components::font_picker::FontName;
@@ -62,6 +62,7 @@ pub fn Home() -> Element {
             title: title,
             description: description,
         }
+        JsonLdOrganization {}
 
         div { class: "flex flex-col gap-6 items-center px-4 mx-auto w-full max-w-[1200px]",
             SectionHeader {}

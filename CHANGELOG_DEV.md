@@ -4,7 +4,30 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ## [Unreleased]
 
+### Fixes
+
+- **SEO: canonical/OG/Twitter domain pointed at dead `dioxus-ui.com`**:
+  `SiteConfig::BASE_URL` and `TWITTER_IMAGE` in `app_config::seo::site_config`
+  still referenced the old `dioxus-ui.com` domain (DNS dead), breaking
+  canonical URLs, Open Graph, and Twitter cards site-wide. Fixed to
+  `rust-ui.com`.
+
+- **SEO: ~15 routes had no `SeoMeta`, rendering with a blank `<title>` and no
+  description**: `/icons`, `/workflows`, `/create`, all 6 `/blocks/*` pages,
+  and all 6 `/charts/*` pages. Added `SeoMeta` with page-specific title and
+  description to each.
+
+- **SEO: internal `/bug-reports/*` admin tool was publicly indexable**:
+  added `<meta name="robots" content="noindex, nofollow">` to
+  `PageBugReports` and a `Disallow: /bug-reports/` entry to `public/robots.txt`.
+
 ### Improvements
+
+- **SEO: homepage had no structured data**: added `JsonLdOrganization`
+  (Organization + WebSite `@graph`) to `home_page.rs`. Also added a reusable
+  `JsonLdFaq` component (`app_config::seo::json_ld_faq`) for future use once
+  real `## FAQ` content exists in the docs corpus (not wired to any page yet
+  to avoid schema/content mismatch).
 
 - **Drawer demo parity**: ported all 11 Leptos drawer demos to Dioxus verbatim,
   including default, dialog, family, focus, nested, non-dismissable, RTL,
