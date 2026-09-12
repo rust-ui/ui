@@ -6,6 +6,10 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ### Fixes
 
+- **Registry Clippy/native build failures**: retained WASM-required mutable
+  signals in `Dropzone` and scoped `missing_const_for_fn` allowances to native
+  builds for browser-only hooks.
+
 - **SEO: canonical/OG/Twitter domain pointed at dead `dioxus-ui.com`**:
   `SiteConfig::BASE_URL` and `TWITTER_IMAGE` in `app_config::seo::site_config`
   still referenced the old `dioxus-ui.com` domain (DNS dead), breaking

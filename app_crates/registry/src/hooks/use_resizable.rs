@@ -5,6 +5,7 @@
         reason = "DOM resize handlers are only executable in the wasm browser target"
     )
 )]
+#![cfg_attr(not(target_arch = "wasm32"), allow(clippy::missing_const_for_fn))]
 
 use std::cell::RefCell;
 use std::rc::Rc;

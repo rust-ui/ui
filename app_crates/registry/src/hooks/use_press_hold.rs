@@ -1,3 +1,5 @@
+#![cfg_attr(not(target_arch = "wasm32"), allow(clippy::missing_const_for_fn))]
+
 use std::cell::Cell;
 use std::rc::Rc;
 
