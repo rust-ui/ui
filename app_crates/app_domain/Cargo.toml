@@ -3,6 +3,11 @@ name = "app_domain"
 version = "0.1.0"
 edition = "2024"
 license = "MIT"
+description = "Application domain types and theme components for Rust/UI."
+repository = "https://github.com/rust-ui/ui"
+readme = "../../README.md"
+keywords = ["dioxus", "ui", "themes"]
+categories = ["gui", "web-programming"]
 
 [lints]
 workspace = true

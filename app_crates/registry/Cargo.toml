@@ -3,6 +3,11 @@ name = "registry"
 version = "0.1.0"
 edition = "2024"
 license = "MIT"
+description = "Reusable Dioxus components, blocks, hooks, and demos for Rust/UI."
+repository = "https://github.com/rust-ui/ui"
+readme = "../../README.md"
+keywords = ["dioxus", "ui", "components"]
+categories = ["gui", "web-programming"]
 
 [lints]
 workspace = true
