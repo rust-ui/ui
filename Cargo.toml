@@ -58,7 +58,7 @@ app_routes = { path = "app_crates/app_routes" }
 icons = { version = "0.18", features = ["dioxus", "dioxus_animated"] }
 tw_merge = { version = "0.1", features = ["debug"] }
 heck = "0.5"
-strum = { version = "0.27", features = ["derive"] }
+strum = { version = "0.28", features = ["derive"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1.0"
 time = { version = "0.3", features = ["serde", "wasm-bindgen"] }
