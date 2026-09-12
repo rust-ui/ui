@@ -10,7 +10,7 @@ pub enum AlertVariant {
 }
 
 impl AlertVariant {
-    fn as_str(&self) -> &'static str {
+    const fn as_str(&self) -> &'static str {
         match self {
             Self::Default => "bg-background text-foreground",
             Self::Destructive => {

@@ -75,7 +75,7 @@ fn get_toasts_for_position(toaster: &ToasterContext, position: &ToastPosition) -
 }
 
 #[allow(dead_code)]
-fn get_container_id(position: &ToastPosition) -> &'static str {
+const fn get_container_id(position: &ToastPosition) -> &'static str {
     match position {
         ToastPosition::TopLeft => "top_left",
         ToastPosition::TopRight => "top_right",
@@ -84,7 +84,7 @@ fn get_container_id(position: &ToastPosition) -> &'static str {
     }
 }
 
-fn get_container_inset(position: &ToastPosition) -> &'static str {
+const fn get_container_inset(position: &ToastPosition) -> &'static str {
     match position {
         ToastPosition::TopLeft => "12px auto auto 12px",
         ToastPosition::TopRight => "12px 12px auto auto",
@@ -93,14 +93,14 @@ fn get_container_inset(position: &ToastPosition) -> &'static str {
     }
 }
 
-fn get_container_margin(position: &ToastPosition) -> &'static str {
+const fn get_container_margin(position: &ToastPosition) -> &'static str {
     match position {
         ToastPosition::TopLeft | ToastPosition::BottomLeft => "0 0 0 12px",
         ToastPosition::TopRight | ToastPosition::BottomRight => "0 12px 0 0",
     }
 }
 
-fn get_container_class(stacked: bool, position: &ToastPosition) -> &'static str {
+const fn get_container_class(stacked: bool, position: &ToastPosition) -> &'static str {
     if !stacked {
         return "";
     }

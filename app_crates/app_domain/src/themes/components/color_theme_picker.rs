@@ -61,11 +61,13 @@ impl ColorTheme {
         "--sidebar-primary-foreground",
     ];
 
+    #[must_use]
     pub fn label(self) -> &'static str {
         self.into()
     }
 
-    pub fn swatch(self) -> &'static str {
+    #[must_use]
+    pub const fn swatch(self) -> &'static str {
         match self {
             Self::None => "#d4d4d4",
             Self::Amber => "#f59e0b",
@@ -88,7 +90,8 @@ impl ColorTheme {
         }
     }
 
-    pub fn to_index(self) -> usize {
+    #[must_use]
+    pub const fn to_index(self) -> usize {
         match self {
             Self::None => 0,
             Self::Amber => 1,
@@ -111,7 +114,8 @@ impl ColorTheme {
         }
     }
 
-    pub fn from_index(idx: u32) -> Option<Self> {
+    #[must_use]
+    pub const fn from_index(idx: u32) -> Option<Self> {
         match idx {
             0 => Some(Self::None),
             1 => Some(Self::Amber),
@@ -135,10 +139,12 @@ impl ColorTheme {
         }
     }
 
+    #[must_use]
     pub fn from_label(label: &str) -> Option<Self> {
         Self::ALL.iter().copied().find(|ct| ct.label() == label)
     }
 
+    #[must_use]
     pub fn light_vars(self) -> &'static [(&'static str, &'static str)] {
         match self {
             Self::None => &[],
@@ -162,6 +168,7 @@ impl ColorTheme {
         }
     }
 
+    #[must_use]
     pub fn dark_vars(self) -> &'static [(&'static str, &'static str)] {
         match self {
             Self::None => &[],

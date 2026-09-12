@@ -17,7 +17,7 @@ thread_local! {
     static MANAGER: RefCell<Option<OtpManager>> = const { RefCell::new(None) };
 }
 
-pub fn init() {
+pub const fn init() {
     #[cfg(target_arch = "wasm32")]
     MANAGER.with(|manager| {
         if manager.borrow().is_some() {

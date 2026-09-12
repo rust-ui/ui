@@ -5,7 +5,7 @@ use tw_merge::tw_merge;
 use crate::hooks::use_random::use_random_id_for;
 
 /// Programmatically close any open context menu.
-pub fn close_context_menu() {
+pub const fn close_context_menu() {
     #[cfg(target_arch = "wasm32")]
     {
         use wasm_bindgen::JsCast;

@@ -15,6 +15,7 @@ pub struct TocItem {
 }
 
 /// Build a valid HTML anchor id from heading text: lowercase, non-alphanumeric → dashes, collapse runs.
+#[must_use]
 pub fn create_anchor_id(title: &str) -> String {
     title
         .to_lowercase()

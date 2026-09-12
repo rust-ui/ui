@@ -11,7 +11,7 @@ pub enum ItemVariant {
 
 impl ItemVariant {
     #[must_use]
-    pub fn class(self) -> &'static str {
+    pub const fn class(self) -> &'static str {
         match self {
             Self::Default => "bg-transparent",
             Self::Outline => "border-border",
@@ -30,7 +30,7 @@ pub enum ItemSize {
 
 impl ItemSize {
     #[must_use]
-    pub fn class(self) -> &'static str {
+    pub const fn class(self) -> &'static str {
         match self {
             Self::Default => "p-4 gap-4",
             Self::Sm => "py-3 px-4 gap-2.5",
@@ -49,7 +49,7 @@ pub enum ItemMediaVariant {
 
 impl ItemMediaVariant {
     #[must_use]
-    pub fn class(self) -> &'static str {
+    pub const fn class(self) -> &'static str {
         match self {
             Self::Default => "bg-transparent",
             Self::Icon => "size-8 border rounded-sm bg-muted [&_svg:not([class*='size-'])]:size-4",

@@ -9,6 +9,7 @@ pub enum CommandCategory {
 }
 
 impl CommandCategory {
+    #[must_use]
     pub const fn as_str(self) -> &'static str {
         match self {
             Self::Pages => "Pages",
@@ -17,6 +18,7 @@ impl CommandCategory {
         }
     }
 
+    #[must_use]
     pub const fn slug(self) -> &'static str {
         match self {
             Self::Pages => "pages",

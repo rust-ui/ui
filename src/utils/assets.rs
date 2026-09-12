@@ -37,6 +37,7 @@ pub const AI_LOGO_PERPLEXITY: Asset = asset!("/public/images/logos/ai/perplexity
 ///
 /// TODO(registry-gen): once `build_registry_dioxus` can emit `asset!()`
 /// directly, store `Asset` in `SidenavItem` and delete this shim.
+#[must_use]
 pub fn thumbnail(path: &str) -> String {
     match path.rsplit_once('/') {
         Some((_, file)) if !file.is_empty() => format!("{THUMBNAILS}/{file}"),

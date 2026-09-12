@@ -157,7 +157,7 @@ impl FormFieldVariant {
         self.into()
     }
 
-    fn class(self) -> &'static str {
+    const fn class(self) -> &'static str {
         match self {
             Self::Vertical => "flex-col [&>*]:w-full [&>.hidden]:w-auto",
             Self::Horizontal => {

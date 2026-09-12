@@ -30,7 +30,7 @@ enum Platform {
 }
 
 impl Platform {
-    fn title(self) -> &'static str {
+    const fn title(self) -> &'static str {
         match self {
             Self::MacOs => "macOS",
             Self::Linux => "Linux",
@@ -38,7 +38,7 @@ impl Platform {
         }
     }
 
-    fn subtitle(self) -> &'static str {
+    const fn subtitle(self) -> &'static str {
         match self {
             Self::MacOs => "Apple Silicon (M1/M2/M3/M4)",
             Self::Linux => "x86_64",
@@ -46,7 +46,7 @@ impl Platform {
         }
     }
 
-    fn downloads(self) -> &'static [DownloadFile] {
+    const fn downloads(self) -> &'static [DownloadFile] {
         match self {
             Self::MacOs => &[DownloadFile {
                 label: ".dmg",
@@ -80,7 +80,7 @@ impl Platform {
         }
     }
 
-    fn requirements(self) -> &'static [&'static str] {
+    const fn requirements(self) -> &'static [&'static str] {
         match self {
             Self::MacOs => &[
                 "macOS 11.0 (Big Sur) or later",

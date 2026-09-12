@@ -46,7 +46,7 @@ type PointerClosure = Closure<dyn FnMut(web_sys::PointerEvent)>;
 
 /// Toggles the drag-in-progress cursor/selection lockout on `<html>`/`<body>`.
 #[cfg_attr(not(target_arch = "wasm32"), allow(unused_variables))]
-fn set_drag_cursor_active(active: bool) {
+const fn set_drag_cursor_active(active: bool) {
     #[cfg(target_arch = "wasm32")]
     {
         let Some(window) = web_sys::window() else { return };

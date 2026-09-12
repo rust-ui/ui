@@ -20,7 +20,7 @@ pub enum NodeStatus {
 }
 
 impl NodeStatus {
-    fn label(&self) -> &'static str {
+    const fn label(&self) -> &'static str {
         match self {
             Self::Idle => "Idle",
             Self::Queued => "Queued",
@@ -30,7 +30,7 @@ impl NodeStatus {
         }
     }
 
-    fn border_class(&self) -> &'static str {
+    const fn border_class(&self) -> &'static str {
         match self {
             Self::Idle => "border-l-zinc-200 dark:border-l-zinc-700",
             Self::Queued => "border-l-amber-400",
@@ -40,7 +40,7 @@ impl NodeStatus {
         }
     }
 
-    fn bg_class(&self) -> &'static str {
+    const fn bg_class(&self) -> &'static str {
         match self {
             Self::Idle => "",
             Self::Queued => "bg-amber-50/40 dark:bg-amber-950/10",
@@ -50,7 +50,7 @@ impl NodeStatus {
         }
     }
 
-    fn icon_class(&self) -> &'static str {
+    const fn icon_class(&self) -> &'static str {
         match self {
             Self::Idle => "size-3.5 text-zinc-400",
             Self::Queued => "size-3.5 text-amber-500",
@@ -60,7 +60,7 @@ impl NodeStatus {
         }
     }
 
-    fn label_class(&self) -> &'static str {
+    const fn label_class(&self) -> &'static str {
         match self {
             Self::Idle => "text-[11px] font-medium text-zinc-400",
             Self::Queued => "text-[11px] font-medium text-amber-600 dark:text-amber-400",

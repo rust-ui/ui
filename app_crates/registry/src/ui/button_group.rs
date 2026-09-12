@@ -12,7 +12,7 @@ pub enum ButtonGroupOrientation {
 }
 
 impl ButtonGroupOrientation {
-    fn as_str(&self) -> &'static str {
+    const fn as_str(&self) -> &'static str {
         match self {
             Self::Horizontal => {
                 "[&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none"

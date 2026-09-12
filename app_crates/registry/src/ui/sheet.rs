@@ -26,7 +26,7 @@ impl SheetDirection {
     // Position + size copied from leptos `initial_position()` (w-[400px] / h-[400px],
     // no border). The `data-[state=*]` translate pair is dioxus's attribute-driven
     // equivalent of leptos toggling `translate-*` classes from JS.
-    fn class(self) -> &'static str {
+    const fn class(self) -> &'static str {
         match self {
             Self::Top => {
                 "top-0 left-0 w-full h-[400px] data-[state=closed]:-translate-y-full data-[state=open]:translate-y-0"

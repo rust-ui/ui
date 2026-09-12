@@ -118,7 +118,7 @@ impl PinnableColumn for Column {
 }
 
 impl Column {
-    fn wrapper_class(self) -> &'static str {
+    const fn wrapper_class(self) -> &'static str {
         match self {
             Self::IsActive => "flex justify-center",
             _ => "",

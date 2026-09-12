@@ -11,7 +11,7 @@ pub enum StatusVariant {
 }
 
 impl StatusVariant {
-    fn color(self) -> &'static str {
+    const fn color(self) -> &'static str {
         match self {
             Self::Default => "bg-neutral-300",
             Self::Active => "bg-green-300",

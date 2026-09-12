@@ -7,7 +7,7 @@ pub enum BlockFileTreeItem {
 }
 
 impl BlockFileTreeItem {
-    pub fn name(&self) -> &'static str {
+    pub const fn name(&self) -> &'static str {
         match self {
             Self::File { name, .. } | Self::Folder { name, .. } => name,
         }

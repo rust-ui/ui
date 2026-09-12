@@ -14,6 +14,7 @@ pub struct Frontmatter {
 }
 
 /// Parse `+++\ntoml\n+++\nbody` into (`Frontmatter`, `body_markdown`).
+#[must_use]
 pub fn parse_md(raw: &str) -> (Frontmatter, &str) {
     let content = raw.trim();
     if let Some(rest) = content.strip_prefix("+++\n")
@@ -34,6 +35,7 @@ pub fn parse_md(raw: &str) -> (Frontmatter, &str) {
     )
 }
 
+#[must_use]
 pub fn markdown_to_html(md: &str) -> String {
     let mut opts = Options::empty();
     opts.insert(Options::ENABLE_STRIKETHROUGH);

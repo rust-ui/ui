@@ -11,7 +11,7 @@ fn alert_reverted() {
 }
 
 #[cfg(not(target_arch = "wasm32"))]
-fn alert_reverted() {}
+const fn alert_reverted() {}
 
 #[component]
 pub fn DemoMarkerLinkButton() -> Element {

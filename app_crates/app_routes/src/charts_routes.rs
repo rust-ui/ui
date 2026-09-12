@@ -25,14 +25,17 @@ impl ChartRoutes {
         Self::RadialChart,
     ];
 
-    pub fn base_segment() -> &'static str {
+    #[must_use]
+    pub const fn base_segment() -> &'static str {
         "charts"
     }
 
+    #[must_use]
     pub fn to_route(self) -> String {
         format!("/{}/{}", Self::base_segment(), self.as_ref())
     }
 
+    #[must_use]
     pub fn to_title(self) -> String {
         self.as_ref().to_title_case()
     }

@@ -8,16 +8,19 @@ pub enum WorkflowRoutes {
 }
 
 impl WorkflowRoutes {
-    pub fn base_segment() -> &'static str {
+    #[must_use]
+    pub const fn base_segment() -> &'static str {
         "workflows"
     }
 
-    pub fn base_path() -> &'static str {
+    #[must_use]
+    pub const fn base_path() -> &'static str {
         "/workflows"
     }
 
     // `self` kept for method-call ergonomics and parity with the other route enums.
     #[allow(clippy::unused_self)]
+    #[must_use]
     pub fn to_route(self) -> String {
         format!("/{}", Self::base_segment())
     }

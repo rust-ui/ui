@@ -6,10 +6,12 @@ pub struct Oklch {
 }
 
 impl Oklch {
-    pub fn new(l: f32, c: f32, h: f32) -> Self {
+    #[must_use]
+    pub const fn new(l: f32, c: f32, h: f32) -> Self {
         Self { l, c, h }
     }
 
+    #[must_use]
     pub fn to_oklch_string(self) -> String {
         format!("oklch({} {} {})", self.l, self.c, self.h)
     }

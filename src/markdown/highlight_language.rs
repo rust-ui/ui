@@ -24,6 +24,7 @@ impl HighlightLanguage {
         }
     }
 
+    #[must_use]
     pub fn detect_from_filename(filename: &str) -> &'static str {
         Self::from_filename(filename).into()
     }

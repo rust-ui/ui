@@ -69,7 +69,7 @@ pub enum ToolbarButtonVariant {
 }
 
 impl ToolbarButtonVariant {
-    fn as_str(&self) -> &'static str {
+    const fn as_str(&self) -> &'static str {
         match self {
             Self::Default => "bg-transparent hover:bg-accent hover:text-accent-foreground",
             Self::Ghost => "bg-transparent hover:bg-muted hover:text-muted-foreground",

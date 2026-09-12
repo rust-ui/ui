@@ -12,7 +12,7 @@ pub struct ToastWrapper {
 }
 
 #[must_use]
-pub fn show_toast() -> ToastWrapper {
+pub const fn show_toast() -> ToastWrapper {
     ToastWrapper {
         message: String::new(),
         level: None,
@@ -59,7 +59,7 @@ impl ToastWrapper {
 
     /// Override the default position
     #[must_use]
-    pub fn position(mut self, position: ToastPosition) -> Self {
+    pub const fn position(mut self, position: ToastPosition) -> Self {
         self.position = position;
         self
     }

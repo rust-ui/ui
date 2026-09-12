@@ -13,6 +13,7 @@ const HIGHLIGHT_THEME: &str = "base16-ocean.light";
 
 /// Returns highlighted HTML spans (inline styles, no `<pre>` wrapper).
 /// Runs syntect on both server (SSR) and client (WASM), matching the leptos site.
+#[must_use]
 pub fn highlight_code(code: &str, language: Option<&str>, filename: Option<&str>) -> String {
     #[cfg(feature = "server")]
     {

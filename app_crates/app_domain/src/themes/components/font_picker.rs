@@ -55,11 +55,13 @@ impl FontName {
 
     pub const SERIF: &'static [Self] = &[Self::Lora, Self::Merriweather, Self::PlayfairDisplay, Self::NotoSerif];
 
+    #[must_use]
     pub fn label(self) -> &'static str {
         self.into()
     }
 
-    pub fn css_value(self) -> &'static str {
+    #[must_use]
+    pub const fn css_value(self) -> &'static str {
         match self {
             Self::Inter => "'Inter', sans-serif",
             Self::Geist => "'Geist', sans-serif",
@@ -80,6 +82,7 @@ impl FontName {
         }
     }
 
+    #[must_use]
     pub fn from_label(label: &str) -> Option<Self> {
         match label {
             "Inter" => Some(Self::Inter),
@@ -102,7 +105,8 @@ impl FontName {
         }
     }
 
-    pub fn to_index(self) -> usize {
+    #[must_use]
+    pub const fn to_index(self) -> usize {
         match self {
             Self::Inter => 0,
             Self::Geist => 1,
@@ -123,7 +127,8 @@ impl FontName {
         }
     }
 
-    pub fn from_index(idx: u32) -> Option<Self> {
+    #[must_use]
+    pub const fn from_index(idx: u32) -> Option<Self> {
         match idx {
             0 => Some(Self::Inter),
             1 => Some(Self::Geist),

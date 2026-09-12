@@ -19,7 +19,7 @@ pub enum SidenavRoutes {
 
 impl SidenavRoutes {
     #[must_use]
-    pub fn view_segment() -> &'static str {
+    pub const fn view_segment() -> &'static str {
         "view"
     }
 
@@ -51,7 +51,7 @@ pub enum DocsRoutes {
 
 impl DocsRoutes {
     #[must_use]
-    pub fn base_segment() -> &'static str {
+    pub const fn base_segment() -> &'static str {
         "docs"
     }
     #[must_use]
@@ -71,7 +71,7 @@ pub enum ComponentsRoutes {
 
 impl ComponentsRoutes {
     #[must_use]
-    pub fn base_segment() -> &'static str {
+    pub const fn base_segment() -> &'static str {
         "components"
     }
     #[must_use]
@@ -105,7 +105,7 @@ pub enum HooksRoutes {
 
 impl HooksRoutes {
     #[must_use]
-    pub fn base_segment() -> &'static str {
+    pub const fn base_segment() -> &'static str {
         "hooks"
     }
     #[must_use]

@@ -13,14 +13,17 @@ impl PartialEq for RegistryEntry {
 }
 
 impl RegistryEntry {
+    #[must_use]
     pub fn title(&self) -> String {
         parse_md(self.raw).0.title
     }
 
+    #[must_use]
     pub fn description(&self) -> String {
         parse_md(self.raw).0.description
     }
 
+    #[must_use]
     pub fn body_md(&self) -> &str {
         parse_md(self.raw).1
     }

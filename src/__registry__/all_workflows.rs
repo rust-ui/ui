@@ -39,6 +39,7 @@ impl std::fmt::Display for WorkflowIdKebab {
 
 #[allow(clippy::wrong_self_convention)]
 impl WorkflowIdKebab {
+    #[must_use]
     pub fn from_kebab(s: &str) -> Option<Self> {
         match s {
             "workflow-01" => Some(Self::Workflow01),
@@ -55,7 +56,8 @@ impl WorkflowIdKebab {
 
     // ─── Title ───────────────────────────────────────────────────────────────
 
-    pub fn to_title(self) -> &'static str {
+    #[must_use]
+    pub const fn to_title(self) -> &'static str {
         match self {
             Self::Workflow01 => "Basic Workflow",
             Self::Workflow02 => "Copy & Paste",
@@ -72,19 +74,22 @@ impl WorkflowIdKebab {
 
     // Kept as a method for parity with `BlockIdKebab::meta`.
     #[allow(clippy::unused_self)]
-    pub fn meta(self) -> WorkflowMeta {
+    #[must_use]
+    pub const fn meta(self) -> WorkflowMeta {
         WorkflowMeta::default()
     }
 
     // ─── to_full_view_url ─────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn to_full_view_url(self) -> String {
         format!("/view/{self}")
     }
 
     // ─── files ────────────────────────────────────────────────────────────────
 
-    pub fn files(self) -> &'static [BlockFile] {
+    #[must_use]
+    pub const fn files(self) -> &'static [BlockFile] {
         match self {
             Self::Workflow01 => &[BlockFile {
                 name: "workflow01.rs",
@@ -139,6 +144,7 @@ impl WorkflowIdKebab {
 
     // ─── file_tree ────────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn file_tree(self) -> Vec<BlockFileTreeItem> {
         let file_name = match self {
             Self::Workflow01 => "workflow01.rs",

@@ -1,5 +1,6 @@
 use std::fmt::Write as _;
 
+#[must_use]
 pub fn highlight_toml_manually(code: &str) -> String {
     let mut html_output = String::new();
 

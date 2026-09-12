@@ -13,7 +13,7 @@ pub enum MaskSide {
 
 impl MaskSide {
     #[must_use]
-    pub fn class(self) -> &'static str {
+    pub const fn class(self) -> &'static str {
         match self {
             Self::Default => "",
             Self::Left => "left-0 w-1/3 bg-gradient-to-r",

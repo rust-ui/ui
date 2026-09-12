@@ -76,21 +76,21 @@ pub fn Toast(toast: ToastData) -> Element {
     }
 }
 
-fn get_slide_in_animation_name(position: &ToastPosition) -> &'static str {
+const fn get_slide_in_animation_name(position: &ToastPosition) -> &'static str {
     match position {
         ToastPosition::TopLeft | ToastPosition::BottomLeft => "leptoaster-slide-in-left",
         ToastPosition::TopRight | ToastPosition::BottomRight => "leptoaster-slide-in-right",
     }
 }
 
-fn get_slide_out_animation_name(position: &ToastPosition) -> &'static str {
+const fn get_slide_out_animation_name(position: &ToastPosition) -> &'static str {
     match position {
         ToastPosition::TopLeft | ToastPosition::BottomLeft => "leptoaster-slide-out-left",
         ToastPosition::TopRight | ToastPosition::BottomRight => "leptoaster-slide-out-right",
     }
 }
 
-fn get_colors(level: &ToastLevel) -> (&'static str, &'static str, &'static str) {
+const fn get_colors(level: &ToastLevel) -> (&'static str, &'static str, &'static str) {
     match level {
         ToastLevel::Info => (
             "var(--leptoaster-info-background-color)",
@@ -115,7 +115,7 @@ fn get_colors(level: &ToastLevel) -> (&'static str, &'static str, &'static str) 
     }
 }
 
-fn get_initial_positions(position: &ToastPosition) -> (&'static str, &'static str) {
+const fn get_initial_positions(position: &ToastPosition) -> (&'static str, &'static str) {
     match position {
         ToastPosition::TopLeft | ToastPosition::BottomLeft => {
             ("calc((var(--leptoaster-width) + 12px * 2) * -1)", "auto")
@@ -126,6 +126,6 @@ fn get_initial_positions(position: &ToastPosition) -> (&'static str, &'static st
     }
 }
 
-fn get_cursor(dismissable: bool) -> &'static str {
+const fn get_cursor(dismissable: bool) -> &'static str {
     if dismissable { "pointer" } else { "default" }
 }

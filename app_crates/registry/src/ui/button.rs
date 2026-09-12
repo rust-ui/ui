@@ -27,7 +27,7 @@ pub enum ButtonSize {
 }
 
 impl ButtonVariant {
-    pub(crate) fn as_str(&self) -> &'static str {
+    pub(crate) const fn as_str(&self) -> &'static str {
         match self {
             Self::Default => "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
             Self::Destructive => {
@@ -46,7 +46,7 @@ impl ButtonVariant {
 }
 
 impl ButtonSize {
-    pub(crate) fn as_str(&self) -> &'static str {
+    pub(crate) const fn as_str(&self) -> &'static str {
         match self {
             Self::Default => "h-9 px-4 py-2 has-[>svg]:px-3",
             Self::Sm => "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",

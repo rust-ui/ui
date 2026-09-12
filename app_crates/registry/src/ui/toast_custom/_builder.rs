@@ -30,31 +30,31 @@ impl ToastBuilder {
     }
 
     #[must_use]
-    pub fn with_level(mut self, level: ToastLevel) -> Self {
+    pub const fn with_level(mut self, level: ToastLevel) -> Self {
         self.level = level;
         self
     }
 
     #[must_use]
-    pub fn with_dismissable(mut self, dismissable: bool) -> Self {
+    pub const fn with_dismissable(mut self, dismissable: bool) -> Self {
         self.dismissable = dismissable;
         self
     }
 
     #[must_use]
-    pub fn with_progress(mut self, progress: bool) -> Self {
+    pub const fn with_progress(mut self, progress: bool) -> Self {
         self.progress = progress;
         self
     }
 
     #[must_use]
-    pub fn with_expiry(mut self, expiry: Option<u32>) -> Self {
+    pub const fn with_expiry(mut self, expiry: Option<u32>) -> Self {
         self.expiry = expiry;
         self
     }
 
     #[must_use]
-    pub fn with_position(mut self, position: ToastPosition) -> Self {
+    pub const fn with_position(mut self, position: ToastPosition) -> Self {
         self.position = position;
         self
     }

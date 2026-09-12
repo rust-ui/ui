@@ -3,6 +3,7 @@
 
 /// Returns the raw source of a demo component file by its `PascalCase` name.
 /// e.g. `get_demo_source("DemoButton")` returns the contents of `app_crates/registry/src/demos/demo_button.rs`.
+#[must_use]
 pub fn get_demo_source(name: &str) -> Option<&'static str> {
     match name {
         "DemoAccordion" => Some(include_str!("../../app_crates/registry/src/demos/demo_accordion.rs")),

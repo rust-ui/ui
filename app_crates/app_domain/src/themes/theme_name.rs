@@ -26,11 +26,13 @@ impl ThemeName {
         Self::Taupe,
     ];
 
+    #[must_use]
     pub fn label(self) -> &'static str {
         self.into()
     }
 
-    pub fn swatch(self) -> &'static str {
+    #[must_use]
+    pub const fn swatch(self) -> &'static str {
         match self {
             Self::Neutral => "#737373",
             Self::Stone => "#79716b",
@@ -42,7 +44,8 @@ impl ThemeName {
         }
     }
 
-    pub fn to_index(self) -> usize {
+    #[must_use]
+    pub const fn to_index(self) -> usize {
         match self {
             Self::Neutral => 0,
             Self::Stone => 1,
@@ -54,7 +57,8 @@ impl ThemeName {
         }
     }
 
-    pub fn from_index(idx: u32) -> Option<Self> {
+    #[must_use]
+    pub const fn from_index(idx: u32) -> Option<Self> {
         match idx {
             0 => Some(Self::Neutral),
             1 => Some(Self::Stone),
@@ -67,6 +71,7 @@ impl ThemeName {
         }
     }
 
+    #[must_use]
     pub fn light_vars(self) -> &'static [(&'static str, &'static str)] {
         match self {
             Self::Neutral => NEUTRAL_LIGHT,
@@ -79,6 +84,7 @@ impl ThemeName {
         }
     }
 
+    #[must_use]
     pub fn dark_vars(self) -> &'static [(&'static str, &'static str)] {
         match self {
             Self::Neutral => NEUTRAL_DARK,
@@ -91,6 +97,7 @@ impl ThemeName {
         }
     }
 
+    #[must_use]
     pub fn css_string(self, radius: f32, color_theme: ColorTheme, font: FontName) -> String {
         let mut out = format!(
             ":root {{\n  --radius: {radius}rem;\n  --font-sans: {};\n",

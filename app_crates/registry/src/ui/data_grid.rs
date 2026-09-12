@@ -23,7 +23,7 @@ pub struct StyledGridCell {
 
 impl StyledGridCell {
     #[must_use]
-    pub fn new(class: &'static str, value: String) -> Self {
+    pub const fn new(class: &'static str, value: String) -> Self {
         Self { class, value }
     }
 }

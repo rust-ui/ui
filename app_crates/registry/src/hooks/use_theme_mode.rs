@@ -64,7 +64,7 @@ impl ThemeMode {
         !*self.state.read()
     }
 
-    fn get_storage_state() -> Option<bool> {
+    const fn get_storage_state() -> Option<bool> {
         #[cfg(target_arch = "wasm32")]
         {
             web_sys::window()
@@ -76,7 +76,7 @@ impl ThemeMode {
         None
     }
 
-    fn prefers_dark_mode() -> bool {
+    const fn prefers_dark_mode() -> bool {
         #[cfg(target_arch = "wasm32")]
         {
             web_sys::window()
@@ -88,7 +88,7 @@ impl ThemeMode {
         false
     }
 
-    fn set_storage_state(_state: bool) {
+    const fn set_storage_state(_state: bool) {
         #[cfg(target_arch = "wasm32")]
         {
             if let Some(storage) = web_sys::window().and_then(|w| w.local_storage().ok().flatten()) {

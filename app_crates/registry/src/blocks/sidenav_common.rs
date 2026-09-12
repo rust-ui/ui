@@ -307,6 +307,6 @@ pub fn EmptyLegacyBlock() -> Element {
 }
 
 #[allow(dead_code)]
-pub fn _keep_imports_used() {
+pub const fn _keep_imports_used() {
     let _ = (Layers, ChevronRight, DemoDropdownMenuUserIcon);
 }

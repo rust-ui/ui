@@ -18,7 +18,7 @@ pub enum WorkflowNodeKind {
 
 impl WorkflowNodeKind {
     #[must_use]
-    pub fn dot_color(&self) -> &'static str {
+    pub const fn dot_color(&self) -> &'static str {
         match self {
             Self::Trigger => "bg-yellow-500",
             Self::Data => "bg-blue-500",
@@ -28,7 +28,7 @@ impl WorkflowNodeKind {
     }
 
     #[must_use]
-    pub fn text_color(&self) -> &'static str {
+    pub const fn text_color(&self) -> &'static str {
         match self {
             Self::Trigger => "text-yellow-600 dark:text-yellow-400",
             Self::Data => "text-blue-600 dark:text-blue-400",
@@ -55,7 +55,7 @@ pub enum EdgeStyle {
 
 impl EdgeStyle {
     #[must_use]
-    pub fn dasharray(&self) -> &'static str {
+    pub const fn dasharray(&self) -> &'static str {
         match self {
             Self::Solid => "none",
             Self::Dashed => "6 3",

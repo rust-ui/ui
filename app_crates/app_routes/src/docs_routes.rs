@@ -10,14 +10,17 @@ pub enum ComponentsRoutes {
 }
 
 impl ComponentsRoutes {
-    pub fn segment() -> &'static str {
+    #[must_use]
+    pub const fn segment() -> &'static str {
         "components"
     }
 
-    pub fn base_url() -> &'static str {
+    #[must_use]
+    pub const fn base_url() -> &'static str {
         "/docs/components"
     }
 
+    #[must_use]
     pub fn to_route(self) -> String {
         format!("{}/{}", Self::base_url(), self.as_ref())
     }
@@ -34,14 +37,17 @@ pub enum HooksRoutes {
 }
 
 impl HooksRoutes {
-    pub fn segment() -> &'static str {
+    #[must_use]
+    pub const fn segment() -> &'static str {
         "hooks"
     }
 
-    pub fn base_url() -> &'static str {
+    #[must_use]
+    pub const fn base_url() -> &'static str {
         "/docs/hooks"
     }
 
+    #[must_use]
     pub fn to_route(self) -> String {
         format!("{}/{}", Self::base_url(), self.as_ref())
     }

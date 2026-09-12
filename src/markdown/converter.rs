@@ -26,6 +26,7 @@ pub type MdComponent = fn(MdNodeProps) -> Element;
 pub struct MdComponents(HashMap<String, MdComponent>);
 
 impl MdComponents {
+    #[must_use]
     pub fn new() -> Self {
         Self::default()
     }
@@ -45,6 +46,7 @@ impl MdComponents {
 ///
 /// # Errors
 /// Returns Dioxus rendering errors while building heading content.
+#[must_use]
 pub fn extract_toc_from_md(md: &str) -> Vec<TocItem> {
     let html = markdown_to_html(md);
     let Ok(dom) = Dom::parse(&html) else {

@@ -10,7 +10,7 @@ enum ButtonState {
 }
 
 impl ButtonState {
-    fn label(&self) -> &'static str {
+    const fn label(&self) -> &'static str {
         match self {
             Self::Idle => "Do some hard work",
             Self::Working => "⏳ Working...",
@@ -18,7 +18,7 @@ impl ButtonState {
         }
     }
 
-    fn next(&self) -> Self {
+    const fn next(&self) -> Self {
         match self {
             Self::Idle => Self::Working,
             Self::Working => Self::Done,

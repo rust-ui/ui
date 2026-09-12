@@ -581,7 +581,8 @@ pub enum MarkdownType {
     StaticInstallUseRandom,
 }
 
-pub fn get_static_registry_entry(markdown_type: MarkdownType) -> Option<&'static StaticRegistryEntry> {
+#[must_use]
+pub const fn get_static_registry_entry(markdown_type: MarkdownType) -> Option<&'static StaticRegistryEntry> {
     match markdown_type {
         MarkdownType::StaticDemoAccordion => Some(&StaticRegistryEntry {
             raw_code: include_str!("../../app_crates/registry/src/demos/demo_accordion.rs"),
@@ -6946,22 +6947,27 @@ fn prev_next_in(
     })
 }
 
+#[must_use]
 pub fn find_docs_component_entry(slug: &str) -> Option<&'static RegistryEntry> {
     find_in(DOCS_COMPONENTS_REGISTRY, slug)
 }
 
+#[must_use]
 pub fn docs_component_prev_next(slug: &str) -> (Option<&'static RegistryEntry>, Option<&'static RegistryEntry>) {
     prev_next_in(DOCS_COMPONENTS_REGISTRY, slug)
 }
 
+#[must_use]
 pub fn find_hook_entry(slug: &str) -> Option<&'static RegistryEntry> {
     find_in(HOOKS_REGISTRY, slug)
 }
 
+#[must_use]
 pub fn hook_prev_next(slug: &str) -> (Option<&'static RegistryEntry>, Option<&'static RegistryEntry>) {
     prev_next_in(HOOKS_REGISTRY, slug)
 }
 
+#[must_use]
 pub fn find_get_started_entry(slug: &str) -> Option<&'static RegistryEntry> {
     find_in(GET_STARTED_REGISTRY, slug)
 }

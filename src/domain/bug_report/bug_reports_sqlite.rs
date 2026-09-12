@@ -30,7 +30,7 @@ const DB_PATH_DEV: &str = "bug_reports.db";
 const DB_PATH_PROD: &str = "/tmp/bug_reports.db";
 
 #[cfg(feature = "server")]
-fn get_db_path() -> &'static str {
+const fn get_db_path() -> &'static str {
     if cfg!(debug_assertions) {
         DB_PATH_DEV
     } else {

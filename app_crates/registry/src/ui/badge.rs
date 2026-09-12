@@ -16,7 +16,7 @@ pub enum BadgeVariant {
 }
 
 impl BadgeVariant {
-    fn as_str(&self) -> &'static str {
+    const fn as_str(&self) -> &'static str {
         match self {
             Self::Default => "border-transparent shadow bg-primary text-primary-foreground hover:bg-primary/80",
             Self::Secondary => "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
@@ -42,7 +42,7 @@ pub enum BadgeSize {
 }
 
 impl BadgeSize {
-    fn as_str(&self) -> &'static str {
+    const fn as_str(&self) -> &'static str {
         match self {
             Self::Default => "px-2.5 py-0.5 text-xs",
             Self::Sm => "px-1.5 py-0.5 text-[10px]",

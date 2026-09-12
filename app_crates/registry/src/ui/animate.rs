@@ -11,7 +11,7 @@ pub enum AnimateVariant {
 }
 
 impl AnimateVariant {
-    fn class(self) -> &'static str {
+    const fn class(self) -> &'static str {
         match self {
             Self::Default => "",
             Self::FadeUp => "opacity-0 animate-fade_up",
@@ -120,7 +120,7 @@ pub enum AnimateHoverVariant {
 
 impl AnimateHoverVariant {
     #[must_use]
-    pub fn class(self) -> &'static str {
+    pub const fn class(self) -> &'static str {
         match self {
             Self::Default => "",
             Self::Blink => "hover:animate-Blink",

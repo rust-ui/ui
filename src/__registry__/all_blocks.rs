@@ -87,6 +87,7 @@ impl std::fmt::Display for BlockIdKebab {
 
 #[allow(clippy::wrong_self_convention)]
 impl BlockIdKebab {
+    #[must_use]
     pub fn from_kebab(s: &str) -> Option<Self> {
         match s {
             "faq-01" => Some(Self::Faq01),
@@ -126,7 +127,8 @@ impl BlockIdKebab {
 
     // ─── Title ───────────────────────────────────────────────────────────────
 
-    pub fn to_title(self) -> &'static str {
+    #[must_use]
+    pub const fn to_title(self) -> &'static str {
         match self {
             Self::Faq01 => "FAQ with Numbered Grid",
             Self::Faq02 => "FAQ with Sticky Sidebar",
@@ -164,7 +166,8 @@ impl BlockIdKebab {
 
     // ─── Meta ────────────────────────────────────────────────────────────────
 
-    pub fn meta(self) -> BlockMeta {
+    #[must_use]
+    pub const fn meta(self) -> BlockMeta {
         match self {
             Self::Footer01 => BlockMeta {
                 iframe_height: "897px",
@@ -235,6 +238,7 @@ impl BlockIdKebab {
 
     // ─── to_full_view_url ────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn to_full_view_url(self) -> String {
         match self {
             Self::Sidenav01 => "/view/sidenav01/docs/components".to_string(),
@@ -254,13 +258,15 @@ impl BlockIdKebab {
 
     // ─── to_md ───────────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn to_md(self) -> String {
         format!("{self}.md")
     }
 
     // ─── files ───────────────────────────────────────────────────────────────
 
-    pub fn files(self) -> &'static [BlockFile] {
+    #[must_use]
+    pub const fn files(self) -> &'static [BlockFile] {
         match self {
             Self::Faq01 => &[
                 BlockFile {
@@ -839,6 +845,7 @@ impl BlockIdKebab {
 
     // ─── file_tree ───────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn file_tree(self) -> Vec<BlockFileTreeItem> {
         match self {
             Self::Faq01 => vec![

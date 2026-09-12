@@ -8,7 +8,7 @@ pub struct DatePickerDualState {
 
 impl DatePickerDualState {
     #[must_use]
-    pub fn new(start_date: Date, end_date: Date) -> Self {
+    pub const fn new(start_date: Date, end_date: Date) -> Self {
         Self { start_date, end_date }
     }
 

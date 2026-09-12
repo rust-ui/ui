@@ -26,7 +26,7 @@ impl NavPage {
         self.into()
     }
 
-    fn target(self) -> Route {
+    const fn target(self) -> Route {
         match self {
             Self::Home => Route::Home {},
             Self::Components => Route::DocsComponentsIndexPage {},
@@ -47,7 +47,7 @@ impl NavPage {
         }
     }
 
-    fn is_active(self, route: &Route) -> bool {
+    const fn is_active(self, route: &Route) -> bool {
         match self {
             Self::Home => matches!(route, Route::Home {}),
             Self::Components => {

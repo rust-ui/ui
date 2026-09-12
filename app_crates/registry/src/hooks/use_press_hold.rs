@@ -18,7 +18,7 @@ pub struct UsePressHold {
 impl UsePressHold {
     // `self` is read only under the wasm32 cfg; on other targets the body is empty.
     #[allow(clippy::unused_self)]
-    fn clear_interval(&self) {
+    const fn clear_interval(&self) {
         #[cfg(target_arch = "wasm32")]
         if let Some(id) = self.interval_id.get() {
             web_sys::window().unwrap().clear_interval_with_handle(id);

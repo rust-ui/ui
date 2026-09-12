@@ -151,10 +151,6 @@ print_stdout = "warn" # build.rs needs Cargo directive output
 # TODO: Replace diagnostic stderr output with structured logging.
 print_stderr = "allow"
 
-# Nursery group is unstable and false-positive prone; keep the group at `warn`
-# but silence the members that flood the registry. Revisit per the group TODO above.
-missing_const_for_fn = "allow"
-
 # TODO(strict-clippy): burn-down bucket. See __SKILLS_SOP/strict-clippy-burndown.md.
 # These block `-D warnings` but sit almost entirely inside rsx! macro bodies, so
 # `cargo clippy --fix` cannot touch them. Remove one entry per pass, fix its sites,

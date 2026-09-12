@@ -31,7 +31,7 @@ impl InputGroupAddonAlign {
         self.into()
     }
 
-    fn class(self) -> &'static str {
+    const fn class(self) -> &'static str {
         match self {
             Self::InlineStart => "order-first pl-3 has-[>button]:ml-[-0.45rem] has-[>kbd]:ml-[-0.35rem]",
             Self::InlineEnd => "order-last pr-3 has-[>button]:mr-[-0.45rem] has-[>kbd]:mr-[-0.35rem]",
@@ -93,7 +93,7 @@ pub enum InputGroupButtonSize {
 }
 
 impl InputGroupButtonSize {
-    fn class(self) -> &'static str {
+    const fn class(self) -> &'static str {
         match self {
             Self::Xs => {
                 "h-6 gap-1 px-2 rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-3.5 has-[>svg]:px-2"
