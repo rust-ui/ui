@@ -147,14 +147,11 @@ print_stdout = "warn" # build.rs needs Cargo directive output
 # These block `-D warnings` but sit almost entirely inside rsx! macro bodies, so
 # `cargo clippy --fix` cannot touch them. Remove one entry per pass, fix its sites,
 # keep the gate green. Site counts captured 2026-09-10.
-# `&Option<T>` params in bug_reports_sqlite: hashed as-is for similarity grouping,
-# switching to `Option<&T>` would change stored hash values.
-ref_option = "allow"
 # False positive from the dioxus `asset!` macro expansion (`&[u8]` not volatile).
 volatile_composites = "allow"
 
 # Intentional project choices.
-multiple_crate_versions = "allow"
+multiple_crate_versions = "allow" # Transitive dependency graph spans Dioxus, reqwest, and platform stacks.
 
 [workspace.lints.rust]
 # Temporary deployment mode: suppress ordinary compiler warnings; explicit safety denies above remain active.

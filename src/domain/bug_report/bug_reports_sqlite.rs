@@ -106,7 +106,7 @@ fn get_conn() -> Result<std::sync::MutexGuard<'static, Connection>, String> {
 /// Compute a similarity hash from message, `exception_message`, and `stack_trace`.
 /// Used to group identical bug reports together.
 #[cfg(feature = "server")]
-fn compute_similarity_hash(message: &str, exception_message: &Option<String>, stack_trace: &Option<String>) -> i64 {
+fn compute_similarity_hash(message: &str, exception_message: Option<&String>, stack_trace: Option<&String>) -> i64 {
     let mut hasher = DefaultHasher::new();
     message.hash(&mut hasher);
     exception_message.hash(&mut hasher);
@@ -125,7 +125,11 @@ pub fn save_bug_report(report: &BugReportRequest) -> Result<i64, String> {
     let conn = get_conn()?;
 
     let bug_type_str: &'static str = report.bug_type.into();
-    let similarity_hash = compute_similarity_hash(&report.message, &report.exception_message, &report.stack_trace);
+    let similarity_hash = compute_similarity_hash(
+        &report.message,
+        report.exception_message.as_ref(),
+        report.stack_trace.as_ref(),
+    );
 
     conn.execute(
         "INSERT INTO bug_reports (bug_type, similarity_hash, message, exception_message, stack_trace, user_login, url, user_agent, application)
