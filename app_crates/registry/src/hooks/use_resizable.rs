@@ -102,6 +102,7 @@ fn remove_drag_listeners(
 /// * `container_element` - the `Resizable` root element (set from its `onmounted`)
 /// * `handle_element` - the `ResizableHandle` element (set from its `onmounted`)
 /// * `preset` - current screen-size preset; changing it snaps the panel width
+#[must_use]
 pub fn use_resizable(
     container_element: ReadSignal<Option<web_sys::Element>>,
     handle_element: ReadSignal<Option<web_sys::Element>>,

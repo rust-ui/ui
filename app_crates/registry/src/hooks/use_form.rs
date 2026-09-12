@@ -62,6 +62,7 @@ where
         }
     }
 
+    #[must_use]
     pub fn value(&self, field: &str) -> String {
         self.values_signal.read().get(field).cloned().unwrap_or_default()
     }
@@ -89,6 +90,7 @@ where
     }
 
     /// Check if a field has been touched (blurred at least once)
+    #[must_use]
     pub fn is_touched(&self, field: &str) -> bool {
         self.touched_signal.read().contains(field)
     }
@@ -133,6 +135,7 @@ where
         touched_signal.set(HashSet::default());
     }
 
+    #[must_use]
     pub fn get_data(&self) -> Option<T> {
         Self::map_to_struct(&self.values_signal.read())
     }
@@ -148,6 +151,7 @@ where
     }
 }
 
+#[must_use]
 pub fn use_form<T>() -> Form<T>
 where
     T: FormData,

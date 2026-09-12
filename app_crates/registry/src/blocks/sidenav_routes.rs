@@ -18,10 +18,12 @@ pub enum SidenavRoutes {
 }
 
 impl SidenavRoutes {
+    #[must_use]
     pub fn view_segment() -> &'static str {
         "view"
     }
 
+    #[must_use]
     pub fn from_path(path: &str) -> Self {
         use strum::IntoEnumIterator;
         Self::iter()
@@ -30,9 +32,11 @@ impl SidenavRoutes {
             .unwrap_or(Self::Sidenav01)
     }
 
+    #[must_use]
     pub fn to_route(self) -> String {
         format!("{}/{}", Self::view_segment(), self.as_ref())
     }
+    #[must_use]
     pub fn to_title(self) -> String {
         self.as_ref().to_title_case()
     }
@@ -46,9 +50,11 @@ pub enum DocsRoutes {
 }
 
 impl DocsRoutes {
+    #[must_use]
     pub fn base_segment() -> &'static str {
         "docs"
     }
+    #[must_use]
     pub fn to_title(self) -> String {
         self.as_ref().to_title_case()
     }
@@ -64,9 +70,11 @@ pub enum ComponentsRoutes {
 }
 
 impl ComponentsRoutes {
+    #[must_use]
     pub fn base_segment() -> &'static str {
         "components"
     }
+    #[must_use]
     pub fn base_url_with_sidenav(sidenav: SidenavRoutes) -> String {
         format!(
             "/{}/{}/{}",
@@ -75,9 +83,11 @@ impl ComponentsRoutes {
             Self::base_segment()
         )
     }
+    #[must_use]
     pub fn to_route_with_sidenav(self, sidenav: SidenavRoutes) -> String {
         format!("{}/{}", Self::base_url_with_sidenav(sidenav), self.as_ref())
     }
+    #[must_use]
     pub fn to_title(self) -> String {
         self.as_ref().to_title_case()
     }
@@ -94,9 +104,11 @@ pub enum HooksRoutes {
 }
 
 impl HooksRoutes {
+    #[must_use]
     pub fn base_segment() -> &'static str {
         "hooks"
     }
+    #[must_use]
     pub fn base_url_with_sidenav(sidenav: SidenavRoutes) -> String {
         format!(
             "/{}/{}/{}",
@@ -105,9 +117,11 @@ impl HooksRoutes {
             Self::base_segment()
         )
     }
+    #[must_use]
     pub fn to_route_with_sidenav(self, sidenav: SidenavRoutes) -> String {
         format!("{}/{}", Self::base_url_with_sidenav(sidenav), self.as_ref())
     }
+    #[must_use]
     pub fn to_title(self) -> String {
         self.as_ref().to_title_case()
     }

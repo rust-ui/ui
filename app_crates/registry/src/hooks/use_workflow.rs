@@ -17,6 +17,7 @@ pub enum WorkflowNodeKind {
 }
 
 impl WorkflowNodeKind {
+    #[must_use]
     pub fn dot_color(&self) -> &'static str {
         match self {
             Self::Trigger => "bg-yellow-500",
@@ -26,6 +27,7 @@ impl WorkflowNodeKind {
         }
     }
 
+    #[must_use]
     pub fn text_color(&self) -> &'static str {
         match self {
             Self::Trigger => "text-yellow-600 dark:text-yellow-400",
@@ -35,6 +37,7 @@ impl WorkflowNodeKind {
         }
     }
 
+    #[must_use]
     pub fn label(&self) -> &'static str {
         self.into()
     }
@@ -51,6 +54,7 @@ pub enum EdgeStyle {
 }
 
 impl EdgeStyle {
+    #[must_use]
     pub fn dasharray(&self) -> &'static str {
         match self {
             Self::Solid => "none",
@@ -203,10 +207,12 @@ impl WorkflowState {
     // ── selection ────────────────────────────────────────────────────────────
 
     /// Returns the single selected index (first in set), for backward compat.
+    #[must_use]
     pub fn selected_idx(&self) -> Option<usize> {
         self.selected.read().iter().next().copied()
     }
 
+    #[must_use]
     pub fn is_selected(&self, idx: usize) -> bool {
         self.selected.read().contains(&idx)
     }
@@ -237,6 +243,7 @@ impl WorkflowState {
 
     // ── locked mode ───────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn is_locked(&self) -> bool {
         *self.locked.read()
     }
@@ -250,6 +257,7 @@ impl WorkflowState {
         self.locked.set(!v);
     }
 
+    #[must_use]
     pub fn is_snap_to_grid(&self) -> bool {
         *self.snap_to_grid.read()
     }
@@ -265,6 +273,7 @@ impl WorkflowState {
 
     // ── connect ───────────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn is_connecting(&self) -> bool {
         self.connecting.read().is_some()
     }
@@ -326,6 +335,7 @@ impl WorkflowState {
         self.selected_edge.set(None);
     }
 
+    #[must_use]
     pub fn selected_edge_idx(&self) -> Option<usize> {
         *self.selected_edge.read()
     }
@@ -341,6 +351,7 @@ impl WorkflowState {
 
     // ── inline edit ───────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn is_editing(&self, idx: usize) -> bool {
         *self.editing_node.read() == Some(idx)
     }
@@ -372,6 +383,7 @@ impl WorkflowState {
 
     // ── edge label edit ───────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn editing_edge_idx(&self) -> Option<usize> {
         *self.editing_edge.read()
     }
@@ -402,6 +414,7 @@ impl WorkflowState {
         self.editing_edge.set(None);
     }
 
+    #[must_use]
     pub fn edit_buffer_value(&self) -> String {
         self.edit_buffer.read().clone()
     }
@@ -463,6 +476,7 @@ impl WorkflowState {
 
     // ── export / import ───────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn export_snapshot(&self) -> WorkflowSnapshot {
         WorkflowSnapshot {
             nodes: self.nodes.read().clone(),
@@ -488,6 +502,7 @@ impl WorkflowState {
         self.connecting.set(None);
     }
 
+    #[must_use]
     pub fn connecting_preview(&self) -> Option<String> {
         let cs = self.connecting.read().clone()?;
         Some(bezier_path(cs.from_x, cs.from_y, cs.mouse_x, cs.mouse_y))
@@ -613,10 +628,12 @@ impl WorkflowState {
         self.push_history();
     }
 
+    #[must_use]
     pub fn has_clipboard(&self) -> bool {
         !self.clipboard.read().is_empty()
     }
 
+    #[must_use]
     pub fn clipboard_count(&self) -> usize {
         self.clipboard.read().len()
     }
@@ -737,14 +754,17 @@ impl WorkflowState {
 
     // ── node drag ────────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn pos(&self, idx: usize) -> (f64, f64) {
         self.positions.read().get(idx).copied().unwrap_or_default()
     }
 
+    #[must_use]
     pub fn is_dragging(&self) -> bool {
         self.drag.read().is_some()
     }
 
+    #[must_use]
     pub fn active_idx(&self) -> Option<usize> {
         self.drag.read().as_ref().map(|d| d.node_idx)
     }
@@ -808,15 +828,18 @@ impl WorkflowState {
         }
     }
 
+    #[must_use]
     pub fn can_undo(&self) -> bool {
         self.history.can_undo()
     }
+    #[must_use]
     pub fn can_redo(&self) -> bool {
         self.history.can_redo()
     }
 
     // ── canvas pan ───────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn is_panning(&self) -> bool {
         self.canvas_drag.read().is_some()
     }
@@ -846,6 +869,7 @@ impl WorkflowState {
 
     // ── touch pinch ───────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn is_pinching(&self) -> bool {
         self.touch_pinch.read().is_some()
     }
@@ -891,6 +915,7 @@ impl WorkflowState {
 
     // ── zoom ─────────────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn zoom_value(&self) -> f64 {
         *self.zoom.read()
     }
@@ -923,6 +948,7 @@ impl WorkflowState {
         self.zoom.set(1.0);
     }
 
+    #[must_use]
     pub fn world_transform(&self) -> String {
         let (px, py) = *self.pan.read();
         let z = *self.zoom.read();
@@ -974,6 +1000,7 @@ impl WorkflowState {
 
     // ── edges ────────────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn edge_paths(&self, node_h: f64) -> Vec<(String, EdgeStyle, f64, f64, Option<String>)> {
         let pos = self.positions.read();
         let nodes = self.nodes.read();

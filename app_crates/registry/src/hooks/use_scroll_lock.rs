@@ -290,6 +290,7 @@ pub fn unlock(_delay_ms: u32) {
     }
 }
 
+#[must_use]
 pub fn is_locked() -> bool {
     #[cfg(target_arch = "wasm32")]
     {

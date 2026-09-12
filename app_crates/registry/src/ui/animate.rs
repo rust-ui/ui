@@ -119,6 +119,7 @@ pub enum AnimateHoverVariant {
 }
 
 impl AnimateHoverVariant {
+    #[must_use]
     pub fn class(self) -> &'static str {
         match self {
             Self::Default => "",

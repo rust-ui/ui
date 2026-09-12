@@ -247,6 +247,7 @@ define_countries![
 ];
 
 impl Country {
+    #[must_use]
     pub fn name(self) -> String {
         let variant_name = format!("{self:?}");
         let mut result = String::new();
@@ -259,6 +260,7 @@ impl Country {
         result
     }
 
+    #[must_use]
     pub fn flag_emoji(self) -> String {
         self.alpha2()
             .chars()
@@ -269,6 +271,7 @@ impl Country {
     // Per-country reference table: identical arms are kept split by country so each
     // entry stays independently editable.
     #[allow(clippy::match_same_arms)]
+    #[must_use]
     pub const fn trunk_prefix(self) -> Option<&'static str> {
         match self {
             Self::UnitedStatesOfAmerica
@@ -294,18 +297,22 @@ impl PhoneNumber {
         Self(input.chars().filter(char::is_ascii_digit).take(max_digits).collect())
     }
 
+    #[must_use]
     pub fn as_str(&self) -> &str {
         &self.0
     }
 
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
     }
 
+    #[must_use]
     pub fn format(&self, country: Country) -> String {
         PhoneFormat::for_country(country).format(&self.0)
     }
 
+    #[must_use]
     pub fn format_international(&self, country: Country) -> String {
         if self.0.is_empty() {
             return String::new();
@@ -331,6 +338,7 @@ impl PhoneFormat {
     // Per-country reference table: identical group layouts are kept split by country
     // so each entry stays independently editable.
     #[allow(clippy::match_same_arms)]
+    #[must_use]
     pub const fn for_country(country: Country) -> Self {
         match country {
             Country::UnitedStatesOfAmerica
@@ -398,6 +406,7 @@ impl PhoneFormat {
         }
     }
 
+    #[must_use]
     pub fn format(&self, digits: &str) -> String {
         let mut result = String::new();
         let mut chars = digits.chars().peekable();
@@ -425,6 +434,7 @@ impl PhoneFormat {
         result
     }
 
+    #[must_use]
     pub fn placeholder(&self) -> String {
         // `i % 10` is bounded to 0..10, so the `u8` cast never truncates.
         #[allow(clippy::cast_possible_truncation)]

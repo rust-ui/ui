@@ -19,6 +19,7 @@ struct ToasterStats {
 }
 
 impl ToasterContext {
+    #[must_use]
     pub fn new(queue_signal: Signal<Vec<ToastData>>) -> Self {
         Self {
             stats: Arc::new(Mutex::new(ToasterStats::default())),

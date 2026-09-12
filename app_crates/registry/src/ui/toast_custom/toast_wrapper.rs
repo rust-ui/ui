@@ -11,6 +11,7 @@ pub struct ToastWrapper {
     position: ToastPosition,
 }
 
+#[must_use]
 pub fn show_toast() -> ToastWrapper {
     ToastWrapper {
         message: String::new(),

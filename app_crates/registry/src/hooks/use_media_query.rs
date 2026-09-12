@@ -1,5 +1,6 @@
 use dioxus::prelude::*;
 
+#[must_use]
 pub fn use_media_query(query: &str) -> ReadSignal<bool> {
     let is_match = use_signal(|| false);
     let _query = query.to_string();

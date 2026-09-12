@@ -22,6 +22,7 @@ pub struct StyledGridCell {
 }
 
 impl StyledGridCell {
+    #[must_use]
     pub fn new(class: &'static str, value: String) -> Self {
         Self { class, value }
     }
@@ -184,6 +185,7 @@ pub fn get_column_width<C: PinnableColumn + 'static>(col: C) -> i32 {
 ///
 /// Includes max-height for proper viewport sizing.
 /// Use with `LazyLock` to compute once: `static GRID_STYLE: LazyLock<String> = LazyLock::new(generate_grid_style::<Column>);`
+#[must_use]
 pub fn generate_grid_style<C: PinnableColumn + AsRef<str> + 'static>() -> String {
     let mut style = String::from("--header-Select-size: 60; --col-Select-size: 60; ");
     for (col, width) in C::pinnable_columns() {
@@ -196,6 +198,7 @@ pub fn generate_grid_style<C: PinnableColumn + AsRef<str> + 'static>() -> String
 }
 
 /// Returns columns that are both pinned AND visible for rendering.
+#[must_use]
 pub fn get_pinned_visible_columns<C, S>(
     pinned_columns_signal: Signal<HashSet<C, S>>,
     visible_columns_signal: Signal<HashSet<String, S>>,

@@ -12,11 +12,13 @@ fn to_title_case(s: &str) -> String {
 }
 
 // Custom hook for breadcrumb navigation starting from a specific segment (inclusive)
+#[must_use]
 pub fn use_breadcrumb_from_segment(start_segment: &str) -> Vec<(String, String, bool)> {
     build_breadcrumb_items(start_segment, true)
 }
 
 // Custom hook for breadcrumb navigation starting after a specific segment (exclusive)
+#[must_use]
 pub fn use_breadcrumb_after_segment(start_segment: &str) -> Vec<(String, String, bool)> {
     build_breadcrumb_items(start_segment, false)
 }

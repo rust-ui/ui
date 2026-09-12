@@ -8,11 +8,13 @@ pub struct ThemeMode {
 #[cfg(target_arch = "wasm32")]
 const LOCALSTORAGE_KEY: &str = "darkmode";
 
+#[must_use]
 pub fn use_theme_mode() -> ThemeMode {
     consume_context::<ThemeMode>()
 }
 
 impl ThemeMode {
+    #[must_use]
     pub fn init() -> Self {
         let state = use_signal(|| false);
         let theme_mode = Self { state };
@@ -47,14 +49,17 @@ impl ThemeMode {
         Self::set_storage_state(dark);
     }
 
+    #[must_use]
     pub fn get(&self) -> bool {
         *self.state.read()
     }
 
+    #[must_use]
     pub fn is_dark(&self) -> bool {
         *self.state.read()
     }
 
+    #[must_use]
     pub fn is_light(&self) -> bool {
         !*self.state.read()
     }

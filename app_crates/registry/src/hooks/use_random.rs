@@ -4,14 +4,17 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 
 const PREFIX: &str = "rust_ui";
 
+#[must_use]
 pub fn use_random_id() -> String {
     format!("_{PREFIX}_{}", generate_hash())
 }
 
+#[must_use]
 pub fn use_random_id_for(element: &str) -> String {
     format!("{}_{PREFIX}_{}", element, generate_hash())
 }
 
+#[must_use]
 pub fn use_random_transition_name() -> String {
     let random_id = use_random_id();
     format!("view-transition-name: {random_id}")

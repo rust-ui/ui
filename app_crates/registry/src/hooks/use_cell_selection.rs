@@ -29,6 +29,7 @@ impl<C: DataGridColumn> UseCellSelection<C> {
     }
 
     /// Returns the current context menu cell without subscribing reactively.
+    #[must_use]
     pub fn context_menu_cell(&self) -> Option<(usize, C)> {
         *self.context_menu_cell_signal.peek()
     }
@@ -98,6 +99,7 @@ impl<C: DataGridColumn> UseCellSelection<C> {
 /// - Active cell (left-click) with ring highlight
 /// - Context menu cell (right-click) with background highlight
 /// - Race condition prevention for consecutive right-clicks
+#[must_use]
 pub fn use_cell_selection<C: DataGridColumn>() -> UseCellSelection<C> {
     let active_cell_signal = use_signal(|| None);
     let context_menu_cell_signal = use_signal(|| None);

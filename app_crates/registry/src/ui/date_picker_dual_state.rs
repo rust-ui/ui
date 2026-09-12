@@ -7,6 +7,7 @@ pub struct DatePickerDualState {
 }
 
 impl DatePickerDualState {
+    #[must_use]
     pub fn new(start_date: Date, end_date: Date) -> Self {
         Self { start_date, end_date }
     }
@@ -31,6 +32,7 @@ impl DatePickerDualState {
     }
 
     /// Get the month and year for display (0 = first month, 1 = second month)
+    #[must_use]
     pub fn get_display_month(display_date: Date, month_offset: i32) -> (Month, i32) {
         match month_offset {
             0 => (display_date.month(), display_date.year()),
@@ -39,11 +41,13 @@ impl DatePickerDualState {
     }
 
     /// Check if a date is start or end date
+    #[must_use]
     pub fn is_start_or_end_date(&self, date: Date) -> bool {
         date == self.start_date || date == self.end_date
     }
 
     /// Calculates calendar data for the date picker
+    #[must_use]
     pub fn calculate_calendar_data(year: i32, month: Month) -> Vec<(u8, Month, i32, bool, bool)> {
         let Some(first_day) = Date::from_calendar_date(year, month, 1).ok() else {
             return vec![];

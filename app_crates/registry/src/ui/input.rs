@@ -27,6 +27,7 @@ pub enum InputType {
 }
 
 impl InputType {
+    #[must_use]
     pub fn as_str(&self) -> &'static str {
         self.into()
     }

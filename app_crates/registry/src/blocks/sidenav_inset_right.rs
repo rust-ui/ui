@@ -9,6 +9,7 @@ use crate::ui::breadcrumb::{
 use crate::ui::separator::{Separator, SeparatorOrientation};
 use crate::ui::sidenav::{SidenavInset, SidenavTrigger, SidenavVariant};
 
+#[must_use]
 pub fn breadcrumb_from_path(path: &str, segment: &str) -> Vec<(String, String, bool)> {
     let parts: Vec<&str> = path.split('/').filter(|part| !part.is_empty()).collect();
     let Some(index) = parts.iter().position(|part| *part == segment) else {

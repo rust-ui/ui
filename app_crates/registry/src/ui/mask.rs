@@ -12,6 +12,7 @@ pub enum MaskSide {
 }
 
 impl MaskSide {
+    #[must_use]
     pub fn class(self) -> &'static str {
         match self {
             Self::Default => "",

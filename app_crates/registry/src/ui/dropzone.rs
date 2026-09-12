@@ -25,6 +25,7 @@ pub struct DropzoneFile {
 impl DropzoneFile {
     // Byte counts never approach 2^52, so the f64 conversion stays exact in practice.
     #[allow(clippy::cast_precision_loss)]
+    #[must_use]
     pub fn size_display(&self) -> String {
         match self.size_bytes {
             b if b < 1_024 => format!("{b} B"),

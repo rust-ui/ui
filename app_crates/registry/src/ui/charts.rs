@@ -12,6 +12,7 @@ pub enum ChartCurve {
 }
 
 impl ChartCurve {
+    #[must_use]
     pub fn as_str(self) -> &'static str {
         self.into()
     }

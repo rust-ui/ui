@@ -43,6 +43,7 @@ impl<C: DataGridColumn> UseDragSelection<C> {
     }
 
     /// Returns true if there's an active multi-cell selection (start != end).
+    #[must_use]
     pub fn has_selection(&self) -> bool {
         let Some((start_row, start_col)) = *self.drag_start_signal.read() else {
             return false;
@@ -56,6 +57,7 @@ impl<C: DataGridColumn> UseDragSelection<C> {
     /// Returns the selection bounds as (`min_row`, `max_row`, `min_col_idx`, `max_col_idx`).
     /// Returns None if no selection or single cell selection.
     /// Uses `peek` since this is called from event handlers, not reactive contexts.
+    #[must_use]
     pub fn get_selection_bounds(&self) -> Option<(usize, usize, i32, i32)> {
         let (start_row, start_col) = (*self.drag_start_signal.peek())?;
         let (end_row, end_col) = (*self.drag_end_signal.peek())?;
@@ -152,6 +154,7 @@ impl<C: DataGridColumn> UseDragSelection<C> {
 /// - `handle_contextmenu()` - on right-click
 /// - `is_cell_in_range()` - check if cell is in selection
 /// - `has_selection()` - check if multi-cell selection exists
+#[must_use]
 pub fn use_drag_selection<C: DataGridColumn>() -> UseDragSelection<C> {
     let is_dragging_signal = use_signal(|| false);
     let drag_start_signal: Signal<Option<(usize, C)>> = use_signal(|| None);

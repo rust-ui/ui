@@ -137,6 +137,7 @@ impl UsePressHold {
     }
 }
 
+#[must_use]
 pub fn use_press_hold(duration_ms: u32, on_complete: Callback<()>, disabled: bool) -> UsePressHold {
     UsePressHold {
         progress_signal: use_signal(|| 0.0),

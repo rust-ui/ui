@@ -16,6 +16,7 @@ use dioxus::prelude::*;
 /// # Returns
 /// A reactive signal that controls the lock state - set to `true` to lock,
 /// `false` to unlock with delayed restoration
+#[must_use]
 pub fn use_lock_body_scroll_popover(initial_locked: bool) -> Signal<bool> {
     let locked_signal = use_signal(|| initial_locked);
     let mut scroll_position_signal = use_signal(|| 0.0_f64);

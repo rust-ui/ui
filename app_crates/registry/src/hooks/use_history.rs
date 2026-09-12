@@ -154,26 +154,31 @@ impl UseHistory {
     }
 
     /// `true` when there is a previous state to undo to.
+    #[must_use]
     pub fn can_go_back(&self) -> bool {
         self.index() > 0
     }
 
     /// `true` when there is a future state to redo to.
+    #[must_use]
     pub fn can_go_forward(&self) -> bool {
         self.index() + 1 < (self.history)().len()
     }
 
     /// Current position in the stack (1-based for display).
+    #[must_use]
     pub fn position(&self) -> usize {
         self.index() + 1
     }
 
     /// Total number of states in the stack.
+    #[must_use]
     pub fn total(&self) -> usize {
         (self.history)().len()
     }
 
     /// The current URL in the history stack (reactive).
+    #[must_use]
     pub fn current(&self) -> String {
         let history = (self.history)();
         let idx = self.index();
@@ -202,6 +207,7 @@ impl UseHistory {
 }
 
 /// Access the `UseHistory` context initialized by `UseHistory::init()`.
+#[must_use]
 pub fn use_history() -> UseHistory {
     consume_context::<UseHistory>()
 }

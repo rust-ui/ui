@@ -9,6 +9,7 @@ use wasm_bindgen::JsCast;
 
 pub const DATA_SCROLL_TARGET: &str = "data-scroll-target";
 
+#[must_use]
 pub fn use_data_scrolled(threshold_px: u32) -> Signal<bool> {
     let is_data_scrolled_signal = use_signal(|| false);
 

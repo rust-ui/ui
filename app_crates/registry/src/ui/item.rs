@@ -10,6 +10,7 @@ pub enum ItemVariant {
 }
 
 impl ItemVariant {
+    #[must_use]
     pub fn class(self) -> &'static str {
         match self {
             Self::Default => "bg-transparent",
@@ -28,6 +29,7 @@ pub enum ItemSize {
 }
 
 impl ItemSize {
+    #[must_use]
     pub fn class(self) -> &'static str {
         match self {
             Self::Default => "p-4 gap-4",
@@ -46,6 +48,7 @@ pub enum ItemMediaVariant {
 }
 
 impl ItemMediaVariant {
+    #[must_use]
     pub fn class(self) -> &'static str {
         match self {
             Self::Default => "bg-transparent",

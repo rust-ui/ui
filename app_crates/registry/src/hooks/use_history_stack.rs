@@ -53,10 +53,12 @@ impl<T: Clone + 'static> UseHistoryStack<T> {
         self.history.read().get(idx + 1).cloned()
     }
 
+    #[must_use]
     pub fn can_undo(&self) -> bool {
         *self.index.read() > 0
     }
 
+    #[must_use]
     pub fn can_redo(&self) -> bool {
         let idx = *self.index.read();
         idx + 1 < self.history.read().len()

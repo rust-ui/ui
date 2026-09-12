@@ -11,6 +11,7 @@ struct DialogContext {
     target_id: String,
 }
 
+#[must_use]
 pub fn use_dialog_trigger_id() -> Option<String> {
     try_consume_context::<DialogContext>().map(|ctx| ctx.target_id)
 }

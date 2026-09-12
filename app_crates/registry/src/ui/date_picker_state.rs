@@ -13,10 +13,12 @@ pub struct DatePickerState {
 }
 
 impl DatePickerState {
+    #[must_use]
     pub fn new(start_date: Date, end_date: Date) -> Self {
         Self { start_date, end_date }
     }
 
+    #[must_use]
     pub fn get_calendar_days(year: i32, month: Month) -> Vec<DatePickerDay> {
         let Some(first_day) = Date::from_calendar_date(year, month, 1).ok() else {
             return vec![];

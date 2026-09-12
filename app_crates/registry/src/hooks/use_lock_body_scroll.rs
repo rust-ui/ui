@@ -1,5 +1,6 @@
 use dioxus::prelude::*;
 
+#[must_use]
 pub fn use_lock_body_scroll(initial_locked: bool) -> Signal<bool> {
     let locked_signal = use_signal(|| initial_locked);
 

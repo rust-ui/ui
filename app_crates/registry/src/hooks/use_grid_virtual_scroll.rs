@@ -41,6 +41,7 @@ pub struct GridVirtualScrollState {
 /// * `total_items` - total item count backing the grid
 /// * `item_size` - width/height (px) of one square cell, gap included
 #[cfg_attr(not(target_arch = "wasm32"), allow(unused_variables))]
+#[must_use]
 pub fn use_grid_virtual_scroll(
     container_element: ReadSignal<Option<web_sys::Element>>,
     total_items: ReadSignal<usize>,

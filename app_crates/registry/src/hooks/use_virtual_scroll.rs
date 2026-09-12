@@ -22,6 +22,7 @@ pub struct VirtualScrollState {
 
 /// Get the virtual scroll context from a parent `VirtualizedGrid`.
 /// Returns None if used outside of a `VirtualizedGrid`.
+#[must_use]
 pub fn use_virtual_scroll_context() -> Option<VirtualScrollState> {
     try_consume_context::<VirtualScrollState>()
 }
@@ -37,6 +38,7 @@ pub fn use_virtual_scroll_context() -> Option<VirtualScrollState> {
 ///
 /// # Returns
 /// * `VirtualScrollState` with start/end indices and total height
+#[must_use]
 pub fn use_virtual_scroll(
     container_element: ReadSignal<Option<web_sys::Element>>,
     total_rows: ReadSignal<usize>,

@@ -19,6 +19,7 @@ use wasm_bindgen::JsCast;
 /// # Returns
 /// A reactive signal that controls the lock state - set to `true` to lock,
 /// `false` to unlock with delayed restoration
+#[must_use]
 pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
     const TARGET_DIALOG_LOCK_BODY: &str = "#target__dialog_lock_body";
 
