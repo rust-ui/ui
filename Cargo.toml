@@ -142,8 +142,6 @@ as_underscore = "deny"
 
 # Quality ratchet.
 print_stdout = "warn" # build.rs needs Cargo directive output
-# TODO: Replace diagnostic stderr output with structured logging.
-print_stderr = "allow"
 
 # TODO(strict-clippy): burn-down bucket. See __SKILLS_SOP/strict-clippy-burndown.md.
 # These block `-D warnings` but sit almost entirely inside rsx! macro bodies, so
@@ -156,8 +154,6 @@ ref_option = "allow"
 volatile_composites = "allow"
 
 # Intentional project choices.
-module_name_repetitions = "allow"
-cognitive_complexity = "allow"
 multiple_crate_versions = "allow"
 cargo_common_metadata = "allow"
 
