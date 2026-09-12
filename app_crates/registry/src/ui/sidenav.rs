@@ -14,7 +14,7 @@ impl SidenavContext {
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum SidenavVariant {
     #[default]
     Sidenav,
@@ -24,15 +24,11 @@ pub enum SidenavVariant {
 
 impl SidenavVariant {
     fn as_str(self) -> &'static str {
-        match self {
-            Self::Sidenav => "Sidenav",
-            Self::Floating => "Floating",
-            Self::Inset => "Inset",
-        }
+        self.into()
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum SidenavSide {
     #[default]
     Left,
@@ -41,14 +37,11 @@ pub enum SidenavSide {
 
 impl SidenavSide {
     fn as_str(self) -> &'static str {
-        match self {
-            Self::Left => "Left",
-            Self::Right => "Right",
-        }
+        self.into()
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum SidenavCollapsible {
     #[default]
     Offcanvas,
@@ -59,15 +52,11 @@ pub enum SidenavCollapsible {
 impl SidenavCollapsible {
     #[allow(dead_code)]
     fn as_str(self) -> &'static str {
-        match self {
-            Self::Offcanvas => "Offcanvas",
-            Self::None => "None",
-            Self::Icon => "Icon",
-        }
+        self.into()
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum SidenavState {
     #[default]
     Expanded,
@@ -76,10 +65,7 @@ pub enum SidenavState {
 
 impl SidenavState {
     fn as_str(self) -> &'static str {
-        match self {
-            Self::Expanded => "Expanded",
-            Self::Collapsed => "Collapsed",
-        }
+        self.into()
     }
 }
 

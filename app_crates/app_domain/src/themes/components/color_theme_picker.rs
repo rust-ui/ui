@@ -1,9 +1,10 @@
 use dioxus::prelude::*;
 use registry::ui::select::{Select, SelectContent, SelectGroup, SelectOption, SelectTrigger};
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum ColorTheme {
     #[default]
+    #[strum(serialize = "Default")]
     None,
     Amber,
     Blue,
@@ -60,30 +61,11 @@ impl ColorTheme {
         "--sidebar-primary-foreground",
     ];
 
-    pub fn label(&self) -> &'static str {
-        match self {
-            Self::None => "Default",
-            Self::Amber => "Amber",
-            Self::Blue => "Blue",
-            Self::Cyan => "Cyan",
-            Self::Emerald => "Emerald",
-            Self::Fuchsia => "Fuchsia",
-            Self::Green => "Green",
-            Self::Indigo => "Indigo",
-            Self::Lime => "Lime",
-            Self::Orange => "Orange",
-            Self::Pink => "Pink",
-            Self::Purple => "Purple",
-            Self::Red => "Red",
-            Self::Rose => "Rose",
-            Self::Sky => "Sky",
-            Self::Teal => "Teal",
-            Self::Violet => "Violet",
-            Self::Yellow => "Yellow",
-        }
+    pub fn label(self) -> &'static str {
+        self.into()
     }
 
-    pub fn swatch(&self) -> &'static str {
+    pub fn swatch(self) -> &'static str {
         match self {
             Self::None => "#d4d4d4",
             Self::Amber => "#f59e0b",
@@ -157,7 +139,7 @@ impl ColorTheme {
         Self::ALL.iter().copied().find(|ct| ct.label() == label)
     }
 
-    pub fn light_vars(&self) -> &'static [(&'static str, &'static str)] {
+    pub fn light_vars(self) -> &'static [(&'static str, &'static str)] {
         match self {
             Self::None => &[],
             Self::Amber => AMBER_LIGHT,
@@ -180,7 +162,7 @@ impl ColorTheme {
         }
     }
 
-    pub fn dark_vars(&self) -> &'static [(&'static str, &'static str)] {
+    pub fn dark_vars(self) -> &'static [(&'static str, &'static str)] {
         match self {
             Self::None => &[],
             Self::Amber => AMBER_DARK,

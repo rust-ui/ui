@@ -19,7 +19,7 @@ pub enum BlockView {
     Code,
 }
 
-#[derive(Default, Clone, Copy, PartialEq, Eq)]
+#[derive(Default, Clone, Copy, PartialEq, Eq, strum::IntoStaticStr)]
 pub enum ScreenSize {
     #[default]
     Desktop,
@@ -28,12 +28,8 @@ pub enum ScreenSize {
 }
 
 impl ScreenSize {
-    fn as_str(&self) -> &'static str {
-        match self {
-            Self::Desktop => "Desktop",
-            Self::Tablet => "Tablet",
-            Self::Phone => "Phone",
-        }
+    fn as_str(self) -> &'static str {
+        self.into()
     }
 }
 

@@ -3,7 +3,7 @@ use std::fmt::Write as _;
 use super::components::color_theme_picker::ColorTheme;
 use super::components::font_picker::FontName;
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum ThemeName {
     #[default]
     Neutral,
@@ -26,19 +26,11 @@ impl ThemeName {
         Self::Taupe,
     ];
 
-    pub fn label(&self) -> &'static str {
-        match self {
-            Self::Neutral => "Neutral",
-            Self::Stone => "Stone",
-            Self::Zinc => "Zinc",
-            Self::Mauve => "Mauve",
-            Self::Olive => "Olive",
-            Self::Mist => "Mist",
-            Self::Taupe => "Taupe",
-        }
+    pub fn label(self) -> &'static str {
+        self.into()
     }
 
-    pub fn swatch(&self) -> &'static str {
+    pub fn swatch(self) -> &'static str {
         match self {
             Self::Neutral => "#737373",
             Self::Stone => "#79716b",
@@ -75,7 +67,7 @@ impl ThemeName {
         }
     }
 
-    pub fn light_vars(&self) -> &'static [(&'static str, &'static str)] {
+    pub fn light_vars(self) -> &'static [(&'static str, &'static str)] {
         match self {
             Self::Neutral => NEUTRAL_LIGHT,
             Self::Stone => STONE_LIGHT,
@@ -87,7 +79,7 @@ impl ThemeName {
         }
     }
 
-    pub fn dark_vars(&self) -> &'static [(&'static str, &'static str)] {
+    pub fn dark_vars(self) -> &'static [(&'static str, &'static str)] {
         match self {
             Self::Neutral => NEUTRAL_DARK,
             Self::Stone => STONE_DARK,
@@ -99,7 +91,7 @@ impl ThemeName {
         }
     }
 
-    pub fn css_string(&self, radius: f32, color_theme: ColorTheme, font: FontName) -> String {
+    pub fn css_string(self, radius: f32, color_theme: ColorTheme, font: FontName) -> String {
         let mut out = format!(
             ":root {{\n  --radius: {radius}rem;\n  --font-sans: {};\n",
             font.css_value()

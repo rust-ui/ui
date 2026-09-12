@@ -3,7 +3,7 @@ use tw_merge::tw_merge;
 
 use crate::hooks::use_random::use_random_id_for;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum ChartCurve {
     #[default]
     Smooth,
@@ -13,11 +13,7 @@ pub enum ChartCurve {
 
 impl ChartCurve {
     pub fn as_str(self) -> &'static str {
-        match self {
-            Self::Smooth => "Smooth",
-            Self::Straight => "Straight",
-            Self::Stepline => "Stepline",
-        }
+        self.into()
     }
 }
 

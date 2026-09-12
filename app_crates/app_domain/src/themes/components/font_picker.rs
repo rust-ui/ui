@@ -5,27 +5,35 @@ use registry::ui::select::{Select, SelectContent, SelectGroup, SelectOption, Sel
 /*                       ✨ TYPES ✨                          */
 /* ========================================================== */
 
-#[derive(Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Default, strum::IntoStaticStr)]
 pub enum FontName {
     // Sans (indices 0-9)
     #[default]
     Inter,
     Geist,
     Roboto,
+    #[strum(serialize = "Noto Sans")]
     NotoSans,
+    #[strum(serialize = "DM Sans")]
     DmSans,
+    #[strum(serialize = "Nunito Sans")]
     NunitoSans,
     Raleway,
     Outfit,
     Figtree,
+    #[strum(serialize = "Public Sans")]
     PublicSans,
     // Mono (indices 10-11)
+    #[strum(serialize = "JetBrains Mono")]
     JetBrainsMono,
+    #[strum(serialize = "Geist Mono")]
     GeistMono,
     // Serif (indices 12-15)
     Lora,
     Merriweather,
+    #[strum(serialize = "Playfair Display")]
     PlayfairDisplay,
+    #[strum(serialize = "Noto Serif")]
     NotoSerif,
 }
 
@@ -47,28 +55,11 @@ impl FontName {
 
     pub const SERIF: &'static [Self] = &[Self::Lora, Self::Merriweather, Self::PlayfairDisplay, Self::NotoSerif];
 
-    pub fn label(&self) -> &'static str {
-        match self {
-            Self::Inter => "Inter",
-            Self::Geist => "Geist",
-            Self::Roboto => "Roboto",
-            Self::NotoSans => "Noto Sans",
-            Self::DmSans => "DM Sans",
-            Self::NunitoSans => "Nunito Sans",
-            Self::Raleway => "Raleway",
-            Self::Outfit => "Outfit",
-            Self::Figtree => "Figtree",
-            Self::PublicSans => "Public Sans",
-            Self::JetBrainsMono => "JetBrains Mono",
-            Self::GeistMono => "Geist Mono",
-            Self::Lora => "Lora",
-            Self::Merriweather => "Merriweather",
-            Self::PlayfairDisplay => "Playfair Display",
-            Self::NotoSerif => "Noto Serif",
-        }
+    pub fn label(self) -> &'static str {
+        self.into()
     }
 
-    pub fn css_value(&self) -> &'static str {
+    pub fn css_value(self) -> &'static str {
         match self {
             Self::Inter => "'Inter', sans-serif",
             Self::Geist => "'Geist', sans-serif",
