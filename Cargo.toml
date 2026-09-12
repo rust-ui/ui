@@ -167,7 +167,6 @@ cognitive_complexity = "allow"
 multiple_crate_versions = "allow"
 cargo_common_metadata = "allow"
 allow_attributes = "allow"
-allow_attributes_without_reason = "allow"
 
 [workspace.lints.rust]
 # Temporary deployment mode: suppress ordinary compiler warnings; explicit safety denies above remain active.
