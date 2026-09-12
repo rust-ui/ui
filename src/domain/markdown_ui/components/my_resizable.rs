@@ -70,7 +70,10 @@ pub fn ResizableBackground(#[props(into, optional)] class: Option<String>) -> El
         div {
             class: "{merged}",
             "data-resizable-bg": true,
-            style: if let Some(width) = width { "width: {width()}px; background-image: radial-gradient(circle, light-dark(#ccc, #444) 1px, transparent 1px); background-size: 20px 20px; background-attachment: fixed;" } else { "background-image: radial-gradient(circle, light-dark(#ccc, #444) 1px, transparent 1px); background-size: 20px 20px; background-attachment: fixed;" },
+            style: width.map_or_else(
+                || "background-image: radial-gradient(circle, light-dark(#ccc, #444) 1px, transparent 1px); background-size: 20px 20px; background-attachment: fixed;".to_string(),
+                |w| format!("width: {}px; background-image: radial-gradient(circle, light-dark(#ccc, #444) 1px, transparent 1px); background-size: 20px 20px; background-attachment: fixed;", w()),
+            ),
         }
     }
 }

@@ -13,10 +13,11 @@ use crate::components::navigation::header_docs::HeaderDocs;
 type IconFn = fn(&str) -> Element;
 
 /// Cell size (px) of one icon button, gap included: button is `size-16`
-/// (64px, fixed regardless of icon display size) plus the grid's `gap-2`
-/// (8px). ~1500 icons rendered at once made the grid slow to build/diff on
+/// (64px, fixed regardless of icon display size) plus the grid's `gap-2` (8px).
+///
+/// ~1500 icons rendered at once made the grid slow to build/diff on
 /// iOS's native webview (VDOM cost, not paint cost, so CSS
-/// content-visibility alone didn't fix it) — virtual-scroll it instead,
+/// content-visibility alone didn't fix it), so it's virtual-scrolled instead,
 /// same `use_grid_virtual_scroll` hook the data grid demo uses.
 const ICON_ITEM_SIZE: usize = 72;
 
