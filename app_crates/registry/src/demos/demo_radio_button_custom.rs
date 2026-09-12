@@ -7,7 +7,7 @@ const BUDGETS: &[&str] = &["<$1K", "$1K - $2K", "$2K - $5K", "$5K - $10K", ">$10
 
 #[component]
 pub fn DemoRadioButtonCustom() -> Element {
-    let mut selected = use_signal(|| "$2K - $5K".to_string());
+    let selected = use_signal(|| "$2K - $5K".to_string());
 
     rsx! {
         RadioGroup { value: selected,

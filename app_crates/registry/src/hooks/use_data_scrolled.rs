@@ -10,7 +10,7 @@ use wasm_bindgen::JsCast;
 pub const DATA_SCROLL_TARGET: &str = "data-scroll-target";
 
 #[must_use]
-pub fn use_data_scrolled(threshold_px: u32) -> Signal<bool> {
+pub fn use_data_scrolled(_threshold_px: u32) -> Signal<bool> {
     let is_data_scrolled_signal = use_signal(|| false);
 
     #[cfg(target_arch = "wasm32")]
@@ -24,7 +24,7 @@ pub fn use_data_scrolled(threshold_px: u32) -> Signal<bool> {
         });
 
         use_effect(move || {
-            let threshold = f64::from(threshold_px);
+            let threshold = f64::from(_threshold_px);
             let scroll_container = web_sys::window()
                 .and_then(|w| w.document())
                 .and_then(|d| d.get_element_by_id(DATA_SCROLL_TARGET));

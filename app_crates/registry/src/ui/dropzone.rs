@@ -92,8 +92,8 @@ pub fn Dropzone(
     #[props(optional)] max_size_mb: Option<f64>,
     #[props(optional)] accept: Option<Vec<String>>,
 ) -> Element {
-    let mut files = use_signal(Vec::<DropzoneFile>::new);
-    let mut is_dragging = use_signal(|| false);
+    let files = use_signal(Vec::<DropzoneFile>::new);
+    let is_dragging = use_signal(|| false);
     let view = use_signal(|| ViewMode::List);
 
     use_context_provider(|| DropzoneCtx {

@@ -1,3 +1,8 @@
+#![cfg_attr(
+    not(target_arch = "wasm32"),
+    allow(dead_code, reason = "DOM lock helpers are only executable in the wasm browser target")
+)]
+
 use dioxus::prelude::*;
 use wasm_bindgen::JsCast;
 
@@ -24,6 +29,7 @@ pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
     const TARGET_DIALOG_LOCK_BODY: &str = "#target__dialog_lock_body";
 
     let locked_signal = use_signal(|| initial_locked);
+    #[cfg(target_arch = "wasm32")]
     let mut scroll_position_signal = use_signal(|| 0.0_f64);
 
     #[cfg(target_arch = "wasm32")]

@@ -46,6 +46,10 @@ impl BugReportRequest {
         }
     }
 
+    #[cfg_attr(
+        not(target_arch = "wasm32"),
+        allow(dead_code, reason = "used by the wasm client diagnostic handler")
+    )]
     pub fn with_stack_trace(mut self, stack_trace: impl Into<String>) -> Self {
         self.stack_trace = Some(stack_trace.into());
         self
@@ -56,6 +60,10 @@ impl BugReportRequest {
         self
     }
 
+    #[cfg_attr(
+        not(target_arch = "wasm32"),
+        allow(dead_code, reason = "reserved for browser diagnostic payloads")
+    )]
     pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
         self.user_agent = Some(user_agent.into());
         self

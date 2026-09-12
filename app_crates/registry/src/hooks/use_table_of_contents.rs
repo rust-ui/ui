@@ -1,3 +1,8 @@
+#![cfg_attr(
+    not(target_arch = "wasm32"),
+    allow(dead_code, reason = "DOM scroll-spy helpers are only executable in the wasm browser target")
+)]
+
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 

@@ -27,12 +27,6 @@ pub enum ScreenSize {
     Phone,
 }
 
-impl ScreenSize {
-    fn as_str(self) -> &'static str {
-        self.into()
-    }
-}
-
 impl From<ScreenSize> for ResizablePreset {
     fn from(value: ScreenSize) -> Self {
         match value {

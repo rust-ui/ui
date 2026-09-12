@@ -1,3 +1,8 @@
+#![cfg_attr(
+    not(target_arch = "wasm32"),
+    allow(dead_code, reason = "DOM resize handlers are only executable in the wasm browser target")
+)]
+
 use std::cell::RefCell;
 use std::rc::Rc;
 use std::sync::Arc;
@@ -105,7 +110,7 @@ fn remove_drag_listeners(
 #[must_use]
 pub fn use_resizable(
     container_element: ReadSignal<Option<web_sys::Element>>,
-    handle_element: ReadSignal<Option<web_sys::Element>>,
+    _handle_element: ReadSignal<Option<web_sys::Element>>,
     preset: ReadSignal<ResizablePreset>,
 ) -> ResizableState {
     let background_width = use_signal(|| 0.0_f64);
@@ -120,10 +125,11 @@ pub fn use_resizable(
     // wasm32-only: `web_sys`/`js_sys` FFI calls panic unconditionally on a
     // native (non-wasm) target, even behind `if let Some(...)` — see
     // use_table_of_contents.rs for the iOS crash this pattern caused.
+    #[cfg(target_arch = "wasm32")]
     let is_mounted_for_drag = Arc::clone(&is_mounted);
     #[cfg(target_arch = "wasm32")]
     use_effect(move || {
-        let Some(handle) = handle_element.peek().clone() else {
+        let Some(handle) = _handle_element.peek().clone() else {
             return;
         };
         let Some(window) = web_sys::window() else { return };

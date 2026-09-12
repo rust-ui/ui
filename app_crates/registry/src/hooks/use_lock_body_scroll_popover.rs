@@ -1,3 +1,8 @@
+#![cfg_attr(
+    not(target_arch = "wasm32"),
+    allow(dead_code, reason = "DOM lock helpers are only executable in the wasm browser target")
+)]
+
 use dioxus::prelude::*;
 
 /// Hook to lock/unlock body scroll while preserving scroll position.
@@ -19,6 +24,7 @@ use dioxus::prelude::*;
 #[must_use]
 pub fn use_lock_body_scroll_popover(initial_locked: bool) -> Signal<bool> {
     let locked_signal = use_signal(|| initial_locked);
+    #[cfg(target_arch = "wasm32")]
     let mut scroll_position_signal = use_signal(|| 0.0_f64);
 
     use_effect(move || {

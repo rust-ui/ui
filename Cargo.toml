@@ -149,10 +149,7 @@ multiple_crate_versions = "allow" # Transitive Dioxus, reqwest, and platform sta
 
 [workspace.lints.rust]
 # Compiler warnings are part of strict quality gate.
-dead_code = "allow"
 unsafe_code = "deny"
-unused_variables = "allow"
-unused_mut = "allow"
 irrefutable_let_patterns = "deny"
 unused_must_use = "deny"
 non_ascii_idents = "deny"

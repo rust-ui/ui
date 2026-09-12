@@ -4,7 +4,6 @@ use tw_merge::tw_merge;
 
 #[derive(Clone, Copy)]
 struct ResizableContext {
-    container_element: Signal<Option<web_sys::Element>>,
     handle_element: Signal<Option<web_sys::Element>>,
     background_width: ReadSignal<f64>,
 }
@@ -28,7 +27,6 @@ pub fn Resizable(
     let resizable_state = use_resizable(container_element.into(), handle_element.into(), preset);
 
     use_context_provider(|| ResizableContext {
-        container_element,
         handle_element,
         background_width: resizable_state.background_width,
     });

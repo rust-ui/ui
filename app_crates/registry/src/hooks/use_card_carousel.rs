@@ -1,3 +1,8 @@
+#![cfg_attr(
+    not(target_arch = "wasm32"),
+    allow(dead_code, reason = "DOM event listeners are only executable in the wasm browser target")
+)]
+
 use std::cell::RefCell;
 
 use wasm_bindgen::JsCast;
