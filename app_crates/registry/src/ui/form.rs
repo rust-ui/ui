@@ -364,8 +364,8 @@ pub fn FormInput(
         .is_some_and(Option::is_some);
     let aria_invalid = if is_touched && has_error { Some("true") } else { None };
 
-    let set_value = form_ctx.set_value.clone();
-    let touch_fn = form_ctx.touch_field.clone();
+    let set_value = std::sync::Arc::clone(&form_ctx.set_value);
+    let touch_fn = std::sync::Arc::clone(&form_ctx.touch_field);
     let field_name_input = field_name.clone();
     let field_name_blur = field_name.clone();
 

@@ -148,14 +148,7 @@ as_underscore = "deny"
 
 # Quality ratchet.
 redundant_clone = "allow"
-inefficient_to_string = "allow"
-cloned_instead_of_copied = "allow"
 trivially_copy_pass_by_ref = "allow"
-explicit_iter_loop = "allow"
-from_over_into = "allow"
-fallible_impl_from = "allow"
-clone_on_ref_ptr = "allow"
-needless_borrow = "allow"
 # TODO: Clean up documentation markup, literal separators, and derives, then re-enable.
 doc_markdown = "allow"
 print_stdout = "warn" # build.rs needs Cargo directive output
