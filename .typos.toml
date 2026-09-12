@@ -1,5 +1,5 @@
 [files]
-extend-exclude = ["public/cdn/*", "leptos-ui/**"]
+extend-exclude = ["public/cdn/*", "leptos-ui/**", "**/PLAN_*"]
 
 [default.extend-words]
 Ratatui = "Ratatui"
@@ -13,3 +13,4 @@ THA = "THA"
 TTO = "TTO"
 ist = "ist"
 IST = "IST"
+udid = "udid"
