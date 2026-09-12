@@ -163,15 +163,14 @@ pub fn StepperIndicator(#[props(into, optional)] class: Option<String>, children
 
     rsx! {
         span { "data-name": "StepperIndicator", "aria-hidden": "true", class: "{merged}",
-            match children {
-                Some(children) => children,
-                None => {
+            {
+                children.unwrap_or_else(|| {
                     if state == StepState::Completed {
                         rsx! { Check { class: "size-4" } }
                     } else {
                         rsx! { "{item_ctx.step + 1}" }
                     }
-                }
+                })
             }
         }
     }

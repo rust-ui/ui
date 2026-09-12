@@ -6935,13 +6935,12 @@ fn prev_next_in(
     slug: &str,
 ) -> (Option<&'static RegistryEntry>, Option<&'static RegistryEntry>) {
     let pos = registry.iter().position(|entry| entry.slug == slug);
-    match pos {
-        None => (None, None),
-        Some(i) => (
+    pos.map_or((None, None), |i| {
+        (
             i.checked_sub(1).and_then(|previous| registry.get(previous).copied()),
             registry.get(i + 1).copied(),
-        ),
-    }
+        )
+    })
 }
 
 pub fn find_docs_component_entry(slug: &str) -> Option<&'static RegistryEntry> {

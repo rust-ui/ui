@@ -203,11 +203,7 @@ pub fn FormLabel(
     #[props(into, optional)] html_for: Option<String>,
     children: Element,
 ) -> Element {
-    let field_name = if let Some(f) = html_for {
-        f
-    } else {
-        consume_context::<FieldContext>().name
-    };
+    let field_name = html_for.unwrap_or_else(|| consume_context::<FieldContext>().name);
 
     let merged = tw_merge!(
         "group/form-label peer/form-label flex gap-2 leading-snug w-fit group-data-[disabled=true]/field:opacity-50 has-[>[data-name=Field]]:w-full has-[>[data-name=Field]]:flex-col has-[>[data-name=Field]]:rounded-md has-[>[data-name=Field]]:border [&>*]:data-[name=Field]:p-4 has-data-[state=checked]:bg-primary/5 has-data-[state=checked]:border-primary dark:has-data-[state=checked]:bg-primary/10",

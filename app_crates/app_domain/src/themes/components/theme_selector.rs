@@ -150,11 +150,7 @@ pub fn CopyCodeDialog(
         });
     };
 
-    let trigger_label = if let Some(c) = children {
-        c
-    } else {
-        rsx! { "Copy code" }
-    };
+    let trigger_label = children.map_or_else(|| rsx! { "Copy code" }, |c| c);
 
     rsx! {
         Dialog {

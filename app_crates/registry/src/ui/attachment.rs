@@ -203,40 +203,45 @@ pub fn AttachmentTrigger(
     let merged = tw_merge!("absolute inset-0 z-10 outline-none", class.as_deref().unwrap_or(""));
     let dialog_id = use_dialog_trigger_id();
 
-    if let Some(url) = href {
-        rsx! {
-            a {
-                "data-name": "AttachmentTrigger",
-                class: "{merged}",
-                href: "{url}",
-                target: "_blank",
-                rel: "noreferrer",
-                "aria-label": aria_label.as_deref(),
-            }
-        }
-    } else if onclick.is_some() {
-        rsx! {
-            button {
-                "data-name": "AttachmentTrigger",
-                r#type: "button",
-                class: "{merged}",
-                "aria-label": aria_label.as_deref(),
-                onclick: move |e| {
-                    if let Some(handler) = &onclick {
-                        handler.call(e);
+    href.map_or_else(
+        || {
+            if onclick.is_some() {
+                rsx! {
+                    button {
+                        "data-name": "AttachmentTrigger",
+                        r#type: "button",
+                        class: "{merged}",
+                        "aria-label": aria_label.as_deref(),
+                        onclick: move |e| {
+                            if let Some(handler) = &onclick {
+                                handler.call(e);
+                            }
+                        },
                     }
-                },
+                }
+            } else {
+                rsx! {
+                    button {
+                        "data-name": "AttachmentTrigger",
+                        r#type: "button",
+                        class: "{merged}",
+                        "aria-label": aria_label.as_deref(),
+                        "data-dialog-trigger": dialog_id.as_deref().unwrap_or(""),
+                    }
+                }
             }
-        }
-    } else {
-        rsx! {
-            button {
-                "data-name": "AttachmentTrigger",
-                r#type: "button",
-                class: "{merged}",
-                "aria-label": aria_label.as_deref(),
-                "data-dialog-trigger": dialog_id.as_deref().unwrap_or(""),
+        },
+        |url| {
+            rsx! {
+                a {
+                    "data-name": "AttachmentTrigger",
+                    class: "{merged}",
+                    href: "{url}",
+                    target: "_blank",
+                    rel: "noreferrer",
+                    "aria-label": aria_label.as_deref(),
+                }
             }
-        }
-    }
+        },
+    )
 }

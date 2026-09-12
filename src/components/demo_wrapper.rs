@@ -155,7 +155,15 @@ pub fn DemoWrapper(
             div { style: "{code_display()}",
                 {
                     let source = demo_name.as_deref().and_then(get_demo_source);
-                    if let Some(code) = source {
+                    source.map_or_else(
+                        || {
+                            rsx! {
+                                div { class: "rounded-xl border bg-muted flex items-center justify-center min-h-[370px]",
+                                    p { class: "text-sm text-muted-foreground", "Source not available." }
+                                }
+                            }
+                        },
+                        |code| {
                         let code = code.to_string();
                         let highlighted = crate::markdown::highlight_code::highlight_code(&code, Some("rust"), None);
                         let copy_id = format!("copy-btn-{id}");
@@ -186,13 +194,8 @@ pub fn DemoWrapper(
                                 }
                             }
                         }
-                    } else {
-                        rsx! {
-                            div { class: "rounded-xl border bg-muted flex items-center justify-center min-h-[370px]",
-                                p { class: "text-sm text-muted-foreground", "Source not available." }
-                            }
-                        }
-                    }
+                        },
+                    )
                 }
             }
         }

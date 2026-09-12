@@ -866,8 +866,9 @@ where
                         let sort_signal = sort_signals.read().get(&col).copied();
                         let left = get_pinned_left_position(col, &pinned_columns_signal.read());
                         let width = get_column_width(col);
-                        if let Some(sort_signal) = sort_signal {
-                            rsx! {
+                        sort_signal.map_or_else(
+                            || rsx! { div {} },
+                            |sort_signal| rsx! {
                                 GridPinnedHeaderCell { left, width,
                                     PinnableSortableHeaderCell {
                                         column: col,
@@ -878,10 +879,8 @@ where
                                         is_pinned: true,
                                     }
                                 }
-                            }
-                        } else {
-                            rsx! { div {} }
-                        }
+                            },
+                        )
                     }
                 }
 
@@ -890,8 +889,9 @@ where
                     {
                         let sort_signal = sort_signals.read().get(&col).copied();
                         let is_visible = col.is_visible(pinned_columns_signal, visible_columns_signal);
-                        if let Some(sort_signal) = sort_signal {
-                            rsx! {
+                        sort_signal.map_or_else(
+                            || rsx! { div {} },
+                            |sort_signal| rsx! {
                                 GridHeaderCell {
                                     colindex: col.colindex(),
                                     column: col.css_safe_name(),
@@ -904,10 +904,8 @@ where
                                         visible_columns_signal,
                                     }
                                 }
-                            }
-                        } else {
-                            rsx! { div {} }
-                        }
+                            },
+                        )
                     }
                 }
             }

@@ -102,14 +102,18 @@ where
                 continue;
             }
 
-            let json_value = if let Ok(num) = value.parse::<i64>() {
-                serde_json::Value::Number(num.into())
-            } else if let Ok(num) = value.parse::<f64>() {
-                serde_json::Number::from_f64(num)
-                    .map_or_else(|| serde_json::Value::String(value.clone()), serde_json::Value::Number)
-            } else {
-                serde_json::Value::String(value.clone())
-            };
+            let json_value = value.parse::<i64>().map_or_else(
+                |_| {
+                    value.parse::<f64>().map_or_else(
+                        |_| serde_json::Value::String(value.clone()),
+                        |num| {
+                            serde_json::Number::from_f64(num)
+                                .map_or_else(|| serde_json::Value::String(value.clone()), serde_json::Value::Number)
+                        },
+                    )
+                },
+                |num| serde_json::Value::Number(num.into()),
+            );
             default_map.insert(key.clone(), json_value);
         }
 

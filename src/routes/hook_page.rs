@@ -17,11 +17,11 @@ pub fn HookPage(name: String) -> Element {
 
     rsx! {
         div { class: "flex flex-col pt-4 mx-auto w-full min-h-screen px-3 md:px-4 max-w-[730px]",
-            match entry {
-                None => rsx! {
+            {entry.map_or_else(
+                || rsx! {
                     PageNotFound { segments: vec!["docs".into(), "hooks".into(), name.clone()] }
                 },
-                Some(e) => {
+                |e| {
                     let page_title = format!(
                         "Dioxus {} · Rust UI Components | {}",
                         e.title(),
@@ -88,8 +88,8 @@ pub fn HookPage(name: String) -> Element {
                         HookBottomNav { prev, next }
                         FooterLayout {}
                     }
-                }
-            }
+                },
+            )}
         }
     }
 }

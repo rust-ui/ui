@@ -207,17 +207,16 @@ pub fn PageIcons() -> Element {
                         class: "flex justify-center items-center p-8 rounded-lg bg-muted w-fit",
                         style: container_style(),
                         {
-                            if let Some(icon_fn) = selected_icon_fn() {
-                                rsx! {
+                            selected_icon_fn().map_or_else(
+                                || rsx! { div {} },
+                                |icon_fn| rsx! {
                                     div {
                                         style: "color: var(--icon-color, currentColor)",
                                         class: "size-32",
                                         {icon_fn("size-32")}
                                     }
-                                }
-                            } else {
-                                rsx! { div {} }
-                            }
+                                },
+                            )
                         }
                     }
                     DrawerClose { "Close" }
