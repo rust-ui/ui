@@ -10,7 +10,7 @@ pub enum Direction {
 }
 
 impl Direction {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }

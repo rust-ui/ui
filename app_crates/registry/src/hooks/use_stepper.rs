@@ -15,7 +15,7 @@ pub enum StepState {
 }
 
 impl StepState {
-    pub fn as_str(&self) -> &'static str {
+    pub fn as_str(self) -> &'static str {
         self.into()
     }
 }

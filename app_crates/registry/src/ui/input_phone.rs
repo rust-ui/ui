@@ -247,7 +247,7 @@ define_countries![
 ];
 
 impl Country {
-    pub fn name(&self) -> String {
+    pub fn name(self) -> String {
         let variant_name = format!("{self:?}");
         let mut result = String::new();
         for (i, c) in variant_name.chars().enumerate() {
@@ -259,7 +259,7 @@ impl Country {
         result
     }
 
-    pub fn flag_emoji(&self) -> String {
+    pub fn flag_emoji(self) -> String {
         self.alpha2()
             .chars()
             .filter_map(|c| std::char::from_u32(0x1F1E6 + (c.to_ascii_uppercase() as u32 - 'A' as u32)))
@@ -269,7 +269,7 @@ impl Country {
     // Per-country reference table: identical arms are kept split by country so each
     // entry stays independently editable.
     #[allow(clippy::match_same_arms)]
-    pub const fn trunk_prefix(&self) -> Option<&'static str> {
+    pub const fn trunk_prefix(self) -> Option<&'static str> {
         match self {
             Self::UnitedStatesOfAmerica
             | Self::Canada

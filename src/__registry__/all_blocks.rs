@@ -85,8 +85,6 @@ impl std::fmt::Display for BlockIdKebab {
 
 // ─── from_kebab ──────────────────────────────────────────────────────────────
 
-// `to_*` helpers take `&self` on this `Copy` id enum to keep call sites ergonomic
-// and match the sibling `WorkflowIdKebab` impl.
 #[allow(clippy::wrong_self_convention)]
 impl BlockIdKebab {
     pub fn from_kebab(s: &str) -> Option<Self> {
@@ -128,7 +126,7 @@ impl BlockIdKebab {
 
     // ─── Title ───────────────────────────────────────────────────────────────
 
-    pub fn to_title(&self) -> &'static str {
+    pub fn to_title(self) -> &'static str {
         match self {
             Self::Faq01 => "FAQ with Numbered Grid",
             Self::Faq02 => "FAQ with Sticky Sidebar",
@@ -166,7 +164,7 @@ impl BlockIdKebab {
 
     // ─── Meta ────────────────────────────────────────────────────────────────
 
-    pub fn meta(&self) -> BlockMeta {
+    pub fn meta(self) -> BlockMeta {
         match self {
             Self::Footer01 => BlockMeta {
                 iframe_height: "897px",
@@ -198,7 +196,7 @@ impl BlockIdKebab {
 
     // ─── to_component ────────────────────────────────────────────────────────
 
-    pub fn to_component(&self) -> Element {
+    pub fn to_component(self) -> Element {
         match self {
             Self::Faq01 => registry::blocks::faq01::Faq01(),
             Self::Faq02 => registry::blocks::faq02::Faq02(),
@@ -236,7 +234,7 @@ impl BlockIdKebab {
 
     // ─── to_full_view_url ────────────────────────────────────────────────────
 
-    pub fn to_full_view_url(&self) -> String {
+    pub fn to_full_view_url(self) -> String {
         match self {
             Self::Sidenav01 => "/view/sidenav01/docs/components".to_string(),
             Self::Sidenav02 => "/view/sidenav02/docs/components".to_string(),
@@ -255,13 +253,13 @@ impl BlockIdKebab {
 
     // ─── to_md ───────────────────────────────────────────────────────────────
 
-    pub fn to_md(&self) -> String {
+    pub fn to_md(self) -> String {
         format!("{self}.md")
     }
 
     // ─── files ───────────────────────────────────────────────────────────────
 
-    pub fn files(&self) -> &'static [BlockFile] {
+    pub fn files(self) -> &'static [BlockFile] {
         match self {
             Self::Faq01 => &[
                 BlockFile {
@@ -840,7 +838,7 @@ impl BlockIdKebab {
 
     // ─── file_tree ───────────────────────────────────────────────────────────
 
-    pub fn file_tree(&self) -> Vec<BlockFileTreeItem> {
+    pub fn file_tree(self) -> Vec<BlockFileTreeItem> {
         match self {
             Self::Faq01 => vec![
                 BlockFileTreeItem::Folder {

@@ -147,7 +147,6 @@ iter_over_hash_type = "allow"
 as_underscore = "deny"
 
 # Quality ratchet.
-trivially_copy_pass_by_ref = "allow"
 # TODO: Clean up documentation markup, literal separators, and derives, then re-enable.
 doc_markdown = "allow"
 print_stdout = "warn" # build.rs needs Cargo directive output

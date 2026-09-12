@@ -14,7 +14,7 @@ pub enum BubbleVariant {
 }
 
 impl BubbleVariant {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }
@@ -27,7 +27,7 @@ pub enum BubbleAlign {
 }
 
 impl BubbleAlign {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }
@@ -40,7 +40,7 @@ pub enum BubbleReactionsSide {
 }
 
 impl BubbleReactionsSide {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }

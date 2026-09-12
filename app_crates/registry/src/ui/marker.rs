@@ -10,7 +10,7 @@ pub enum MarkerVariant {
 }
 
 impl MarkerVariant {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }

@@ -11,6 +11,7 @@ workspace = true
 dioxus = { version = "0.7", features = ["router", "fullstack"] }
 registry.workspace = true
 icons.workspace = true
+strum.workspace = true
 
 [features]
 default = []

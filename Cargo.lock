@@ -66,6 +66,7 @@ dependencies = [
  "dioxus",
  "icons",
  "registry",
+ "strum 0.27.2",
 ]
 
 [[package]]

@@ -37,8 +37,6 @@ impl std::fmt::Display for WorkflowIdKebab {
 
 // ─── from_kebab ───────────────────────────────────────────────────────────────
 
-// `to_*` helpers take `&self` on this `Copy` id enum to keep call sites ergonomic
-// and match the sibling `BlockIdKebab` impl.
 #[allow(clippy::wrong_self_convention)]
 impl WorkflowIdKebab {
     pub fn from_kebab(s: &str) -> Option<Self> {
@@ -57,7 +55,7 @@ impl WorkflowIdKebab {
 
     // ─── Title ───────────────────────────────────────────────────────────────
 
-    pub fn to_title(&self) -> &'static str {
+    pub fn to_title(self) -> &'static str {
         match self {
             Self::Workflow01 => "Basic Workflow",
             Self::Workflow02 => "Copy & Paste",
@@ -74,19 +72,19 @@ impl WorkflowIdKebab {
 
     // Kept as a method for parity with `BlockIdKebab::meta`.
     #[allow(clippy::unused_self)]
-    pub fn meta(&self) -> WorkflowMeta {
+    pub fn meta(self) -> WorkflowMeta {
         WorkflowMeta::default()
     }
 
     // ─── to_full_view_url ─────────────────────────────────────────────────────
 
-    pub fn to_full_view_url(&self) -> String {
+    pub fn to_full_view_url(self) -> String {
         format!("/view/{self}")
     }
 
     // ─── files ────────────────────────────────────────────────────────────────
 
-    pub fn files(&self) -> &'static [BlockFile] {
+    pub fn files(self) -> &'static [BlockFile] {
         match self {
             Self::Workflow01 => &[BlockFile {
                 name: "workflow01.rs",
@@ -141,7 +139,7 @@ impl WorkflowIdKebab {
 
     // ─── file_tree ────────────────────────────────────────────────────────────
 
-    pub fn file_tree(&self) -> Vec<BlockFileTreeItem> {
+    pub fn file_tree(self) -> Vec<BlockFileTreeItem> {
         let file_name = match self {
             Self::Workflow01 => "workflow01.rs",
             Self::Workflow02 => "workflow02.rs",
@@ -163,7 +161,7 @@ impl WorkflowIdKebab {
 
     // ─── to_component ─────────────────────────────────────────────────────────
 
-    pub fn to_component(&self) -> Element {
+    pub fn to_component(self) -> Element {
         match self {
             Self::Workflow01 => registry::workflows::workflow01::Workflow01(),
             Self::Workflow02 => registry::workflows::workflow02::Workflow02(),

@@ -11,7 +11,7 @@ pub enum AvatarSize {
 }
 
 impl AvatarSize {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }

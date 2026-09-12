@@ -13,7 +13,7 @@ pub enum AttachmentSize {
 }
 
 impl AttachmentSize {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }
@@ -26,7 +26,7 @@ pub enum AttachmentOrientation {
 }
 
 impl AttachmentOrientation {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }
@@ -42,7 +42,7 @@ pub enum AttachmentState {
 }
 
 impl AttachmentState {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }
@@ -55,7 +55,7 @@ pub enum AttachmentMediaVariant {
 }
 
 impl AttachmentMediaVariant {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }

@@ -115,7 +115,7 @@ pub enum FormLegendVariant {
 }
 
 impl FormLegendVariant {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }
@@ -153,11 +153,11 @@ pub enum FormFieldVariant {
 }
 
 impl FormFieldVariant {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 
-    fn class(&self) -> &'static str {
+    fn class(self) -> &'static str {
         match self {
             Self::Vertical => "flex-col [&>*]:w-full [&>.hidden]:w-auto",
             Self::Horizontal => {

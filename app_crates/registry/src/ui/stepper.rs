@@ -12,7 +12,7 @@ pub enum StepperOrientation {
 }
 
 impl StepperOrientation {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }

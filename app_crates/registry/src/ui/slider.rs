@@ -9,7 +9,7 @@ pub enum SliderVariant {
 }
 
 impl SliderVariant {
-    fn as_str(&self) -> &'static str {
+    fn as_str(self) -> &'static str {
         self.into()
     }
 }

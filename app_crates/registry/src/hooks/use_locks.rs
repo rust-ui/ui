@@ -17,7 +17,7 @@ pub enum LockableParam {
 
 impl LockableParam {
     /// Display label for the param.
-    pub fn label(&self) -> &'static str {
+    pub fn label(self) -> &'static str {
         match self {
             Self::Style => "Style",
             Self::BaseColor => "Base Color",
