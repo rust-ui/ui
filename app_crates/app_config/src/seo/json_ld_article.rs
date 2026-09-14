@@ -55,7 +55,7 @@ struct MainEntity {
 ///     JsonLdArticle {
 ///         title: "Dioxus Button Component",
 ///         description: "Beautiful button component for Dioxus applications",
-///         url: "https://dioxus-ui.com/docs/components/button",
+///         url: "https://rust-ui.com/docs/components/button",
 ///         keywords: vec!["dioxus".to_string(), "rust".to_string(), "button".to_string()],
 ///         article_section: "Components",
 ///     }

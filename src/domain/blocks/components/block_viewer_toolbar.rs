@@ -47,7 +47,7 @@ pub fn BlockViewerToolbar(
     let block_id = block_entry.block_id_kebab;
     let block_id_str = block_id.to_string();
     let share_url = format!(
-        "https://rust-ui.dioxus-ui.com/blocks/{}#{}",
+        "https://rust-ui.com/blocks/{}#{}",
         block_entry.category, block_id_str
     );
     let share_url_signal = use_signal(move || share_url);

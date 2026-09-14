@@ -34,7 +34,7 @@ pub fn WorkflowViewerToolbar(
 ) -> Element {
     let workflow_id = workflow_entry.workflow_id_kebab;
     let workflow_id_str = workflow_entry.workflow_id_str;
-    let share_url = format!("https://rust-ui.dioxus-ui.com/workflows/#{workflow_id_str}");
+    let share_url = format!("https://rust-ui.com/workflows/#{workflow_id_str}");
     let share_url_signal = use_signal(move || share_url);
 
     let (copy_fn, copied) = use_copy_clipboard(Some(2000));

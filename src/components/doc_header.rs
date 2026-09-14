@@ -36,12 +36,12 @@ pub fn DocHeader(
     };
 
     let breadcrumb_href = base_path.clone();
-    let view_md_url = format!("https://dioxus-ui.com{base_path}/{slug}.md");
+    let view_md_url = format!("https://rust-ui.com{base_path}/{slug}.md");
     let chatgpt_url = format!(
-        "https://chatgpt.com/?q=I'm looking at this rust/ui documentation: https://dioxus-ui.com{base_path}/{slug}.md. Help me understand how to use it. Be ready to explain concepts, give examples, or help debug based on it."
+        "https://chatgpt.com/?q=I'm looking at this rust/ui documentation: https://rust-ui.com{base_path}/{slug}.md. Help me understand how to use it. Be ready to explain concepts, give examples, or help debug based on it."
     );
     let claude_url = format!(
-        "https://claude.ai/new?q=I'm looking at this rust/ui documentation: https://dioxus-ui.com{base_path}/{slug}.md. Help me understand how to use it. Be ready to explain concepts, give examples, or help debug based on it."
+        "https://claude.ai/new?q=I'm looking at this rust/ui documentation: https://rust-ui.com{base_path}/{slug}.md. Help me understand how to use it. Be ready to explain concepts, give examples, or help debug based on it."
     );
 
     rsx! {

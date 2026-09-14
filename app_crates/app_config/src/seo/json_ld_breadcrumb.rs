@@ -40,11 +40,11 @@ struct ListItem {
 /// let breadcrumbs = vec![
 ///     BreadcrumbItem {
 ///         name: "Home".to_string(),
-///         url: Some("https://dioxus-ui.com".to_string()),
+///         url: Some("https://rust-ui.com".to_string()),
 ///     },
 ///     BreadcrumbItem {
 ///         name: "Components".to_string(),
-///         url: Some("https://dioxus-ui.com/docs/components".to_string()),
+///         url: Some("https://rust-ui.com/docs/components".to_string()),
 ///     },
 ///     BreadcrumbItem {
 ///         name: "Button".to_string(),
@@ -96,11 +96,11 @@ mod unit_tests {
         vec![
             BreadcrumbItem {
                 name: "Home".to_string(),
-                url: Some("https://dioxus-ui.com".to_string()),
+                url: Some("https://rust-ui.com".to_string()),
             },
             BreadcrumbItem {
                 name: "Components".to_string(),
-                url: Some("https://dioxus-ui.com/docs/components".to_string()),
+                url: Some("https://rust-ui.com/docs/components".to_string()),
             },
             BreadcrumbItem {
                 name: "Button".to_string(),
@@ -239,7 +239,7 @@ mod unit_tests {
         let breadcrumbs = vec![
             BreadcrumbItem {
                 name: "Home".to_string(),
-                url: Some("https://dioxus-ui.com".to_string()),
+                url: Some("https://rust-ui.com".to_string()),
             },
             BreadcrumbItem {
                 name: "Page".to_string(),
