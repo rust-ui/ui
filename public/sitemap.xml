@@ -2,18 +2,18 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>https://rust-ui.com/sitemap-main.xml</loc>
-    <lastmod>2026-10-01T07:54:41+00:00</lastmod>
+    <lastmod>2026-10-01T07:55:56+00:00</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://rust-ui.com/sitemap-components.xml</loc>
-    <lastmod>2026-10-01T07:54:41+00:00</lastmod>
+    <lastmod>2026-10-01T07:55:56+00:00</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://rust-ui.com/sitemap-blocks.xml</loc>
-    <lastmod>2026-10-01T07:54:41+00:00</lastmod>
+    <lastmod>2026-10-01T07:55:56+00:00</lastmod>
   </sitemap>
   <sitemap>
     <loc>https://rust-ui.com/sitemap-hooks.xml</loc>
-    <lastmod>2026-10-01T07:54:41+00:00</lastmod>
+    <lastmod>2026-10-01T07:55:56+00:00</lastmod>
   </sitemap>
 </sitemapindex>
