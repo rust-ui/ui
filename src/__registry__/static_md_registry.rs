@@ -12,7 +12,6 @@
 )]
 
 use dioxus::prelude::*;
-use strum::{AsRefStr, EnumString};
 use registry::demos::demo_accordion::DemoAccordion;
 use registry::demos::demo_accordion_bordered::DemoAccordionBordered;
 use registry::demos::demo_alert::DemoAlert;
@@ -241,11 +240,12 @@ use registry::demos::demo_use_locks::DemoUseLocks;
 use registry::demos::demo_use_media_query::DemoUseMediaQuery;
 use registry::demos::demo_use_press_hold::DemoUsePressHold;
 use registry::demos::demo_use_random::DemoUseRandom;
+use strum::{AsRefStr, EnumString};
 
 use crate::domain::markdown_ui::components::static_demo_wrapper::StaticDemoWrapper;
 use crate::domain::markdown_ui::components::static_install_wrapper::StaticInstallWrapper;
 use crate::domain::markdown_ui::components::static_md_docs_wrapper::StaticMdDocsWrapper;
-use crate::markdown::converter::{convert_md, MdComponents};
+use crate::markdown::converter::{MdComponents, convert_md};
 use crate::markdown::parse_md;
 use crate::registry::md_docs::docs_installation_cli_tree_view::DocsInstallationCliTreeView;
 use crate::registry::types::RegistryEntry;
@@ -2504,13 +2504,19 @@ pub fn get_static_registry_entry(markdown_type: MarkdownType) -> Option<&'static
 
 fn build_md_components() -> MdComponents {
     let mut combined_components = MdComponents::new();
-    combined_components.add("StaticDocsInstallationCliTreeView", |_| rsx! {
-        StaticMdDocsWrapper {
-            DocsInstallationCliTreeView {}
+    combined_components.add("StaticDocsInstallationCliTreeView", |_| {
+        rsx! {
+            StaticMdDocsWrapper {
+                DocsInstallationCliTreeView {}
+            }
         }
     });
     combined_components.add("StaticAccordion", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAccordion,
@@ -2520,7 +2526,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAccordionBordered", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAccordionBordered,
@@ -2530,7 +2540,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAlert", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAlert,
@@ -2540,7 +2554,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAlertDialog", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAlertDialog,
@@ -2550,7 +2568,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAlertDialogSmallMedia", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAlertDialogSmallMedia,
@@ -2560,7 +2582,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAnimate", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAnimate,
@@ -2570,7 +2596,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAnimateGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAnimateGroup,
@@ -2580,7 +2610,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAspectRatio", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAspectRatio,
@@ -2590,7 +2624,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAttachment", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAttachment,
@@ -2600,7 +2638,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAttachmentGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAttachmentGroup,
@@ -2610,7 +2652,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAttachmentImage", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAttachmentImage,
@@ -2620,7 +2666,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAttachmentSizes", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAttachmentSizes,
@@ -2630,7 +2680,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAttachmentStates", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAttachmentStates,
@@ -2640,7 +2694,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAttachmentTrigger", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAttachmentTrigger,
@@ -2650,7 +2708,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAutoForm", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAutoForm,
@@ -2660,7 +2722,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAvatar", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAvatar,
@@ -2670,7 +2736,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticAvatarGroupCountIcon", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoAvatarGroupCountIcon,
@@ -2680,7 +2750,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBadge", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBadge,
@@ -2690,7 +2764,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBadgeColors", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBadgeColors,
@@ -2700,7 +2778,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBadgeCustom", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBadgeCustom,
@@ -2710,7 +2792,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBadgeVariants", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBadgeVariants,
@@ -2720,7 +2806,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBottomNav", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBottomNav,
@@ -2730,7 +2820,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBreadcrumb", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBreadcrumb,
@@ -2740,7 +2834,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBreadcrumbRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBreadcrumbRtl,
@@ -2750,7 +2848,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBubble", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBubble,
@@ -2760,7 +2862,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBubbleAlignment", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBubbleAlignment,
@@ -2770,7 +2876,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBubbleCollapsible", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBubbleCollapsible,
@@ -2780,7 +2890,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBubbleGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBubbleGroup,
@@ -2790,7 +2904,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBubbleLinkButton", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBubbleLinkButton,
@@ -2800,7 +2918,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBubblePopover", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBubblePopover,
@@ -2810,7 +2932,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBubbleReactions", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBubbleReactions,
@@ -2820,7 +2946,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBubbleTooltip", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBubbleTooltip,
@@ -2830,7 +2960,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticBubbleVariants", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoBubbleVariants,
@@ -2840,7 +2974,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButton", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButton,
@@ -2850,7 +2988,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonAction", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonAction,
@@ -2860,7 +3002,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonDisabled", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonDisabled,
@@ -2870,7 +3016,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonGroup,
@@ -2880,7 +3030,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonGroupIcon", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonGroupIcon,
@@ -2890,7 +3044,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonGroupInput", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonGroupInput,
@@ -2900,7 +3058,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonGroupRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonGroupRtl,
@@ -2910,7 +3072,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonGroupSeparator", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonGroupSeparator,
@@ -2920,7 +3086,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonGroupSizes", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonGroupSizes,
@@ -2930,7 +3100,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonHref", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonHref,
@@ -2940,7 +3114,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonOverride", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonOverride,
@@ -2950,7 +3128,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonReactive", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonReactive,
@@ -2960,7 +3142,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonSizes", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonSizes,
@@ -2970,7 +3156,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonStateful", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonStateful,
@@ -2980,7 +3170,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticButtonVariants", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoButtonVariants,
@@ -2990,7 +3184,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCallout", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCallout,
@@ -3000,7 +3198,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCalloutInfo", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCalloutInfo,
@@ -3010,7 +3212,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCalloutWarning", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCalloutWarning,
@@ -3020,7 +3226,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCard", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCard,
@@ -3030,7 +3240,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCardAction", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCardAction,
@@ -3040,7 +3254,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCardCarousel", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCardCarousel,
@@ -3050,7 +3268,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCardGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCardGroup,
@@ -3060,7 +3282,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCardReverse", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCardReverse,
@@ -3070,7 +3296,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCardSm", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCardSm,
@@ -3080,7 +3310,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCarousel", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCarousel,
@@ -3090,7 +3324,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCheckbox", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCheckbox,
@@ -3100,7 +3338,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticChips", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoChips,
@@ -3110,7 +3352,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCollapsible", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCollapsible,
@@ -3120,7 +3366,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCollapsibleSettings", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCollapsibleSettings,
@@ -3130,7 +3380,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCombobox", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCombobox,
@@ -3140,7 +3394,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCommand", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCommand,
@@ -3150,7 +3408,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticCommandDialog", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoCommandDialog,
@@ -3160,7 +3422,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticContextMenu", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoContextMenu,
@@ -3170,7 +3436,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticContextMenuAction", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoContextMenuAction,
@@ -3180,7 +3450,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticContextMenuRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoContextMenuRtl,
@@ -3190,7 +3464,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDataGrid", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDataGrid,
@@ -3200,7 +3478,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDataTable", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDataTable,
@@ -3210,7 +3492,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDataTableFilters", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDataTableFilters,
@@ -3220,7 +3506,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDatePicker", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDatePicker,
@@ -3230,7 +3520,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDatePickerBooked", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDatePickerBooked,
@@ -3240,7 +3534,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDatePickerDropdown", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDatePickerDropdown,
@@ -3250,7 +3548,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDatePickerDual", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDatePickerDual,
@@ -3260,7 +3562,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDatePickerDualFull", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDatePickerDualFull,
@@ -3270,7 +3576,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDatePickerPresets", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDatePickerPresets,
@@ -3280,7 +3590,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDatePickerTime", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDatePickerTime,
@@ -3290,7 +3604,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDatePickerWeekNumbers", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDatePickerWeekNumbers,
@@ -3300,7 +3618,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDialog", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDialog,
@@ -3310,7 +3632,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDialogScrollable", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDialogScrollable,
@@ -3320,7 +3646,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDirectionProvider", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDirectionProvider,
@@ -3330,7 +3660,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDirectionProviderDefault", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDirectionProviderDefault,
@@ -3340,7 +3674,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDirectionProviderRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDirectionProviderRtl,
@@ -3350,7 +3688,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDragAndDrop", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDragAndDrop,
@@ -3360,7 +3702,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDrawer", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDrawer,
@@ -3370,7 +3716,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDrawerDialog", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDrawerDialog,
@@ -3380,7 +3730,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDrawerFamily", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDrawerFamily,
@@ -3390,7 +3744,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDrawerFocus", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDrawerFocus,
@@ -3400,7 +3758,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDrawerNested", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDrawerNested,
@@ -3410,7 +3772,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDrawerNonDismissable", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDrawerNonDismissable,
@@ -3420,7 +3786,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDrawerRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDrawerRtl,
@@ -3430,7 +3800,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDrawerScrollable", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDrawerScrollable,
@@ -3440,7 +3814,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDrawerSide", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDrawerSide,
@@ -3450,7 +3828,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDrawerSideFloating", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDrawerSideFloating,
@@ -3460,7 +3842,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDrawerSideScrollable", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDrawerSideScrollable,
@@ -3470,7 +3856,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropdownMenu", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropdownMenu,
@@ -3480,7 +3870,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropdownMenuDestructive", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropdownMenuDestructive,
@@ -3490,7 +3884,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropdownMenuEnd", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropdownMenuEnd,
@@ -3500,7 +3898,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropdownMenuEndOuter", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropdownMenuEndOuter,
@@ -3510,7 +3912,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropdownMenuRadio", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropdownMenuRadio,
@@ -3520,7 +3926,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropdownMenuRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropdownMenuRtl,
@@ -3530,7 +3940,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropdownMenuSelect", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropdownMenuSelect,
@@ -3540,7 +3954,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropdownMenuStart", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropdownMenuStart,
@@ -3550,7 +3968,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropdownMenuStartOuter", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropdownMenuStartOuter,
@@ -3560,7 +3982,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropdownMenuUser", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropdownMenuUser,
@@ -3570,7 +3996,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropdownMenuUserIcon", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropdownMenuUserIcon,
@@ -3580,7 +4010,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropzone", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropzone,
@@ -3590,7 +4024,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropzoneGrid", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropzoneGrid,
@@ -3600,7 +4038,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticDropzoneToggle", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoDropzoneToggle,
@@ -3610,7 +4052,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticEmpty", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoEmpty,
@@ -3620,7 +4066,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticEmptyInputGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoEmptyInputGroup,
@@ -3630,7 +4080,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticEmptyMuted", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoEmptyMuted,
@@ -3640,7 +4094,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticField", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoField,
@@ -3650,7 +4108,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticFieldRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoFieldRtl,
@@ -3660,7 +4122,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticForm", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoForm,
@@ -3670,7 +4136,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticFormError", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoFormError,
@@ -3680,7 +4150,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticFormFieldset", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoFormFieldset,
@@ -3690,7 +4164,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticFormGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoFormGroup,
@@ -3700,7 +4178,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticFormSelect", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoFormSelect,
@@ -3710,7 +4192,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticFormValidation", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoFormValidation,
@@ -3720,7 +4206,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticHoverCard", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoHoverCard,
@@ -3730,7 +4220,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticHoverCardRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoHoverCardRtl,
@@ -3740,7 +4234,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticImage", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoImage,
@@ -3750,7 +4248,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInput", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInput,
@@ -3760,7 +4262,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputCopy", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputCopy,
@@ -3770,7 +4276,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputGroup,
@@ -3780,7 +4290,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputGroupBlock", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputGroupBlock,
@@ -3790,7 +4304,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputGroupCustom", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputGroupCustom,
@@ -3800,7 +4318,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputGroupDropdown", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputGroupDropdown,
@@ -3810,7 +4332,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputGroupInCard", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputGroupInCard,
@@ -3820,7 +4346,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputGroupKbd", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputGroupKbd,
@@ -3830,7 +4360,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputGroupRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputGroupRtl,
@@ -3840,7 +4374,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputGroupSpinner", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputGroupSpinner,
@@ -3850,7 +4388,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputGroupText", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputGroupText,
@@ -3860,7 +4402,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputGroupTooltip", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputGroupTooltip,
@@ -3870,7 +4416,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputOtp", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputOtp,
@@ -3880,7 +4430,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputOtpSeparator", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputOtpSeparator,
@@ -3890,7 +4444,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputPhone", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputPhone,
@@ -3900,7 +4458,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputPhoneDisabled", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputPhoneDisabled,
@@ -3910,7 +4472,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputPrompt", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputPrompt,
@@ -3920,7 +4486,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticInputPromptWithTools", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoInputPromptWithTools,
@@ -3930,7 +4500,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticItem", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoItem,
@@ -3940,7 +4514,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticItemDropdownMenu", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoItemDropdownMenu,
@@ -3950,7 +4528,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticItemFileUpload", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoItemFileUpload,
@@ -3960,7 +4542,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticItemGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoItemGroup,
@@ -3970,7 +4556,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticItemMediaImage", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoItemMediaImage,
@@ -3980,7 +4570,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticItemRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoItemRtl,
@@ -3990,7 +4584,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticItemVariants", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoItemVariants,
@@ -4000,7 +4598,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticKbd", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoKbd,
@@ -4010,7 +4612,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticKbdInputGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoKbdInputGroup,
@@ -4020,7 +4626,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticLabel", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoLabel,
@@ -4030,7 +4640,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMarker", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMarker,
@@ -4040,7 +4654,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMarkerBorder", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMarkerBorder,
@@ -4050,7 +4668,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMarkerIcon", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMarkerIcon,
@@ -4060,7 +4682,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMarkerLinkButton", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMarkerLinkButton,
@@ -4070,7 +4696,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMarkerSeparator", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMarkerSeparator,
@@ -4080,7 +4710,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMarkerShimmer", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMarkerShimmer,
@@ -4090,7 +4724,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMarkerStatus", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMarkerStatus,
@@ -4100,7 +4738,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMarkerVariants", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMarkerVariants,
@@ -4110,7 +4752,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMarquee", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMarquee,
@@ -4120,7 +4766,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMask", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMask,
@@ -4130,7 +4780,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMenubar", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMenubar,
@@ -4140,7 +4794,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMenubarRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMenubarRtl,
@@ -4150,7 +4808,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMessage", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMessage,
@@ -4160,7 +4822,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMessageActions", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMessageActions,
@@ -4170,7 +4836,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMessageAttachment", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMessageAttachment,
@@ -4180,7 +4850,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMessageAvatar", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMessageAvatar,
@@ -4190,7 +4864,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMessageGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMessageGroup,
@@ -4200,7 +4878,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMessageHeaderFooter", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMessageHeaderFooter,
@@ -4210,7 +4892,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMultiSelect", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMultiSelect,
@@ -4220,7 +4906,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMultiSelectAlign", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMultiSelectAlign,
@@ -4230,7 +4920,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticMultiSelectScrollable", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoMultiSelectScrollable,
@@ -4240,7 +4934,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticNavigationMenu", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoNavigationMenu,
@@ -4250,7 +4948,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticNavigationMenuComplex", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoNavigationMenuComplex,
@@ -4260,7 +4962,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticNavigationMenuRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoNavigationMenuRtl,
@@ -4270,7 +4976,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticPagination", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoPagination,
@@ -4280,7 +4990,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticPopover", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoPopover,
@@ -4290,7 +5004,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticPressable", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoPressable,
@@ -4300,7 +5018,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticProgress", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoProgress,
@@ -4310,7 +5032,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticRadioButton", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoRadioButton,
@@ -4320,7 +5046,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticRadioButtonGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoRadioButtonGroup,
@@ -4330,7 +5060,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticRadioButtonGroupRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoRadioButtonGroupRtl,
@@ -4340,7 +5074,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticScrollArea", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoScrollArea,
@@ -4350,7 +5088,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticScrollAreaHorizontal", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoScrollAreaHorizontal,
@@ -4360,7 +5102,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticScrollAreaRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoScrollAreaRtl,
@@ -4370,7 +5116,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSelect", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSelect,
@@ -4380,7 +5130,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSelectRtl", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSelectRtl,
@@ -4390,7 +5144,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSelectScrollable", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSelectScrollable,
@@ -4400,7 +5158,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSeparator", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSeparator,
@@ -4410,7 +5172,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSheet", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSheet,
@@ -4420,7 +5186,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticShimmer", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoShimmer,
@@ -4430,7 +5200,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSkeleton", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSkeleton,
@@ -4440,7 +5214,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSkeletonAvatar", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSkeletonAvatar,
@@ -4450,7 +5228,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSkeletonForm", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSkeletonForm,
@@ -4460,7 +5242,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSkeletonImage", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSkeletonImage,
@@ -4470,7 +5256,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSkeletonTable", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSkeletonTable,
@@ -4480,7 +5270,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSkeletonText", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSkeletonText,
@@ -4490,7 +5284,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSlider", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSlider,
@@ -4500,7 +5298,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSonner", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSonner,
@@ -4510,7 +5312,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSonnerPositions", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSonnerPositions,
@@ -4520,7 +5326,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSonnerVariants", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSonnerVariants,
@@ -4530,7 +5340,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSpinner", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSpinner,
@@ -4540,7 +5354,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSpinnerButton", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSpinnerButton,
@@ -4550,7 +5368,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticStatus", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoStatus,
@@ -4560,7 +5382,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticStatusVariants", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoStatusVariants,
@@ -4570,7 +5396,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticStepper", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoStepper,
@@ -4580,7 +5410,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticStepperControlled", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoStepperControlled,
@@ -4590,7 +5424,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticStepperVertical", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoStepperVertical,
@@ -4600,7 +5438,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticSwitch", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoSwitch,
@@ -4610,7 +5452,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticTable", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoTable,
@@ -4620,7 +5466,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticTabs", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoTabs,
@@ -4630,7 +5480,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticTextarea", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoTextarea,
@@ -4640,7 +5494,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticThemeToggle", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoThemeToggle,
@@ -4650,7 +5508,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticToast", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoToast,
@@ -4660,7 +5522,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticToastVariants", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoToastVariants,
@@ -4670,7 +5536,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticToggleGroup", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoToggleGroup,
@@ -4680,7 +5550,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticToolbar", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoToolbar,
@@ -4690,7 +5564,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticTooltip", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoTooltip,
@@ -4700,7 +5578,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticUseCopyToClipboard", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoUseCopyToClipboard,
@@ -4710,7 +5592,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticUseHistory", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoUseHistory,
@@ -4720,7 +5606,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticUseHorizontalScroll", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoUseHorizontalScroll,
@@ -4730,7 +5620,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticUseIsMobile", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoUseIsMobile,
@@ -4740,7 +5634,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticUseLockBodyScroll", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoUseLockBodyScroll,
@@ -4750,7 +5648,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticUseLocks", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoUseLocks,
@@ -4760,7 +5662,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticUseMediaQuery", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoUseMediaQuery,
@@ -4770,7 +5676,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticUsePressHold", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoUsePressHold,
@@ -4780,7 +5690,11 @@ fn build_md_components() -> MdComponents {
         }
     });
     combined_components.add("StaticUseRandom", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
+        let class = if props.classes.is_empty() {
+            None
+        } else {
+            Some(props.classes.join(" "))
+        };
         rsx! {
             StaticDemoWrapper {
                 demo_type: MarkdownType::StaticDemoUseRandom,
@@ -4789,454 +5703,634 @@ fn build_md_components() -> MdComponents {
             }
         }
     });
-    combined_components.add("StaticInstallAccordion", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallAccordion,
+    combined_components.add("StaticInstallAccordion", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallAccordion,
+            }
         }
     });
-    combined_components.add("StaticInstallAlert", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallAlert,
+    combined_components.add("StaticInstallAlert", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallAlert,
+            }
         }
     });
-    combined_components.add("StaticInstallAlertDialog", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallAlertDialog,
+    combined_components.add("StaticInstallAlertDialog", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallAlertDialog,
+            }
         }
     });
-    combined_components.add("StaticInstallAnimate", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallAnimate,
+    combined_components.add("StaticInstallAnimate", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallAnimate,
+            }
         }
     });
-    combined_components.add("StaticInstallAnimateGroup", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallAnimateGroup,
+    combined_components.add("StaticInstallAnimateGroup", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallAnimateGroup,
+            }
         }
     });
-    combined_components.add("StaticInstallAspectRatio", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallAspectRatio,
+    combined_components.add("StaticInstallAspectRatio", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallAspectRatio,
+            }
         }
     });
-    combined_components.add("StaticInstallAttachment", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallAttachment,
+    combined_components.add("StaticInstallAttachment", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallAttachment,
+            }
         }
     });
-    combined_components.add("StaticInstallAutoForm", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallAutoForm,
+    combined_components.add("StaticInstallAutoForm", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallAutoForm,
+            }
         }
     });
-    combined_components.add("StaticInstallAvatar", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallAvatar,
+    combined_components.add("StaticInstallAvatar", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallAvatar,
+            }
         }
     });
-    combined_components.add("StaticInstallBadge", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallBadge,
+    combined_components.add("StaticInstallBadge", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallBadge,
+            }
         }
     });
-    combined_components.add("StaticInstallBottomNav", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallBottomNav,
+    combined_components.add("StaticInstallBottomNav", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallBottomNav,
+            }
         }
     });
-    combined_components.add("StaticInstallBreadcrumb", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallBreadcrumb,
+    combined_components.add("StaticInstallBreadcrumb", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallBreadcrumb,
+            }
         }
     });
-    combined_components.add("StaticInstallBubble", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallBubble,
+    combined_components.add("StaticInstallBubble", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallBubble,
+            }
         }
     });
-    combined_components.add("StaticInstallButton", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallButton,
+    combined_components.add("StaticInstallButton", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallButton,
+            }
         }
     });
-    combined_components.add("StaticInstallButtonAction", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallButtonAction,
+    combined_components.add("StaticInstallButtonAction", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallButtonAction,
+            }
         }
     });
-    combined_components.add("StaticInstallButtonGroup", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallButtonGroup,
+    combined_components.add("StaticInstallButtonGroup", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallButtonGroup,
+            }
         }
     });
-    combined_components.add("StaticInstallCallout", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallCallout,
+    combined_components.add("StaticInstallCallout", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallCallout,
+            }
         }
     });
-    combined_components.add("StaticInstallCard", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallCard,
+    combined_components.add("StaticInstallCard", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallCard,
+            }
         }
     });
-    combined_components.add("StaticInstallCardCarousel", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallCardCarousel,
+    combined_components.add("StaticInstallCardCarousel", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallCardCarousel,
+            }
         }
     });
-    combined_components.add("StaticInstallCarousel", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallCarousel,
+    combined_components.add("StaticInstallCarousel", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallCarousel,
+            }
         }
     });
-    combined_components.add("StaticInstallCheckbox", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallCheckbox,
+    combined_components.add("StaticInstallCheckbox", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallCheckbox,
+            }
         }
     });
-    combined_components.add("StaticInstallChips", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallChips,
+    combined_components.add("StaticInstallChips", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallChips,
+            }
         }
     });
-    combined_components.add("StaticInstallCollapsible", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallCollapsible,
+    combined_components.add("StaticInstallCollapsible", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallCollapsible,
+            }
         }
     });
-    combined_components.add("StaticInstallCombobox", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallCombobox,
+    combined_components.add("StaticInstallCombobox", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallCombobox,
+            }
         }
     });
-    combined_components.add("StaticInstallCommand", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallCommand,
+    combined_components.add("StaticInstallCommand", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallCommand,
+            }
         }
     });
-    combined_components.add("StaticInstallContextMenu", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallContextMenu,
+    combined_components.add("StaticInstallContextMenu", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallContextMenu,
+            }
         }
     });
-    combined_components.add("StaticInstallDataGrid", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallDataGrid,
+    combined_components.add("StaticInstallDataGrid", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallDataGrid,
+            }
         }
     });
-    combined_components.add("StaticInstallDataTable", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallDataTable,
+    combined_components.add("StaticInstallDataTable", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallDataTable,
+            }
         }
     });
-    combined_components.add("StaticInstallDatePicker", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallDatePicker,
+    combined_components.add("StaticInstallDatePicker", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallDatePicker,
+            }
         }
     });
-    combined_components.add("StaticInstallDialog", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallDialog,
+    combined_components.add("StaticInstallDialog", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallDialog,
+            }
         }
     });
-    combined_components.add("StaticInstallDirectionProvider", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallDirectionProvider,
+    combined_components.add("StaticInstallDirectionProvider", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallDirectionProvider,
+            }
         }
     });
-    combined_components.add("StaticInstallDragAndDrop", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallDragAndDrop,
+    combined_components.add("StaticInstallDragAndDrop", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallDragAndDrop,
+            }
         }
     });
-    combined_components.add("StaticInstallDrawer", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallDrawer,
+    combined_components.add("StaticInstallDrawer", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallDrawer,
+            }
         }
     });
-    combined_components.add("StaticInstallDropdownMenu", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallDropdownMenu,
+    combined_components.add("StaticInstallDropdownMenu", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallDropdownMenu,
+            }
         }
     });
-    combined_components.add("StaticInstallDropzone", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallDropzone,
+    combined_components.add("StaticInstallDropzone", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallDropzone,
+            }
         }
     });
-    combined_components.add("StaticInstallEmpty", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallEmpty,
+    combined_components.add("StaticInstallEmpty", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallEmpty,
+            }
         }
     });
-    combined_components.add("StaticInstallField", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallField,
+    combined_components.add("StaticInstallField", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallField,
+            }
         }
     });
-    combined_components.add("StaticInstallForm", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallForm,
+    combined_components.add("StaticInstallForm", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallForm,
+            }
         }
     });
-    combined_components.add("StaticInstallHoverCard", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallHoverCard,
+    combined_components.add("StaticInstallHoverCard", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallHoverCard,
+            }
         }
     });
-    combined_components.add("StaticInstallImage", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallImage,
+    combined_components.add("StaticInstallImage", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallImage,
+            }
         }
     });
-    combined_components.add("StaticInstallInput", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallInput,
+    combined_components.add("StaticInstallInput", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallInput,
+            }
         }
     });
-    combined_components.add("StaticInstallInputGroup", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallInputGroup,
+    combined_components.add("StaticInstallInputGroup", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallInputGroup,
+            }
         }
     });
-    combined_components.add("StaticInstallInputOtp", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallInputOtp,
+    combined_components.add("StaticInstallInputOtp", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallInputOtp,
+            }
         }
     });
-    combined_components.add("StaticInstallInputPhone", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallInputPhone,
+    combined_components.add("StaticInstallInputPhone", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallInputPhone,
+            }
         }
     });
-    combined_components.add("StaticInstallInputPrompt", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallInputPrompt,
+    combined_components.add("StaticInstallInputPrompt", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallInputPrompt,
+            }
         }
     });
-    combined_components.add("StaticInstallItem", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallItem,
+    combined_components.add("StaticInstallItem", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallItem,
+            }
         }
     });
-    combined_components.add("StaticInstallKbd", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallKbd,
+    combined_components.add("StaticInstallKbd", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallKbd,
+            }
         }
     });
-    combined_components.add("StaticInstallLabel", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallLabel,
+    combined_components.add("StaticInstallLabel", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallLabel,
+            }
         }
     });
-    combined_components.add("StaticInstallMarker", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallMarker,
+    combined_components.add("StaticInstallMarker", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallMarker,
+            }
         }
     });
-    combined_components.add("StaticInstallMarquee", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallMarquee,
+    combined_components.add("StaticInstallMarquee", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallMarquee,
+            }
         }
     });
-    combined_components.add("StaticInstallMask", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallMask,
+    combined_components.add("StaticInstallMask", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallMask,
+            }
         }
     });
-    combined_components.add("StaticInstallMenubar", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallMenubar,
+    combined_components.add("StaticInstallMenubar", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallMenubar,
+            }
         }
     });
-    combined_components.add("StaticInstallMessage", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallMessage,
+    combined_components.add("StaticInstallMessage", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallMessage,
+            }
         }
     });
-    combined_components.add("StaticInstallMultiSelect", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallMultiSelect,
+    combined_components.add("StaticInstallMultiSelect", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallMultiSelect,
+            }
         }
     });
-    combined_components.add("StaticInstallNavigationMenu", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallNavigationMenu,
+    combined_components.add("StaticInstallNavigationMenu", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallNavigationMenu,
+            }
         }
     });
-    combined_components.add("StaticInstallPagination", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallPagination,
+    combined_components.add("StaticInstallPagination", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallPagination,
+            }
         }
     });
-    combined_components.add("StaticInstallPopover", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallPopover,
+    combined_components.add("StaticInstallPopover", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallPopover,
+            }
         }
     });
-    combined_components.add("StaticInstallPressable", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallPressable,
+    combined_components.add("StaticInstallPressable", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallPressable,
+            }
         }
     });
-    combined_components.add("StaticInstallProgress", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallProgress,
+    combined_components.add("StaticInstallProgress", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallProgress,
+            }
         }
     });
-    combined_components.add("StaticInstallRadioButton", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallRadioButton,
+    combined_components.add("StaticInstallRadioButton", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallRadioButton,
+            }
         }
     });
-    combined_components.add("StaticInstallRadioButtonGroup", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallRadioButtonGroup,
+    combined_components.add("StaticInstallRadioButtonGroup", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallRadioButtonGroup,
+            }
         }
     });
-    combined_components.add("StaticInstallScrollArea", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallScrollArea,
+    combined_components.add("StaticInstallScrollArea", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallScrollArea,
+            }
         }
     });
-    combined_components.add("StaticInstallSelect", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallSelect,
+    combined_components.add("StaticInstallSelect", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallSelect,
+            }
         }
     });
-    combined_components.add("StaticInstallSeparator", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallSeparator,
+    combined_components.add("StaticInstallSeparator", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallSeparator,
+            }
         }
     });
-    combined_components.add("StaticInstallSheet", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallSheet,
+    combined_components.add("StaticInstallSheet", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallSheet,
+            }
         }
     });
-    combined_components.add("StaticInstallShimmer", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallShimmer,
+    combined_components.add("StaticInstallShimmer", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallShimmer,
+            }
         }
     });
-    combined_components.add("StaticInstallSkeleton", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallSkeleton,
+    combined_components.add("StaticInstallSkeleton", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallSkeleton,
+            }
         }
     });
-    combined_components.add("StaticInstallSlider", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallSlider,
+    combined_components.add("StaticInstallSlider", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallSlider,
+            }
         }
     });
-    combined_components.add("StaticInstallSonner", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallSonner,
+    combined_components.add("StaticInstallSonner", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallSonner,
+            }
         }
     });
-    combined_components.add("StaticInstallSpinner", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallSpinner,
+    combined_components.add("StaticInstallSpinner", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallSpinner,
+            }
         }
     });
-    combined_components.add("StaticInstallStatus", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallStatus,
+    combined_components.add("StaticInstallStatus", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallStatus,
+            }
         }
     });
-    combined_components.add("StaticInstallStepper", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallStepper,
+    combined_components.add("StaticInstallStepper", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallStepper,
+            }
         }
     });
-    combined_components.add("StaticInstallSwitch", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallSwitch,
+    combined_components.add("StaticInstallSwitch", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallSwitch,
+            }
         }
     });
-    combined_components.add("StaticInstallTable", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallTable,
+    combined_components.add("StaticInstallTable", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallTable,
+            }
         }
     });
-    combined_components.add("StaticInstallTabs", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallTabs,
+    combined_components.add("StaticInstallTabs", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallTabs,
+            }
         }
     });
-    combined_components.add("StaticInstallTextarea", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallTextarea,
+    combined_components.add("StaticInstallTextarea", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallTextarea,
+            }
         }
     });
-    combined_components.add("StaticInstallThemeToggle", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallThemeToggle,
+    combined_components.add("StaticInstallThemeToggle", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallThemeToggle,
+            }
         }
     });
-    combined_components.add("StaticInstallToast", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallToast,
+    combined_components.add("StaticInstallToast", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallToast,
+            }
         }
     });
-    combined_components.add("StaticInstallToggleGroup", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallToggleGroup,
+    combined_components.add("StaticInstallToggleGroup", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallToggleGroup,
+            }
         }
     });
-    combined_components.add("StaticInstallToolbar", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallToolbar,
+    combined_components.add("StaticInstallToolbar", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallToolbar,
+            }
         }
     });
-    combined_components.add("StaticInstallTooltip", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallTooltip,
+    combined_components.add("StaticInstallTooltip", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallTooltip,
+            }
         }
     });
-    combined_components.add("StaticInstallUseCopyClipboard", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallUseCopyClipboard,
+    combined_components.add("StaticInstallUseCopyClipboard", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallUseCopyClipboard,
+            }
         }
     });
-    combined_components.add("StaticInstallUseHistory", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallUseHistory,
+    combined_components.add("StaticInstallUseHistory", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallUseHistory,
+            }
         }
     });
-    combined_components.add("StaticInstallUseHorizontalScroll", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallUseHorizontalScroll,
+    combined_components.add("StaticInstallUseHorizontalScroll", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallUseHorizontalScroll,
+            }
         }
     });
-    combined_components.add("StaticInstallUseIsMobile", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallUseIsMobile,
+    combined_components.add("StaticInstallUseIsMobile", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallUseIsMobile,
+            }
         }
     });
-    combined_components.add("StaticInstallUseLockBodyScroll", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallUseLockBodyScroll,
+    combined_components.add("StaticInstallUseLockBodyScroll", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallUseLockBodyScroll,
+            }
         }
     });
-    combined_components.add("StaticInstallUseLocks", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallUseLocks,
+    combined_components.add("StaticInstallUseLocks", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallUseLocks,
+            }
         }
     });
-    combined_components.add("StaticInstallUseMediaQuery", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallUseMediaQuery,
+    combined_components.add("StaticInstallUseMediaQuery", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallUseMediaQuery,
+            }
         }
     });
-    combined_components.add("StaticInstallUsePressHold", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallUsePressHold,
+    combined_components.add("StaticInstallUsePressHold", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallUsePressHold,
+            }
         }
     });
-    combined_components.add("StaticInstallUseRandom", |_| rsx! {
-        StaticInstallWrapper {
-            install_type: MarkdownType::StaticInstallUseRandom,
+    combined_components.add("StaticInstallUseRandom", |_| {
+        rsx! {
+            StaticInstallWrapper {
+                install_type: MarkdownType::StaticInstallUseRandom,
+            }
         }
     });
     combined_components
@@ -5927,15 +7021,8 @@ pub static HOOKS_REGISTRY: &[&RegistryEntry] = &[
     &USE_RANDOM,
 ];
 
-pub static GET_STARTED_REGISTRY: &[&RegistryEntry] = &[
-    &RTL,
-    &INTRODUCTION,
-    &INSTALLATION,
-    &CLI,
-    &ICONS,
-    &FIGMA,
-    &CHANGELOG,
-];
+pub static GET_STARTED_REGISTRY: &[&RegistryEntry] =
+    &[&RTL, &INTRODUCTION, &INSTALLATION, &CLI, &ICONS, &FIGMA, &CHANGELOG];
 
 fn find_in(registry: &[&'static RegistryEntry], slug: &str) -> Option<&'static RegistryEntry> {
     registry.iter().copied().find(|entry| entry.slug == slug)
