@@ -7,7 +7,7 @@ pub const PAGE_OUTLET: &str = "page__outlet";
 /// Client-side navigation keeps the same DOM node, so the CSS animation only
 /// runs on the first mount. Removing the class, forcing a reflow, then re-adding
 /// it restarts the animation on every route change.
-pub fn retrigger_page_fade() {
+pub const fn retrigger_page_fade() {
     #[cfg(target_arch = "wasm32")]
     {
         if let Some(window) = web_sys::window()
