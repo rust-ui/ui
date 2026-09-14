@@ -44,7 +44,8 @@ pub enum LockableParam {
 
 impl LockableParam {
     /// Display label for the param.
-    pub fn label(&self) -> &'static str {
+    #[must_use]
+    pub const fn label(self) -> &'static str {
         match self {
             Self::Style => "Style",
             Self::BaseColor => "Base Color",
@@ -83,12 +84,15 @@ impl UseLocks {
     /// Initialize and provide as context. No params are locked by default.
     #[must_use]
     pub fn init() -> Self {
-        let hook = Self { locks: use_signal(HashSet::new) };
+        let hook = Self {
+            locks: use_signal(HashSet::new),
+        };
         provide_context(hook);
         hook
     }
 
     /// Returns whether `param` is currently locked (not reactive — call inside a closure).
+    #[must_use]
     pub fn is_locked(&self, param: LockableParam) -> bool {
         self.locks.read().contains(&param)
     }
@@ -119,17 +123,20 @@ impl UseLocks {
     }
 
     /// Returns all currently locked params.
+    #[must_use]
     pub fn locked_params(&self) -> HashSet<LockableParam> {
         self.locks.read().clone()
     }
 
     /// `true` when `param` is NOT locked (safe to randomize).
+    #[must_use]
     pub fn can_randomize(&self, param: LockableParam) -> bool {
         !self.locks.read().contains(&param)
     }
 }
 
 /// Access the `UseLocks` context initialized by `UseLocks::init()`.
+#[must_use]
 pub fn use_locks() -> UseLocks {
     use_context::<UseLocks>()
 }

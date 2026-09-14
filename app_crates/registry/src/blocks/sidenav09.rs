@@ -7,6 +7,10 @@ use crate::demos::demo_dropdown_menu_user_icon::DemoDropdownMenuUserIcon;
 use crate::ui::sheet::SheetDirection;
 use crate::ui::sidenav::{Sidenav, SidenavCollapsible, SidenavMenu, SidenavMenuButton, SidenavMenuItem};
 
+/*
+ * title: Icon Collapsible Sidenav
+*/
+
 #[component]
 pub fn Sidenav09Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
     rsx! {

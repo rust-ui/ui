@@ -36,7 +36,8 @@ use wasm_bindgen::JsCast;
 
 pub const DATA_SCROLL_TARGET: &str = "data-scroll-target";
 
-pub fn use_data_scrolled(threshold_px: u32) -> Signal<bool> {
+#[must_use]
+pub fn use_data_scrolled(_threshold_px: u32) -> Signal<bool> {
     let is_data_scrolled_signal = use_signal(|| false);
 
     #[cfg(target_arch = "wasm32")]
@@ -50,14 +51,19 @@ pub fn use_data_scrolled(threshold_px: u32) -> Signal<bool> {
         });
 
         use_effect(move || {
-            let threshold = f64::from(threshold_px);
-            let scroll_container =
-                web_sys::window().and_then(|w| w.document()).and_then(|d| d.get_element_by_id(DATA_SCROLL_TARGET));
+            let threshold = f64::from(_threshold_px);
+            let scroll_container = web_sys::window()
+                .and_then(|w| w.document())
+                .and_then(|d| d.get_element_by_id(DATA_SCROLL_TARGET));
 
             let get_scroll_pos = {
                 let container = scroll_container.clone();
                 move || -> f64 {
-                    if let Some(ref el) = container { el.scroll_top() as f64 } else { get_scroll_position() }
+                    if let Some(ref el) = container {
+                        el.scroll_top() as f64
+                    } else {
+                        get_scroll_position()
+                    }
                 }
             };
 
@@ -92,8 +98,10 @@ pub fn use_data_scrolled(threshold_px: u32) -> Signal<bool> {
 #[cfg(target_arch = "wasm32")]
 fn sync_header_padding_with_body(padding: &str) {
     let _ = (|| -> Option<()> {
-        let element =
-            web_sys::window().and_then(|w| w.document())?.query_selector("[data-name='NavMenuFixed']").ok()??;
+        let element = web_sys::window()
+            .and_then(|w| w.document())?
+            .query_selector("[data-name='NavMenuFixed']")
+            .ok()??;
         let header_el = element.dyn_ref::<web_sys::HtmlElement>()?;
 
         if !padding.is_empty() && padding != "0px" {

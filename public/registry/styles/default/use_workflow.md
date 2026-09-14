@@ -35,7 +35,7 @@ use super::use_history_stack::UseHistoryStack;
 
 // ── WorkflowNodeKind ──────────────────────────────────────────────────────────
 
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Serialize, Deserialize, strum::IntoStaticStr)]
 pub enum WorkflowNodeKind {
     Trigger,
     Data,
@@ -44,37 +44,35 @@ pub enum WorkflowNodeKind {
 }
 
 impl WorkflowNodeKind {
-    pub fn dot_color(&self) -> &'static str {
+    #[must_use]
+    pub const fn dot_color(&self) -> &'static str {
         match self {
-            WorkflowNodeKind::Trigger => "bg-yellow-500",
-            WorkflowNodeKind::Data => "bg-blue-500",
-            WorkflowNodeKind::Agent => "bg-purple-500",
-            WorkflowNodeKind::Output => "bg-green-500",
+            Self::Trigger => "bg-yellow-500",
+            Self::Data => "bg-blue-500",
+            Self::Agent => "bg-purple-500",
+            Self::Output => "bg-green-500",
         }
     }
 
-    pub fn text_color(&self) -> &'static str {
+    #[must_use]
+    pub const fn text_color(&self) -> &'static str {
         match self {
-            WorkflowNodeKind::Trigger => "text-yellow-600 dark:text-yellow-400",
-            WorkflowNodeKind::Data => "text-blue-600 dark:text-blue-400",
-            WorkflowNodeKind::Agent => "text-purple-600 dark:text-purple-400",
-            WorkflowNodeKind::Output => "text-green-600 dark:text-green-400",
+            Self::Trigger => "text-yellow-600 dark:text-yellow-400",
+            Self::Data => "text-blue-600 dark:text-blue-400",
+            Self::Agent => "text-purple-600 dark:text-purple-400",
+            Self::Output => "text-green-600 dark:text-green-400",
         }
     }
 
+    #[must_use]
     pub fn label(&self) -> &'static str {
-        match self {
-            WorkflowNodeKind::Trigger => "Trigger",
-            WorkflowNodeKind::Data => "Data",
-            WorkflowNodeKind::Agent => "Agent",
-            WorkflowNodeKind::Output => "Output",
-        }
+        self.into()
     }
 }
 
 // ── Data types ────────────────────────────────────────────────────────────────
 
-#[derive(Clone, PartialEq, Default, Display, EnumIter, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Default, Display, EnumIter, Serialize, Deserialize)]
 pub enum EdgeStyle {
     #[default]
     Dashed,
@@ -83,16 +81,17 @@ pub enum EdgeStyle {
 }
 
 impl EdgeStyle {
-    pub fn dasharray(&self) -> &'static str {
+    #[must_use]
+    pub const fn dasharray(&self) -> &'static str {
         match self {
-            EdgeStyle::Solid => "none",
-            EdgeStyle::Dashed => "6 3",
-            EdgeStyle::Dotted => "2 3",
+            Self::Solid => "none",
+            Self::Dashed => "6 3",
+            Self::Dotted => "2 3",
         }
     }
 
-    pub fn all() -> impl Iterator<Item = EdgeStyle> {
-        EdgeStyle::iter()
+    pub fn all() -> impl Iterator<Item = Self> {
+        Self::iter()
     }
 }
 
@@ -109,7 +108,7 @@ pub struct WorkflowNode {
     pub kind: WorkflowNodeKind,
 }
 
-#[derive(Clone, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Default, Serialize, Deserialize)]
 pub struct WorkflowEdge {
     pub from: String,
     pub to: String,
@@ -145,7 +144,7 @@ pub struct DragState {
     pub node_idx: usize,
     pub mouse_start_x: f64,
     pub mouse_start_y: f64,
-    /// Start positions of every node being dragged: (idx, start_x, start_y).
+    /// Start positions of every node being dragged: (idx, `start_x`, `start_y`).
     pub starts: Vec<(usize, f64, f64)>,
 }
 
@@ -176,7 +175,8 @@ pub struct RubberBandState {
 
 // ── WorkflowState ─────────────────────────────────────────────────────────────
 
-#[allow(clippy::type_complexity)]
+pub type WorkflowHistory = UseHistoryStack<(Vec<(f64, f64)>, Vec<WorkflowEdge>)>;
+
 pub struct WorkflowState {
     pub nodes: Signal<Vec<WorkflowNode>>,
     pub edges: Signal<Vec<WorkflowEdge>>,
@@ -188,7 +188,7 @@ pub struct WorkflowState {
     pub connecting: Signal<Option<ConnectingState>>,
     canvas_drag: Signal<Option<PanState>>,
     touch_pinch: Signal<Option<PinchState>>,
-    pub history: UseHistoryStack<(Vec<(f64, f64)>, Vec<WorkflowEdge>)>,
+    pub history: WorkflowHistory,
     next_id: Signal<usize>,
     pub locked: Signal<bool>,
     pub snap_to_grid: Signal<bool>,
@@ -203,6 +203,7 @@ pub struct WorkflowState {
 
 // Manual Copy/Clone/PartialEq — Signal<Vec<T>> is Copy regardless of T.
 impl Copy for WorkflowState {}
+#[allow(clippy::expl_impl_clone_on_copy)] // hand-written to match the manual Copy above
 impl Clone for WorkflowState {
     fn clone(&self) -> Self {
         *self
@@ -233,10 +234,12 @@ impl WorkflowState {
     // ── selection ────────────────────────────────────────────────────────────
 
     /// Returns the single selected index (first in set), for backward compat.
+    #[must_use]
     pub fn selected_idx(&self) -> Option<usize> {
         self.selected.read().iter().next().copied()
     }
 
+    #[must_use]
     pub fn is_selected(&self, idx: usize) -> bool {
         self.selected.read().contains(&idx)
     }
@@ -267,6 +270,7 @@ impl WorkflowState {
 
     // ── locked mode ───────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn is_locked(&self) -> bool {
         *self.locked.read()
     }
@@ -280,6 +284,7 @@ impl WorkflowState {
         self.locked.set(!v);
     }
 
+    #[must_use]
     pub fn is_snap_to_grid(&self) -> bool {
         *self.snap_to_grid.read()
     }
@@ -295,12 +300,19 @@ impl WorkflowState {
 
     // ── connect ───────────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn is_connecting(&self) -> bool {
         self.connecting.read().is_some()
     }
 
     pub fn start_connect(&mut self, from_node_id: String, from_x: f64, from_y: f64) {
-        self.connecting.set(Some(ConnectingState { from_node_id, from_x, from_y, mouse_x: from_x, mouse_y: from_y }));
+        self.connecting.set(Some(ConnectingState {
+            from_node_id,
+            from_x,
+            from_y,
+            mouse_x: from_x,
+            mouse_y: from_y,
+        }));
     }
 
     pub fn update_connect_mouse(&mut self, ex: f64, ey: f64) {
@@ -324,9 +336,17 @@ impl WorkflowState {
         if cs.from_node_id == to_node_id {
             return;
         }
-        let already = self.edges.read().iter().any(|e| e.from == cs.from_node_id && e.to == to_node_id);
+        let already = self
+            .edges
+            .read()
+            .iter()
+            .any(|e| e.from == cs.from_node_id && e.to == to_node_id);
         if !already {
-            self.edges.write().push(WorkflowEdge { from: cs.from_node_id, to: to_node_id, ..Default::default() });
+            self.edges.write().push(WorkflowEdge {
+                from: cs.from_node_id,
+                to: to_node_id,
+                ..Default::default()
+            });
             self.push_history();
         }
     }
@@ -342,6 +362,7 @@ impl WorkflowState {
         self.selected_edge.set(None);
     }
 
+    #[must_use]
     pub fn selected_edge_idx(&self) -> Option<usize> {
         *self.selected_edge.read()
     }
@@ -357,12 +378,15 @@ impl WorkflowState {
 
     // ── inline edit ───────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn is_editing(&self, idx: usize) -> bool {
         *self.editing_node.read() == Some(idx)
     }
 
     pub fn start_edit(&mut self, idx: usize) {
-        let label = self.nodes.read()[idx].label.clone();
+        let Some(label) = self.nodes.read().get(idx).map(|node| node.label.clone()) else {
+            return;
+        };
         self.edit_buffer.set(label);
         self.editing_node.set(Some(idx));
     }
@@ -386,12 +410,18 @@ impl WorkflowState {
 
     // ── edge label edit ───────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn editing_edge_idx(&self) -> Option<usize> {
         *self.editing_edge.read()
     }
 
     pub fn start_edit_edge(&mut self, idx: usize) {
-        let label = self.edges.read().get(idx).and_then(|e| e.label.clone()).unwrap_or_default();
+        let label = self
+            .edges
+            .read()
+            .get(idx)
+            .and_then(|e| e.label.clone())
+            .unwrap_or_default();
         self.edit_buffer.set(label);
         self.editing_node.set(None);
         self.editing_edge.set(Some(idx));
@@ -411,6 +441,7 @@ impl WorkflowState {
         self.editing_edge.set(None);
     }
 
+    #[must_use]
     pub fn edit_buffer_value(&self) -> String {
         self.edit_buffer.read().clone()
     }
@@ -422,7 +453,12 @@ impl WorkflowState {
     // ── rubber-band select ────────────────────────────────────────────────────
 
     pub fn start_rubber_band(&mut self, x: f64, y: f64) {
-        self.rubber_band.set(Some(RubberBandState { start_x: x, start_y: y, cur_x: x, cur_y: y }));
+        self.rubber_band.set(Some(RubberBandState {
+            start_x: x,
+            start_y: y,
+            cur_x: x,
+            cur_y: y,
+        }));
     }
 
     pub fn update_rubber_band(&mut self, x: f64, y: f64) {
@@ -452,7 +488,9 @@ impl WorkflowState {
         let positions = self.positions.read();
         let mut sel = self.selected.write();
         for (i, node) in nodes.iter().enumerate() {
-            let (nx, ny) = positions[i];
+            let Some((nx, ny)) = positions.get(i).copied() else {
+                continue;
+            };
             if nx < wx1 && nx + node.width > wx0 && ny < wy1 && ny + node_h > wy0 {
                 sel.insert(i);
             }
@@ -465,6 +503,7 @@ impl WorkflowState {
 
     // ── export / import ───────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn export_snapshot(&self) -> WorkflowSnapshot {
         WorkflowSnapshot {
             nodes: self.nodes.read().clone(),
@@ -490,6 +529,7 @@ impl WorkflowState {
         self.connecting.set(None);
     }
 
+    #[must_use]
     pub fn connecting_preview(&self) -> Option<String> {
         let cs = self.connecting.read().clone()?;
         Some(bezier_path(cs.from_x, cs.from_y, cs.mouse_x, cs.mouse_y))
@@ -505,7 +545,7 @@ impl WorkflowState {
     // ── delete ───────────────────────────────────────────────────────────────
 
     pub fn delete_selected(&mut self) {
-        let mut indices: Vec<usize> = self.selected.read().iter().cloned().collect();
+        let mut indices: Vec<usize> = self.selected.read().iter().copied().collect();
         if indices.is_empty() {
             return;
         }
@@ -513,7 +553,10 @@ impl WorkflowState {
 
         let ids: Vec<String> = {
             let nodes = self.nodes.read();
-            indices.iter().filter_map(|&i| nodes.get(i).map(|n| n.id.clone())).collect()
+            indices
+                .iter()
+                .filter_map(|&i| nodes.get(i).map(|n| n.id.clone()))
+                .collect()
         };
 
         for &idx in &indices {
@@ -531,7 +574,7 @@ impl WorkflowState {
     // ── keyboard nudge ───────────────────────────────────────────────────────
 
     pub fn nudge_selected(&mut self, dx: f64, dy: f64) {
-        let indices: Vec<usize> = self.selected.read().iter().cloned().collect();
+        let indices: Vec<usize> = self.selected.read().iter().copied().collect();
         if indices.is_empty() {
             return;
         }
@@ -539,11 +582,16 @@ impl WorkflowState {
         {
             let mut pos = self.positions.write();
             for i in indices {
-                let (x, y) = pos[i];
+                let Some((x, y)) = pos.get(i).copied() else { continue };
                 let raw_x = (x + dx).max(0.0);
                 let raw_y = (y + dy).max(0.0);
-                pos[i] =
-                    if snap { ((raw_x / 20.0).round() * 20.0, (raw_y / 20.0).round() * 20.0) } else { (raw_x, raw_y) };
+                if let Some(position) = pos.get_mut(i) {
+                    *position = if snap {
+                        ((raw_x / 20.0).round() * 20.0, (raw_y / 20.0).round() * 20.0)
+                    } else {
+                        (raw_x, raw_y)
+                    };
+                }
             }
         }
         self.push_history();
@@ -552,14 +600,17 @@ impl WorkflowState {
     // ── copy / paste ─────────────────────────────────────────────────────────
 
     pub fn copy_selected(&mut self) {
-        let sel: Vec<usize> = self.selected.read().iter().cloned().collect();
+        let sel: Vec<usize> = self.selected.read().iter().copied().collect();
         if sel.is_empty() {
             return;
         }
         let nodes = self.nodes.read();
         let pos = self.positions.read();
-        let cb: Vec<(WorkflowNode, f64, f64)> =
-            sel.iter().filter_map(|&i| nodes.get(i).map(|n| (n.clone(), pos[i].0, pos[i].1))).collect();
+        let cb: Vec<(WorkflowNode, f64, f64)> = sel
+            .iter()
+            .filter_map(|&i| nodes.get(i).zip(pos.get(i)))
+            .map(|(node, &(x, y))| (node.clone(), x, y))
+            .collect();
         self.clipboard.set(cb);
     }
 
@@ -579,7 +630,12 @@ impl WorkflowState {
 
             let n = *self.next_id.read();
             *self.next_id.write() = n + 1;
-            let new_node = WorkflowNode { id: format!("node-{n}"), initial_x: nx, initial_y: ny, ..node.clone() };
+            let new_node = WorkflowNode {
+                id: format!("node-{n}"),
+                initial_x: nx,
+                initial_y: ny,
+                ..node.clone()
+            };
             let new_idx = self.positions.read().len();
             self.positions.write().push((nx, ny));
             self.nodes.write().push(new_node);
@@ -599,16 +655,18 @@ impl WorkflowState {
         self.push_history();
     }
 
+    #[must_use]
     pub fn has_clipboard(&self) -> bool {
         !self.clipboard.read().is_empty()
     }
 
+    #[must_use]
     pub fn clipboard_count(&self) -> usize {
         self.clipboard.read().len()
     }
 
     pub fn duplicate_selected(&mut self) {
-        let sel: Vec<usize> = self.selected.read().iter().cloned().collect();
+        let sel: Vec<usize> = self.selected.read().iter().copied().collect();
         if sel.is_empty() {
             return;
         }
@@ -618,13 +676,19 @@ impl WorkflowState {
                 let nodes = self.nodes.read();
                 let pos = self.positions.read();
                 let Some(node) = nodes.get(*idx) else { continue };
-                (node.clone(), pos[*idx].0, pos[*idx].1)
+                let Some(&(x, y)) = pos.get(*idx) else { continue };
+                (node.clone(), x, y)
             };
             let nx = x + 20.0;
             let ny = y + 20.0;
             let n = *self.next_id.read();
             *self.next_id.write() = n + 1;
-            let new_node = WorkflowNode { id: format!("node-{n}"), initial_x: nx, initial_y: ny, ..node };
+            let new_node = WorkflowNode {
+                id: format!("node-{n}"),
+                initial_x: nx,
+                initial_y: ny,
+                ..node
+            };
             let new_idx = self.positions.read().len();
             self.positions.write().push((nx, ny));
             self.nodes.write().push(new_node);
@@ -647,13 +711,19 @@ impl WorkflowState {
             let nodes = self.nodes.read();
             let pos = self.positions.read();
             let Some(node) = nodes.get(idx) else { return };
-            (node.clone(), pos[idx].0, pos[idx].1)
+            let Some(&(x, y)) = pos.get(idx) else { return };
+            (node.clone(), x, y)
         };
         let nx = x + 20.0;
         let ny = y + 20.0;
         let n = *self.next_id.read();
         *self.next_id.write() = n + 1;
-        let new_node = WorkflowNode { id: format!("node-{n}"), initial_x: nx, initial_y: ny, ..node };
+        let new_node = WorkflowNode {
+            id: format!("node-{n}"),
+            initial_x: nx,
+            initial_y: ny,
+            ..node
+        };
         let new_idx = self.positions.read().len();
         self.positions.write().push((nx, ny));
         self.nodes.write().push(new_node);
@@ -711,14 +781,17 @@ impl WorkflowState {
 
     // ── node drag ────────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn pos(&self, idx: usize) -> (f64, f64) {
-        self.positions.read()[idx]
+        self.positions.read().get(idx).copied().unwrap_or_default()
     }
 
+    #[must_use]
     pub fn is_dragging(&self) -> bool {
         self.drag.read().is_some()
     }
 
+    #[must_use]
     pub fn active_idx(&self) -> Option<usize> {
         self.drag.read().as_ref().map(|d| d.node_idx)
     }
@@ -730,16 +803,20 @@ impl WorkflowState {
         let starts: Vec<(usize, f64, f64)> = {
             let pos = self.positions.read();
             let sel = self.selected.read();
-            sel.iter().map(|&i| (i, pos[i].0, pos[i].1)).collect()
+            sel.iter()
+                .filter_map(|&i| pos.get(i).map(|&(x, y)| (i, x, y)))
+                .collect()
         };
-        self.drag.set(Some(DragState { node_idx: idx, mouse_start_x: mx, mouse_start_y: my, starts }));
+        self.drag.set(Some(DragState {
+            node_idx: idx,
+            mouse_start_x: mx,
+            mouse_start_y: my,
+            starts,
+        }));
     }
 
     pub fn update_drag(&mut self, mx: f64, my: f64) {
-        let d = match self.drag.read().clone() {
-            Some(d) => d,
-            None => return,
-        };
+        let Some(d) = self.drag.read().clone() else { return };
         let z = *self.zoom.read();
         let snap = *self.snap_to_grid.read();
         let dx = (mx - d.mouse_start_x) / z;
@@ -747,8 +824,13 @@ impl WorkflowState {
         for (idx, sx, sy) in &d.starts {
             let raw_x = (sx + dx).max(0.0);
             let raw_y = (sy + dy).max(0.0);
-            self.positions.write()[*idx] =
-                if snap { ((raw_x / 20.0).round() * 20.0, (raw_y / 20.0).round() * 20.0) } else { (raw_x, raw_y) };
+            if let Some(position) = self.positions.write().get_mut(*idx) {
+                *position = if snap {
+                    ((raw_x / 20.0).round() * 20.0, (raw_y / 20.0).round() * 20.0)
+                } else {
+                    (raw_x, raw_y)
+                };
+            }
         }
     }
 
@@ -773,27 +855,38 @@ impl WorkflowState {
         }
     }
 
+    #[must_use]
     pub fn can_undo(&self) -> bool {
         self.history.can_undo()
     }
+    #[must_use]
     pub fn can_redo(&self) -> bool {
         self.history.can_redo()
     }
 
     // ── canvas pan ───────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn is_panning(&self) -> bool {
         self.canvas_drag.read().is_some()
     }
 
     pub fn start_pan(&mut self, mx: f64, my: f64) {
         let (px, py) = *self.pan.read();
-        self.canvas_drag.set(Some(PanState { mouse_start_x: mx, mouse_start_y: my, pan_start_x: px, pan_start_y: py }));
+        self.canvas_drag.set(Some(PanState {
+            mouse_start_x: mx,
+            mouse_start_y: my,
+            pan_start_x: px,
+            pan_start_y: py,
+        }));
     }
 
     pub fn update_pan(&mut self, mx: f64, my: f64) {
         if let Some(d) = *self.canvas_drag.read() {
-            self.pan.set((d.pan_start_x + mx - d.mouse_start_x, d.pan_start_y + my - d.mouse_start_y));
+            self.pan.set((
+                d.pan_start_x + mx - d.mouse_start_x,
+                d.pan_start_y + my - d.mouse_start_y,
+            ));
         }
     }
 
@@ -803,25 +896,33 @@ impl WorkflowState {
 
     // ── touch pinch ───────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn is_pinching(&self) -> bool {
         self.touch_pinch.read().is_some()
     }
 
     pub fn start_pinch(&mut self, dist: f64, cx: f64, cy: f64) {
         self.stop_pan();
-        self.touch_pinch.set(Some(PinchState { prev_dist: dist, cx, cy }));
+        self.touch_pinch.set(Some(PinchState {
+            prev_dist: dist,
+            cx,
+            cy,
+        }));
     }
 
     pub fn update_pinch(&mut self, dist: f64, cx: f64, cy: f64) {
-        let prev = match *self.touch_pinch.read() {
-            Some(p) => p,
-            None => return,
+        let Some(prev) = *self.touch_pinch.read() else {
+            return;
         };
         if prev.prev_dist > 1.0 {
             let scale = dist / prev.prev_dist;
             self.zoom_at_scale(cx, cy, scale);
         }
-        self.touch_pinch.set(Some(PinchState { prev_dist: dist, cx, cy }));
+        self.touch_pinch.set(Some(PinchState {
+            prev_dist: dist,
+            cx,
+            cy,
+        }));
     }
 
     pub fn stop_pinch(&mut self) {
@@ -834,12 +935,14 @@ impl WorkflowState {
         let new_z = (old_z * scale).clamp(0.2, 4.0);
         let ratio = new_z / old_z;
         let (px, py) = *self.pan.read();
-        self.pan.set((ex - (ex - px) * ratio, ey - (ey - py) * ratio));
+        self.pan
+            .set(((px - ex).mul_add(ratio, ex), (py - ey).mul_add(ratio, ey)));
         self.zoom.set(new_z);
     }
 
     // ── zoom ─────────────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn zoom_value(&self) -> f64 {
         *self.zoom.read()
     }
@@ -850,7 +953,8 @@ impl WorkflowState {
         let new_z = (old_z * factor).clamp(0.2, 4.0);
         let ratio = new_z / old_z;
         let (px, py) = *self.pan.read();
-        self.pan.set((ex - (ex - px) * ratio, ey - (ey - py) * ratio));
+        self.pan
+            .set(((px - ex).mul_add(ratio, ex), (py - ey).mul_add(ratio, ey)));
         self.zoom.set(new_z);
     }
 
@@ -861,7 +965,8 @@ impl WorkflowState {
         let cx = 400.0_f64;
         let cy = 225.0_f64;
         let (px, py) = *self.pan.read();
-        self.pan.set((cx - (cx - px) * ratio, cy - (cy - py) * ratio));
+        self.pan
+            .set(((px - cx).mul_add(ratio, cx), (py - cy).mul_add(ratio, cy)));
         self.zoom.set(new_z);
     }
 
@@ -870,6 +975,7 @@ impl WorkflowState {
         self.zoom.set(1.0);
     }
 
+    #[must_use]
     pub fn world_transform(&self) -> String {
         let (px, py) = *self.pan.read();
         let z = *self.zoom.read();
@@ -885,22 +991,43 @@ impl WorkflowState {
         }
         let padding = 48.0;
         let pos = self.positions.read();
-        let min_x = nodes.iter().enumerate().map(|(i, _)| pos[i].0).fold(f64::INFINITY, f64::min);
-        let min_y = nodes.iter().enumerate().map(|(i, _)| pos[i].1).fold(f64::INFINITY, f64::min);
-        let max_x = nodes.iter().enumerate().map(|(i, n)| pos[i].0 + n.width).fold(f64::NEG_INFINITY, f64::max);
-        let max_y = nodes.iter().enumerate().map(|(i, _)| pos[i].1 + node_h).fold(f64::NEG_INFINITY, f64::max);
+        let min_x = nodes
+            .iter()
+            .enumerate()
+            .filter_map(|(i, _)| pos.get(i).map(|&(x, _)| x))
+            .fold(f64::INFINITY, f64::min);
+        let min_y = nodes
+            .iter()
+            .enumerate()
+            .filter_map(|(i, _)| pos.get(i).map(|&(_, y)| y))
+            .fold(f64::INFINITY, f64::min);
+        let max_x = nodes
+            .iter()
+            .enumerate()
+            .filter_map(|(i, n)| pos.get(i).map(|&(x, _)| x + n.width))
+            .fold(f64::NEG_INFINITY, f64::max);
+        let max_y = nodes
+            .iter()
+            .enumerate()
+            .filter_map(|(i, _)| pos.get(i).map(|&(_, y)| y + node_h))
+            .fold(f64::NEG_INFINITY, f64::max);
         drop(pos);
         drop(nodes);
         let content_w = (max_x - min_x).max(1.0);
         let content_h = (max_y - min_y).max(1.0);
-        let z =
-            ((viewport_w - padding * 2.0) / content_w).min((viewport_h - padding * 2.0) / content_h).clamp(0.2, 4.0);
+        let z = ((viewport_w - padding * 2.0) / content_w)
+            .min((viewport_h - padding * 2.0) / content_h)
+            .clamp(0.2, 4.0);
         self.zoom.set(z);
-        self.pan.set(((viewport_w - content_w * z) / 2.0 - min_x * z, (viewport_h - content_h * z) / 2.0 - min_y * z));
+        self.pan.set((
+            min_x.mul_add(-z, content_w.mul_add(-z, viewport_w) / 2.0),
+            min_y.mul_add(-z, content_h.mul_add(-z, viewport_h) / 2.0),
+        ));
     }
 
     // ── edges ────────────────────────────────────────────────────────────────
 
+    #[must_use]
     pub fn edge_paths(&self, node_h: f64) -> Vec<(String, EdgeStyle, f64, f64, Option<String>)> {
         let pos = self.positions.read();
         let nodes = self.nodes.read();
@@ -910,8 +1037,8 @@ impl WorkflowState {
             .filter_map(|edge| {
                 let (fi, from) = nodes.iter().enumerate().find(|(_, n)| n.id == edge.from)?;
                 let (ti, _) = nodes.iter().enumerate().find(|(_, n)| n.id == edge.to)?;
-                let (fx, fy) = pos[fi];
-                let (tx, ty) = pos[ti];
+                let (fx, fy) = pos.get(fi).copied()?;
+                let (tx, ty) = pos.get(ti).copied()?;
                 let sx = fx + from.width;
                 let sy = fy + node_h / 2.0;
                 let tx2 = tx;
@@ -919,8 +1046,8 @@ impl WorkflowState {
                 Some((
                     bezier_path(sx, sy, tx2, ty2),
                     edge.style.clone(),
-                    (sx + tx2) / 2.0,
-                    (sy + ty2) / 2.0,
+                    f64::midpoint(sx, tx2),
+                    f64::midpoint(sy, ty2),
                     edge.label.clone(),
                 ))
             })
@@ -970,6 +1097,10 @@ pub fn use_workflow(nodes: Vec<WorkflowNode>, edges: Vec<WorkflowEdge>) -> Workf
 fn bezier_path(sx: f64, sy: f64, tx: f64, ty: f64) -> String {
     let dx = (tx - sx).abs();
     let offset = (dx / 2.0).clamp(40.0, 80.0);
-    format!("M {sx:.1} {sy:.1} C {:.1} {sy:.1}, {:.1} {ty:.1}, {tx:.1} {ty:.1}", sx + offset, tx - offset,)
+    format!(
+        "M {sx:.1} {sy:.1} C {:.1} {sy:.1}, {:.1} {ty:.1}, {tx:.1} {ty:.1}",
+        sx + offset,
+        tx - offset,
+    )
 }
 ```

@@ -25,6 +25,8 @@ ui add use_press_hold
 ## Component Code
 
 ```rust
+#![cfg_attr(not(target_arch = "wasm32"), allow(clippy::missing_const_for_fn))]
+
 use std::cell::Cell;
 use std::rc::Rc;
 
@@ -43,6 +45,8 @@ pub struct UsePressHold {
 }
 
 impl UsePressHold {
+    // `self` is read only under the wasm32 cfg; on other targets the body is empty.
+    #[allow(clippy::unused_self)]
     fn clear_interval(&self) {
         #[cfg(target_arch = "wasm32")]
         if let Some(id) = self.interval_id.get() {
@@ -109,6 +113,9 @@ impl UsePressHold {
         let mut is_holding = self.is_holding_signal;
         is_holding.set(false);
 
+        // Guard clause; the early return reads clearer than inverting the whole
+        // method around the cfg-gated wasm block below.
+        #[allow(clippy::needless_return)]
         if *self.progress_signal.read() <= 0.0 {
             return;
         }
@@ -159,13 +166,14 @@ impl UsePressHold {
     }
 }
 
+#[must_use]
 pub fn use_press_hold(duration_ms: u32, on_complete: Callback<()>, disabled: bool) -> UsePressHold {
     UsePressHold {
         progress_signal: use_signal(|| 0.0),
         is_holding_signal: use_signal(|| false),
         interval_id: Rc::new(Cell::new(None)),
         last_update: Rc::new(Cell::new(0.0)),
-        duration: duration_ms as f64,
+        duration: f64::from(duration_ms),
         on_complete,
         disabled,
     }

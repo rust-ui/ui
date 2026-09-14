@@ -2,13 +2,11 @@
 
 
 ```rust
-use std::fmt;
+use heck::ToTitleCase;
+use strum::{AsRefStr, Display, EnumIter, EnumString, IntoStaticStr};
 
-/* ========================================================== */
-/*                     ✨ FUNCTIONS ✨                        */
-/* ========================================================== */
-
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, Display, AsRefStr, IntoStaticStr, EnumString, EnumIter, PartialEq, Eq)]
+#[strum(serialize_all = "kebab-case")]
 pub enum SidenavRoutes {
     Sidenav01,
     Sidenav02,
@@ -24,195 +22,85 @@ pub enum SidenavRoutes {
 }
 
 impl SidenavRoutes {
-    pub fn view_segment() -> &'static str {
+    #[must_use]
+    pub const fn view_segment() -> &'static str {
         "view"
     }
 
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            SidenavRoutes::Sidenav01 => "sidenav01",
-            SidenavRoutes::Sidenav02 => "sidenav02",
-            SidenavRoutes::Sidenav03 => "sidenav03",
-            SidenavRoutes::Sidenav04 => "sidenav04",
-            SidenavRoutes::Sidenav05 => "sidenav05",
-            SidenavRoutes::Sidenav06 => "sidenav06",
-            SidenavRoutes::Sidenav07 => "sidenav07",
-            SidenavRoutes::Sidenav08 => "sidenav08",
-            SidenavRoutes::Sidenav09 => "sidenav09",
-            SidenavRoutes::Sidenav10 => "sidenav10",
-            SidenavRoutes::Sidenav11 => "sidenav11",
-        }
-    }
-
-    pub fn all() -> Vec<SidenavRoutes> {
-        vec![
-            SidenavRoutes::Sidenav01,
-            SidenavRoutes::Sidenav02,
-            SidenavRoutes::Sidenav03,
-            SidenavRoutes::Sidenav04,
-            SidenavRoutes::Sidenav05,
-            SidenavRoutes::Sidenav06,
-            SidenavRoutes::Sidenav07,
-            SidenavRoutes::Sidenav08,
-            SidenavRoutes::Sidenav09,
-            SidenavRoutes::Sidenav10,
-            SidenavRoutes::Sidenav11,
-        ]
-    }
-
-    pub fn to_title(&self) -> &'static str {
-        match self {
-            SidenavRoutes::Sidenav01 => "Sidenav 01",
-            SidenavRoutes::Sidenav02 => "Sidenav 02",
-            SidenavRoutes::Sidenav03 => "Sidenav 03",
-            SidenavRoutes::Sidenav04 => "Sidenav 04",
-            SidenavRoutes::Sidenav05 => "Sidenav 05",
-            SidenavRoutes::Sidenav06 => "Sidenav 06",
-            SidenavRoutes::Sidenav07 => "Sidenav 07",
-            SidenavRoutes::Sidenav08 => "Sidenav 08",
-            SidenavRoutes::Sidenav09 => "Sidenav 09",
-            SidenavRoutes::Sidenav10 => "Sidenav 10",
-            SidenavRoutes::Sidenav11 => "Sidenav 11",
-        }
-    }
-
-    pub fn to_route(self) -> String {
-        format!("{}/{}", Self::view_segment(), self.as_str())
-    }
-
+    #[must_use]
     pub fn from_path(path: &str) -> Self {
-        // Iterate in reverse to match higher numbers first (sidenav10 before sidenav01)
-        for route in Self::all().into_iter().rev() {
-            if path.contains(route.as_str()) {
-                return route;
-            }
-        }
-        Self::Sidenav01
+        use strum::IntoEnumIterator;
+        Self::iter()
+            .rev()
+            .find(|route| path.contains(route.as_ref()))
+            .unwrap_or(Self::Sidenav01)
+    }
+
+    #[must_use]
+    pub fn to_route(self) -> String {
+        format!("{}/{}", Self::view_segment(), self.as_ref())
+    }
+    #[must_use]
+    pub fn to_title(self) -> String {
+        self.as_ref().to_title_case()
     }
 }
 
-impl fmt::Display for SidenavRoutes {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.as_str())
-    }
-}
-
-/* ========================================================== */
-/*                     ✨ FUNCTIONS ✨                        */
-/* ========================================================== */
-
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, Display, AsRefStr, IntoStaticStr, EnumString, EnumIter, PartialEq, Eq)]
+#[strum(serialize_all = "kebab-case")]
 pub enum DocsRoutes {
     Components,
     Hooks,
 }
 
 impl DocsRoutes {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            DocsRoutes::Components => "components",
-            DocsRoutes::Hooks => "hooks",
-        }
+    #[must_use]
+    pub const fn base_segment() -> &'static str {
+        "docs"
     }
-
-    pub fn to_title(&self) -> &'static str {
-        match self {
-            DocsRoutes::Components => "Components",
-            DocsRoutes::Hooks => "Hooks",
-        }
-    }
-
-    pub fn all() -> &'static [DocsRoutes] {
-        &[DocsRoutes::Components, DocsRoutes::Hooks]
+    #[must_use]
+    pub fn to_title(self) -> String {
+        self.as_ref().to_title_case()
     }
 }
 
-impl fmt::Display for DocsRoutes {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.as_str())
-    }
-}
-
-/* ========================================================== */
-/*                     ✨ FUNCTIONS ✨                        */
-/* ========================================================== */
-
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, Display, AsRefStr, IntoStaticStr, EnumString, EnumIter, PartialEq, Eq)]
+#[strum(serialize_all = "kebab-case")]
 pub enum ComponentsRoutes {
     Accordion,
     Alert,
     AlertDialog,
-    Badge,
     Button,
-    Card,
-    Checkbox,
-    Dialog,
-    Input,
-    Label,
-    Separator,
-    Spinner,
 }
 
 impl ComponentsRoutes {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            ComponentsRoutes::Accordion => "accordion",
-            ComponentsRoutes::Alert => "alert",
-            ComponentsRoutes::AlertDialog => "alert-dialog",
-            ComponentsRoutes::Badge => "badge",
-            ComponentsRoutes::Button => "button",
-            ComponentsRoutes::Card => "card",
-            ComponentsRoutes::Checkbox => "checkbox",
-            ComponentsRoutes::Dialog => "dialog",
-            ComponentsRoutes::Input => "input",
-            ComponentsRoutes::Label => "label",
-            ComponentsRoutes::Separator => "separator",
-            ComponentsRoutes::Spinner => "spinner",
-        }
+    #[must_use]
+    pub const fn base_segment() -> &'static str {
+        "components"
     }
-
-    pub fn to_title(&self) -> &'static str {
-        match self {
-            ComponentsRoutes::Accordion => "Accordion",
-            ComponentsRoutes::Alert => "Alert",
-            ComponentsRoutes::AlertDialog => "Alert Dialog",
-            ComponentsRoutes::Badge => "Badge",
-            ComponentsRoutes::Button => "Button",
-            ComponentsRoutes::Card => "Card",
-            ComponentsRoutes::Checkbox => "Checkbox",
-            ComponentsRoutes::Dialog => "Dialog",
-            ComponentsRoutes::Input => "Input",
-            ComponentsRoutes::Label => "Label",
-            ComponentsRoutes::Separator => "Separator",
-            ComponentsRoutes::Spinner => "Spinner",
-        }
+    #[must_use]
+    pub fn base_url_with_sidenav(sidenav: SidenavRoutes) -> String {
+        format!(
+            "/{}/{}/{}",
+            sidenav.to_route(),
+            DocsRoutes::base_segment(),
+            Self::base_segment()
+        )
     }
-
-    pub fn all() -> &'static [ComponentsRoutes] {
-        &[
-            ComponentsRoutes::Accordion,
-            ComponentsRoutes::Alert,
-            ComponentsRoutes::AlertDialog,
-            ComponentsRoutes::Badge,
-            ComponentsRoutes::Button,
-            ComponentsRoutes::Card,
-            ComponentsRoutes::Checkbox,
-            ComponentsRoutes::Dialog,
-            ComponentsRoutes::Input,
-            ComponentsRoutes::Label,
-            ComponentsRoutes::Separator,
-            ComponentsRoutes::Spinner,
-        ]
+    #[must_use]
+    pub fn to_route_with_sidenav(self, sidenav: SidenavRoutes) -> String {
+        format!("{}/{}", Self::base_url_with_sidenav(sidenav), self.as_ref())
+    }
+    #[must_use]
+    pub fn to_title(self) -> String {
+        self.as_ref().to_title_case()
     }
 }
 
-impl fmt::Display for ComponentsRoutes {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.as_str())
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, Display, AsRefStr, IntoStaticStr, EnumString, EnumIter, PartialEq, Eq)]
+#[strum(serialize_all = "kebab-case")]
+// Route enum variant names are the public API; the `Use` prefix is intentional.
+#[allow(clippy::enum_variant_names)]
 pub enum HooksRoutes {
     UseCopyClipboard,
     UseLockBodyScroll,
@@ -220,30 +108,26 @@ pub enum HooksRoutes {
 }
 
 impl HooksRoutes {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            HooksRoutes::UseCopyClipboard => "use-copy-clipboard",
-            HooksRoutes::UseLockBodyScroll => "use-lock-body-scroll",
-            HooksRoutes::UseRandom => "use-random",
-        }
+    #[must_use]
+    pub const fn base_segment() -> &'static str {
+        "hooks"
     }
-
-    pub fn to_title(&self) -> &'static str {
-        match self {
-            HooksRoutes::UseCopyClipboard => "Use Copy Clipboard",
-            HooksRoutes::UseLockBodyScroll => "Use Lock Body Scroll",
-            HooksRoutes::UseRandom => "Use Random",
-        }
+    #[must_use]
+    pub fn base_url_with_sidenav(sidenav: SidenavRoutes) -> String {
+        format!(
+            "/{}/{}/{}",
+            sidenav.to_route(),
+            DocsRoutes::base_segment(),
+            Self::base_segment()
+        )
     }
-
-    pub fn all() -> &'static [HooksRoutes] {
-        &[HooksRoutes::UseCopyClipboard, HooksRoutes::UseLockBodyScroll, HooksRoutes::UseRandom]
+    #[must_use]
+    pub fn to_route_with_sidenav(self, sidenav: SidenavRoutes) -> String {
+        format!("{}/{}", Self::base_url_with_sidenav(sidenav), self.as_ref())
     }
-}
-
-impl fmt::Display for HooksRoutes {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.as_str())
+    #[must_use]
+    pub fn to_title(self) -> String {
+        self.as_ref().to_title_case()
     }
 }
 ```

@@ -25,9 +25,14 @@ ui add use_history
 ## Component Code
 
 ```rust
+#![cfg_attr(not(target_arch = "wasm32"), allow(clippy::missing_const_for_fn))]
+
 use dioxus::prelude::*;
+#[cfg(target_arch = "wasm32")]
 use wasm_bindgen::JsCast;
+#[cfg(target_arch = "wasm32")]
 use wasm_bindgen::closure::Closure;
+#[cfg(target_arch = "wasm32")]
 use web_sys::KeyboardEvent;
 
 /// Undo/redo history stack for URL-based state.
@@ -45,7 +50,7 @@ use web_sys::KeyboardEvent;
 ///
 /// // In child component:
 /// let history = use_history();
-/// history.push("?color=red".to_string());
+/// history.push("?color=red");
 /// ```
 #[derive(Clone, Copy)]
 pub struct UseHistory {
@@ -59,7 +64,11 @@ impl UseHistory {
     /// Sets up `⌘Z` / `⌘⇧Z` / `⌃Y` keyboard shortcuts on the document.
     #[must_use]
     pub fn init() -> Self {
-        let hook = Self { history: use_signal(Vec::new), index: use_signal(|| 0), is_navigating: use_signal(|| false) };
+        let hook = Self {
+            history: use_signal(Vec::new),
+            index: use_signal(|| 0),
+            is_navigating: use_signal(|| false),
+        };
 
         provide_context(hook);
 
@@ -67,7 +76,9 @@ impl UseHistory {
         use_effect(move || {
             #[cfg(target_arch = "wasm32")]
             {
-                let search = web_sys::window().and_then(|w| w.location().search().ok()).unwrap_or_default();
+                let search = web_sys::window()
+                    .and_then(|w| w.location().search().ok())
+                    .unwrap_or_default();
                 let mut history = hook.history;
                 history.with_mut(|h| h.push(search));
             }
@@ -113,7 +124,7 @@ impl UseHistory {
     }
 
     /// Push a new URL onto the stack (truncates any forward history).
-    pub fn push(&self, url: String) {
+    pub fn push(&self, url: &str) {
         if *self.is_navigating.peek() {
             return;
         }
@@ -124,12 +135,12 @@ impl UseHistory {
         let mut history = self.history;
         history.with_mut(|h| {
             h.truncate(idx + 1);
-            h.push(url.clone());
+            h.push(url.to_owned());
         });
         let mut index = self.index;
         index.set(idx + 1);
 
-        Self::replace_state(&url);
+        Self::replace_state(url);
     }
 
     /// Navigate backwards (undo).
@@ -172,26 +183,31 @@ impl UseHistory {
     }
 
     /// `true` when there is a previous state to undo to.
+    #[must_use]
     pub fn can_go_back(&self) -> bool {
         self.index() > 0
     }
 
     /// `true` when there is a future state to redo to.
+    #[must_use]
     pub fn can_go_forward(&self) -> bool {
         self.index() + 1 < (self.history)().len()
     }
 
     /// Current position in the stack (1-based for display).
+    #[must_use]
     pub fn position(&self) -> usize {
         self.index() + 1
     }
 
     /// Total number of states in the stack.
+    #[must_use]
     pub fn total(&self) -> usize {
         (self.history)().len()
     }
 
     /// The current URL in the history stack (reactive).
+    #[must_use]
     pub fn current(&self) -> String {
         let history = (self.history)();
         let idx = self.index();
@@ -209,7 +225,9 @@ impl UseHistory {
     fn replace_state(url: &str) {
         #[cfg(target_arch = "wasm32")]
         {
-            let Ok(history) = web_sys::window().and_then(|w| w.history().ok()).ok_or(()) else { return };
+            let Ok(history) = web_sys::window().and_then(|w| w.history().ok()).ok_or(()) else {
+                return;
+            };
             let _ = history.replace_state_with_url(&wasm_bindgen::JsValue::NULL, "", Some(url));
         }
         #[cfg(not(target_arch = "wasm32"))]
@@ -218,6 +236,7 @@ impl UseHistory {
 }
 
 /// Access the `UseHistory` context initialized by `UseHistory::init()`.
+#[must_use]
 pub fn use_history() -> UseHistory {
     consume_context::<UseHistory>()
 }

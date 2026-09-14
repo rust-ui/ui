@@ -33,7 +33,7 @@ use dioxus::prelude::*;
 /// comparison. `Disabled` is not produced by this hook — it's applied by
 /// the caller (e.g. `StepperItem`) on top of the computed state, since it
 /// depends on external conditions the hook has no visibility into.
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, strum::IntoStaticStr)]
 pub enum StepState {
     Completed,
     Active,
@@ -42,13 +42,9 @@ pub enum StepState {
 }
 
 impl StepState {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            StepState::Completed => "Completed",
-            StepState::Active => "Active",
-            StepState::Pending => "Pending",
-            StepState::Disabled => "Disabled",
-        }
+    #[must_use]
+    pub fn as_str(self) -> &'static str {
+        self.into()
     }
 }
 
@@ -66,11 +62,13 @@ pub struct StepperContext {
 
 impl StepperContext {
     /// `true` when there is a previous state to undo to.
+    #[must_use]
     pub fn can_go_prev(&self) -> bool {
         (self.current_index)() > 0
     }
 
     /// `true` when there is a future state to redo to.
+    #[must_use]
     pub fn can_go_next(&self) -> bool {
         (self.current_index)() + 1 < self.total_steps
     }
@@ -100,6 +98,7 @@ impl StepperContext {
 
     /// Maps the issue's three-way rule (step < current -> completed, == -> active,
     /// > -> pending) onto Ordering so it reads as one exhaustive match.
+    #[must_use]
     pub fn step_state(&self, step: usize) -> StepState {
         let current = (self.current_index)();
         match step.cmp(&current) {
@@ -112,9 +111,13 @@ impl StepperContext {
 
 /// Builds the controlled navigation state for a stepper with `total_steps`
 /// steps, starting at `default_index`.
+#[must_use]
 pub fn use_stepper(total_steps: usize, default_index: usize) -> StepperContext {
     // Clamp in case `default_index` is out of range (e.g. caller passes total_steps itself).
     let current_index = use_signal(|| default_index.min(total_steps.saturating_sub(1)));
-    StepperContext { current_index, total_steps }
+    StepperContext {
+        current_index,
+        total_steps,
+    }
 }
 ```

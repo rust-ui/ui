@@ -5,6 +5,10 @@ use super::sidenav_routes::{DocsRoutes, SidenavRoutes};
 use crate::ui::sheet::SheetDirection;
 use crate::ui::sidenav::SidenavVariant;
 
+/*
+ * title: Icons Sidenav
+*/
+
 #[component]
 pub fn Sidenav07Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
     sidenav_common::standard_sidebar(

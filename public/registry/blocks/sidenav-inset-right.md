@@ -3,29 +3,94 @@
 
 ```rust
 use dioxus::prelude::*;
-use icons::Search;
+use heck::ToTitleCase;
+use icons::PanelLeft;
 
-use crate::components::ui::input::{Input, InputType};
+use super::sidenav_routes::{DocsRoutes, SidenavRoutes};
+use crate::components::ui::breadcrumb::{
+    Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator,
+};
+use crate::components::ui::separator::{Separator, SeparatorOrientation};
+use crate::components::ui::sidenav::{SidenavInset, SidenavTrigger, SidenavVariant};
+
+#[must_use]
+pub fn breadcrumb_from_path(path: &str, segment: &str) -> Vec<(String, String, bool)> {
+    let parts: Vec<&str> = path.split('/').filter(|part| !part.is_empty()).collect();
+    let Some(index) = parts.iter().position(|part| *part == segment) else {
+        return Vec::new();
+    };
+    let Some(breadcrumb_parts) = parts.get(index..) else {
+        return Vec::new();
+    };
+    breadcrumb_parts
+        .iter()
+        .enumerate()
+        .filter_map(|(offset, part)| {
+            let end = index + offset;
+            let href = format!("/{}", parts.get(..=end)?.join("/"));
+            Some((part.to_title_case(), href, end == parts.len() - 1))
+        })
+        .collect()
+}
 
 #[component]
-pub fn SidenavInsetRight() -> Element {
+pub fn SidenavInsetRight(path: String, data_variant: Option<SidenavVariant>) -> Element {
+    let breadcrumb_items = breadcrumb_from_path(&path, DocsRoutes::base_segment());
+    let current_section = if path.contains(DocsRoutes::Components.as_ref()) {
+        DocsRoutes::Components
+    } else {
+        DocsRoutes::Hooks
+    };
+    let sidenav_route = SidenavRoutes::from_path(&path);
+
+    let data_variant = data_variant.map(|variant| match variant {
+        SidenavVariant::Sidenav => "Sidenav".to_string(),
+        SidenavVariant::Floating => "Floating".to_string(),
+        SidenavVariant::Inset => "Inset".to_string(),
+    });
+
     rsx! {
-        div { class: "min-h-[760px] bg-muted/40",
-            div { class: "mx-auto grid max-w-7xl gap-6 px-6 py-8 lg:grid-cols-[minmax(0,1fr)_18rem]",
-                main { class: "rounded-xl border bg-background p-6 shadow-sm",
-                    h1 { class: "text-3xl font-semibold tracking-tight", "Inset Right Layout" }
-                }
-                aside { class: "flex flex-col rounded-xl border bg-sidenav p-3 text-sidenav-foreground shadow-sm",
-                    div { class: "space-y-2 border-b border-sidenav-border/70 pb-3",
-                        div { class: "text-lg font-semibold", "Inset Right Layout" }
-                        p { class: "text-xs text-sidenav-foreground/70", "A right-sided inset layout for documentation pages that need a split surface." }
-                        div { class: "relative",
-                            Input { r#type: InputType::Search, placeholder: "Search inset pages...", class: "h-8 pl-9 bg-background" }
-                            Search { class: "pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" }
+        SidenavInset { data_variant,
+            header {
+                class: "flex gap-2 items-center h-16 ease-linear shrink-0 transition-[width,height] group-has-data-[collapsible=icon]/sidenav-wrapper:h-12",
+                div { class: "flex gap-2 items-center px-4",
+                    match sidenav_route {
+                        SidenavRoutes::Sidenav02 => rsx! { crate::blocks::sidenav02::Sidenav02MobileSheet { current_section, sidenav_route } },
+                        SidenavRoutes::Sidenav03 => rsx! { crate::blocks::sidenav03::Sidenav03MobileSheet { current_section, sidenav_route } },
+                        SidenavRoutes::Sidenav04 => rsx! { crate::blocks::sidenav04::Sidenav04MobileSheet { current_section, sidenav_route } },
+                        SidenavRoutes::Sidenav05 => rsx! { crate::blocks::sidenav05::Sidenav05MobileSheet { current_section, sidenav_route } },
+                        SidenavRoutes::Sidenav06 => rsx! { crate::blocks::sidenav06::Sidenav06MobileSheet { current_section, sidenav_route } },
+                        SidenavRoutes::Sidenav07 => rsx! { crate::blocks::sidenav07::Sidenav07MobileSheet { current_section, sidenav_route } },
+                        SidenavRoutes::Sidenav08 => rsx! { crate::blocks::sidenav08::Sidenav08MobileSheet { current_section, sidenav_route } },
+                        SidenavRoutes::Sidenav09 => rsx! { crate::blocks::sidenav09::Sidenav09MobileSheet { current_section, sidenav_route } },
+                        SidenavRoutes::Sidenav10 => rsx! { crate::blocks::sidenav10::Sidenav10MobileSheet { current_section, sidenav_route } },
+                        SidenavRoutes::Sidenav11 => rsx! { crate::blocks::sidenav11::Sidenav11MobileSheet { current_section, sidenav_route } },
+                        SidenavRoutes::Sidenav01 => rsx! { crate::blocks::sidenav01::Sidenav01MobileSheet { current_section, sidenav_route } },
+                    }
+                    div { class: "hidden md:block",
+                        SidenavTrigger { PanelLeft {} span { class: "hidden", "Toggle Sidenav" } }
+                    }
+                    Separator { orientation: SeparatorOrientation::Vertical, class: "-ml-1 h-4" }
+                    Breadcrumb {
+                        BreadcrumbList {
+                            for (idx, (name, href, is_last)) in breadcrumb_items.into_iter().enumerate() {
+                                if idx > 0 { BreadcrumbSeparator {} }
+                                BreadcrumbItem {
+                                    if is_last { BreadcrumbPage { "{name}" } }
+                                    else { BreadcrumbLink { href, "{name}" } }
+                                }
+                            }
                         }
                     }
-                    div { class: "mt-auto border-t border-sidenav-border/70 pt-3 text-xs text-sidenav-foreground/70", "Inset-right navigation" }
                 }
+            }
+            div { class: "flex flex-col flex-1 gap-4 p-4 pt-0",
+                div { class: "grid auto-rows-min gap-4 md:grid-cols-3",
+                    div { class: "rounded-xl bg-muted/50 aspect-video" }
+                    div { class: "rounded-xl bg-muted/50 aspect-video" }
+                    div { class: "rounded-xl bg-muted/50 aspect-video" }
+                }
+                div { class: "flex-1 rounded-xl bg-muted/50 min-h-[100vh] md:min-h-min" }
             }
         }
     }

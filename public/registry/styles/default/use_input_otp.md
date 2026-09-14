@@ -25,6 +25,15 @@ ui add use_input_otp
 ## Component Code
 
 ```rust
+#![cfg_attr(
+    not(target_arch = "wasm32"),
+    allow(
+        dead_code,
+        reason = "DOM OTP controller is only executable in the wasm browser target"
+    )
+)]
+#![cfg_attr(not(target_arch = "wasm32"), allow(clippy::missing_const_for_fn))]
+
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
@@ -45,6 +54,7 @@ thread_local! {
 }
 
 pub fn init() {
+    #[cfg(target_arch = "wasm32")]
     MANAGER.with(|manager| {
         if manager.borrow().is_some() {
             return;
@@ -60,13 +70,19 @@ pub fn init() {
 struct OtpManager {
     controllers: HashMap<String, OtpController>,
     next_key: u64,
-    _observer_callback: Option<Closure<dyn FnMut(js_sys::Array, web_sys::MutationObserver)>>,
+    /// Retained to keep the `MutationObserver` callback alive; never read.
+    observer_callback: Option<Closure<dyn FnMut(js_sys::Array, web_sys::MutationObserver)>>,
     observer: Option<web_sys::MutationObserver>,
 }
 
 impl OtpManager {
     fn new() -> Self {
-        Self { controllers: HashMap::new(), next_key: 0, _observer_callback: None, observer: None }
+        Self {
+            controllers: HashMap::new(),
+            next_key: 0,
+            observer_callback: None,
+            observer: None,
+        }
     }
 
     fn init_all(&mut self) {
@@ -78,12 +94,12 @@ impl OtpManager {
         for idx in 0..nodes.length() {
             let Some(node) = nodes.item(idx) else { continue };
             let Ok(root) = node.dyn_into::<Element>() else { continue };
-            self.init_container(root);
+            self.init_container(&root);
         }
     }
 
-    fn init_container(&mut self, root: Element) {
-        let key = self.ensure_key(&root);
+    fn init_container(&mut self, root: &Element) {
+        let key = self.ensure_key(root);
         if self.controllers.contains_key(&key) {
             return;
         }
@@ -103,16 +119,18 @@ impl OtpManager {
         self.controllers.remove(&key);
     }
 
-    fn handle_mutations(&mut self, records: js_sys::Array) {
+    fn handle_mutations(&mut self, records: &js_sys::Array) {
         for record in records.iter() {
-            let Ok(record) = record.dyn_into::<web_sys::MutationRecord>() else { continue };
+            let Ok(record) = record.dyn_into::<web_sys::MutationRecord>() else {
+                continue;
+            };
 
-            self.handle_node_list(record.removed_nodes(), false);
-            self.handle_node_list(record.added_nodes(), true);
+            self.handle_node_list(&record.removed_nodes(), false);
+            self.handle_node_list(&record.added_nodes(), true);
         }
     }
 
-    fn handle_node_list(&mut self, nodes: web_sys::NodeList, added: bool) {
+    fn handle_node_list(&mut self, nodes: &web_sys::NodeList, added: bool) {
         for idx in 0..nodes.length() {
             let Some(node) = nodes.item(idx) else { continue };
             self.handle_node(node, added);
@@ -120,11 +138,13 @@ impl OtpManager {
     }
 
     fn handle_node(&mut self, node: Node, added: bool) {
-        let Ok(element) = node.dyn_into::<Element>() else { return };
+        let Ok(element) = node.dyn_into::<Element>() else {
+            return;
+        };
 
         for root in collect_roots(&element) {
             if added {
-                self.init_container(root);
+                self.init_container(&root);
             } else {
                 self.remove_container(&root);
             }
@@ -146,13 +166,15 @@ impl OtpManager {
         let Some(document) = document() else { return };
         let Some(body) = document.body() else { return };
 
-        let callback = Closure::wrap(Box::new(move |records: js_sys::Array, _observer: web_sys::MutationObserver| {
-            MANAGER.with(|manager| {
-                if let Some(manager) = manager.borrow_mut().as_mut() {
-                    manager.handle_mutations(records);
-                }
-            });
-        }) as Box<dyn FnMut(js_sys::Array, web_sys::MutationObserver)>);
+        let callback = Closure::wrap(
+            Box::new(move |records: js_sys::Array, _observer: web_sys::MutationObserver| {
+                MANAGER.with(|manager| {
+                    if let Some(manager) = manager.borrow_mut().as_mut() {
+                        manager.handle_mutations(&records);
+                    }
+                });
+            }) as Box<dyn FnMut(js_sys::Array, web_sys::MutationObserver)>,
+        );
 
         let Ok(observer) = web_sys::MutationObserver::new(callback.as_ref().unchecked_ref()) else {
             return;
@@ -167,7 +189,7 @@ impl OtpManager {
         }
 
         self.observer = Some(observer);
-        self._observer_callback = Some(callback);
+        self.observer_callback = Some(callback);
     }
 }
 
@@ -185,12 +207,15 @@ struct OtpController {
 }
 
 impl OtpController {
-    fn new(root: Element) -> Option<Self> {
-        let input = find_input(&root)?;
-        let dom = Rc::new(OtpDom::new(input, collect_slots(&root)));
+    fn new(root: &Element) -> Option<Self> {
+        let input = find_input(root)?;
+        let dom = Rc::new(OtpDom::new(input, collect_slots(root)));
         let listeners = register_listeners(&dom);
         update(&dom);
-        Some(Self { _dom: dom, _listeners: listeners })
+        Some(Self {
+            _dom: dom,
+            _listeners: listeners,
+        })
     }
 }
 
@@ -203,7 +228,10 @@ struct OtpDom {
 impl OtpDom {
     fn new(input: HtmlInputElement, mut slots: Vec<OtpSlot>) -> Self {
         slots.sort_by_key(|slot| slot.index);
-        let max_len = input.get_attribute("maxlength").and_then(|value| value.parse::<usize>().ok()).unwrap_or(6);
+        let max_len = input
+            .get_attribute("maxlength")
+            .and_then(|value| value.parse::<usize>().ok())
+            .unwrap_or(6);
 
         Self { input, slots, max_len }
     }
@@ -225,7 +253,9 @@ struct Listener {
 
 impl Drop for Listener {
     fn drop(&mut self) {
-        let _ = self.target.remove_event_listener_with_callback(self.event, self.callback.as_ref().unchecked_ref());
+        let _ = self
+            .target
+            .remove_event_listener_with_callback(self.event, self.callback.as_ref().unchecked_ref());
     }
 }
 
@@ -247,7 +277,10 @@ fn collect_slots(root: &Element) -> Vec<OtpSlot> {
     for idx in 0..nodes.length() {
         let Some(node) = nodes.item(idx) else { continue };
         let Ok(slot) = node.dyn_into::<Element>() else { continue };
-        let Some(index) = slot.get_attribute("data-otp-index").and_then(|value| value.parse::<usize>().ok()) else {
+        let Some(index) = slot
+            .get_attribute("data-otp-index")
+            .and_then(|value| value.parse::<usize>().ok())
+        else {
             continue;
         };
 
@@ -258,7 +291,12 @@ fn collect_slots(root: &Element) -> Vec<OtpSlot> {
             .flatten()
             .and_then(|caret| caret.dyn_into::<HtmlElement>().ok());
 
-        slots.push(OtpSlot { index, slot, char_el, caret_el });
+        slots.push(OtpSlot {
+            index,
+            slot,
+            char_el,
+            caret_el,
+        });
     }
 
     slots
@@ -315,7 +353,7 @@ fn register_input_listeners(dom: &Rc<OtpDom>) -> Vec<Listener> {
         {
             let dom = Rc::clone(dom);
             add_listener(target.clone(), "beforeinput", move |event| {
-                filter_input(event, &dom);
+                filter_input(&event, &dom);
             })
         },
         {
@@ -361,11 +399,17 @@ where
     F: FnMut(Event) + 'static,
 {
     let callback = Closure::wrap(Box::new(handler) as Box<dyn FnMut(Event)>);
-    target.add_event_listener_with_callback(event, callback.as_ref().unchecked_ref()).ok()?;
-    Some(Listener { target, event, callback })
+    target
+        .add_event_listener_with_callback(event, callback.as_ref().unchecked_ref())
+        .ok()?;
+    Some(Listener {
+        target,
+        event,
+        callback,
+    })
 }
 
-fn filter_input(event: Event, _dom: &Rc<OtpDom>) {
+fn filter_input(event: &Event, _dom: &Rc<OtpDom>) {
     use wasm_bindgen::JsCast;
     if let Some(input_event) = event.dyn_ref::<web_sys::InputEvent>() {
         if input_event.input_type() != "insertText" {
@@ -382,7 +426,7 @@ fn filter_input(event: Event, _dom: &Rc<OtpDom>) {
 }
 
 fn move_cursor_to_end(input: &HtmlInputElement) {
-    let len = input.value().chars().count() as u32;
+    let len = u32::try_from(input.value().chars().count()).unwrap_or(u32::MAX);
     let _ = input.set_selection_range(len, len);
 }
 
@@ -402,11 +446,16 @@ where
 fn update(dom: &OtpDom) {
     let value: Vec<char> = dom.input.value().chars().collect();
     let input_element: Element = dom.input.clone().unchecked_into();
-    let focused =
-        document().and_then(|document| document.active_element()).is_some_and(|active| active == input_element);
+    let focused = document()
+        .and_then(|document| document.active_element())
+        .is_some_and(|active| active == input_element);
 
     let selection = if focused {
-        dom.input.selection_start().ok().flatten().map_or(0, |position| position as usize)
+        dom.input
+            .selection_start()
+            .ok()
+            .flatten()
+            .map_or(0, |position| position as usize)
     } else {
         usize::MAX
     };
@@ -421,7 +470,9 @@ fn update(dom: &OtpDom) {
             char_el.set_text_content(Some(&ch));
         }
 
-        let _ = slot.slot.set_attribute("data-active", if is_active { "true" } else { "false" });
+        let _ = slot
+            .slot
+            .set_attribute("data-active", if is_active { "true" } else { "false" });
 
         if let Some(caret_el) = &slot.caret_el {
             let display = if is_active && ch.is_empty() { "flex" } else { "none" };

@@ -3,31 +3,37 @@
 
 ```rust
 use dioxus::prelude::*;
-use icons::Search;
 
-use crate::components::ui::input::{Input, InputType};
+use super::sidenav_common::{self, SidenavPattern};
+use super::sidenav_routes::{DocsRoutes, SidenavRoutes};
+use crate::components::ui::sheet::SheetDirection;
+use crate::components::ui::sidenav::SidenavVariant;
 
 #[component]
+pub fn Sidenav06Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
+    sidenav_common::standard_sidebar(
+        current_section,
+        sidenav_route,
+        SidenavPattern::Dropdown,
+        SidenavVariant::default(),
+    )
+}
+#[component]
+pub fn Sidenav06Content(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
+    rsx! { sidenav_common::SidenavStandardContent { current_section, sidenav_route, pattern: SidenavPattern::Dropdown } }
+}
+#[component]
+pub fn Sidenav06MobileSheet(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
+    sidenav_common::standard_mobile(
+        current_section,
+        sidenav_route,
+        SidenavPattern::Dropdown,
+        SheetDirection::default(),
+        false,
+    )
+}
+#[component]
 pub fn Sidenav06() -> Element {
-    rsx! {
-        div { class: "min-h-[760px] bg-muted/40",
-            div { class: "mx-auto grid max-w-7xl gap-6 px-6 py-8 lg:grid-cols-[18rem_minmax(0,1fr)]",
-                aside { class: "flex flex-col rounded-xl border bg-sidenav p-3 text-sidenav-foreground shadow-sm",
-                    div { class: "space-y-2 border-b border-sidenav-border/70 pb-3",
-                        div { class: "text-lg font-semibold", "Dropdown Submenus" }
-                        p { class: "text-xs text-sidenav-foreground/70", "A sidebar variant with a denser navigation feel." }
-                        div { class: "relative",
-                            Input { r#type: InputType::Search, placeholder: "Search dropdown items...", class: "h-8 pl-9 bg-background" }
-                            Search { class: "pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" }
-                        }
-                    }
-                    div { class: "mt-auto border-t border-sidenav-border/70 pt-3 text-xs text-sidenav-foreground/70", "Dropdown-style grouping" }
-                }
-                main { class: "rounded-xl border bg-background p-6 shadow-sm",
-                    h1 { class: "text-3xl font-semibold tracking-tight", "Dropdown Submenus" }
-                }
-            }
-        }
-    }
+    sidenav_common::EmptyLegacyBlock()
 }
 ```

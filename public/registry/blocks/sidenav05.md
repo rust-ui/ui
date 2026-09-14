@@ -3,31 +3,37 @@
 
 ```rust
 use dioxus::prelude::*;
-use icons::Search;
 
-use crate::components::ui::input::{Input, InputType};
+use super::sidenav_common::{self, SidenavPattern};
+use super::sidenav_routes::{DocsRoutes, SidenavRoutes};
+use crate::components::ui::sheet::SheetDirection;
+use crate::components::ui::sidenav::SidenavVariant;
 
 #[component]
+pub fn Sidenav05Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
+    sidenav_common::standard_sidebar(
+        current_section,
+        sidenav_route,
+        SidenavPattern::CollapsibleSubmenus,
+        SidenavVariant::default(),
+    )
+}
+#[component]
+pub fn Sidenav05Content(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
+    rsx! { sidenav_common::SidenavStandardContent { current_section, sidenav_route, pattern: SidenavPattern::CollapsibleSubmenus } }
+}
+#[component]
+pub fn Sidenav05MobileSheet(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
+    sidenav_common::standard_mobile(
+        current_section,
+        sidenav_route,
+        SidenavPattern::CollapsibleSubmenus,
+        SheetDirection::default(),
+        false,
+    )
+}
+#[component]
 pub fn Sidenav05() -> Element {
-    rsx! {
-        div { class: "min-h-[760px] bg-muted/40",
-            div { class: "mx-auto grid max-w-7xl gap-6 px-6 py-8 lg:grid-cols-[18rem_minmax(0,1fr)]",
-                aside { class: "flex flex-col rounded-xl border bg-sidenav p-3 text-sidenav-foreground shadow-sm",
-                    div { class: "space-y-2 border-b border-sidenav-border/70 pb-3",
-                        div { class: "text-lg font-semibold", "Collapsible Submenus" }
-                        p { class: "text-xs text-sidenav-foreground/70", "A sidebar variant that keeps the structure compact but readable." }
-                        div { class: "relative",
-                            Input { r#type: InputType::Search, placeholder: "Search collapsible items...", class: "h-8 pl-9 bg-background" }
-                            Search { class: "pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" }
-                        }
-                    }
-                    div { class: "mt-auto border-t border-sidenav-border/70 pt-3 text-xs text-sidenav-foreground/70", "Designed for compact documentation pages" }
-                }
-                main { class: "rounded-xl border bg-background p-6 shadow-sm",
-                    h1 { class: "text-3xl font-semibold tracking-tight", "Collapsible Submenus" }
-                }
-            }
-        }
-    }
+    sidenav_common::EmptyLegacyBlock()
 }
 ```

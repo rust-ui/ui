@@ -89,6 +89,7 @@ where
         }
     }
 
+    #[must_use]
     pub fn value(&self, field: &str) -> String {
         self.values_signal.read().get(field).cloned().unwrap_or_default()
     }
@@ -116,11 +117,12 @@ where
     }
 
     /// Check if a field has been touched (blurred at least once)
+    #[must_use]
     pub fn is_touched(&self, field: &str) -> bool {
         self.touched_signal.read().contains(field)
     }
 
-    fn map_to_struct(&self, values: &HashMap<String, String>) -> Option<T> {
+    fn map_to_struct(values: &HashMap<String, String>) -> Option<T> {
         let default_value = serde_json::to_value(T::default()).ok()?;
         let mut default_map: HashMap<String, serde_json::Value> = serde_json::from_value(default_value).ok()?;
 
@@ -129,15 +131,18 @@ where
                 continue;
             }
 
-            let json_value = if let Ok(num) = value.parse::<i64>() {
-                serde_json::Value::Number(num.into())
-            } else if let Ok(num) = value.parse::<f64>() {
-                serde_json::Number::from_f64(num)
-                    .map(serde_json::Value::Number)
-                    .unwrap_or_else(|| serde_json::Value::String(value.clone()))
-            } else {
-                serde_json::Value::String(value.clone())
-            };
+            let json_value = value.parse::<i64>().map_or_else(
+                |_| {
+                    value.parse::<f64>().map_or_else(
+                        |_| serde_json::Value::String(value.clone()),
+                        |num| {
+                            serde_json::Number::from_f64(num)
+                                .map_or_else(|| serde_json::Value::String(value.clone()), serde_json::Value::Number)
+                        },
+                    )
+                },
+                |num| serde_json::Value::Number(num.into()),
+            );
             default_map.insert(key.clone(), json_value);
         }
 
@@ -150,25 +155,30 @@ where
 
     pub fn reset(&self) {
         let mut values_signal = self.values_signal;
-        values_signal.set(Default::default());
+        values_signal.set(HashMap::default());
         let mut errors_signal = self.errors_signal;
-        errors_signal.set(Default::default());
+        errors_signal.set(HashMap::default());
         let mut touched_signal = self.touched_signal;
-        touched_signal.set(Default::default());
+        touched_signal.set(HashSet::default());
     }
 
+    #[must_use]
     pub fn get_data(&self) -> Option<T> {
-        self.map_to_struct(&self.values_signal.read())
+        Self::map_to_struct(&self.values_signal.read())
     }
 
+    /// Validate fields and return typed form data.
+    ///
+    /// # Errors
+    /// Returns an error when required field data is missing or invalid.
     pub fn validate_and_get(&self) -> Result<T, String> {
-        let data = self
-            .map_to_struct(&self.values_signal.read())
+        let data = Self::map_to_struct(&self.values_signal.read())
             .ok_or_else(|| "Please fill in all required fields.".to_string())?;
         Ok(data)
     }
 }
 
+#[must_use]
 pub fn use_form<T>() -> Form<T>
 where
     T: FormData,

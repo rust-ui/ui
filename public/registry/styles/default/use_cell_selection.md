@@ -31,7 +31,9 @@ use crate::components::ui::data_grid::DataGridColumn;
 
 /// Return type for the cell selection hook.
 /// Manages active cell (click) and context menu cell (right-click) state.
-#[derive(Clone, Copy, PartialEq)]
+// The `_signal` suffix is the project-wide convention for stored `Signal` fields.
+#[allow(clippy::struct_field_names)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub struct UseCellSelection<C: DataGridColumn> {
     /// The currently active/focused cell (left-clicked)
     active_cell_signal: Signal<Option<(usize, C)>>,
@@ -54,6 +56,7 @@ impl<C: DataGridColumn> UseCellSelection<C> {
     }
 
     /// Returns the current context menu cell without subscribing reactively.
+    #[must_use]
     pub fn context_menu_cell(&self) -> Option<(usize, C)> {
         *self.context_menu_cell_signal.peek()
     }
@@ -91,8 +94,8 @@ impl<C: DataGridColumn> UseCellSelection<C> {
         self.context_menu_cell_signal.set(None);
     }
 
-    /// Signal that a context menu is about to open (call before handle_contextmenu).
-    /// This prevents the race condition where on_close clears newly set values.
+    /// Signal that a context menu is about to open (call before `handle_contextmenu`).
+    /// This prevents the race condition where `on_close` clears newly set values.
     pub fn start_contextmenu(&mut self) {
         self.context_menu_reopening_signal.set(true);
     }
@@ -123,11 +126,16 @@ impl<C: DataGridColumn> UseCellSelection<C> {
 /// - Active cell (left-click) with ring highlight
 /// - Context menu cell (right-click) with background highlight
 /// - Race condition prevention for consecutive right-clicks
+#[must_use]
 pub fn use_cell_selection<C: DataGridColumn>() -> UseCellSelection<C> {
     let active_cell_signal = use_signal(|| None);
     let context_menu_cell_signal = use_signal(|| None);
     let context_menu_reopening_signal = use_signal(|| false);
 
-    UseCellSelection { active_cell_signal, context_menu_cell_signal, context_menu_reopening_signal }
+    UseCellSelection {
+        active_cell_signal,
+        context_menu_cell_signal,
+        context_menu_reopening_signal,
+    }
 }
 ```

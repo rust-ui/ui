@@ -34,6 +34,8 @@ Each dependency level is shown with progressive bullet points: * for components,
   ** data_grid
 * use_form (hooks)
   ** cargo: serde
+* use_grid_virtual_scroll (hooks)
+  ** cargo: wasm_bindgen
 * use_handle_day_click (hooks)
   ** cargo: time
 * use_history (hooks)
@@ -59,9 +61,13 @@ Each dependency level is shown with progressive bullet points: * for components,
 * use_press_hold (hooks)
   ** cargo: wasm_bindgen
 * use_random (hooks)
+* use_resizable (hooks)
+  ** cargo: wasm_bindgen
 * use_scroll_lock (hooks)
   ** cargo: wasm_bindgen
 * use_stepper (hooks)
+* use_table_of_contents (hooks)
+  ** cargo: wasm_bindgen
 * use_theme_mode (hooks)
 * use_virtual_scroll (hooks)
   ** cargo: wasm_bindgen

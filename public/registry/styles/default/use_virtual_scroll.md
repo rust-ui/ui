@@ -47,10 +47,11 @@ pub struct VirtualScrollState {
     pub total_height: ReadSignal<usize>,
 }
 
-/// Get the virtual scroll context from a parent VirtualizedGrid.
-/// Returns None if used outside of a VirtualizedGrid.
+/// Get the virtual scroll context from a parent `VirtualizedGrid`.
+/// Returns None if used outside of a `VirtualizedGrid`.
+#[must_use]
 pub fn use_virtual_scroll_context() -> Option<VirtualScrollState> {
-    Some(consume_context::<VirtualScrollState>())
+    try_consume_context::<VirtualScrollState>()
 }
 
 /// Hook for virtual scrolling in data grids.
@@ -64,6 +65,7 @@ pub fn use_virtual_scroll_context() -> Option<VirtualScrollState> {
 ///
 /// # Returns
 /// * `VirtualScrollState` with start/end indices and total height
+#[must_use]
 pub fn use_virtual_scroll(
     container_element: ReadSignal<Option<web_sys::Element>>,
     total_rows: ReadSignal<usize>,
@@ -84,7 +86,9 @@ pub fn use_virtual_scroll(
     let is_mounted_for_effect = Arc::clone(&is_mounted);
     let is_mounted_for_scroll = Arc::clone(&is_mounted);
     use_effect(move || {
-        let Some(el) = container_element.peek().clone() else { return };
+        let Some(el) = container_element.peek().clone() else {
+            return;
+        };
         let el: web_sys::HtmlElement = match el.dyn_into() {
             Ok(e) => e,
             Err(_) => return,
@@ -92,7 +96,9 @@ pub fn use_virtual_scroll(
 
         // Update container height immediately
         if is_mounted_for_effect.load(Ordering::SeqCst) {
-            container_height_signal.clone().set(el.client_height().max(0) as usize);
+            container_height_signal
+                .clone()
+                .set(usize::try_from(el.client_height().max(0)).unwrap_or(0));
         }
 
         // Set up scroll listener with mounted check
@@ -105,8 +111,8 @@ pub fn use_virtual_scroll(
             if !is_mounted_for_handler.load(Ordering::SeqCst) {
                 return;
             }
-            scroll_top_signal_clone.set(el_clone.scroll_top().max(0) as usize);
-            container_height_signal_clone.set(el_clone.client_height().max(0) as usize);
+            scroll_top_signal_clone.set(usize::try_from(el_clone.scroll_top().max(0)).unwrap_or(0));
+            container_height_signal_clone.set(usize::try_from(el_clone.client_height().max(0)).unwrap_or(0));
         }) as Box<dyn FnMut()>);
 
         let _ = el.add_event_listener_with_callback("scroll", scroll_handler.as_ref().unchecked_ref());
@@ -135,6 +141,10 @@ pub fn use_virtual_scroll(
 
     let total_height = use_memo(move || total_rows() * ROW_HEIGHT);
 
-    VirtualScrollState { start_index, end_index, total_height: total_height.into() }
+    VirtualScrollState {
+        start_index,
+        end_index,
+        total_height: total_height.into(),
+    }
 }
 ```

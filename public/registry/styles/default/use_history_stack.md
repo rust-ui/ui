@@ -34,6 +34,7 @@ pub struct UseHistoryStack<T: Clone + 'static> {
 
 // Signal<T> is Copy regardless of T — derived impls would add T: Copy/PartialEq bounds unnecessarily.
 impl<T: Clone + 'static> Copy for UseHistoryStack<T> {}
+#[allow(clippy::expl_impl_clone_on_copy)] // hand-written to avoid the derive's T: Copy bound
 impl<T: Clone + 'static> Clone for UseHistoryStack<T> {
     fn clone(&self) -> Self {
         *self
@@ -47,7 +48,10 @@ impl<T: Clone + 'static> PartialEq for UseHistoryStack<T> {
 
 impl<T: Clone + 'static> UseHistoryStack<T> {
     pub fn new(initial: T) -> Self {
-        Self { history: use_signal(|| vec![initial]), index: use_signal(|| 0) }
+        Self {
+            history: use_signal(|| vec![initial]),
+            index: use_signal(|| 0),
+        }
     }
 
     pub fn push(&mut self, state: T) {
@@ -76,10 +80,12 @@ impl<T: Clone + 'static> UseHistoryStack<T> {
         self.history.read().get(idx + 1).cloned()
     }
 
+    #[must_use]
     pub fn can_undo(&self) -> bool {
         *self.index.read() > 0
     }
 
+    #[must_use]
     pub fn can_redo(&self) -> bool {
         let idx = *self.index.read();
         idx + 1 < self.history.read().len()

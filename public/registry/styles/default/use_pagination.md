@@ -25,6 +25,8 @@ ui add use_pagination
 ## Component Code
 
 ```rust
+#![cfg_attr(not(target_arch = "wasm32"), allow(clippy::missing_const_for_fn))]
+
 use dioxus::prelude::*;
 
 pub const PAGE_QUERY_KEY: &str = "page";
@@ -82,7 +84,7 @@ fn build_page_href(page: u32) -> String {
             }
         }
     }
-    format!("?{}={}", PAGE_QUERY_KEY, page)
+    format!("?{PAGE_QUERY_KEY}={page}")
 }
 
 pub fn use_pagination() -> PaginationContext {
@@ -92,7 +94,11 @@ pub fn use_pagination() -> PaginationContext {
 
     let prev_href = use_memo(move || {
         let current = current_page();
-        if current > FIRST_PAGE { build_page_href(current - 1) } else { "#".to_string() }
+        if current > FIRST_PAGE {
+            build_page_href(current - 1)
+        } else {
+            "#".to_string()
+        }
     });
 
     let next_href = use_memo(move || {

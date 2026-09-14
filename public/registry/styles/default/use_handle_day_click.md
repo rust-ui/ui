@@ -30,7 +30,7 @@ use time::Date;
 
 /// Hook for managing date range selection
 ///
-/// Returns a tuple of (start_date, end_date, handle_day_click) where:
+/// Returns a tuple of (`start_date`, `end_date`, `handle_day_click`) where:
 /// - `start_date`: Signal<Date> for the start date
 /// - `end_date`: Signal<Date> for the end date
 /// - `handle_day_click`: Function that takes a day number and updates the closest date
@@ -50,7 +50,9 @@ pub fn use_handle_day_click(
         let month = start_date_signal().month();
 
         // Create new date for the selected day
-        let Some(new_date) = Date::from_calendar_date(year, month, day).ok() else { return };
+        let Some(new_date) = Date::from_calendar_date(year, month, day).ok() else {
+            return;
+        };
 
         // Determine which date to update based on proximity
         let current_start = start_date_signal().day();

@@ -25,13 +25,21 @@ ui add use_lock_body_scroll_dialog
 ## Component Code
 
 ```rust
+#![cfg_attr(
+    not(target_arch = "wasm32"),
+    allow(
+        dead_code,
+        reason = "DOM lock helpers are only executable in the wasm browser target"
+    )
+)]
+
 use dioxus::prelude::*;
 use wasm_bindgen::JsCast;
 
 /// Hook to lock/unlock body scroll and prevent background interactions for dialogs.
 ///
 /// This prevents the page from scrolling when dialogs are open and makes
-/// background elements non-interactive by setting pointer-events: none on #target__dialog_lock_body,
+/// background elements non-interactive by setting pointer-events: none on #`target__dialog_lock_body`,
 /// while keeping the dialog interactive by setting pointer-events: auto on dialog elements,
 /// maintaining the current scroll position by using fixed positioning with
 /// a negative top offset.
@@ -46,16 +54,19 @@ use wasm_bindgen::JsCast;
 /// # Returns
 /// A reactive signal that controls the lock state - set to `true` to lock,
 /// `false` to unlock with delayed restoration
+#[must_use]
 pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
     const TARGET_DIALOG_LOCK_BODY: &str = "#target__dialog_lock_body";
 
     let locked_signal = use_signal(|| initial_locked);
+    #[cfg(target_arch = "wasm32")]
     let mut scroll_position_signal = use_signal(|| 0.0_f64);
 
+    #[cfg(target_arch = "wasm32")]
     use_effect(move || {
-        let Some(document) = web_sys::window().and_then(|w| w.document()) else { return };
+        let Some(window) = web_sys::window() else { return };
+        let Some(document) = window.document() else { return };
         let Some(body) = document.body() else { return };
-        let window = web_sys::window().unwrap();
 
         if locked_signal() {
             // Store current scroll position
@@ -65,7 +76,7 @@ pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
             let Some(inner_width) = window.inner_width().ok().and_then(|w| w.as_f64()) else {
                 return;
             };
-            let scrollbar_width = inner_width - body.client_width() as f64;
+            let scrollbar_width = inner_width - f64::from(body.client_width());
 
             // Apply body lock styles
             let style = body.style();
@@ -84,12 +95,10 @@ pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
         } else {
             // Delayed unlock to allow closing animations
             let stored_position = scroll_position_signal();
-            let body_clone = body.clone();
-            let document_clone = document.clone();
             let _ = window.set_timeout_with_callback_and_timeout_and_arguments_0(
                 wasm_bindgen::closure::Closure::once_into_js(move || {
                     // Remove body lock styles
-                    let style = body_clone.style();
+                    let style = body.style();
                     for prop in ["position", "top", "width", "overflow", "padding-right"] {
                         let _ = style.remove_property(prop);
                     }
@@ -98,7 +107,7 @@ pub fn use_lock_body_scroll_dialog(initial_locked: bool) -> Signal<bool> {
                     }
 
                     // Restore pointer events
-                    set_pointer_events(&document_clone, TARGET_DIALOG_LOCK_BODY, "");
+                    set_pointer_events(&document, TARGET_DIALOG_LOCK_BODY, "");
                 })
                 .unchecked_ref(),
                 100,

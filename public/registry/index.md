@@ -1,6 +1,6 @@
 # Registry index
 
-Complete list of all components available in dioxus-ui:
+Complete list of all components available in rust/ui:
 
 ```
 * use_breadcrumb (hooks)
@@ -16,6 +16,7 @@ Complete list of all components available in dioxus-ui:
 * use_data_scrolled (hooks)
 * use_drag_selection (hooks)
 * use_form (hooks)
+* use_grid_virtual_scroll (hooks)
 * use_handle_day_click (hooks)
 * use_history (hooks)
 * use_history_stack (hooks)
@@ -30,8 +31,10 @@ Complete list of all components available in dioxus-ui:
 * use_pagination (hooks)
 * use_press_hold (hooks)
 * use_random (hooks)
+* use_resizable (hooks)
 * use_scroll_lock (hooks)
 * use_stepper (hooks)
+* use_table_of_contents (hooks)
 * use_theme_mode (hooks)
 * use_virtual_scroll (hooks)
 * use_workflow (hooks)

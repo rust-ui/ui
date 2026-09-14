@@ -4,6 +4,10 @@ use super::sidenav_common::{self, SidenavPattern};
 use super::sidenav_routes::{DocsRoutes, SidenavRoutes};
 use crate::ui::sidenav::{Sidenav, SidenavSide};
 
+/*
+ * title: Right Sidenav
+*/
+
 #[component]
 pub fn Sidenav11Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
     rsx! { Sidenav { data_side: SidenavSide::Right,
