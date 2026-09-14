@@ -1,4 +1,4 @@
-use app_config::SeoMeta;
+use app_config::{BreadcrumbItem, JsonLdBreadcrumb, SeoMeta, SiteConfig};
 use dioxus::prelude::*;
 use registry::charts::area_chart_01::AreaChart01;
 use registry::charts::area_chart_02::AreaChart02;
@@ -25,6 +25,13 @@ pub fn AreaChartPage() -> Element {
             title: "Area Chart · Rust UI Component Library | Rust/UI".to_string(),
             description: "Area chart components built with Rust/UI for Dioxus applications. Copy-paste examples ready to use."
                 .to_string(),
+            canonical_url: format!("{}/charts/area-chart", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Area Chart".to_string(), url: None },
+            ],
         }
         div { class: "flex flex-col gap-8",
             AreaChart01 {}
@@ -54,6 +61,13 @@ pub fn BarChartPage() -> Element {
             title: "Bar Chart · Rust UI Component Library | Rust/UI".to_string(),
             description: "Bar chart components built with Rust/UI for Dioxus applications. Copy-paste examples ready to use."
                 .to_string(),
+            canonical_url: format!("{}/charts/bar-chart", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Bar Chart".to_string(), url: None },
+            ],
         }
         BarChart01 {}
     }
@@ -66,6 +80,13 @@ pub fn LineChartPage() -> Element {
             title: "Line Chart · Rust UI Component Library | Rust/UI".to_string(),
             description: "Line chart components built with Rust/UI for Dioxus applications. Copy-paste examples ready to use."
                 .to_string(),
+            canonical_url: format!("{}/charts/line-chart", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Line Chart".to_string(), url: None },
+            ],
         }
         LineChart01 {}
     }
@@ -78,6 +99,13 @@ pub fn PieChartPage() -> Element {
             title: "Pie Chart · Rust UI Component Library | Rust/UI".to_string(),
             description: "Pie chart components built with Rust/UI for Dioxus applications. Copy-paste examples ready to use."
                 .to_string(),
+            canonical_url: format!("{}/charts/pie-chart", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Pie Chart".to_string(), url: None },
+            ],
         }
         PieChart01 {}
     }
@@ -90,6 +118,13 @@ pub fn RadarChartPage() -> Element {
             title: "Radar Chart · Rust UI Component Library | Rust/UI".to_string(),
             description: "Radar chart components built with Rust/UI for Dioxus applications. Copy-paste examples ready to use."
                 .to_string(),
+            canonical_url: format!("{}/charts/radar-chart", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Radar Chart".to_string(), url: None },
+            ],
         }
         RadarChart01 {}
     }
@@ -102,6 +137,13 @@ pub fn RadialChartPage() -> Element {
             title: "Radial Chart · Rust UI Component Library | Rust/UI".to_string(),
             description: "Radial chart components built with Rust/UI for Dioxus applications. Copy-paste examples ready to use."
                 .to_string(),
+            canonical_url: format!("{}/charts/radial-chart", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Radial Chart".to_string(), url: None },
+            ],
         }
         RadialChart01 {}
     }

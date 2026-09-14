@@ -1,4 +1,4 @@
-use app_config::SeoMeta;
+use app_config::{BreadcrumbItem, JsonLdBreadcrumb, SeoMeta, SiteConfig};
 use app_domain::icons::all_icons::ALL_ICONS;
 use dioxus::document::eval;
 use dioxus::prelude::*;
@@ -62,6 +62,13 @@ pub fn PageIcons() -> Element {
             title: "Icons · Rust UI Component Library | Rust/UI".to_string(),
             description: "Browse and copy Rust UI's icon set for Dioxus applications. Search, customize size and color, and get the ready-to-use component code."
                 .to_string(),
+            canonical_url: format!("{}/icons", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Icons".to_string(), url: None },
+            ],
         }
         HeaderDocs {}
         div { class: "flex overflow-hidden flex-1",

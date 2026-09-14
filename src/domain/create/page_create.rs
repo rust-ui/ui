@@ -1,4 +1,4 @@
-use app_config::SeoMeta;
+use app_config::{BreadcrumbItem, JsonLdBreadcrumb, SeoMeta, SiteConfig};
 use app_domain::themes::components::color_theme_picker::ColorTheme;
 use app_domain::themes::components::font_picker::FontName;
 use app_domain::themes::theme_name::ThemeName;
@@ -153,6 +153,13 @@ pub fn PageCreate() -> Element {
             title: "Theme Customizer · Rust UI Component Library | Rust/UI".to_string(),
             description: "Customize colors, radius, and fonts for your Rust/UI theme, then copy the generated code for your Dioxus application."
                 .to_string(),
+            canonical_url: format!("{}/create", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Theme Customizer".to_string(), url: None },
+            ],
         }
         HeaderDocs {}
 

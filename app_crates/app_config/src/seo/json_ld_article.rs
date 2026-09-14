@@ -31,6 +31,7 @@ struct Author {
     type_: String,
     #[serde(rename = "@id")]
     id: String,
+    name: String,
 }
 
 #[derive(Serialize)]
@@ -90,6 +91,7 @@ pub fn JsonLdArticle(
         author: Author {
             type_: "Organization".to_string(),
             id: format!("{}/#organization", SiteConfig::BASE_URL),
+            name: SiteConfig::TITLE.to_string(),
         },
         date_published: date_published.unwrap_or_else(|| "2024-01-01".to_string()),
         date_modified: date_modified.unwrap_or_else(|| "2025-11-08".to_string()),
@@ -125,6 +127,7 @@ mod unit_tests {
             author: Author {
                 type_: "Organization".to_string(),
                 id: format!("{}/#organization", SiteConfig::BASE_URL),
+                name: SiteConfig::TITLE.to_string(),
             },
             date_published: "2024-01-01".to_string(),
             date_modified: "2025-11-08".to_string(),
@@ -169,6 +172,14 @@ mod unit_tests {
         let json = serde_json::to_value(&schema).unwrap();
 
         assert_eq!(json["author"]["@type"], "Organization");
+    }
+
+    #[test]
+    fn test_author_has_name() {
+        let schema = create_test_schema();
+        let json = serde_json::to_value(&schema).unwrap();
+
+        assert_eq!(json["author"]["name"], SiteConfig::TITLE);
     }
 
     #[test]

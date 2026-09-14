@@ -1,4 +1,4 @@
-use app_config::SeoMeta;
+use app_config::{BreadcrumbItem, JsonLdBreadcrumb, SeoMeta, SiteConfig};
 use dioxus::prelude::*;
 
 use crate::__registry__::all_blocks::{
@@ -13,6 +13,13 @@ pub fn LoginBlocks() -> Element {
             title: "Login Blocks · Rust UI Component Library | Rust/UI".to_string(),
             description: "Ready-made login page blocks built with Rust/UI components for Dioxus applications."
                 .to_string(),
+            canonical_url: format!("{}/blocks/login", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Login Blocks".to_string(), url: None },
+            ],
         }
         for block in ALL_LOGIN_BLOCKS {
             BlockViewer { block_entry: *block }
@@ -27,6 +34,13 @@ pub fn SidenavBlocks() -> Element {
             title: "Sidenav Blocks · Rust UI Component Library | Rust/UI".to_string(),
             description: "Ready-made side navigation blocks built with Rust/UI components for Dioxus applications."
                 .to_string(),
+            canonical_url: format!("{}/blocks/sidenav", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Sidenav Blocks".to_string(), url: None },
+            ],
         }
         for block in ALL_SIDENAV_BLOCKS {
             BlockViewer { block_entry: *block }
@@ -41,6 +55,13 @@ pub fn HeadersBlocks() -> Element {
             title: "Header Blocks · Rust UI Component Library | Rust/UI".to_string(),
             description: "Ready-made header blocks built with Rust/UI components for Dioxus applications."
                 .to_string(),
+            canonical_url: format!("{}/blocks/headers", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Header Blocks".to_string(), url: None },
+            ],
         }
         for block in ALL_HEADER_BLOCKS {
             BlockViewer { block_entry: *block }
@@ -55,6 +76,13 @@ pub fn FootersBlocks() -> Element {
             title: "Footer Blocks · Rust UI Component Library | Rust/UI".to_string(),
             description: "Ready-made footer blocks built with Rust/UI components for Dioxus applications."
                 .to_string(),
+            canonical_url: format!("{}/blocks/footers", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Footer Blocks".to_string(), url: None },
+            ],
         }
         for block in ALL_FOOTER_BLOCKS {
             BlockViewer { block_entry: *block }
@@ -69,6 +97,13 @@ pub fn FaqBlocks() -> Element {
             title: "FAQ Blocks · Rust UI Component Library | Rust/UI".to_string(),
             description: "Ready-made FAQ section blocks built with Rust/UI components for Dioxus applications."
                 .to_string(),
+            canonical_url: format!("{}/blocks/faq", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "FAQ Blocks".to_string(), url: None },
+            ],
         }
         for block in ALL_FAQ_BLOCKS {
             BlockViewer { block_entry: *block }
@@ -83,6 +118,13 @@ pub fn IntegrationsBlocks() -> Element {
             title: "Integrations Blocks · Rust UI Component Library | Rust/UI".to_string(),
             description: "Ready-made integrations section blocks built with Rust/UI components for Dioxus applications."
                 .to_string(),
+            canonical_url: format!("{}/blocks/integrations", SiteConfig::BASE_URL),
+        }
+        JsonLdBreadcrumb {
+            breadcrumbs: vec![
+                BreadcrumbItem { name: "Home".to_string(), url: Some(SiteConfig::BASE_URL.to_string()) },
+                BreadcrumbItem { name: "Integrations Blocks".to_string(), url: None },
+            ],
         }
         for block in ALL_INTEGRATION_BLOCKS {
             BlockViewer { block_entry: *block }
