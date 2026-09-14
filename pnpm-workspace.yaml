@@ -1,2 +1,6 @@
+packages:
+  - .
+  - e2e
+
 allowBuilds:
   '@parcel/watcher': true

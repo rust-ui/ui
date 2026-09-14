@@ -16,8 +16,6 @@ test.describe("NodeCanvas — click-to-connect", () => {
     const sourceHandle = page.locator('[data-testid="source-handle"][data-node-id="trigger"]');
     const targetHandle = page.locator('[data-testid="target-handle"][data-node-id="output"]');
 
-    // Record trigger node position before
-    const triggerNode = page.locator('[data-testid="source-handle"][data-node-id="trigger"]').locator("xpath=../../..");
     // Use the canvas SVG edge count as proxy: initial = 3
     const svgBefore = page.locator("svg path[fill='none']");
     const edgeCountBefore = await svgBefore.count();
