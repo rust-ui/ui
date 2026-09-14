@@ -30,7 +30,12 @@ typos .
 echo "✅ No typos found"
 
 echo "🎨 Formatting..."
-cargo fmt --all -- --check
+cargo fmt --all
+if ! git diff --quiet; then
+  echo "📝 Formatting changed files, committing..."
+  git add -u
+  git commit -m "style: cargo fmt"
+fi
 echo "✅ Formatting OK"
 
 if [ "$SKIP_CLIPPY" -eq 1 ]; then
