@@ -1748,9 +1748,6 @@
   .min-h-\[500px\] {
     min-height: 500px;
   }
-  .min-h-\[760px\] {
-    min-height: 760px;
-  }
   .min-h-\[1200px\] {
     min-height: 1200px;
   }
@@ -2133,9 +2130,6 @@
   }
   .max-w-none {
     max-width: none;
-  }
-  .max-w-prose {
-    max-width: 65ch;
   }
   .max-w-screen-2xl {
     max-width: var(--breakpoint-2xl);
@@ -3489,12 +3483,6 @@
   .border-sidenav-border {
     border-color: var(--sidenav-border);
   }
-  .border-sidenav-border\/70 {
-    border-color: var(--sidenav-border);
-    @supports (color: color-mix(in lab, red, red)) {
-      border-color: color-mix(in oklab, var(--sidenav-border) 70%, transparent);
-    }
-  }
   .border-slate-300 {
     border-color: var(--color-slate-300);
   }
@@ -4674,9 +4662,6 @@
   }
   .pl-8 {
     padding-left: calc(var(--spacing) * 8);
-  }
-  .pl-9 {
-    padding-left: calc(var(--spacing) * 9);
   }
   .pl-\[3vmin\] {
     padding-left: 3vmin;
@@ -9142,6 +9127,16 @@
       }
     }
   }
+  .hover\:text-primary\/80 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--primary);
+        @supports (color: color-mix(in lab, red, red)) {
+          color: color-mix(in oklab, var(--primary) 80%, transparent);
+        }
+      }
+    }
+  }
   .hover\:text-red-500 {
     &:hover {
       @media (hover: hover) {
@@ -12272,16 +12267,6 @@
   .lg\:grid-cols-10 {
     @media (width >= 64rem) {
       grid-template-columns: repeat(10, minmax(0, 1fr));
-    }
-  }
-  .lg\:grid-cols-\[18rem_minmax\(0\,1fr\)\] {
-    @media (width >= 64rem) {
-      grid-template-columns: 18rem minmax(0,1fr);
-    }
-  }
-  .lg\:grid-cols-\[minmax\(0\,1fr\)_18rem\] {
-    @media (width >= 64rem) {
-      grid-template-columns: minmax(0,1fr) 18rem;
     }
   }
   .lg\:flex-row {
