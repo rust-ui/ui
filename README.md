@@ -79,6 +79,8 @@ Open [http://127.0.0.1:8080](http://127.0.0.1:8080).
 ./run_ios_ipad_pro.sh     # boots iPad Pro (12.9-inch, 3rd gen)
 ```
 
+`dx` currently doesn't bake the app icon into the iOS bundle ([dioxus#3685](https://github.com/DioxusLabs/dioxus/issues/3685)), so these scripts also patch in the real icon after every rebuild — see `ios/inject_app_icon.sh` for details, and `ios/generate_ios_icon_set.sh` if you ever need to regenerate the icon set from a new `ios/AppIcon-1024.png`.
+
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=rust-ui/ui&type=Date)](https://star-history.com/#rust-ui/ui&Date)
