@@ -13,7 +13,7 @@
 #
 # This script (re)generates ios/AppIcon.appiconset/ from the single 1024
 # source (ios/AppIcon-1024.png). Run it once, or whenever AppIcon-1024.png
-# changes. The generated PNGs + Contents.json are committed to git.
+# changes. The generated PNG files + Contents.json are committed to git.
 #
 # The actual injection into the .app bundle dx builds happens in
 # ios/inject_app_icon.sh, called from the run_ios_*.sh scripts.
