@@ -1,0 +1,46 @@
+[package]
+name = "ui-cli"
+version = "0.3.16"
+edition = "2024"
+authors = ["Rustify"]
+homepage = "https://rust-ui.com/docs/components/cli"
+description = "A CLI to add components to your app."
+keywords = ["cli", "ui", "components", "leptos", "tailwind"]
+categories = ["gui", "web-programming", "development-tools", "accessibility", "wasm"]
+license = "MIT"
+readme = "./README.md"
+repository = "https://github.com/rust-ui/ui/tree/main/crates/ui-cli"
+
+
+
+[dependencies]
+cargo_toml = "0.22"
+glob = "0.3"
+clap = { version = "4", default-features = false, features = ["derive", "std"] }
+colored = "3"
+dialoguer = "0.12"
+indicatif = "0.18"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+rmcp = { version = "1", features = ["server", "transport-io"] }
+schemars = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+similar = "2"
+strum = { version = "0.28", features = ["derive"] }
+heck = "0.5"
+thiserror = "2"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+toml = { version = "0.9", features = ["parse", "display", "serde"] }
+toml_edit = "0.23"
+crossterm = "0.29"
+ratatui = { version = "0.30", features = ["crossterm"] }
+resvg = "0.45"
+
+[dev-dependencies]
+tempfile = "3"
+
+
+
+[[bin]]
+name = "ui"
+path = "src/main.rs"

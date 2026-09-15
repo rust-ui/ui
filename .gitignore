@@ -93,7 +93,7 @@ tarpaulin-report.*
 .DS_Store
 **/.DS_Store
 Thumbs.db
-Icon?
+/Icon?
 
 # ---------------------------------------------------------------------------
 # Internal / scratch (private sibling repos, temp dirs)

@@ -1,0 +1,12 @@
+[profile.default]
+# Fail fast: stop after first test failure
+fail-fast = false
+
+# Mark tests slow after 5s, fail after 30s
+slow-timeout = { period = "5s", terminate-after = 6 }
+
+[[profile.default.overrides]]
+# Network integration tests: allow retries and more time
+filter = "test(test_fetch)"
+retries = 2
+slow-timeout = { period = "10s", terminate-after = 3 }
