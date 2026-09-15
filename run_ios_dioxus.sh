@@ -26,7 +26,10 @@ while kill -0 "$DX_PID" 2>/dev/null; do
     if [ -n "$MTIME" ] && [ "$MTIME" != "$LAST_MTIME" ]; then
       sleep 1 # let dx finish writing the bundle before we touch it
       ./ios/inject_app_icon.sh "$APP_BUNDLE" && xcrun simctl install booted "$APP_BUNDLE" 2>/dev/null
-      LAST_MTIME=$MTIME
+      # re-stat after injecting: PlistBuddy just rewrote Info.plist itself,
+      # so its mtime moved again. If we saved the pre-inject MTIME here,
+      # next poll would see our own write as "new" and re-inject forever.
+      LAST_MTIME=$(stat -f %m "$APP_BUNDLE/Info.plist" 2>/dev/null)
     fi
   fi
   sleep 2
