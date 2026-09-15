@@ -69,6 +69,16 @@ dx serve --platform ios
 
 Open [http://127.0.0.1:8080](http://127.0.0.1:8080).
 
+### iOS simulator
+
+`dx serve --platform ios` targets whatever simulator is currently booted. To pick a specific device, use one of the helper scripts (they shut down other simulators, boot the right one, uninstall the old build, then run `dx serve`):
+
+```bash
+./run_ios_dioxus.sh       # uses whatever simulator is already booted
+./run_ios_iphone_pro.sh   # boots iPhone 16 Pro (18.6)
+./run_ios_ipad_pro.sh     # boots iPad Pro (12.9-inch, 3rd gen)
+```
+
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=rust-ui/ui&type=Date)](https://star-history.com/#rust-ui/ui&Date)
