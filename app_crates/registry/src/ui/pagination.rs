@@ -76,13 +76,21 @@ pub fn PaginationNavButton(direction: PageDirection) -> Element {
     let ctx = use_context::<PaginationContext>();
 
     let (href, is_disabled, target_page) = match direction {
-        PageDirection::Previous => ((ctx.prev_href)(), (ctx.is_first_page)(), (ctx.current_page)().saturating_sub(1)),
+        PageDirection::Previous => (
+            (ctx.prev_href)(),
+            (ctx.is_first_page)(),
+            (ctx.current_page)().saturating_sub(1),
+        ),
         PageDirection::Next => ((ctx.next_href)(), false, (ctx.current_page)() + 1),
     };
 
     let merged = tw_merge!(
         "inline-flex items-center justify-center size-9 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer",
-        if is_disabled { "opacity-50 pointer-events-none" } else { "" }
+        if is_disabled {
+            "opacity-50 pointer-events-none"
+        } else {
+            ""
+        }
     );
 
     rsx! {

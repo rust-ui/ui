@@ -77,7 +77,11 @@ pub fn use_pagination() -> PaginationContext {
 
     let prev_href = use_memo(move || {
         let current = current_page();
-        if current > FIRST_PAGE { page_href.call(current - 1) } else { "#".to_string() }
+        if current > FIRST_PAGE {
+            page_href.call(current - 1)
+        } else {
+            "#".to_string()
+        }
     });
 
     let next_href = use_memo(move || page_href.call(current_page() + 1));
@@ -92,5 +96,13 @@ pub fn use_pagination() -> PaginationContext {
         current_page.set(page);
     });
 
-    PaginationContext { current_page, page_href, prev_href, next_href, is_first_page, aria_current, go_to_page }
+    PaginationContext {
+        current_page,
+        page_href,
+        prev_href,
+        next_href,
+        is_first_page,
+        aria_current,
+        go_to_page,
+    }
 }
