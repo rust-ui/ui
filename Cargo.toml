@@ -17,8 +17,8 @@ workspace = true
 
 [dependencies]
 # Pin 0.7.9: dioxus 0.7.10 requires dioxus-desktop 0.7.10, unavailable on crates.io.
-dioxus = { version = "=0.7.9", features = ["router", "fullstack"] }
-dioxus-html = { version = "=0.7.9" }
+dioxus = { version = "0.7", features = ["router", "fullstack"] }
+dioxus-html = { version = "0.7" }
 registry.workspace = true
 app_config.workspace = true
 app_routes.workspace = true
@@ -26,7 +26,7 @@ app_domain.workspace = true
 icons.workspace = true
 tw_merge.workspace = true
 pulldown-cmark = { version = "0.12", default-features = false, features = ["html"] }
-html_parser = "0.7.0"
+html_parser = "0.7"
 toml = "0.8"
 serde.workspace = true
 serde_json.workspace = true
