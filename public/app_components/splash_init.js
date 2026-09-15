@@ -25,7 +25,7 @@
         '<line x1="2" y1="12" x2="6" y2="12"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/></svg>';
     document.documentElement.appendChild(overlay);
 
-    document.addEventListener('DOMContentLoaded', function () {
+    function dismiss() {
         setTimeout(function () {
             document.documentElement.classList.remove('loading-screen');
             overlay.classList.add('fade-out');
@@ -33,5 +33,16 @@
                 overlay.remove();
             }, 1000);
         }, 1000);
-    });
+    }
+
+    // On native builds (dx serve --platform ios/android/desktop) the DOM is
+    // assembled client-side, so by the time this externally-loaded script runs,
+    // DOMContentLoaded has often already fired — an event listener for it would
+    // never trigger, leaving the overlay stuck forever. Web SSR delivers this
+    // script early enough that readyState is still 'loading'.
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', dismiss);
+    } else {
+        dismiss();
+    }
 })();
