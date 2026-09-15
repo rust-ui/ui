@@ -1,15 +1,23 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
+use crate::hooks::use_pagination::{PaginationContext, use_pagination};
+
 #[component]
 pub fn Pagination(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
+    let ctx = use_pagination();
+    use_context_provider(|| ctx);
+
     let merged = tw_merge!("flex justify-center mx-auto w-full", class.as_deref().unwrap_or(""));
     rsx! { nav { class: "{merged}", "aria-label": "pagination", {children} } }
 }
 
 #[component]
 pub fn PaginationList(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!("flex flex-row gap-1 items-center", class.as_deref().unwrap_or(""));
+    let merged = tw_merge!(
+        "flex flex-row gap-1 items-center [&_li:nth-last-child(2):has(a[aria-current=page])~li:last-child]:opacity-0 [&_li:nth-last-child(2):has(a[aria-current=page])~li:last-child]:pointer-events-none",
+        class.as_deref().unwrap_or("")
+    );
     rsx! { ul { class: "{merged}", {children} } }
 }
 
@@ -19,12 +27,11 @@ pub fn PaginationItem(#[props(into, optional)] class: Option<String>, children: 
 }
 
 #[component]
-pub fn PaginationLink(
-    #[props(into, optional)] class: Option<String>,
-    page: u32,
-    #[props(default = false)] is_active: bool,
-    #[props(optional)] onclick: Option<EventHandler<MouseEvent>>,
-) -> Element {
+pub fn PaginationLink(page: u32, #[props(into, optional)] class: Option<String>) -> Element {
+    let ctx = use_context::<PaginationContext>();
+    let href = (ctx.page_href)(page);
+    let is_active = !(ctx.aria_current)(page).is_empty();
+
     let merged = tw_merge!(
         "inline-flex items-center justify-center size-9 rounded-md text-sm font-medium transition-colors cursor-pointer",
         if is_active {
@@ -34,71 +41,59 @@ pub fn PaginationLink(
         },
         class.as_deref().unwrap_or("")
     );
+
     rsx! {
-        button {
+        a {
+            href: "{href}",
             class: "{merged}",
-            "aria-current": if is_active { "page" } else { "" },
+            "aria-current": (ctx.aria_current)(page),
             onclick: move |e| {
-                if let Some(handler) = &onclick {
-                    handler.call(e);
-                }
+                e.prevent_default();
+                (ctx.go_to_page)(page);
             },
             "{page}"
         }
     }
 }
 
-#[component]
-pub fn PaginationPrev(
-    #[props(default = false)] disabled: bool,
-    #[props(optional)] onclick: Option<EventHandler<MouseEvent>>,
-) -> Element {
-    let merged = tw_merge!(
-        "inline-flex items-center justify-center size-9 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer",
-        if disabled { "opacity-50 pointer-events-none" } else { "" }
-    );
-    rsx! {
-        button {
-            class: "{merged}",
-            disabled: disabled,
-            "aria-label": "Go to previous page",
-            onclick: move |e| {
-                if let Some(handler) = &onclick {
-                    handler.call(e);
-                }
-            },
-            svg {
-                xmlns: "http://www.w3.org/2000/svg",
-                class: "size-4",
-                view_box: "0 0 24 24",
-                fill: "none",
-                stroke: "currentColor",
-                stroke_width: "2",
-                stroke_linecap: "round",
-                stroke_linejoin: "round",
-                path { d: "m15 18-6-6 6-6" }
-            }
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum PageDirection {
+    Previous,
+    Next,
+}
+
+impl PageDirection {
+    const fn as_str(self) -> &'static str {
+        match self {
+            Self::Previous => "previous",
+            Self::Next => "next",
         }
     }
 }
 
 #[component]
-pub fn PaginationNext(
-    #[props(default = false)] disabled: bool,
-    #[props(optional)] onclick: Option<EventHandler<MouseEvent>>,
-) -> Element {
+pub fn PaginationNavButton(direction: PageDirection) -> Element {
+    let ctx = use_context::<PaginationContext>();
+
+    let (href, is_disabled, target_page) = match direction {
+        PageDirection::Previous => ((ctx.prev_href)(), (ctx.is_first_page)(), (ctx.current_page)().saturating_sub(1)),
+        PageDirection::Next => ((ctx.next_href)(), false, (ctx.current_page)() + 1),
+    };
+
     let merged = tw_merge!(
         "inline-flex items-center justify-center size-9 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer",
-        if disabled { "opacity-50 pointer-events-none" } else { "" }
+        if is_disabled { "opacity-50 pointer-events-none" } else { "" }
     );
+
     rsx! {
-        button {
+        a {
+            href: "{href}",
             class: "{merged}",
-            disabled: disabled,
-            "aria-label": "Go to next page",
+            "aria-label": "Go to {direction.as_str()} page",
             onclick: move |e| {
-                if let Some(handler) = &onclick {
-                    handler.call(e);
+                e.prevent_default();
+                if !is_disabled {
+                    (ctx.go_to_page)(target_page);
                 }
             },
             svg {
@@ -110,7 +105,14 @@ pub fn PaginationNext(
                 stroke_width: "2",
                 stroke_linecap: "round",
                 stroke_linejoin: "round",
-                path { d: "m9 18 6-6-6-6" }
+                match direction {
+                    PageDirection::Previous => rsx! {
+                        path { d: "m15 18-6-6 6-6" }
+                    },
+                    PageDirection::Next => rsx! {
+                        path { d: "m9 18 6-6-6-6" }
+                    },
+                }
             }
         }
     }
@@ -133,6 +135,7 @@ pub fn PaginationEllipsis(#[props(into, optional)] class: Option<String>) -> Ele
                 stroke_width: "2",
                 path { d: "M5 12h.01M12 12h.01M19 12h.01" }
             }
+            span { class: "hidden", "More pages" }
         }
     }
 }

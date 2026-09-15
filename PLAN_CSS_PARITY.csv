@@ -8,7 +8,7 @@ alert,✅ done,1,none,"AlertTitle <h4>, AlertDescription <p>"
 breadcrumb,✅ done,1,none,
 button_group,✅ done,1,none,"added ButtonGroupText"
 field,✅ done,1,none,
-pagination,🟡 partial,1,"renders <button> not router <a>; no use_pagination; missing PaginationNav/EllipsisRoot exports; [&_li:nth-last-child(2)...] selectors omitted; active state via bool not aria-[current=page]:*","no leptos_router (use_navigate / <A>)"
+pagination,🟡 partial,1,"<a href> updated via prevent_default+go_to_page (pushState) not leptos_router navigate; PaginationLink/NavButton hardcode classes not ButtonClass reuse; missing PaginationNav/EllipsisRoot standalone exports","no dioxus-router dep in project; use_pagination now wired + [&_li:nth-last-child(2)...] selector + 'More pages' sr text ported"
 tailwind.css,✅ done,1,none,"restored chat interface utilities block + shimmer"
 kbd,✅ done,2,none,"regained [[data-slot=tooltip-content]_&]:* classes"
 dialog,✅ done,2,none,"added close X + show_close_button prop + data-target"
