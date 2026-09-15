@@ -10,7 +10,7 @@ use crate::components::leptos_link::LeptosLink;
 use crate::components::navigation::nav_desktop::NavDesktop;
 use crate::components::navigation::nav_mobile::NavMobile;
 
-const TESTFLIGHT_URL: &str = "https://testflight.apple.com/join/DF1hC7bQ";
+const TESTFLIGHT_URL: &str = "https://rustify.rs/ios-beta";
 
 #[component]
 pub fn HeaderDocs() -> Element {
