@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+files=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$files" ] && exit 0
+
+echo "🔍 Checking for typos..."
+if ! echo "$files" | xargs typos; then
+  echo "❌ Typos found — fix them or run 'typos -w <file>' to auto-fix"
+  exit 1
+fi
