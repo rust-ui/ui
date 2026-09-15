@@ -152,9 +152,15 @@ pub fn CopyCodeDialog(
 
     let trigger_label = children.unwrap_or_else(|| rsx! { "Copy code" });
 
+    let trigger_class = format!(
+        "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 {} {}",
+        trigger_variant.as_str(),
+        trigger_size.as_str(),
+    );
+
     rsx! {
         Dialog {
-            DialogTrigger { {trigger_label} }
+            DialogTrigger { class: trigger_class, {trigger_label} }
             DialogContent { class: "sm:max-w-[800px]",
                 DialogBody {
                     DialogTitle { "Theme" }
