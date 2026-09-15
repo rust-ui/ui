@@ -1,11 +1,13 @@
 use dioxus::prelude::*;
-use registry::blocks::footer_logos::{BrandFooter, LogoDiscord, LogoLinkedIn, LogoYouTube, SvgGridPattern};
+use registry::blocks::footer_logos::{LogoDiscord, LogoLinkedIn, LogoYouTube, SvgGridPattern};
 use registry::ui::button::Button;
 use registry::ui::card::{Card, CardContent, CardDescription, CardTitle};
 use registry::ui::footer::{
     Footer, FooterBrand, FooterBrandLink, FooterContainer, FooterCopyright, FooterDescription, FooterExternalLink,
     FooterGrid, FooterLink, FooterLinks, FooterLinksSection, FooterSection, FooterSectionsGrid, FooterTitle,
 };
+
+use crate::utils::assets::{LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT};
 
 const ROUTE_ACCORDION: &str = "/docs/components/accordion";
 const ROUTE_BUTTON: &str = "/docs/components/button";
@@ -31,7 +33,19 @@ pub fn AppFooter() -> Element {
                 FooterGrid {
                     FooterBrand { class: "space-y-4 md:space-y-5",
                         FooterBrandLink { href: ROUTE_HOME,
-                            BrandFooter {}
+                            div { class: "flex gap-3 justify-center items-center",
+                                img {
+                                    src: LOGO_SQUARE_DARK,
+                                    alt: "Logo Rust/UI",
+                                    class: "hidden dark:block size-6",
+                                }
+                                img {
+                                    src: LOGO_SQUARE_LIGHT,
+                                    alt: "Logo Rust/UI",
+                                    class: "dark:hidden size-6",
+                                }
+                                span { "Rust/UI" }
+                            }
                         }
                         FooterDescription {
                             "Rust/UI is a registry of reusable components that you can copy/paste into your own app. Customize them as you want."
