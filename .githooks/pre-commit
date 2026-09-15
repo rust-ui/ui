@@ -4,8 +4,48 @@ set -euo pipefail
 files=$(git diff --cached --name-only --diff-filter=ACM)
 [ -z "$files" ] && exit 0
 
+fail=0
+
 echo "🔍 Checking for typos..."
 if ! echo "$files" | xargs typos; then
   echo "❌ Typos found — fix them or run 'typos -w <file>' to auto-fix"
-  exit 1
+  fail=1
 fi
+
+echo "🎨 Checking formatting..."
+if ! cargo fmt --check 2>/dev/null; then
+  echo "❌ Unformatted code — run 'cargo fmt'"
+  fail=1
+fi
+
+echo "🔀 Checking for merge conflict markers..."
+if echo "$files" | xargs grep -lE '^(<{7}|={7}|>{7})( |$)' -- 2>/dev/null; then
+  echo "❌ Merge conflict markers found in staged files"
+  fail=1
+fi
+
+echo "📦 Checking for large files..."
+max_bytes=$((5 * 1024 * 1024))
+while IFS= read -r f; do
+  [ -f "$f" ] || continue
+  size=$(wc -c < "$f")
+  if [ "$size" -gt "$max_bytes" ]; then
+    echo "❌ $f is $((size / 1024 / 1024))MB, over 5MB limit"
+    fail=1
+  fi
+done <<< "$files"
+
+echo "🔑 Checking for likely secrets..."
+secret_pattern='(AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|sk-[a-zA-Z0-9]{20,}|ghp_[a-zA-Z0-9]{36}|xox[baprs]-[a-zA-Z0-9-]{10,})'
+if echo "$files" | xargs grep -lEn "$secret_pattern" -- 2>/dev/null; then
+  echo "❌ Likely secret found in staged files"
+  fail=1
+fi
+
+echo "🐛 Checking for debug leftovers..."
+debug_pattern='\b(dbg!|todo!|unimplemented!)\('
+if echo "$files" | grep -E '\.rs$' | xargs grep -lEn "$debug_pattern" -- 2>/dev/null; then
+  echo "⚠️  dbg!/todo!/unimplemented! found in staged files (not blocking, review before push)"
+fi
+
+exit $fail
