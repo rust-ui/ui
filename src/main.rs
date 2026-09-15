@@ -50,6 +50,8 @@ const APPLE_TOUCH_ICON: Asset = asset!("/public/icons/apple-touch-icon.png");
 const MANIFEST: Asset = asset!("/public/manifest.json");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 const CHART_INIT_JS: Asset = asset!("/public/app_components/chart_init.js");
+const SPLASH_INIT_JS: Asset = asset!("/public/app_components/splash_init.js");
+const LOGO_DARK_88: Asset = asset!("/public/icons/logo-dark-square-88.png");
 // Loaded globally (not just on chart routes): chart_init.js's own lazy-load
 // fallback uses a hardcoded "/cdn/apexcharts..." path that 404s on iOS, where
 // assets are served from a fingerprinted path. Home's ThemesBlocks cards render
@@ -342,6 +344,15 @@ fn App() -> Element {
         // Ideal fix: find a way to pass h-full to the Dioxus mount div without a style tag.
         // For now we inject it inline so it wins over any stylesheet ordering issues.
         document::Style { "#main {{ height: 100%; }}" }
+        // Dark-mode-flash prevention + branded loading screen (home page only), matching
+        // leptos-ui's shell.rs pattern. The JS itself must live in an external file: Dioxus's
+        // document::Script only SSRs the `src` attribute, not literal `children` (confirmed
+        // empirically — inline script bodies never make it into the server-rendered HTML in
+        // this Dioxus version), so an inline <script>-with-JS-text approach silently no-ops.
+        document::Style {
+            "html.loading-screen,html.loading-screen body{{background:#18181b !important}} #app-loading-screen{{position:fixed;top:-100px;right:0;bottom:-100px;left:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;background:#18181b;clip-path:ellipse(150% 150% at 50% 0%);transition:clip-path 1s cubic-bezier(.4,0,.2,1)}} #app-loading-screen svg{{width:1.5rem;height:1.5rem;color:#a1a1aa}} #app-loading-screen svg line{{animation:ios-spin 1s linear infinite}} #app-loading-screen svg line:nth-child(1){{animation-delay:0s}} #app-loading-screen svg line:nth-child(2){{animation-delay:-0.875s}} #app-loading-screen svg line:nth-child(3){{animation-delay:-0.75s}} #app-loading-screen svg line:nth-child(4){{animation-delay:-0.625s}} #app-loading-screen svg line:nth-child(5){{animation-delay:-0.5s}} #app-loading-screen svg line:nth-child(6){{animation-delay:-0.375s}} #app-loading-screen svg line:nth-child(7){{animation-delay:-0.25s}} #app-loading-screen svg line:nth-child(8){{animation-delay:-0.125s}} @keyframes ios-spin{{0%,39%,100%{{opacity:0.2}}40%{{opacity:1}}}} #app-loading-screen.fade-out{{clip-path:ellipse(150% 0% at 50% 0%)}}"
+        }
+        document::Script { src: SPLASH_INIT_JS, "data-logo": LOGO_DARK_88 }
         // Page intro fade, replayed on every route change via `retrigger_page_fade`.
         // `backwards` keeps the from-state applied during the pre-animation delay.
         document::Style {
