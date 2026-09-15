@@ -6,6 +6,17 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ### Fixes
 
+- **iOS app icon showed the generic placeholder instead of the Rust/UI logo**:
+  `dx` silently ignores the `[bundle].icon` key on iOS (same class of bug as
+  [dioxus#3685](https://github.com/DioxusLabs/dioxus/issues/3685), open for
+  Android) — every `.app`/`.ipa` it produces has no `Assets.car` /
+  `AppIcon.appiconset` at all. Added `ios/generate_ios_icon_set.sh` (generates
+  the full icon set from `ios/AppIcon-1024.png`, same pattern as
+  `leptos-ui/src-tauri/ios-icons`) and `ios/inject_app_icon.sh` (compiles that
+  set with `actool` and patches it into a built `.app`). `run_ios_*.sh` now
+  run `dx serve` in the background and re-patch the icon after every rebuild,
+  since dx's hot-reload cycle knows nothing about the patch and wipes it out.
+
 - **Registry Clippy/native build failures**: retained WASM-required mutable
   signals in `Dropzone` and scoped `missing_const_for_fn` allowances to native
   builds for browser-only hooks.
