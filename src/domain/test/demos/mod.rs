@@ -1,3 +1,4 @@
+pub mod demo_editor;
 pub mod demo_toolbar;
 pub mod demo_workflow;
 pub mod demo_workflow_context_menu;

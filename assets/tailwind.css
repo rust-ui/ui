@@ -1712,6 +1712,9 @@
   .min-h-32 {
     min-height: calc(var(--spacing) * 32);
   }
+  .min-h-48 {
+    min-height: calc(var(--spacing) * 48);
+  }
   .min-h-80 {
     min-height: calc(var(--spacing) * 80);
   }
@@ -7896,6 +7899,31 @@
   .read-only\:bg-muted {
     &:read-only {
       background-color: var(--muted);
+    }
+  }
+  .empty\:before\:pointer-events-none {
+    &:empty {
+      &::before {
+        content: var(--tw-content);
+        pointer-events: none;
+      }
+    }
+  }
+  .empty\:before\:text-muted-foreground {
+    &:empty {
+      &::before {
+        content: var(--tw-content);
+        color: var(--muted-foreground);
+      }
+    }
+  }
+  .empty\:before\:content-\[attr\(data-placeholder\)\] {
+    &:empty {
+      &::before {
+        content: var(--tw-content);
+        --tw-content: attr(data-placeholder);
+        content: var(--tw-content);
+      }
     }
   }
   .focus-within\:pointer-events-auto {

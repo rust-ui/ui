@@ -1,18 +1,18 @@
 use dioxus::prelude::*;
 
-use crate::domain::test::demos::demo_toolbar::DemoToolbar;
+use crate::domain::test::demos::demo_editor::DemoEditor;
 
 #[component]
 pub fn TestPage() -> Element {
     rsx! {
         div { class: "flex flex-col gap-6",
-            div { class: "flex flex-col gap-1",
-                h2 { class: "text-xl font-semibold tracking-tight", "Toolbar" }
+            div { class: "flex flex-col gap-2",
+                h2 { class: "text-xl font-semibold tracking-tight", "Rich text editor" }
                 p { class: "text-sm text-muted-foreground",
-                    "Composable toolbar with toggle groups, buttons, separators, and links."
+                    "Composable contenteditable editor demo with formatting, lists, and HTML output."
                 }
+                DemoEditor {}
             }
-            DemoToolbar {}
         }
     }
 }
