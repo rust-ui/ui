@@ -3,15 +3,17 @@
 //! V1 uses the browser's `contenteditable` and `execCommand` APIs. The DOM
 //! bridge is deliberately kept behind `EditorHandle` so toolbar components do
 //! not depend on browser implementation details.
+//!
+//! Lives under `domain::test` (not the `registry` crate) while this is a
+//! demo-only, work-in-progress component — see `PLAN_MINIMAL_TIPTAP_EDITOR.md`.
 
 use dioxus::document::eval;
 use dioxus::prelude::*;
 use icons::{Bold, Code, Heading1, Heading2, Italic, List, ListOrdered, Strikethrough, Underline};
+use registry::ui::toolbar::{ToolbarButton, ToolbarSeparator, ToolbarToggleGroup, ToolbarToggleItem};
 use serde::{Deserialize, Serialize};
 use std::sync::atomic::{AtomicU64, Ordering};
 use tw_merge::tw_merge;
-
-use crate::ui::toolbar::{ToolbarButton, ToolbarSeparator, ToolbarToggleGroup, ToolbarToggleItem};
 
 static NEXT_EDITOR_ID: AtomicU64 = AtomicU64::new(1);
 

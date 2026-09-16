@@ -34,7 +34,6 @@ pub mod drag_and_drop;
 pub mod drawer;
 pub mod dropdown_menu;
 pub mod dropzone;
-pub mod editor;
 pub mod empty;
 pub mod field;
 pub mod footer;

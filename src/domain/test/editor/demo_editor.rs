@@ -1,5 +1,5 @@
+use crate::domain::test::editor::component::Editor;
 use dioxus::prelude::*;
-use registry::ui::editor::Editor;
 
 const DEFAULT_EDITOR_MARKDOWN: &str = r#"# Explore the rich text editor with shadcn-style components 📝
 

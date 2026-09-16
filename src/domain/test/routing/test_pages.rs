@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::domain::test::demos::demo_editor::DemoEditor;
+use crate::domain::test::editor::demo_editor::DemoEditor;
 
 #[component]
 pub fn TestPage() -> Element {

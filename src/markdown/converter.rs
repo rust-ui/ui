@@ -213,6 +213,19 @@ fn process_element(el: &HtmlElement, components: &MdComponents) -> Element {
             rsx! { td { class: "py-2 px-4 text-left whitespace-nowrap", {children.into_iter()} } }
         }
         "hr" => rsx! { hr { class: "my-4 md:my-8" } },
+        "img" => {
+            let src = el
+                .attributes
+                .get("src")
+                .and_then(std::clone::Clone::clone)
+                .unwrap_or_default();
+            let alt = el
+                .attributes
+                .get("alt")
+                .and_then(std::clone::Clone::clone)
+                .unwrap_or_default();
+            rsx! { img { class: "my-6 max-w-full rounded-md", src: "{src}", alt: "{alt}" } }
+        }
         _ => rsx! { {children.into_iter()} },
     }
 }
@@ -305,5 +318,26 @@ mod tests {
         let html = markdown_to_html(md);
         assert!(html.contains("<table"));
         assert!(html.contains("<td>"));
+    }
+
+    #[test]
+    fn process_element_keeps_img_src_and_alt() {
+        let html = markdown_to_html("![alt text](https://example.com/pic.png)");
+        let dom = Dom::parse(&html).unwrap();
+        let Node::Element(p) = &dom.children[0] else {
+            panic!("expected a paragraph wrapping the image");
+        };
+        let Node::Element(img) = &p.children[0] else {
+            panic!("expected an img element");
+        };
+        assert_eq!(img.name, "img");
+        assert_eq!(
+            img.attributes.get("src").and_then(Clone::clone),
+            Some("https://example.com/pic.png".to_string())
+        );
+        assert_eq!(
+            img.attributes.get("alt").and_then(Clone::clone),
+            Some("alt text".to_string())
+        );
     }
 }
