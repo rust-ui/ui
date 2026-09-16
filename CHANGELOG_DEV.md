@@ -6,6 +6,31 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ### Fixes
 
+- **Markdown images silently dropped on docs pages**: `markdown/converter.rs`'s
+  `process_element` had no `img` match arm, so any Markdown `![alt](src)`
+  fell through to the default `_ => rsx! { {children.into_iter()} }` arm,
+  which drops `<img>` entirely since it has no children. Added an `img` arm
+  with `src`/`alt` passthrough and styling consistent with the other tags.
+
+- **Rich text editor demo rendered blank on load**: `use_editor`'s mount
+  effect re-ran `root.innerHTML = sanitize(initial)` from JS on every load,
+  racing hydration and leaving the contenteditable root empty even though SSR
+  already renders correct content via `dangerous_inner_html`. Dropped the
+  redundant re-injection; the JS effect now only wires `input`/`selectionchange`
+  listeners. Also added typography child-selector Tailwind classes (this repo
+  has no `@tailwindcss/typography` plugin) so headings/lists/links/code/images
+  render styled, not just structurally correct.
+
+### Changed
+
+- **Rich text editor moved out of the `registry` crate**: while it's still
+  demo-only/WIP, the `Editor` component and its demo now live under
+  `src/domain/test/editor/` (`component.rs` + `demo_editor.rs`) in the main
+  `dioxus-ui` crate instead of `app_crates/registry/src/ui/editor.rs`, to keep
+  WIP surface area easy to find and out of the public component registry
+  until it's ready to graduate. Still reuses `registry::ui::toolbar` for the
+  shared toolbar primitives.
+
 - **iOS app icon showed the generic placeholder instead of the Rust/UI logo**:
   `dx` silently ignores the `[bundle].icon` key on iOS (same class of bug as
   [dioxus#3685](https://github.com/DioxusLabs/dioxus/issues/3685), open for
