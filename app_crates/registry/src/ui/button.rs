@@ -27,6 +27,7 @@ pub enum ButtonSize {
 }
 
 impl ButtonVariant {
+    #[must_use]
     pub const fn as_str(&self) -> &'static str {
         match self {
             Self::Default => "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
@@ -46,6 +47,7 @@ impl ButtonVariant {
 }
 
 impl ButtonSize {
+    #[must_use]
     pub const fn as_str(&self) -> &'static str {
         match self {
             Self::Default => "h-9 px-4 py-2 has-[>svg]:px-3",
