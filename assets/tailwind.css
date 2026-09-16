@@ -3779,12 +3779,6 @@
       background-color: color-mix(in oklab, var(--card) 5%, transparent);
     }
   }
-  .bg-card\/90 {
-    background-color: var(--card);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--card) 90%, transparent);
-    }
-  }
   .bg-current {
     background-color: currentcolor;
   }
@@ -8071,15 +8065,6 @@
       &::before {
         content: var(--tw-content);
         color: var(--muted-foreground);
-      }
-    }
-  }
-  .empty\:before\:content-\[\.\.\.\] {
-    &:empty {
-      &::before {
-        content: var(--tw-content);
-        --tw-content: ...;
-        content: var(--tw-content);
       }
     }
   }

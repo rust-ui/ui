@@ -1,11 +1,3 @@
-//! Composable rich-text editor components.
-//!
-//! State/DOM-bridge logic lives in `use_editor.rs`; this file stays
-//! presentation-only (components + rsx).
-//!
-//! Lives under `domain::test` (not the `registry` crate) while this is a
-//! demo-only, work-in-progress component — see `PLAN_MINIMAL_TIPTAP_EDITOR.md`.
-
 use crate::domain::test::editor::use_editor::{EditorHandle, FormatAction, use_editor};
 use dioxus::prelude::*;
 use icons::{Bold, Code, Heading1, Heading2, Italic, List, ListOrdered, Strikethrough, Underline};
@@ -24,9 +16,19 @@ pub fn Editor(
     use_context_provider(|| handle.clone());
 
     rsx! {
-        div { class: tw_merge!("flex w-full flex-col overflow-hidden rounded-md border bg-background shadow-sm", class.as_deref().unwrap_or("")),
+        div {
+            class: tw_merge!(
+                "flex w-full flex-col overflow-hidden rounded-md border bg-background shadow-sm",
+                class.as_deref().unwrap_or("")
+            ),
             EditorToolbar { disabled }
-            EditorContent { handle, initial_html, placeholder, disabled, on_change }
+            EditorContent {
+                handle,
+                initial_html,
+                placeholder,
+                disabled,
+                on_change,
+            }
         }
     }
 }
@@ -77,15 +79,6 @@ pub fn EditorContent(
 
 #[component]
 pub fn EditorToolbar(#[props(default = false)] disabled: bool) -> Element {
-    rsx! {
-        div { class: "flex flex-wrap items-center gap-1 border-b bg-muted/30 p-1", role: "toolbar", aria_label: "Text formatting",
-            ToolbarSection { disabled }
-        }
-    }
-}
-
-#[component]
-pub fn ToolbarSection(#[props(default = false)] disabled: bool) -> Element {
     let editor = use_context::<EditorHandle>();
     let state = (editor.state)();
     let execute = |action| {
@@ -93,22 +86,72 @@ pub fn ToolbarSection(#[props(default = false)] disabled: bool) -> Element {
         move |_| editor.execute(action)
     };
     rsx! {
-        ToolbarToggleGroup {
-            ToolbarToggleItem { title: "Bold", pressed: state.bold, disabled, onclick: execute(FormatAction::Bold), Bold {} }
-            ToolbarToggleItem { title: "Italic", pressed: state.italic, disabled, onclick: execute(FormatAction::Italic), Italic {} }
-            ToolbarToggleItem { title: "Underline", pressed: state.underline, disabled, onclick: execute(FormatAction::Underline), Underline {} }
-            ToolbarToggleItem { title: "Strikethrough", pressed: state.strikethrough, disabled, onclick: execute(FormatAction::Strikethrough), Strikethrough {} }
+        div {
+            class: "flex flex-wrap items-center gap-1 border-b bg-muted/30 p-1",
+            role: "toolbar",
+            aria_label: "Text formatting",
+            ToolbarToggleGroup {
+                ToolbarToggleItem {
+                    title: "Bold",
+                    pressed: state.bold,
+                    disabled,
+                    onclick: execute(FormatAction::Bold),
+                    Bold {}
+                }
+                ToolbarToggleItem {
+                    title: "Italic",
+                    pressed: state.italic,
+                    disabled,
+                    onclick: execute(FormatAction::Italic),
+                    Italic {}
+                }
+                ToolbarToggleItem {
+                    title: "Underline",
+                    pressed: state.underline,
+                    disabled,
+                    onclick: execute(FormatAction::Underline),
+                    Underline {}
+                }
+                ToolbarToggleItem {
+                    title: "Strikethrough",
+                    pressed: state.strikethrough,
+                    disabled,
+                    onclick: execute(FormatAction::Strikethrough),
+                    Strikethrough {}
+                }
+            }
+            ToolbarSeparator {}
+            ToolbarButton { disabled, onclick: execute(FormatAction::Heading(1)),
+                Heading1 {}
+                "H1"
+            }
+            ToolbarButton { disabled, onclick: execute(FormatAction::Heading(2)),
+                Heading2 {}
+                "H2"
+            }
+            ToolbarSeparator {}
+            ToolbarToggleGroup {
+                ToolbarToggleItem {
+                    title: "Bullet list",
+                    pressed: state.bullet_list,
+                    disabled,
+                    onclick: execute(FormatAction::BulletList),
+                    List {}
+                }
+                ToolbarToggleItem {
+                    title: "Ordered list",
+                    pressed: state.ordered_list,
+                    disabled,
+                    onclick: execute(FormatAction::OrderedList),
+                    ListOrdered {}
+                }
+            }
+            ToolbarSeparator {}
+            ToolbarButton { disabled, onclick: execute(FormatAction::Code),
+                Code {}
+                "Code"
+            }
+            ToolbarButton { disabled, onclick: execute(FormatAction::ClearFormatting), "Clear" }
         }
-        ToolbarSeparator {}
-        ToolbarButton { disabled, onclick: execute(FormatAction::Heading(1)), Heading1 {} "H1" }
-        ToolbarButton { disabled, onclick: execute(FormatAction::Heading(2)), Heading2 {} "H2" }
-        ToolbarSeparator {}
-        ToolbarToggleGroup {
-            ToolbarToggleItem { title: "Bullet list", pressed: state.bullet_list, disabled, onclick: execute(FormatAction::BulletList), List {} }
-            ToolbarToggleItem { title: "Ordered list", pressed: state.ordered_list, disabled, onclick: execute(FormatAction::OrderedList), ListOrdered {} }
-        }
-        ToolbarSeparator {}
-        ToolbarButton { disabled, onclick: execute(FormatAction::Code), Code {} "Code" }
-        ToolbarButton { disabled, onclick: execute(FormatAction::ClearFormatting), "Clear" }
     }
 }
