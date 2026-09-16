@@ -12,6 +12,14 @@ ProseMirror internals with no Rust equivalent, document the gap here instead
 of silently inventing something different (same rule as
 [[PLAN_SIDENAV_BLOCKS_VERBATIM_PORT]]).
 
+**Dev workflow note**: build Phase 0/1 against `src/domain/test/routing/test_pages.rs`
+(`TestPage`, route `/test-page`) first, the same way `DemoToolbar` is wired up
+there today — add a `DemoEditor` under `src/domain/test/demos/` and mount it
+on `TestPage` before doing any registry/docs-site wiring (§4 Phase 4). This
+gives a fast local iteration loop for the Phase 0 contenteditable↔Signal spike
+without touching the public component registry until the component is
+actually working.
+
 ## References
 
 - **Primary**: [Aslam97/shadcn-minimal-tiptap](https://github.com/Aslam97/shadcn-minimal-tiptap)
