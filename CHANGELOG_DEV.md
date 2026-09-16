@@ -4,6 +4,19 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ## [Unreleased]
 
+### Added
+
+- **`xtask` Tailwind design-system linter**: new `app_crates/xtask` crate
+  (`cargo run -p xtask`) scans `class: "..."` literals in `rsx!` blocks and
+  `tw_merge!` base classes, flagging arbitrary values (`w-[220px]`), raw
+  colors (`bg-red-500` instead of a theme token), and call-site restyling
+  outside a component's allowed class categories. Policy lives in
+  `lint_policy.toml` (categories, per-component `no_restyle` contracts,
+  allowed color tokens). Rules and policy shape adapted from
+  [shadcn-ui/lint](https://github.com/shadcn-ui/lint) (an ESLint/Oxlint
+  plugin for React/JSX) to a plain regex scan since this repo has no JSX
+  AST to hook into. Dev tooling only, not a dependency of any shipped crate.
+
 ### Fixes
 
 - **Markdown images silently dropped on docs pages**: `markdown/converter.rs`'s

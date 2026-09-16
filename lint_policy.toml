@@ -1,0 +1,37 @@
+# Tailwind design-system policy for `cargo run -p xtask -- lint-tailwind`.
+# Policy shape adapted from https://github.com/shadcn-ui/lint (rules/config
+# concepts ported from their ESLint/Oxlint plugin to this repo's regex-based
+# Rust scanner, not a source port).
+#
+# Prefix -> category, used to classify each class in a `class: "..."` literal.
+
+[categories]
+layout     = ["flex", "grid", "block", "inline", "hidden", "w-", "h-", "min-w-", "max-w-", "items-", "justify-"]
+spacing    = ["p-", "px-", "py-", "pt-", "pb-", "pl-", "pr-", "m-", "mx-", "my-", "mt-", "mb-", "ml-", "mr-", "gap-"]
+color      = ["bg-", "text-", "border-", "ring-", "fill-", "stroke-"]
+radius     = ["rounded"]
+shadow     = ["shadow"]
+typography = ["font-", "leading-", "tracking-", "text-xs", "text-sm", "text-base", "text-lg", "text-xl"]
+
+# no-restyle: what a *caller* is allowed to add via a component's `class` prop.
+# Order matters: first matching contract pattern wins, otherwise `allow` applies.
+[no_restyle]
+allow = ["layout"]
+
+[[no_restyle.contracts]]
+pattern = "^Toolbar.*$"
+allow = ["layout", "spacing"]
+
+[[no_restyle.contracts]]
+pattern = "^Card.*Content$"
+allow = ["layout", "spacing"]
+
+[no_arbitrary_values]
+enabled = true
+
+[no_raw_colors]
+enabled = true
+allowed_tokens = [
+  "background", "foreground", "primary", "secondary", "muted",
+  "accent", "border", "input", "ring", "destructive", "card", "popover",
+]
