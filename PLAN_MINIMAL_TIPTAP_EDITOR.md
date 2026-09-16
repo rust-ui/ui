@@ -16,14 +16,39 @@ and gave the go-ahead).
 > `/Users/user/dev/1-RUST/RUST-UI/.playwright-mcp/` only; directory is
 > gitignored. Use screenshots to verify layout, toolbar state, editor content,
 > and rendered HTML output.
+>
+> **Screenshot hygiene:** the `.playwright-mcp/` dir is a scratch space, not an
+> archive. Delete outdated/superseded screenshots as soon as a new one replaces
+> them for the same check — don't let stale images from a fixed bug linger
+> next to current ones.
 
-### Playwright checklist
+### Playwright checklist — two phases
 
-- [ ] Manually open `/test-page`; no console errors, failed requests, or blank editor.
-- [ ] Confirm only Rich Text Editor demo appears; old Toolbar demo absent.
-- [ ] Confirm editor, toolbar, placeholder, and HTML output panel visible.
-- [ ] Confirm demo starts from real Markdown content converted through the shared
+**Phase 1 — static render only.** Verify the hardcoded seed Markdown
+(`DEFAULT_EDITOR_MARKDOWN` in `demo_editor.rs`) renders correctly end to end
+(Rust `markdown_to_html` -> `dangerous_inner_html` -> browser DOM -> visual
+style). No clicking, no typing, no toolbar interaction.
+
+- [x] Manually open `/test-page`; no console errors, failed requests, or blank editor.
+- [x] Confirm only Rich Text Editor demo appears; old Toolbar demo absent.
+- [x] Confirm editor, toolbar, placeholder, and HTML output panel visible.
+- [x] Confirm demo starts from real Markdown content converted through the shared
   `markdown_to_html` renderer (headings, marks, lists, link, fenced code).
+- [x] Confirm headings, bold/italic/underline, bullet list, link, and fenced code
+  block are visually styled (not just structurally correct) — typography
+  child-selector classes added to `EditorContent` since this repo has no
+  `@tailwindcss/typography` plugin.
+- [x] Confirm images render — seed Markdown had none; added a test
+  `![Placeholder image](https://placehold.co/600x200)` line and an
+  `[&_img]:max-w-full [&_img]:rounded-md` class; renders correctly in the
+  contenteditable DOM (`.playwright-mcp/editor-image-render.png`).
+- [ ] Manually capture desktop screenshot in `.playwright-mcp/`.
+- [ ] Manually capture narrow/mobile screenshot in `.playwright-mcp/`.
+- [ ] Inspect screenshots for overflow, clipped toolbar, broken icons, and bad spacing.
+
+**Phase 2 — interactivity.** Not started yet; do not test until Phase 1 is
+fully checked off.
+
 - [ ] Type plain text; text appears and HTML output updates.
 - [ ] Select text; click Bold; text becomes bold and button shows active state.
 - [ ] Select text; click Italic, Underline, Strikethrough; each applies correctly.
@@ -36,9 +61,14 @@ and gave the go-ahead).
 - [ ] Use browser undo/redo; editor and HTML output stay synchronized.
 - [ ] Paste formatted HTML; editor remains usable and output updates.
 - [ ] Reload page; editor starts cleanly with demo initial content.
-- [ ] Manually capture desktop screenshot in `.playwright-mcp/`.
-- [ ] Manually capture narrow/mobile screenshot in `.playwright-mcp/`.
-- [ ] Inspect screenshots for overflow, clipped toolbar, broken icons, and bad spacing.
+
+**Known gap (not editor-specific, noted while investigating images):**
+`src/markdown/converter.rs`'s `process_element` (used for docs pages like
+`button.md`, not the editor) has no `img` match arm — falls through to the
+default `_ => rsx! { {children.into_iter()} }`, which drops the `<img>`
+element itself since it has no children. Docs pages with Markdown images would
+silently render nothing. Out of scope for the editor demo; flagging for a
+follow-up if docs content ever needs images.
 
 ## Progress checklist
 
@@ -50,7 +80,17 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` pending · `[-]` deferred.
 - [x] `Editor` component exported from `registry::ui::editor`
 - [x] Composable `EditorContent`, `EditorToolbar`, `ToolbarSection`
 - [x] DOM bridge and internal HTML state
-- [x] Initial HTML rendering
+- [x] Initial HTML rendering — fixed 2026-09-16: `use_editor`'s mount effect was
+  re-running `root.innerHTML = sanitize(initial)` from JS on every load, racing
+  hydration and leaving the contenteditable root empty while the demo's HTML
+  output panel (driven by the Rust-side signal, not the real DOM) still showed
+  content, masking the bug. SSR already renders correct markup via
+  `dangerous_inner_html` (Rust `markdown_to_html`); the JS effect now only
+  wires `input`/`selectionchange` listeners, no redundant re-injection.
+  Also added typography child-selector classes ([&_h1]:..., [&_ul]:..., etc.)
+  to `EditorContent`'s class list since Tailwind v4 has no `@tailwindcss/typography`
+  plugin in this repo — headings/lists/code/links were structurally correct
+  (confirmed via a11y snapshot) but visually unstyled.
 - [x] Bold, italic, underline, strikethrough
 - [x] H1/H2, bullet list, ordered list
 - [x] Code and clear-formatting actions

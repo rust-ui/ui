@@ -237,10 +237,12 @@ pub fn use_editor(initial_html: &str) -> EditorHandle {
     let id = handle.id.clone();
     let mut state = handle.state;
     let mut html = handle.html;
-    let initial = initial_html.to_string();
     use_effect(move || {
         let id = serde_json::to_string(&id).unwrap_or_else(|_| "\"\"".to_string());
-        let initial = serde_json::to_string(&initial).unwrap_or_else(|_| "\"\"".to_string());
+        // The root's initial content is already server-rendered via
+        // `dangerous_inner_html` (from the Rust markdown->HTML conversion), so
+        // we only need to wire up listeners here, not re-inject the HTML from
+        // JS. Doing so raced with hydration and could leave the root empty.
         let mut ev = eval_with_helpers(
             &id,
             &format!(
@@ -253,7 +255,6 @@ pub fn use_editor(initial_html: &str) -> EditorHandle {
   find();
 }});
 const root = await waitForRoot();
-root.innerHTML = sanitize({initial});
 const send = () => dioxus.send(snapshot(root));
 root.addEventListener('input', send);
 document.addEventListener('selectionchange', send);
@@ -295,7 +296,7 @@ pub fn EditorContent(
             role: "textbox",
             aria_multiline: "true",
             "data-placeholder": placeholder,
-            class: "min-h-48 w-full p-4 text-sm leading-7 outline-none empty:before:pointer-events-none empty:before:text-muted-foreground empty:before:content-[attr(data-placeholder)]",
+            class: "min-h-48 w-full p-4 text-sm leading-7 outline-none empty:before:pointer-events-none empty:before:text-muted-foreground empty:before:content-[attr(data-placeholder)] [&_h1]:mt-4 [&_h1]:mb-2 [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:first:mt-0 [&_h2]:mt-4 [&_h2]:mb-2 [&_h2]:text-xl [&_h2]:font-semibold [&_h3]:mt-3 [&_h3]:mb-2 [&_h3]:text-lg [&_h3]:font-semibold [&_p]:mb-3 [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:mb-3 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-1 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_blockquote]:border-l-2 [&_blockquote]:pl-3 [&_blockquote]:text-muted-foreground [&_pre]:mb-3 [&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:bg-muted [&_pre]:p-3 [&_pre]:text-xs [&_code]:font-mono [&_pre_code]:font-mono [&_img]:mb-3 [&_img]:max-w-full [&_img]:rounded-md",
             dangerous_inner_html: "{initial_html}",
         }
     }

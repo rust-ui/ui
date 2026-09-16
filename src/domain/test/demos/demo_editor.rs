@@ -17,6 +17,8 @@ Use the toolbar above to format your content.
 
 You can also add links like [this one](https://example.com).
 
+![Placeholder image](https://placehold.co/600x200)
+
 ```javascript
 // Example code block
 const greeting = "Hello, World!";
