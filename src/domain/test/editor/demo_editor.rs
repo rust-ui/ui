@@ -9,7 +9,7 @@ This is a powerful editor that supports many features:
 - Different heading levels
 - Lists (ordered and unordered)
 - Text formatting controls
-- HTML output for saving or previewing content
+- Content stays editable in place
 
 ## Try It Out!
 
@@ -27,18 +27,11 @@ console.log(greeting);
 
 #[component]
 pub fn DemoEditor() -> Element {
-    let mut html = use_signal(|| crate::markdown::markdown_to_html(DEFAULT_EDITOR_MARKDOWN));
-
     rsx! {
         div { class: "flex flex-col gap-3",
             Editor {
-                initial_html: html(),
+                initial_html: crate::markdown::markdown_to_html(DEFAULT_EDITOR_MARKDOWN),
                 placeholder: "Write here...",
-                on_change: move |next| html.set(next),
-            }
-            div { class: "rounded-md border bg-muted/30 p-3",
-                p { class: "mb-2 text-xs font-medium text-muted-foreground", "HTML output" }
-                pre { class: "max-h-48 overflow-auto whitespace-pre-wrap break-words text-xs", "{html}" }
             }
         }
     }
