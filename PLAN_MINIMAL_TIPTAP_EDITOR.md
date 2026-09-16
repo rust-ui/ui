@@ -127,10 +127,17 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` pending · `[-]` deferred.
   walk (previously JS operating on a detached `<template>`) is now a Rust
   function walking the live contenteditable DOM directly
   (`sanitize_element`/`unwrap_element`/`sanitize_attrs`/`safe_url` in
-  `editor.rs`), same one-shallow-pass-per-disallowed-tag semantics as the
+  `use_editor.rs`), same one-shallow-pass-per-disallowed-tag semantics as the
   original JS. No more async eval channel, no more JSON snapshot type —
   `execute()` and the DOM listeners synchronously read `execCommand`/
   `queryCommandState` results straight into the `EditorState`/`html` signals.
+- [x] Logic/presentation split — 2026-09-16: `EditorHandle`, `EditorState`,
+  `FormatAction`, the sanitizer, and the `use_editor` hook moved out of
+  `editor.rs` into `src/domain/test/editor/use_editor.rs`; `editor.rs` now
+  holds only the `Editor`/`EditorContent`/`EditorToolbar`/`ToolbarSection`
+  components (rsx, no state/DOM logic). Kept local under `domain::test`
+  rather than `registry::hooks`, per the existing scope-lock doc comment
+  (demo-only WIP, not part of the public component library yet).
 - [x] Initial HTML rendering — fixed 2026-09-16: `use_editor`'s mount effect was
   re-running `root.innerHTML = sanitize(initial)` from JS on every load, racing
   hydration and leaving the contenteditable root empty while the demo's HTML
