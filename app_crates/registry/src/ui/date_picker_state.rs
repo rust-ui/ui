@@ -55,9 +55,5 @@ impl DatePickerState {
 }
 
 fn prev_month_year(month: Month, year: i32) -> (Month, i32) {
-    if month == Month::January {
-        (Month::December, year - 1)
-    } else {
-        (month.previous(), year)
-    }
+    if month == Month::January { (Month::December, year - 1) } else { (month.previous(), year) }
 }

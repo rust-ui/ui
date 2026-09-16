@@ -180,11 +180,7 @@ fn check_classes(
 
         if policy.no_raw_colors.enabled
             && category == Some("color")
-            && !policy
-                .no_raw_colors
-                .allowed_tokens
-                .iter()
-                .any(|t| class.contains(t.as_str()))
+            && !policy.no_raw_colors.allowed_tokens.iter().any(|t| class.contains(t.as_str()))
         {
             findings.push(Finding {
                 file: file.to_path_buf(),

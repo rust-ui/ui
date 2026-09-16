@@ -46,10 +46,7 @@ impl BugReportRequest {
         }
     }
 
-    #[cfg_attr(
-        not(target_arch = "wasm32"),
-        allow(dead_code, reason = "used by the wasm client diagnostic handler")
-    )]
+    #[cfg_attr(not(target_arch = "wasm32"), allow(dead_code, reason = "used by the wasm client diagnostic handler"))]
     pub fn with_stack_trace(mut self, stack_trace: impl Into<String>) -> Self {
         self.stack_trace = Some(stack_trace.into());
         self
@@ -60,10 +57,7 @@ impl BugReportRequest {
         self
     }
 
-    #[cfg_attr(
-        not(target_arch = "wasm32"),
-        allow(dead_code, reason = "reserved for browser diagnostic payloads")
-    )]
+    #[cfg_attr(not(target_arch = "wasm32"), allow(dead_code, reason = "reserved for browser diagnostic payloads"))]
     pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
         self.user_agent = Some(user_agent.into());
         self
@@ -193,9 +187,7 @@ pub async fn report_client_bug(report: BugReportRequest) -> Result<(), ServerFnE
             }
         }
 
-        send_bug_report(report)
-            .await
-            .map_err(|err| ServerFnError::new(format!("Failed to save bug report: {err}")))
+        send_bug_report(report).await.map_err(|err| ServerFnError::new(format!("Failed to save bug report: {err}")))
     }
     #[cfg(not(feature = "server"))]
     {

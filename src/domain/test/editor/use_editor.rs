@@ -1,12 +1,6 @@
-//! `EditorHandle` state/DOM-bridge logic, extracted out of `editor.rs` so the
-//! components stay presentation-only.
-//!
-//! V1 uses the browser's `contenteditable` and `execCommand` APIs. The DOM
-//! bridge is deliberately kept behind `EditorHandle` so toolbar components do
-//! not depend on browser implementation details.
+use std::sync::atomic::{AtomicU64, Ordering};
 
 use dioxus::prelude::*;
-use std::sync::atomic::{AtomicU64, Ordering};
 #[cfg(target_arch = "wasm32")]
 use wasm_bindgen::JsCast;
 #[cfg(target_arch = "wasm32")]
@@ -99,10 +93,7 @@ impl EditorHandle {
     fn sync_from_dom(&self, document: &web_sys::Document, root: &web_sys::Element) {
         sanitize_element(root);
         let html_document: &web_sys::HtmlDocument = document.unchecked_ref();
-        let block = html_document
-            .query_command_value("formatBlock")
-            .unwrap_or_default()
-            .to_lowercase();
+        let block = html_document.query_command_value("formatBlock").unwrap_or_default().to_lowercase();
         let heading = block.strip_prefix('h').and_then(|n| n.parse::<u8>().ok()).unwrap_or(0);
         let state = EditorState {
             bold: html_document.query_command_state("bold").unwrap_or(false),
@@ -110,9 +101,7 @@ impl EditorHandle {
             underline: html_document.query_command_state("underline").unwrap_or(false),
             strikethrough: html_document.query_command_state("strikeThrough").unwrap_or(false),
             ordered_list: html_document.query_command_state("insertOrderedList").unwrap_or(false),
-            bullet_list: html_document
-                .query_command_state("insertUnorderedList")
-                .unwrap_or(false),
+            bullet_list: html_document.query_command_state("insertUnorderedList").unwrap_or(false),
             heading,
         };
         let mut state_signal = self.state;

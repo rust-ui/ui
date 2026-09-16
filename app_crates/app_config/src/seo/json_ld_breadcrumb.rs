@@ -94,10 +94,7 @@ mod unit_tests {
 
     fn create_test_breadcrumbs() -> Vec<BreadcrumbItem> {
         vec![
-            BreadcrumbItem {
-                name: "Home".to_string(),
-                url: Some("https://rust-ui.com".to_string()),
-            },
+            BreadcrumbItem { name: "Home".to_string(), url: Some("https://rust-ui.com".to_string()) },
             BreadcrumbItem {
                 name: "Components".to_string(),
                 url: Some("https://rust-ui.com/docs/components".to_string()),
@@ -237,14 +234,8 @@ mod unit_tests {
     #[test]
     fn test_minimum_breadcrumb_trail() {
         let breadcrumbs = vec![
-            BreadcrumbItem {
-                name: "Home".to_string(),
-                url: Some("https://rust-ui.com".to_string()),
-            },
-            BreadcrumbItem {
-                name: "Page".to_string(),
-                url: None,
-            },
+            BreadcrumbItem { name: "Home".to_string(), url: Some("https://rust-ui.com".to_string()) },
+            BreadcrumbItem { name: "Page".to_string(), url: None },
         ];
 
         let items: Vec<ListItem> = breadcrumbs

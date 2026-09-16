@@ -56,20 +56,14 @@ fn purge_stale_simulator_webkit_cache() {
     let out_dir = std::env::var("OUT_DIR").unwrap_or_default();
     println!("cargo:rerun-if-changed={out_dir}/__force_rerun_never_exists");
 
-    let Ok(list) = std::process::Command::new("xcrun")
-        .args(["simctl", "list", "devices", "booted", "-j"])
-        .output()
+    let Ok(list) = std::process::Command::new("xcrun").args(["simctl", "list", "devices", "booted", "-j"]).output()
     else {
         return;
     };
     let Ok(text) = String::from_utf8(list.stdout) else {
         return;
     };
-    let Some(udid) = text
-        .lines()
-        .find(|line| line.contains("\"udid\""))
-        .and_then(|line| line.split('"').nth(3))
-    else {
+    let Some(udid) = text.lines().find(|line| line.contains("\"udid\"")).and_then(|line| line.split('"').nth(3)) else {
         return;
     };
 

@@ -7,10 +7,7 @@ use web_sys::HtmlElement;
 
 #[component]
 pub fn DraggableZone(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!(
-        "dragabble__container bg-neutral-600 p-4 mt-4",
-        class.as_deref().unwrap_or("")
-    );
+    let merged = tw_merge!("dragabble__container bg-neutral-600 p-4 mt-4", class.as_deref().unwrap_or(""));
     rsx! {
         div { "data-name": "DraggableZone", class: "{merged}", {children} }
     }
@@ -63,11 +60,8 @@ pub fn Draggable(#[props(into, optional)] class: Option<String>, children: Eleme
                 let container = target.and_then(|el| el.closest("[data-name='DraggableZone']").ok().flatten());
                 let Some(container) = container else { return };
 
-                let dragging = container
-                    .query_selector(".dragging")
-                    .ok()
-                    .flatten()
-                    .and_then(|n| n.dyn_into::<HtmlElement>().ok());
+                let dragging =
+                    container.query_selector(".dragging").ok().flatten().and_then(|n| n.dyn_into::<HtmlElement>().ok());
                 let Some(dragging_el) = dragging else { return };
 
                 let after_el = get_drag_after_element(&container, e.client_y() as f64);

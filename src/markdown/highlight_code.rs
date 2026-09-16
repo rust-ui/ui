@@ -42,9 +42,7 @@ fn highlight_impl(
         return html_escape::encode_text(code).into_owned();
     };
 
-    let lang = language
-        .or_else(|| filename.map(HighlightLanguage::detect_from_filename))
-        .unwrap_or("plain");
+    let lang = language.or_else(|| filename.map(HighlightLanguage::detect_from_filename)).unwrap_or("plain");
 
     let syntax = match lang {
         "rust" => syntax_set.find_syntax_by_name("Rust"),

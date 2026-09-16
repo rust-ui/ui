@@ -42,10 +42,7 @@ pub fn DropdownMenu(
     children: Element,
 ) -> Element {
     let dropdown_target_id = use_random_id_for("dropdown");
-    provide_context(DropdownMenuContext {
-        target_id: dropdown_target_id,
-        align,
-    });
+    provide_context(DropdownMenuContext { target_id: dropdown_target_id, align });
 
     rsx! {
         div { "data-name": "DropdownMenu",
@@ -250,10 +247,7 @@ pub fn DropdownMenuContent(
 
 #[component]
 pub fn DropdownMenuLabel(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!(
-        "px-2 py-1.5 text-sm font-medium data-inset:pl-8 mb-1",
-        class.as_deref().unwrap_or("")
-    );
+    let merged = tw_merge!("px-2 py-1.5 text-sm font-medium data-inset:pl-8 mb-1", class.as_deref().unwrap_or(""));
     rsx! { span { "data-name": "DropdownMenuLabel", class: "{merged}", {children} } }
 }
 
@@ -336,10 +330,7 @@ pub fn DropdownMenuSub(children: Element) -> Element {
 
 #[component]
 pub fn DropdownMenuSubTrigger(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!(
-        "flex items-center justify-between w-full",
-        class.as_deref().unwrap_or("")
-    );
+    let merged = tw_merge!("flex items-center justify-between w-full", class.as_deref().unwrap_or(""));
     rsx! {
         span { "data-name": "DropdownMenuSubTrigger", class: "{merged}",
             span { class: "flex gap-2 items-center", {children} }

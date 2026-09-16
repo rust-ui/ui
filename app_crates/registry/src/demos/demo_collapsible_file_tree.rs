@@ -54,9 +54,7 @@ pub fn DemoCollapsibleFileTree() -> Element {
                     ],
                 },
                 FileTreeItem::File { name: "login-form.tsx" },
-                FileTreeItem::File {
-                    name: "register-form.tsx",
-                },
+                FileTreeItem::File { name: "register-form.tsx" },
             ],
         },
         FileTreeItem::Folder {
@@ -70,15 +68,9 @@ pub fn DemoCollapsibleFileTree() -> Element {
         FileTreeItem::Folder {
             name: "hooks",
             items: vec![
-                FileTreeItem::File {
-                    name: "use-media-query.ts",
-                },
-                FileTreeItem::File {
-                    name: "use-debounce.ts",
-                },
-                FileTreeItem::File {
-                    name: "use-local-storage.ts",
-                },
+                FileTreeItem::File { name: "use-media-query.ts" },
+                FileTreeItem::File { name: "use-debounce.ts" },
+                FileTreeItem::File { name: "use-local-storage.ts" },
             ],
         },
         FileTreeItem::File { name: "app.tsx" },

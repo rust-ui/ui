@@ -75,10 +75,8 @@ pub fn NavMenuMiddle(#[props(into, optional)] class: Option<String>, children: E
 
 #[component]
 pub fn NavMenuList(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged_class = tw_merge!(
-        "flex flex-1 gap-0 justify-center items-center list-none group",
-        class.as_deref().unwrap_or("")
-    );
+    let merged_class =
+        tw_merge!("flex flex-1 gap-0 justify-center items-center list-none group", class.as_deref().unwrap_or(""));
     rsx! { menu { "data-name": "NavMenuList", class: "{merged_class}", {children} } }
 }
 
@@ -122,10 +120,7 @@ pub fn NavMenuLinkTitle(#[props(into, optional)] class: Option<String>, children
 
 #[component]
 pub fn NavMenuLinkDescription(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged_class = tw_merge!(
-        "text-xs text-muted-foreground line-clamp-1",
-        class.as_deref().unwrap_or("")
-    );
+    let merged_class = tw_merge!("text-xs text-muted-foreground line-clamp-1", class.as_deref().unwrap_or(""));
     rsx! { p { "data-name": "NavMenuLinkDescription", class: "{merged_class}", {children} } }
 }
 

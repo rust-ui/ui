@@ -26,13 +26,7 @@ pub fn parse_md(raw: &str) -> (Frontmatter, &str) {
             return (fm, body.trim_start_matches('\n'));
         }
     }
-    (
-        Frontmatter {
-            title: String::new(),
-            description: String::new(),
-        },
-        raw,
-    )
+    (Frontmatter { title: String::new(), description: String::new() }, raw)
 }
 
 #[must_use]

@@ -158,10 +158,7 @@ impl WorkflowIdKebab {
         };
         vec![BlockFileTreeItem::Folder {
             name: "workflows",
-            items: vec![BlockFileTreeItem::File {
-                name: file_name,
-                index: 0,
-            }],
+            items: vec![BlockFileTreeItem::File { name: file_name, index: 0 }],
         }]
     }
 

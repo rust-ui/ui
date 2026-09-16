@@ -16,15 +16,8 @@ pub enum ThemeName {
 }
 
 impl ThemeName {
-    pub const ALL: &'static [Self] = &[
-        Self::Neutral,
-        Self::Stone,
-        Self::Zinc,
-        Self::Mauve,
-        Self::Olive,
-        Self::Mist,
-        Self::Taupe,
-    ];
+    pub const ALL: &'static [Self] =
+        &[Self::Neutral, Self::Stone, Self::Zinc, Self::Mauve, Self::Olive, Self::Mist, Self::Taupe];
 
     #[must_use]
     pub fn label(self) -> &'static str {
@@ -99,10 +92,7 @@ impl ThemeName {
 
     #[must_use]
     pub fn css_string(self, radius: f32, color_theme: ColorTheme, font: FontName) -> String {
-        let mut out = format!(
-            ":root {{\n  --radius: {radius}rem;\n  --font-sans: {};\n",
-            font.css_value()
-        );
+        let mut out = format!(":root {{\n  --radius: {radius}rem;\n  --font-sans: {};\n", font.css_value());
         for (k, v) in self.light_vars() {
             let _ = writeln!(out, "  {k}: {v};");
         }

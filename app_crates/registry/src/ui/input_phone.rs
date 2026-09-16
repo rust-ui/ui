@@ -321,11 +321,7 @@ impl PhoneNumber {
             Some(prefix) => self.0.strip_prefix(prefix).unwrap_or(&self.0),
             None => &self.0,
         };
-        format!(
-            "{} {}",
-            country.dial_code_formatted(),
-            PhoneFormat::for_country(country).format(subscriber)
-        )
+        format!("{} {}", country.dial_code_formatted(), PhoneFormat::for_country(country).format(subscriber))
     }
 }
 
@@ -347,62 +343,20 @@ impl PhoneFormat {
             | Country::Barbados
             | Country::DominicanRepublic
             | Country::Jamaica
-            | Country::TrinidadAndTobago => Self {
-                groups: &[3, 3, 4],
-                max_digits: 10,
-            },
-            Country::France => Self {
-                groups: &[1, 2, 2, 2, 2],
-                max_digits: 9,
-            },
-            Country::UnitedKingdom => Self {
-                groups: &[4, 3, 3],
-                max_digits: 10,
-            },
-            Country::Germany => Self {
-                groups: &[3, 3, 4],
-                max_digits: 10,
-            },
-            Country::Thailand => Self {
-                groups: &[2, 3, 4],
-                max_digits: 9,
-            },
-            Country::Japan => Self {
-                groups: &[2, 4, 4],
-                max_digits: 10,
-            },
-            Country::China => Self {
-                groups: &[3, 4, 4],
-                max_digits: 11,
-            },
-            Country::India => Self {
-                groups: &[5, 5],
-                max_digits: 10,
-            },
-            Country::Australia => Self {
-                groups: &[3, 3, 3],
-                max_digits: 9,
-            },
-            Country::Brazil => Self {
-                groups: &[2, 5, 4],
-                max_digits: 11,
-            },
-            Country::Mexico => Self {
-                groups: &[2, 4, 4],
-                max_digits: 10,
-            },
-            Country::Spain => Self {
-                groups: &[3, 3, 3],
-                max_digits: 9,
-            },
-            Country::Italy => Self {
-                groups: &[3, 3, 4],
-                max_digits: 10,
-            },
-            _ => Self {
-                groups: &[3, 3, 4],
-                max_digits: 15,
-            },
+            | Country::TrinidadAndTobago => Self { groups: &[3, 3, 4], max_digits: 10 },
+            Country::France => Self { groups: &[1, 2, 2, 2, 2], max_digits: 9 },
+            Country::UnitedKingdom => Self { groups: &[4, 3, 3], max_digits: 10 },
+            Country::Germany => Self { groups: &[3, 3, 4], max_digits: 10 },
+            Country::Thailand => Self { groups: &[2, 3, 4], max_digits: 9 },
+            Country::Japan => Self { groups: &[2, 4, 4], max_digits: 10 },
+            Country::China => Self { groups: &[3, 4, 4], max_digits: 11 },
+            Country::India => Self { groups: &[5, 5], max_digits: 10 },
+            Country::Australia => Self { groups: &[3, 3, 3], max_digits: 9 },
+            Country::Brazil => Self { groups: &[2, 5, 4], max_digits: 11 },
+            Country::Mexico => Self { groups: &[2, 4, 4], max_digits: 10 },
+            Country::Spain => Self { groups: &[3, 3, 3], max_digits: 9 },
+            Country::Italy => Self { groups: &[3, 3, 4], max_digits: 10 },
+            _ => Self { groups: &[3, 3, 4], max_digits: 15 },
         }
     }
 
@@ -438,9 +392,7 @@ impl PhoneFormat {
     pub fn placeholder(&self) -> String {
         // `i % 10` is bounded to 0..10, so the `u8` cast never truncates.
         #[allow(clippy::cast_possible_truncation)]
-        let digits: String = (0..self.max_digits)
-            .map(|i| char::from(b'0' + (i % 10) as u8))
-            .collect();
+        let digits: String = (0..self.max_digits).map(|i| char::from(b'0' + (i % 10) as u8)).collect();
         self.format(&digits)
     }
 }
@@ -481,12 +433,7 @@ pub fn InputPhoneWrapper(#[props(into, optional)] class: Option<String>, childre
 
 #[component]
 fn CountryItem(country: Country, selected_country: Signal<Country>) -> Element {
-    let search_value = format!(
-        "{} {} {}",
-        country.name(),
-        country.alpha2(),
-        country.dial_code_formatted()
-    );
+    let search_value = format!("{} {} {}", country.name(), country.alpha2(), country.dial_code_formatted());
     let is_selected = selected_country() == country;
 
     rsx! {

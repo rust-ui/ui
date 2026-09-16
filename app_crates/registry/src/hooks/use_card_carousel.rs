@@ -1,9 +1,6 @@
 #![cfg_attr(
     not(target_arch = "wasm32"),
-    allow(
-        dead_code,
-        reason = "DOM event listeners are only executable in the wasm browser target"
-    )
+    allow(dead_code, reason = "DOM event listeners are only executable in the wasm browser target")
 )]
 #![cfg_attr(not(target_arch = "wasm32"), allow(clippy::missing_const_for_fn))]
 
@@ -57,10 +54,7 @@ fn setup_listeners() -> Option<Listeners> {
     // Capture phase: scroll events on overflow-scroll track don't bubble.
     let _ = target.add_event_listener_with_callback_and_bool("scroll", scroll_cb.as_ref().unchecked_ref(), true);
 
-    Some(Listeners {
-        _click: click_cb,
-        _scroll: scroll_cb,
-    })
+    Some(Listeners { _click: click_cb, _scroll: scroll_cb })
 }
 
 // ── Click handler ─────────────────────────────────────────────────────────────
@@ -88,10 +82,7 @@ fn handle_click(event: Event) {
         return;
     };
 
-    let is_prev = buttons
-        .item(0)
-        .and_then(|n| n.dyn_into::<Element>().ok())
-        .is_some_and(|first| first == btn);
+    let is_prev = buttons.item(0).and_then(|n| n.dyn_into::<Element>().ok()).is_some_and(|first| first == btn);
 
     let delta = f64::from(track.client_width()) * if is_prev { -1.0 } else { 1.0 };
     // No explicit behavior — CSS scroll-smooth on the track handles the animation,

@@ -1,9 +1,6 @@
 #![cfg_attr(
     not(target_arch = "wasm32"),
-    allow(
-        dead_code,
-        reason = "DOM scroll-spy helpers are only executable in the wasm browser target"
-    )
+    allow(dead_code, reason = "DOM scroll-spy helpers are only executable in the wasm browser target")
 )]
 
 use std::sync::Arc;
@@ -43,9 +40,7 @@ fn cache_heading_positions(
     anchors
         .iter()
         .filter_map(|id| {
-            document
-                .get_element_by_id(id)
-                .map(|el| (id.clone(), el.get_bounding_client_rect().top() + scroll_y))
+            document.get_element_by_id(id).map(|el| (id.clone(), el.get_bounding_client_rect().top() + scroll_y))
         })
         .collect()
 }
@@ -88,11 +83,8 @@ pub fn use_table_of_contents(anchors: &[String]) -> TableOfContentsState {
                 return;
             }
             let scroll_pos = window_for_scroll.scroll_y().unwrap_or(0.0) + SCROLL_OFFSET;
-            let current = positions_for_scroll
-                .peek()
-                .iter()
-                .rfind(|(_, top)| scroll_pos >= *top)
-                .map(|(id, _)| id.clone());
+            let current =
+                positions_for_scroll.peek().iter().rfind(|(_, top)| scroll_pos >= *top).map(|(id, _)| id.clone());
 
             if active_anchor_for_scroll.peek().as_deref() != current.as_deref() {
                 if let Some(id) = &current {
@@ -120,7 +112,5 @@ pub fn use_table_of_contents(anchors: &[String]) -> TableOfContentsState {
         resize_handler.forget();
     });
 
-    TableOfContentsState {
-        active_anchor: active_anchor.into(),
-    }
+    TableOfContentsState { active_anchor: active_anchor.into() }
 }

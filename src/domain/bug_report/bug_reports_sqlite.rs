@@ -31,11 +31,7 @@ const DB_PATH_PROD: &str = "/tmp/bug_reports.db";
 
 #[cfg(feature = "server")]
 const fn get_db_path() -> &'static str {
-    if cfg!(debug_assertions) {
-        DB_PATH_DEV
-    } else {
-        DB_PATH_PROD
-    }
+    if cfg!(debug_assertions) { DB_PATH_DEV } else { DB_PATH_PROD }
 }
 
 /// Initialize the `SQLite` database and create the `bug_reports` table if it doesn't exist.
@@ -67,21 +63,13 @@ fn init_db() -> Result<(), String> {
 
     // Migration: add similarity_hash column if missing (for existing DBs created before this column)
     // SQLite doesn't have "ADD COLUMN IF NOT EXISTS", so we ignore the error if column exists
-    let _ = conn.execute(
-        "ALTER TABLE bug_reports ADD COLUMN similarity_hash INTEGER NOT NULL DEFAULT 0",
-        [],
-    );
+    let _ = conn.execute("ALTER TABLE bug_reports ADD COLUMN similarity_hash INTEGER NOT NULL DEFAULT 0", []);
 
     // Add index on similarity_hash for efficient grouping
-    conn.execute(
-        "CREATE INDEX IF NOT EXISTS idx_bug_reports_similarity_hash ON bug_reports (similarity_hash)",
-        [],
-    )
-    .map_err(|err| format!("Failed to create similarity_hash index: {err}"))?;
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_bug_reports_similarity_hash ON bug_reports (similarity_hash)", [])
+        .map_err(|err| format!("Failed to create similarity_hash index: {err}"))?;
 
-    DB_CONN
-        .set(Mutex::new(conn))
-        .map_err(|_| "Database connection already initialized".to_string())?;
+    DB_CONN.set(Mutex::new(conn)).map_err(|_| "Database connection already initialized".to_string())?;
 
     tracing::info!("SQLite bug reports database initialized at {db_path}");
     Ok(())
@@ -125,11 +113,8 @@ pub fn save_bug_report(report: &BugReportRequest) -> Result<i64, String> {
     let conn = get_conn()?;
 
     let bug_type_str: &'static str = report.bug_type.into();
-    let similarity_hash = compute_similarity_hash(
-        &report.message,
-        report.exception_message.as_ref(),
-        report.stack_trace.as_ref(),
-    );
+    let similarity_hash =
+        compute_similarity_hash(&report.message, report.exception_message.as_ref(), report.stack_trace.as_ref());
 
     conn.execute(
         "INSERT INTO bug_reports (bug_type, similarity_hash, message, exception_message, stack_trace, user_login, url, user_agent, application)

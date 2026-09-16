@@ -73,12 +73,7 @@ fn collect_files(
         } else {
             None
         };
-        out.push(DropzoneFile {
-            name: f.name(),
-            size_bytes: f.size() as u64,
-            mime_type: mime,
-            preview_url,
-        });
+        out.push(DropzoneFile { name: f.name(), size_bytes: f.size() as u64, mime_type: mime, preview_url });
     }
     out
 }
@@ -98,12 +93,7 @@ pub fn Dropzone(
     let mut is_dragging = use_signal(|| false);
     let view = use_signal(|| ViewMode::List);
 
-    use_context_provider(|| DropzoneCtx {
-        files,
-        is_dragging,
-        view,
-        file_input_id: "dz-file-input",
-    });
+    use_context_provider(|| DropzoneCtx { files, is_dragging, view, file_input_id: "dz-file-input" });
 
     #[cfg(not(target_arch = "wasm32"))]
     return rsx! { div { {children} } };
@@ -127,8 +117,7 @@ pub fn Dropzone(
             let win = web_sys::window().expect("no window");
             let on_dragover: Closure<dyn Fn(web_sys::DragEvent)> =
                 Closure::new(|e: web_sys::DragEvent| e.prevent_default());
-            win.add_event_listener_with_callback("dragover", on_dragover.as_ref().unchecked_ref())
-                .ok();
+            win.add_event_listener_with_callback("dragover", on_dragover.as_ref().unchecked_ref()).ok();
             on_dragover.forget();
 
             let on_dragenter: Closure<dyn FnMut(web_sys::DragEvent)> = Closure::new(move |e: web_sys::DragEvent| {
@@ -139,8 +128,7 @@ pub fn Dropzone(
                     is_dragging.set(true);
                 }
             });
-            el.add_event_listener_with_callback("dragenter", on_dragenter.as_ref().unchecked_ref())
-                .ok();
+            el.add_event_listener_with_callback("dragenter", on_dragenter.as_ref().unchecked_ref()).ok();
             on_dragenter.forget();
 
             let el2 = el.clone();
@@ -152,8 +140,7 @@ pub fn Dropzone(
                     is_dragging.set(false);
                 }
             });
-            el2.add_event_listener_with_callback("dragleave", on_dragleave.as_ref().unchecked_ref())
-                .ok();
+            el2.add_event_listener_with_callback("dragleave", on_dragleave.as_ref().unchecked_ref()).ok();
             on_dragleave.forget();
 
             let el3 = el.clone();
@@ -172,8 +159,7 @@ pub fn Dropzone(
                 let remaining = max_files.map(|m| m.saturating_sub(w.len())).unwrap_or(usize::MAX);
                 w.extend(new_files.into_iter().take(remaining));
             });
-            el3.add_event_listener_with_callback("drop", on_drop.as_ref().unchecked_ref())
-                .ok();
+            el3.add_event_listener_with_callback("drop", on_drop.as_ref().unchecked_ref()).ok();
             on_drop.forget();
         };
 
@@ -205,9 +191,7 @@ pub fn Dropzone(
 
                 input.set_value("");
             });
-            input_el
-                .add_event_listener_with_callback("change", on_change.as_ref().unchecked_ref())
-                .ok();
+            input_el.add_event_listener_with_callback("change", on_change.as_ref().unchecked_ref()).ok();
             on_change.forget();
         };
 
@@ -290,10 +274,7 @@ pub fn DropzoneIcon(#[props(into, optional)] class: Option<String>, children: El
 
 #[component]
 pub fn DropzoneLabel(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!(
-        "text-sm font-semibold text-foreground text-center",
-        class.as_deref().unwrap_or("")
-    );
+    let merged = tw_merge!("text-sm font-semibold text-foreground text-center", class.as_deref().unwrap_or(""));
     rsx! { p { class: "{merged}", {children} } }
 }
 
@@ -301,10 +282,7 @@ pub fn DropzoneLabel(#[props(into, optional)] class: Option<String>, children: E
 
 #[component]
 pub fn DropzoneHint(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
-    let merged = tw_merge!(
-        "text-xs text-muted-foreground text-center",
-        class.as_deref().unwrap_or("")
-    );
+    let merged = tw_merge!("text-xs text-muted-foreground text-center", class.as_deref().unwrap_or(""));
     rsx! { p { class: "{merged}", {children} } }
 }
 

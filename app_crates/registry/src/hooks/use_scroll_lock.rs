@@ -11,14 +11,8 @@ use wasm_bindgen::closure::Closure;
 use wasm_bindgen::prelude::*;
 
 #[cfg(target_arch = "wasm32")]
-const EXCLUDED_DATA_NAMES: &[&str] = &[
-    "ScrollArea",
-    "CommandList",
-    "SelectContent",
-    "MultiSelectContent",
-    "DropdownMenuContent",
-    "ContextMenuContent",
-];
+const EXCLUDED_DATA_NAMES: &[&str] =
+    &["ScrollArea", "CommandList", "SelectContent", "MultiSelectContent", "DropdownMenuContent", "ContextMenuContent"];
 
 #[cfg(target_arch = "wasm32")]
 const FIXED_EXCLUDED: &[&str] = &["header", "nav", "aside"];
@@ -63,13 +57,7 @@ struct State {
 #[cfg(target_arch = "wasm32")]
 impl State {
     const fn new() -> Self {
-        Self {
-            locked: false,
-            window_scroll_y: 0.0,
-            body_styles: None,
-            scrollable: vec![],
-            fixed: vec![],
-        }
+        Self { locked: false, window_scroll_y: 0.0, body_styles: None, scrollable: vec![], fixed: vec![] }
     }
 
     fn clear(&mut self) {
@@ -250,10 +238,7 @@ pub fn lock() {
                     let np = cp + scrollbar_width;
                     let _ = el.style().set_property("padding-right", &format!("{np}px"));
                 }
-                f_entries.push(FixedEntry {
-                    element: el,
-                    padding_right,
-                });
+                f_entries.push(FixedEntry { element: el, padding_right });
             }
         }
 
@@ -280,12 +265,10 @@ pub fn unlock(_delay_ms: u32) {
             let closure = Closure::once_into_js(move || {
                 perform_unlock();
             });
-            let _ = web_sys::window()
-                .unwrap()
-                .set_timeout_with_callback_and_timeout_and_arguments_0(
-                    closure.as_ref().unchecked_ref(),
-                    _delay_ms as i32,
-                );
+            let _ = web_sys::window().unwrap().set_timeout_with_callback_and_timeout_and_arguments_0(
+                closure.as_ref().unchecked_ref(),
+                _delay_ms as i32,
+            );
         } else {
             perform_unlock();
         }

@@ -158,10 +158,7 @@ pub fn SidenavGroup(
     #[props(into, optional)] data_sidenav: Option<String>,
     children: Element,
 ) -> Element {
-    let merged_class = tw_merge!(
-        "flex relative flex-col p-2 w-full min-w-0",
-        class.as_deref().unwrap_or("")
-    );
+    let merged_class = tw_merge!("flex relative flex-col p-2 w-full min-w-0", class.as_deref().unwrap_or(""));
     rsx! { div { "data-name": "SidenavGroup", "data-sidenav": data_sidenav, class: "{merged_class}", {children} } }
 }
 
@@ -325,9 +322,7 @@ pub fn SidenavLink(
         class.as_deref().unwrap_or("")
     );
     #[cfg(target_arch = "wasm32")]
-    let path = web_sys::window()
-        .and_then(|w| w.location().pathname().ok())
-        .unwrap_or_default();
+    let path = web_sys::window().and_then(|w| w.location().pathname().ok()).unwrap_or_default();
     #[cfg(not(target_arch = "wasm32"))]
     let path = String::new();
     let is_active = path == href || path.starts_with(&format!("{href}/"));
@@ -419,10 +414,8 @@ pub fn Sidenav(
     let class_value = class.as_deref().unwrap_or("").to_string();
 
     if data_collapsible == SidenavCollapsible::None {
-        let merged = tw_merge!(
-            "flex flex-col h-full bg-sidenav text-sidenav-foreground w-(--sidenav-width)",
-            class_value
-        );
+        let merged =
+            tw_merge!("flex flex-col h-full bg-sidenav text-sidenav-foreground w-(--sidenav-width)", class_value);
         rsx! {
             aside {
                 "data-name": "Sidenav",
@@ -522,9 +515,7 @@ pub fn SidenavMenuSubButton(
         class.as_deref().unwrap_or("")
     );
     #[cfg(target_arch = "wasm32")]
-    let path = web_sys::window()
-        .and_then(|w| w.location().pathname().ok())
-        .unwrap_or_default();
+    let path = web_sys::window().and_then(|w| w.location().pathname().ok()).unwrap_or_default();
     #[cfg(not(target_arch = "wasm32"))]
     let path = String::new();
     let is_active = path == href || path.starts_with(&format!("{href}/"));

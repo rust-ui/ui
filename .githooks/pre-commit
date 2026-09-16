@@ -13,8 +13,8 @@ if ! echo "$files" | xargs typos; then
 fi
 
 echo "🎨 Checking formatting..."
-if ! cargo fmt --check 2>/dev/null; then
-  echo "❌ Unformatted code — run 'cargo fmt'"
+if ! cargo +nightly fmt --check 2>/dev/null; then
+  echo "❌ Unformatted code — run 'cargo +nightly fmt' (needs: rustup toolchain install nightly --profile minimal --component rustfmt)"
   fail=1
 fi
 

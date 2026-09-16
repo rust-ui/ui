@@ -47,20 +47,13 @@ pub fn PageCreate() -> Element {
     let (init_theme, init_radius, init_ct, init_font) = use_hook(|| {
         #[cfg(target_arch = "wasm32")]
         if let Some(search) = web_sys::window().and_then(|w| w.location().search().ok()) {
-            let code = search
-                .trim_start_matches('?')
-                .split('&')
-                .find_map(|p| p.strip_prefix("preset=").map(str::to_owned));
+            let code =
+                search.trim_start_matches('?').split('&').find_map(|p| p.strip_prefix("preset=").map(str::to_owned));
             if let Some(decoded) = code.as_deref().and_then(decode_preset) {
                 return decoded;
             }
         }
-        (
-            ThemeName::default(),
-            0.5_f32,
-            ColorTheme::default(),
-            FontName::default(),
-        )
+        (ThemeName::default(), 0.5_f32, ColorTheme::default(), FontName::default())
     });
 
     let theme = use_signal(move || init_theme);
@@ -114,22 +107,14 @@ pub fn PageCreate() -> Element {
             let style = el.style();
 
             // Inject base color vars first, then overlay color theme vars on top.
-            let vars = if is_dark {
-                theme_name.dark_vars()
-            } else {
-                theme_name.light_vars()
-            };
+            let vars = if is_dark { theme_name.dark_vars() } else { theme_name.light_vars() };
             for (key, val) in vars {
                 style.set_property(key, val).ok();
             }
             style.set_property("--radius", &format!("{radius_val}rem")).ok();
             style.set_property("--font-sans", font_val.css_value()).ok();
 
-            let color_vars = if is_dark {
-                color_theme_val.dark_vars()
-            } else {
-                color_theme_val.light_vars()
-            };
+            let color_vars = if is_dark { color_theme_val.dark_vars() } else { color_theme_val.light_vars() };
             for (key, val) in color_vars {
                 style.set_property(key, val).ok();
             }
@@ -141,9 +126,7 @@ pub fn PageCreate() -> Element {
             let preset = encode_preset(theme_name, radius_val, color_theme_val, font_val);
             let url = format!("/create?preset={preset}");
             if let Ok(history) = web_sys::window().and_then(|w| w.history().ok()).ok_or(()) {
-                history
-                    .replace_state_with_url(&wasm_bindgen::JsValue::NULL, "", Some(&url))
-                    .ok();
+                history.replace_state_with_url(&wasm_bindgen::JsValue::NULL, "", Some(&url)).ok();
             }
         }
     });

@@ -37,10 +37,7 @@ struct MultiSelectContext {
 #[component]
 pub fn MultiSelectLabel(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
     // Mirrors leptos `pub use select::SelectLabel as MultiSelectLabel` (span, same class string).
-    let merged = tw_merge!(
-        "px-2 py-1.5 text-sm font-medium data-inset:pl-8 mb-1",
-        class.as_deref().unwrap_or("")
-    );
+    let merged = tw_merge!("px-2 py-1.5 text-sm font-medium data-inset:pl-8 mb-1", class.as_deref().unwrap_or(""));
     rsx! { span { "data-name": "MultiSelectLabel", class: "{merged}", {children} } }
 }
 
@@ -123,11 +120,7 @@ pub fn MultiSelectOption(
 
     let value_clone = value.clone();
     let is_selected = use_memo(move || {
-        if let Some(ref val) = value_clone {
-            (multi_select_ctx.values_signal)().contains(val)
-        } else {
-            false
-        }
+        if let Some(ref val) = value_clone { (multi_select_ctx.values_signal)().contains(val) } else { false }
     });
 
     let merged = tw_merge!(
@@ -176,11 +169,7 @@ pub fn MultiSelect(
     let multi_select_target_id = use_random_id_for("multi_select");
     let values_signal = values.unwrap_or_else(|| use_signal(HashSet::new));
 
-    let multi_select_ctx = MultiSelectContext {
-        target_id: multi_select_target_id,
-        values_signal,
-        align,
-    };
+    let multi_select_ctx = MultiSelectContext { target_id: multi_select_target_id, values_signal, align };
     provide_context(multi_select_ctx);
 
     rsx! {
@@ -203,11 +192,7 @@ pub fn MultiSelectTrigger(
     let multi_select_ctx = use_context::<MultiSelectContext>();
 
     let id_str = id.unwrap_or_default();
-    let peer_class = if id_str.is_empty() {
-        String::new()
-    } else {
-        format!("peer/{id_str}")
-    };
+    let peer_class = if id_str.is_empty() { String::new() } else { format!("peer/{id_str}") };
 
     let button_class = tw_merge!(
         "w-full p-2 h-9 inline-flex items-center justify-between text-sm font-medium whitespace-nowrap rounded-md transition-colors focus:outline-none focus:ring-1 focus:ring-ring focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&_svg:not(:last-child)]:mr-2 [&_svg:not(:first-child)]:ml-2 [&_svg:not([class*='size-'])]:size-4  border bg-background border-input hover:bg-accent hover:text-accent-foreground",
@@ -215,11 +200,7 @@ pub fn MultiSelectTrigger(
         class.as_deref().unwrap_or("")
     );
 
-    let button_id = if id_str.is_empty() {
-        format!("trigger_{}", multi_select_ctx.target_id)
-    } else {
-        id_str
-    };
+    let button_id = if id_str.is_empty() { format!("trigger_{}", multi_select_ctx.target_id) } else { id_str };
 
     rsx! {
         button {

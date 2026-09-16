@@ -11,12 +11,7 @@ use crate::ui::sidenav::SidenavVariant;
 
 #[component]
 pub fn Sidenav07Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {
-    sidenav_common::standard_sidebar(
-        current_section,
-        sidenav_route,
-        SidenavPattern::Icons,
-        SidenavVariant::default(),
-    )
+    sidenav_common::standard_sidebar(current_section, sidenav_route, SidenavPattern::Icons, SidenavVariant::default())
 }
 #[component]
 pub fn Sidenav07Content(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {

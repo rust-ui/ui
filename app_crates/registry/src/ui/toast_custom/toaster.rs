@@ -5,12 +5,8 @@ use crate::ui::toast_custom::_data::{ToastData, ToastPosition};
 use crate::ui::toast_custom::_template_styles::TEMPLATE_STYLES;
 use crate::ui::toast_custom::toast::Toast;
 
-const CONTAINER_POSITIONS: &[ToastPosition] = &[
-    ToastPosition::TopLeft,
-    ToastPosition::TopRight,
-    ToastPosition::BottomRight,
-    ToastPosition::BottomLeft,
-];
+const CONTAINER_POSITIONS: &[ToastPosition] =
+    &[ToastPosition::TopLeft, ToastPosition::TopRight, ToastPosition::BottomRight, ToastPosition::BottomLeft];
 
 #[component]
 pub fn Toaster(#[props(default = false)] stacked: bool) -> Element {
@@ -53,11 +49,7 @@ pub fn expect_toaster() -> ToasterContext {
 
 fn is_container_empty(position: &ToastPosition) -> bool {
     let toaster = expect_toaster();
-    !toaster
-        .queue_signal
-        .read()
-        .iter()
-        .any(|toast| toast.position.eq(position))
+    !toaster.queue_signal.read().iter().any(|toast| toast.position.eq(position))
 }
 
 fn get_toasts_for_position(toaster: &ToasterContext, position: &ToastPosition) -> Vec<ToastData> {
@@ -66,11 +58,9 @@ fn get_toasts_for_position(toaster: &ToasterContext, position: &ToastPosition) -
         ToastPosition::BottomLeft | ToastPosition::BottomRight => {
             toasts.into_iter().filter(|toast| toast.position.eq(position)).collect()
         }
-        ToastPosition::TopLeft | ToastPosition::TopRight => toasts
-            .into_iter()
-            .filter(|toast| toast.position.eq(position))
-            .rev()
-            .collect(),
+        ToastPosition::TopLeft | ToastPosition::TopRight => {
+            toasts.into_iter().filter(|toast| toast.position.eq(position)).rev().collect()
+        }
     }
 }
 

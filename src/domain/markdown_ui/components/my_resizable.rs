@@ -15,10 +15,7 @@ pub fn Resizable(
     #[props(optional)] preset: Option<ReadSignal<ResizablePreset>>,
     children: Element,
 ) -> Element {
-    let merged = tw_merge!(
-        "border rounded-xl flex flex-row md:touch-none w-full",
-        class.as_deref().unwrap_or("")
-    );
+    let merged = tw_merge!("border rounded-xl flex flex-row md:touch-none w-full", class.as_deref().unwrap_or(""));
 
     let container_element = use_signal(|| None::<web_sys::Element>);
     let handle_element = use_signal(|| None::<web_sys::Element>);
@@ -26,10 +23,7 @@ pub fn Resizable(
 
     let resizable_state = use_resizable(container_element.into(), handle_element.into(), preset);
 
-    use_context_provider(|| ResizableContext {
-        handle_element,
-        background_width: resizable_state.background_width,
-    });
+    use_context_provider(|| ResizableContext { handle_element, background_width: resizable_state.background_width });
 
     rsx! {
         div {
@@ -57,10 +51,8 @@ pub fn ResizableContainer(#[props(into, optional)] class: Option<String>, childr
 
 #[component]
 pub fn ResizableBackground(#[props(into, optional)] class: Option<String>) -> Element {
-    let merged = tw_merge!(
-        "flex-[0_0_auto] w-[0px] bg-muted transition-all duration-300",
-        class.as_deref().unwrap_or("")
-    );
+    let merged =
+        tw_merge!("flex-[0_0_auto] w-[0px] bg-muted transition-all duration-300", class.as_deref().unwrap_or(""));
     let ctx = try_consume_context::<ResizableContext>();
     let width = ctx.map(|c| c.background_width);
 

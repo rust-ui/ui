@@ -32,11 +32,8 @@ pub fn breadcrumb_from_path(path: &str, segment: &str) -> Vec<(String, String, b
 #[component]
 pub fn SidenavInsetRight(path: String, data_variant: Option<SidenavVariant>) -> Element {
     let breadcrumb_items = breadcrumb_from_path(&path, DocsRoutes::base_segment());
-    let current_section = if path.contains(DocsRoutes::Components.as_ref()) {
-        DocsRoutes::Components
-    } else {
-        DocsRoutes::Hooks
-    };
+    let current_section =
+        if path.contains(DocsRoutes::Components.as_ref()) { DocsRoutes::Components } else { DocsRoutes::Hooks };
     let sidenav_route = SidenavRoutes::from_path(&path);
 
     let data_variant = data_variant.map(|variant| match variant {

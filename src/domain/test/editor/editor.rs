@@ -1,8 +1,9 @@
-use crate::domain::test::editor::use_editor::{EditorHandle, FormatAction, use_editor};
 use dioxus::prelude::*;
 use icons::{Bold, Code, Heading1, Heading2, Italic, List, ListOrdered, Strikethrough, Underline};
 use registry::ui::toolbar::{ToolbarButton, ToolbarSeparator, ToolbarToggleGroup, ToolbarToggleItem};
 use tw_merge::tw_merge;
+
+use crate::domain::test::editor::use_editor::{EditorHandle, FormatAction, use_editor};
 
 #[component]
 pub fn Editor(

@@ -167,10 +167,5 @@ pub fn use_grid_virtual_scroll(
         total.div_ceil(columns) * item_size
     });
 
-    GridVirtualScrollState {
-        start_index,
-        end_index,
-        total_height: total_height.into(),
-        columns: columns_signal.into(),
-    }
+    GridVirtualScrollState { start_index, end_index, total_height: total_height.into(), columns: columns_signal.into() }
 }

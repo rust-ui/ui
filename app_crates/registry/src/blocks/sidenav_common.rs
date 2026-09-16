@@ -124,18 +124,11 @@ pub fn SidenavStandardContent(
     let links = links_for(current_section, sidenav_route);
     let filtered = if pattern == SidenavPattern::Search {
         let value = query().to_lowercase();
-        links
-            .iter()
-            .filter(|(_, title)| title.to_lowercase().contains(&value))
-            .cloned()
-            .collect()
+        links.iter().filter(|(_, title)| title.to_lowercase().contains(&value)).cloned().collect()
     } else {
         links
     };
-    let show_search = matches!(
-        pattern,
-        SidenavPattern::Grouped | SidenavPattern::Submenus | SidenavPattern::Search
-    );
+    let show_search = matches!(pattern, SidenavPattern::Grouped | SidenavPattern::Submenus | SidenavPattern::Search);
 
     rsx! {
         SidenavHeader {

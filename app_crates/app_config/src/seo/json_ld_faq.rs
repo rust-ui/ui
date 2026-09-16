@@ -68,10 +68,7 @@ pub fn JsonLdFaq(items: Vec<FaqItem>) -> Element {
             .map(|item| QuestionNode {
                 type_: "Question".to_string(),
                 name: item.question,
-                accepted_answer: AnswerNode {
-                    type_: "Answer".to_string(),
-                    text: item.answer,
-                },
+                accepted_answer: AnswerNode { type_: "Answer".to_string(), text: item.answer },
             })
             .collect(),
     };
@@ -105,10 +102,7 @@ mod unit_tests {
             main_entity: vec![QuestionNode {
                 type_: "Question".to_string(),
                 name: "Q".to_string(),
-                accepted_answer: AnswerNode {
-                    type_: "Answer".to_string(),
-                    text: "A".to_string(),
-                },
+                accepted_answer: AnswerNode { type_: "Answer".to_string(), text: "A".to_string() },
             }],
         };
         let json: Value = serde_json::to_value(&schema).unwrap();

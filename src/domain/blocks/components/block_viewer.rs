@@ -1,5 +1,4 @@
 use dioxus::prelude::*;
-
 use registry::hooks::use_resizable::ResizablePreset;
 
 use crate::domain::blocks::block_entry::BlockEntry;

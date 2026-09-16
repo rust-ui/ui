@@ -1,6 +1,8 @@
 edition = "2024"
 max_width = 120
-# imports_granularity = "Module"
-# group_imports = "StdExternalCrate"
-# struct_field_align_threshold = 0
-# use_small_heuristics = "Max"
+use_small_heuristics = "Max"
+# Nightly-only options below: apply via `cargo +nightly fmt` (rustfmt component
+# only, build toolchain stays stable). See .githooks/pre-commit.
+imports_granularity = "Module"
+group_imports = "StdExternalCrate"
+struct_field_align_threshold = 0

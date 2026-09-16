@@ -16,14 +16,8 @@ pub enum ChartRoutes {
 }
 
 impl ChartRoutes {
-    pub const ALL: &'static [Self] = &[
-        Self::AreaChart,
-        Self::BarChart,
-        Self::LineChart,
-        Self::PieChart,
-        Self::RadarChart,
-        Self::RadialChart,
-    ];
+    pub const ALL: &'static [Self] =
+        &[Self::AreaChart, Self::BarChart, Self::LineChart, Self::PieChart, Self::RadarChart, Self::RadialChart];
 
     #[must_use]
     pub const fn base_segment() -> &'static str {

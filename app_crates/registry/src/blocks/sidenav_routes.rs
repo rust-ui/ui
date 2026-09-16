@@ -26,10 +26,7 @@ impl SidenavRoutes {
     #[must_use]
     pub fn from_path(path: &str) -> Self {
         use strum::IntoEnumIterator;
-        Self::iter()
-            .rev()
-            .find(|route| path.contains(route.as_ref()))
-            .unwrap_or(Self::Sidenav01)
+        Self::iter().rev().find(|route| path.contains(route.as_ref())).unwrap_or(Self::Sidenav01)
     }
 
     #[must_use]
@@ -76,12 +73,7 @@ impl ComponentsRoutes {
     }
     #[must_use]
     pub fn base_url_with_sidenav(sidenav: SidenavRoutes) -> String {
-        format!(
-            "/{}/{}/{}",
-            sidenav.to_route(),
-            DocsRoutes::base_segment(),
-            Self::base_segment()
-        )
+        format!("/{}/{}/{}", sidenav.to_route(), DocsRoutes::base_segment(), Self::base_segment())
     }
     #[must_use]
     pub fn to_route_with_sidenav(self, sidenav: SidenavRoutes) -> String {
@@ -110,12 +102,7 @@ impl HooksRoutes {
     }
     #[must_use]
     pub fn base_url_with_sidenav(sidenav: SidenavRoutes) -> String {
-        format!(
-            "/{}/{}/{}",
-            sidenav.to_route(),
-            DocsRoutes::base_segment(),
-            Self::base_segment()
-        )
+        format!("/{}/{}/{}", sidenav.to_route(), DocsRoutes::base_segment(), Self::base_segment())
     }
     #[must_use]
     pub fn to_route_with_sidenav(self, sidenav: SidenavRoutes) -> String {

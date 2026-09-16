@@ -96,10 +96,7 @@ pub fn JsonLdArticle(
         date_published: date_published.unwrap_or_else(|| "2024-01-01".to_string()),
         date_modified: date_modified.unwrap_or_else(|| "2025-11-08".to_string()),
         url: url.clone(),
-        main_entity_of_page: MainEntity {
-            type_: "WebPage".to_string(),
-            id: url,
-        },
+        main_entity_of_page: MainEntity { type_: "WebPage".to_string(), id: url },
         keywords,
         article_section,
     };

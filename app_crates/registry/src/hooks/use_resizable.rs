@@ -1,9 +1,6 @@
 #![cfg_attr(
     not(target_arch = "wasm32"),
-    allow(
-        dead_code,
-        reason = "DOM resize handlers are only executable in the wasm browser target"
-    )
+    allow(dead_code, reason = "DOM resize handlers are only executable in the wasm browser target")
 )]
 #![cfg_attr(not(target_arch = "wasm32"), allow(clippy::missing_const_for_fn))]
 
@@ -61,10 +58,7 @@ fn set_drag_cursor_active(active: bool) {
         let Some(window) = web_sys::window() else { return };
         let Some(document) = window.document() else { return };
 
-        if let Some(html) = document
-            .document_element()
-            .and_then(|el| el.dyn_into::<web_sys::HtmlElement>().ok())
-        {
+        if let Some(html) = document.document_element().and_then(|el| el.dyn_into::<web_sys::HtmlElement>().ok()) {
             if active {
                 let _ = html.style().set_property("cursor", "col-resize");
             } else {
@@ -202,7 +196,5 @@ pub fn use_resizable(
         background_width.clone().set(new_bg);
     });
 
-    ResizableState {
-        background_width: background_width.into(),
-    }
+    ResizableState { background_width: background_width.into() }
 }

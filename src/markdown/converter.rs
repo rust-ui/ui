@@ -63,11 +63,7 @@ pub fn extract_toc_from_md(md: &str) -> Vec<TocItem> {
             let text = extract_text(&el.children);
             if !text.is_empty() {
                 let anchor = create_anchor_id(&text);
-                items.push(TocItem {
-                    title: text,
-                    level: depth,
-                    anchor,
-                });
+                items.push(TocItem { title: text, level: depth, anchor });
             }
         }
     }
@@ -121,11 +117,7 @@ fn extract_code_block(pre: &HtmlElement) -> Option<(Option<String>, String)> {
         if let Node::Element(code_el) = child
             && code_el.name == "code"
         {
-            let lang = code_el
-                .classes
-                .iter()
-                .find(|c| c.starts_with("language-"))
-                .map(|c| c[9..].to_string());
+            let lang = code_el.classes.iter().find(|c| c.starts_with("language-")).map(|c| c[9..].to_string());
             let text = extract_text(&code_el.children);
             return Some((lang, text));
         }
@@ -174,11 +166,7 @@ fn process_element(el: &HtmlElement, components: &MdComponents) -> Element {
         "ol" => rsx! { ol { class: "pl-6 my-6 list-decimal", {children.into_iter()} } },
         "li" => rsx! { li { class: "mt-2", {children.into_iter()} } },
         "a" => {
-            let href = el
-                .attributes
-                .get("href")
-                .and_then(std::clone::Clone::clone)
-                .unwrap_or_default();
+            let href = el.attributes.get("href").and_then(std::clone::Clone::clone).unwrap_or_default();
             rsx! { a { class: "font-medium underline underline-offset-4", href: "{href}", {children.into_iter()} } }
         }
         "code" => {
@@ -214,16 +202,8 @@ fn process_element(el: &HtmlElement, components: &MdComponents) -> Element {
         }
         "hr" => rsx! { hr { class: "my-4 md:my-8" } },
         "img" => {
-            let src = el
-                .attributes
-                .get("src")
-                .and_then(std::clone::Clone::clone)
-                .unwrap_or_default();
-            let alt = el
-                .attributes
-                .get("alt")
-                .and_then(std::clone::Clone::clone)
-                .unwrap_or_default();
+            let src = el.attributes.get("src").and_then(std::clone::Clone::clone).unwrap_or_default();
+            let alt = el.attributes.get("alt").and_then(std::clone::Clone::clone).unwrap_or_default();
             rsx! { img { class: "my-6 max-w-full rounded-md", src: "{src}", alt: "{alt}" } }
         }
         _ => rsx! { {children.into_iter()} },
@@ -304,10 +284,8 @@ mod tests {
         let dom = Dom::parse(html).unwrap();
         eprintln!("dom children: {:?}", dom.children);
         // html_parser preserves original case — name is "DemoButton" not "demobutton"
-        let has_element = dom
-            .children
-            .iter()
-            .any(|n| matches!(n, Node::Element(e) if e.name.to_lowercase() == "demobutton"));
+        let has_element =
+            dom.children.iter().any(|n| matches!(n, Node::Element(e) if e.name.to_lowercase() == "demobutton"));
         assert!(has_element, "html_parser did not parse <DemoButton /> as element");
     }
 
@@ -331,13 +309,7 @@ mod tests {
             panic!("expected an img element");
         };
         assert_eq!(img.name, "img");
-        assert_eq!(
-            img.attributes.get("src").and_then(Clone::clone),
-            Some("https://example.com/pic.png".to_string())
-        );
-        assert_eq!(
-            img.attributes.get("alt").and_then(Clone::clone),
-            Some("alt text".to_string())
-        );
+        assert_eq!(img.attributes.get("src").and_then(Clone::clone), Some("https://example.com/pic.png".to_string()));
+        assert_eq!(img.attributes.get("alt").and_then(Clone::clone), Some("alt text".to_string()));
     }
 }
