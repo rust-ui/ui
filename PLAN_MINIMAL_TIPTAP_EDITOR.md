@@ -112,7 +112,25 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` pending · `[-]` deferred.
 - [~] Demo mounted at `/test-page` with `DemoEditor` only
 - [x] `Editor` component exported from `registry::ui::editor`
 - [x] Composable `EditorContent`, `EditorToolbar`, `ToolbarSection`
-- [x] DOM bridge and internal HTML state
+- [x] DOM bridge and internal HTML state — rewritten 2026-09-16: initial
+  implementation used `dioxus::document::eval` (JS string round-trip via
+  `dioxus.send`/`ev.recv()`). Toolbar clicks became reliable no-ops (no
+  formatting applied, no signal update) even after fixing an unrelated
+  mousedown-focus-steal bug; root cause not conclusively pinned (suspected:
+  `dx` 0.7.10 / `dioxus` 0.7.9 version skew — see LEARNINGS.md, pin is
+  deliberate and not to be changed). Replaced the whole bridge with direct
+  `web_sys`/`wasm_bindgen` calls (`Document::exec_command`, `query_command_state`,
+  `query_command_value`, `add_event_listener_with_callback` + `Closure::forget`
+  for the `input`/`selectionchange` listeners), gated behind
+  `#[cfg(target_arch = "wasm32")]` per the existing iOS-native-build pattern
+  ([[LEARNINGS.md 2026-09-11 dioxus/ios]]). The `sanitize()` HTML allowlist
+  walk (previously JS operating on a detached `<template>`) is now a Rust
+  function walking the live contenteditable DOM directly
+  (`sanitize_element`/`unwrap_element`/`sanitize_attrs`/`safe_url` in
+  `editor.rs`), same one-shallow-pass-per-disallowed-tag semantics as the
+  original JS. No more async eval channel, no more JSON snapshot type —
+  `execute()` and the DOM listeners synchronously read `execCommand`/
+  `queryCommandState` results straight into the `EditorState`/`html` signals.
 - [x] Initial HTML rendering — fixed 2026-09-16: `use_editor`'s mount effect was
   re-running `root.innerHTML = sanitize(initial)` from JS on every load, racing
   hydration and leaving the contenteditable root empty while the demo's HTML
@@ -157,8 +175,8 @@ of silently inventing something different (same rule as
 [[PLAN_SIDENAV_BLOCKS_VERBATIM_PORT]]).
 
 **Scope lock**: demo only. Build against `src/domain/test/routing/test_pages.rs`
-(`TestPage`, route `/test-page`) — add `DemoEditor` under
-`src/domain/test/demos/` and mount it on `TestPage`. Do not add component to
+(`TestPage`, route `/test-page`) — `DemoEditor` lives under
+`src/domain/test/editor/` and is mounted on `TestPage`. Do not add component to
 public registry, docs pages, generated registry files, manifests, or changelog
 yet. First prove editor works end to end in demo.
 

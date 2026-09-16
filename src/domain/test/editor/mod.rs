@@ -2,3 +2,4 @@
 pub mod editor;
 
 pub mod demo_editor;
+pub mod use_editor;

@@ -98,6 +98,7 @@ pub fn ToolbarButton(
             r#type: "button",
             class: "{merged}",
             disabled,
+            onmousedown: move |e: Event<MouseData>| e.prevent_default(),
             onclick: move |e| {
                 if let Some(h) = &onclick {
                     h.call(e);
@@ -177,6 +178,7 @@ pub fn ToolbarToggleItem(
             "aria-pressed": "{pressed}",
             title: title.as_deref().unwrap_or(""),
             disabled,
+            onmousedown: move |e: Event<MouseData>| e.prevent_default(),
             onclick: move |e| {
                 if let Some(h) = &onclick {
                     h.call(e);
