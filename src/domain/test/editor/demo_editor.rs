@@ -1,4 +1,5 @@
 use crate::domain::test::editor::editor::Editor;
+use crate::markdown::markdown_to_html;
 use dioxus::prelude::*;
 
 const DEFAULT_EDITOR_MARKDOWN: &str = r#"# Explore the rich text editor with shadcn-style components 📝
@@ -30,7 +31,7 @@ pub fn DemoEditor() -> Element {
     rsx! {
         div { class: "flex flex-col gap-3",
             Editor {
-                initial_html: crate::markdown::markdown_to_html(DEFAULT_EDITOR_MARKDOWN),
+                initial_html: markdown_to_html(DEFAULT_EDITOR_MARKDOWN),
                 placeholder: "Write here...",
             }
         }

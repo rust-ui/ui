@@ -42,8 +42,15 @@ pub fn EditorContent(
     let placeholder = placeholder.unwrap_or_default();
     let initial_html = use_hook(|| initial_html);
     let html = (handle.html)();
+    // `handle.html` is also re-set on selection-only DOM syncs (cursor moves,
+    // no content change), which would otherwise re-fire `on_change` with an
+    // identical value on every caret move. Skip when the value didn't change.
+    let mut last_sent = use_signal(|| None::<String>);
     use_effect(move || {
-        if let Some(on_change) = &on_change {
+        if let Some(on_change) = &on_change
+            && last_sent.peek().as_deref() != Some(html.as_str())
+        {
+            last_sent.set(Some(html.clone()));
             on_change.call(html.clone());
         }
     });
