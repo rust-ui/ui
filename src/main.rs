@@ -176,6 +176,14 @@ fn main() {
         HideKeyboardAccessoryBar();
     }
 
+    // Native client (iOS/desktop): unlike wasm, which always resolves server-fn
+    // calls as relative URLs against the page's own origin, the native client
+    // has no origin at all. Without an explicit root, `dioxus_fullstack::client`
+    // falls back to a dead placeholder host and every server fn (GithubStars,
+    // newsletter signup, bug reports, ...) fails silently forever.
+    #[cfg(all(not(feature = "server"), not(target_arch = "wasm32")))]
+    dioxus::fullstack::set_server_url("https://rust-ui.com");
+
     // Web/wasm build (and any non-server build): the stock launch path. The
     // client-side `Router::<Route>` handles every URL once the page is loaded,
     // so the bug documented on `mod server` below never manifests here.
