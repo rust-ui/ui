@@ -9,6 +9,41 @@ and gave the go-ahead).
 > Ignore `__registry__` integration, public registry entries, docs Markdown,
 > generated files, install manifests, and changelog for now.
 
+## Progress checklist
+
+Legend: `[x]` done · `[~]` in progress · `[ ]` pending · `[-]` deferred.
+
+### Current delivery: working `TestPage` demo
+
+- [~] Demo mounted at `/test-page` with `DemoEditor` only
+- [x] `Editor` component exported from `registry::ui::editor`
+- [x] Composable `EditorContent`, `EditorToolbar`, `ToolbarSection`
+- [x] DOM bridge and internal HTML state
+- [x] Initial HTML rendering
+- [x] Bold, italic, underline, strikethrough
+- [x] H1/H2, bullet list, ordered list
+- [x] Code and clear-formatting actions
+- [x] Reactive HTML output shown in demo
+- [ ] Selection/range preservation verified in browser
+- [ ] Undo/redo and IME behavior verified in browser
+- [ ] Paste HTML sanitization verified in browser
+- [ ] URL and HTML sanitizer implemented/tested
+- [ ] Disabled and placeholder behavior verified in browser
+- [ ] WASM release + SSR/native checks verified
+- [ ] Clippy clean on all touched crates
+
+### Planned phases
+
+- [~] Phase 0 — contenteditable/DOM bridge spike
+- [~] Phase 1 — composable editor primitives + MVP toolbar
+- [ ] Phase 2 — lists validation and polish
+- [ ] Phase 3 — links + URL/HTML sanitization
+- [ ] Phase 4 — image URL insertion
+- [ ] Phase 5 — color + insert-elements
+- [-] Phase 6 — optional features: mobile, image node view, bubble menu,
+  slash commands, tables/tasks
+- [-] Public `__registry__`/docs integration — explicitly out of current scope
+
 Goal: ship a shadcn-style rich text editor primitive in `dioxus-ui`, matching
 the toolbar/feature surface of the reference repos below as closely as
 Dioxus/browser architecture allows. Where the source relies on Tiptap/
