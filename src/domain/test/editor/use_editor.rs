@@ -111,11 +111,19 @@ impl FormatAction {
     }
 }
 
-#[derive(Clone, PartialEq, Eq)]
+#[derive(Clone, PartialEq)]
 pub struct EditorHandle {
     pub id: String,
     pub state: Signal<EditorState>,
     pub html: Signal<String>,
+    /// The live contenteditable root, captured via `onmounted`. Looking this
+    /// up by `id` through `document.get_element_by_id` instead is unreliable
+    /// after SSR hydration: `NEXT_EDITOR_ID` is a process-local counter, so the
+    /// id baked into the server-rendered HTML can differ from the id this
+    /// handle computes when the component re-runs on the client, and the
+    /// lookup then silently finds nothing.
+    #[cfg(target_arch = "wasm32")]
+    pub element: Signal<Option<web_sys::Element>>,
 }
 
 impl EditorHandle {
@@ -125,6 +133,8 @@ impl EditorHandle {
             id,
             state: Signal::new(EditorState::default()),
             html: Signal::new(initial_html.to_string()),
+            #[cfg(target_arch = "wasm32")]
+            element: Signal::new(None),
         }
     }
 
@@ -133,7 +143,7 @@ impl EditorHandle {
         let Some(document) = web_sys::window().and_then(|w| w.document()) else {
             return;
         };
-        let Some(root) = document.get_element_by_id(&self.id) else {
+        let Some(root) = (*self.element.read()).clone() else {
             return;
         };
         let html_document: &web_sys::HtmlDocument = document.unchecked_ref();
@@ -315,31 +325,32 @@ pub fn use_editor(initial_html: &str) -> EditorHandle {
     use_effect({
         let handle = handle.clone();
         move || {
-            let Some(document) = web_sys::window().and_then(|w| w.document()) else {
+            // Reactive read: reruns once `onmounted` (in `EditorContent`) sets
+            // `handle.element`, which is the only reliable way to get the root
+            // after hydration (see the doc comment on `EditorHandle::element`).
+            let Some(root) = (*handle.element.read()).clone() else {
                 return;
             };
-            let Some(root) = document.get_element_by_id(&handle.id) else {
+            let Some(document) = web_sys::window().and_then(|w| w.document()) else {
                 return;
             };
             handle.sync_from_dom(&document, &root);
 
             let input_handle = handle.clone();
+            let input_root = root.clone();
             let input_closure = Closure::<dyn FnMut(web_sys::Event)>::new(move |_| {
-                if let Some(document) = web_sys::window().and_then(|w| w.document())
-                    && let Some(root) = document.get_element_by_id(&input_handle.id)
-                {
-                    input_handle.sync_from_dom(&document, &root);
+                if let Some(document) = web_sys::window().and_then(|w| w.document()) {
+                    input_handle.sync_from_dom(&document, &input_root);
                 }
             });
             let _ = root.add_event_listener_with_callback("input", input_closure.as_ref().unchecked_ref());
             input_closure.forget();
 
             let selection_handle = handle.clone();
+            let selection_root = root.clone();
             let selection_closure = Closure::<dyn FnMut(web_sys::Event)>::new(move |_| {
-                if let Some(document) = web_sys::window().and_then(|w| w.document())
-                    && let Some(root) = document.get_element_by_id(&selection_handle.id)
-                {
-                    selection_handle.sync_from_dom(&document, &root);
+                if let Some(document) = web_sys::window().and_then(|w| w.document()) {
+                    selection_handle.sync_from_dom(&document, &selection_root);
                 }
             });
             let _ = document

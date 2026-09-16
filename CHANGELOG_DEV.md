@@ -25,6 +25,16 @@ Internal changelog for the dioxus-ui site (not user-facing).
   which drops `<img>` entirely since it has no children. Added an `img` arm
   with `src`/`alt` passthrough and styling consistent with the other tags.
 
+- **Rich text editor toolbar clicks were silent no-ops**: `EditorHandle::execute()`
+  found its root via `document.get_element_by_id(&self.id)`, but `self.id` comes
+  from a process-local counter that can produce a different value on client
+  hydration than what SSR baked into the DOM, so the lookup silently failed
+  and `exec_command` was never called (keyboard shortcuts still worked since
+  those are native browser behavior, not app code). Fixed by capturing the
+  real element once via `onmounted` into `EditorHandle::element`, used instead
+  of the id lookup everywhere (`execute()`, the mount effect, and the
+  `input`/`selectionchange` listeners).
+
 - **Rich text editor demo rendered blank on load**: `use_editor`'s mount
   effect re-ran `root.innerHTML = sanitize(initial)` from JS on every load,
   racing hydration and leaving the contenteditable root empty even though SSR

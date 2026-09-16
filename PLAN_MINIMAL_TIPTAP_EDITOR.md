@@ -138,6 +138,24 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` pending · `[-]` deferred.
   components (rsx, no state/DOM logic). Kept local under `domain::test`
   rather than `registry::hooks`, per the existing scope-lock doc comment
   (demo-only WIP, not part of the public component library yet).
+- [x] Toolbar clicks silent no-op — fixed 2026-09-16: keyboard shortcuts (Cmd/Ctrl+U
+  etc.) worked because they're the browser's own native `execCommand` handling
+  on the focused contenteditable, unrelated to any app code. Toolbar buttons
+  went through `EditorHandle::execute()`, which looked up the root via
+  `document.get_element_by_id(&self.id)`. `self.id` is generated from a
+  process-local `NEXT_EDITOR_ID` atomic counter, so after SSR hydration the id
+  the client-side `EditorHandle` computes can differ from the id already baked
+  into the server-rendered DOM (confirmed via Playwright: DOM id
+  `rust-ui-editor-3` vs. handle's `self.id` `rust-ui-editor-1`) — the lookup
+  then silently returned `None` and `execute()` returned early before ever
+  calling `exec_command`, while `aria-pressed`/toggle sync via the
+  `selectionchange` listener broke the same way. Fixed by capturing the real
+  DOM node once via `onmounted` (`MountedEvent::data().downcast::<web_sys::Element>()`,
+  same pattern as `dropzone.rs`) into a new `EditorHandle::element:
+  Signal<Option<web_sys::Element>>`, and using that captured element
+  everywhere instead of an id-based lookup (`execute()`, the mount effect, and
+  the `input`/`selectionchange` listeners). `id` is kept only for the DOM
+  attribute itself, no longer used to re-find the element.
 - [x] Initial HTML rendering — fixed 2026-09-16: `use_editor`'s mount effect was
   re-running `root.innerHTML = sanitize(initial)` from JS on every load, racing
   hydration and leaving the contenteditable root empty while the demo's HTML
