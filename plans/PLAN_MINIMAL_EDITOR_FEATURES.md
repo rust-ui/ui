@@ -1,64 +1,100 @@
-# PLAN: Minimal editor — feature matrix
+# Minimal editor — feature matrix
 
-Companion to `PLAN_MINIMAL_TIPTAP_EDITOR.md` (architecture/phasing/source-study
-detail lives there). This file is just the feature inventory: every feature
-either reference repo ships, plus its current status in `dioxus-ui`'s
-`domain::test::editor` demo. ✅ = implemented and verified in `TestPage` demo.
+## P0 — Core, security, correctness
 
-| Feature | Status | Notes |
-|---|---|---|
-| Bold | ✅ | `FormatAction::Bold`, toolbar toggle + Cmd/Ctrl+B native |
-| Italic | ✅ | `FormatAction::Italic` |
-| Underline | ✅ | `FormatAction::Underline` |
-| Strikethrough | ✅ | `FormatAction::Strikethrough` |
-| Heading 1/2 | ✅ | `FormatAction::Heading(1\|2)` toolbar buttons |
-| Heading 3-6 | ❌ | `FormatActionMeta` already covers levels 3-6, no toolbar button wired |
-| Heading dropdown (single control, all levels) | ❌ | Aslam97 uses one dropdown, not flat H1/H2 buttons |
-| Bullet list | ✅ | `FormatAction::BulletList` |
-| Ordered list | ✅ | `FormatAction::OrderedList` |
-| Task list (checkboxes) | ❌ | no `execCommand` equivalent, needs hand-built DOM |
-| Code (inline) | ✅ | `FormatAction::Code` (`formatBlock` → `pre`, not true inline `<code>`) |
-| Code block w/ syntax highlighting | ❌ | `syntect` already a dep, not wired to editor |
-| Blockquote | ❌ | planned Phase 5 |
-| Horizontal rule | ❌ | planned Phase 5 |
-| Clear formatting | ✅ | `FormatAction::ClearFormatting` |
-| Text color picker | ❌ | needs `foreColor`/CSS span wrap, no stored-marks quirk to port (Option B is immune) |
-| Link insert/edit/remove | ❌ | needs `sanitize_url` port first (security-critical, see main plan §1.6) |
-| Link bubble menu (hover-to-edit) | ❌ | no selection-anchored popover primitive exists yet |
-| Image insert (URL) | ❌ | Phase 4 |
-| Image upload (file picker) | ❌ | Phase 4/6, needs upload pipeline |
-| Image drag/drop + paste | ❌ | Phase 6 |
-| Image node view (resize handles, hover actions) | ❌ | deferred indefinitely, no `execCommand` equivalent |
-| Align left/center/right/justify | ❌ | not in Aslam97's shipped toolbar either, optional |
-| Subscript/superscript | ❌ | not in Aslam97's shipped toolbar either, optional |
-| Undo/redo (native browser) | ✅ | Cmd/Ctrl+Z native `contenteditable` behavior, not yet Playwright-verified |
-| Undo/redo (toolbar buttons) | ❌ | no dedicated buttons in Aslam97's shipped toolbar |
-| Paste plain text | ✅ | native `contenteditable` behavior |
-| Paste HTML (sanitized) | ⚠️ | `sanitize_element` exists and runs on every `input` event, but paste-specific flow not yet Playwright-verified |
-| Paste Markdown → nodes | ❌ | `markdown-paste` extension, Aslam97 markdown-output mode only |
-| HTML output (live) | ✅ | shown in demo's HTML output panel |
-| Markdown output mode | ❌ | out of scope per main plan §3.4 (`pulldown-cmark` has no HTML→Markdown) |
-| JSON output mode | ❌ | explicitly out of scope, no document model to serialize |
-| Placeholder text | ✅ | `data-placeholder` + `empty:before:content-[...]` |
-| Disabled state | ✅ | `contenteditable="false"` via `disabled` prop |
-| Initial content (seeded HTML/Markdown) | ✅ | SSR'd via `dangerous_inner_html` |
-| HTML sanitizer (allowlist tags/attrs) | ✅ | `sanitize_element`/`unwrap_element`/`sanitize_attrs` in `use_editor.rs` |
-| URL sanitizer (`javascript:`/`data:` blocklist) | ❌ | not yet ported, needed before Link/Image ship |
-| Active/pressed toolbar state sync | ✅ | `selectionchange` listener → `EditorState` signal |
-| Platform-aware shortcut tooltips (⌘ vs Ctrl) | ❌ | cheap to port via `navigator().platform()`, not started |
-| Throttled `on_change` | ❌ | fires on every `input` event today, no debounce |
-| Toolbar overflow dropdown (main/overflow split) | ❌ | all actions currently flat, no `main_action_count` cutoff |
-| Mobile-responsive toolbar (floating/bottom-sheet) | ❌ | Phase 6, secondary reference only |
-| Slash command menu (`/` block picker) | ❌ | Phase 6, secondary reference only, cheaper than bubble menu |
-| Resizable measured container (`--editor-width` CSS var) | ❌ | Phase 5/6 nice-to-have, low priority |
-| Table (GFM) | ❌ | explicit v2/Phase-5 stretch, Aslam97 gates it behind markdown-output mode too |
-| WASM release + SSR/native (iOS) safety | ✅ | all browser calls gated `#[cfg(target_arch = "wasm32")]` |
+| Feature | Status | Reference / implementation |
+|---|---:|---|
+| Bold, italic, underline, strikethrough | ✅ | `FormatAction`, `use_editor.rs` |
+| Bullet and ordered lists | ✅ | Native `execCommand` |
+| H1/H2 | ✅ | `FormatAction::Heading` |
+| Clear formatting | ✅ | Native `removeFormat` |
+| Initial Markdown → HTML content | ✅ | `markdown_to_html`, SSR HTML |
+| Live HTML callback | ✅ | `Editor::on_change`; no demo output panel |
+| Placeholder | ✅ | `data-placeholder` |
+| Disabled state | ✅ | `contenteditable=false` |
+| Active toolbar state | ✅ | `query_command_state`, `selectionchange` |
+| Typing/caret/selection verification | ⚠️ | Playwright MCP |
+| Undo/redo verification | ⚠️ | Native browser behavior |
+| IME verification | ⚠️ | Browser composition events |
+| Paste HTML sanitization | ⚠️ | Intercept paste before insertion |
+| HTML sanitizer tests | ⚠️ | `use_editor.rs` sanitizer |
+| URL sanitizer tests | ⚠️ | Strict `javascript:`, `vbscript:`, `file:`, `data:` rules |
+| SSR/WASM/native verification | ⚠️ | `#[cfg(target_arch = "wasm32")]` |
 
-## Legend
+## P1 — Essential rich text
 
-- ✅ implemented and works in the `/test-page` demo
-- ⚠️ partially there (code exists, not fully verified or not feature-complete)
-- ❌ not started
+| Feature | Status | Reference / implementation |
+|---|---:|---|
+| Inline code `<code>` | ⚠️ | Current Code incorrectly creates `<pre>`; use Range/DOM operation |
+| Code block `<pre><code>` | ❌ | Separate `CodeBlock` action |
+| Normal paragraph action | ❌ | Primary heading selector pattern |
+| H3–H6 | ❌ | `FormatAction::Heading(3..=6)` |
+| Heading dropdown | ❌ | `__TMP/shadcn-minimal-tiptap/.../components/section/one.tsx` |
+| Link insert/edit/remove | ❌ | `.../components/link/` + sanitized URL |
+| Blockquote | ❌ | `section/five.tsx` |
+| Horizontal rule | ❌ | `section/five.tsx` |
+| Hard line break | ❌ | `<br>` insertion |
+| List nesting/exit behavior | ⚠️ | Enter, double-Enter, backspace verification |
+| Keyboard shortcut labels | ❌ | `utils.ts` + `shortcut-key.tsx` |
+| Accessibility labels/focus | ⚠️ | `aria-pressed`, keyboard navigation, tooltips |
 
-See `PLAN_MINIMAL_TIPTAP_EDITOR.md` for phasing (§4), source study (§1), and
-what's reusable from the existing `dioxus-ui`/`registry` components (§2).
+## P2 — Common productivity features
+
+| Feature | Status | Reference / implementation |
+|---|---:|---|
+| Image insertion by URL | ❌ | `components/image/`; sanitize URL |
+| Image alt/title editing | ❌ | Image dialog attributes |
+| Image removal | ❌ | DOM selection operation |
+| Text color | ❌ | `section/three.tsx`; `foreColor` |
+| Text highlight | ❌ | `tiptap-shadcn/.../color-and-highlight.tsx` |
+| Text alignment | ❌ | `tiptap-shadcn/.../alignment.tsx` |
+| Toolbar undo/redo | ❌ | `tiptap-shadcn/.../undo.tsx`, `redo.tsx` |
+| Search and replace | ❌ | `tiptap-shadcn/.../search-and-replace-toolbar.tsx` |
+| Throttled `on_change` | ❌ | Primary `hooks/use-throttle.ts` |
+| Word/character count | ❌ | Derived `textContent` |
+| Max length/validation callback | ❌ | Consumer API |
+| Read-only mode | ❌ | Separate from disabled |
+| Markdown paste | ❌ | Primary `extensions/markdown-paste/` |
+| Mobile toolbar overflow | ❌ | Drawer/overflow pattern |
+
+## P3 — Advanced media and interaction
+
+| Feature | Status | Reference / implementation |
+|---|---:|---|
+| Image file picker | ❌ | Primary `extensions/file-handler/` |
+| Image drag/drop | ❌ | File handler + upload callback |
+| Image paste | ❌ | Clipboard file handling |
+| Upload progress/placeholder | ❌ | `tiptap-shadcn/.../image-placeholder.tsx` |
+| Image resize handles | 🚫 | Primary `extensions/image/`; needs node view |
+| Image captions | ❌ | Stable image wrapper required |
+| Link bubble menu | 🚫 | Primary `components/bubble-menu/`; selection positioning gap |
+| Floating toolbar | ❌ | `tiptap-shadcn/.../floating-toolbar.tsx` |
+| Slash commands | ❌ | `tiptap-shadcn/.../floating-menu.tsx` |
+| Responsive bottom-sheet toolbar | ❌ | Existing Drawer/media-query primitives |
+
+## P4 — Document-model / v2
+
+| Feature | Status | Reason |
+|---|---:|---|
+| Task lists | 🚫 | No native `execCommand` equivalent |
+| GFM tables | 🚫 | Needs schema, navigation, paste rules |
+| Markdown output mode | 🚫 | No general HTML → Markdown converter |
+| JSON output | 🚫 | No document schema/model |
+| Collaboration | 🚫 | Needs transactions/conflict resolution |
+| Live syntax highlighting in code | 🚫 | DOM rerender breaks caret/undo |
+| Full image node view | 🚫 | Needs persistent nodes/overlays |
+
+## Implementation order
+
+| Order | Scope |
+|---:|---|
+| 1 | Playwright validation: typing, selection, caret, lists, undo/redo, reload |
+| 2 | Harden HTML/URL sanitizer + intercept paste |
+| 3 | Split inline Code and CodeBlock |
+| 4 | Paragraph + H1–H6 dropdown |
+| 5 | Links |
+| 6 | Blockquote + HR + hard break |
+| 7 | Image URL + alt text |
+| 8 | Color/highlight + alignment |
+| 9 | Mobile overflow + search/replace |
+| 10 | Re-evaluate architecture before P3/P4 |
