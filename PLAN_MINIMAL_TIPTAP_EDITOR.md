@@ -8,6 +8,36 @@ and gave the go-ahead).
 > **Current scope — demo only:** make working editor demos on `TestPage`.
 > Ignore `__registry__` integration, public registry entries, docs Markdown,
 > generated files, install manifests, and changelog for now.
+>
+> **Browser validation rule:** validate `http://127.0.0.1:8080/test-page`
+> manually with Playwright/Chrome after each meaningful UI milestone. No
+> automated Playwright spec for now. Save every screenshot under
+> `/Users/user/dev/1-RUST/RUST-UI/.playwright-mcp/` only; directory is
+> gitignored. Use screenshots to verify layout, toolbar state, editor content,
+> and rendered HTML output.
+
+### Playwright checklist
+
+- [ ] Manually open `/test-page`; no console errors, failed requests, or blank editor.
+- [ ] Confirm only Rich Text Editor demo appears; old Toolbar demo absent.
+- [ ] Confirm editor, toolbar, placeholder, and HTML output panel visible.
+- [ ] Confirm demo starts from real Markdown content converted through the shared
+  `markdown_to_html` renderer (headings, marks, lists, link, fenced code).
+- [ ] Type plain text; text appears and HTML output updates.
+- [ ] Select text; click Bold; text becomes bold and button shows active state.
+- [ ] Select text; click Italic, Underline, Strikethrough; each applies correctly.
+- [ ] Select block; click H1/H2; block changes and active state updates.
+- [ ] Click bullet list; type multiple items; list structure appears in HTML output.
+- [ ] Click ordered list; type multiple items; ordered structure appears.
+- [ ] Click Code; verify code formatting applies without page navigation.
+- [ ] Click Clear; verify inline formatting is removed.
+- [ ] Type after toolbar action; caret remains usable and text lands at expected spot.
+- [ ] Use browser undo/redo; editor and HTML output stay synchronized.
+- [ ] Paste formatted HTML; editor remains usable and output updates.
+- [ ] Reload page; editor starts cleanly with demo initial content.
+- [ ] Manually capture desktop screenshot in `.playwright-mcp/`.
+- [ ] Manually capture narrow/mobile screenshot in `.playwright-mcp/`.
+- [ ] Inspect screenshots for overflow, clipped toolbar, broken icons, and bad spacing.
 
 ## Progress checklist
 
@@ -30,6 +60,7 @@ Legend: `[x]` done · `[~]` in progress · `[ ]` pending · `[-]` deferred.
 - [ ] URL and HTML sanitizer implemented/tested
 - [ ] Disabled and placeholder behavior verified in browser
 - [ ] WASM release + SSR/native checks verified
+- [ ] Playwright checks run; screenshots saved in `.playwright-mcp/`
 - [ ] Clippy clean on all touched crates
 
 ### Planned phases
