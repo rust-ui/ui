@@ -39,79 +39,7 @@ pub enum FormatAction {
     ClearFormatting,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct FormatActionMeta {
-    pub label: &'static str,
-    pub value: &'static str,
-}
-
-impl FormatAction {
-    #[must_use]
-    pub const fn meta(self) -> FormatActionMeta {
-        match self {
-            Self::Bold => FormatActionMeta {
-                label: "Bold",
-                value: "bold",
-            },
-            Self::Italic => FormatActionMeta {
-                label: "Italic",
-                value: "italic",
-            },
-            Self::Underline => FormatActionMeta {
-                label: "Underline",
-                value: "underline",
-            },
-            Self::Strikethrough => FormatActionMeta {
-                label: "Strikethrough",
-                value: "strikethrough",
-            },
-            Self::OrderedList => FormatActionMeta {
-                label: "Ordered list",
-                value: "ordered_list",
-            },
-            Self::BulletList => FormatActionMeta {
-                label: "Bullet list",
-                value: "bullet_list",
-            },
-            Self::Heading(level) => match level {
-                1 => FormatActionMeta {
-                    label: "Heading 1",
-                    value: "heading_1",
-                },
-                2 => FormatActionMeta {
-                    label: "Heading 2",
-                    value: "heading_2",
-                },
-                3 => FormatActionMeta {
-                    label: "Heading 3",
-                    value: "heading_3",
-                },
-                4 => FormatActionMeta {
-                    label: "Heading 4",
-                    value: "heading_4",
-                },
-                5 => FormatActionMeta {
-                    label: "Heading 5",
-                    value: "heading_5",
-                },
-                _ => FormatActionMeta {
-                    label: "Heading 6",
-                    value: "heading_6",
-                },
-            },
-            Self::Code => FormatActionMeta {
-                label: "Code",
-                value: "code",
-            },
-            Self::ClearFormatting => FormatActionMeta {
-                label: "Clear formatting",
-                value: "clear_formatting",
-            },
-        }
-    }
-}
-
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Eq)]
 pub struct EditorHandle {
     pub id: String,
     pub state: Signal<EditorState>,
@@ -164,7 +92,7 @@ impl EditorHandle {
     }
 
     #[cfg(not(target_arch = "wasm32"))]
-    #[allow(clippy::missing_const_for_fn)]
+    #[allow(clippy::missing_const_for_fn, clippy::unused_self)]
     pub fn execute(&self, _action: FormatAction) {}
 
     #[cfg(target_arch = "wasm32")]
