@@ -46,7 +46,12 @@ pub fn BlockViewerToolbar(
 ) -> Element {
     let block_id = block_entry.block_id_kebab;
     let block_id_str = block_id.to_string();
-    let share_url = format!("https://rust-ui.com/blocks/{}#{}", block_entry.category, block_id_str);
+    let share_url = format!(
+        "{}/blocks/{}#{}",
+        app_config::SiteConfig::BASE_URL,
+        block_entry.category,
+        block_id_str
+    );
     let share_url_signal = use_signal(move || share_url);
 
     let (copy_fn, copied) = use_copy_clipboard(Some(2000));

@@ -32,7 +32,7 @@ pub fn Footer() -> Element {
                         }
                         a {
                             class: "text-muted-foreground hover:text-foreground transition-colors",
-                            href: "https://rust-ui.com",
+                            href: app_config::SiteConfig::BASE_URL,
                             target: "_blank",
                             rel: "noopener noreferrer",
                             "Rust UI"
