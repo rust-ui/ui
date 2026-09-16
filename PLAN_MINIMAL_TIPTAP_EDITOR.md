@@ -10,8 +10,9 @@ and gave the go-ahead).
 > generated files, install manifests, and changelog for now.
 >
 > **Browser validation rule:** validate `http://127.0.0.1:8080/test-page`
-> manually with Playwright/Chrome after each meaningful UI milestone. No
-> automated Playwright spec for now. Save every screenshot under
+> manually with the Playwright MCP after each meaningful UI milestone. The
+> Playwright MCP is mandatory for these manual checks; do not replace it with
+> automated specs or CLI/browser fallbacks. Save every screenshot under
 > `/Users/user/dev/1-RUST/RUST-UI/.playwright-mcp/` only; directory is
 > gitignored. Use screenshots to verify layout, toolbar state, editor content,
 > and rendered HTML output.

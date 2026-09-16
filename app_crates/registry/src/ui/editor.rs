@@ -226,7 +226,7 @@ pub fn Editor(
     rsx! {
         div { class: tw_merge!("flex w-full flex-col overflow-hidden rounded-md border bg-background shadow-sm", class.as_deref().unwrap_or("")),
             EditorToolbar { disabled }
-            EditorContent { handle, placeholder, disabled, on_change }
+            EditorContent { handle, initial_html, placeholder, disabled, on_change }
         }
     }
 }
@@ -244,8 +244,15 @@ pub fn use_editor(initial_html: &str) -> EditorHandle {
         let mut ev = eval_with_helpers(
             &id,
             &format!(
-                r"const root = document.getElementById({id});
-if (!root) return;
+                r"const waitForRoot = () => new Promise((resolve) => {{
+  const find = () => {{
+    const root = document.getElementById({id});
+    if (root) resolve(root);
+    else requestAnimationFrame(find);
+  }};
+  find();
+}});
+const root = await waitForRoot();
 root.innerHTML = sanitize({initial});
 const send = () => dioxus.send(snapshot(root));
 root.addEventListener('input', send);
@@ -267,11 +274,13 @@ await new Promise(() => {{}});"
 #[component]
 pub fn EditorContent(
     handle: EditorHandle,
+    initial_html: String,
     #[props(into, optional)] placeholder: Option<String>,
     #[props(default = false)] disabled: bool,
     #[props(optional)] on_change: Option<EventHandler<String>>,
 ) -> Element {
     let placeholder = placeholder.unwrap_or_default();
+    let initial_html = use_hook(|| initial_html);
     let html = (handle.html)();
     use_effect(move || {
         if let Some(on_change) = &on_change {
@@ -287,6 +296,7 @@ pub fn EditorContent(
             aria_multiline: "true",
             "data-placeholder": placeholder,
             class: "min-h-48 w-full p-4 text-sm leading-7 outline-none empty:before:pointer-events-none empty:before:text-muted-foreground empty:before:content-[attr(data-placeholder)]",
+            dangerous_inner_html: "{initial_html}",
         }
     }
 }
