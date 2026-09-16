@@ -15,21 +15,21 @@ and gave the go-ahead).
 > `dioxus-ui` crate, not in the `registry` crate. This keeps WIP surface area
 > easy to find and out of the public component registry until it's ready to
 > graduate. Layout (2026-09-16):
-> - `src/domain/test/editor/component.rs` — the `Editor`/`EditorContent`/
+> - `src/domain/test/editor/editor.rs` — the `Editor`/`EditorContent`/
 >   `EditorToolbar`/`use_editor` implementation (moved from
 >   `app_crates/registry/src/ui/editor.rs`; imports `registry::ui::toolbar`
 >   for the shared toolbar primitives, everything else editor-specific lives
 >   here).
 > - `src/domain/test/editor/demo_editor.rs` — the `DemoEditor` demo (moved
 >   from `src/domain/test/demos/demo_editor.rs`).
-> - `src/domain/test/editor/mod.rs` — re-exports both as `pub mod component;`
->   / `pub mod demo_editor;` (file named `component.rs`, not `editor.rs`, to
->   avoid `clippy::module_inception` inside the `editor` module).
-> Apply the same feature-folder pattern to other WIP domains under
-> `domain::test` going forward (e.g. a future `domain/test/workflow/` for the
-> workflow demos currently spread across `domain/test/demos/demo_workflow*.rs`)
-> rather than growing the flat `demos/` directory further — not done yet,
-> noted here as the intended direction.
+> - `src/domain/test/editor/mod.rs` — re-exports both as `pub mod editor;` /
+>   `pub mod demo_editor;`; the inner module is named `editor.rs` (matching
+>   its parent folder) with `#[allow(clippy::module_inception)]` on the
+>   `pub mod editor;` line rather than renaming the file to dodge the lint.
+> Same pattern applied to `src/domain/test/workflow/` (all
+> `demo_workflow*.rs` files, moved from the old flat `domain/test/demos/`)
+> and `src/domain/test/toolbar/` (`demo_toolbar.rs`) — the flat `demos/`
+> directory is gone.
 >
 > **Browser validation rule:** validate `http://127.0.0.1:8080/test-page`
 > manually with the Playwright MCP after each meaningful UI milestone. The

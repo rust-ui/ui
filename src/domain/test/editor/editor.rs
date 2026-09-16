@@ -129,7 +129,7 @@ pub struct EditorHandle {
 
 impl EditorHandle {
     fn new(initial_html: &str) -> Self {
-        let id = format!("dioxus-editor-{}", NEXT_EDITOR_ID.fetch_add(1, Ordering::Relaxed));
+        let id = format!("rust-ui-editor-{}", NEXT_EDITOR_ID.fetch_add(1, Ordering::Relaxed));
         Self {
             id,
             state: Signal::new(EditorState::default()),

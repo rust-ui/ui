@@ -12,6 +12,7 @@ not want.
 
 ## Inbox
 
+- 2026-09-16 [dioxus/editor] avoid generic `dioxus-editor-{n}` DOM id prefix for the rich text editor, do use `rust-ui-editor-{n}`, because project-branded id prefix preferred over framework-generic one.
 - 2026-09-16 [testing] avoid Playwright CLI/spec fallback for manual UI validation, do use Playwright MCP mandatorily and save screenshots under `.playwright-mcp/`, because visual interaction checks must happen through the MCP workflow.
 - 2026-09-10 [dioxus] avoid `dx fmt` in this workspace, do use `cargo fmt` only (rustfmt leaves rsx! bodies alone), because `dx fmt` reformats the entire workspace (300+ files, incl. leptos-ui submodule) and corrupts `app_crates/registry/src/blocks/sidenav_common.rs` (unexpected closing delimiter at :260) since it cannot round-trip that file's rsx.
 - 2026-09-10 [dioxus] avoid raw `a { href: "/internal/path" }` for in-app navigation, do use `Link { to: Route::Variant { .. } }` (or `Link { to: format!(..) }`), because on `dx serve --platform ios` the webview loads from a non-http custom scheme so a real `<a>` nav triggers wry `Failed to open URL: not an http url`; `Link` intercepts the click in Rust and routes in-memory.

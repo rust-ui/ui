@@ -25,11 +25,19 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 - **Rich text editor moved out of the `registry` crate**: while it's still
   demo-only/WIP, the `Editor` component and its demo now live under
-  `src/domain/test/editor/` (`component.rs` + `demo_editor.rs`) in the main
+  `src/domain/test/editor/` (`editor.rs` + `demo_editor.rs`) in the main
   `dioxus-ui` crate instead of `app_crates/registry/src/ui/editor.rs`, to keep
   WIP surface area easy to find and out of the public component registry
   until it's ready to graduate. Still reuses `registry::ui::toolbar` for the
   shared toolbar primitives.
+
+- **WIP demos regrouped by feature under `domain::test`**: the flat
+  `src/domain/test/demos/` directory (all `demo_workflow*.rs` plus
+  `demo_toolbar.rs`) is gone, split into `src/domain/test/workflow/` and
+  `src/domain/test/toolbar/`, matching the `editor/` folder pattern.
+
+- **Editor DOM id prefix**: `rust-ui-editor-{n}` instead of the generic
+  `dioxus-editor-{n}`.
 
 - **iOS app icon showed the generic placeholder instead of the Rust/UI logo**:
   `dx` silently ignores the `[bundle].icon` key on iOS (same class of bug as
