@@ -103,11 +103,7 @@ impl EditorHandle {
             .query_command_value("formatBlock")
             .unwrap_or_default()
             .to_lowercase();
-        let heading = if block.len() == 2 {
-            block.strip_prefix('h').and_then(|n| n.parse::<u8>().ok()).unwrap_or(0)
-        } else {
-            0
-        };
+        let heading = block.strip_prefix('h').and_then(|n| n.parse::<u8>().ok()).unwrap_or(0);
         let state = EditorState {
             bold: html_document.query_command_state("bold").unwrap_or(false),
             italic: html_document.query_command_state("italic").unwrap_or(false),
