@@ -57,6 +57,47 @@
 | Markdown paste | ❌ | Primary `extensions/markdown-paste/` |
 | Mobile toolbar overflow | ❌ | Drawer/overflow pattern |
 
+## P1 — Editor API
+
+| Feature | Status | Reference / implementation |
+|---|---:|---|
+| `on_focus` / `on_blur` callbacks | ❌ | Form integration, autosave, validation |
+| `on_paste` callback | ❌ | Consumer-controlled paste handling |
+| `on_keydown` callback | ❌ | Custom shortcuts and commands |
+| `on_selection_change` callback | ❌ | External reactive UI |
+| External content reset | ❌ | Reload draft/API content without remount |
+| Controlled `value` mode | ❌ | Add beside current uncontrolled `initial_html` + `on_change` API |
+| Read-only mode distinct from disabled | ❌ | Select/copy content without editing |
+| Throttled/debounced `on_change` | ❌ | Large-document performance |
+
+## P1 — Editing UX and robustness
+
+| Feature | Status | Reference / implementation |
+|---|---:|---|
+| Empty paragraph normalization | ❌ | Normalize browser-specific empty DOM output |
+| Enter/Backspace rules | ⚠️ | Exit lists, headings, blockquotes cleanly |
+| Paste as plain text / match style | ❌ | Toolbar or shortcut action |
+| Word/Google Docs paste cleanup | ❌ | Aggressive HTML cleanup at paste boundary |
+| Selection preservation across toolbar | ⚠️ | Save/restore `Range` before button action |
+| Heading/list/code keyboard shortcuts | ❌ | Primary shortcut metadata pattern |
+| ARIA labels and keyboard navigation | ⚠️ | Toolbar focus, `aria-pressed`, tooltips |
+| RTL and bidirectional text | ❌ | `dir` support and selection verification |
+| Mobile virtual-keyboard behavior | ❌ | Keep caret/content visible when toolbar opens |
+
+## P2 — Additional document features
+
+| Feature | Status | Reference / implementation |
+|---|---:|---|
+| Automatic URL linking | ❌ | Must pass URL sanitizer |
+| Subscript/superscript | ❌ | DOM range formatting |
+| List indentation | ❌ | `Tab` / `Shift+Tab` nested list behavior |
+| Color reset | ❌ | Remove inline color without clearing other marks |
+| Code language selector | ❌ | `rust`, `js`, `sql`, etc.; highlighting policy required |
+| Fullscreen editor | ❌ | Reuse dialog/fullscreen layout primitive |
+| Autosave status | ❌ | Consumer-controlled `Saving`/`Saved`/`Error` state |
+| Character/word limit UI | ❌ | Counter + validation callback |
+| Print-friendly mode | ❌ | Content/document export styling |
+
 ## P3 — Advanced media and interaction
 
 | Feature | Status | Reference / implementation |
