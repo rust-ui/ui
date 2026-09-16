@@ -24,7 +24,7 @@ echo "🚀 Starting dx serve --platform ios..."
 # it rebuilds the app bundle, so hot-reload doesn't revert to the
 # placeholder icon.
 APP_BUNDLE="target/dx/dioxus-ui/debug/ios/DioxusUi.app"
-dx serve --platform ios &
+dx serve --platform ios --verbose --interactive false &
 DX_PID=$!
 trap 'kill "$DX_PID" 2>/dev/null' EXIT
 
