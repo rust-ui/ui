@@ -22,6 +22,18 @@ and gave the go-ahead).
 > them for the same check — don't let stale images from a fixed bug linger
 > next to current ones.
 
+### Every milestone (both phases)
+
+- [x] Manually capture desktop screenshot in `.playwright-mcp/`.
+- [x] Manually capture narrow/mobile screenshot in `.playwright-mcp/`.
+- [x] Inspect screenshots for overflow, clipped toolbar, broken icons, and bad spacing.
+  Checked 2026-09-16 at 1280x800 and 390x844: no horizontal overflow, toolbar
+  wraps cleanly to two rows on mobile, no clipped icons. Note: the demo page
+  content scrolls inside a `main.overflow-y-auto` container, not `document`/
+  `body`, so a `fullPage` screenshot only captures the current viewport's
+  worth of that container — not a bug, just means screenshots below the fold
+  need an explicit scroll first if you need to see them.
+
 ### Playwright checklist — two phases
 
 **Phase 1 — static render only.** Verify the hardcoded seed Markdown
@@ -42,9 +54,8 @@ style). No clicking, no typing, no toolbar interaction.
   `![Placeholder image](https://placehold.co/600x200)` line and an
   `[&_img]:max-w-full [&_img]:rounded-md` class; renders correctly in the
   contenteditable DOM (`.playwright-mcp/editor-image-render.png`).
-- [ ] Manually capture desktop screenshot in `.playwright-mcp/`.
-- [ ] Manually capture narrow/mobile screenshot in `.playwright-mcp/`.
-- [ ] Inspect screenshots for overflow, clipped toolbar, broken icons, and bad spacing.
+
+Phase 1 fully checked off — static render confirmed nickel. Phase 2 next.
 
 **Phase 2 — interactivity.** Not started yet; do not test until Phase 1 is
 fully checked off.
