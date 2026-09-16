@@ -69,6 +69,19 @@ dx serve --platform ios
 
 Open [http://127.0.0.1:8080](http://127.0.0.1:8080).
 
+### Git hooks
+
+```bash
+git config core.hooksPath .githooks
+```
+
+The pre-commit hook needs [`typos-cli`](https://github.com/crate-ci/typos) and the nightly rustfmt component (build toolchain stays stable, only formatting uses nightly):
+
+```bash
+cargo install typos-cli
+rustup toolchain install nightly --profile minimal --component rustfmt
+```
+
 ### iOS simulator
 
 `dx serve --platform ios` targets whatever simulator is currently booted. To pick a specific device, use one of the helper scripts (they shut down other simulators, boot the right one, uninstall the old build, then run `dx serve`):
