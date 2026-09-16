@@ -67,7 +67,11 @@ pub fn GithubStars() -> Element {
                     };
                     rsx! { span { "{formatted}" } }
                 }
-                _ => rsx! { Skeleton { class: "w-8 h-4" } },
+                Some(Err(e)) => {
+                    eprintln!("fetch_github_stars failed: {e}");
+                    rsx! { Skeleton { class: "w-8 h-4" } }
+                }
+                None => rsx! { Skeleton { class: "w-8 h-4" } },
             }
         }
     }
