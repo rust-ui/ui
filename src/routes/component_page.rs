@@ -15,6 +15,13 @@ pub fn ComponentPage(name: String) -> Element {
     let entry = find_docs_component_entry(&name);
     let (prev, next) = docs_component_prev_next(&name);
 
+    // Old `/components/:name` and `/demo-components/:name` URLs land here via
+    // `#[redirect(...)]`, which rewrites in place instead of issuing a 301.
+    #[cfg(feature = "server")]
+    if entry.is_some() {
+        crate::utils::seo_redirect::redirect_to_canonical(&format!("/docs/components/{name}"));
+    }
+
     rsx! {
         div { class: "flex flex-col pt-4 mx-auto w-full min-h-screen px-3 md:px-4 max-w-[730px]",
             {entry.map_or_else(

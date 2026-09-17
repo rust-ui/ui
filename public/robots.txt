@@ -3,8 +3,10 @@
 User-agent: *
 Allow: /
 
-# Block preview/view routes from being indexed
-Disallow: /view/
+# /view/* preview routes: crawl allowed so Googlebot can see the per-page
+# noindex meta tag (SidenavDemoLayout / ViewRouter) and deindex them.
+# Do NOT re-add a Disallow here — blocking crawl prevents Google from ever
+# seeing the noindex tag, which leaves already-indexed /view/* URLs stuck.
 
 # Block deprecated routes (permanently removed)
 # /docs/extensions bare path + full subtree (both → 410)

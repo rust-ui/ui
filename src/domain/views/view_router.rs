@@ -17,6 +17,7 @@ pub fn ViewRouter(id: String) -> Element {
     let meta = block_id.meta();
 
     rsx! {
+        document::Meta { name: "robots", content: "noindex, nofollow" }
         section {
             class: "{meta.container_class}",
             "data-name": "__BlockViewPage",

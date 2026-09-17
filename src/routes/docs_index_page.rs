@@ -7,6 +7,11 @@ use crate::__registry__::sidenav_hooks::SIDENAV_HOOKS_ITEMS;
 
 #[component]
 pub fn DocsComponentsIndexPage() -> Element {
+    // Old `/docs` and `/components` URLs land here via `#[redirect(...)]`,
+    // which rewrites in place instead of issuing a 301.
+    #[cfg(feature = "server")]
+    crate::utils::seo_redirect::redirect_to_canonical("/docs/components");
+
     rsx! {
         DocsIndexPage {
             title: "Dioxus Components",
@@ -20,6 +25,11 @@ pub fn DocsComponentsIndexPage() -> Element {
 
 #[component]
 pub fn DocsHooksIndexPage() -> Element {
+    // Old `/hooks` URL lands here via `#[redirect(...)]`, which rewrites in
+    // place instead of issuing a 301.
+    #[cfg(feature = "server")]
+    crate::utils::seo_redirect::redirect_to_canonical("/docs/hooks");
+
     rsx! {
         DocsIndexPage {
             title: "Dioxus Hooks",

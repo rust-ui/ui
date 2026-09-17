@@ -69,7 +69,19 @@ enum Route {
         #[layout(DocsLayout)]
             #[redirect("/docs", || Route::DocsComponentsIndexPage {})]
             #[redirect("/components", || Route::DocsComponentsIndexPage {})]
-            #[redirect("/components/:name", |name: String| Route::ComponentPage { name })]
+            #[redirect("/components/:name", |name: String| {
+                // Old `/components/:name` URLs predate the hooks/components split.
+                // Some of them actually name a hook (e.g. use-copy-clipboard), so
+                // resolve against both registries instead of always landing on
+                // ComponentPage and soft-404ing.
+                if __registry__::static_md_registry::find_docs_component_entry(&name).is_none()
+                    && __registry__::static_md_registry::find_hook_entry(&name).is_some()
+                {
+                    Route::HookPage { name }
+                } else {
+                    Route::ComponentPage { name }
+                }
+            })]
             #[redirect("/hooks", || Route::DocsHooksIndexPage {})]
             #[redirect("/hooks/:name", |name: String| Route::HookPage { name })]
             #[route("/docs/components")]

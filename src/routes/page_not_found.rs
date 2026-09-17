@@ -14,13 +14,15 @@ pub fn PageNotFound(segments: Vec<String>) -> Element {
     // parts held by the current fullstack context during streaming SSR.
     #[cfg(feature = "server")]
     {
-        use dioxus::fullstack::FullstackContext;
+        use dioxus::fullstack::{FullstackContext, StatusCode};
         let url = FullstackContext::current().map(|ctx| ctx.parts_mut().uri.to_string());
         crate::domain::bug_report::bug_reports::report_not_found(url);
+        FullstackContext::commit_http_status(StatusCode::NOT_FOUND, None);
     }
 
     rsx! {
         document::Title { "Rust/UI · 404 Not Found" }
+        document::Meta { name: "robots", content: "noindex, nofollow" }
 
         HeaderDocs {}
 

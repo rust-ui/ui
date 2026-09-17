@@ -13,6 +13,7 @@ pub fn SidenavDemoLayout() -> Element {
         if path.contains(DocsRoutes::Components.as_ref()) { DocsRoutes::Components } else { DocsRoutes::Hooks };
 
     rsx! {
+        document::Meta { name: "robots", content: "noindex, nofollow" }
         div { class: "bg-background",
             match sidenav_route {
                 SidenavRoutes::Sidenav09 => rsx! {

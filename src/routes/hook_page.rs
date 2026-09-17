@@ -15,6 +15,14 @@ pub fn HookPage(name: String) -> Element {
     let entry = find_hook_entry(&name);
     let (prev, next) = hook_prev_next(&name);
 
+    // Old `/hooks/:name` and rescued `/components/:name` (hook-in-components-
+    // namespace) URLs land here via `#[redirect(...)]`, which rewrites in
+    // place instead of issuing a 301.
+    #[cfg(feature = "server")]
+    if entry.is_some() {
+        crate::utils::seo_redirect::redirect_to_canonical(&format!("/docs/hooks/{name}"));
+    }
+
     rsx! {
         div { class: "flex flex-col pt-4 mx-auto w-full min-h-screen px-3 md:px-4 max-w-[730px]",
             {entry.map_or_else(
