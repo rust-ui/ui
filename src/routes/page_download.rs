@@ -9,6 +9,9 @@ use crate::components::app_footer::AppFooter;
 use crate::components::navigation::header_docs::HeaderDocs;
 
 const BASE_DOWNLOAD_URL: &str = "https://github.com/rust-ui/releases/releases/latest/download";
+// TODO: these filenames must stay in sync with the rename step in
+// leptos-ui/.github/workflows/desktop-release-all.yml (rust-ui/releases repo).
+// If that step changes or breaks, these links go stale silently again.
 
 struct DownloadFile {
     label: &'static str,
