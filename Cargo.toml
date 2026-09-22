@@ -169,3 +169,4 @@ unescaped_backticks = "warn"
 default = ["web"]
 server = ["dioxus/server", "dep:reqwest", "dep:resend-rs", "dep:validator", "dep:tracing", "dep:tower-http", "dep:tokio", "dep:rusqlite"]
 web = ["dioxus/web"]
+desktop = ["dioxus/desktop"]

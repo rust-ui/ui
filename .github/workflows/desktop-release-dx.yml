@@ -1,0 +1,203 @@
+name: Desktop Release (dx native, All Platforms)
+
+on:
+  push:
+    tags:
+      - 'dioxus-v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g. dioxus-v0.1.0)'
+        required: true
+
+env:
+  RELEASE_REPO: rust-ui/releases-dioxus
+  RUSTC_WRAPPER: ""
+  # Pinned to match the `dioxus`/`dioxus-desktop` version in Cargo.toml (see the
+  # pin comment there: dioxus 0.7.10 needs dioxus-desktop 0.7.10, which isn't on
+  # crates.io yet, so both the lib and the CLI stay on 0.7.9 until that lands).
+  DIOXUS_CLI_VERSION: "0.7.9"
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    name: Build macOS (Apple Silicon)
+    outputs:
+      version: ${{ steps.version.outputs.value }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve version
+        id: version
+        run: echo "value=${{ github.event_name == 'workflow_dispatch' && github.event.inputs.version || github.ref_name }}" >> $GITHUB_OUTPUT
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin
+
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: dx-macos-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install Dioxus CLI
+        run: cargo install dioxus-cli --version ${{ env.DIOXUS_CLI_VERSION }} --locked
+
+      - name: Bundle
+        run: dx bundle --platform macos --package-types dmg --release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-bundles
+          # dx's actual output nests the platform dir twice (bundle/macos/macos/*.dmg),
+          # confirmed by running `dx bundle --platform macos --package-types dmg --release`
+          # locally. Glob recursively instead of hardcoding that structure.
+          path: target/dx/*/bundle/**/*.dmg
+
+  build-linux:
+    runs-on: ubuntu-22.04
+    name: Build Linux (x86_64)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        # Same webview deps as leptos-ui/.github/workflows/desktop-release-all.yml:
+        # dioxus-desktop is wry-based, same runtime dependency as Tauri.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libgtk-3-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            patchelf
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-unknown-linux-gnu
+
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: dx-linux-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install Dioxus CLI
+        run: cargo install dioxus-cli --version ${{ env.DIOXUS_CLI_VERSION }} --locked
+
+      - name: Bundle
+        run: dx bundle --platform linux --package-types appimage --package-types deb --release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-bundles
+          # See macOS job comment: dx's bundle output dir nesting isn't the guessed
+          # bundle/<type>/ shape, so glob recursively rather than hardcode it.
+          path: |
+            target/dx/*/bundle/**/*.AppImage
+            target/dx/*/bundle/**/*.deb
+
+  build-windows:
+    runs-on: windows-latest
+    name: Build Windows (x64)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: dx-windows-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install Dioxus CLI
+        run: cargo install dioxus-cli --version ${{ env.DIOXUS_CLI_VERSION }} --locked
+
+      - name: Bundle
+        run: dx bundle --platform windows --package-types msi --package-types nsis --release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-bundles
+          # See macOS job comment: dx's bundle output dir nesting isn't the guessed
+          # bundle/<type>/ shape, so glob recursively rather than hardcode it.
+          path: |
+            target/dx/*/bundle/**/*.msi
+            target/dx/*/bundle/**/*.exe
+
+  release:
+    runs-on: ubuntu-22.04
+    name: Upload to GitHub Release
+    needs: [build-macos, build-linux, build-windows]
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: bundles
+          merge-multiple: true
+
+      - name: Normalize asset filenames
+        run: |
+          # dx bakes the version into bundle filenames. rust-ui.com's download
+          # page links to "latest/download/<static-name>", so rename here.
+          # This build publishes to its own rust-ui/releases-dioxus repo
+          # (separate from leptos-ui's rust-ui/releases-leptos), so no filename
+          # suffix is needed to disambiguate.
+          shopt -s nullglob globstar
+          for f in bundles/**/*.dmg; do mv "$f" bundles/rust-ui.dmg; done
+          for f in bundles/**/*.AppImage; do mv "$f" bundles/rust-ui_amd64.AppImage; done
+          for f in bundles/**/*.deb; do mv "$f" bundles/rust-ui_amd64.deb; done
+          for f in bundles/**/*.msi; do mv "$f" bundles/rust-ui_x64_en-US.msi; done
+          for f in bundles/**/*.exe; do mv "$f" bundles/rust-ui_x64-setup.exe; done
+          ls -la bundles/
+
+      - name: Create release if not exists
+        env:
+          GH_TOKEN: ${{ secrets.RELEASES_TOKEN }}
+        run: |
+          VERSION="${{ needs.build-macos.outputs.version }}"
+          gh release view "$VERSION" --repo $RELEASE_REPO || \
+            gh release create "$VERSION" \
+              --repo $RELEASE_REPO \
+              --title "Rust UI Native $VERSION" \
+              --notes "📦 Rust UI Desktop (native, dx-bundled) — macOS (Apple Silicon) · Linux (x86_64) · Windows (x64)"
+
+      - name: Upload to GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.RELEASES_TOKEN }}
+        run: |
+          shopt -s nullglob
+          gh release upload "${{ needs.build-macos.outputs.version }}" \
+            bundles/rust-ui.dmg \
+            bundles/rust-ui_amd64.AppImage \
+            bundles/rust-ui_amd64.deb \
+            bundles/rust-ui_x64_en-US.msi \
+            bundles/rust-ui_x64-setup.exe \
+            --repo $RELEASE_REPO \
+            --clobber

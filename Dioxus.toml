@@ -16,6 +16,7 @@ fullstack = true
 [bundle]
 identifier = "com.rust-ui"
 version = "0.1.0"
+publisher = "Rust UI"
 # App Store icon source (1024x1024, no alpha, sRGB). dx generates the
 # smaller sizes from it at bundle time. Lifted from the Leptos app's
 # src-tauri/icons/1024x1024.png, flattened to RGB.
