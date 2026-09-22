@@ -8,6 +8,8 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 - **Dioxus article library**: added six Markdown-authored guides focused on building Rust UI with Dioxus, plus a Term/UI-matched articles hub, category filters, search, article detail pages, sticky table of contents, share actions, SEO metadata, JSON-LD, and article sitemap generation. No analytics or PostHog tracking added.
 
+- **Article category carousel hook**: extracted reusable horizontal-rail IDs, scrolling, and edge-button state from the articles page into the article carousel hook.
+
 - **`xtask` Tailwind design-system linter**: new `app_crates/xtask` crate
   (`cargo run -p xtask`) scans `class: "..."` literals in `rsx!` blocks and
   `tw_merge!` base classes, flagging arbitrary values (`w-[220px]`), raw

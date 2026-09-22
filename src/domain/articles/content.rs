@@ -34,10 +34,18 @@ impl ArticleCategory {
     #[must_use]
     pub const fn blurb(self) -> &'static str {
         match self {
-            Self::Foundations => "Start with solid Rust UI building blocks.",
-            Self::Components => "Compose interfaces that stay easy to change.",
-            Self::Interaction => "Make state, forms, and feedback feel native.",
-            Self::Production => "Ship Rust UI across platforms with confidence.",
+            Self::Foundations => {
+                "Start with Rust UI fundamentals: structure screens, compose components, and keep rendering predictable."
+            }
+            Self::Components => {
+                "Build reusable Dioxus components with typed props, clear boundaries, and styles that stay easy to change."
+            }
+            Self::Interaction => {
+                "Make state, forms, validation, and feedback feel native without hiding behavior behind magic."
+            }
+            Self::Production => {
+                "Ship Rust UI across web, desktop, and mobile with reliable loading, responsive layouts, and release discipline."
+            }
         }
     }
 

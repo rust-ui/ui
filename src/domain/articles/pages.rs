@@ -2,6 +2,7 @@ use std::fmt::Write as _;
 
 use app_config::{BreadcrumbItem, JsonLdArticle, JsonLdBreadcrumb, SeoMeta, SiteConfig};
 use dioxus::prelude::*;
+use icons::{ArrowLeft, ArrowRight, BookOpen, Boxes, Cog, Rocket};
 use registry::hooks::use_table_of_contents::use_table_of_contents;
 
 use crate::Route;
@@ -9,6 +10,7 @@ use crate::components::app_footer::AppFooter;
 use crate::components::navigation::app_header::AppHeader;
 use crate::components::table_of_contents::TocItem;
 use crate::domain::articles::content::{Article, ArticleCategory, all_articles, article_by_slug};
+use crate::domain::articles::hooks::use_horizontal_rail;
 use crate::markdown::converter::{MdComponents, convert_md, extract_toc_from_md};
 
 #[component]
@@ -36,8 +38,6 @@ pub fn ArticleCategoryPage(category: String) -> Element {
 
 #[component]
 fn ArticlesHubPage(#[props(default)] initial_category: Option<ArticleCategory>) -> Element {
-    let mut search = use_signal(String::new);
-    let mut selected_category = use_signal(|| initial_category);
     let articles = all_articles();
     let canonical_path = initial_category
         .map_or_else(|| "/articles".to_string(), |category| format!("/articles/category/{}", category.slug()));
@@ -46,27 +46,13 @@ fn ArticlesHubPage(#[props(default)] initial_category: Option<ArticleCategory>) 
         |category| format!("{} Dioxus and Rust UI Articles · Rust/UI", category.label()),
     );
     let featured = articles.first().copied();
-    let query = search().to_lowercase();
-    let selected = selected_category();
-    let visible = articles
-        .iter()
-        .copied()
-        .filter(|article| selected.is_none_or(|category| article.category == category))
-        .filter(|article| {
-            query.is_empty()
-                || article.title().to_lowercase().contains(&query)
-                || article.description().to_lowercase().contains(&query)
-                || article.category.label().to_lowercase().contains(&query)
-        })
-        .collect::<Vec<_>>();
-
     rsx! {
         SeoMeta {
             title: page_title,
             description: "Practical Dioxus and Rust UI articles covering components, state, forms, responsive design, async data, and shipping cross-platform apps.".to_string(),
             canonical_url: format!("{}{}", SiteConfig::BASE_URL, canonical_path),
         }
-        div { class: "mx-auto max-w-[1200px] px-6 pb-24 pt-16 md:pt-24",
+        div { class: "mx-auto max-w-[1200px] overflow-x-clip px-6 pb-24 pt-16 md:pt-24",
             header { class: "mx-auto flex max-w-[680px] flex-col items-center gap-4 text-center",
                 BracketHeading { kicker: "Articles", "Dioxus and Rust UI guides" }
                 p { class: "mx-auto max-w-[42ch] text-balance text-lg leading-[1.4] text-muted-foreground",
@@ -91,56 +77,7 @@ fn ArticlesHubPage(#[props(default)] initial_category: Option<ArticleCategory>) 
                 }
             }
 
-            section { class: "mt-16",
-                div { class: "flex flex-col gap-5 border-b pb-6 md:flex-row md:items-end md:justify-between",
-                    div {
-                        PanelLabel { "Browse guides" }
-                        h2 { class: "mt-2 text-2xl font-semibold tracking-tight", "Build better Rust UI" }
-                    }
-                    div { class: "relative w-full md:max-w-[300px]",
-                        SearchGlyph {}
-                        input {
-                            class: "h-10 w-full rounded-full border bg-background pl-10 pr-4 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20",
-                            r#type: "search",
-                            placeholder: "Search articles",
-                            value: search(),
-                            oninput: move |event| search.set(event.value()),
-                        }
-                    }
-                }
-                div { class: "mt-6 flex flex-wrap gap-2",
-                    button {
-                        class: chip_class(selected.is_none()),
-                        onclick: move |_| selected_category.set(None),
-                        "All guides"
-                    }
-                    for category in ArticleCategory::ALL {
-                        {
-                            let is_selected = selected == Some(category);
-                            let count = articles.iter().filter(|article| article.category == category).count();
-                            rsx! {
-                                button {
-                                    class: chip_class(is_selected),
-                                    onclick: move |_| selected_category.set(Some(category)),
-                                    "{category.label()}"
-                                    span { class: "ml-1 text-[11px] opacity-60", "{count}" }
-                                }
-                            }
-                        }
-                    }
-                }
-                if visible.is_empty() {
-                    div { class: "mt-10 rounded-2xl border border-dashed p-10 text-center text-sm text-muted-foreground",
-                        "No articles match that filter."
-                    }
-                } else {
-                    div { class: "mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3",
-                        for article in visible {
-                            ArticleCard { key: "{article.slug}", article }
-                        }
-                    }
-                }
-            }
+            ArticleListing { articles, initial_category }
 
             CategoryCarousel {}
             ArticleClosingCta {}
@@ -219,7 +156,7 @@ pub fn ArticlePage(slug: String) -> Element {
                         }
                     }
                 }
-                ArticleThumbnail { article, feature: true }
+                ArticleThumbnail { article, feature: true, hero: true }
             }
             div { class: "mt-16 grid gap-12 lg:grid-cols-[262px_minmax(0,1fr)]",
                 ArticleSidebar {
@@ -262,20 +199,21 @@ fn BracketHeading(#[props(default)] kicker: &'static str, children: Element) -> 
 
 #[component]
 fn PanelLabel(children: Element) -> Element {
-    rsx! { p { class: "mb-5 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground", {children} } }
+    rsx! { p { class: "pb-2 text-[12px] font-medium uppercase tracking-[-0.01em] text-[rgba(15,15,16,0.5)]", {children} } }
 }
 
 #[component]
 fn FeaturedArticle(article: Article) -> Element {
     rsx! {
-        Link { to: Route::ArticlePage { slug: article.slug.to_string() }, class: "group block",
-            ArticleThumbnail { article, feature: true }
-            div { class: "mt-6 flex items-center gap-2 text-xs font-medium uppercase text-primary",
-                "{article.category.label()}"
-                span { class: "text-muted-foreground", "· {article.reading_time()} min" }
+        Link { to: Route::ArticlePage { slug: article.slug.to_string() }, class: "group block rounded-[20px] border border-black/[0.05] bg-white p-2 shadow-md transition-transform duration-200 hover:-translate-y-0.5",
+            ArticleThumbnail { article, feature: true, hero: false }
+            div { class: "grid gap-4 p-4 sm:grid-cols-2",
+                div { class: "flex flex-col gap-2",
+                    span { class: "w-fit rounded-[7px] border border-primary/30 bg-primary/10 px-1.5 py-px text-[12px] font-medium uppercase leading-[1.4] tracking-[-0.01em] text-primary", "{article.category.label()}" }
+                    h2 { class: "text-[28px] font-semibold leading-[1.1] tracking-[-0.042em] text-[#0f0f10] group-hover:underline", "{article.title()}" }
+                }
+                p { class: "line-clamp-4 self-center text-[15px] leading-[1.5] text-[rgba(15,15,16,0.73)]", "{article.description()}" }
             }
-            h2 { class: "mt-3 text-2xl font-semibold leading-tight tracking-tight group-hover:underline", "{article.title()}" }
-            p { class: "mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground", "{article.description()}" }
         }
     }
 }
@@ -283,12 +221,11 @@ fn FeaturedArticle(article: Article) -> Element {
 #[component]
 fn SpotlightArticle(article: Article) -> Element {
     rsx! {
-        Link { to: Route::ArticlePage { slug: article.slug.to_string() }, class: "group flex gap-4 rounded-2xl p-2 transition-colors hover:bg-background",
+        Link { to: Route::ArticlePage { slug: article.slug.to_string() }, class: "group grid grid-cols-[128px_minmax(0,1fr)] items-stretch gap-0 rounded-[20px] border border-black/[0.05] bg-white p-2 shadow-md transition-transform duration-200 hover:-translate-y-0.5",
             ArticleThumbnail { article, feature: false }
-            div { class: "min-w-0 py-1",
-                p { class: "text-[10px] font-medium uppercase tracking-[0.12em] text-primary", "{article.category.label()}" }
-                h3 { class: "mt-1 line-clamp-2 text-sm font-semibold leading-5 group-hover:underline", "{article.title()}" }
-                p { class: "mt-1 text-xs text-muted-foreground", "{article.reading_time()} min read" }
+            div { class: "flex flex-col justify-start gap-1.5 pl-4 pr-2 pt-1",
+                span { class: "w-fit rounded-[7px] border border-primary/30 bg-primary/10 px-1.5 py-px text-[11px] font-medium uppercase leading-[1.4] tracking-[-0.01em] text-primary", "{article.category.label()}" }
+                h2 { class: "line-clamp-2 text-[15px] font-semibold leading-[1.3] tracking-[-0.03em] text-[#0f0f10] group-hover:underline", "{article.title()}" }
             }
         }
     }
@@ -297,52 +234,100 @@ fn SpotlightArticle(article: Article) -> Element {
 #[component]
 fn ArticleCard(article: Article) -> Element {
     rsx! {
-        Link { to: Route::ArticlePage { slug: article.slug.to_string() }, class: "group flex min-w-0 flex-col overflow-hidden rounded-2xl border bg-card transition-all hover:-translate-y-0.5 hover:shadow-lg",
-            ArticleThumbnail { article, feature: false }
-            div { class: "flex flex-1 flex-col p-5",
-                p { class: "text-[10px] font-medium uppercase tracking-[0.12em] text-primary", "{article.category.label()}" }
-                h3 { class: "mt-2 text-lg font-semibold leading-tight tracking-tight group-hover:underline", "{article.title()}" }
-                p { class: "mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground", "{article.description()}" }
-                div { class: "mt-auto pt-5 text-xs text-muted-foreground", "{article.reading_time()} min read · Rust/UI" }
+        Link { to: Route::ArticlePage { slug: article.slug.to_string() }, class: "group block rounded-[20px] border border-black/[0.05] bg-white p-2 shadow-md transition-transform duration-200 hover:-translate-y-0.5",
+            ArticleThumbnail { article, feature: true, compact: true, hero: false }
+            div { class: "flex flex-col gap-2 px-3 pb-3 pt-4",
+                span { class: "w-fit rounded-[7px] border border-primary/30 bg-primary/10 px-1.5 py-px text-[12px] font-medium uppercase leading-[1.4] tracking-[-0.01em] text-primary", "{article.category.label()}" }
+                h2 { class: "line-clamp-3 text-[20px] font-semibold leading-[1.1] tracking-[-0.042em] text-[#0f0f10] group-hover:underline", "{article.title()}" }
+                p { class: "line-clamp-2 text-[15px] leading-[1.45] text-[rgba(15,15,16,0.73)]", "{article.description()}" }
             }
         }
     }
 }
 
 #[component]
-fn ArticleThumbnail(article: Article, #[props(default)] feature: bool) -> Element {
-    let size_class = if feature { "aspect-[1200/675]" } else { "aspect-[16/9]" };
-    let accent = match article.category {
-        ArticleCategory::Foundations => "from-orange-500/80 via-amber-400/30 to-background",
-        ArticleCategory::Components => "from-sky-500/80 via-cyan-400/30 to-background",
-        ArticleCategory::Interaction => "from-violet-500/80 via-fuchsia-400/30 to-background",
-        ArticleCategory::Production => "from-emerald-500/80 via-teal-400/30 to-background",
-    };
-    rsx! {
-        div { class: "relative {size_class} w-full overflow-hidden rounded-2xl bg-black",
-            div { class: "absolute inset-0 bg-gradient-to-br {accent} opacity-90" }
-            div { class: "absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,white_0,transparent_28%)] opacity-20" }
-            div { class: "absolute inset-x-0 bottom-0 p-5 text-white",
-                p { class: "text-[10px] font-medium uppercase tracking-[0.16em] text-white/70", "Dioxus · Rust UI" }
-                p { class: "mt-2 max-w-[26ch] text-lg font-semibold leading-tight tracking-tight", "{article.short_title()}" }
-            }
-        }
-    }
-}
+fn ArticleListing(articles: &'static [Article], initial_category: Option<ArticleCategory>) -> Element {
+    let mut query = use_signal(String::new);
+    let mut selected = use_signal(|| initial_category.into_iter().collect::<Vec<_>>());
+    let current_query = query().trim().to_lowercase();
+    let current_selected = selected();
+    let filtered = articles
+        .iter()
+        .copied()
+        .filter(|article| current_selected.is_empty() || current_selected.contains(&article.category))
+        .filter(|article| {
+            current_query.is_empty()
+                || article.title().to_lowercase().contains(&current_query)
+                || article.description().to_lowercase().contains(&current_query)
+        })
+        .collect::<Vec<_>>();
+    let is_filtering = !current_query.is_empty() || !current_selected.is_empty();
 
-#[component]
-fn CategoryCarousel() -> Element {
     rsx! {
-        section { class: "mt-20",
-            PanelLabel { "Explore by category" }
-            div { class: "grid gap-3 sm:grid-cols-2 lg:grid-cols-4",
-                for category in ArticleCategory::ALL {
-                    Link { key: "{category.slug()}", to: Route::ArticleCategoryPage { category: category.slug().to_string() }, class: "group rounded-2xl border p-5 transition-colors hover:bg-muted",
-                        div { class: "flex items-center justify-between",
-                            h3 { class: "font-semibold group-hover:underline", "{category.label()}" }
-                            span { class: "text-primary", "→" }
+        div { class: "mt-16 grid gap-8 lg:grid-cols-[285px_minmax(0,1fr)]",
+            aside { class: "flex h-max flex-col gap-6 lg:sticky lg:top-[122px]",
+                div { class: "relative flex items-center rounded-[16px] border border-black/[0.08] bg-white shadow-sm",
+                    SearchGlyph {}
+                    input {
+                        r#type: "search",
+                        value: query(),
+                        placeholder: "Search articles",
+                        class: "h-[42px] w-full rounded-[16px] bg-transparent pl-[38px] pr-4 text-[14px] text-[#0f0f10] outline-none placeholder:text-[rgba(15,15,16,0.4)]",
+                        oninput: move |event| query.set(event.value()),
+                    }
+                }
+                div { class: "flex flex-col gap-3",
+                    p { class: "border-b border-black/[0.065] pb-2 text-[12px] font-medium uppercase tracking-[-0.01em] text-[rgba(15,15,16,0.5)]", "Categories" }
+                    div { class: "flex flex-wrap gap-1.5",
+                        for category in ArticleCategory::ALL {
+                            {
+                                let is_selected = current_selected.contains(&category);
+                                let count = articles.iter().filter(|article| article.category == category).count();
+                                rsx! {
+                                    button {
+                                        key: "{category.slug()}",
+                                        type: "button",
+                                        aria_pressed: is_selected,
+                                        class: listing_chip_class(is_selected),
+                                        onclick: move |_| {
+                                            let mut next = selected();
+                                            if let Some(index) = next.iter().position(|item| *item == category) {
+                                                next.remove(index);
+                                            } else {
+                                                next.push(category);
+                                            }
+                                            selected.set(next);
+                                        },
+                                        "{category.label()}"
+                                        span { class: "ml-1 tabular-nums opacity-50", "{count}" }
+                                    }
+                                }
+                            }
                         }
-                        p { class: "mt-2 text-sm leading-6 text-muted-foreground", "{category.blurb()}" }
+                    }
+                }
+                div { class: "flex items-center justify-between",
+                    button {
+                        type: "button",
+                        disabled: !is_filtering,
+                        class: "text-[13px] font-medium text-[rgba(15,15,16,0.73)] underline-offset-2 hover:underline disabled:opacity-40 disabled:no-underline",
+                        onclick: move |_| {
+                            query.set(String::new());
+                            selected.set(Vec::new());
+                        },
+                        "Reset filters"
+                    }
+                    span { class: "text-[13px] tabular-nums text-[rgba(15,15,16,0.5)]", "{filtered.len()} of {articles.len()}" }
+                }
+            }
+            div { class: "flex flex-col gap-8",
+                if filtered.is_empty() {
+                    p { class: "py-16 text-center text-[15px] text-[rgba(15,15,16,0.5)]", "No articles match that filter." }
+                } else {
+                    div { class: "grid gap-3 sm:grid-cols-2 xl:grid-cols-3",
+                        for article in filtered {
+                            ArticleCard { key: "{article.slug}", article }
+                        }
                     }
                 }
             }
@@ -351,11 +336,110 @@ fn CategoryCarousel() -> Element {
 }
 
 #[component]
+fn ArticleThumbnail(
+    article: Article,
+    #[props(default)] feature: bool,
+    #[props(default)] compact: bool,
+    #[props(default)] hero: bool,
+) -> Element {
+    let size_class = if feature { "aspect-[1200/630]" } else { "aspect-[16/10]" };
+    let text_class = if compact {
+        "p-6 text-[12px] leading-[1.3]"
+    } else if feature {
+        "p-10 text-[18px] leading-[1.3]"
+    } else {
+        "p-3 text-[8px] leading-[1.3]"
+    };
+    let hero_class = if hero { "md:w-[420px] md:shrink-0" } else { "" };
+    rsx! {
+        div { class: "relative {size_class} {hero_class} w-full overflow-hidden rounded-[12px] bg-black/[0.03]",
+            div { class: "absolute inset-0 flex items-center justify-center bg-[#0a0a0a] text-center",
+                span { class: "{text_class} font-semibold tracking-[-0.01em] text-white", "{article.short_title()}" }
+            }
+        }
+    }
+}
+
+#[component]
+fn CategoryCarousel() -> Element {
+    let articles = all_articles();
+    let rail = use_horizontal_rail("article-category");
+    let carousel_script = rail.script();
+
+    rsx! {
+        section { class: "mt-28",
+            div { class: "mb-8 flex items-end justify-between gap-4",
+                div { class: "flex flex-col gap-3",
+                    p { class: "font-mono text-[14px] uppercase tracking-[-0.01em] text-[rgba(15,15,16,0.73)]",
+                        span { class: "text-primary", "[" }
+                        " All categories "
+                        span { class: "text-primary", "]" }
+                    }
+                    h2 { class: "text-[clamp(34px,5vw,52px)] font-semibold leading-[1.05] tracking-[-0.042em] text-[#0f0f10]", "Browse Categories" }
+                }
+                div { class: "hidden gap-2 sm:flex",
+                    button {
+                        id: rail.previous_id(),
+                        type: "button",
+                        aria_label: "Previous category",
+                        class: "flex size-10 items-center justify-center rounded-full border border-black/[0.12] bg-white text-[#0f0f10] transition-[opacity,background-color] duration-300 hover:bg-black/[0.03] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white",
+                        ArrowLeft { class: "size-4" }
+                    }
+                    button {
+                        id: rail.next_id(),
+                        type: "button",
+                        aria_label: "Next category",
+                        class: "flex size-10 items-center justify-center rounded-full border border-black/[0.12] bg-white text-[#0f0f10] transition-[opacity,background-color] duration-300 hover:bg-black/[0.03] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white",
+                        ArrowRight { class: "size-4" }
+                    }
+                }
+            }
+            div { class: "relative left-1/2 w-screen -translate-x-1/2",
+                div {
+                    id: rail.rail_id(),
+                    class: "flex snap-x snap-proximity gap-4 overflow-x-auto overscroll-x-contain scroll-pl-[max(1.5rem,calc((100vw-1200px)/2+1.5rem))] px-[max(1.5rem,calc((100vw-1200px)/2+1.5rem))] pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+                    for category in ArticleCategory::ALL {
+                        {
+                            let count = articles.iter().filter(|article| article.category == category).count();
+                            rsx! {
+                                Link {
+                                    key: "{category.slug()}",
+                                    to: Route::ArticleCategoryPage { category: category.slug().to_string() },
+                                    class: "flex w-[300px] shrink-0 snap-start flex-col gap-5 rounded-[36px] border border-black/[0.05] bg-white p-6 shadow-md transition-transform duration-200 hover:-translate-y-0.5",
+                                    div { class: "flex size-11 items-center justify-center rounded-[14px] border border-primary/30 bg-primary/10 text-primary",
+                                        CategoryGlyph { category }
+                                    }
+                                    div { class: "flex flex-col gap-2",
+                                        h3 { class: "text-[20px] font-semibold tracking-[-0.03em] text-[#0f0f10]", "{category.label()}" span { class: "ml-1.5 text-[14px] font-normal tabular-nums text-[rgba(15,15,16,0.4)]", "{count}" } }
+                                        p { class: "text-[15px] leading-[1.45] text-[rgba(15,15,16,0.73)]", "{category.blurb()}" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            script { "{carousel_script}" }
+        }
+    }
+}
+
+#[component]
+fn CategoryGlyph(category: ArticleCategory) -> Element {
+    match category {
+        ArticleCategory::Foundations => rsx! { BookOpen { class: "size-5" } },
+        ArticleCategory::Components => rsx! { Boxes { class: "size-5" } },
+        ArticleCategory::Interaction => rsx! { Cog { class: "size-5" } },
+        ArticleCategory::Production => rsx! { Rocket { class: "size-5" } },
+    }
+}
+
+#[component]
 fn ArticleClosingCta() -> Element {
     rsx! {
         section { class: "mt-20 rounded-[28px] border bg-muted/30 p-8 text-center md:p-12",
             p { class: "text-xs font-medium uppercase tracking-[0.16em] text-primary", "Keep building" }
-            h2 { class: "mt-3 text-2xl font-semibold tracking-tight md:text-3xl", "Turn the guide into a real Rust UI" }
+            h2 { class: "mt-3 text-2xl font-semibold tracking-tight md:text-3xl", "Build a real Rust UI app" }
             p { class: "mx-auto mt-3 max-w-xl text-sm leading-6 text-muted-foreground",
                 "Use the Rust/UI registry as a starting point, then copy, adapt, and own the components in your Dioxus application."
             }
@@ -465,11 +549,11 @@ fn encode_component(value: &str) -> String {
     encoded
 }
 
-const fn chip_class(selected: bool) -> &'static str {
+const fn listing_chip_class(selected: bool) -> &'static str {
     if selected {
-        "rounded-full border border-primary bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground"
+        "rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[12px] font-medium uppercase tracking-[-0.01em] text-primary transition-colors"
     } else {
-        "rounded-full border bg-background px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        "rounded-full border border-black/[0.08] bg-black/[0.03] px-3 py-1 text-[12px] font-medium uppercase tracking-[-0.01em] text-[rgba(15,15,16,0.73)] transition-colors hover:bg-black/[0.06]"
     }
 }
 
