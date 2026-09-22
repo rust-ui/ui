@@ -24,6 +24,9 @@ pub const LOGO_SQUARE_LIGHT: Asset = asset!("/public/icons/logo-light-square-48.
 /// Leptos mark for the cross-site link in the navbar.
 pub const LEPTOS_LOGO: Asset = asset!("/public/images/logos/leptos.png");
 
+/// Rustify mark for the cross-site link in the navbar.
+pub const RUSTIFY_LOGO: Asset = asset!("/public/images/logos/rustify.webp");
+
 /// AI-provider marks in the table-of-contents "Summarize with AI" row.
 pub const AI_LOGO_CHATGPT: Asset = asset!("/public/images/logos/ai/chatgpt.svg");
 pub const AI_LOGO_GOOGLE: Asset = asset!("/public/images/logos/ai/google.svg");

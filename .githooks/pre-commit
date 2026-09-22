@@ -7,7 +7,7 @@ files=$(git diff --cached --name-only --diff-filter=ACM)
 fail=0
 
 echo "🔍 Checking for typos..."
-if ! echo "$files" | xargs typos; then
+if ! echo "$files" | xargs typos --force-exclude; then
   echo "❌ Typos found — fix them or run 'typos -w <file>' to auto-fix"
   fail=1
 fi

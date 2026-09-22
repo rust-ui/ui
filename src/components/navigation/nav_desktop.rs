@@ -6,7 +6,7 @@ use registry::ui::navigation_menu::{
 };
 
 use crate::Route;
-use crate::utils::assets::{LEPTOS_LOGO, LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT};
+use crate::utils::assets::{LEPTOS_LOGO, LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT, RUSTIFY_LOGO};
 
 const LEPTOS_URL: &str = "https://leptos.rust-ui.com";
 const RUSTIFY_URL: &str = "https://www.rustify.rs";
@@ -92,21 +92,22 @@ pub fn NavDesktop() -> Element {
                                 div { class: "flex flex-col gap-2 min-w-[120px]",
                                     span { class: "text-xs font-medium text-muted-foreground", "Ecosystem" }
                                     NavigationMenuLink {
-                                        href: LEPTOS_URL,
-                                        target: "_blank",
-                                        rel: "noopener noreferrer",
-                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm hover:bg-accent hover:text-accent-foreground",
-                                        img { src: LEPTOS_LOGO, alt: "Leptos", class: "size-4 rounded-full" }
-                                        "Leptos UI"
-                                        ExternalLink { class: "size-3 text-muted-foreground" }
-                                    }
-                                    NavigationMenuLink {
                                         href: RUSTIFY_URL,
                                         target: "_blank",
                                         rel: "noopener noreferrer",
-                                        class: "gap-1 px-2 py-1.5 w-full rounded-sm hover:bg-accent hover:text-accent-foreground",
+                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group hover:bg-accent hover:text-accent-foreground",
+                                        img { src: RUSTIFY_LOGO, alt: "Rustify", class: "size-4 rounded-full" }
                                         "Rustify"
-                                        ExternalLink { class: "size-3 text-muted-foreground" }
+                                        ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" }
+                                    }
+                                    NavigationMenuLink {
+                                        href: LEPTOS_URL,
+                                        target: "_blank",
+                                        rel: "noopener noreferrer",
+                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group hover:bg-accent hover:text-accent-foreground",
+                                        img { src: LEPTOS_LOGO, alt: "Leptos", class: "size-4 rounded-full" }
+                                        "Leptos UI"
+                                        ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" }
                                     }
                                 }
                             }

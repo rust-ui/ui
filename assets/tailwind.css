@@ -6141,6 +6141,14 @@
       }
     }
   }
+  .group-hover\:translate-x-0\.5 {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        --tw-translate-x: calc(var(--spacing) * 0.5);
+        translate: var(--tw-translate-x) var(--tw-translate-y);
+      }
+    }
+  }
   .group-hover\:translate-x-5 {
     &:is(:where(.group):hover *) {
       @media (hover: hover) {
