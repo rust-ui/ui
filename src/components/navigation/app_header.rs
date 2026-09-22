@@ -12,7 +12,7 @@ use crate::components::navigation::nav_mobile::NavMobile;
 const TESTFLIGHT_URL: &str = "https://rustify.rs/ios-beta";
 
 #[component]
-pub fn HeaderDocs() -> Element {
+pub fn AppHeader() -> Element {
     rsx! {
         // TODO: temporary, remove once iOS TestFlight beta is out of public testing.
         a {
