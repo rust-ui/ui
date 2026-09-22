@@ -28,17 +28,14 @@ pub fn NavDesktop() -> Element {
         }
         _ => false,
     };
-    let components_text_class =
-        if matches!(route, Route::DocsComponentsIndexPage {} | Route::ComponentPage { .. }) && !is_get_started {
-            "text-foreground"
-        } else {
-            "text-muted-foreground"
-        };
-    let hooks_text_class = if matches!(route, Route::DocsHooksIndexPage {} | Route::HookPage { .. }) {
-        "text-foreground"
-    } else {
-        "text-muted-foreground"
-    };
+    let components_active =
+        matches!(route, Route::DocsComponentsIndexPage {} | Route::ComponentPage { .. }) && !is_get_started;
+    let components_text_class = if components_active { "text-foreground" } else { "text-muted-foreground" };
+    let components_link_class = if components_active { "bg-accent" } else { "" };
+
+    let hooks_active = matches!(route, Route::DocsHooksIndexPage {} | Route::HookPage { .. });
+    let hooks_text_class = if hooks_active { "text-foreground" } else { "text-muted-foreground" };
+    let hooks_link_class = if hooks_active { "bg-accent" } else { "" };
 
     rsx! {
         div { class: "hidden gap-0 items-center md:flex",
@@ -116,12 +113,12 @@ pub fn NavDesktop() -> Element {
                 }
             }
             span { "aria-hidden": "true", class: "mx-1 select-none text-muted-foreground/50", "/" }
-            Link { class: NAV_LINK_CLASS, to: Route::DocsComponentsIndexPage {},
+            Link { class: "{NAV_LINK_CLASS} {components_link_class}", to: Route::DocsComponentsIndexPage {},
                 span { class: "overflow-hidden inline-block h-[1.2em] leading-[1.2em]",
                     span { class: "{NAV_LINK_TEXT_CLASS} {components_text_class}", "Components" }
                 }
             }
-            Link { class: NAV_LINK_CLASS, to: Route::DocsHooksIndexPage {},
+            Link { class: "{NAV_LINK_CLASS} {hooks_link_class}", to: Route::DocsHooksIndexPage {},
                 span { class: "overflow-hidden inline-block h-[1.2em] leading-[1.2em]",
                     span { class: "{NAV_LINK_TEXT_CLASS} {hooks_text_class}", "Hooks" }
                 }
