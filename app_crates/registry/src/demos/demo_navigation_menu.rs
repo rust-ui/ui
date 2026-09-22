@@ -33,9 +33,19 @@ pub fn DemoNavigationMenu() -> Element {
                                     a {
                                         href: "#",
                                         class: "flex flex-col justify-end p-6 w-full h-full no-underline bg-gradient-to-b rounded-md outline-none select-none focus:shadow-md from-muted/50 to-muted hover:bg-accent",
-                                        div { class: "mt-4 mb-2 text-lg font-medium", "rust/ui" }
+                                        img {
+                                            src: "/icons/logo-dark-square-48.webp",
+                                            alt: "Logo Rust/UI",
+                                            class: "hidden dark:block size-8",
+                                        }
+                                        img {
+                                            src: "/icons/logo-light-square-48.webp",
+                                            alt: "Logo Rust/UI",
+                                            class: "dark:hidden size-8",
+                                        }
+                                        div { class: "mt-4 mb-2 text-lg font-medium", "Rust/UI" }
                                         p { class: "text-sm leading-tight text-muted-foreground",
-                                            "Beautifully designed components built with Leptos and Tailwind CSS."
+                                            "Beautifully designed components built with Dioxus and Tailwind CSS."
                                         }
                                     }
                                 }
