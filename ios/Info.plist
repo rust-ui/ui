@@ -7,7 +7,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>Rust/UI</string>
 	<key>CFBundleExecutable</key>
-	<string>dioxus-ui</string>
+	<string>rust-ui-dioxus</string>
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
 	<key>CFBundleIdentifier</key>

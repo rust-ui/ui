@@ -23,7 +23,7 @@ echo "🚀 Starting dx serve --platform ios..."
 # dx serve in the background and re-patch + reinstall the icon every time
 # it rebuilds the app bundle, so hot-reload doesn't revert to the
 # placeholder icon.
-APP_BUNDLE="target/dx/dioxus-ui/debug/ios/DioxusUi.app"
+APP_BUNDLE="target/dx/rust-ui-dioxus/debug/ios/RustUiDioxus.app"
 dx serve --platform ios &
 DX_PID=$!
 trap 'kill "$DX_PID" 2>/dev/null' EXIT

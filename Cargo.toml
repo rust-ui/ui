@@ -4,7 +4,7 @@ members = ["app_crates/*"]
 exclude = ["crates/_starters/start-dioxus-fullstack", "crates/ui-cli"]
 
 [package]
-name = "dioxus-ui"
+name = "rust-ui-dioxus"
 version = "0.1.0"
 authors = ["Max Wells <maxwells.pro@proton.me>"]
 edition = "2024"

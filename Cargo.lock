@@ -1732,41 +1732,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "dioxus-ui"
-version = "0.1.0"
-dependencies = [
- "app_config",
- "app_domain",
- "app_routes",
- "cc",
- "dioxus",
- "dioxus-html",
- "html-escape",
- "html_parser",
- "icons",
- "js-sys",
- "pulldown-cmark",
- "registry",
- "reqwest",
- "resend-rs",
- "rusqlite",
- "serde",
- "serde_json",
- "strum",
- "syntect",
- "time",
- "tokio",
- "toml",
- "tower-http",
- "tracing",
- "tw_merge",
- "validator",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
-]
-
-[[package]]
 name = "dioxus-web"
 version = "0.7.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5238,6 +5203,41 @@ dependencies = [
  "hashlink",
  "libsqlite3-sys",
  "smallvec",
+]
+
+[[package]]
+name = "rust-ui-dioxus"
+version = "0.1.0"
+dependencies = [
+ "app_config",
+ "app_domain",
+ "app_routes",
+ "cc",
+ "dioxus",
+ "dioxus-html",
+ "html-escape",
+ "html_parser",
+ "icons",
+ "js-sys",
+ "pulldown-cmark",
+ "registry",
+ "reqwest",
+ "resend-rs",
+ "rusqlite",
+ "serde",
+ "serde_json",
+ "strum",
+ "syntect",
+ "time",
+ "tokio",
+ "toml",
+ "tower-http",
+ "tracing",
+ "tw_merge",
+ "validator",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
 ]
 
 [[package]]
