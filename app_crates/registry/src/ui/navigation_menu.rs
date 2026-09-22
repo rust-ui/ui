@@ -56,11 +56,37 @@ pub fn NavigationMenu(#[props(into, optional)] class: Option<String>, children: 
                 const triggers = [...menuRoot.querySelectorAll('[data-nav-trigger]')];
                 const getContent = (id) => menuRoot.querySelector('[data-nav-content="' + id + '"]');
 
+                // `position: fixed` anchors to the nearest ancestor with a transform/filter/
+                // backdrop-filter/etc (it creates a new containing block, same as `transform`).
+                // Sticky headers commonly use `backdrop-blur`, so we can't assume the viewport.
+                const getFixedContainingBlock = (el) => {{
+                    let node = el.parentElement;
+                    while (node && node !== document.body) {{
+                        const cs = getComputedStyle(node);
+                        if (
+                            cs.transform !== 'none' ||
+                            cs.filter !== 'none' ||
+                            cs.backdropFilter !== 'none' ||
+                            cs.perspective !== 'none' ||
+                            cs.willChange === 'transform' ||
+                            cs.willChange === 'filter' ||
+                            (cs.contain && /layout|paint|strict|content/.test(cs.contain))
+                        ) {{
+                            return node;
+                        }}
+                        node = node.parentElement;
+                    }}
+                    return null;
+                }};
+
                 const positionContents = () => {{
                     const rect = menuRoot.getBoundingClientRect();
                     menuRoot.querySelectorAll('[data-nav-content]').forEach(content => {{
-                        content.style.top = (rect.bottom + 6) + 'px';
-                        content.style.left = rect.left + 'px';
+                        const containingBlock = getFixedContainingBlock(content);
+                        const originTop = containingBlock ? containingBlock.getBoundingClientRect().top : 0;
+                        const originLeft = containingBlock ? containingBlock.getBoundingClientRect().left : 0;
+                        content.style.top = (rect.bottom - originTop + 6) + 'px';
+                        content.style.left = (rect.left - originLeft) + 'px';
                     }});
                 }};
                 positionContents();
