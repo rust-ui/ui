@@ -68,7 +68,6 @@ pub fn NavDesktop() -> Element {
                         NavigationMenuContent { class: "md:w-screen p-4", is_full_width: true, should_blur: true,
                             div { class: "flex gap-6 mx-auto max-w-7xl",
                                 div { class: "flex flex-col gap-2 w-[320px]",
-                                    span { class: "text-xs font-medium text-muted-foreground", "Latest" }
                                     NavigationMenuLink {
                                         href: RUSTIFY_URL,
                                         target: "_blank",
