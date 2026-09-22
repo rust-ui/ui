@@ -68,7 +68,7 @@ pub fn NavDesktop() -> Element {
                                         href: RUSTIFY_URL,
                                         target: "_blank",
                                         rel: "noopener noreferrer",
-                                        class: "flex relative flex-col gap-2 p-3 w-full rounded-md border group/link hover:bg-accent hover:text-accent-foreground",
+                                        class: "flex relative flex-col gap-2 p-3 w-full rounded-md border group/external-link hover:bg-accent hover:text-accent-foreground",
                                         div { class: "flex justify-center items-center rounded-md size-9 bg-muted",
                                             img { src: RUSTIFY_LOGO, alt: "Rustify", class: "rounded-full size-5" }
                                         }
@@ -76,7 +76,7 @@ pub fn NavDesktop() -> Element {
                                         span { class: "text-xs text-muted-foreground",
                                             "Master Rust with a hands-on bootcamp, real projects, and 1:1 mentorship"
                                         }
-                                        ExternalLink { class: "absolute top-3 right-3 size-3.5 text-muted-foreground transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" }
+                                        ExternalLink { class: "absolute top-3 right-3 size-3.5 text-muted-foreground transition-transform duration-200 group-hover/external-link:translate-x-0.5 group-hover/external-link:-translate-y-0.5" }
                                     }
                                 }
                                 div { class: "flex flex-col gap-2 min-w-[120px]",
@@ -85,9 +85,9 @@ pub fn NavDesktop() -> Element {
                                         href: LEPTOS_URL,
                                         target: "_blank",
                                         rel: "noopener noreferrer",
-                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group/link underline hover:bg-accent hover:text-accent-foreground",
+                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group/external-link underline hover:bg-accent hover:text-accent-foreground",
                                         "Leptos UI"
-                                        ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" }
+                                        ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover/external-link:translate-x-0.5 group-hover/external-link:-translate-y-0.5" }
                                     }
                                     span { class: "block px-2 py-1.5 w-full text-sm underline cursor-not-allowed text-muted-foreground/50",
                                         "Term/UI (soon)"

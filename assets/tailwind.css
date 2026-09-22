@@ -6483,6 +6483,22 @@
       }
     }
   }
+  .group-hover\/external-link\:translate-x-0\.5 {
+    &:is(:where(.group\/external-link):hover *) {
+      @media (hover: hover) {
+        --tw-translate-x: calc(var(--spacing) * 0.5);
+        translate: var(--tw-translate-x) var(--tw-translate-y);
+      }
+    }
+  }
+  .group-hover\/external-link\:-translate-y-0\.5 {
+    &:is(:where(.group\/external-link):hover *) {
+      @media (hover: hover) {
+        --tw-translate-y: calc(var(--spacing) * -0.5);
+        translate: var(--tw-translate-x) var(--tw-translate-y);
+      }
+    }
+  }
   .group-hover\/link\:translate-x-0\.5 {
     &:is(:where(.group\/link):hover *) {
       @media (hover: hover) {
