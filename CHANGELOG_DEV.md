@@ -10,6 +10,8 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 - **Article category carousel hook**: extracted reusable horizontal-rail IDs, scrolling, and edge-button state from the articles page into the article carousel hook.
 
+- **Article thumbnail fallback**: added a dark orange edge-glow and subtle grain texture when an article has no source image.
+
 - **`xtask` Tailwind design-system linter**: new `app_crates/xtask` crate
   (`cargo run -p xtask`) scans `class: "..."` literals in `rsx!` blocks and
   `tw_merge!` base classes, flagging arbitrary values (`w-[220px]`), raw

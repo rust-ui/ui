@@ -353,8 +353,27 @@ fn ArticleThumbnail(
     let hero_class = if hero { "md:w-[420px] md:shrink-0" } else { "" };
     rsx! {
         div { class: "relative {size_class} {hero_class} w-full overflow-hidden rounded-[12px] bg-black/[0.03]",
-            div { class: "absolute inset-0 flex items-center justify-center bg-[#0a0a0a] text-center",
-                span { class: "{text_class} font-semibold tracking-[-0.01em] text-white", "{article.short_title()}" }
+            div {
+                class: "absolute inset-0",
+                style: "background: radial-gradient(circle at 0% 0%, rgba(245, 102, 0, 0.82), transparent 40%), radial-gradient(circle at 100% 100%, rgba(255, 173, 85, 0.62), transparent 44%), linear-gradient(135deg, #160903 0%, #090909 48%, #120803 100%);",
+            }
+            img {
+                src: "/articles/article-thumbnail-noise.svg",
+                alt: "",
+                aria_hidden: "true",
+                class: "pointer-events-none absolute inset-0 size-full object-cover",
+                style: "opacity: 0.16; mix-blend-mode: screen;",
+            }
+            div {
+                class: "absolute inset-0",
+                style: "background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.28) 100%);",
+            }
+            div { class: "absolute inset-0 flex items-center justify-center text-center",
+                span {
+                    class: "{text_class} font-semibold tracking-[-0.01em] text-white",
+                    style: "text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);",
+                    "{article.short_title()}"
+                }
             }
         }
     }

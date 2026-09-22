@@ -4304,6 +4304,9 @@
   .bg-\[linear-gradient\(to_right\,var\(--color-border\)_1px\,transparent_1px\)\,linear-gradient\(to_bottom\,\#4f4f4f2e_1px\,transparent_1px\)\] {
     background-image: linear-gradient(to right,var(--color-border) 1px,transparent 1px),linear-gradient(to bottom,#4f4f4f2e 1px,transparent 1px);
   }
+  .bg-\[radial-gradient\(circle_at_50\%_50\%\,transparent_30\%\,rgba\(0\,0\,0\,0\.28\)_100\%\)\] {
+    background-image: radial-gradient(circle at 50% 50%,transparent 30%,rgba(0,0,0,0.28) 100%);
+  }
   .bg-\[radial-gradient\(circle_at_80\%_20\%\,white_0\,transparent_28\%\)\] {
     background-image: radial-gradient(circle at 80% 20%,white 0,transparent 28%);
   }
@@ -5845,6 +5848,9 @@
   .opacity-100 {
     opacity: 100%;
   }
+  .opacity-\[0\.16\] {
+    opacity: 0.16;
+  }
   .opacity-\[0\.025\] {
     opacity: 0.025;
   }
@@ -5853,6 +5859,9 @@
   }
   .mix-blend-normal {
     mix-blend-mode: normal;
+  }
+  .mix-blend-screen {
+    mix-blend-mode: screen;
   }
   .shadow {
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
@@ -6049,6 +6058,11 @@
   .drop-shadow {
     --tw-drop-shadow-size: drop-shadow(0 1px 2px var(--tw-drop-shadow-color, rgb(0 0 0 / 0.1))) drop-shadow(0 1px 1px var(--tw-drop-shadow-color, rgb(0 0 0 / 0.06)));
     --tw-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow( 0 1px 1px rgb(0 0 0 / 0.06));
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
+  }
+  .drop-shadow-\[0_1px_8px_rgba\(0\,0\,0\,0\.35\)\] {
+    --tw-drop-shadow-size: drop-shadow(0 1px 8px var(--tw-drop-shadow-color, rgba(0,0,0,0.35)));
+    --tw-drop-shadow: var(--tw-drop-shadow-size);
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
   }
   .grayscale {
