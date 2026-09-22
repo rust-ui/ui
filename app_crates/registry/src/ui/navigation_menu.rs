@@ -86,12 +86,29 @@ pub fn NavigationMenu(#[props(into, optional)] class: Option<String>, children: 
                         const originTop = containingBlock ? containingBlock.getBoundingClientRect().top : 0;
                         const originLeft = containingBlock ? containingBlock.getBoundingClientRect().left : 0;
                         content.style.top = (rect.bottom - originTop + 6) + 'px';
-                        content.style.left = (rect.left - originLeft) + 'px';
+                        content.style.left = content.hasAttribute('data-nav-full-width')
+                            ? (-originLeft) + 'px'
+                            : (rect.left - originLeft) + 'px';
                     }});
                 }};
                 positionContents();
                 window.addEventListener('resize', positionContents);
                 window.addEventListener('scroll', positionContents, true);
+
+                // Plain DOM node, created here instead of in rsx: it needs to live at
+                // <body> level to escape the header's backdrop-blur containing block
+                // (position: fixed would otherwise be trapped inside the header's own
+                // box). A Dioxus-owned node can't be safely reparented at runtime (it
+                // desyncs the vdom and panics on the next diff/hydration), so this one
+                // is never part of the vdom to begin with.
+                let overlay = document.querySelector('[data-nav-overlay="{menu_id}"]');
+                if (!overlay) {{
+                    overlay = document.createElement('div');
+                    overlay.setAttribute('data-nav-overlay', '{menu_id}');
+                    overlay.setAttribute('data-state', 'closed');
+                    overlay.className = 'fixed inset-0 z-40 backdrop-blur-[2px] bg-background/40 opacity-0 pointer-events-none transition-opacity duration-200 data-[state=open]:opacity-100';
+                    document.body.appendChild(overlay);
+                }}
 
                 let activeItemId = null;
                 let activeIndex  = -1;
@@ -103,6 +120,7 @@ pub fn NavigationMenu(#[props(into, optional)] class: Option<String>, children: 
                     const content = getContent(itemId);
                     if (!content || activeItemId === itemId) return;
                     positionContents();
+                    if (overlay) overlay.setAttribute('data-state', content.hasAttribute('data-nav-blur') ? 'open' : 'closed');
 
                     if (activeItemId) {{
                         const prevContent = getContent(activeItemId);
@@ -131,6 +149,7 @@ pub fn NavigationMenu(#[props(into, optional)] class: Option<String>, children: 
 
                 const closeAll = (delay) => {{
                     hideTimer = setTimeout(() => {{
+                        if (overlay) overlay.setAttribute('data-state', 'closed');
                         triggers.forEach(t => t.setAttribute('data-state', 'closed'));
                         if (activeItemId) {{
                             const content = getContent(activeItemId);
@@ -289,7 +308,16 @@ pub fn NavigationMenuTrigger(#[props(into, optional)] class: Option<String>, chi
 /// content panels share the same anchor point below the menu bar regardless of
 /// ancestor stacking context (sticky headers, backdrop-blur, etc).
 #[component]
-pub fn NavigationMenuContent(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
+pub fn NavigationMenuContent(
+    #[props(into, optional)] class: Option<String>,
+    // TODO: quick flag to span the viewport. Should eventually become a proper
+    // NavigationMenuViewport component (shadcn/radix pattern) shared across all
+    // content panels instead of a per-content bool.
+    #[props(default = false)] is_full_width: bool,
+    // Opt-in: dims/blurs the page behind this panel while it's open.
+    #[props(default = false)] should_blur: bool,
+    children: Element,
+) -> Element {
     let ctx = use_context::<NavigationMenuItemContext>();
 
     let merged = tw_merge!(
@@ -301,6 +329,8 @@ pub fn NavigationMenuContent(#[props(into, optional)] class: Option<String>, chi
         div {
             "data-name": "NavigationMenuContent",
             "data-nav-content": "{ctx.item_id}",
+            "data-nav-full-width": if is_full_width { "true" },
+            "data-nav-blur": if should_blur { "true" },
             class: "{merged}",
             "data-state": "closed",
             {children}

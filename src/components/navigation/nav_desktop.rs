@@ -6,7 +6,7 @@ use registry::ui::navigation_menu::{
 };
 
 use crate::Route;
-use crate::utils::assets::{LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT};
+use crate::utils::assets::{LEPTOS_LOGO, LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT};
 
 const LEPTOS_URL: &str = "https://leptos.rust-ui.com";
 const RUSTIFY_URL: &str = "https://www.rustify.rs";
@@ -63,9 +63,9 @@ pub fn NavDesktop() -> Element {
                             class: "gap-1 px-1.5 h-8 text-base font-medium bg-transparent border-none shadow-none hover:bg-transparent hover:text-foreground data-[state=open]:bg-transparent",
                             "Rust/UI"
                         }
-                        NavigationMenuContent { class: "md:w-[380px] p-4",
-                            div { class: "grid grid-cols-[1fr_auto] gap-6",
-                                div { class: "flex flex-col gap-2",
+                        NavigationMenuContent { class: "md:w-screen p-4", is_full_width: true, should_blur: true,
+                            div { class: "flex gap-6 mx-auto max-w-7xl",
+                                div { class: "flex flex-col gap-2 w-[320px]",
                                     span { class: "text-xs font-medium text-muted-foreground", "Latest" }
                                     NavigationMenuLink {
                                         href: "/",
@@ -95,7 +95,8 @@ pub fn NavDesktop() -> Element {
                                         href: LEPTOS_URL,
                                         target: "_blank",
                                         rel: "noopener noreferrer",
-                                        class: "gap-1 px-2 py-1.5 w-full rounded-sm hover:bg-accent hover:text-accent-foreground",
+                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm hover:bg-accent hover:text-accent-foreground",
+                                        img { src: LEPTOS_LOGO, alt: "Leptos", class: "size-4 rounded-full" }
                                         "Leptos UI"
                                         ExternalLink { class: "size-3 text-muted-foreground" }
                                     }

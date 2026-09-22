@@ -6,7 +6,6 @@ use registry::ui::theme_toggle::ThemeToggle;
 
 use crate::components::command_search_docs::CommandSearchDocs;
 use crate::components::github_stars::GithubStars;
-use crate::components::leptos_link::LeptosLink;
 use crate::components::navigation::nav_desktop::NavDesktop;
 use crate::components::navigation::nav_mobile::NavMobile;
 
@@ -37,7 +36,6 @@ pub fn HeaderDocs() -> Element {
                             orientation: SeparatorOrientation::Vertical,
                             class: "hidden ml-2 h-4 lg:block",
                         }
-                        LeptosLink {}
                         GithubStars {}
                         Separator {
                             orientation: SeparatorOrientation::Vertical,
