@@ -97,11 +97,15 @@ pub fn use_table_of_contents(anchors: &[String]) -> TableOfContentsState {
         scroll_handler.forget();
 
         // Recache heading positions on resize (layout may have shifted).
+        let is_mounted_for_resize = Arc::clone(&is_mounted);
         let anchors_for_resize = anchors.clone();
         let document_for_resize = document.clone();
         let window_for_resize = window.clone();
         let mut positions_for_resize = positions;
         let resize_handler = Closure::wrap(Box::new(move || {
+            if !is_mounted_for_resize.load(Ordering::SeqCst) {
+                return;
+            }
             positions_for_resize.set(cache_heading_positions(
                 &document_for_resize,
                 &window_for_resize,
