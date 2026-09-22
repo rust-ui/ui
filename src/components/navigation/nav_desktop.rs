@@ -14,7 +14,8 @@ const RUSTIFY_URL: &str =
 const RUSTIFY_JOBS_URL: &str =
     "https://rustify.rs/jobs?utm_source=rust-ui&utm_medium=referral&utm_campaign=nav_menu&utm_content=rust_jobs";
 const RUSTIFY_JOBS_MAP_URL: &str = "https://rustify.rs/jobs/jobs-map?utm_source=rust-ui&utm_medium=referral&utm_campaign=nav_menu&utm_content=jobs_map";
-const RUSTIFY_YOUTUBE_URL: &str = "https://www.youtube.com/@rustify-rs";
+const RUSTIFY_YOUTUBE_URL: &str =
+    "https://rustify.rs/youtube?utm_source=rust-ui&utm_medium=referral&utm_campaign=nav_menu&utm_content=youtube";
 
 const NAV_LINK_CLASS: &str =
     "inline-flex items-center px-2.5 py-1.5 h-8 text-sm font-medium rounded-md transition-colors hover:bg-accent group";
