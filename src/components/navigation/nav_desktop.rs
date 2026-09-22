@@ -6,7 +6,7 @@ use registry::ui::navigation_menu::{
 };
 
 use crate::Route;
-use crate::utils::assets::{LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT, RUSTIFY_LOGO};
+use crate::utils::assets::{LOGO_SQUARE_DARK, RUSTIFY_LOGO};
 
 const LEPTOS_URL: &str = "https://leptos.rust-ui.com";
 const RUSTIFY_URL: &str =
@@ -51,12 +51,7 @@ pub fn NavDesktop() -> Element {
                 img {
                     src: LOGO_SQUARE_DARK,
                     alt: "Logo Rust/UI",
-                    class: "hidden dark:block size-6",
-                }
-                img {
-                    src: LOGO_SQUARE_LIGHT,
-                    alt: "Logo Rust/UI",
-                    class: "dark:hidden size-6",
+                    class: "size-6",
                 }
             }
             NavigationMenu { class: "relative z-auto max-w-none flex-none",

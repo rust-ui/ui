@@ -7,7 +7,7 @@ use registry::ui::footer::{
     FooterGrid, FooterLink, FooterLinks, FooterLinksSection, FooterSection, FooterSectionsGrid, FooterTitle,
 };
 
-use crate::utils::assets::{LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT};
+use crate::utils::assets::LOGO_SQUARE_DARK;
 
 const ROUTE_ACCORDION: &str = "/docs/components/accordion";
 const ROUTE_BUTTON: &str = "/docs/components/button";
@@ -37,12 +37,7 @@ pub fn AppFooter() -> Element {
                                 img {
                                     src: LOGO_SQUARE_DARK,
                                     alt: "Logo Rust/UI",
-                                    class: "hidden dark:block size-6",
-                                }
-                                img {
-                                    src: LOGO_SQUARE_LIGHT,
-                                    alt: "Logo Rust/UI",
-                                    class: "dark:hidden size-6",
+                                    class: "size-6",
                                 }
                                 span { "Rust/UI" }
                             }

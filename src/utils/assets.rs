@@ -17,9 +17,8 @@ use dioxus::prelude::*;
 /// `public/images/thumbnails/` (light + dark, `.webp` + `.png`).
 pub const THUMBNAILS: Asset = asset!("/public/images/thumbnails");
 
-/// Rust/UI square mark, dark and light variants (used in the navbars).
+/// Rust/UI square mark (used in the navbars). Dark-only, dark is the sole theme now.
 pub const LOGO_SQUARE_DARK: Asset = asset!("/public/icons/logo-dark-square-48.webp");
-pub const LOGO_SQUARE_LIGHT: Asset = asset!("/public/icons/logo-light-square-48.webp");
 
 /// Leptos mark for the cross-site link in the navbar.
 pub const LEPTOS_LOGO: Asset = asset!("/public/images/logos/leptos.png");

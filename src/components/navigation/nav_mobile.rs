@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 use crate::__registry__::demos_sidenav::SIDENAV_ITEMS;
 use crate::__registry__::sidenav_hooks::SIDENAV_HOOKS_ITEMS;
 use crate::Route;
-use crate::utils::assets::{LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT};
+use crate::utils::assets::LOGO_SQUARE_DARK;
 
 #[component]
 pub fn NavMobile() -> Element {
@@ -37,12 +37,7 @@ pub fn NavMobile() -> Element {
                             img {
                                 src: LOGO_SQUARE_DARK,
                                 alt: "Logo Rust/UI",
-                                class: "hidden dark:block size-6",
-                            }
-                            img {
-                                src: LOGO_SQUARE_LIGHT,
-                                alt: "Logo Rust/UI",
-                                class: "dark:hidden size-6",
+                                class: "size-6",
                             }
                         }
                         div { class: "flex flex-col gap-1",
