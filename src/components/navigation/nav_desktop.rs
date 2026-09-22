@@ -68,7 +68,7 @@ pub fn NavDesktop() -> Element {
                                         href: RUSTIFY_URL,
                                         target: "_blank",
                                         rel: "noopener noreferrer",
-                                        class: "flex relative flex-col gap-2 p-3 w-full rounded-md border group/external-link hover:bg-accent hover:text-accent-foreground",
+                                        class: "flex relative flex-col gap-2 p-3 w-full bg-background rounded-md border group/external-link hover:bg-accent hover:text-accent-foreground",
                                         div { class: "flex justify-center items-center rounded-md size-9 bg-muted",
                                             img { src: RUSTIFY_LOGO, alt: "Rustify", class: "rounded-full size-5" }
                                         }
