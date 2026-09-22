@@ -1523,6 +1523,9 @@
   .h-80 {
     height: calc(var(--spacing) * 80);
   }
+  .h-\[1\.2em\] {
+    height: 1.2em;
+  }
   .h-\[1px\] {
     height: 1px;
   }
@@ -1951,6 +1954,9 @@
   .w-\[162px\] {
     width: 162px;
   }
+  .w-\[170px\] {
+    width: 170px;
+  }
   .w-\[175px\] {
     width: 175px;
   }
@@ -1986,6 +1992,9 @@
   }
   .w-\[365px\] {
     width: 365px;
+  }
+  .w-\[380px\] {
+    width: 380px;
   }
   .w-\[400px\] {
     width: 400px;
@@ -2169,6 +2178,9 @@
   }
   .min-w-40 {
     min-width: calc(var(--spacing) * 40);
+  }
+  .min-w-\[120px\] {
+    min-width: 120px;
   }
   .min-w-\[150px\] {
     min-width: 150px;
@@ -2685,6 +2697,9 @@
   }
   .grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .grid-cols-\[1fr_auto\] {
+    grid-template-columns: 1fr auto;
   }
   .grid-cols-\[auto_1fr\] {
     grid-template-columns: auto 1fr;
@@ -4800,6 +4815,10 @@
     --tw-leading: calc(var(--spacing) * 9);
     line-height: calc(var(--spacing) * 9);
   }
+  .leading-\[1\.2em\] {
+    --tw-leading: 1.2em;
+    line-height: 1.2em;
+  }
   .leading-\[1\.4\] {
     --tw-leading: 1.4;
     line-height: 1.4;
@@ -5891,6 +5910,9 @@
   .\[some\:other\] {
     some: other;
   }
+  .\[text-shadow\:0_1\.2em_0_var\(--foreground\)\] {
+    text-shadow: 0 1.2em 0 var(--foreground);
+  }
   .\[view-timeline-name\:--quote\] {
     view-timeline-name: --quote;
   }
@@ -6126,6 +6148,14 @@
     &:is(:where(.group):hover *) {
       @media (hover: hover) {
         --tw-translate-y: calc(var(--spacing) * -0.5);
+        translate: var(--tw-translate-x) var(--tw-translate-y);
+      }
+    }
+  }
+  .group-hover\:-translate-y-\[1\.2em\] {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        --tw-translate-y: calc(1.2em * -1);
         translate: var(--tw-translate-x) var(--tw-translate-y);
       }
     }
@@ -9035,6 +9065,13 @@
       }
     }
   }
+  .hover\:bg-transparent {
+    &:hover {
+      @media (hover: hover) {
+        background-color: transparent;
+      }
+    }
+  }
   .hover\:bg-warning-light\/80 {
     &:hover {
       @media (hover: hover) {
@@ -9388,6 +9425,11 @@
   .focus\:bg-primary {
     &:focus {
       background-color: var(--primary);
+    }
+  }
+  .focus\:bg-transparent {
+    &:focus {
+      background-color: transparent;
     }
   }
   .focus\:text-accent-foreground {
@@ -10930,6 +10972,11 @@
       background-color: var(--muted);
     }
   }
+  .data-\[state\=open\]\:bg-transparent {
+    &[data-state="open"] {
+      background-color: transparent;
+    }
+  }
   .data-\[state\=open\]\:text-foreground {
     &[data-state="open"] {
       color: var(--foreground);
@@ -11779,6 +11826,11 @@
   .md\:w-2\/3 {
     @media (width >= 48rem) {
       width: calc(2/3 * 100%);
+    }
+  }
+  .md\:w-\[380px\] {
+    @media (width >= 48rem) {
+      width: 380px;
     }
   }
   .md\:w-\[500px\] {

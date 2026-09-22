@@ -31,8 +31,10 @@ struct NavigationMenuItemContext {
 /*                       NAVIGATION MENU                       */
 /* ========================================================== */
 
-/// Root navigation wrapper. All content panels are absolutely positioned
-/// relative to this element, creating a shared viewport effect without portaling.
+/// Root navigation wrapper. All content panels are anchored to this element's
+/// rect (computed via JS, `position: fixed`), creating a shared viewport effect
+/// without portaling, and staying correct under sticky/backdrop-blur ancestors
+/// where plain CSS `position: absolute` breaks.
 #[component]
 pub fn NavigationMenu(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
     let menu_id = use_random_id_for("navmenu");
@@ -54,6 +56,17 @@ pub fn NavigationMenu(#[props(into, optional)] class: Option<String>, children: 
                 const triggers = [...menuRoot.querySelectorAll('[data-nav-trigger]')];
                 const getContent = (id) => menuRoot.querySelector('[data-nav-content="' + id + '"]');
 
+                const positionContents = () => {{
+                    const rect = menuRoot.getBoundingClientRect();
+                    menuRoot.querySelectorAll('[data-nav-content]').forEach(content => {{
+                        content.style.top = (rect.bottom + 6) + 'px';
+                        content.style.left = rect.left + 'px';
+                    }});
+                }};
+                positionContents();
+                window.addEventListener('resize', positionContents);
+                window.addEventListener('scroll', positionContents, true);
+
                 let activeItemId = null;
                 let activeIndex  = -1;
                 let hideTimer;
@@ -63,6 +76,7 @@ pub fn NavigationMenu(#[props(into, optional)] class: Option<String>, children: 
                     const itemId  = trigger.getAttribute('data-nav-trigger');
                     const content = getContent(itemId);
                     if (!content || activeItemId === itemId) return;
+                    positionContents();
 
                     if (activeItemId) {{
                         const prevContent = getContent(activeItemId);
@@ -237,14 +251,15 @@ pub fn NavigationMenuTrigger(#[props(into, optional)] class: Option<String>, chi
 /*                  NAVIGATION MENU CONTENT                    */
 /* ========================================================== */
 
-/// Absolutely positioned relative to `NavigationMenu` (not `NavigationMenuItem`),
-/// so all content panels share the same anchor point below the menu bar.
+/// Fixed-positioned (top/left set via JS from `NavigationMenu`'s rect), so all
+/// content panels share the same anchor point below the menu bar regardless of
+/// ancestor stacking context (sticky headers, backdrop-blur, etc).
 #[component]
 pub fn NavigationMenuContent(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
     let ctx = use_context::<NavigationMenuItemContext>();
 
     let merged = tw_merge!(
-        "absolute left-0 top-full mt-1.5 z-50 w-full rounded-md border bg-popover p-4 shadow-md data-[state=closed]:hidden md:w-auto",
+        "fixed z-50 w-full rounded-md border bg-popover p-4 shadow-md data-[state=closed]:hidden md:w-auto",
         class.as_deref().unwrap_or("")
     );
 
@@ -267,6 +282,8 @@ pub fn NavigationMenuContent(#[props(into, optional)] class: Option<String>, chi
 pub fn NavigationMenuLink(
     #[props(into, optional)] class: Option<String>,
     #[props(into, optional)] href: Option<String>,
+    #[props(into, optional)] target: Option<String>,
+    #[props(into, optional)] rel: Option<String>,
     children: Element,
 ) -> Element {
     let merged = tw_merge!(
@@ -278,6 +295,8 @@ pub fn NavigationMenuLink(
         a {
             "data-name": "NavigationMenuLink",
             href: "{href.as_deref().unwrap_or(\"#\")}",
+            target,
+            rel,
             class: "{merged}",
             {children}
         }

@@ -1,7 +1,23 @@
 use dioxus::prelude::*;
+use icons::ExternalLink;
+use registry::ui::navigation_menu::{
+    NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList,
+    NavigationMenuTrigger,
+};
 
 use crate::Route;
 use crate::utils::assets::{LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT};
+
+const LEPTOS_URL: &str = "https://leptos.rust-ui.com";
+const RUSTIFY_URL: &str = "https://www.rustify.rs";
+
+const NAV_LINK_CLASS: &str =
+    "inline-flex items-center px-2.5 py-1.5 h-8 text-sm font-medium rounded-md transition-colors hover:bg-accent group";
+// text-shadow trick: a same-colored duplicate of the label sits one line-height below the
+// visible text. On hover the span translates up by that same offset, so the shadow copy
+// slides into view in place of the original, an always-on-hand "slide up" effect from a
+// single span (no duplicated markup needed).
+const NAV_LINK_TEXT_CLASS: &str = "inline-block transition-transform duration-300 ease-out group-hover:-translate-y-[1.2em] [text-shadow:0_1.2em_0_var(--foreground)]";
 
 #[component]
 pub fn NavDesktop() -> Element {
@@ -12,22 +28,22 @@ pub fn NavDesktop() -> Element {
         }
         _ => false,
     };
-    let components_class =
+    let components_text_class =
         if matches!(route, Route::DocsComponentsIndexPage {} | Route::ComponentPage { .. }) && !is_get_started {
-            "inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent bg-accent"
+            "text-foreground"
         } else {
-            "inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent"
+            "text-muted-foreground"
         };
-    let hooks_class = if matches!(route, Route::DocsHooksIndexPage {} | Route::HookPage { .. }) {
-        "inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent bg-accent"
+    let hooks_text_class = if matches!(route, Route::DocsHooksIndexPage {} | Route::HookPage { .. }) {
+        "text-foreground"
     } else {
-        "inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent"
+        "text-muted-foreground"
     };
 
     rsx! {
         div { class: "hidden gap-0 items-center md:flex",
             Link {
-                class: "inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent",
+                class: "inline-flex items-center py-1.5 px-1 rounded-md",
                 to: Route::Home {},
                 img {
                     src: LOGO_SQUARE_DARK,
@@ -40,30 +56,88 @@ pub fn NavDesktop() -> Element {
                     class: "dark:hidden size-6",
                 }
             }
-            Link {
-                class: "{components_class}",
-                to: Route::DocsComponentsIndexPage {},
-                "Components"
+            NavigationMenu { class: "relative z-auto max-w-none flex-none",
+                NavigationMenuList { class: "gap-0",
+                    NavigationMenuItem {
+                        NavigationMenuTrigger {
+                            class: "gap-1 px-1.5 h-8 text-base font-medium bg-transparent border-none shadow-none hover:bg-transparent hover:text-foreground data-[state=open]:bg-transparent",
+                            "Rust/UI"
+                        }
+                        NavigationMenuContent { class: "md:w-[380px] p-4",
+                            div { class: "grid grid-cols-[1fr_auto] gap-6",
+                                div { class: "flex flex-col gap-2",
+                                    span { class: "text-xs font-medium text-muted-foreground", "Latest" }
+                                    NavigationMenuLink {
+                                        href: "/",
+                                        class: "flex relative flex-col gap-2 p-3 w-full rounded-md border hover:bg-accent hover:text-accent-foreground",
+                                        div { class: "flex justify-center items-center rounded-md size-9 bg-muted",
+                                            img {
+                                                src: LOGO_SQUARE_DARK,
+                                                alt: "Logo Rust/UI",
+                                                class: "hidden dark:block size-5",
+                                            }
+                                            img {
+                                                src: LOGO_SQUARE_LIGHT,
+                                                alt: "Logo Rust/UI",
+                                                class: "dark:hidden size-5",
+                                            }
+                                        }
+                                        span { class: "text-sm font-medium", "Rust/UI" }
+                                        span { class: "text-xs text-muted-foreground",
+                                            "Reusable components for Dioxus and Rust fullstack apps"
+                                        }
+                                        ExternalLink { class: "absolute top-3 right-3 size-3.5 text-muted-foreground" }
+                                    }
+                                }
+                                div { class: "flex flex-col gap-2 min-w-[120px]",
+                                    span { class: "text-xs font-medium text-muted-foreground", "Ecosystem" }
+                                    NavigationMenuLink {
+                                        href: LEPTOS_URL,
+                                        target: "_blank",
+                                        rel: "noopener noreferrer",
+                                        class: "gap-1 px-2 py-1.5 w-full rounded-sm hover:bg-accent hover:text-accent-foreground",
+                                        "Leptos UI"
+                                        ExternalLink { class: "size-3 text-muted-foreground" }
+                                    }
+                                    NavigationMenuLink {
+                                        href: RUSTIFY_URL,
+                                        target: "_blank",
+                                        rel: "noopener noreferrer",
+                                        class: "gap-1 px-2 py-1.5 w-full rounded-sm hover:bg-accent hover:text-accent-foreground",
+                                        "Rustify"
+                                        ExternalLink { class: "size-3 text-muted-foreground" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            Link {
-                class: "{hooks_class}",
-                to: Route::DocsHooksIndexPage {},
-                "Hooks"
+            span { "aria-hidden": "true", class: "mx-1 select-none text-muted-foreground/50", "/" }
+            Link { class: NAV_LINK_CLASS, to: Route::DocsComponentsIndexPage {},
+                span { class: "overflow-hidden inline-block h-[1.2em] leading-[1.2em]",
+                    span { class: "{NAV_LINK_TEXT_CLASS} {components_text_class}", "Components" }
+                }
             }
-            Link {
-                class: "inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent",
-                to: Route::PageIcons {},
-                "Icons"
+            Link { class: NAV_LINK_CLASS, to: Route::DocsHooksIndexPage {},
+                span { class: "overflow-hidden inline-block h-[1.2em] leading-[1.2em]",
+                    span { class: "{NAV_LINK_TEXT_CLASS} {hooks_text_class}", "Hooks" }
+                }
             }
-            Link {
-                class: "inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent",
-                to: Route::LoginBlocks {},
-                "Blocks"
+            Link { class: NAV_LINK_CLASS, to: Route::PageIcons {},
+                span { class: "overflow-hidden inline-block h-[1.2em] leading-[1.2em]",
+                    span { class: "{NAV_LINK_TEXT_CLASS} text-muted-foreground", "Icons" }
+                }
             }
-            Link {
-                class: "inline-flex items-center py-1.5 px-2.5 text-sm rounded-md hover:bg-accent",
-                to: Route::AreaChartPage {},
-                "Charts"
+            Link { class: NAV_LINK_CLASS, to: Route::LoginBlocks {},
+                span { class: "overflow-hidden inline-block h-[1.2em] leading-[1.2em]",
+                    span { class: "{NAV_LINK_TEXT_CLASS} text-muted-foreground", "Blocks" }
+                }
+            }
+            Link { class: NAV_LINK_CLASS, to: Route::AreaChartPage {},
+                span { class: "overflow-hidden inline-block h-[1.2em] leading-[1.2em]",
+                    span { class: "{NAV_LINK_TEXT_CLASS} text-muted-foreground", "Charts" }
+                }
             }
         }
     }
