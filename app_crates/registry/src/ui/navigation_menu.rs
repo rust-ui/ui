@@ -135,8 +135,11 @@ pub fn NavigationMenu(#[props(into, optional)] class: Option<String>, children: 
                         if (activeItemId) {{
                             const content = getContent(activeItemId);
                             if (content) {{
-                                content.setAttribute('data-state', 'closed');
-                                content.removeAttribute('data-motion');
+                                content.setAttribute('data-motion', 'to-fade');
+                                setTimeout(() => {{
+                                    content.setAttribute('data-state', 'closed');
+                                    content.removeAttribute('data-motion');
+                                }}, 150);
                             }}
                         }}
                         activeItemId = null;
@@ -195,10 +198,15 @@ pub fn NavigationMenu(#[props(into, optional)] class: Option<String>, children: 
                 from {{ opacity: 0; transform: scale(0.96) translateY(-4px); }}
                 to   {{ opacity: 1; transform: scale(1) translateY(0); }}
             }}
+            @keyframes navFadeOut {{
+                from {{ opacity: 1; transform: scale(1) translateY(0); }}
+                to   {{ opacity: 0; transform: scale(0.96) translateY(-4px); }}
+            }}
             [data-nav-content][data-motion='from-start'] {{ animation: navFromStart 200ms ease-out; }}
             [data-nav-content][data-motion='from-end']   {{ animation: navFromEnd 200ms ease-out; }}
             [data-nav-content][data-motion='to-start']   {{ animation: navToStart 200ms ease-out forwards; }}
             [data-nav-content][data-motion='to-end']     {{ animation: navToEnd 200ms ease-out forwards; }}
+            [data-nav-content][data-motion='to-fade']    {{ animation: navFadeOut 150ms ease-out forwards; }}
             [data-nav-content][data-state='open']:not([data-motion]) {{ animation: navFadeIn 200ms ease-out; }}
         "# }
 
