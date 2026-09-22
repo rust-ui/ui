@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 use crate::Route;
-use crate::components::navigation::header_docs::HeaderDocs;
+use crate::components::navigation::app_header::AppHeader;
 use crate::domain::blocks::components::blocks_hero::BlocksHero;
 use crate::utils::page_transition::{PAGE_OUTLET, retrigger_page_fade};
 
@@ -13,7 +13,7 @@ pub fn BlocksLayout() -> Element {
     retrigger_page_fade();
 
     rsx! {
-        HeaderDocs {}
+        AppHeader {}
 
         div { "data-name": "__BlockLayout", class: "container flex flex-col gap-20 pb-14",
             BlocksHero {}

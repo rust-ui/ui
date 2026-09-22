@@ -4,7 +4,7 @@ use registry::ui::button::{Button, ButtonSize, ButtonVariant};
 use registry::ui::card::{Card, CardContent, CardDescription, CardHeader, CardTitle};
 
 use crate::Route;
-use crate::components::navigation::header_docs::HeaderDocs;
+use crate::components::navigation::app_header::AppHeader;
 
 #[component]
 pub fn PageNotFound(segments: Vec<String>) -> Element {
@@ -24,7 +24,7 @@ pub fn PageNotFound(segments: Vec<String>) -> Element {
         document::Title { "Rust/UI · 404 Not Found" }
         document::Meta { name: "robots", content: "noindex, nofollow" }
 
-        HeaderDocs {}
+        AppHeader {}
 
         div { class: "flex flex-col justify-center items-center px-4 mt-10",
             div { class: "flex flex-col items-center space-y-8 max-w-3xl text-center",

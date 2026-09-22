@@ -1,12 +1,12 @@
 use dioxus::prelude::*;
 
 use crate::Route;
-use crate::components::navigation::header_home::HeaderHome;
+use crate::components::navigation::app_header::AppHeader;
 
 #[component]
 pub fn HomeLayout() -> Element {
     rsx! {
-        HeaderHome {}
+        AppHeader {}
         Outlet::<Route> {}
     }
 }

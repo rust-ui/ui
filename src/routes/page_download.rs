@@ -6,7 +6,7 @@ use registry::ui::card::{Card, CardContent, CardDescription, CardHeader, CardTit
 use strum::{EnumIter, IntoEnumIterator};
 
 use crate::components::app_footer::AppFooter;
-use crate::components::navigation::header_docs::HeaderDocs;
+use crate::components::navigation::app_header::AppHeader;
 
 const BASE_DOWNLOAD_URL: &str = "https://github.com/rust-ui/releases-dioxus/releases/latest/download";
 // TODO: these filenames must stay in sync with the rename step in
@@ -89,7 +89,7 @@ pub fn PageDownload() -> Element {
     rsx! {
         SeoMeta { title, description, canonical_url }
 
-        HeaderDocs {}
+        AppHeader {}
 
         div { class: "flex flex-col gap-12 items-center py-16 px-4 mx-auto max-w-4xl",
             div { class: "flex flex-col gap-4 items-center text-center",

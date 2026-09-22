@@ -3,7 +3,7 @@ use dioxus::router::use_route;
 
 use crate::__registry__::static_md_registry::{find_docs_component_entry, find_hook_entry};
 use crate::Route;
-use crate::components::navigation::header_docs::HeaderDocs;
+use crate::components::navigation::app_header::AppHeader;
 use crate::components::sidenav::Sidenav;
 use crate::components::table_of_contents::{TableOfContents, TocItem};
 use crate::markdown::converter::extract_toc_from_md;
@@ -25,7 +25,7 @@ pub fn DocsLayout() -> Element {
     };
 
     rsx! {
-        HeaderDocs {}
+        AppHeader {}
         div { class: "flex-1",
             div { class: "container mx-auto flex items-start",
                 Sidenav {}

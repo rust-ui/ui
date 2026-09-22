@@ -6,7 +6,7 @@ use app_domain::themes::themes_blocks::ThemesBlocks;
 use dioxus::prelude::*;
 use registry::hooks::use_theme_mode::use_theme_mode;
 
-use crate::components::navigation::header_docs::HeaderDocs;
+use crate::components::navigation::app_header::AppHeader;
 use crate::domain::create::components::customizer::Customizer;
 #[cfg(target_arch = "wasm32")]
 use crate::domain::create::preset::{decode_preset, encode_preset};
@@ -144,7 +144,7 @@ pub fn PageCreate() -> Element {
                 BreadcrumbItem { name: "Theme Customizer".to_string(), url: None },
             ],
         }
-        HeaderDocs {}
+        AppHeader {}
 
         div { class: "flex gap-6 p-6 mx-auto max-w-screen-2xl min-h-screen",
             Customizer { theme, radius, color_theme, font }

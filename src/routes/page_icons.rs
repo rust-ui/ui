@@ -8,7 +8,7 @@ use registry::ui::card::{Card, CardContent, CardHeader, CardTitle};
 use registry::ui::drawer::{Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerHandle, DrawerTitle, DrawerTrigger};
 use registry::ui::input::{Input, InputType};
 
-use crate::components::navigation::header_docs::HeaderDocs;
+use crate::components::navigation::app_header::AppHeader;
 
 type IconFn = fn(&str) -> Element;
 
@@ -63,7 +63,7 @@ pub fn PageIcons() -> Element {
                 BreadcrumbItem { name: "Icons".to_string(), url: None },
             ],
         }
-        HeaderDocs {}
+        AppHeader {}
         div { class: "flex overflow-hidden flex-1",
             aside { class: "hidden overflow-y-auto p-4 md:block w-[270px] bg-muted",
                 Card { class: "flex flex-col gap-6 bg-background",
