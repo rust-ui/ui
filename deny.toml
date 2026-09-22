@@ -9,6 +9,9 @@ yanked = "deny"
 ignore = [
     "RUSTSEC-2025-0141", # bincode, pulled by syntect
     "RUSTSEC-2024-0320", # yaml-rust, pulled by syntect
+    "RUSTSEC-2025-0057", # fxhash, pulled by wry/dioxus-desktop, no safe upgrade
+    "RUSTSEC-2024-0436", # paste, pulled by dioxus-desktop (image/rav1e), no safe upgrade
+    "RUSTSEC-2024-0370", # proc-macro-error, pulled by dioxus-desktop, no safe upgrade
 ]
 
 [licenses]
