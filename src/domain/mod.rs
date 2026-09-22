@@ -1,3 +1,4 @@
+pub mod articles;
 pub mod blocks;
 pub mod bug_report;
 pub mod charts;

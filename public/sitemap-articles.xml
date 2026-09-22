@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://rust-ui.com/articles/category/foundations</loc><lastmod>2026-09-22T00:00:00+02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rust-ui.com/articles/category/components</loc><lastmod>2026-09-22T00:00:00+02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rust-ui.com/articles/category/interaction</loc><lastmod>2026-09-22T00:00:00+02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rust-ui.com/articles/category/production</loc><lastmod>2026-09-22T00:00:00+02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rust-ui.com/articles/build-your-first-dioxus-ui-in-rust</loc><lastmod>2026-09-22T00:00:00+02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rust-ui.com/articles/reusable-dioxus-components-typed-props</loc><lastmod>2026-09-20T00:00:00+02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rust-ui.com/articles/dioxus-forms-state-validation</loc><lastmod>2026-09-18T00:00:00+02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rust-ui.com/articles/responsive-rust-ui-with-dioxus-tailwind</loc><lastmod>2026-09-16T00:00:00+02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rust-ui.com/articles/async-data-loading-states-dioxus</loc><lastmod>2026-09-14T00:00:00+02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://rust-ui.com/articles/ship-cross-platform-rust-ui-dioxus</loc><lastmod>2026-09-12T00:00:00+02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+</urlset>

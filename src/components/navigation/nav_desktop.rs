@@ -127,6 +127,14 @@ pub fn NavDesktop() -> Element {
                                         "YouTube"
                                         ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover/external-link:translate-x-0.5 group-hover/external-link:-translate-y-0.5" }
                                     }
+                                    NavigationMenuLink {
+                                        href: "https://rust-ui.com/articles",
+                                        target: "_blank",
+                                        rel: "noopener noreferrer",
+                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group/external-link underline hover:bg-accent hover:text-accent-foreground",
+                                        "Articles"
+                                        ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover/external-link:translate-x-0.5 group-hover/external-link:-translate-y-0.5" }
+                                    }
                                 }
                             }
                         }
@@ -157,6 +165,11 @@ pub fn NavDesktop() -> Element {
             Link { class: NAV_LINK_CLASS, to: Route::AreaChartPage {},
                 span { class: "overflow-hidden inline-block h-[1.2em] leading-[1.2em]",
                     span { class: "{NAV_LINK_TEXT_CLASS} text-muted-foreground", "Charts" }
+                }
+            }
+            Link { class: NAV_LINK_CLASS, to: Route::ArticlesPage {},
+                span { class: "overflow-hidden inline-block h-[1.2em] leading-[1.2em]",
+                    span { class: "{NAV_LINK_TEXT_CLASS} text-muted-foreground", "Articles" }
                 }
             }
         }

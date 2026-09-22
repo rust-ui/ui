@@ -12,6 +12,7 @@ pub mod registry;
 mod routes;
 pub mod utils;
 
+use domain::articles::pages::{ArticleCategoryPage, ArticlePage, ArticlesLayout, ArticlesPage};
 use domain::blocks::routing::blocks_layout::BlocksLayout;
 use domain::blocks::routing::blocks_pages::{
     FaqBlocks, FootersBlocks, HeadersBlocks, IntegrationsBlocks, LoginBlocks, SidenavBlocks,
@@ -65,6 +66,14 @@ enum Route {
         #[layout(HomeLayout)]
             #[route("/")]
             Home {},
+        #[end_layout]
+        #[layout(ArticlesLayout)]
+            #[route("/articles")]
+            ArticlesPage {},
+            #[route("/articles/category/:category")]
+            ArticleCategoryPage { category: String },
+            #[route("/articles/:slug")]
+            ArticlePage { slug: String },
         #[end_layout]
         #[layout(DocsLayout)]
             #[redirect("/docs", || Route::DocsComponentsIndexPage {})]

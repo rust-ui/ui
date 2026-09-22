@@ -53,6 +53,7 @@ pub fn NavMobile() -> Element {
                             MobileNavLink { label: "Icons", to: Route::PageIcons {}, onclose: move |_| open.set(false) }
                             MobileNavLink { label: "Blocks", to: Route::LoginBlocks {}, onclose: move |_| open.set(false) }
                             MobileNavLink { label: "Charts", to: Route::AreaChartPage {}, onclose: move |_| open.set(false) }
+                            MobileNavLink { label: "Articles", to: Route::ArticlesPage {}, onclose: move |_| open.set(false) }
                         }
                         div { class: "flex flex-col gap-1",
                             h2 { class: "text-xl", "Components" }

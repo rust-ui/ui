@@ -16,4 +16,8 @@
     <loc>https://rust-ui.com/sitemap-hooks.xml</loc>
     <lastmod>2026-10-01T07:55:56+00:00</lastmod>
   </sitemap>
+  <sitemap>
+    <loc>https://rust-ui.com/sitemap-articles.xml</loc>
+    <lastmod>2026-09-22T00:00:00+02:00</lastmod>
+  </sitemap>
 </sitemapindex>
