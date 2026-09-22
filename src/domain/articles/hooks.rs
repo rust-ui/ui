@@ -4,7 +4,7 @@ use dioxus::prelude::*;
 
 static HORIZONTAL_RAIL_COUNTER: AtomicUsize = AtomicUsize::new(0);
 
-const HORIZONTAL_RAIL_SCRIPT: &str = r#"
+const HORIZONTAL_RAIL_SCRIPT: &str = r"
     (() => {
         const setup = () => {
             const rail = document.getElementById('__RAIL_ID__');
@@ -28,7 +28,7 @@ const HORIZONTAL_RAIL_SCRIPT: &str = r#"
             requestAnimationFrame(setup);
         }
     })();
-"#;
+";
 
 pub struct HorizontalRail {
     rail_id: String,
