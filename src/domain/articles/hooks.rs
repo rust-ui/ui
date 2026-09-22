@@ -31,33 +31,33 @@ const HORIZONTAL_RAIL_SCRIPT: &str = r"
 ";
 
 pub struct HorizontalRail {
-    rail_id: String,
-    previous_id: String,
-    next_id: String,
+    rail: String,
+    previous: String,
+    next: String,
 }
 
 impl HorizontalRail {
     #[must_use]
     pub fn rail_id(&self) -> &str {
-        &self.rail_id
+        &self.rail
     }
 
     #[must_use]
     pub fn previous_id(&self) -> &str {
-        &self.previous_id
+        &self.previous
     }
 
     #[must_use]
     pub fn next_id(&self) -> &str {
-        &self.next_id
+        &self.next
     }
 
     #[must_use]
     pub fn script(&self) -> String {
         HORIZONTAL_RAIL_SCRIPT
-            .replace("__RAIL_ID__", &self.rail_id)
-            .replace("__PREVIOUS_ID__", &self.previous_id)
-            .replace("__NEXT_ID__", &self.next_id)
+            .replace("__RAIL_ID__", &self.rail)
+            .replace("__PREVIOUS_ID__", &self.previous)
+            .replace("__NEXT_ID__", &self.next)
     }
 }
 
@@ -66,8 +66,8 @@ pub fn use_horizontal_rail(name: &'static str) -> HorizontalRail {
     let prefix = format!("horizontal-rail-{name}-{id}");
 
     HorizontalRail {
-        rail_id: format!("{prefix}-rail"),
-        previous_id: format!("{prefix}-previous"),
-        next_id: format!("{prefix}-next"),
+        rail: format!("{prefix}-rail"),
+        previous: format!("{prefix}-previous"),
+        next: format!("{prefix}-next"),
     }
 }
