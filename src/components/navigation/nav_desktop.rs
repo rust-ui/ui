@@ -74,7 +74,7 @@ pub fn NavDesktop() -> Element {
                                         }
                                         span { class: "text-sm font-medium", "Rustify" }
                                         span { class: "text-xs text-muted-foreground",
-                                            "Master Rust with a hands-on bootcamp, real projects, and 1:1 mentorship"
+                                            "Master Rust with a hands-on bootcamp, real-world projects, 1:1 mentorship, and a curated jobs board to land high-paying Rust roles"
                                         }
                                         ExternalLink { class: "absolute top-3 right-3 size-3.5 text-muted-foreground transition-transform duration-200 group-hover/external-link:translate-x-0.5 group-hover/external-link:-translate-y-0.5" }
                                     }
