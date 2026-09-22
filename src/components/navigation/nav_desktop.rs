@@ -9,9 +9,11 @@ use crate::Route;
 use crate::utils::assets::{LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT, RUSTIFY_LOGO};
 
 const LEPTOS_URL: &str = "https://leptos.rust-ui.com";
-const RUSTIFY_URL: &str = "https://rustify.rs";
-const RUSTIFY_JOBS_URL: &str = "https://rustify.rs/jobs";
-const RUSTIFY_JOBS_MAP_URL: &str = "https://rustify.rs/jobs/jobs-map";
+const RUSTIFY_URL: &str =
+    "https://rustify.rs?utm_source=rust-ui&utm_medium=referral&utm_campaign=nav_menu&utm_content=latest_card";
+const RUSTIFY_JOBS_URL: &str =
+    "https://rustify.rs/jobs?utm_source=rust-ui&utm_medium=referral&utm_campaign=nav_menu&utm_content=rust_jobs";
+const RUSTIFY_JOBS_MAP_URL: &str = "https://rustify.rs/jobs/jobs-map?utm_source=rust-ui&utm_medium=referral&utm_campaign=nav_menu&utm_content=jobs_map";
 const RUSTIFY_YOUTUBE_URL: &str = "https://www.youtube.com/@rustify-rs";
 
 const NAV_LINK_CLASS: &str =
