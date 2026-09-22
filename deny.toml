@@ -33,6 +33,7 @@ allow = [
     "Unlicense",
     "OpenSSL",
     "BSL-1.0",
+    "NCSA", # libfuzzer-sys, pulled by dioxus-desktop (image/rav1e/ravif)
 ]
 confidence-threshold = 0.9
 
@@ -41,8 +42,9 @@ multiple-versions = "warn"
 wildcards = "warn"
 allow-wildcard-paths = true
 deny = [
-    { name = "openssl" },
-    { name = "openssl-sys" },
+    # allowed only via native-tls, pulled by dioxus-devtools websocket (tungstenite)
+    { name = "openssl", wrappers = ["native-tls"] },
+    { name = "openssl-sys", wrappers = ["native-tls", "openssl"] },
     { name = "git2" },
 ]
 
