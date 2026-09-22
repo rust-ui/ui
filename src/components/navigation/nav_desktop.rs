@@ -12,6 +12,7 @@ const LEPTOS_URL: &str = "https://leptos.rust-ui.com";
 const RUSTIFY_URL: &str = "https://rustify.rs";
 const RUSTIFY_JOBS_URL: &str = "https://rustify.rs/jobs";
 const RUSTIFY_JOBS_MAP_URL: &str = "https://rustify.rs/jobs/jobs-map";
+const RUSTIFY_YOUTUBE_URL: &str = "https://www.youtube.com/@rustify-rs";
 
 const NAV_LINK_CLASS: &str =
     "inline-flex items-center px-2.5 py-1.5 h-8 text-sm font-medium rounded-md transition-colors hover:bg-accent group";
@@ -96,7 +97,7 @@ pub fn NavDesktop() -> Element {
                                     }
                                 }
                                 div { class: "flex flex-col gap-2 min-w-[120px]",
-                                    span { class: "text-xs font-medium text-muted-foreground", "Resources" }
+                                    span { class: "text-xs font-medium text-muted-foreground", "Opportunities" }
                                     NavigationMenuLink {
                                         href: RUSTIFY_JOBS_URL,
                                         target: "_blank",
@@ -111,6 +112,17 @@ pub fn NavDesktop() -> Element {
                                         rel: "noopener noreferrer",
                                         class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group/external-link underline hover:bg-accent hover:text-accent-foreground",
                                         "Jobs Map"
+                                        ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover/external-link:translate-x-0.5 group-hover/external-link:-translate-y-0.5" }
+                                    }
+                                }
+                                div { class: "flex flex-col gap-2 min-w-[120px]",
+                                    span { class: "text-xs font-medium text-muted-foreground", "Resources" }
+                                    NavigationMenuLink {
+                                        href: RUSTIFY_YOUTUBE_URL,
+                                        target: "_blank",
+                                        rel: "noopener noreferrer",
+                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group/external-link underline hover:bg-accent hover:text-accent-foreground",
+                                        "YouTube"
                                         ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover/external-link:translate-x-0.5 group-hover/external-link:-translate-y-0.5" }
                                     }
                                 }
