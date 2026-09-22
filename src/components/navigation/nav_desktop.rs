@@ -9,7 +9,7 @@ use crate::Route;
 use crate::utils::assets::{LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT, RUSTIFY_LOGO};
 
 const LEPTOS_URL: &str = "https://leptos.rust-ui.com";
-const RUSTIFY_URL: &str = "https://www.rustify.rs";
+const RUSTIFY_URL: &str = "https://rustify.rs";
 
 const NAV_LINK_CLASS: &str =
     "inline-flex items-center px-2.5 py-1.5 h-8 text-sm font-medium rounded-md transition-colors hover:bg-accent group";
@@ -85,9 +85,12 @@ pub fn NavDesktop() -> Element {
                                         href: LEPTOS_URL,
                                         target: "_blank",
                                         rel: "noopener noreferrer",
-                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group hover:bg-accent hover:text-accent-foreground",
+                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group underline hover:bg-accent hover:text-accent-foreground",
                                         "Leptos UI"
                                         ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" }
+                                    }
+                                    span { class: "block px-2 py-1.5 w-full text-sm underline cursor-not-allowed text-muted-foreground/50",
+                                        "Term/UI (soon)"
                                     }
                                 }
                             }
