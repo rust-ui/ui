@@ -85,9 +85,9 @@ pub fn NavDesktop() -> Element {
                                         href: LEPTOS_URL,
                                         target: "_blank",
                                         rel: "noopener noreferrer",
-                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group underline hover:bg-accent hover:text-accent-foreground",
+                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group/eco underline hover:bg-accent hover:text-accent-foreground",
                                         "Leptos UI"
-                                        ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" }
+                                        ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover/eco:translate-x-0.5 group-hover/eco:-translate-y-0.5" }
                                     }
                                     span { class: "block px-2 py-1.5 w-full text-sm underline cursor-not-allowed text-muted-foreground/50",
                                         "Term/UI (soon)"
