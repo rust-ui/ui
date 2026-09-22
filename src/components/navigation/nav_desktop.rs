@@ -6,7 +6,7 @@ use registry::ui::navigation_menu::{
 };
 
 use crate::Route;
-use crate::utils::assets::{LEPTOS_LOGO, LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT, RUSTIFY_LOGO};
+use crate::utils::assets::{LOGO_SQUARE_DARK, LOGO_SQUARE_LIGHT, RUSTIFY_LOGO};
 
 const LEPTOS_URL: &str = "https://leptos.rust-ui.com";
 const RUSTIFY_URL: &str = "https://www.rustify.rs";
@@ -65,23 +65,16 @@ pub fn NavDesktop() -> Element {
                                 div { class: "flex flex-col gap-2 w-[320px]",
                                     span { class: "text-xs font-medium text-muted-foreground", "Latest" }
                                     NavigationMenuLink {
-                                        href: "/",
+                                        href: RUSTIFY_URL,
+                                        target: "_blank",
+                                        rel: "noopener noreferrer",
                                         class: "flex relative flex-col gap-2 p-3 w-full rounded-md border hover:bg-accent hover:text-accent-foreground",
                                         div { class: "flex justify-center items-center rounded-md size-9 bg-muted",
-                                            img {
-                                                src: LOGO_SQUARE_DARK,
-                                                alt: "Logo Rust/UI",
-                                                class: "hidden dark:block size-5",
-                                            }
-                                            img {
-                                                src: LOGO_SQUARE_LIGHT,
-                                                alt: "Logo Rust/UI",
-                                                class: "dark:hidden size-5",
-                                            }
+                                            img { src: RUSTIFY_LOGO, alt: "Rustify", class: "rounded-full size-5" }
                                         }
-                                        span { class: "text-sm font-medium", "Rust/UI" }
+                                        span { class: "text-sm font-medium", "Rustify" }
                                         span { class: "text-xs text-muted-foreground",
-                                            "Reusable components for Dioxus and Rust fullstack apps"
+                                            "Master Rust with a hands-on bootcamp, real projects, and 1:1 mentorship"
                                         }
                                         ExternalLink { class: "absolute top-3 right-3 size-3.5 text-muted-foreground" }
                                     }
@@ -89,20 +82,10 @@ pub fn NavDesktop() -> Element {
                                 div { class: "flex flex-col gap-2 min-w-[120px]",
                                     span { class: "text-xs font-medium text-muted-foreground", "Ecosystem" }
                                     NavigationMenuLink {
-                                        href: RUSTIFY_URL,
-                                        target: "_blank",
-                                        rel: "noopener noreferrer",
-                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group hover:bg-accent hover:text-accent-foreground",
-                                        img { src: RUSTIFY_LOGO, alt: "Rustify", class: "size-4 rounded-full" }
-                                        "Rustify"
-                                        ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" }
-                                    }
-                                    NavigationMenuLink {
                                         href: LEPTOS_URL,
                                         target: "_blank",
                                         rel: "noopener noreferrer",
                                         class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group hover:bg-accent hover:text-accent-foreground",
-                                        img { src: LEPTOS_LOGO, alt: "Leptos", class: "size-4 rounded-full" }
                                         "Leptos UI"
                                         ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" }
                                     }
