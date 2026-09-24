@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 members = ["app_crates/*"]
-exclude = ["crates/_starters/start-dioxus-fullstack", "crates/ui-cli"]
+exclude = ["crates/_starters/start-dioxus-fullstack", "crates/ui-cli", "crates/icons"]
 
 [package]
 name = "rust-ui-dioxus"
