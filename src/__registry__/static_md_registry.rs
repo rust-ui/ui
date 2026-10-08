@@ -226,8 +226,6 @@ use registry::demos::demo_table::DemoTable;
 use registry::demos::demo_tabs::DemoTabs;
 use registry::demos::demo_textarea::DemoTextarea;
 use registry::demos::demo_theme_toggle::DemoThemeToggle;
-use registry::demos::demo_toast::DemoToast;
-use registry::demos::demo_toast_variants::DemoToastVariants;
 use registry::demos::demo_toggle_group::DemoToggleGroup;
 use registry::demos::demo_toolbar::DemoToolbar;
 use registry::demos::demo_tooltip::DemoTooltip;
@@ -481,8 +479,6 @@ pub enum MarkdownType {
     StaticDemoTabs,
     StaticDemoTextarea,
     StaticDemoThemeToggle,
-    StaticDemoToast,
-    StaticDemoToastVariants,
     StaticDemoToggleGroup,
     StaticDemoToolbar,
     StaticDemoTooltip,
@@ -573,7 +569,6 @@ pub enum MarkdownType {
     StaticInstallTabs,
     StaticInstallTextarea,
     StaticInstallThemeToggle,
-    StaticInstallToast,
     StaticInstallToggleGroup,
     StaticInstallToolbar,
     StaticInstallTooltip,
@@ -1874,18 +1869,6 @@ pub fn get_static_registry_entry(markdown_type: MarkdownType) -> Option<&'static
             file_path: "public/docs/components/theme-toggle.md",
             install_name: "theme_toggle",
         }),
-        MarkdownType::StaticDemoToast => Some(&StaticRegistryEntry {
-            raw_code: include_str!("../../app_crates/registry/src/demos/demo_toast.rs"),
-            demo_name: "demo_toast",
-            file_path: "public/docs/components/toast.md",
-            install_name: "toast",
-        }),
-        MarkdownType::StaticDemoToastVariants => Some(&StaticRegistryEntry {
-            raw_code: include_str!("../../app_crates/registry/src/demos/demo_toast_variants.rs"),
-            demo_name: "demo_toast_variants",
-            file_path: "public/docs/components/toast.md",
-            install_name: "toast",
-        }),
         MarkdownType::StaticDemoToggleGroup => Some(&StaticRegistryEntry {
             raw_code: include_str!("../../app_crates/registry/src/demos/demo_toggle_group.rs"),
             demo_name: "demo_toggle_group",
@@ -2420,12 +2403,6 @@ pub fn get_static_registry_entry(markdown_type: MarkdownType) -> Option<&'static
             demo_name: "demo_theme_toggle",
             file_path: "app_crates/registry/src/ui/theme_toggle.rs",
             install_name: "theme-toggle",
-        }),
-        MarkdownType::StaticInstallToast => Some(&StaticRegistryEntry {
-            raw_code: include_str!("../../app_crates/registry/src/ui/toast_custom/mod.rs"),
-            demo_name: "demo_toast",
-            file_path: "app_crates/registry/src/ui/toast.rs",
-            install_name: "toast",
         }),
         MarkdownType::StaticInstallToggleGroup => Some(&StaticRegistryEntry {
             raw_code: include_str!("../../app_crates/registry/src/ui/toggle_group.rs"),
@@ -4651,26 +4628,6 @@ fn build_md_components() -> MdComponents {
             }
         }
     });
-    combined_components.add("StaticToast", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
-        rsx! {
-            StaticDemoWrapper {
-                demo_type: MarkdownType::StaticDemoToast,
-                class: class,
-                DemoToast {}
-            }
-        }
-    });
-    combined_components.add("StaticToastVariants", |props| {
-        let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
-        rsx! {
-            StaticDemoWrapper {
-                demo_type: MarkdownType::StaticDemoToastVariants,
-                class: class,
-                DemoToastVariants {}
-            }
-        }
-    });
     combined_components.add("StaticToggleGroup", |props| {
         let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
         rsx! {
@@ -5330,13 +5287,6 @@ fn build_md_components() -> MdComponents {
             }
         }
     });
-    combined_components.add("StaticInstallToast", |_| {
-        rsx! {
-            StaticInstallWrapper {
-                install_type: MarkdownType::StaticInstallToast,
-            }
-        }
-    });
     combined_components.add("StaticInstallToggleGroup", |_| {
         rsx! {
             StaticInstallWrapper {
@@ -5744,9 +5694,6 @@ pub static THEME_TOGGLE: RegistryEntry = RegistryEntry {
     tags: &["button", "animation"],
 };
 
-pub static TOAST: RegistryEntry =
-    RegistryEntry { slug: "toast", raw: include_str!("../../public/docs/components/toast.md"), tags: &[] };
-
 pub static TOGGLE_GROUP: RegistryEntry = RegistryEntry {
     slug: "toggle-group",
     raw: include_str!("../../public/docs/components/toggle-group.md"),
@@ -5909,7 +5856,6 @@ pub static DOCS_COMPONENTS_REGISTRY: &[&RegistryEntry] = &[
     &TABS,
     &TEXTAREA,
     &THEME_TOGGLE,
-    &TOAST,
     &TOGGLE_GROUP,
     &TOOLBAR,
     &TOOLTIP,

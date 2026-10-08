@@ -522,12 +522,6 @@ pub const COMPONENTS_ITEMS: &[CommandItemData] = &[
         add_cmd: Some("theme_toggle"),
     },
     CommandItemData {
-        label: "Toast",
-        href: "/docs/components/toast",
-        category: CommandCategory::Components,
-        add_cmd: Some("toast"),
-    },
-    CommandItemData {
         label: "Toggle Group",
         href: "/docs/components/toggle-group",
         category: CommandCategory::Components,

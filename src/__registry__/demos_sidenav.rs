@@ -639,14 +639,6 @@ pub static SIDENAV_ITEMS: &[SidenavItem] = &[
         is_new: false,
     },
     SidenavItem {
-        label: "Toast",
-        slug: "toast",
-        description: "Rust/UI component that displays toast notifications.",
-        image: "/images/thumbnails/toast.webp",
-        image_dark: "/images/thumbnails/toast-dark.webp",
-        is_new: false,
-    },
-    SidenavItem {
         label: "Toggle Group",
         slug: "toggle-group",
         description: "A set of toggle buttons that can be used to group related options.",

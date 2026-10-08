@@ -43,5 +43,4 @@ Notification positioning examples across the viewport.
 
 ## See Also
 
-- [Toast](/components/toast)
 - [Alert](/components/alert)

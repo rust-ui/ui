@@ -1,5 +1,5 @@
 use ::registry::hooks::use_theme_mode::ThemeMode;
-use ::registry::ui::toast_custom::toaster::{Toaster, provide_toaster};
+use ::registry::ui::sonner::SonnerToaster;
 use dioxus::prelude::*;
 
 // Generated registry data: giant match/vec builders that exceed the line cap by design.
@@ -51,6 +51,8 @@ const APPLE_TOUCH_ICON: Asset = asset!("/public/icons/apple-touch-icon.png");
 const MANIFEST: Asset = asset!("/public/manifest.json");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 const CHART_INIT_JS: Asset = asset!("/public/app_components/chart_init.js");
+const SONNER_JS: Asset = asset!("/public/app_components/sonner.js");
+const SONNER_CSS: Asset = asset!("/public/app_components/sonner.css");
 const SPLASH_INIT_JS: Asset = asset!("/public/app_components/splash_init.js");
 const LOGO_DARK_88: Asset = asset!("/public/icons/logo-dark-square-88.png");
 // Loaded globally (not just on chart routes): chart_init.js's own lazy-load
@@ -342,7 +344,6 @@ fn App() -> Element {
     utils::client_diagnostic_handler::init();
 
     let theme_mode = ThemeMode::init();
-    provide_toaster();
 
     // TODO: replace with <Html class=...> once Dioxus supports reactive html-element attributes (like leptos_meta `<Html {..} class=...>`)
     use_effect(move || {
@@ -395,9 +396,11 @@ fn App() -> Element {
         document::Link { rel: "apple-touch-icon", href: APPLE_TOUCH_ICON }
         document::Link { rel: "manifest", href: MANIFEST }
         document::Stylesheet { href: TAILWIND_CSS }
+        document::Stylesheet { href: SONNER_CSS }
         document::Script { src: APEXCHARTS_JS }
         document::Script { src: CHART_INIT_JS }
-        Toaster {}
+        SonnerToaster {}
+        script { src: SONNER_JS }
         Router::<Route> {}
     }
 }

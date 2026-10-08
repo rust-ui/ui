@@ -28,7 +28,7 @@ use crate::ui::multi_select::{
 };
 use crate::ui::separator::Separator;
 use crate::ui::skeleton::Skeleton;
-use crate::ui::toast_custom::toaster::expect_toaster;
+use crate::ui::sonner::{ToastType, show_sonner_toast};
 
 /* ========================================================== */
 /*                     TYPES                                  */
@@ -547,7 +547,7 @@ pub fn DataGridFull() -> Element {
                                                                     .unwrap_or_else(|| copy_value_signal());
                                                                 if !value.is_empty() {
                                                                     copy_to_clipboard(&value);
-                                                                    expect_toaster().success("Copied to clipboard");
+                                                                    show_sonner_toast(ToastType::Success, "Copied to clipboard");
                                                                 }
                                                             },
                                                             Copy {}
@@ -725,7 +725,7 @@ fn PressHoldDeleteRow(
         cell_selection.clone().clear_all();
 
         let suffix = if count == 1 { "" } else { "s" };
-        expect_toaster().success(format!("Deleted {count} row{suffix}"));
+        show_sonner_toast(ToastType::Success, format!("Deleted {count} row{suffix}"));
     });
 
     let press_hold = use_press_hold(1500, on_delete, false);

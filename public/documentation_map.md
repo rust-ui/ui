@@ -850,18 +850,6 @@ This is a comprehensive map of all Rust/UI documentation pages with their headin
 * How it works
 * See Also
 
-### [Toast](https://rust-ui.com/docs/components/toast)
-
-> Rust/UI component that displays toast notifications.
-
-* Variants
-* Installation
-* Usage
-* Examples
-  * Basic Toast
-  * Variants
-* See Also
-
 ### [Toggle Group](https://rust-ui.com/docs/components/toggle-group)
 
 > A set of toggle buttons that can be used to group related options.

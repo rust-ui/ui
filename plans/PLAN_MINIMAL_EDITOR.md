@@ -462,7 +462,7 @@ any, lives inside the node view (unread file, `extensions/image/`).
 **Toast dependency**: Aslam97 uses `sonner` for all validation/action
 feedback. `dioxus-ui` needs its own toast primitive for parity — check
 whether one already exists in `app_crates/registry/src/ui/` before adding a
-new dependency; reuse existing `toast_custom` primitive, no new dependency.
+new dependency; reuse existing `Sonner` primitive, no new dependency.
 
 **Rust port scope decision**: full node-view actions (copy image/copy
 link/download buttons overlaid on a hovered image, resize drag handles) are
@@ -710,7 +710,7 @@ Checked `app_crates/registry/src/ui/`:
 - `leptos-ui` has no toolbar/editor equivalent — this is not a leptos→dioxus
   port like the sidenav work, it's new on both sides. No cross-parity
   constraint from that direction.
-- Existing `toast_custom`, `use_media_query`, `Drawer`, and throttle-related
+- Existing `Sonner`, `use_media_query`, `Drawer`, and throttle-related
   patterns can be reused if stretch features are later requested. No new
   dependency needed for demo MVP.
 

@@ -2,12 +2,12 @@ use dioxus::prelude::*;
 use icons::Trash2;
 
 use crate::ui::button_action::ButtonAction;
-use crate::ui::toast_custom::toast_wrapper::show_toast;
+use crate::ui::sonner::{ToastType, show_sonner_toast};
 
 #[component]
 pub fn DemoUsePressHold() -> Element {
     let on_complete = EventHandler::new(move |()| {
-        show_toast().success("Action completed!");
+        show_sonner_toast(ToastType::Success, "Action completed!");
     });
 
     rsx! {

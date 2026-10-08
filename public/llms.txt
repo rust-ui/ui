@@ -60,7 +60,6 @@ Explore all components: /docs/components
 - Sonner: /docs/components/sonner
 - Tabs: /docs/components/tabs
 - Theme Toggle: /docs/components/theme-toggle
-- Toast: /docs/components/toast
 - Tooltip: /docs/components/tooltip
 
 **Animation Components:**

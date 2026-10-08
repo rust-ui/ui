@@ -404,8 +404,6 @@ pub fn get_demo_source(name: &str) -> Option<&'static str> {
         "DemoTextarea" => Some(include_str!("../../app_crates/registry/src/demos/demo_textarea.rs")),
         "DemoTextareaRtl" => Some(include_str!("../../app_crates/registry/src/demos/demo_textarea_rtl.rs")),
         "DemoThemeToggle" => Some(include_str!("../../app_crates/registry/src/demos/demo_theme_toggle.rs")),
-        "DemoToast" => Some(include_str!("../../app_crates/registry/src/demos/demo_toast.rs")),
-        "DemoToastVariants" => Some(include_str!("../../app_crates/registry/src/demos/demo_toast_variants.rs")),
         "DemoToggleGroup" => Some(include_str!("../../app_crates/registry/src/demos/demo_toggle_group.rs")),
         "DemoToggleGroupFontWeight" => {
             Some(include_str!("../../app_crates/registry/src/demos/demo_toggle_group_font_weight.rs"))

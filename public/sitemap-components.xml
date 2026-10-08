@@ -463,12 +463,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rust-ui.com/docs/components/toast</loc>
-    <lastmod>2026-09-10T09:42:47+02:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://rust-ui.com/docs/components/toggle-group</loc>
     <lastmod>2026-09-10T09:42:47+02:00</lastmod>
     <changefreq>weekly</changefreq>

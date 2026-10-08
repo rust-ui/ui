@@ -297,8 +297,6 @@ pub mod demo_tabs_vertical;
 pub mod demo_textarea;
 pub mod demo_textarea_rtl;
 pub mod demo_theme_toggle;
-pub mod demo_toast;
-pub mod demo_toast_variants;
 pub mod demo_toggle_group;
 pub mod demo_toggle_group_font_weight;
 pub mod demo_toggle_group_outline;

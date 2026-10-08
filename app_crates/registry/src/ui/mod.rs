@@ -80,7 +80,6 @@ pub mod table;
 pub mod tabs;
 pub mod textarea;
 pub mod theme_toggle;
-pub mod toast_custom;
 pub mod toggle_group;
 pub mod toolbar;
 pub mod tooltip;

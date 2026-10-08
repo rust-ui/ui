@@ -30,6 +30,30 @@ pub enum SonnerDirection {
     BottomUp,
 }
 
+pub fn show_sonner_toast(variant: ToastType, title: impl Into<String>) {
+    let variant = variant.to_string();
+    let title = title.into();
+    let title = serde_json::to_string(&title).unwrap_or_else(|_| "\"Notification\"".to_owned());
+    let js = format!(
+        r#"(() => {{
+            const body = document.body;
+            if (!body) return;
+            const trigger = document.createElement("button");
+            trigger.type = "button";
+            trigger.dataset.name = "SonnerTrigger";
+            trigger.dataset.variant = {variant:?};
+            trigger.dataset.toastTitle = {title};
+            trigger.dataset.toastDescription = "";
+            body.appendChild(trigger);
+            trigger.click();
+            trigger.remove();
+        }})()"#
+    );
+    spawn(async move {
+        dioxus::document::eval(&js).await.ok();
+    });
+}
+
 #[component]
 pub fn SonnerTrigger(
     children: Element,
