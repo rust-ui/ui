@@ -4,16 +4,6 @@ use std::vec::Vec;
 
 const UI_CONFIG_TOML: &str = "ui_config.toml";
 
-struct DeprecatedComponent {
-    name: &'static str,
-    replacement: &'static str,
-}
-
-const DEPRECATED_COMPONENTS: &[DeprecatedComponent] = &[DeprecatedComponent {
-    name: "toast",
-    replacement: "sonner",
-}];
-
 use clap::{Arg, ArgMatches, Command};
 
 use super::components::Components;
@@ -94,17 +84,14 @@ pub async fn process_add_components(components: Vec<String>, base_path: &str, rt
     )?;
 
     let components_path = Path::new(base_path);
-    let parent_path = components_path
-        .parent()
-        .ok_or_else(|| CliError::invalid_path(base_path, "no parent directory"))?;
+    let parent_path =
+        components_path.parent().ok_or_else(|| CliError::invalid_path(base_path, "no parent directory"))?;
     let entry_file_path = if parent_path.join("lib.rs").exists() {
         parent_path.join("lib.rs")
     } else {
         parent_path.join("main.rs")
     };
-    Components::register_components_in_application_entry(
-        entry_file_path.to_string_lossy().as_ref(),
-    )?;
+    Components::register_components_in_application_entry(entry_file_path.to_string_lossy().as_ref())?;
 
     let installed = get_installed_components(base_path);
     let mut written: Vec<String> = Vec::new();
@@ -160,9 +147,7 @@ pub async fn process_add(matches: &ArgMatches) -> CliResult<()> {
     let config = UiConfig::try_reading_ui_config(UI_CONFIG_TOML).ok();
     let rtl = config.as_ref().map(|c| c.rtl).unwrap_or(false);
     let base_path = path_override.unwrap_or_else(|| {
-        config
-            .map(|c| c.base_path_components)
-            .unwrap_or_else(|| "src/components".to_string())
+        config.map(|c| c.base_path_components).unwrap_or_else(|| "src/components".to_string())
     });
 
     // Detect already installed components
@@ -181,20 +166,6 @@ pub async fn process_add(matches: &ArgMatches) -> CliResult<()> {
     } else {
         user_components
     };
-
-    // Warn and exit if any requested component is deprecated
-    for component in &user_components {
-        if let Some(dep) = DEPRECATED_COMPONENTS.iter().find(|d| d.name == component.as_str()) {
-            eprintln!(
-                "Warning: '{}' is deprecated. Use '{}' instead.",
-                dep.name, dep.replacement
-            );
-            return Err(CliError::validation(&format!(
-                "'{}' is deprecated. Use '{}' instead.",
-                dep.name, dep.replacement
-            )));
-        }
-    }
 
     // Resolve dependencies using the new tree-based system
     let resolved_set = tree_parser.resolve_dependencies(&user_components)?;
@@ -379,11 +350,7 @@ fn print_add_summary(written: &[String], skipped: &[String], already_installed: 
     }
 }
 
-pub fn format_add_summary(
-    written: &[String],
-    skipped: &[String],
-    already_installed: &[String],
-) -> String {
+pub fn format_add_summary(written: &[String], skipped: &[String], already_installed: &[String]) -> String {
     let mut lines: Vec<String> = Vec::new();
 
     if !written.is_empty() {
@@ -579,13 +546,7 @@ mod tests {
 
     #[test]
     fn dry_run_format_shows_all_sections() {
-        let s = dry_run(
-            &["badge", "button"],
-            &["button"],
-            &["badge", "button"],
-            &["dep-a"],
-            &["file.js"],
-        );
+        let s = dry_run(&["badge", "button"], &["button"], &["badge", "button"], &["dep-a"], &["file.js"]);
         let out = format_dry_run_summary(&s);
         assert!(out.contains("Would add"));
         assert!(out.contains("Would overwrite"));
@@ -601,25 +562,6 @@ mod tests {
         let rt = tokio::runtime::Runtime::new().unwrap();
         let result = rt.block_on(process_add_components(vec![], "src/components", false));
         assert!(result.is_ok());
-    }
-
-    // --- deprecated component warnings ---
-
-    #[test]
-    fn toast_is_in_deprecated_list() {
-        assert!(DEPRECATED_COMPONENTS.iter().any(|d| d.name == "toast"));
-    }
-
-    #[test]
-    fn deprecated_toast_points_to_sonner() {
-        let dep = DEPRECATED_COMPONENTS.iter().find(|d| d.name == "toast").unwrap();
-        assert_eq!(dep.replacement, "sonner");
-    }
-
-    #[test]
-    fn non_deprecated_component_not_in_list() {
-        assert!(!DEPRECATED_COMPONENTS.iter().any(|d| d.name == "button"));
-        assert!(!DEPRECATED_COMPONENTS.iter().any(|d| d.name == "badge"));
     }
 
     // --- command_add flag wiring ---

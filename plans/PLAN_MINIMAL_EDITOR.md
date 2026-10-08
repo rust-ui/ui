@@ -442,7 +442,7 @@ allowedMimeTypes.includes(`${mimeType.split("/")[0]}/*`)`), `maxFileSize`
 file and inserts image nodes immediately, i.e. **optimistic insert before
 upload completes** — the real uploaded URL presumably swaps in later via the
 node's own internal state, not shown in this file), `onImageRemoved({id, src})`,
-`onValidationError(errors)` (fires a `sonner` toast per error), and
+`onValidationError(errors)` (fires a `toast` per error), and
 `onActionSuccess`/`onActionError` for three built-in per-image actions
 (`copyImage`, `copyLink`, `download` — mapped to human labels for toast
 copy). `FileHandler.configure()` mirrors the same validation options for
@@ -459,10 +459,10 @@ and a full-width "Upload from your computer" button that clicks a hidden
 closes the dialog). No progress UI in this component — upload progress, if
 any, lives inside the node view (unread file, `extensions/image/`).
 
-**Toast dependency**: Aslam97 uses `sonner` for all validation/action
+**Toast dependency**: Aslam97 uses `toast` for all validation/action
 feedback. `dioxus-ui` needs its own toast primitive for parity — check
 whether one already exists in `app_crates/registry/src/ui/` before adding a
-new dependency; reuse existing `Sonner` primitive, no new dependency.
+new dependency; reuse existing `Toast` primitive, no new dependency.
 
 **Rust port scope decision**: full node-view actions (copy image/copy
 link/download buttons overlaid on a hovered image, resize drag handles) are
@@ -710,7 +710,7 @@ Checked `app_crates/registry/src/ui/`:
 - `leptos-ui` has no toolbar/editor equivalent — this is not a leptos→dioxus
   port like the sidenav work, it's new on both sides. No cross-parity
   constraint from that direction.
-- Existing `Sonner`, `use_media_query`, `Drawer`, and throttle-related
+- Existing `Toast`, `use_media_query`, `Drawer`, and throttle-related
   patterns can be reused if stretch features are later requested. No new
   dependency needed for demo MVP.
 

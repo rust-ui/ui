@@ -220,7 +220,7 @@ image_dark = "/images/thumbnails/_placeholder-dark.webp"
 ### Component Improvements
 
 - **Input** + **Textarea**: `bind_value` support for controlled inputs
-- **Sonner**: Position customization (top/bottom)
+- **Toast**: Position customization (top/bottom)
 
 ### ui-cli 0.3.8
 
@@ -458,4 +458,3 @@ use icons::LucideIcon;
 - Consolidated animation imports into single file
 - Registry flattening for cleaner directory structure
 - Slot component simplified to support only `A` variant
-

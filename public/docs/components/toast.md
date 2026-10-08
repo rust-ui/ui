@@ -1,45 +1,45 @@
 +++
-title = "Sonner"
-description = "Rust/UI Toast, inspired by Sonner."
+title = "Toast"
+description = "Rust/UI Toast notifications."
 tags = []
 is_new = false
 image = "/images/thumbnails/toast.webp"
 image_dark = "/images/thumbnails/toast-dark.webp"
 +++
 
-<StaticSonner />
+<StaticToast />
 
 ## Installation
 
-<StaticInstallSonner />
+<StaticInstallToast />
 
 ## Usage
 
 ```rust
 rsx! {
-    DemoSonner {}
+    DemoToast {}
 }
 ```
 
 ## Examples
 
-### Basic Sonner
+### Basic Toast
 
 Simple notification trigger example.
 
-<StaticSonner />
+<StaticToast />
 
 ### Variants
 
 Different notification levels and visual treatments.
 
-<StaticSonnerVariants />
+<StaticToastVariants />
 
 ### Positions
 
 Notification positioning examples across the viewport.
 
-<StaticSonnerPositions />
+<StaticToastPositions />
 
 ## See Also
 

@@ -4,9 +4,9 @@ const TOAST_PROPS = {
 };
 
 const TOAST_DATA_NAMES = {
-  LIST: "SonnerList",
-  ITEM: "SonnerItem",
-  TRIGGER: "SonnerTrigger",
+  LIST: "ToastList",
+  ITEM: "ToastItem",
+  TRIGGER: "ToastTrigger",
 };
 
 // Timer start mode
@@ -19,7 +19,7 @@ const TIMER_START = {
 const SWIPE_THRESHOLD = 45; // pixels
 const SWIPE_VELOCITY_THRESHOLD = 0.11; // pixels per millisecond
 
-// Visible toasts amount (Sonner default)
+// Visible toasts amount (Toast default)
 const VISIBLE_TOASTS_AMOUNT = 3;
 
 // Default toast container styles (CSS variables)
@@ -173,22 +173,22 @@ function parsePosition(position) {
 // Get toaster by position or return default (first one)
 function getToasterByPosition(position) {
   if (position) {
-    const toaster = document.querySelector(`[data-name="SonnerList"][data-position="${position}"]`);
+    const toaster = document.querySelector(`[data-name="ToastList"][data-position="${position}"]`);
     if (toaster) return toaster;
   }
   // Fallback to first toaster
-  return document.querySelector('[data-name="SonnerList"]');
+  return document.querySelector('[data-name="ToastList"]');
 }
 
 // Initialize a single toaster wrapper
 function initializeToaster(toastsWrapper) {
   // Check if wrapper already initialized
-  if (toastsWrapper.hasAttribute("data-sonner-initialized")) {
+  if (toastsWrapper.hasAttribute("data-toast-initialized")) {
     return;
   }
 
   // Mark wrapper as initialized
-  toastsWrapper.setAttribute("data-sonner-initialized", "true");
+  toastsWrapper.setAttribute("data-toast-initialized", "true");
 
   // Apply default styles to toast container
   Object.entries(DEFAULT_TOAST_STYLES).forEach(([property, value]) => {
@@ -199,16 +199,16 @@ function initializeToaster(toastsWrapper) {
   setupExpandedState(toastsWrapper);
 }
 
-// Initialize Sonner toast functionality for SPA-compatible operation
-function initializeSonner() {
-  const toastsWrappers = document.querySelectorAll('[data-name="SonnerList"]');
+// Initialize Toast toast functionality for SPA-compatible operation
+function initializeToast() {
+  const toastsWrappers = document.querySelectorAll('[data-name="ToastList"]');
 
   // Early return if no toasters exist
   if (toastsWrappers.length === 0) {
     return;
   }
 
-  console.debug("Initializing Sonner toast functionality");
+  console.debug("Initializing Toast toast functionality");
 
   // Initialize all toasters
   toastsWrappers.forEach((wrapper) => {
@@ -224,8 +224,8 @@ function setupTriggerDelegation() {
   delegationSetup = true;
 
   document.addEventListener("click", (event) => {
-    // Find if click target is a SonnerTrigger or inside one
-    const trigger = event.target.closest('[data-name="SonnerTrigger"]');
+    // Find if click target is a ToastTrigger or inside one
+    const trigger = event.target.closest('[data-name="ToastTrigger"]');
     if (!trigger) return;
 
     const variant = trigger.dataset.variant || "Default";
@@ -243,23 +243,23 @@ function setupTriggerDelegation() {
 }
 
 // Initialize immediately if DOM is already loaded
-initializeSonner();
+initializeToast();
 setupTriggerDelegation();
 
-// Set up MutationObserver to watch for Sonner toasters being added (for SPA navigation)
+// Set up MutationObserver to watch for Toast toasters being added (for SPA navigation)
 const observer = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
     if (mutation.type === "childList") {
       mutation.addedNodes.forEach((node) => {
-        // Check if added node contains Sonner toasters or is a toaster itself
+        // Check if added node contains Toast toasters or is a toaster itself
         if (node.nodeType === Node.ELEMENT_NODE) {
-          const hasToastWrapper = node?.querySelector?.('[data-name="SonnerList"]');
+          const hasToastWrapper = node?.querySelector?.('[data-name="ToastList"]');
           const isToastWrapper =
-            node.getAttribute && node.getAttribute("data-name") === "SonnerList";
+            node.getAttribute && node.getAttribute("data-name") === "ToastList";
 
           if (hasToastWrapper || isToastWrapper) {
-            console.debug("Sonner toaster detected via MutationObserver - initializing");
-            initializeSonner();
+            console.debug("Toast toaster detected via MutationObserver - initializing");
+            initializeToast();
           }
         }
       });
@@ -300,7 +300,7 @@ function createToastElement(variant = "Default", options = {}) {
   const icon = TOAST_ICONS[variant.toLowerCase()];
 
   toastItem.dataset.name = TOAST_DATA_NAMES.ITEM;
-  toastItem.dataset.sonnerToast = "true";
+  toastItem.dataset.toastToast = "true";
   toastItem.dataset.variant = variant;
 
   // Apply variant-specific Tailwind classes
@@ -402,7 +402,7 @@ function createToastElement(variant = "Default", options = {}) {
   return toastItem;
 }
 
-// Update front status for all toasts in the wrapper (array-based, like Sonner)
+// Update front status for all toasts in the wrapper (array-based, like Toast)
 function updateFrontStatus(toastsWrapper) {
   if (!toastsWrapper) return;
 
@@ -449,7 +449,7 @@ function updateToastStyles(toastsWrapper) {
 
   // Update styles for each toast based on position
   activeToasts.forEach((toast, arrayIndex) => {
-    // In Sonner: index 0 = front (most recent), higher index = older
+    // In Toast: index 0 = front (most recent), higher index = older
     // Our array: last item = most recent, first item = oldest
     // So we need to reverse: index = length - 1 - arrayIndex
     const index = activeToasts.length - 1 - arrayIndex;
@@ -503,7 +503,7 @@ function setupExpandedState(toastsWrapper) {
       const lift = el.style.getPropertyValue("--lift") || "-1";
       const liftValue = Number.parseFloat(lift);
 
-      // Sonner index: 0 = front (newest), higher = older
+      // Toast index: 0 = front (newest), higher = older
       const index = activeToasts.length - 1 - arrayIndex;
       const offset = offsets[arrayIndex];
 
@@ -899,7 +899,7 @@ function createNewToast(toastsWrapper, variant = "Default", options = {}) {
   // Bottom positions: --lift: -1 (expand upward into page)
   newToast.style.setProperty("--lift", y === "Top" ? "1" : "-1");
 
-  // Prepend toast (newest first in DOM, like original Sonner)
+  // Prepend toast (newest first in DOM, like original Toast)
   toastsWrapper.prepend(newToast);
 
   // Add to state array
@@ -1038,3 +1038,4 @@ function toastPromise(toastsWrapper, promise, messages) {
 
   return toast;
 }
+

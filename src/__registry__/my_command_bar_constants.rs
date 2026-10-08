@@ -468,10 +468,10 @@ pub const COMPONENTS_ITEMS: &[CommandItemData] = &[
         add_cmd: Some("slider"),
     },
     CommandItemData {
-        label: "Sonner",
-        href: "/docs/components/sonner",
+        label: "Toast",
+        href: "/docs/components/toast",
         category: CommandCategory::Components,
-        add_cmd: Some("sonner"),
+        add_cmd: Some("toast"),
     },
     CommandItemData {
         label: "Spinner",

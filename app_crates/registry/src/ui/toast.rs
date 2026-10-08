@@ -13,7 +13,7 @@ pub enum ToastType {
 }
 
 #[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
-pub enum SonnerPosition {
+pub enum ToastPosition {
     TopLeft,
     TopCenter,
     TopRight,
@@ -24,13 +24,13 @@ pub enum SonnerPosition {
 }
 
 #[derive(Clone, Copy, PartialEq, Eq, Default, strum::Display)]
-pub enum SonnerDirection {
+pub enum ToastDirection {
     TopDown,
     #[default]
     BottomUp,
 }
 
-pub fn show_sonner_toast(variant: ToastType, title: impl Into<String>) {
+pub fn show_toast(variant: ToastType, title: impl Into<String>) {
     let variant = variant.to_string();
     let title = title.into();
     let title = serde_json::to_string(&title).unwrap_or_else(|_| "\"Notification\"".to_owned());
@@ -40,7 +40,7 @@ pub fn show_sonner_toast(variant: ToastType, title: impl Into<String>) {
             if (!body) return;
             const trigger = document.createElement("button");
             trigger.type = "button";
-            trigger.dataset.name = "SonnerTrigger";
+            trigger.dataset.name = "ToastTrigger";
             trigger.dataset.variant = {variant:?};
             trigger.dataset.toastTitle = {title};
             trigger.dataset.toastDescription = "";
@@ -55,7 +55,7 @@ pub fn show_sonner_toast(variant: ToastType, title: impl Into<String>) {
 }
 
 #[component]
-pub fn SonnerTrigger(
+pub fn ToastTrigger(
     children: Element,
     #[props(into, optional)] class: Option<String>,
     #[props(default = ToastType::Default)] variant: ToastType,
@@ -81,7 +81,7 @@ pub fn SonnerTrigger(
     rsx! {
         button {
             class: "{merged_class}",
-            "data-name": "SonnerTrigger",
+            "data-name": "ToastTrigger",
             "data-variant": "{variant}",
             "data-toast-title": "{title}",
             "data-toast-description": "{description}",
@@ -93,10 +93,10 @@ pub fn SonnerTrigger(
 }
 
 #[component]
-pub fn SonnerContainer(
+pub fn ToastContainer(
     children: Element,
     #[props(into, optional)] class: Option<String>,
-    #[props(default = SonnerPosition::BottomRight)] position: SonnerPosition,
+    #[props(default = ToastPosition::BottomRight)] position: ToastPosition,
 ) -> Element {
     let merged_class = tw_merge!("toast__container fixed z-50", class.as_deref().unwrap_or(""));
 
@@ -110,11 +110,11 @@ pub fn SonnerContainer(
 }
 
 #[component]
-pub fn SonnerList(
+pub fn ToastList(
     children: Element,
     #[props(into, optional)] class: Option<String>,
-    #[props(default = SonnerPosition::BottomRight)] position: SonnerPosition,
-    #[props(default = SonnerDirection::BottomUp)] direction: SonnerDirection,
+    #[props(default = ToastPosition::BottomRight)] position: ToastPosition,
+    #[props(default = ToastDirection::BottomUp)] direction: ToastDirection,
     #[props(into, optional)] expanded: Option<String>,
     #[props(into, optional)] style: Option<String>,
 ) -> Element {
@@ -127,9 +127,9 @@ pub fn SonnerList(
     rsx! {
         ol {
             class: "{merged_class}",
-            "data-name": "SonnerList",
-            "data-sonner-toaster": "true",
-            "data-sonner-theme": "light",
+            "data-name": "ToastList",
+            "data-toast-toaster": "true",
+            "data-toast-theme": "light",
             "data-position": "{position}",
             "data-expanded": "{expanded_val}",
             "data-direction": "{direction}",
@@ -140,24 +140,24 @@ pub fn SonnerList(
 }
 
 #[component]
-pub fn SonnerToaster(#[props(default = SonnerPosition::BottomRight)] position: SonnerPosition) -> Element {
+pub fn ToastToaster(#[props(default = ToastPosition::BottomRight)] position: ToastPosition) -> Element {
     let direction = match position {
-        SonnerPosition::TopLeft | SonnerPosition::TopCenter | SonnerPosition::TopRight => SonnerDirection::TopDown,
-        _ => SonnerDirection::BottomUp,
+        ToastPosition::TopLeft | ToastPosition::TopCenter | ToastPosition::TopRight => ToastDirection::TopDown,
+        _ => ToastDirection::BottomUp,
     };
 
     let container_class = match position {
-        SonnerPosition::TopLeft => "left-6 top-6",
-        SonnerPosition::TopRight => "right-6 top-6",
-        SonnerPosition::TopCenter => "left-1/2 -translate-x-1/2 top-6",
-        SonnerPosition::BottomCenter => "left-1/2 -translate-x-1/2 bottom-6",
-        SonnerPosition::BottomLeft => "left-6 bottom-6",
-        SonnerPosition::BottomRight => "right-6 bottom-6",
+        ToastPosition::TopLeft => "left-6 top-6",
+        ToastPosition::TopRight => "right-6 top-6",
+        ToastPosition::TopCenter => "left-1/2 -translate-x-1/2 top-6",
+        ToastPosition::BottomCenter => "left-1/2 -translate-x-1/2 bottom-6",
+        ToastPosition::BottomLeft => "left-6 bottom-6",
+        ToastPosition::BottomRight => "right-6 bottom-6",
     };
 
     rsx! {
-        SonnerContainer { class: container_class, position,
-            SonnerList { position, direction, "" }
+        ToastContainer { class: container_class, position,
+            ToastList { position, direction, "" }
         }
     }
 }

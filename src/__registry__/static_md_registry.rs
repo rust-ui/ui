@@ -211,9 +211,6 @@ use registry::demos::demo_skeleton_image::DemoSkeletonImage;
 use registry::demos::demo_skeleton_table::DemoSkeletonTable;
 use registry::demos::demo_skeleton_text::DemoSkeletonText;
 use registry::demos::demo_slider::DemoSlider;
-use registry::demos::demo_sonner::DemoSonner;
-use registry::demos::demo_sonner_positions::DemoSonnerPositions;
-use registry::demos::demo_sonner_variants::DemoSonnerVariants;
 use registry::demos::demo_spinner::DemoSpinner;
 use registry::demos::demo_spinner_button::DemoSpinnerButton;
 use registry::demos::demo_status::DemoStatus;
@@ -226,6 +223,9 @@ use registry::demos::demo_table::DemoTable;
 use registry::demos::demo_tabs::DemoTabs;
 use registry::demos::demo_textarea::DemoTextarea;
 use registry::demos::demo_theme_toggle::DemoThemeToggle;
+use registry::demos::demo_toast::DemoToast;
+use registry::demos::demo_toast_positions::DemoToastPositions;
+use registry::demos::demo_toast_variants::DemoToastVariants;
 use registry::demos::demo_toggle_group::DemoToggleGroup;
 use registry::demos::demo_toolbar::DemoToolbar;
 use registry::demos::demo_tooltip::DemoTooltip;
@@ -464,9 +464,9 @@ pub enum MarkdownType {
     StaticDemoSkeletonTable,
     StaticDemoSkeletonText,
     StaticDemoSlider,
-    StaticDemoSonner,
-    StaticDemoSonnerPositions,
-    StaticDemoSonnerVariants,
+    StaticDemoToast,
+    StaticDemoToastPositions,
+    StaticDemoToastVariants,
     StaticDemoSpinner,
     StaticDemoSpinnerButton,
     StaticDemoStatus,
@@ -560,7 +560,7 @@ pub enum MarkdownType {
     StaticInstallShimmer,
     StaticInstallSkeleton,
     StaticInstallSlider,
-    StaticInstallSonner,
+    StaticInstallToast,
     StaticInstallSpinner,
     StaticInstallStatus,
     StaticInstallStepper,
@@ -1779,23 +1779,23 @@ pub fn get_static_registry_entry(markdown_type: MarkdownType) -> Option<&'static
             file_path: "public/docs/components/slider.md",
             install_name: "slider",
         }),
-        MarkdownType::StaticDemoSonner => Some(&StaticRegistryEntry {
-            raw_code: include_str!("../../app_crates/registry/src/demos/demo_sonner.rs"),
-            demo_name: "demo_sonner",
-            file_path: "public/docs/components/sonner.md",
-            install_name: "sonner",
+        MarkdownType::StaticDemoToast => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_toast.rs"),
+            demo_name: "demo_toast",
+            file_path: "public/docs/components/toast.md",
+            install_name: "toast",
         }),
-        MarkdownType::StaticDemoSonnerPositions => Some(&StaticRegistryEntry {
-            raw_code: include_str!("../../app_crates/registry/src/demos/demo_sonner_positions.rs"),
-            demo_name: "demo_sonner_positions",
-            file_path: "public/docs/components/sonner.md",
-            install_name: "sonner",
+        MarkdownType::StaticDemoToastPositions => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_toast_positions.rs"),
+            demo_name: "demo_toast_positions",
+            file_path: "public/docs/components/toast.md",
+            install_name: "toast",
         }),
-        MarkdownType::StaticDemoSonnerVariants => Some(&StaticRegistryEntry {
-            raw_code: include_str!("../../app_crates/registry/src/demos/demo_sonner_variants.rs"),
-            demo_name: "demo_sonner_variants",
-            file_path: "public/docs/components/sonner.md",
-            install_name: "sonner",
+        MarkdownType::StaticDemoToastVariants => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/demos/demo_toast_variants.rs"),
+            demo_name: "demo_toast_variants",
+            file_path: "public/docs/components/toast.md",
+            install_name: "toast",
         }),
         MarkdownType::StaticDemoSpinner => Some(&StaticRegistryEntry {
             raw_code: include_str!("../../app_crates/registry/src/demos/demo_spinner.rs"),
@@ -2350,11 +2350,11 @@ pub fn get_static_registry_entry(markdown_type: MarkdownType) -> Option<&'static
             file_path: "app_crates/registry/src/ui/slider.rs",
             install_name: "slider",
         }),
-        MarkdownType::StaticInstallSonner => Some(&StaticRegistryEntry {
-            raw_code: include_str!("../../app_crates/registry/src/ui/sonner.rs"),
-            demo_name: "demo_sonner",
-            file_path: "app_crates/registry/src/ui/sonner.rs",
-            install_name: "sonner",
+        MarkdownType::StaticInstallToast => Some(&StaticRegistryEntry {
+            raw_code: include_str!("../../app_crates/registry/src/ui/toast.rs"),
+            demo_name: "demo_toast",
+            file_path: "app_crates/registry/src/ui/toast.rs",
+            install_name: "toast",
         }),
         MarkdownType::StaticInstallSpinner => Some(&StaticRegistryEntry {
             raw_code: include_str!("../../app_crates/registry/src/ui/spinner.rs"),
@@ -4478,33 +4478,33 @@ fn build_md_components() -> MdComponents {
             }
         }
     });
-    combined_components.add("StaticSonner", |props| {
+    combined_components.add("StaticToast", |props| {
         let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
         rsx! {
             StaticDemoWrapper {
-                demo_type: MarkdownType::StaticDemoSonner,
+                demo_type: MarkdownType::StaticDemoToast,
                 class: class,
-                DemoSonner {}
+                DemoToast {}
             }
         }
     });
-    combined_components.add("StaticSonnerPositions", |props| {
+    combined_components.add("StaticToastPositions", |props| {
         let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
         rsx! {
             StaticDemoWrapper {
-                demo_type: MarkdownType::StaticDemoSonnerPositions,
+                demo_type: MarkdownType::StaticDemoToastPositions,
                 class: class,
-                DemoSonnerPositions {}
+                DemoToastPositions {}
             }
         }
     });
-    combined_components.add("StaticSonnerVariants", |props| {
+    combined_components.add("StaticToastVariants", |props| {
         let class = if props.classes.is_empty() { None } else { Some(props.classes.join(" ")) };
         rsx! {
             StaticDemoWrapper {
-                demo_type: MarkdownType::StaticDemoSonnerVariants,
+                demo_type: MarkdownType::StaticDemoToastVariants,
                 class: class,
-                DemoSonnerVariants {}
+                DemoToastVariants {}
             }
         }
     });
@@ -5224,10 +5224,10 @@ fn build_md_components() -> MdComponents {
             }
         }
     });
-    combined_components.add("StaticInstallSonner", |_| {
+    combined_components.add("StaticInstallToast", |_| {
         rsx! {
             StaticInstallWrapper {
-                install_type: MarkdownType::StaticInstallSonner,
+                install_type: MarkdownType::StaticInstallToast,
             }
         }
     });
@@ -5658,8 +5658,8 @@ pub static SKELETON: RegistryEntry =
 pub static SLIDER: RegistryEntry =
     RegistryEntry { slug: "slider", raw: include_str!("../../public/docs/components/slider.md"), tags: &[] };
 
-pub static SONNER: RegistryEntry =
-    RegistryEntry { slug: "sonner", raw: include_str!("../../public/docs/components/sonner.md"), tags: &[] };
+pub static TOAST: RegistryEntry =
+    RegistryEntry { slug: "toast", raw: include_str!("../../public/docs/components/toast.md"), tags: &[] };
 
 pub static SPINNER: RegistryEntry = RegistryEntry {
     slug: "spinner",
@@ -5847,7 +5847,7 @@ pub static DOCS_COMPONENTS_REGISTRY: &[&RegistryEntry] = &[
     &SHIMMER,
     &SKELETON,
     &SLIDER,
-    &SONNER,
+    &TOAST,
     &SPINNER,
     &STATUS,
     &STEPPER,

@@ -6,7 +6,7 @@ pub enum ComponentsRoutes {
     AlertDialog,
     Button,
     Breadcrumb,
-    Sonner,
+    Toast,
 }
 
 impl ComponentsRoutes {

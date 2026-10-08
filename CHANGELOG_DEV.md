@@ -52,11 +52,11 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ### Changed
 
-- **Toast system unified on Sonner**: removed the legacy custom Toast component,
-  mounted Sonner globally in Dioxus, loaded the full Leptos-compatible Sonner
+- **Toast system unified on the Leptos-compatible runtime**: removed the legacy custom Toast component,
+  mounted Toast globally in Dioxus, loaded the full Leptos-compatible runtime,
   runtime, and added a Rust bridge for programmatic notifications. Positions,
   variants, stacking, hover expansion, timers, close, swipe, loading, actions,
-  and promise behavior stay in the shared Sonner runtime.
+  and promise behavior stay in the shared runtime.
 
 - **Rich text editor moved out of the `registry` crate**: while it's still
   demo-only/WIP, the `Editor` component and its demo now live under

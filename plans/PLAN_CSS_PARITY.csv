@@ -16,7 +16,7 @@ input_group,✅ done,2,none,
 dropdown_menu,✅ done,2,none,"DropdownMenuLabel data-inset:pl-8"
 chips,✅ done,2,none,"regained chips__main__container marker + bounce easing"
 stepper,✅ done,2,none,"switched runtime conditionals to group-data-[state=*]/stepper-item:* CSS"
-sonner,✅ done,2,none,"regained 6-way toast variant colour sets"
+toast,✅ done,2,none,"regained 6-way toast variant colour sets"
 table,🟡 partial,2,"TableCell keeps leptos malformed selector `  &:has([role=checkbox])]:pl-3` (missing leading [)","TODO(css-parity): leptos bug, kept byte-for-byte; fix both when leptos fixes"
 popover,✅ done,3,"native popover=auto attr vs data-state JS toggle (kept, functionally equal)","dioxus has no native popover wiring; class strings verbatim"
 select,✅ done,3,"leptos unused SelectItem clx not re-added (dead code in leptos)","SelectPosition + above/below detection ported into inline script"

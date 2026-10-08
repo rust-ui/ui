@@ -567,9 +567,9 @@ pub static SIDENAV_ITEMS: &[SidenavItem] = &[
         is_new: false,
     },
     SidenavItem {
-        label: "Sonner",
-        slug: "sonner",
-        description: "Rust/UI Toast, inspired by Sonner.",
+        label: "Toast",
+        slug: "toast",
+        description: "Rust/UI Toast notifications.",
         image: "/images/thumbnails/toast.webp",
         image_dark: "/images/thumbnails/toast-dark.webp",
         is_new: false,

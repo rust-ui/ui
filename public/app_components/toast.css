@@ -3,19 +3,19 @@
 /* ========================================================== */
 
 /* Front toast (most recent) - slides up/down and fades out */
-[data-name="SonnerItem"][data-removed="true"][data-front="true"][data-swipe-out="false"] {
+[data-name="ToastItem"][data-removed="true"][data-front="true"][data-swipe-out="false"] {
   --y: translateY(calc(var(--fold-multiplier) * -100%));
   opacity: 0;
 }
 
 /* Non-front toasts when expanded - slide with offset */
-[data-name="SonnerList"][data-expanded="true"] [data-name="SonnerItem"][data-removed="true"][data-front="false"][data-swipe-out="false"] {
+[data-name="ToastList"][data-expanded="true"] [data-name="ToastItem"][data-removed="true"][data-front="false"][data-swipe-out="false"] {
   --y: translateY(calc(var(--fold-multiplier) * var(--index) * var(--expand-spacing) + var(--fold-multiplier) * -100%));
   opacity: 0;
 }
 
 /* Non-front toasts when collapsed - gentle slide down with slower transition */
-[data-name="SonnerList"][data-expanded="false"] [data-name="SonnerItem"][data-removed="true"][data-front="false"][data-swipe-out="false"] {
+[data-name="ToastList"][data-expanded="false"] [data-name="ToastItem"][data-removed="true"][data-front="false"][data-swipe-out="false"] {
   --y: translateY(40%);
   opacity: 0;
   transition: transform 500ms var(--transition-easing), opacity 200ms;
@@ -27,26 +27,26 @@
 
 /* Initial state - hidden and off-screen before mounted */
 /* BottomUp: start below screen (translateY(100%)) */
-[data-name="SonnerList"][data-direction="BottomUp"] [data-name="SonnerItem"][data-mounted="false"] {
+[data-name="ToastList"][data-direction="BottomUp"] [data-name="ToastItem"][data-mounted="false"] {
   --y: translateY(100%);
   opacity: 0;
 }
 
 /* TopDown: start above screen (translateY(-100%)) */
-[data-name="SonnerList"][data-direction="TopDown"] [data-name="SonnerItem"][data-mounted="false"] {
+[data-name="ToastList"][data-direction="TopDown"] [data-name="ToastItem"][data-mounted="false"] {
   --y: translateY(-100%);
   opacity: 0;
 }
 
 /* Mounted state - slide to on-screen position with fade in */
-[data-name="SonnerItem"][data-mounted="true"] {
+[data-name="ToastItem"][data-mounted="true"] {
   --y: translateY(0);
   opacity: 1;
 }
 
 /* Entry animation override - ensure entry animation completes before stacking applies */
 /* This rule has higher specificity to override the collapsed stacking rule during entry */
-[data-name="SonnerList"] [data-name="SonnerItem"][data-mounted="true"][data-entering="true"] {
+[data-name="ToastList"] [data-name="ToastItem"][data-mounted="true"][data-entering="true"] {
   --y: translateY(0);
   transform: var(--y);
   opacity: 1;
@@ -57,15 +57,15 @@
 /* ========================================================== */
 
 /* Fold direction CSS custom properties */
-[data-name="SonnerList"][data-direction="BottomUp"] {
+[data-name="ToastList"][data-direction="BottomUp"] {
   --fold-multiplier: -1;
 }
 
-[data-name="SonnerList"][data-direction="TopDown"] {
+[data-name="ToastList"][data-direction="TopDown"] {
   --fold-multiplier: 1;
 }
 
-[data-name="SonnerList"] {
+[data-name="ToastList"] {
   /* Base container styles */
   position: fixed;
   z-index: 9999; /* Must be above all other UI elements like headers (z-60) */
@@ -81,39 +81,39 @@
 }
 
 /* Position-specific styles */
-[data-name="SonnerList"][data-position="TopLeft"] {
+[data-name="ToastList"][data-position="TopLeft"] {
   top: 0.75rem;
   left: 0.75rem;
 }
 
-[data-name="SonnerList"][data-position="TopCenter"] {
+[data-name="ToastList"][data-position="TopCenter"] {
   top: 0.75rem;
   left: 50%;
   transform: translateX(-50%);
 }
 
-[data-name="SonnerList"][data-position="TopRight"] {
+[data-name="ToastList"][data-position="TopRight"] {
   top: 0.75rem;
   right: 0.75rem;
 }
 
-[data-name="SonnerList"][data-position="BottomLeft"] {
+[data-name="ToastList"][data-position="BottomLeft"] {
   bottom: 0.75rem;
   left: 0.75rem;
 }
 
-[data-name="SonnerList"][data-position="BottomCenter"] {
+[data-name="ToastList"][data-position="BottomCenter"] {
   bottom: 0.75rem;
   left: 50%;
   transform: translateX(-50%);
 }
 
-[data-name="SonnerList"][data-position="BottomRight"] {
+[data-name="ToastList"][data-position="BottomRight"] {
   bottom: 0.75rem;
   right: 0.75rem;
 }
 
-[data-name="SonnerItem"] {
+[data-name="ToastItem"] {
   --y: translateY(0);
   /* Base transform using CSS variable */
   transform: var(--y);
@@ -129,12 +129,12 @@
 /* CSS-based toast limit - hide toasts beyond visible limit */
 /* This is now controlled by JS via data-hidden attribute to properly handle
    the transition period when old toasts are being dismissed */
-[data-name="SonnerItem"][data-hidden="true"] {
+[data-name="ToastItem"][data-hidden="true"] {
   display: none;
 }
 
 /* Hide toasts beyond visible limit (controlled by JS) */
-[data-name="SonnerItem"][data-visible="false"] {
+[data-name="ToastItem"][data-visible="false"] {
   opacity: 0;
   pointer-events: none;
 }
@@ -144,21 +144,21 @@
 /* ========================================================== */
 
 /* Default collapsed state - stacked with scaling */
-[data-name="SonnerItem"][data-mounted="true"][data-expanded="false"] {
+[data-name="ToastItem"][data-mounted="true"][data-expanded="false"] {
   --y: translateY(calc(var(--fold-multiplier) * var(--index) * var(--stack-spacing)));
   transform: var(--y) scale(calc(1 - var(--index) * var(--scale-factor)));
   z-index: var(--z-index);
 }
 
 /* Expanded state - expanded spacing with no scaling */
-[data-name="SonnerList"][data-expanded="true"] [data-name="SonnerItem"][data-mounted="true"] {
+[data-name="ToastList"][data-expanded="true"] [data-name="ToastItem"][data-mounted="true"] {
   --y: translateY(calc(var(--fold-multiplier) * var(--index) * var(--expand-spacing)));
   transform: var(--y) scale(1);
   z-index: var(--z-index);
 }
 
 /* Gap spacer - extends hover area between toasts when expanded */
-[data-name="SonnerItem"][data-expanded="true"]::after {
+[data-name="ToastItem"][data-expanded="true"]::after {
   content: '';
   position: absolute;
   left: 0;
@@ -198,12 +198,12 @@
 }
 
 /* Pause animation when toast list is expanded */
-[data-name="SonnerList"][data-expanded="true"] [data-name="SonnerItem"] [data-duration-progress] {
+[data-name="ToastList"][data-expanded="true"] [data-name="ToastItem"] [data-duration-progress] {
   animation-play-state: paused !important;
 }
 
 /* Hide duration track for loading toasts */
-[data-name="SonnerItem"][data-variant="Loading"] [data-duration-track] {
+[data-name="ToastItem"][data-variant="Loading"] [data-duration-track] {
   display: none;
 }
 
@@ -212,14 +212,14 @@
 /* ========================================================== */
 
 /* Swiping state - disable transitions and apply manual transform */
-[data-name="SonnerItem"][data-swiping="true"] {
+[data-name="ToastItem"][data-swiping="true"] {
   transition: none !important;
   cursor: grabbing;
   user-select: none;
 }
 
 /* Apply swipe transform during dragging */
-[data-name="SonnerItem"][data-swiping="true"][data-mounted="true"] {
+[data-name="ToastItem"][data-swiping="true"][data-mounted="true"] {
   transform: var(--y)
              scale(calc(1 - var(--index) * var(--scale-factor)))
              translateX(var(--swipe-amount-x, 0px))
@@ -227,19 +227,19 @@
 }
 
 /* Swipe out animations for each direction */
-[data-name="SonnerItem"][data-swipe-out="true"][data-swipe-direction="Right"] {
+[data-name="ToastItem"][data-swipe-out="true"][data-swipe-direction="Right"] {
   animation: swipe-out-right var(--exit-duration) ease-out forwards;
 }
 
-[data-name="SonnerItem"][data-swipe-out="true"][data-swipe-direction="Left"] {
+[data-name="ToastItem"][data-swipe-out="true"][data-swipe-direction="Left"] {
   animation: swipe-out-left var(--exit-duration) ease-out forwards;
 }
 
-[data-name="SonnerItem"][data-swipe-out="true"][data-swipe-direction="Up"] {
+[data-name="ToastItem"][data-swipe-out="true"][data-swipe-direction="Up"] {
   animation: swipe-out-up var(--exit-duration) ease-out forwards;
 }
 
-[data-name="SonnerItem"][data-swipe-out="true"][data-swipe-direction="Down"] {
+[data-name="ToastItem"][data-swipe-out="true"][data-swipe-direction="Down"] {
   animation: swipe-out-down var(--exit-duration) ease-out forwards;
 }
 
@@ -286,3 +286,4 @@
     opacity: 0;
   }
 }
+

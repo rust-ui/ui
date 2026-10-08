@@ -1,47 +1,47 @@
 use dioxus::prelude::*;
 
-use crate::ui::sonner::{SonnerPosition, SonnerToaster, SonnerTrigger};
+use crate::ui::toast::{ToastPosition, ToastToaster, ToastTrigger};
 
 #[component]
-pub fn DemoSonnerPositions() -> Element {
+pub fn DemoToastPositions() -> Element {
     rsx! {
         div { class: "flex flex-wrap gap-2 justify-center",
-            SonnerTrigger {
+            ToastTrigger {
                 title: "Top Left",
                 description: "Toast positioned at top-left",
                 position: "TopLeft",
                 class: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 "Top Left"
             }
-            SonnerTrigger {
+            ToastTrigger {
                 title: "Top Center",
                 description: "Toast positioned at top-center",
                 position: "TopCenter",
                 class: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 "Top Center"
             }
-            SonnerTrigger {
+            ToastTrigger {
                 title: "Top Right",
                 description: "Toast positioned at top-right",
                 position: "TopRight",
                 class: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 "Top Right"
             }
-            SonnerTrigger {
+            ToastTrigger {
                 title: "Bottom Left",
                 description: "Toast positioned at bottom-left",
                 position: "BottomLeft",
                 class: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 "Bottom Left"
             }
-            SonnerTrigger {
+            ToastTrigger {
                 title: "Bottom Center",
                 description: "Toast positioned at bottom-center",
                 position: "BottomCenter",
                 class: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 "Bottom Center"
             }
-            SonnerTrigger {
+            ToastTrigger {
                 title: "Bottom Right",
                 description: "Toast positioned at bottom-right (default)",
                 "Bottom Right (Default)"
@@ -49,10 +49,10 @@ pub fn DemoSonnerPositions() -> Element {
         }
 
         // Toasters at each position
-        SonnerToaster { position: SonnerPosition::TopLeft }
-        SonnerToaster { position: SonnerPosition::TopCenter }
-        SonnerToaster { position: SonnerPosition::TopRight }
-        SonnerToaster { position: SonnerPosition::BottomLeft }
-        SonnerToaster { position: SonnerPosition::BottomCenter }
+        ToastToaster { position: ToastPosition::TopLeft }
+        ToastToaster { position: ToastPosition::TopCenter }
+        ToastToaster { position: ToastPosition::TopRight }
+        ToastToaster { position: ToastPosition::BottomLeft }
+        ToastToaster { position: ToastPosition::BottomCenter }
     }
 }

@@ -763,18 +763,6 @@ This is a comprehensive map of all Rust/UI documentation pages with their headin
 * States
 * See Also
 
-### [Sonner](https://rust-ui.com/docs/components/sonner)
-
-> Rust/UI Toast, inspired by Sonner.
-
-* Installation
-* Usage
-* Examples
-  * Basic Sonner
-  * Variants
-  * Positions
-* See Also
-
 ### [Spinner](https://rust-ui.com/docs/components/spinner)
 
 > A loading spinner component with animation for indicating processing states.
@@ -848,6 +836,18 @@ This is a comprehensive map of all Rust/UI documentation pages with their headin
 * Installation
 * Usage
 * How it works
+* See Also
+
+### [Toast](https://rust-ui.com/docs/components/toast)
+
+> Rust/UI Toast notifications.
+
+* Installation
+* Usage
+* Examples
+  * Basic Toast
+  * Variants
+  * Positions
 * See Also
 
 ### [Toggle Group](https://rust-ui.com/docs/components/toggle-group)

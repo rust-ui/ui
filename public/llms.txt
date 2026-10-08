@@ -57,7 +57,7 @@ Explore all components: /docs/components
 - Sheet: /docs/components/sheet
 - Shimmer: /docs/components/shimmer
 - Skeleton: /docs/components/skeleton
-- Sonner: /docs/components/sonner
+- Toast: /docs/components/toast
 - Tabs: /docs/components/tabs
 - Theme Toggle: /docs/components/theme-toggle
 - Tooltip: /docs/components/tooltip

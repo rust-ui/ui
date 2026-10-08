@@ -6,7 +6,7 @@
 
 @source "./src/**/*.rs";
 @source "./app_crates/**/*.rs";
-@source "./public/app_components/sonner.js";
+@source "./public/app_components/toast.js";
 
 /* =========================================================================
    DO NOT REMOVE: bottom-nav / iOS safe-area utility pins.

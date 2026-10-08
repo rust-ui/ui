@@ -25,7 +25,7 @@
 ### Added
 
 - `ui init` — interactive base color picker (Neutral / Stone / Zinc / Mauve / Olive / Mist / Taupe) and accent color picker (Default / Amber / Blue / … / Yellow); selections are saved to `ui_config.toml` and the generated `tailwind.css` uses the exact OKLCH values; `--yes` / `--force` skips prompts and uses defaults
-- `ui add` — deprecated component warnings: warns and exits when a deprecated component is requested, pointing to the replacement (e.g. `toast` → use `sonner`)
+- `ui add` — deprecated component warnings: warns and exits when a deprecated component is requested, pointing to the replacement
 - `ui init --yes` / `-y` and `--force` / `-f` — skip confirmation prompts and force overwrite existing files without prompting
 - `ui init --reinstall` — re-download and overwrite all already-installed components after init; prompts automatically when existing components are detected on a re-run
 - `ui init` — backup/restore on failure: `ui_config.toml` is backed up before writing and automatically restored if the init process fails (RAII `FileBackup` guard)

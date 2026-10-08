@@ -105,7 +105,7 @@ wave.
    `scroll_area`, `table`, `avatar`, `chips`, `action_bar`, `attachment`,
    `direction_provider`.
 6. Complex / data: `data_grid`, `data_table`, `date_picker`
-   (+ `date_picker_state`, `date_picker_dual_state`), `charts`, `sonner`,
+   (+ `date_picker_state`, `date_picker_dual_state`), `charts`, `toast`,
    `drag_and_drop`, `dropzone`, `workflow`, `toolbar`.
 
 ## Per-file inventory
@@ -191,7 +191,7 @@ components (needs unwrapping or inner extends first).
 | sidenav.rs | 23 | element | a aside button div footer input; largest file, many `data-sidenav` in leptos |
 | skeleton.rs | 1 | element | div |
 | slider.rs | 1 | element | input; extend `input`, reconcile `min`/`max`/`step`/`value` |
-| sonner.rs | 4 | mixed | `SonnerContainer` root; button div ol |
+| toast.rs | 4 | mixed | `ToastContainer` root; button div ol |
 | spinner.rs | 2 | component | roots are `Loader` / `LoaderCircle` icon components; wrap or GlobalAttributes on a span |
 | status.rs | 2 | element | div |
 | stepper.rs | 7 | element | button div span |
