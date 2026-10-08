@@ -30,8 +30,8 @@ RUN dx build --release --fullstack
 # ------- 4. CLEANER STAGE ------- #
 FROM gcr.io/distroless/cc-debian12
 
-COPY --from=builder --chmod=755 /app/target/dx/dioxus-ui/release/web/server  /server
-COPY --from=builder /app/target/dx/dioxus-ui/release/web/public               /public
+COPY --from=builder --chmod=755 /app/target/dx/rust-ui-dioxus/release/web/server  /server
+COPY --from=builder /app/target/dx/rust-ui-dioxus/release/web/public               /public
 
 ENV IP=0.0.0.0
 ENV PORT=8080
