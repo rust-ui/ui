@@ -1,14 +1,20 @@
 name: Feature request
-description: Suggest an improvement for Rust UI.
-title: "[Feature]: "
+description: Suggest an improvement for Rust/UI.
+title: "[feat]: "
 labels:
   - enhancement
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Search open and closed issues first. If you are unsure whether this is a feature request or a support question, ask in [Discussions](https://github.com/rust-ui/ui/discussions/new?category=general).
+
   - type: textarea
     id: problem
     attributes:
       label: Problem to solve
-      description: What problem or use case does this address?
+      description: What problem or use case does this address? Who benefits?
+      placeholder: I need to ... because ...
     validations:
       required: true
 
@@ -16,15 +22,22 @@ body:
     id: proposal
     attributes:
       label: Proposed solution
-      description: Describe the behavior or API you would like.
+      description: Describe the behavior, API, component, or documentation change you want.
     validations:
       required: true
+
+  - type: input
+    id: affected-surface
+    attributes:
+      label: Affected component, page, or command
+      description: Name the existing Rust/UI surface when applicable.
+      placeholder: Button, docs, registry CLI, or N/A
 
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives considered
-      description: What workarounds or alternative solutions did you try?
+      label: Alternatives and workarounds
+      description: What alternatives did you consider or try?
     validations:
       required: true
 
@@ -38,6 +51,9 @@ body:
     id: checks
     attributes:
       label: Before submitting
+      description: By submitting, you agree to follow the project contribution guidelines.
       options:
-        - label: I searched existing issues and did not find a duplicate.
+        - label: I searched the documentation and existing issues/PRs.
+          required: true
+        - label: I have read the [contribution guidelines](https://github.com/rust-ui/ui/blob/main/CONTRIBUTING.md).
           required: true
