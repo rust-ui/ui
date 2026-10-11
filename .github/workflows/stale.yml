@@ -1,4 +1,4 @@
-name: Close stale issues and PRs
+name: Stale issue and pull request handler
 
 on:
   schedule:
@@ -15,19 +15,25 @@ jobs:
     steps:
       - uses: actions/stale@v9
         with:
-          days-before-stale: 21
-          days-before-close: 7
+          days-before-issue-stale: 365
+          days-before-issue-close: 7
+          days-before-pr-stale: 365
+          days-before-pr-close: 7
           stale-issue-label: stale
           stale-pr-label: stale
-          exempt-issue-labels: pinned,security,bug
-          exempt-pr-labels: pinned,security
+          exempt-issue-labels: pinned,security,confirmed,roadmap
+          exempt-pr-labels: pinned,security,roadmap
+          remove-issue-stale-when-updated: true
+          remove-pr-stale-when-updated: true
           stale-issue-message: >
-            This issue has been inactive for 21 days and will be closed in 7 days
-            if there is no further activity.
+            This issue has been inactive for one year and is now marked stale.
+            It will be closed in 7 days if there is no further activity.
           stale-pr-message: >
-            This pull request has been inactive for 21 days and will be closed in 7 days
-            if there is no further activity.
+            This pull request has been inactive for one year and is now marked stale.
+            It will be closed in 7 days if there is no further activity.
           close-issue-message: >
-            Closing due to inactivity. Feel free to reopen if this is still relevant.
+            Closing due to one year of inactivity. Reopen this issue or open a new
+            report with current reproduction details if the problem still exists.
           close-pr-message: >
-            Closing due to inactivity. Feel free to reopen if you'd like to continue this.
+            Closing due to one year of inactivity. Reopen this PR or open a new PR
+            if you would like to continue the work.

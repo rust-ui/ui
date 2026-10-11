@@ -1,0 +1,43 @@
+title: "[component]: "
+labels:
+  - enhancement
+  - area: component
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a component. Search existing discussions and issues first.
+
+        Use an issue only for a confirmed, reproducible bug. Use this discussion for component ideas and design exploration.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Component description
+      description: What should the component do? Include the main states and interactions.
+      placeholder: A component that ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+      description: What problem does this solve and who needs it?
+    validations:
+      required: true
+
+  - type: input
+    id: example-url
+    attributes:
+      label: Example or reference
+      description: Link to a design, prior art, or implementation when available.
+      placeholder: https://example.com
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing discussions and issues.
+          required: true

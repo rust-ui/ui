@@ -6,6 +6,8 @@ Inspired by shadcn/ui, built for Rust fullstack apps. A component registry for D
 
 > **Early stage, experimental** — expect breaking changes. Open to contributors.
 
+See [CONTRIBUTING.md](./CONTRIBUTING.md) before opening an issue or pull request.
+
 > **Not affiliated with or endorsed by the Dioxus team.** This is an independent personal project.
 
 ## Why Rust/UI?
