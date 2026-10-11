@@ -12,6 +12,7 @@ not want.
 
 ## Inbox
 
+- 2026-10-11 [github] avoid writing a negated `Closes #N` reference in a PR body that does not fix the issue, do state plainly that the PR does not fix it without the closing keyword, because GitHub parses the keyword and auto-closes the issue anyway.
 - 2026-09-16 [dioxus/editor] avoid generic `dioxus-editor-{n}` DOM id prefix for the rich text editor, do use `rust-ui-editor-{n}`, because project-branded id prefix preferred over framework-generic one.
 - 2026-09-16 [dioxus/deps] avoid bumping the root `Cargo.toml` `dioxus`/`dioxus-html` pin off `=0.7.9`, do keep it pinned even though the locally installed `dx` CLI is 0.7.10 (version-mismatch warning at `dx serve` startup is expected, not a bug to fix), because dioxus 0.7.10 requires dioxus-desktop 0.7.10 which is unpublished on crates.io (desktop skipped straight to 0.8.0-alpha) and the desktop target hasn't upgraded yet.
 - 2026-09-16 [testing] avoid Playwright CLI/spec fallback for manual UI validation, do use Playwright MCP mandatorily and save screenshots under `.playwright-mcp/`, because visual interaction checks must happen through the MCP workflow.
