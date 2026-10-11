@@ -1,0 +1,99 @@
+name: Bug report
+description: Report a reproducible problem in Rust UI.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Rust UI.
+
+        Please provide enough detail for someone else to reproduce the problem. Reports without reproduction steps or evidence may be closed until details are added.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Describe the bug
+      description: What is broken? Include the affected component, page, or example.
+      placeholder: The icon color stays changed after selecting the default color.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Give the smallest exact sequence that triggers the problem.
+      placeholder: |
+        1. Open ...
+        2. Select ...
+        3. Click ...
+        4. See ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happens instead? Include exact error text when available.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Attach a screenshot, GIF, video, logs, or a link to a minimal reproduction. For visual bugs, screenshot or recording is required.
+      placeholder: Drag files here, paste a link, or include relevant logs.
+    validations:
+      required: true
+
+  - type: textarea
+    id: minimal_reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Link a repository, commit, or short code sample that reproduces the problem. If impossible, explain why.
+      placeholder: https://github.com/... or paste the smallest relevant code here.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Rust UI version or commit
+      placeholder: v0.1.0 or abc1234
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, target/platform, browser or runtime, Rust version, and relevant feature flags.
+      placeholder: |
+        - OS: macOS 15.6
+        - Target/platform: web
+        - Browser/runtime: Firefox 140
+        - Rust: 1.90.0
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and did not find a duplicate.
+          required: true
+        - label: I tested this against the latest available Rust UI version or commit.
+          required: true
