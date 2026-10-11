@@ -23,7 +23,7 @@ jobs:
   #   name: Format
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - uses: actions/checkout@v4
+  #     - uses: actions/checkout@v5
   #
   #     - name: Install Rust toolchain
   #       uses: dtolnay/rust-toolchain@nightly
@@ -37,8 +37,8 @@ jobs:
     name: Typos
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: crate-ci/typos@master
+      - uses: actions/checkout@v5
+      - uses: crate-ci/typos@v1.51.1
 
   build:
     name: Build
@@ -48,7 +48,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Free disk space
       uses: jlumbroso/free-disk-space@main
@@ -98,7 +98,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Setup SSH key
       run: |
