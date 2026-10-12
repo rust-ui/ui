@@ -25,7 +25,7 @@ app_routes.workspace = true
 app_domain.workspace = true
 icons.workspace = true
 tw_merge.workspace = true
-pulldown-cmark = { version = "0.12", default-features = false, features = ["html"] }
+pulldown-cmark = { version = "0.13", default-features = false, features = ["html"] }
 html_parser = "0.7"
 toml = "0.8"
 serde.workspace = true
