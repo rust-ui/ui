@@ -67,7 +67,7 @@ resend-rs = { version = "0.19", default-features = false, features = ["rustls-tl
 rusqlite = { version = "0.32", features = ["bundled"] }
 validator = { version = "0.21", features = ["derive"] }
 tracing = "0.1"
-tower-http = { version = "0.6", features = ["fs"] }
+tower-http = { version = "0.7", features = ["fs"] }
 tokio = { version = "1", features = ["rt-multi-thread"] }
 js-sys = "0.3"
 wasm-bindgen = "0.2"
