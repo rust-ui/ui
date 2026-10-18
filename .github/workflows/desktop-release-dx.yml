@@ -54,7 +54,7 @@ jobs:
         run: dx bundle --platform macos --package-types dmg --release
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: macos-bundles
           # dx's actual output nests the platform dir twice (bundle/macos/macos/*.dmg),
@@ -103,7 +103,7 @@ jobs:
         run: dx bundle --platform linux --package-types appimage --package-types deb --release
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: linux-bundles
           # See macOS job comment: dx's bundle output dir nesting isn't the guessed
@@ -141,7 +141,7 @@ jobs:
         run: dx bundle --platform windows --package-types msi --package-types nsis --release
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: windows-bundles
           # See macOS job comment: dx's bundle output dir nesting isn't the guessed
