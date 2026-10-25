@@ -23,14 +23,16 @@ struct TechArticleSchema {
     keywords: Vec<String>,
     #[serde(rename = "articleSection")]
     article_section: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    image: Option<String>,
 }
 
 #[derive(Serialize)]
 struct Author {
     #[serde(rename = "@type")]
     type_: String,
-    #[serde(rename = "@id")]
-    id: String,
+    #[serde(rename = "@id", skip_serializing_if = "Option::is_none")]
+    id: Option<String>,
     name: String,
 }
 
@@ -82,23 +84,34 @@ pub fn JsonLdArticle(
     /// Article section (e.g., "Components", "Hooks", "Documentation")
     #[props(default = "Documentation".to_string())]
     article_section: String,
+    /// Optional person author name. When set, the author is a `Person` instead of the site `Organization`.
+    #[props(default)]
+    author_name: Option<String>,
+    /// Optional absolute image URL (social preview image)
+    #[props(default)]
+    image: Option<String>,
 ) -> Element {
+    let author = author_name.map_or_else(
+        || Author {
+            type_: "Organization".to_string(),
+            id: Some(format!("{}/#organization", SiteConfig::BASE_URL)),
+            name: SiteConfig::TITLE.to_string(),
+        },
+        |name| Author { type_: "Person".to_string(), id: None, name },
+    );
     let schema = TechArticleSchema {
         context: "https://schema.org".to_string(),
         type_: "TechArticle".to_string(),
         headline: title,
         description,
-        author: Author {
-            type_: "Organization".to_string(),
-            id: format!("{}/#organization", SiteConfig::BASE_URL),
-            name: SiteConfig::TITLE.to_string(),
-        },
+        author,
         date_published: date_published.unwrap_or_else(|| "2024-01-01".to_string()),
         date_modified: date_modified.unwrap_or_else(|| "2025-11-08".to_string()),
         url: url.clone(),
         main_entity_of_page: MainEntity { type_: "WebPage".to_string(), id: url },
         keywords,
         article_section,
+        image,
     };
 
     let json_content = serde_json::to_string(&schema).unwrap_or_else(|_| "{}".to_string());
@@ -123,7 +136,7 @@ mod unit_tests {
             description: "Test description".to_string(),
             author: Author {
                 type_: "Organization".to_string(),
-                id: format!("{}/#organization", SiteConfig::BASE_URL),
+                id: Some(format!("{}/#organization", SiteConfig::BASE_URL)),
                 name: SiteConfig::TITLE.to_string(),
             },
             date_published: "2024-01-01".to_string(),
@@ -135,6 +148,7 @@ mod unit_tests {
             },
             keywords: vec!["test".to_string(), "article".to_string()],
             article_section: "Components".to_string(),
+            image: None,
         }
     }
 

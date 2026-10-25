@@ -12,8 +12,10 @@ use icons::Download;
 use registry::hooks::use_theme_mode::use_theme_mode;
 use registry::ui::button::{Button, ButtonSize, ButtonVariant};
 
+use crate::Route;
 use crate::components::app_footer::AppFooter;
 use crate::components::logos::ferris::Ferris;
+use crate::domain::articles::content::all_articles;
 use crate::routes::home_page_sparkles::{
     SparklesColor, SparklesDescription, SparklesEffect, SparklesHeader, SparklesSection,
 };
@@ -77,6 +79,8 @@ pub fn Home() -> Element {
             }
 
             ThemesBlocks {}
+
+            LatestArticles {}
         }
 
         AppFooter {}
@@ -110,6 +114,30 @@ fn SectionHeader() -> Element {
                         href: RoutePaths::DOWNLOAD,
                         Download {}
                         span { "Download Desktop" }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#[component]
+fn LatestArticles() -> Element {
+    rsx! {
+        section { class: "py-16 w-full", "aria-labelledby": "latest-articles",
+            div { class: "flex justify-between items-end mb-6",
+                h2 { id: "latest-articles", class: "text-2xl font-semibold", "Latest articles" }
+                Link { to: Route::ArticlesPage {}, class: "text-sm font-medium underline underline-offset-4", "All articles →" }
+            }
+            ul { class: "grid gap-4 sm:grid-cols-2 lg:grid-cols-3",
+                for article in all_articles().iter().take(6) {
+                    li { key: "{article.slug}", class: "p-4 rounded-xl border",
+                        Link {
+                            to: Route::ArticlePage { slug: article.slug.to_string() },
+                            class: "font-medium hover:underline",
+                            "{article.title()}"
+                        }
+                        p { class: "mt-2 text-sm text-muted-foreground line-clamp-3", "{article.description()}" }
                     }
                 }
             }

@@ -145,6 +145,12 @@ pub const ARTICLES: &[Article] = &[
         )),
         order: 5,
     },
+    Article {
+        slug: "dioxus-dark-mode-tailwind-theming",
+        category: ArticleCategory::Components,
+        raw: include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/articles/dioxus-dark-mode-tailwind-theming.md")),
+        order: 6,
+    },
 ];
 
 #[must_use]

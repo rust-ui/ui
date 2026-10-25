@@ -18,6 +18,7 @@ const ROUTE_USE_COPY_CLIPBOARD: &str = "/docs/hooks/use-copy-clipboard";
 const ROUTE_USE_LOCK_BODY_SCROLL: &str = "/docs/hooks/use-lock-body-scroll";
 const ROUTE_USE_HORIZONTAL_SCROLL: &str = "/docs/hooks/use-horizontal-scroll";
 
+const ROUTE_ARTICLES: &str = "/articles";
 const ROUTE_HOME: &str = "/";
 const URL_RUSTIFY: &str = "https://rustify.rs/";
 const URL_YOUTUBE: &str = "https://www.youtube.com/@rustify-rs";
@@ -50,13 +51,19 @@ pub fn AppFooter() -> Element {
                             {env!("BUILD_DATE")}
                         }
                     }
-                    FooterSectionsGrid { class: "col-span-3 sm:grid-cols-3",
+                    FooterSectionsGrid { class: "col-span-3 sm:grid-cols-4",
                         FooterLinksSection {
                             FooterTitle { "Components" }
                             FooterLinks {
                                 FooterLink { href: ROUTE_ACCORDION, "Accordion" }
                                 FooterLink { href: ROUTE_BUTTON, "Button" }
                                 FooterLink { href: ROUTE_CARD, "Card" }
+                            }
+                        }
+                        FooterLinksSection {
+                            FooterTitle { "Learn" }
+                            FooterLinks {
+                                FooterLink { href: ROUTE_ARTICLES, "Articles" }
                             }
                         }
                         FooterLinksSection {

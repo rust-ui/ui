@@ -13,6 +13,8 @@ Internal changelog for the dioxus-ui site (not user-facing).
   workflow, Dependabot updates, private vulnerability reporting, and PR code
   checks for typos, formatting, and Clippy.
 
+- **Article SEO and quality system**: added `rust_ui_internals/SOP_WRITE_ARTICLE.md` and `scripts/lint_articles.py` (scores each article out of 10, blocks on dashes, dead internal links, FAQ count, word count). Rewrote and expanded all articles to 2200+ words with TL;DR, tables, FAQ, sources, and original SVG diagrams, and added a dark mode and Tailwind theming guide. Added `FAQPage` JSON-LD, `Person` author and image in article JSON-LD, a "Keep reading" block, an internal Articles nav link, a footer link, and a latest articles section on the home page to fix crawl paths.
+
 - **Dioxus article library**: added six Markdown-authored guides focused on building Rust UI with Dioxus, plus a Term/UI-matched articles hub, category filters, search, article detail pages, sticky table of contents, share actions, SEO metadata, JSON-LD, and article sitemap generation. No analytics or PostHog tracking added.
 
 - **Article category carousel hook**: extracted reusable horizontal-rail IDs, scrolling, and edge-button state from the articles page into the article carousel hook.

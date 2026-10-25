@@ -1,6 +1,6 @@
 use std::fmt::Write as _;
 
-use app_config::{BreadcrumbItem, JsonLdArticle, JsonLdBreadcrumb, SeoMeta, SiteConfig};
+use app_config::{BreadcrumbItem, FaqItem, JsonLdArticle, JsonLdBreadcrumb, JsonLdFaq, SeoMeta, SiteConfig};
 use dioxus::prelude::*;
 use icons::{ArrowLeft, ArrowRight, BookOpen, Boxes, Cog, Rocket};
 use registry::hooks::use_table_of_contents::use_table_of_contents;
@@ -105,6 +105,14 @@ pub fn ArticlePage(slug: String) -> Element {
     let author_role = if fm.author_role.is_empty() { "Creator of Rust/UI and Rustify" } else { &fm.author_role };
     let author_image = if fm.author_image.is_empty() { "/articles/author-max-wells.webp" } else { &fm.author_image };
     let publish_date = if fm.publish_date.is_empty() { "2026-09-22" } else { &fm.publish_date };
+    let modified_date = if fm.last_updated.is_empty() { publish_date } else { &fm.last_updated };
+    let image_url = if fm.image.is_empty() {
+        format!("{}/og-image.webp", SiteConfig::BASE_URL)
+    } else {
+        format!("{}{}", SiteConfig::BASE_URL, fm.image)
+    };
+    let faq_items = extract_faq(article.body());
+    let related = related_articles(article, 3);
 
     rsx! {
         SeoMeta {
@@ -112,7 +120,7 @@ pub fn ArticlePage(slug: String) -> Element {
             title: format!("{} · Rust/UI", article.title()),
             description: article.description(),
             canonical_url: canonical_url.clone(),
-            image_url: Some(format!("{}/og-image.webp", SiteConfig::BASE_URL)),
+            image_url: Some(image_url.clone()),
             og_title: Some(article.title()),
             og_type: Some("article".to_string()),
         }
@@ -121,9 +129,14 @@ pub fn ArticlePage(slug: String) -> Element {
             description: article.description(),
             url: canonical_url.clone(),
             date_published: Some(publish_date.to_string()),
-            date_modified: (!fm.last_updated.is_empty()).then_some(fm.last_updated.clone()),
+            date_modified: Some(modified_date.to_string()),
             keywords: fm.keywords,
             article_section: article.category.label().to_string(),
+            author_name: Some(author.to_string()),
+            image: Some(image_url),
+        }
+        if !faq_items.is_empty() {
+            JsonLdFaq { items: faq_items }
         }
         JsonLdBreadcrumb {
             breadcrumbs: vec![
@@ -173,6 +186,16 @@ pub fn ArticlePage(slug: String) -> Element {
                         span { "{article.description()}" }
                     }
                     div { class: "max-w-none text-[16px] leading-7", {body} }
+                    if !related.is_empty() {
+                        section { class: "mt-16", "aria-labelledby": "keep-reading",
+                            h2 { id: "keep-reading", class: "text-2xl font-semibold tracking-[-0.03em]", "Keep reading" }
+                            div { class: "mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3",
+                                for related_article in related {
+                                    ArticleCard { key: "{related_article.slug}", article: related_article }
+                                }
+                            }
+                        }
+                    }
                     div { class: "mt-16 rounded-2xl border bg-muted/30 p-6",
                         p { class: "font-medium", "Keep building with Rust/UI" }
                         p { class: "mt-2 text-sm text-muted-foreground",
@@ -184,6 +207,67 @@ pub fn ArticlePage(slug: String) -> Element {
             }
             ArticleClosingCta {}
         }
+    }
+}
+
+/// Other articles to suggest, same category first, then the rest in listing order.
+fn related_articles(current: Article, limit: usize) -> Vec<Article> {
+    let others = all_articles().iter().copied().filter(|article| article.slug != current.slug);
+    let (same, rest): (Vec<_>, Vec<_>) = others.partition(|article| article.category == current.category);
+    same.into_iter().chain(rest).take(limit).collect()
+}
+
+/// Build FAQ items from the `## Frequently Asked Questions` section: each `###` heading is a question,
+/// the text below it (until the next heading) is the answer.
+fn extract_faq(body: &str) -> Vec<FaqItem> {
+    let mut items = Vec::new();
+    let mut in_faq = false;
+    let mut question: Option<String> = None;
+    let mut answer = String::new();
+
+    let mut flush = |question: &mut Option<String>, answer: &mut String| {
+        if let Some(q) = question.take() {
+            let a = answer.trim();
+            if !a.is_empty() {
+                items.push(FaqItem { question: q, answer: a.replace("**", "").replace('`', "") });
+            }
+        }
+        answer.clear();
+    };
+
+    for line in body.lines() {
+        if let Some(heading) = line.strip_prefix("## ") {
+            flush(&mut question, &mut answer);
+            in_faq = heading.trim().eq_ignore_ascii_case("Frequently Asked Questions");
+        } else if in_faq && let Some(q) = line.strip_prefix("### ") {
+            flush(&mut question, &mut answer);
+            question = Some(q.trim().to_string());
+        } else if in_faq && question.is_some() {
+            answer.push_str(line);
+            answer.push('\n');
+        }
+    }
+    flush(&mut question, &mut answer);
+    items
+}
+
+#[cfg(test)]
+mod faq_tests {
+    use super::extract_faq;
+
+    #[test]
+    fn extracts_questions_and_answers() {
+        let body = "## Intro\ntext\n\n## Frequently Asked Questions\n\n### What is X?\n\n**X** is a `thing`.\n\n### Why Y?\n\nBecause.\n\n## Sources\n- a\n";
+        let items = extract_faq(body);
+        assert_eq!(items.len(), 2);
+        assert_eq!(items[0].question, "What is X?");
+        assert_eq!(items[0].answer, "X is a thing.");
+        assert_eq!(items[1].answer, "Because.");
+    }
+
+    #[test]
+    fn no_faq_section_gives_empty() {
+        assert!(extract_faq("## Intro\ntext").is_empty());
     }
 }
 

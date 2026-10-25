@@ -123,12 +123,9 @@ pub fn NavDesktop() -> Element {
                                         ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover/external-link:translate-x-0.5 group-hover/external-link:-translate-y-0.5" }
                                     }
                                     NavigationMenuLink {
-                                        href: "https://rust-ui.com/articles",
-                                        target: "_blank",
-                                        rel: "noopener noreferrer",
-                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm group/external-link underline hover:bg-accent hover:text-accent-foreground",
+                                        href: "/articles",
+                                        class: "gap-1.5 px-2 py-1.5 w-full rounded-sm underline hover:bg-accent hover:text-accent-foreground",
                                         "Articles"
-                                        ExternalLink { class: "size-3 text-muted-foreground transition-transform duration-200 group-hover/external-link:translate-x-0.5 group-hover/external-link:-translate-y-0.5" }
                                     }
                                 }
                             }
