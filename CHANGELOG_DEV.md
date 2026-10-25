@@ -6,6 +6,7 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ### Added
 
+- **Articles**: new "Dioxus Router: Typed Routes, Layouts, and Nested Navigation" guide with route-tree diagram, and a dark mode guide. All articles are GEO-ready (answer-first opener, dated, sourced, FAQPage schema).
 - **GitHub contribution workflow**: added strict bug and feature forms with
   required evidence, reproduction details, system info, research checklists,
   direct Discussions routing, a component-request discussion template,

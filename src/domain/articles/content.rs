@@ -151,6 +151,15 @@ pub const ARTICLES: &[Article] = &[
         raw: include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/public/articles/dioxus-dark-mode-tailwind-theming.md")),
         order: 6,
     },
+    Article {
+        slug: "dioxus-router-typed-routes-layouts",
+        category: ArticleCategory::Foundations,
+        raw: include_str!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/public/articles/dioxus-router-typed-routes-layouts.md"
+        )),
+        order: 7,
+    },
 ];
 
 #[must_use]
