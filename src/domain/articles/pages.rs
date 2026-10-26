@@ -27,8 +27,20 @@ pub fn ArticlesPage() -> Element {
     rsx! { ArticlesHubPage { initial_category: None } }
 }
 
+/// Return a real 404 status so crawlers do not index a soft 404.
+fn set_not_found_status() {
+    #[cfg(feature = "server")]
+    {
+        use dioxus::fullstack::{FullstackContext, StatusCode};
+        FullstackContext::commit_http_status(StatusCode::NOT_FOUND, None);
+    }
+}
+
 #[component]
 pub fn ArticleCategoryPage(category: String) -> Element {
+    if ArticleCategory::from_slug(&category).is_none() {
+        set_not_found_status();
+    }
     rsx! {
         ArticlesHubPage {
             initial_category: ArticleCategory::from_slug(&category),
@@ -88,7 +100,9 @@ fn ArticlesHubPage(#[props(default)] initial_category: Option<ArticleCategory>) 
 #[component]
 pub fn ArticlePage(slug: String) -> Element {
     let Some(article) = article_by_slug(&slug) else {
+        set_not_found_status();
         return rsx! {
+            document::Meta { name: "robots", content: "noindex, nofollow" }
             div { class: "mx-auto max-w-[1200px] px-6 py-24 text-center",
                 h1 { class: "text-3xl font-semibold", "Article not found" }
                 Link { to: Route::ArticlesPage {}, class: "mt-4 inline-block underline underline-offset-4", "Back to articles" }
