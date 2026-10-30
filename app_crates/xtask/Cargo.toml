@@ -8,6 +8,6 @@ publish = false
 workspace = true
 
 [dependencies]
-toml = "0.8"
+toml = "1.1"
 regex = "1"
 serde = { version = "1", features = ["derive"] }
