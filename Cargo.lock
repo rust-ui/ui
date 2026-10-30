@@ -2953,9 +2953,9 @@ dependencies = [
 
 [[package]]
 name = "icons"
-version = "0.18.3"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fcd64e905546df827abb60b227d2c147e16cd197586a26275e0c37d06743b9b5"
+checksum = "9bef9cd5a133bca0976306e662e0fe8f8433f7d5a46c808e701f9391cd4606e7"
 dependencies = [
  "dioxus",
  "strum",
@@ -5228,9 +5228,9 @@ dependencies = [
 
 [[package]]
 name = "resend-rs"
-version = "0.34.0"
+version = "0.35.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9bf2e13eb4e42005789b633a6a008add0f8f4d5521e0482d8836398c8be9a3c1"
+checksum = "641bb43849955a6394f1b7f2d0a653381b8dab7a4d20c7fb9a87633c1ce8624f"
 dependencies = [
  "ecow",
  "getrandom 0.4.3",

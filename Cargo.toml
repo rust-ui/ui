@@ -56,15 +56,15 @@ app_config = { path = "app_crates/app_config" }
 app_domain = { path = "app_crates/app_domain" }
 app_routes = { path = "app_crates/app_routes" }
 
-icons = { version = "0.18", features = ["dioxus", "dioxus_animated"] }
+icons = { version = "0.19", features = ["dioxus", "dioxus_animated"] }
 tw_merge = { version = "0.1", features = ["debug"] }
 heck = "0.5"
 strum = { version = "0.28", features = ["derive"] }
 serde = { version = "1", features = ["derive"] }
-serde_json = "1.0"
+serde_json = "1"
 time = { version = "0.3", features = ["serde", "wasm-bindgen"] }
 reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
-resend-rs = { version = "0.34", default-features = false, features = ["rustls-tls"] }
+resend-rs = { version = "0.35", default-features = false, features = ["rustls-tls"] }
 rusqlite = { version = "0.32", features = ["bundled"] }
 validator = { version = "0.21", features = ["derive"] }
 tracing = "0.1"
