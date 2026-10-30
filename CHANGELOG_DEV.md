@@ -60,6 +60,10 @@ Internal changelog for the dioxus-ui site (not user-facing).
   has no `@tailwindcss/typography` plugin) so headings/lists/links/code/images
   render styled, not just structurally correct.
 
+### Removed
+
+- **Home page**: removed the "Latest articles" section, the Discord link in the footer, and the iOS TestFlight banner above the header.
+
 ### Changed
 
 - **Toast system unified on the Leptos-compatible runtime**: removed the legacy custom Toast component,

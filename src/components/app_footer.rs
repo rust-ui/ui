@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use registry::blocks::footer_logos::{LogoDiscord, LogoLinkedIn, LogoYouTube, SvgGridPattern};
+use registry::blocks::footer_logos::{LogoLinkedIn, LogoYouTube, SvgGridPattern};
 use registry::ui::button::Button;
 use registry::ui::card::{Card, CardContent, CardDescription, CardTitle};
 use registry::ui::footer::{
@@ -79,9 +79,6 @@ pub fn AppFooter() -> Element {
                             div { class: "flex flex-wrap gap-3 text-sm",
                                 FooterExternalLink { href: URL_YOUTUBE,
                                     LogoYouTube {}
-                                }
-                                FooterExternalLink { href: "#",
-                                    LogoDiscord {}
                                 }
                                 FooterExternalLink { href: URL_LINKEDIN_SHARE,
                                     LogoLinkedIn {}
