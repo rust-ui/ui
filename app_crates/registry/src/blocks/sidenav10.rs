@@ -7,7 +7,7 @@ use crate::ui::sidenav::SidenavVariant;
 
 /*
  * title: Search Sidenav
-*/
+ */
 
 #[component]
 pub fn Sidenav10Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {

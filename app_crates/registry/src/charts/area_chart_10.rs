@@ -7,7 +7,7 @@ use crate::ui::charts::AreaChart;
 
 /*
  * title: Area Chart - No Y-axis
-*/
+ */
 
 #[derive(Serialize)]
 struct ChartDataPoint {

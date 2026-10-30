@@ -5,7 +5,7 @@ use crate::ui::button::{Button, ButtonVariant};
 
 /*
  * title: Icon Library with Connected Lines
-*/
+ */
 
 #[component]
 fn Integration03IconCard(children: Element) -> Element {

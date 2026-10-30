@@ -7,7 +7,7 @@ use crate::ui::sidenav::SidenavVariant;
 
 /*
  * title: Inset Sidenav
-*/
+ */
 
 #[component]
 pub fn Sidenav08Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {

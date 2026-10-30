@@ -7,7 +7,7 @@ use crate::ui::sidenav::SidenavVariant;
 
 /*
  * title: Collapsible Submenus Sidenav
-*/
+ */
 
 #[component]
 pub fn Sidenav05Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {

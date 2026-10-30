@@ -7,7 +7,7 @@ use crate::ui::charts::AreaChart;
 
 /*
  * title: Area Chart
-*/
+ */
 
 #[derive(Serialize)]
 struct ChartDataPoint {

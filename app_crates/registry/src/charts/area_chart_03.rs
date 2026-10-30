@@ -7,7 +7,7 @@ use crate::ui::charts::{AreaChart, ChartCurve};
 
 /*
  * title: Area Chart - Linear
-*/
+ */
 
 #[derive(Serialize)]
 struct ChartDataPoint {

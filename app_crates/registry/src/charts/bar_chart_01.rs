@@ -3,7 +3,7 @@ use serde::Serialize;
 
 /*
  * title: Bar Chart
-*/
+ */
 
 #[derive(Serialize)]
 struct ChartDataPoint {

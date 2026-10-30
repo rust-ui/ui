@@ -5,7 +5,7 @@ use crate::ui::image::Image;
 
 /*
  * title: Icon Library Showcase
-*/
+ */
 
 #[component]
 fn Integration01IconWrapper(children: Element) -> Element {

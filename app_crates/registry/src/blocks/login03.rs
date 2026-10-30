@@ -8,7 +8,7 @@ use crate::ui::label::Label;
 
 /*
  * title: Social Login with Email Fallback
-*/
+ */
 
 #[component]
 fn LogoGoogle() -> Element {

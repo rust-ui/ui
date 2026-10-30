@@ -7,7 +7,7 @@ use crate::ui::charts::AreaChart;
 
 /*
  * title: Area Chart - Stacked
-*/
+ */
 
 #[derive(Serialize)]
 struct ChartDataPoint {

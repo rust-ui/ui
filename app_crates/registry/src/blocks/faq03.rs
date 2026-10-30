@@ -6,7 +6,7 @@ use crate::ui::button::{Button, ButtonVariant};
 
 /*
  * title: FAQ with Sidebar Navigation
-*/
+ */
 
 const ACCORDION_ITEM_CLASS: &str = "py-1 px-6 rounded-xl border-none data-[state=open]:bg-card data-[state=open]:ring-foreground/5 data-[state=open]:shadow-sm data-[state=open]:ring-1";
 const ACCORDION_TRIGGER_CLASS: &str =

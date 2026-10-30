@@ -3,7 +3,7 @@ use serde::Serialize;
 
 /*
  * title: Pie Chart
-*/
+ */
 
 #[derive(Serialize)]
 struct ChartDataPoint {

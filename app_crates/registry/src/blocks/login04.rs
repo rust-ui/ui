@@ -8,7 +8,7 @@ use crate::ui::label::Label;
 
 /*
  * title: Split Login with Social Buttons
-*/
+ */
 
 #[component]
 fn LogoGoogle() -> Element {

@@ -3,7 +3,7 @@ use serde::Serialize;
 
 /*
  * title: Radial Chart
-*/
+ */
 
 #[derive(Serialize)]
 struct ChartDataPoint {

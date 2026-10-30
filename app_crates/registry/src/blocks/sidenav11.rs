@@ -6,7 +6,7 @@ use crate::ui::sidenav::{Sidenav, SidenavSide};
 
 /*
  * title: Right Sidenav
-*/
+ */
 
 #[component]
 pub fn Sidenav11Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {

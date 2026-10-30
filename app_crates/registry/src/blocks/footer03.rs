@@ -12,7 +12,7 @@ use crate::ui::footer::{
  * title: Footer Grid with Social Links
  * iframe_height: 474px
  * container_class: w-full bg-background
-*/
+ */
 
 #[component]
 pub fn Footer03() -> Element {

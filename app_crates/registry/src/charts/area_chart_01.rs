@@ -7,7 +7,7 @@ use crate::ui::charts::AreaChart;
 
 /*
  * title: Area Chart
-*/
+ */
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Display, AsRefStr, EnumIter, Default)]
 enum TimeRange {

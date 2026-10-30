@@ -8,7 +8,7 @@ use crate::ui::button::{Button, ButtonVariant};
 
 /*
  * title: Icon Library with Scrolling Rows
-*/
+ */
 
 #[component]
 fn Integration06IconBubble(children: Element) -> Element {

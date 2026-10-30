@@ -12,7 +12,7 @@ use crate::ui::footer::{
  * title: Footer with CTA Card
  * iframe_height: 897px
  * container_class: w-full bg-background
-*/
+ */
 
 #[component]
 pub fn Footer01() -> Element {

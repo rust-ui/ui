@@ -9,7 +9,7 @@ use crate::ui::sidenav::{Sidenav, SidenavCollapsible, SidenavMenu, SidenavMenuBu
 
 /*
  * title: Icon Collapsible Sidenav
-*/
+ */
 
 #[component]
 pub fn Sidenav09Sidebar(current_section: DocsRoutes, sidenav_route: SidenavRoutes) -> Element {

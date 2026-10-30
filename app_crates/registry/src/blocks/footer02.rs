@@ -11,7 +11,7 @@ use crate::ui::footer::{
  * title: Footer Centered Simple
  * iframe_height: 448px
  * container_class: bg-muted
-*/
+ */
 
 #[component]
 pub fn Footer02() -> Element {

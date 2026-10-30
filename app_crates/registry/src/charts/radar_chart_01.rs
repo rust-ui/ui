@@ -3,7 +3,7 @@ use serde::Serialize;
 
 /*
  * title: Radar Chart
-*/
+ */
 
 #[derive(Serialize)]
 struct ChartDataPoint {

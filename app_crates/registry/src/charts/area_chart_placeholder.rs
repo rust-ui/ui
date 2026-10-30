@@ -4,7 +4,7 @@ use crate::ui::card::Card;
 
 /*
  * title: Area Chart - Placeholder
-*/
+ */
 
 #[component]
 pub fn AreaChartPlaceholder() -> Element {

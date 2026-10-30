@@ -8,7 +8,7 @@ use crate::ui::label::Label;
 
 /*
  * title: Login Form Card
-*/
+ */
 
 #[component]
 pub fn Login01() -> Element {

@@ -6,7 +6,7 @@ use crate::ui::button::{Button, ButtonSize, ButtonVariant};
 
 /*
  * title: Icon Library with Scattered Layout
-*/
+ */
 
 #[component]
 fn Integration07IconCircle(children: Element) -> Element {

@@ -5,7 +5,7 @@ use crate::ui::button::{Button, ButtonVariant};
 
 /*
  * title: Icon Library with Orbital Rings
-*/
+ */
 
 #[component]
 fn Integration04IconBubble(children: Element, #[props(into, optional)] class: Option<String>) -> Element {

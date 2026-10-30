@@ -4,7 +4,7 @@ use crate::ui::badge::{Badge, BadgeVariant};
 
 /*
  * title: FAQ with Numbered Grid
-*/
+ */
 
 #[component]
 fn FaqNumber(children: Element) -> Element {

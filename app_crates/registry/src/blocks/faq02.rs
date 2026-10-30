@@ -6,7 +6,7 @@ use crate::ui::accordion::{Accordion, AccordionContent, AccordionItem, Accordion
 /*
  * title: FAQ with Sticky Sidebar
  * class_container: bg-muted
-*/
+ */
 
 const ACCORDION_ITEM_CLASS: &str = "px-4 rounded-lg border last:border-b bg-background shadow-xs";
 const ACCORDION_TRIGGER_CLASS: &str = "flex-1 gap-4 py-5 text-sm font-medium";

@@ -7,7 +7,7 @@ use crate::ui::label::Label;
 
 /*
  * title: Split Login with GitHub
-*/
+ */
 
 #[component]
 pub fn Login02() -> Element {

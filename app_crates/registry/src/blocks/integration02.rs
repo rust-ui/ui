@@ -5,7 +5,7 @@ use crate::ui::button::{Button, ButtonVariant};
 
 /*
  * title: Icon Library with Centered Grid
-*/
+ */
 
 #[component]
 fn Integration02IconWrapper(children: Element) -> Element {
