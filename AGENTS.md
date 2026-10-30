@@ -3,6 +3,8 @@
 
 - **Git hooks**: repo ships a `pre-commit` hook (typos check on staged files, needs `typos-cli`) in `.githooks/`, not auto-enabled by git. Each clone must run `git config core.hooksPath .githooks` once.
 
+- **Production deploy**: follow `__SKILLS_SOP/deploy-prod.md`.
+
 - **Changelog + versioning**: keep `CHANGELOG_DEV.md` up to date (Keep a Changelog format, entries land under `## [Unreleased]`). Semver tags are `vMAJOR.MINOR.PATCH` (annotated tags, current: `v0.1.0`), separate from the `deploy_prod_v2_*` timestamp tags. When `[Unreleased]` has grown enough to be worth cutting, tell me and propose the next version, then wait for me to confirm before renaming the section, tagging, and pushing.
 
 
