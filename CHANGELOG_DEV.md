@@ -8,6 +8,8 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 - **Workflow fit-to-view clippy warning**: use `mul_add` for viewport padding
   calculations.
+- **Article FAQ tests clippy warnings**: allow panic docs on test helpers and
+  empty-result assertion lint where assertions intentionally verify behavior.
 
 ## [0.2.0] - 2026-10-30
 

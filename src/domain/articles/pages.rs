@@ -266,6 +266,7 @@ fn extract_faq(body: &str) -> Vec<FaqItem> {
 }
 
 #[cfg(test)]
+#[allow(clippy::missing_panics_doc)]
 mod faq_tests {
     use super::extract_faq;
 
@@ -280,6 +281,7 @@ mod faq_tests {
     }
 
     #[test]
+    #[allow(clippy::assert_is_empty)]
     fn no_faq_section_gives_empty() {
         assert!(extract_faq("## Intro\ntext").is_empty());
     }
