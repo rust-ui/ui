@@ -4,6 +4,8 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-30
+
 ### Added
 
 - **Articles**: new "Dioxus Router: Typed Routes, Layouts, and Nested Navigation" guide with route-tree diagram, and a dark mode guide. All articles are GEO-ready (answer-first opener, dated, sourced, FAQPage schema).

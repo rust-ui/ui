@@ -6,7 +6,7 @@ exclude = ["crates/_starters/start-dioxus-fullstack", "crates/ui-cli", "crates/i
 
 [package]
 name = "rust-ui-dioxus"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Max Wells <maxwells.pro@proton.me>"]
 edition = "2024"
 publish = false
