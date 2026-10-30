@@ -299,20 +299,20 @@ fn BracketHeading(#[props(default)] kicker: &'static str, children: Element) -> 
 
 #[component]
 fn PanelLabel(children: Element) -> Element {
-    rsx! { p { class: "pb-2 text-[12px] font-medium uppercase tracking-[-0.01em] text-[rgba(15,15,16,0.5)]", {children} } }
+    rsx! { p { class: "pb-2 text-[12px] font-medium uppercase tracking-[-0.01em] text-muted-foreground", {children} } }
 }
 
 #[component]
 fn FeaturedArticle(article: Article) -> Element {
     rsx! {
-        Link { to: Route::ArticlePage { slug: article.slug.to_string() }, class: "group block rounded-[20px] border border-black/[0.05] bg-white p-2 shadow-md transition-transform duration-200 hover:-translate-y-0.5",
+        Link { to: Route::ArticlePage { slug: article.slug.to_string() }, class: "group block rounded-[20px] border border-border bg-card p-2 text-card-foreground shadow-md transition-transform duration-200 hover:-translate-y-0.5",
             ArticleThumbnail { article, feature: true, hero: false }
             div { class: "grid gap-4 p-4 sm:grid-cols-2",
                 div { class: "flex flex-col gap-2",
                     span { class: "w-fit rounded-[7px] border border-primary/30 bg-primary/10 px-1.5 py-px text-[12px] font-medium uppercase leading-[1.4] tracking-[-0.01em] text-primary", "{article.category.label()}" }
-                    h2 { class: "text-[28px] font-semibold leading-[1.1] tracking-[-0.042em] text-[#0f0f10] group-hover:underline", "{article.title()}" }
+                    h2 { class: "text-[28px] font-semibold leading-[1.1] tracking-[-0.042em] text-foreground group-hover:underline", "{article.title()}" }
                 }
-                p { class: "line-clamp-4 self-center text-[15px] leading-[1.5] text-[rgba(15,15,16,0.73)]", "{article.description()}" }
+                p { class: "line-clamp-4 self-center text-[15px] leading-[1.5] text-muted-foreground", "{article.description()}" }
             }
         }
     }
@@ -321,11 +321,11 @@ fn FeaturedArticle(article: Article) -> Element {
 #[component]
 fn SpotlightArticle(article: Article) -> Element {
     rsx! {
-        Link { to: Route::ArticlePage { slug: article.slug.to_string() }, class: "group grid grid-cols-[128px_minmax(0,1fr)] items-stretch gap-0 rounded-[20px] border border-black/[0.05] bg-white p-2 shadow-md transition-transform duration-200 hover:-translate-y-0.5",
+        Link { to: Route::ArticlePage { slug: article.slug.to_string() }, class: "group grid grid-cols-[128px_minmax(0,1fr)] items-stretch gap-0 rounded-[20px] border border-border bg-card p-2 text-card-foreground shadow-md transition-transform duration-200 hover:-translate-y-0.5",
             ArticleThumbnail { article, feature: false }
             div { class: "flex flex-col justify-start gap-1.5 pl-4 pr-2 pt-1",
                 span { class: "w-fit rounded-[7px] border border-primary/30 bg-primary/10 px-1.5 py-px text-[11px] font-medium uppercase leading-[1.4] tracking-[-0.01em] text-primary", "{article.category.label()}" }
-                h2 { class: "line-clamp-2 text-[15px] font-semibold leading-[1.3] tracking-[-0.03em] text-[#0f0f10] group-hover:underline", "{article.title()}" }
+                h2 { class: "line-clamp-2 text-[15px] font-semibold leading-[1.3] tracking-[-0.03em] text-foreground group-hover:underline", "{article.title()}" }
             }
         }
     }
@@ -334,12 +334,12 @@ fn SpotlightArticle(article: Article) -> Element {
 #[component]
 fn ArticleCard(article: Article) -> Element {
     rsx! {
-        Link { to: Route::ArticlePage { slug: article.slug.to_string() }, class: "group block rounded-[20px] border border-black/[0.05] bg-white p-2 shadow-md transition-transform duration-200 hover:-translate-y-0.5",
+        Link { to: Route::ArticlePage { slug: article.slug.to_string() }, class: "group block rounded-[20px] border border-border bg-card p-2 text-card-foreground shadow-md transition-transform duration-200 hover:-translate-y-0.5",
             ArticleThumbnail { article, feature: true, compact: true, hero: false }
             div { class: "flex flex-col gap-2 px-3 pb-3 pt-4",
                 span { class: "w-fit rounded-[7px] border border-primary/30 bg-primary/10 px-1.5 py-px text-[12px] font-medium uppercase leading-[1.4] tracking-[-0.01em] text-primary", "{article.category.label()}" }
-                h2 { class: "line-clamp-3 text-[20px] font-semibold leading-[1.1] tracking-[-0.042em] text-[#0f0f10] group-hover:underline", "{article.title()}" }
-                p { class: "line-clamp-2 text-[15px] leading-[1.45] text-[rgba(15,15,16,0.73)]", "{article.description()}" }
+                h2 { class: "line-clamp-3 text-[20px] font-semibold leading-[1.1] tracking-[-0.042em] text-foreground group-hover:underline", "{article.title()}" }
+                p { class: "line-clamp-2 text-[15px] leading-[1.45] text-muted-foreground", "{article.description()}" }
             }
         }
     }
@@ -366,18 +366,18 @@ fn ArticleListing(articles: &'static [Article], initial_category: Option<Article
     rsx! {
         div { class: "mt-16 grid gap-8 lg:grid-cols-[285px_minmax(0,1fr)]",
             aside { class: "flex h-max flex-col gap-6 lg:sticky lg:top-[122px]",
-                div { class: "relative flex items-center rounded-[16px] border border-black/[0.08] bg-white shadow-sm",
+                div { class: "relative flex items-center rounded-[16px] border border-border bg-card text-card-foreground shadow-sm",
                     SearchGlyph {}
                     input {
                         r#type: "search",
                         value: query(),
                         placeholder: "Search articles",
-                        class: "h-[42px] w-full rounded-[16px] bg-transparent pl-[38px] pr-4 text-[14px] text-[#0f0f10] outline-none placeholder:text-[rgba(15,15,16,0.4)]",
+                        class: "h-[42px] w-full rounded-[16px] bg-transparent pl-[38px] pr-4 text-[14px] text-foreground outline-none placeholder:text-muted-foreground",
                         oninput: move |event| query.set(event.value()),
                     }
                 }
                 div { class: "flex flex-col gap-3",
-                    p { class: "border-b border-black/[0.065] pb-2 text-[12px] font-medium uppercase tracking-[-0.01em] text-[rgba(15,15,16,0.5)]", "Categories" }
+                    p { class: "border-b border-border pb-2 text-[12px] font-medium uppercase tracking-[-0.01em] text-muted-foreground", "Categories" }
                     div { class: "flex flex-wrap gap-1.5",
                         for category in ArticleCategory::ALL {
                             {
@@ -410,19 +410,19 @@ fn ArticleListing(articles: &'static [Article], initial_category: Option<Article
                     button {
                         type: "button",
                         disabled: !is_filtering,
-                        class: "text-[13px] font-medium text-[rgba(15,15,16,0.73)] underline-offset-2 hover:underline disabled:opacity-40 disabled:no-underline",
+                        class: "text-[13px] font-medium text-muted-foreground underline-offset-2 hover:underline disabled:opacity-40 disabled:no-underline",
                         onclick: move |_| {
                             query.set(String::new());
                             selected.set(Vec::new());
                         },
                         "Reset filters"
                     }
-                    span { class: "text-[13px] tabular-nums text-[rgba(15,15,16,0.5)]", "{filtered.len()} of {articles.len()}" }
+                    span { class: "text-[13px] tabular-nums text-muted-foreground", "{filtered.len()} of {articles.len()}" }
                 }
             }
             div { class: "flex flex-col gap-8",
                 if filtered.is_empty() {
-                    p { class: "py-16 text-center text-[15px] text-[rgba(15,15,16,0.5)]", "No articles match that filter." }
+                    p { class: "py-16 text-center text-[15px] text-muted-foreground", "No articles match that filter." }
                 } else {
                     div { class: "grid gap-3 sm:grid-cols-2 xl:grid-cols-3",
                         for article in filtered {
@@ -489,26 +489,26 @@ fn CategoryCarousel() -> Element {
         section { class: "mt-28",
             div { class: "mb-8 flex items-end justify-between gap-4",
                 div { class: "flex flex-col gap-3",
-                    p { class: "font-mono text-[14px] uppercase tracking-[-0.01em] text-[rgba(15,15,16,0.73)]",
+                    p { class: "font-mono text-[14px] uppercase tracking-[-0.01em] text-muted-foreground",
                         span { class: "text-primary", "[" }
                         " All categories "
                         span { class: "text-primary", "]" }
                     }
-                    h2 { class: "text-[clamp(34px,5vw,52px)] font-semibold leading-[1.05] tracking-[-0.042em] text-[#0f0f10]", "Browse Categories" }
+                    h2 { class: "text-[clamp(34px,5vw,52px)] font-semibold leading-[1.05] tracking-[-0.042em] text-foreground", "Browse Categories" }
                 }
                 div { class: "hidden gap-2 sm:flex",
                     button {
                         id: rail.previous_id(),
                         type: "button",
                         aria_label: "Previous category",
-                        class: "flex size-10 items-center justify-center rounded-full border border-black/[0.12] bg-white text-[#0f0f10] transition-[opacity,background-color] duration-300 hover:bg-black/[0.03] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white",
+                        class: "flex size-10 items-center justify-center rounded-full border border-border bg-card text-card-foreground transition-[opacity,background-color] duration-300 hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-card",
                         ArrowLeft { class: "size-4" }
                     }
                     button {
                         id: rail.next_id(),
                         type: "button",
                         aria_label: "Next category",
-                        class: "flex size-10 items-center justify-center rounded-full border border-black/[0.12] bg-white text-[#0f0f10] transition-[opacity,background-color] duration-300 hover:bg-black/[0.03] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white",
+                        class: "flex size-10 items-center justify-center rounded-full border border-border bg-card text-card-foreground transition-[opacity,background-color] duration-300 hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-card",
                         ArrowRight { class: "size-4" }
                     }
                 }
@@ -524,13 +524,13 @@ fn CategoryCarousel() -> Element {
                                 Link {
                                     key: "{category.slug()}",
                                     to: Route::ArticleCategoryPage { category: category.slug().to_string() },
-                                    class: "flex w-[300px] shrink-0 snap-start flex-col gap-5 rounded-[36px] border border-black/[0.05] bg-white p-6 shadow-md transition-transform duration-200 hover:-translate-y-0.5",
+                                    class: "flex w-[300px] shrink-0 snap-start flex-col gap-5 rounded-[36px] border border-border bg-card p-6 text-card-foreground shadow-md transition-transform duration-200 hover:-translate-y-0.5",
                                     div { class: "flex size-11 items-center justify-center rounded-[14px] border border-primary/30 bg-primary/10 text-primary",
                                         CategoryGlyph { category }
                                     }
                                     div { class: "flex flex-col gap-2",
-                                        h3 { class: "text-[20px] font-semibold tracking-[-0.03em] text-[#0f0f10]", "{category.label()}" span { class: "ml-1.5 text-[14px] font-normal tabular-nums text-[rgba(15,15,16,0.4)]", "{count}" } }
-                                        p { class: "text-[15px] leading-[1.45] text-[rgba(15,15,16,0.73)]", "{category.blurb()}" }
+                                        h3 { class: "text-[20px] font-semibold tracking-[-0.03em] text-foreground", "{category.label()}" span { class: "ml-1.5 text-[14px] font-normal tabular-nums text-muted-foreground", "{count}" } }
+                                        p { class: "text-[15px] leading-[1.45] text-muted-foreground", "{category.blurb()}" }
                                     }
                                 }
                             }
@@ -672,7 +672,7 @@ const fn listing_chip_class(selected: bool) -> &'static str {
     if selected {
         "rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[12px] font-medium uppercase tracking-[-0.01em] text-primary transition-colors"
     } else {
-        "rounded-full border border-black/[0.08] bg-black/[0.03] px-3 py-1 text-[12px] font-medium uppercase tracking-[-0.01em] text-[rgba(15,15,16,0.73)] transition-colors hover:bg-black/[0.06]"
+        "rounded-full border border-border bg-muted/30 px-3 py-1 text-[12px] font-medium uppercase tracking-[-0.01em] text-muted-foreground transition-colors hover:bg-muted"
     }
 }
 
