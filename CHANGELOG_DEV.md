@@ -6,6 +6,8 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ### Fixed
 
+- **Markdown parser vulnerability**: update `pulldown-cmark` to 0.13.5, which
+  fixes exponential event growth when wikilinks are enabled.
 - **Workflow fit-to-view clippy warning**: use `mul_add` for viewport padding
   calculations.
 - **Article FAQ tests clippy warnings**: allow panic docs on test helpers and
