@@ -1,3 +1,4 @@
+# 2026-10-26: dev profile faster clean builds (deps O1, syntect O3, build-override default codegen-units)
 [workspace]
 resolver = "2"
 members = ["app_crates/*"]
@@ -92,11 +93,14 @@ overflow-checks = false
 split-debuginfo = "unpacked"
 
 [profile.dev.build-override]
-opt-level = 3
-codegen-units = 1
+opt-level = 3                 # build scripts + proc macros run on every build, keep them fast
 
 [profile.dev.package."*"]
-opt-level = 3
+opt-level = 1                 # deps: O1 compiles far faster than O3 and is still much quicker than O0 at runtime
+debug = false
+
+[profile.dev.package.syntect]
+opt-level = 3                 # regex-fancy highlighting is CPU heavy, unusable at low opt-level
 
 [profile.release]
 codegen-units = 1
