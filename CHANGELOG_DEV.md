@@ -4,6 +4,11 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ## [Unreleased]
 
+### Fixed
+
+- **Workflow fit-to-view clippy warning**: use `mul_add` for viewport padding
+  calculations.
+
 ## [0.2.0] - 2026-10-30
 
 ### Added

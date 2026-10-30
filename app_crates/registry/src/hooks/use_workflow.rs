@@ -891,7 +891,7 @@ impl WorkflowState {
         if nodes.is_empty() {
             return;
         }
-        let padding = 48.0;
+        let padding: f64 = 48.0;
         let pos = self.positions.read();
         let min_x =
             nodes.iter().enumerate().filter_map(|(i, _)| pos.get(i).map(|&(x, _)| x)).fold(f64::INFINITY, f64::min);
@@ -911,8 +911,9 @@ impl WorkflowState {
         drop(nodes);
         let content_w = (max_x - min_x).max(1.0);
         let content_h = (max_y - min_y).max(1.0);
-        let z =
-            ((viewport_w - padding * 2.0) / content_w).min((viewport_h - padding * 2.0) / content_h).clamp(0.2, 4.0);
+        let z = (padding.mul_add(-2.0, viewport_w) / content_w)
+            .min(padding.mul_add(-2.0, viewport_h) / content_h)
+            .clamp(0.2, 4.0);
         self.zoom.set(z);
         self.pan.set((
             min_x.mul_add(-z, content_w.mul_add(-z, viewport_w) / 2.0),
