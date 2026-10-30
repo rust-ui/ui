@@ -4,6 +4,11 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ## [Unreleased]
 
+### Added
+
+- **VPS deploy test bypass**: add `--skip-tests` to `deploy_prod_vps.sh` for
+  deployments that intentionally need to bypass `cargo nextest run`.
+
 ### Fixed
 
 - **Markdown parser vulnerability**: update `pulldown-cmark` to 0.13.5, which

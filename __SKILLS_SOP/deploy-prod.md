@@ -38,9 +38,11 @@ before the local branch, clean-tree, and quality checks, so inspect that config
 diff before running the script.
 
 The script then runs typos, `cargo fmt --all`, strict Clippy across all targets
-and features, `cargo deny check`, and `cargo nextest run`. If formatting changes
-files, the script stages and commits them automatically. Review the script's
-output and resulting commit before proceeding if this happens.
+and features, `cargo deny check`, and `cargo nextest run`. `--skip-tests` skips
+only `cargo nextest run`; use it only when intentionally bypassing tests. If
+formatting changes files, the script stages and commits them automatically.
+Review the script's output and resulting commit before proceeding if this
+happens.
 
 On success, it creates and pushes a timestamped `deploy_*` tag and starts the
 `prod-vps.yml` GitHub Actions workflow. The workflow builds and pushes the
