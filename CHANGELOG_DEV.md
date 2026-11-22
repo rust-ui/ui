@@ -11,6 +11,7 @@ Internal changelog for the dioxus-ui site (not user-facing).
 
 ### Fixed
 
+- **Leptos CLI registry**: point `ui-cli` to `leptos.rust-ui.com` so it lists the current Leptos registry instead of stale root-domain hooks.
 - **Markdown parser vulnerability**: update `pulldown-cmark` to 0.13.5, which
   fixes exponential event growth when wikilinks are enabled.
 - **Workflow fit-to-view clippy warning**: use `mul_add` for viewport padding

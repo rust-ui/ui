@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.3.17
+
+### Fixed
+
+- Leptos registry and site URLs now use `leptos.rust-ui.com`, so CLI lists current Leptos components instead of stale root-domain registry.
+
 ---
 
 ## 0.3.15
