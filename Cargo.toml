@@ -65,7 +65,7 @@ serde_json = "1"
 time = { version = "0.3", features = ["serde", "wasm-bindgen"] }
 reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
 resend-rs = { version = "0.35", default-features = false, features = ["rustls-tls"] }
-rusqlite = { version = "0.32", features = ["bundled"] }
+rusqlite = { version = "0.41", features = ["bundled"] }
 validator = { version = "0.21", features = ["derive"] }
 tracing = "0.1"
 tower-http = { version = "0.7", features = ["fs"] }
