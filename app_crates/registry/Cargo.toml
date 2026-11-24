@@ -23,7 +23,7 @@ strum.workspace = true
 js-sys.workspace = true
 wasm-bindgen.workspace = true
 time = { version = "0.3", features = ["formatting", "macros"] }
-gloo-timers = { version = "0.3", features = ["futures"] }
+gloo-timers = { version = "0.4", features = ["futures"] }
 web-sys.workspace = true
 
 [features]
